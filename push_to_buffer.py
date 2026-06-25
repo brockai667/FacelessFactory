@@ -16,6 +16,7 @@ Pouzitie:
 import json
 import os
 import sys
+import time
 
 import requests
 
@@ -115,6 +116,42 @@ def read_txt(txt_path):
     return title, body[:2000]
 
 
+def load_pushed():
+    """Vrati {filename: [sluzby_kde_uz_doslo]}. Migruje staru schemu (zoznam mien)."""
+    if not os.path.exists(PUSHED):
+        return {}
+    data = json.load(open(PUSHED, encoding="utf-8"))
+    if isinstance(data, list):
+        # stara schema: ber kazde video ako hotove na vsetkych sluzbach (ziadne duplicity)
+        return {name: sorted(WANT_SERVICES) for name in data}
+    return data
+
+
+def save_pushed(pushed):
+    json.dump(pushed, open(PUSHED, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+
+def create_post(token, service, channel_id, text, url, title):
+    """Posle 1 prispevok na 1 kanal; 1x zopakuje pri prechodnej chybe. Vrati (ok, sprava)."""
+    q, use_title = build_mutation(service)
+    v = {"channelId": channel_id, "text": text, "url": url}
+    if use_title:
+        v["title"] = title
+    last = ""
+    for attempt in range(2):
+        try:
+            res = gql(token, q, v)["createPost"]
+            if res.get("message"):
+                last = res["message"]
+            else:
+                return True, ""
+        except Exception as e:
+            last = str(e)
+        if attempt == 0:
+            time.sleep(3)
+    return False, last
+
+
 def main():
     args = sys.argv[1:]
     dry = "--dry-run" in args
@@ -138,46 +175,49 @@ def main():
     if not targets:
         print("CHYBA: ziadne kanaly v configu (buffer_channels)."); return
 
-    pushed = json.load(open(PUSHED, encoding="utf-8")) if os.path.exists(PUSHED) else []
+    pushed = load_pushed()
+    target_services = {c["service"].lower() for c in targets}
     out_dir = os.path.join(ROOT, "output")
-    videos = sorted(f for f in os.listdir(out_dir) if f.endswith(".mp4") and f not in pushed)
-    todo = videos[:n]
+    all_videos = sorted(f for f in os.listdir(out_dir) if f.endswith(".mp4"))
+    # video treba spracovat, kym nie je odoslane na VSETKY cielove sluzby
+    todo = [v for v in all_videos
+            if not target_services.issubset(set(pushed.get(v, [])))][:n]
     if not todo:
         print("Ziadne nove videa na odoslanie."); return
     print(f"Na odoslanie: {len(todo)} videi -> {len(targets)} kanalov.")
 
     if dry:
         for v in todo:
-            print(f"  (dry-run) {v}")
+            pend = [c["service"] for c in targets if c["service"].lower() not in set(pushed.get(v, []))]
+            print(f"  (dry-run) {v} -> chyba: {', '.join(pend)}")
         return
 
     for vid in todo:
+        done = set(pushed.get(vid, []))
+        pending = [c for c in targets if c["service"].lower() not in done]
+        if not pending:
+            continue
         mp4 = os.path.join(out_dir, vid)
         title, body = read_txt(mp4[:-4] + ".txt")
         title = title or "Daily Facts"
         yt_title = (title + " #shorts")[:100]
-        print(f"\n=== {vid} ===\n  nahravam na Cloudinary...")
+        print(f"\n=== {vid} ===  (chyba: {', '.join(c['service'] for c in pending)})")
+        print("  nahravam na Cloudinary...")
         url = upload_cloudinary(cfg, mp4)
-        ok = 0
-        for c in targets:
-            q, use_title = build_mutation(c["service"].lower())
-            v = {"channelId": c["id"], "text": body, "url": url}
-            if use_title:
-                v["title"] = yt_title if c["service"].lower() == "youtube" else title
-            try:
-                res = gql(token, q, v)["createPost"]
-                if res.get("message"):
-                    print(f"  [{c['service']}] CHYBA: {res['message']}")
-                else:
-                    ok += 1
-                    print(f"  [{c['service']}] do fronty OK")
-            except Exception as e:
-                print(f"  [{c['service']}] CHYBA: {e}")
-        if ok:
-            pushed.append(vid)
-            json.dump(pushed, open(PUSHED, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        for c in pending:
+            svc = c["service"].lower()
+            t = yt_title if svc == "youtube" else title
+            ok, msg = create_post(token, svc, c["id"], body, url, t)
+            if ok:
+                done.add(svc)
+                pushed[vid] = sorted(done)
+                save_pushed(pushed)
+                print(f"  [{svc}] do fronty OK")
+            else:
+                print(f"  [{svc}] CHYBA (skusi sa znova nabuduce): {msg}")
 
-    print(f"\nHOTOVO. Odoslane videa: {len([v for v in todo if v in pushed])}/{len(todo)}")
+    fully = sum(1 for v in todo if target_services.issubset(set(pushed.get(v, []))))
+    print(f"\nHOTOVO. Plne odoslane na vsetky platformy: {fully}/{len(todo)} videi.")
 
 
 if __name__ == "__main__":

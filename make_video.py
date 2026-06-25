@@ -311,12 +311,24 @@ def main():
         # presun finalny vstup do tmp aby cwd trik fungoval
         burn_captions(video, ass_path, final, cfg, tmp)
 
-    # metadata subor
+    # metadata subor (popis + hashtagy zladene so znackou MindBlownDaily)
     meta_path = os.path.join(out_dir, slug + ".txt")
+    desc = (spec.get("description", "") or "").strip()
+    cta = cfg.get("brand_cta", "").strip()
+    if cta and cta.lower() not in desc.lower():
+        desc = (desc + "\n" + cta).strip()
+    # zluc hashtagy z temy + znackove, bez duplicit, max 12
+    seen, tags = set(), []
+    for t in list(spec.get("hashtags", [])) + cfg.get("brand_hashtags", []):
+        t = t.strip()
+        t = t if t.startswith("#") else "#" + t
+        if len(t) > 1 and t.lower() not in seen:
+            seen.add(t.lower())
+            tags.append(t)
     with open(meta_path, "w", encoding="utf-8") as f:
-        f.write((spec.get("title", "") + "\n\n"))
-        f.write((spec.get("description", "") + "\n\n"))
-        f.write(" ".join(spec.get("hashtags", [])) + "\n")
+        f.write(spec.get("title", "") + "\n\n")
+        f.write(desc + "\n\n")
+        f.write(" ".join(tags[:12]) + "\n")
         credit = cfg.get("music_credit", "")
         if musics and credit:
             f.write("\n" + credit + "\n")
