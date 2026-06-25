@@ -1,0 +1,10 @@
+# lokalny config s tajomstvami (cloud pouziva config.example.json + secrets)
+config.json
+
+# generovane / docasne / velke
+output/
+temp/
+assets/broll/
+bin/
+__pycache__/
+*.pyc

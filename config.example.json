@@ -1,0 +1,25 @@
+{
+  "pexels_api_key": "",
+  "buffer_token": "",
+  "buffer_channels": [
+    { "id": "6a3cdcd45ab6d2f1066d29ef", "service": "instagram", "name": "th.erealspark" },
+    { "id": "6a3cdd0b5ab6d2f1066d2a8f", "service": "youtube", "name": "JoeRogeanShorts" },
+    { "id": "6a3cdd1e5ab6d2f1066d2ab8", "service": "tiktok", "name": "insideyourmind007" }
+  ],
+  "cloudinary_cloud_name": "",
+  "cloudinary_api_key": "",
+  "cloudinary_api_secret": "",
+  "voice": "en-US-AndrewNeural",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "music_volume": 0.12,
+  "music_credit": "Music: CO.AG Music - https://www.youtube.com/c/COAGmusic",
+  "color_grade": "eq=contrast=1.06:saturation=1.12,vignette=angle=PI/5",
+  "caption_words_per_line": 3,
+  "caption_fontsize": 80,
+  "caption_margin_v": 880,
+  "caption_margin_h": 185,
+  "ffmpeg": "ffmpeg",
+  "ffprobe": "ffprobe"
+}
