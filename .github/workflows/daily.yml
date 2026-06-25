@@ -6,7 +6,8 @@ on:
   workflow_dispatch: {}    # umoznuje rucne spustenie z GitHub UI
 
 permissions:
-  contents: write          # aby mohol commitnut stav (used_topics.json, pushed.json)
+  contents: write          # aby mohol commitnut stav (used_topics.json, pushed.json, topics_bank.json)
+  models: read             # pristup k GitHub Models (generovanie tem zadarmo)
 
 concurrency:
   group: daily
@@ -31,6 +32,12 @@ jobs:
       - name: Prepare config
         run: cp config.example.json config.json
 
+      - name: Top up topic bank (GitHub Models, free)
+        continue-on-error: true   # ak by zlyhalo, dennny beh aj tak pokracuje z existujucich tem
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python generate_topics.py
+
       - name: Generate 3 videos + push to Buffer
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
@@ -47,6 +54,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           rm -f config.json
-          git add used_topics.json pushed.json scripts/ 2>/dev/null || true
+          git add used_topics.json pushed.json topics_bank.json scripts/ 2>/dev/null || true
           git commit -m "state: daily run $(date -u +%F)" || echo "no changes to commit"
           git push || echo "nothing to push"
