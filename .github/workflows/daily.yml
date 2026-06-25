@@ -49,6 +49,14 @@ jobs:
           python generate_batch.py 3
           python push_to_buffer.py 3
 
+      - name: Cleanup old Cloudinary videos (free tier hygiene)
+        continue-on-error: true
+        env:
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+        run: python cleanup_cloudinary.py
+
       - name: Persist state
         run: |
           git config user.name "github-actions[bot]"
