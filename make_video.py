@@ -57,10 +57,10 @@ def slugify(text):
 
 
 # ----------------------------------------------------------------------------- TTS
-async def _tts(text, voice, out_mp3):
+async def _tts(text, voice, out_mp3, rate="+0%", pitch="+0Hz"):
     import edge_tts
     words = []
-    comm = edge_tts.Communicate(text, voice, boundary="WordBoundary")
+    comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, boundary="WordBoundary")
     with open(out_mp3, "wb") as f:
         async for chunk in comm.stream():
             if chunk["type"] == "audio":
@@ -71,8 +71,23 @@ async def _tts(text, voice, out_mp3):
     return words
 
 
-def tts(text, voice, out_mp3):
-    return asyncio.run(_tts(text, voice, out_mp3))
+def tts(text, voice, out_mp3, rate="+0%", pitch="+0Hz"):
+    return asyncio.run(_tts(text, voice, out_mp3, rate, pitch))
+
+
+def trim_trailing_silence(ff, src, dst, gap=0.12):
+    """Odreze dlhe ticho na konci segmentu a necha jednotnu pauzu (gap s)
+    -> oddeli vety/fakty ako odseky. Trailing-only (cez areverse),
+    takze casovanie slov pre titulky ostava platne."""
+    af = ("areverse,silenceremove=start_periods=1:start_duration=0.02:"
+          f"start_threshold=-50dB,areverse,apad=pad_dur={gap}")
+    try:
+        run([ff, "-y", "-i", src, "-af", af, dst])
+        return dst
+    except Exception:
+        import shutil
+        shutil.copyfile(src, dst)   # fallback: ak orez zlyha, pouzi povodne audio
+        return dst
 
 
 # ----------------------------------------------------------------------------- B-roll (Pexels)
@@ -204,8 +219,10 @@ def build_ass(all_words, cfg, path):
                 word = w[2].upper().replace("\n", " ").replace("{", "(").replace("}", ")")
                 if k == wi:
                     parts.append(f"{{\\c&H{hl}&\\fscx{pop}\\fscy{pop}}}{word}{{\\r}}")
+                elif k < wi:
+                    parts.append(word)                                # uz povedane -> viditelne
                 else:
-                    parts.append(word)
+                    parts.append(f"{{\\alpha&HFF&}}{word}{{\\r}}")     # buduce -> nevidiltelne (drzi sirku, neprezradi)
             text = " ".join(parts)
             lines.append(f"Dialogue: 0,{secs_to_ass(ev_start)},{secs_to_ass(ev_end)},Default,,0,0,0,,{text}")
     with open(path, "w", encoding="utf-8") as f:
@@ -222,6 +239,31 @@ def concat_segments(seg_files, cfg, tmp):
     out = os.path.join(tmp, "concat.mp4")
     run([ff, "-y", "-f", "concat", "-safe", "0", "-i", listfile, "-c", "copy", out])
     return out
+
+
+def add_sfx(ff, video, cut_times, tmp):
+    """Pridá jemny 'whoosh' na kazdy strih. Plne chranene -> pri chybe vrati povodne video."""
+    if not cut_times:
+        return video
+    try:
+        whoosh = os.path.join(tmp, "_whoosh.wav")
+        run([ff, "-y", "-f", "lavfi", "-i", "anoisesrc=d=0.3:c=pink:a=0.08",
+             "-af", "highpass=f=350,lowpass=f=4500,afade=t=in:d=0.05,"
+                    "afade=t=out:st=0.12:d=0.18,volume=0.45", whoosh])
+        inputs = ["-i", video]
+        fc, labels = [], ["[0:a]"]
+        for n, t in enumerate(cut_times):
+            inputs += ["-i", whoosh]
+            ms = int(t * 1000)
+            fc.append(f"[{n+1}:a]adelay={ms}|{ms}[s{n}]")
+            labels.append(f"[s{n}]")
+        fc.append("".join(labels) + f"amix=inputs={len(labels)}:duration=first:normalize=0[a]")
+        out = os.path.join(tmp, "with_sfx.mp4")
+        run([ff, "-y", *inputs, "-filter_complex", ";".join(fc),
+             "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", out])
+        return out
+    except Exception:
+        return video   # ak SFX zlyha, video ostane bez nich (nic sa nerozbije)
 
 
 def add_music(video, music, cfg, tmp):
@@ -287,14 +329,26 @@ def main():
     all_words = []
     seg_files = []
     cursor = 0.0
-    used_ids = set()   # ID klipov uz pouzitych v tomto videu -> ziadne opakovanie
+    cuts = []           # casy strihov -> jemne zvukove efekty
+    first_broll = None  # loop-bookend: posledny zaber = prvy -> plynuly loop
+    used_ids = set()    # ID klipov uz pouzitych v tomto videu -> ziadne opakovanie
+    loop_end = cfg.get("loop_bookend", True)
+    last_i = len(segments) - 1
     for i, seg in enumerate(segments):
         text = seg["text"].strip()
         print(f"  [{i+1}/{len(segments)}] TTS: {text[:55]}...")
+        raw_audio = os.path.join(tmp, f"seg_{i:03d}_raw.mp3")
         audio = os.path.join(tmp, f"seg_{i:03d}.mp3")
-        words = tts(text, voice, audio)
+        words = tts(text, voice, raw_audio,
+                    cfg.get("tts_rate", "+0%"), cfg.get("tts_pitch", "+0Hz"))
+        trim_trailing_silence(cfg["ffmpeg"], raw_audio, audio, cfg.get("segment_gap", 0.12))
         dur = probe_duration(cfg["ffprobe"], audio)
-        broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
+        if loop_end and i == last_i and first_broll:
+            broll, vid = first_broll, None      # bookend: koniec = zaciatok
+        else:
+            broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
+        if i == 0:
+            first_broll = broll
         if vid is not None:
             used_ids.add(vid)
         if not broll and seg.get("keywords"):
@@ -302,6 +356,8 @@ def main():
         render_segment(i, audio, dur, broll, cfg, tmp)
         for (o, d, txt) in words:
             all_words.append((cursor + o, d, txt))
+        if i > 0:
+            cuts.append(cursor)                 # strih na zaciatku tohto segmentu
         cursor += dur
         seg_files.append(os.path.join(tmp, f"seg_{i:03d}.mp4"))
 
@@ -315,6 +371,10 @@ def main():
     if musics:
         print(f"  Pridavam hudbu: {os.path.basename(musics[0])}")
         video = add_music(video, musics[0], cfg, tmp)
+
+    if cfg.get("sfx", True):
+        print("  Pridavam jemne zvukove efekty na strihy...")
+        video = add_sfx(cfg["ffmpeg"], video, cuts, tmp)
 
     slug = slugify(spec.get("title", "video"))
     final = os.path.join(out_dir, slug + ".mp4")
