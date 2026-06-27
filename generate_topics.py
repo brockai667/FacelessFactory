@@ -62,6 +62,8 @@ def build_prompt(n, existing_titles):
         "topic-locked, never abstract.\n"
         "- facts must be accurate and widely verifiable. Do NOT invent statistics.\n"
         "- description: one engaging sentence ending with 'Follow for daily facts!'.\n"
+        "- About half the time, add ONE fitting emoji at the very END of the description (e.g. 🤯, 🌌, 💡, 🔥). "
+        "Emoji ONLY in the description text, NEVER inside any segment 'text' (spoken captions).\n"
         "- hashtags: 6-8 relevant tags including #facts #shorts #fyp.\n"
         f"- Do NOT reuse any of these existing titles: {existing_titles}\n"
         "Return ONLY the JSON array."
