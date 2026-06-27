@@ -2,9 +2,21 @@
   "pexels_api_key": "",
   "buffer_token": "",
   "buffer_channels": [
-    { "id": "6a3cdcd45ab6d2f1066d29ef", "service": "instagram", "name": "th.erealspark" },
-    { "id": "6a3cdd0b5ab6d2f1066d2a8f", "service": "youtube", "name": "JoeRogeanShorts" },
-    { "id": "6a3cdd1e5ab6d2f1066d2ab8", "service": "tiktok", "name": "insideyourmind007" }
+    {
+      "id": "6a3cdcd45ab6d2f1066d29ef",
+      "service": "instagram",
+      "name": "th.erealspark"
+    },
+    {
+      "id": "6a3cdd0b5ab6d2f1066d2a8f",
+      "service": "youtube",
+      "name": "JoeRogeanShorts"
+    },
+    {
+      "id": "6a3cdd1e5ab6d2f1066d2ab8",
+      "service": "tiktok",
+      "name": "insideyourmind007"
+    }
   ],
   "cloudinary_cloud_name": "",
   "cloudinary_api_key": "",
@@ -18,12 +30,26 @@
   "brand_name": "MindBlownDaily",
   "brand_handle": "@min.dblowndaily",
   "brand_cta": "Follow @min.dblowndaily for daily mind-blowing facts 🤯",
-  "brand_hashtags": ["#mindblowndaily", "#facts", "#didyouknow", "#shorts", "#fyp", "#viral"],
+  "brand_hashtags": [
+    "#mindblowndaily",
+    "#facts",
+    "#didyouknow",
+    "#shorts",
+    "#fyp",
+    "#viral"
+  ],
   "color_grade": "eq=contrast=1.06:saturation=1.12,vignette=angle=PI/5",
   "caption_words_per_line": 3,
   "caption_fontsize": 80,
   "caption_margin_v": 880,
   "caption_margin_h": 185,
   "ffmpeg": "ffmpeg",
-  "ffprobe": "ffprobe"
+  "ffprobe": "ffprobe",
+  "caption_style": "color",
+  "caption_highlight_hex": "FFE500",
+  "caption_box_hex": "FFE500",
+  "caption_text_hex": "FFFFFF",
+  "caption_pop_scale": 112,
+  "brand_primary": "0x041014",
+  "brand_accent": "0x00e5ff"
 }

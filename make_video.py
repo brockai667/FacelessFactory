@@ -162,11 +162,20 @@ def render_segment(i, audio_path, duration, broll_path, cfg, tmp):
                 raise
             run(broll_cmd(False))   # fallback bez pohybu, nech sa video vzdy vyrenderuje
     else:
-        color = PALETTE[i % len(PALETTE)]
-        vf = (grade + "," if grade else "") + "format=yuv420p"
-        run([ff, "-y", "-f", "lavfi", "-i", f"color=c={color}:s={W}x{H}:r={FPS}",
-             "-i", audio_path, "-t", f"{duration:.3f}", "-vf", vf,
-             "-map", "0:v", "-map", "1:a", *common_out])
+        # znackove pozadie (jemny gradient brand_primary -> brand_accent) namiesto nahodnej farby
+        c0 = cfg.get("brand_primary", PALETTE[i % len(PALETTE)])
+        c1 = cfg.get("brand_accent", PALETTE[(i + 3) % len(PALETTE)])
+        try:
+            vf = (grade + "," if grade else "") + "format=yuv420p"
+            run([ff, "-y", "-f", "lavfi",
+                 "-i", f"gradients=s={W}x{H}:c0={c0}:c1={c1}:x0=0:y0=0:x1={W}:y1={H}:r={FPS}",
+                 "-i", audio_path, "-t", f"{duration:.3f}", "-vf", vf,
+                 "-map", "0:v", "-map", "1:a", *common_out])
+        except Exception:
+            vf = (grade + "," if grade else "") + "format=yuv420p"
+            run([ff, "-y", "-f", "lavfi", "-i", f"color=c={c0}:s={W}x{H}:r={FPS}",
+                 "-i", audio_path, "-t", f"{duration:.3f}", "-vf", vf,
+                 "-map", "0:v", "-map", "1:a", *common_out])
     return out
 
 
@@ -189,6 +198,25 @@ def build_ass(all_words, cfg, path):
     per = max(1, cfg.get("caption_words_per_line", 3))
     mv = cfg.get("caption_margin_v", 880)
     mh = cfg.get("caption_margin_h", 150)
+    font = cfg.get("caption_font", "Arial")
+    style = cfg.get("caption_style", "box")               # "box" (profi) alebo "color"
+    box_hex = cfg.get("caption_box_hex", "FF901E")        # ASS BGR -> #1E90FF znackova modra
+    text_hex = cfg.get("caption_text_hex", "FFFFFF")      # biely text
+    hl = cfg.get("caption_highlight_hex", "00F2FF")       # zlta (color-mod)
+    pop = cfg.get("caption_pop_scale", 116)
+
+    if style == "box":
+        # BorderStyle=3 = nepriehladny BOX za textom; box zapneme len na aktivnom slove
+        # cez \3a (alpha okraja/boxu). Ostatne slova biele s tienom (Shadow) pre citatelnost.
+        border_style, outline, shadow = 3, 16, 5
+        outline_col = f"&H00{box_hex}"                    # farba boxu (Style: bez koncoveho &)
+        back_col = "&HA0000000"                           # tmavy tien pod textom
+    else:
+        # CISTY color-styl (bez boxu): tenky tmavy obrys + jemny tien -> citatelne a moderne
+        border_style, outline, shadow = 1, 5, 2
+        outline_col = "&H00202020"
+        back_col = "&H80000000"
+
     header = (
         "[Script Info]\n"
         "ScriptType: v4.00+\n"
@@ -197,14 +225,28 @@ def build_ass(all_words, cfg, path):
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, "
         "BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, "
         "BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-        f"Style: Default,Arial,{fs},&H00FFFFFF,&H000000FF,&H00000000,&H00000000,"
-        f"-1,0,0,0,100,100,0,0,1,7,3,2,{mh},{mh},{mv},1\n\n"
+        f"Style: Default,{font},{fs},&H00{text_hex},&H000000FF,{outline_col},"
+        f"{back_col},-1,0,0,0,100,100,0,0,{border_style},{outline},{shadow},2,{mh},{mh},{mv},1\n\n"
         "[Events]\n"
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
     )
-    hl = cfg.get("caption_highlight_hex", "00F2FF")   # ASS BGR (zlta)
-    pop = cfg.get("caption_pop_scale", 116)
-    # rozdel slova na frazy po `per`; v ramci frazy sa zvyrazni prave hovorene slovo
+
+    def styled(word, state):
+        # state: "active" | "past" | "future"
+        if style == "box":
+            if state == "active":   # biely text v znackovom BOXE + jemny pop + tien boxu
+                return f"{{\\3a&H00&\\4a&H40&\\1c&H{text_hex}&\\fscx{pop}\\fscy{pop}}}{word}{{\\r}}"
+            if state == "past":     # biele slovo bez boxu (jemny tien pre citatelnost)
+                return f"{{\\3a&HFF&\\4a&H80&}}{word}{{\\r}}"
+            # buduce -> uplne skryte na vsetkych vrstvach (drzi sirku, ziadny box/tien)
+            return f"{{\\1a&HFF&\\3a&HFF&\\4a&HFF&}}{word}{{\\r}}"
+        # color mod (povodny)
+        if state == "active":
+            return f"{{\\c&H{hl}&\\fscx{pop}\\fscy{pop}}}{word}{{\\r}}"
+        if state == "past":
+            return word
+        return f"{{\\alpha&HFF&}}{word}{{\\r}}"
+
     chunks = [all_words[j:j + per] for j in range(0, len(all_words), per)]
     lines = []
     for ci, chunk in enumerate(chunks):
@@ -217,13 +259,13 @@ def build_ass(all_words, cfg, path):
             parts = []
             for k, w in enumerate(chunk):
                 word = w[2].upper().replace("\n", " ").replace("{", "(").replace("}", ")")
-                if k == wi:
-                    parts.append(f"{{\\c&H{hl}&\\fscx{pop}\\fscy{pop}}}{word}{{\\r}}")
-                elif k < wi:
-                    parts.append(word)                                # uz povedane -> viditelne
-                else:
-                    parts.append(f"{{\\alpha&HFF&}}{word}{{\\r}}")     # buduce -> nevidiltelne (drzi sirku, neprezradi)
-            text = " ".join(parts)
+                if not word.strip():
+                    continue                                  # preskoc prazdne tokeny (inak prazdny box)
+                state = "active" if k == wi else ("past" if k < wi else "future")
+                parts.append(styled(word, state))
+            # v box-mode medzery NESMU mat box (inak prazdny box medzi slovami)
+            sep = "{\\1a&HFF&\\3a&HFF&\\4a&HFF&\\fscx100\\fscy100} {\\r}" if style == "box" else " "
+            text = sep.join(parts)
             lines.append(f"Dialogue: 0,{secs_to_ass(ev_start)},{secs_to_ass(ev_end)},Default,,0,0,0,,{text}")
     with open(path, "w", encoding="utf-8") as f:
         f.write(header + "\n".join(lines) + "\n")
