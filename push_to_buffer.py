@@ -233,7 +233,9 @@ def main():
         for c in pending:
             svc = c["service"].lower()
             t = yt_title if svc == "youtube" else title
-            ok, msg = create_post(token, svc, c["id"], body, url, t, due)
+            # volitelna kriz. reklama na dokumenty (len fabriky co maju promo_* v configu)
+            promo = cfg.get("promo_yt", "") if svc == "youtube" else cfg.get("promo_social", "")
+            ok, msg = create_post(token, svc, c["id"], body + promo, url, t, due)
             if ok:
                 done.add(svc)
                 pushed[vid] = sorted(done)
