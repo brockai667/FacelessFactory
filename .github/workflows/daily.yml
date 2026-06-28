@@ -49,6 +49,12 @@ jobs:
           python generate_batch.py 3
           python push_to_buffer.py 3
 
+      - name: Retry failed Buffer posts (auto-heal)
+        continue-on-error: true
+        env:
+          BUFFER_TOKEN: ${{ secrets.BUFFER_TOKEN }}
+        run: python retry_failed.py
+
       - name: Cleanup old Cloudinary videos (free tier hygiene)
         continue-on-error: true
         env:
