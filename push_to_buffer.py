@@ -4,7 +4,7 @@ Auto-poster (beží aj bezo mňa, cez buffer_token): hotove videa z output/ -> B
 
 Tok:
   1) video MP4 -> Cloudinary (verejna HTTPS URL; Buffer API nezvlada upload suboru)
-  2) Buffer createPost (mode addToQueue, schedulingType automatic) na vsetky pripojene kanaly
+  2) Buffer createPost (mode customScheduled na presny cas 08:00/15:00/20:00) na vsetky kanaly
      s per-platform metadatami (IG reel, YT title+categoryId, TikTok title)
   3) pamata si odoslane videa v pushed.json (ziadne duplicity)
 
@@ -13,6 +13,7 @@ Pouzitie:
   python push_to_buffer.py 3          # posle 3
   python push_to_buffer.py --dry-run  # iba overi token + kanaly, nic neposle
 """
+import datetime
 import json
 import os
 import sys
@@ -25,6 +26,27 @@ BUFFER_API = "https://api.buffer.com"
 PUSHED = os.path.join(ROOT, "pushed.json")
 WANT_SERVICES = {"instagram", "tiktok", "youtube"}
 YT_CATEGORY = "27"  # Education
+SLOT_HOURS = [8, 15, 20]  # presne casy publikovania (Europe/Bratislava)
+
+
+def next_slots(n):
+    """Vrati n najblizsich buducich casov 08:00/15:00/20:00 (Bratislava) ako ISO UTC."""
+    try:
+        from zoneinfo import ZoneInfo
+        tz = ZoneInfo("Europe/Bratislava")
+    except Exception:
+        tz = datetime.timezone(datetime.timedelta(hours=2))
+    now = datetime.datetime.now(tz)
+    out, day = [], 0
+    while len(out) < n:
+        for h in SLOT_HOURS:
+            t = (now + datetime.timedelta(days=day)).replace(hour=h, minute=0, second=0, microsecond=0)
+            if t > now:
+                out.append(t.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+                if len(out) >= n:
+                    break
+        day += 1
+    return out
 
 
 def load_cfg():
@@ -73,22 +95,23 @@ def upload_cloudinary(cfg, path):
 
 
 def build_mutation(service):
-    """Vrati (query, pouziva_title). Metadata su inline (enumy bez uvodzoviek)."""
+    """Vrati (query, pouziva_title). Metadata su inline. Planuje na presny cas cez dueAt + customScheduled."""
+    base = "$channelId: ChannelId!, $text: String!, $url: String!, $dueAt: DateTime!"
     if service == "instagram":
         meta = "metadata: { instagram: { type: reel, shouldShareToFeed: true } }"
-        decl = "$channelId: ChannelId!, $text: String!, $url: String!"
+        decl = base
         use_title = False
     elif service == "youtube":
         meta = f'metadata: {{ youtube: {{ title: $title, categoryId: "{YT_CATEGORY}", privacy: public }} }}'
-        decl = "$channelId: ChannelId!, $text: String!, $url: String!, $title: String!"
+        decl = base + ", $title: String!"
         use_title = True
     elif service == "tiktok":
         meta = "metadata: { tiktok: { title: $title } }"
-        decl = "$channelId: ChannelId!, $text: String!, $url: String!, $title: String!"
+        decl = base + ", $title: String!"
         use_title = True
     else:
         meta = ""
-        decl = "$channelId: ChannelId!, $text: String!, $url: String!"
+        decl = base
         use_title = False
     q = f"""
     mutation({decl}) {{
@@ -96,7 +119,8 @@ def build_mutation(service):
         channelId: $channelId,
         text: $text,
         schedulingType: automatic,
-        mode: addToQueue,
+        mode: customScheduled,
+        dueAt: $dueAt,
         assets: [{{ video: {{ url: $url }} }}],
         {meta}
       }}) {{
@@ -131,10 +155,10 @@ def save_pushed(pushed):
     json.dump(pushed, open(PUSHED, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
 
-def create_post(token, service, channel_id, text, url, title):
-    """Posle 1 prispevok na 1 kanal; 1x zopakuje pri prechodnej chybe. Vrati (ok, sprava)."""
+def create_post(token, service, channel_id, text, url, title, due):
+    """Posle 1 prispevok na 1 kanal naplanovany na presny cas (due); 1x zopakuje. Vrati (ok, sprava)."""
     q, use_title = build_mutation(service)
-    v = {"channelId": channel_id, "text": text, "url": url}
+    v = {"channelId": channel_id, "text": text, "url": url, "dueAt": due}
     if use_title:
         v["title"] = title
     last = ""
@@ -192,7 +216,9 @@ def main():
             print(f"  (dry-run) {v} -> chyba: {', '.join(pend)}")
         return
 
-    for vid in todo:
+    slots = next_slots(len(todo))  # 08:00/15:00/20:00 Bratislava - i-te video -> i-ty slot
+    for i, vid in enumerate(todo):
+        due = slots[i]
         done = set(pushed.get(vid, []))
         pending = [c for c in targets if c["service"].lower() not in done]
         if not pending:
@@ -201,13 +227,13 @@ def main():
         title, body = read_txt(mp4[:-4] + ".txt")
         title = title or "Daily Facts"
         yt_title = (title + " #shorts")[:100]
-        print(f"\n=== {vid} ===  (chyba: {', '.join(c['service'] for c in pending)})")
+        print(f"\n=== {vid} ===  (cas {due}; chyba: {', '.join(c['service'] for c in pending)})")
         print("  nahravam na Cloudinary...")
         url = upload_cloudinary(cfg, mp4)
         for c in pending:
             svc = c["service"].lower()
             t = yt_title if svc == "youtube" else title
-            ok, msg = create_post(token, svc, c["id"], body, url, t)
+            ok, msg = create_post(token, svc, c["id"], body, url, t, due)
             if ok:
                 done.add(svc)
                 pushed[vid] = sorted(done)
