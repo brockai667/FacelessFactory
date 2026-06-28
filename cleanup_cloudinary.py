@@ -9,7 +9,7 @@ import cloudinary.api
 
 import appconfig
 
-KEEP_DAYS = int(os.environ.get("CLOUDINARY_KEEP_DAYS", "7"))
+KEEP_DAYS = int(os.environ.get("CLOUDINARY_KEEP_DAYS", "14"))
 
 cfg = appconfig.load()
 cloudinary.config(

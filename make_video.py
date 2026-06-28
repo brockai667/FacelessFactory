@@ -325,7 +325,7 @@ def burn_captions(video, ass_path, out_path, cfg, tmp):
     ass_rel = os.path.basename(ass_path)
     vid_rel = os.path.relpath(video, tmp).replace(os.sep, "/")
     run_in([ff, "-y", "-i", vid_rel, "-vf", f"subtitles={ass_rel}",
-            "-c:v", "libx264", "-preset", "veryfast", "-crf", "21",
+            "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-maxrate", "3500k", "-bufsize", "7000k",
             "-pix_fmt", "yuv420p", "-c:a", "copy", out_path], cwd=tmp)
 
 
