@@ -2,7 +2,7 @@ name: FacelessFactory Daily
 
 on:
   schedule:
-    - cron: "0 1 * * *"   # 01:00 UTC (~03:00 Bratislava) - skoro rano, hotove davno pred publik. slotom
+    - cron: "0 20 * * *"   # 01:00 UTC (~03:00 Bratislava) - skoro rano, hotove davno pred publik. slotom
   workflow_dispatch: {}    # umoznuje rucne spustenie z GitHub UI
 
 permissions:
