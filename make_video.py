@@ -285,6 +285,16 @@ def build_ass(all_words, cfg, path):
     text_hex = cfg.get("caption_text_hex", "FFFFFF")      # biely text
     hl = cfg.get("caption_highlight_hex", "00F2FF")       # zlta (color-mod)
     pop = cfg.get("caption_pop_scale", 116)
+    align = int(cfg.get("caption_alignment", 2))          # 2=dole, 8=hore, 5=stred (ASS numpad)
+    case = cfg.get("caption_case", "upper")               # upper | lower | sentence/asis (bez zmeny)
+    fade_ms = int(cfg.get("caption_fade_ms", 0))          # jemny fade-in slova (Style C elegancia)
+
+    def _case(s):
+        if case == "upper":
+            return s.upper()
+        if case == "lower":
+            return s.lower()
+        return s                                          # sentence/asis -> nechaj ako v scenari
 
     if style == "box":
         # BorderStyle=3 = nepriehladny BOX za textom; box zapneme len na aktivnom slove
@@ -307,7 +317,7 @@ def build_ass(all_words, cfg, path):
         "BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, "
         "BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
         f"Style: Default,{font},{fs},&H00{text_hex},&H000000FF,{outline_col},"
-        f"{back_col},-1,0,0,0,100,100,0,0,{border_style},{outline},{shadow},2,{mh},{mh},{mv},1\n\n"
+        f"{back_col},-1,0,0,0,100,100,0,0,{border_style},{outline},{shadow},{align},{mh},{mh},{mv},1\n\n"
         "[Events]\n"
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
     )
@@ -328,6 +338,9 @@ def build_ass(all_words, cfg, path):
             return word
         return f"{{\\alpha&HFF&}}{word}{{\\r}}"
 
+    lead = float(cfg.get("caption_lead", 0.0))            # mierny predstih -> titulky nepôsobia oneskorene
+    if lead:
+        all_words = [(max(0.0, s - lead), d, t) for (s, d, t) in all_words]
     chunks = [all_words[j:j + per] for j in range(0, len(all_words), per)]
     lines = []
     for ci, chunk in enumerate(chunks):
@@ -339,14 +352,25 @@ def build_ass(all_words, cfg, path):
                 ev_end = ev_start + 0.15
             parts = []
             for k, w in enumerate(chunk):
-                word = w[2].upper().replace("\n", " ").replace("{", "(").replace("}", ")")
+                word = _case(w[2]).replace("\n", " ").replace("{", "(").replace("}", ")")
                 if not word.strip():
                     continue                                  # preskoc prazdne tokeny (inak prazdny box)
                 state = "active" if k == wi else ("past" if k < wi else "future")
                 parts.append(styled(word, state))
             # v box-mode medzery NESMU mat box (inak prazdny box medzi slovami)
             sep = "{\\1a&HFF&\\3a&HFF&\\4a&HFF&\\fscx100\\fscy100} {\\r}" if style == "box" else " "
-            text = sep.join(parts)
+            rows = int(cfg.get("caption_words_per_row", 0))   # >0 -> po N slovach zalom na 2. riadok (\\N)
+            if rows > 0 and len(parts) > rows:
+                buf = []
+                for k2, pt in enumerate(parts):
+                    if k2 > 0:
+                        buf.append("\\N" if (k2 % rows == 0) else sep)
+                    buf.append(pt)
+                text = "".join(buf)
+            else:
+                text = sep.join(parts)
+            if fade_ms:
+                text = ("{\\fad(%d,%d)}" % (fade_ms, min(fade_ms, 100))) + text
             lines.append(f"Dialogue: 0,{secs_to_ass(ev_start)},{secs_to_ass(ev_end)},Default,,0,0,0,,{text}")
     with open(path, "w", encoding="utf-8") as f:
         f.write(header + "\n".join(lines) + "\n")
@@ -420,6 +444,31 @@ def add_music(video, music, cfg, tmp):
         return out
 
 
+def _ensure_cinematic_music(music_dir, cfg):
+    """Stiahne par CINEMATIC gradujucich trackov (Mixkit, volna licencia, bez attribution) ak chybaju.
+    Plne chranene -> pri chybe nechaj co je (napr. bg.mp3)."""
+    try:
+        os.makedirs(music_dir, exist_ok=True)
+        if sum(1 for m in os.listdir(music_dir) if m.startswith("cine_")) >= 2:
+            return
+        import ssl as _ssl, urllib.request as _u
+        ctx = _ssl._create_unverified_context()
+        ua = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        for tid in cfg.get("cinematic_music_ids", [616, 720, 834, 607]):
+            p = os.path.join(music_dir, f"cine_{tid}.mp3")
+            if os.path.exists(p) and os.path.getsize(p) > 100000:
+                continue
+            try:
+                data = _u.urlopen(_u.Request(f"https://assets.mixkit.co/music/{tid}/{tid}.mp3", headers=ua),
+                                  context=ctx, timeout=120).read()
+                with open(p, "wb") as f:
+                    f.write(data)
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+
 def burn_captions(video, ass_path, out_path, cfg, tmp):
     ff = cfg["ffmpeg"]
     # subtitles filter ma problem s ':' vo Windows ceste -> spustime s cwd=tmp a relativnym menom
@@ -427,7 +476,9 @@ def burn_captions(video, ass_path, out_path, cfg, tmp):
     vid_rel = os.path.relpath(video, tmp).replace(os.sep, "/")
     # finalna loudness normalizacia (-14 LUFS = cielova hlasitost YT/TikTok) -> jednotny zvuk vsetkych videi
     laf = cfg.get("loudnorm_filter", "loudnorm=I=-14:TP=-1.5:LRA=11")
-    run_in([ff, "-y", "-i", vid_rel, "-vf", f"subtitles={ass_rel}",
+    # fontsdir -> pribalene fonty v assets/fonts (Poppins, DM Serif...). Ak chyba, libass pouzije default.
+    subf = f"subtitles={ass_rel}:fontsdir=../assets/fonts"
+    run_in([ff, "-y", "-i", vid_rel, "-vf", subf,
             "-c:v", "libx264", "-preset", "fast", "-crf", "20", "-maxrate", "6M", "-bufsize", "12M",
             "-pix_fmt", "yuv420p", "-af", laf, "-c:a", "aac", "-ar", "44100", "-b:a", "160k",
             "-movflags", "+faststart", out_path], cwd=tmp)
@@ -515,10 +566,12 @@ def main():
 
     # hudba (ak je nejaka v assets/music)
     music_dir = os.path.join(ROOT, "assets", "music")
+    _ensure_cinematic_music(music_dir, cfg)          # cinematic gradujuce tracky (Mixkit) ak chybaju
     musics = [os.path.join(music_dir, m) for m in os.listdir(music_dir)
               if m.lower().endswith((".mp3", ".m4a", ".wav"))] if os.path.isdir(music_dir) else []
     if musics:
-        track = random.choice(musics)               # nahodny track -> kazde video ina hudba (ziadna nuda)
+        cine = [m for m in musics if os.path.basename(m).startswith("cine_")]
+        track = random.choice(cine if cine else musics)   # preferuj cinematic; kazde video ina hudba
         print(f"  Pridavam hudbu: {os.path.basename(track)}")
         video = add_music(video, track, cfg, tmp)
 
