@@ -18,6 +18,7 @@ import asyncio
 import hashlib
 import json
 import os
+import random
 import re
 import subprocess
 import sys
@@ -365,14 +366,34 @@ def add_sfx(ff, video, cut_times, tmp):
 
 
 def add_music(video, music, cfg, tmp):
+    """Podloz hudbu pod hlas: hudba sa UHYBA pod hlasom (sidechain duck) + fade in/out.
+    Plne chranene -> pri chybe spadne na jednoduchy mix (povodne spravanie)."""
     ff = cfg["ffmpeg"]
     vol = cfg.get("music_volume", 0.12)
     out = os.path.join(tmp, "with_music.mp4")
-    run([ff, "-y", "-i", video, "-stream_loop", "-1", "-i", music,
-         "-filter_complex",
-         f"[1:a]volume={vol}[m];[0:a][m]amix=inputs=2:duration=first:dropout_transition=0[a]",
-         "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-shortest", out])
-    return out
+    try:
+        dur = probe_duration(cfg["ffprobe"], video)
+        fade = float(cfg.get("music_fade", 1.6))
+        fin = min(fade, 0.8)
+        fout = max(0.1, dur - fade)
+        # 1) hudba: hlasitost + fade in/out
+        # 2) sidechain duck: hudba sa stisi vzdy ked hovori hlas ([0:a] = kluc) -> hlas je vzdy citelny
+        # 3) zmiesaj hlas + uhnutu hudbu (normalize=0 aby amix neznizoval hlasitost)
+        fc = (f"[1:a]volume={vol},afade=t=in:st=0:d={fin:.2f},"
+              f"afade=t=out:st={fout:.2f}:d={fade:.2f}[m];"
+              f"[m][0:a]sidechaincompress=threshold=0.03:ratio=6:attack=15:release=260[mduck];"
+              f"[0:a][mduck]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[a]")
+        run([ff, "-y", "-i", video, "-stream_loop", "-1", "-i", music,
+             "-filter_complex", fc,
+             "-map", "0:v", "-map", "[a]", "-c:v", "copy",
+             "-c:a", "aac", "-ar", "44100", "-b:a", "160k", "-shortest", out])
+        return out
+    except Exception:
+        run([ff, "-y", "-i", video, "-stream_loop", "-1", "-i", music,
+             "-filter_complex",
+             f"[1:a]volume={vol}[m];[0:a][m]amix=inputs=2:duration=first:dropout_transition=0[a]",
+             "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-shortest", out])
+        return out
 
 
 def burn_captions(video, ass_path, out_path, cfg, tmp):
@@ -380,9 +401,12 @@ def burn_captions(video, ass_path, out_path, cfg, tmp):
     # subtitles filter ma problem s ':' vo Windows ceste -> spustime s cwd=tmp a relativnym menom
     ass_rel = os.path.basename(ass_path)
     vid_rel = os.path.relpath(video, tmp).replace(os.sep, "/")
+    # finalna loudness normalizacia (-14 LUFS = cielova hlasitost YT/TikTok) -> jednotny zvuk vsetkych videi
+    laf = cfg.get("loudnorm_filter", "loudnorm=I=-14:TP=-1.5:LRA=11")
     run_in([ff, "-y", "-i", vid_rel, "-vf", f"subtitles={ass_rel}",
             "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-maxrate", "3500k", "-bufsize", "7000k",
-            "-pix_fmt", "yuv420p", "-c:a", "copy", out_path], cwd=tmp)
+            "-pix_fmt", "yuv420p", "-af", laf, "-c:a", "aac", "-ar", "44100", "-b:a", "160k",
+            "-movflags", "+faststart", out_path], cwd=tmp)
 
 
 def run_in(cmd, cwd):
@@ -470,8 +494,9 @@ def main():
     musics = [os.path.join(music_dir, m) for m in os.listdir(music_dir)
               if m.lower().endswith((".mp3", ".m4a", ".wav"))] if os.path.isdir(music_dir) else []
     if musics:
-        print(f"  Pridavam hudbu: {os.path.basename(musics[0])}")
-        video = add_music(video, musics[0], cfg, tmp)
+        track = random.choice(musics)               # nahodny track -> kazde video ina hudba (ziadna nuda)
+        print(f"  Pridavam hudbu: {os.path.basename(track)}")
+        video = add_music(video, track, cfg, tmp)
 
     if cfg.get("sfx", True):
         print("  Pridavam jemne zvukove efekty na strihy...")
@@ -481,7 +506,9 @@ def main():
     final = os.path.join(out_dir, slug + ".mp4")
 
     if args.no_captions:
-        run([ff, "-y", "-i", video, "-c", "copy", final])
+        laf = cfg.get("loudnorm_filter", "loudnorm=I=-14:TP=-1.5:LRA=11")
+        run([ff, "-y", "-i", video, "-c:v", "copy", "-af", laf,
+             "-c:a", "aac", "-ar", "44100", "-b:a", "160k", "-movflags", "+faststart", final])
     else:
         print("  Vypaľujem titulky...")
         ass_path = os.path.join(tmp, "subs.ass")
