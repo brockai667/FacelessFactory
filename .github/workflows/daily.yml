@@ -27,7 +27,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg fonts-dejavu-core
 
       - name: Install Python deps
-        run: pip install edge-tts requests cloudinary kokoro-onnx soundfile
+        run: pip install edge-tts requests cloudinary kokoro-onnx soundfile Pillow
 
       - name: Prepare config
         run: cp config.example.json config.json
