@@ -493,6 +493,103 @@ def run_in(cmd, cwd):
     return p
 
 
+def _bgr_to_rgb(h):
+    h = (h or "").strip().lstrip("&H").lstrip("#")
+    try:
+        return (int(h[4:6], 16), int(h[2:4], 16), int(h[0:2], 16))   # ASS hex je BGR
+    except Exception:
+        return (45, 109, 246)
+
+
+def pil_caption_overlay(video, all_words, out_path, cfg, tmp):
+    """CISTY titulkovy overlay (PIL): zaobleny farebny box LEN na aktivnom slove, 2 riadky,
+    ostatne slova ciste biele s mäkkym tienom, fade + predstih. Vrati True ak OK, inak False."""
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter
+    ff = cfg["ffmpeg"]
+    W, H, FPS = int(cfg["width"]), int(cfg["height"]), int(cfg["fps"])
+    fontp = os.path.join(ROOT, "assets", "fonts", cfg.get("caption_font_file", "Poppins-SemiBold.ttf"))
+    if not os.path.exists(fontp) or not all_words:
+        return False
+    fs = int(cfg.get("caption_fontsize", 64))
+    block = max(2, int(cfg.get("caption_words_per_line", 4)))
+    lead = float(cfg.get("caption_lead", 0.12))
+    box = _bgr_to_rgb(cfg.get("caption_box_hex", "F66D2D")) + (255,)
+    ypos = float(cfg.get("caption_ypos", 0.30))
+    total = probe_duration(cfg["ffprobe"], video)
+    words = [(max(0.0, s - lead), d, t) for (s, d, t) in all_words]
+    font = ImageFont.truetype(fontp, fs)
+    asc, desc = font.getmetrics(); lh = asc + desc; lineH = int(lh * 1.12)
+    sp = font.getlength(" "); maxw = W * 0.64
+    blocks = [words[i:i + block] for i in range(0, len(words), block)]
+    times = [(b[0][0], b[-1][0] + b[-1][1] + 0.35, b) for b in blocks]
+    capdir = os.path.join(tmp, "caps")
+    os.makedirs(capdir, exist_ok=True)
+    cache = {}
+
+    def layout(bw):
+        toks = [w[2] for w in bw]; widths = [font.getlength(t) for t in toks]
+        rws = [[]]; lw = 0.0
+        for idx, wd in enumerate(widths):
+            add = wd if not rws[-1] else sp + wd
+            if rws[-1] and lw + add > maxw and len(rws) < 2:
+                rws.append([idx]); lw = wd
+            else:
+                rws[-1].append(idx); lw += add
+        y0 = int(H * ypos) - (len(rws) * lineH) // 2
+        pos = {}
+        for li, idxs in enumerate(rws):
+            linew = sum(widths[k] for k in idxs) + sp * (len(idxs) - 1)
+            x = (W - linew) / 2.0; y = y0 + li * lineH
+            for k in idxs:
+                pos[k] = (x, y, widths[k]); x += widths[k] + sp
+        return toks, pos
+
+    def base_img(bi, ai):
+        if (bi, ai) in cache:
+            return cache[(bi, ai)]
+        toks, pos = layout(times[bi][2])
+        img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        sh = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ds = ImageDraw.Draw(sh)
+        for k, t in enumerate(toks):
+            x, y, _w = pos[k]; ds.text((x, y), t, font=font, fill=(0, 0, 0, 180))
+        img = Image.alpha_composite(img, sh.filter(ImageFilter.GaussianBlur(6)))
+        d = ImageDraw.Draw(img)
+        if ai in pos:
+            x, y, wd = pos[ai]
+            d.rounded_rectangle([x - 16, y - 6, x + wd + 16, y + lh + 4], radius=16, fill=box)
+        for k, t in enumerate(toks):
+            x, y, _w = pos[k]; d.text((x, y), t, font=font, fill=(255, 255, 255, 255))
+        cache[(bi, ai)] = img
+        return img
+
+    nfr = int(total * FPS); empty = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    for fnum in range(nfr):
+        t = fnum / FPS; cur = None
+        for bi, (s, e, bw) in enumerate(times):
+            if s <= t <= e:
+                cur = (bi, s, e, bw); break
+        if cur is None:
+            empty.save(os.path.join(capdir, "c%05d.png" % fnum)); continue
+        bi, s, e, bw = cur; ai = 0
+        for k, w in enumerate(bw):
+            if w[0] <= t:
+                ai = k
+        fade = max(0.0, min(1.0, (t - s) / 0.10, (e - t) / 0.22))
+        bimg = base_img(bi, ai)
+        if fade < 0.999:
+            r, g, b, a = bimg.split(); a = a.point(lambda v: int(v * fade)); bimg = Image.merge("RGBA", (r, g, b, a))
+        bimg.save(os.path.join(capdir, "c%05d.png" % fnum))
+    laf = cfg.get("loudnorm_filter", "loudnorm=I=-14:TP=-1.5:LRA=11")
+    run_in([ff, "-y", "-i", os.path.relpath(video, tmp).replace(os.sep, "/"),
+            "-framerate", str(FPS), "-i", "caps/c%05d.png",
+            "-filter_complex", "[0:v][1:v]overlay=0:0:format=auto[v]",
+            "-map", "[v]", "-map", "0:a", "-c:v", "libx264", "-preset", "fast", "-crf", "20",
+            "-maxrate", "6M", "-bufsize", "12M", "-pix_fmt", "yuv420p",
+            "-af", laf, "-c:a", "aac", "-ar", "44100", "-b:a", "160k",
+            "-movflags", "+faststart", out_path], cwd=tmp)
+    return True
+
+
 # ----------------------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser()
@@ -588,10 +685,17 @@ def main():
              "-c:a", "aac", "-ar", "44100", "-b:a", "160k", "-movflags", "+faststart", final])
     else:
         print("  Vypaľujem titulky...")
-        ass_path = os.path.join(tmp, "subs.ass")
-        build_ass(all_words, cfg, ass_path)
-        # presun finalny vstup do tmp aby cwd trik fungoval
-        burn_captions(video, ass_path, final, cfg, tmp)
+        done = False
+        if cfg.get("caption_renderer", "pil") == "pil":
+            try:
+                done = pil_caption_overlay(video, all_words, final, cfg, tmp)   # CISTE boxy len na akt. slove
+            except Exception as e:
+                sys.stderr.write(f"[pozn.] PIL titulky zlyhali ({str(e)[:80]}) -> fallback ASS\n")
+                done = False
+        if not done:
+            ass_path = os.path.join(tmp, "subs.ass")
+            build_ass(all_words, cfg, ass_path)
+            burn_captions(video, ass_path, final, cfg, tmp)
 
     # metadata subor (popis + hashtagy zladene so znackou MindBlownDaily)
     meta_path = os.path.join(out_dir, slug + ".txt")
