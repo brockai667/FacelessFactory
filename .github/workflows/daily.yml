@@ -36,6 +36,7 @@ jobs:
         continue-on-error: true   # ak by zlyhalo, dennny beh aj tak pokracuje z existujucich tem
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: python generate_topics.py
 
       - name: Generate 3 videos + push to Buffer
