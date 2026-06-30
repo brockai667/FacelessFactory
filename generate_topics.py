@@ -11,6 +11,46 @@ import sys
 
 import requests
 
+
+try:
+    import trends
+except Exception:
+    trends = None
+
+TREND_SUBREDDITS = ['todayilearned', 'Damnthatsinteresting', 'interestingasfuck', 'explainlikeimfive']
+TREND_YT_QUERIES = ['amazing facts', 'mind blowing facts', 'did you know facts']
+
+
+def _gather_trends():
+    if trends is None:
+        return []
+    try:
+        hl, meta = trends.gather(TREND_SUBREDDITS, TREND_YT_QUERIES, top=18, return_meta=True)
+        if hl:
+            print("Trendy: %d titulkov (Reddit=%d, YouTube=%d) -> temy z realneho dopytu." % (len(hl), meta["reddit"], meta["youtube"]))
+        else:
+            print("Trendy: zdroj nedostupny (Reddit=%d, YouTube=%d) -> klasicky." % (meta["reddit"], meta["youtube"]))
+        return hl
+    except Exception as e:
+        print("Trendy preskocene:", str(e)[:120])
+        return []
+
+
+def _trend_block(trending):
+    if not trending:
+        return ""
+    joined = "\n".join("- " + t for t in trending)
+    return (
+        "\nWHAT PEOPLE ARE CURIOUS ABOUT / WATCHING RIGHT NOW (live trending headlines from "
+        "Reddit communities and top YouTube videos in this niche - what people actually click "
+        "on this week):\n" + joined + "\n"
+        "IMPORTANT: at least HALF of the generated topics MUST be directly inspired by a "
+        "specific, high-curiosity item above - take the most surprising/intriguing ones and "
+        "turn them into original, scroll-stopping hooks. Do NOT copy a headline word-for-word, "
+        "and do NOT mention Reddit or YouTube.\n"
+    )
+
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 BANK = os.path.join(ROOT, "topics_bank.json")
 STATE = os.path.join(ROOT, "used_topics.json")
@@ -38,7 +78,8 @@ EXAMPLE = {
 }
 
 
-def build_prompt(n, existing_titles):
+def build_prompt(n, existing_titles, trending=None):
+    trend_block = _trend_block(trending)
     return (
         f"Generate {n} NEW faceless short-form 'facts' video topics for TikTok / Reels / YouTube Shorts.\n"
         "Niche: surprising but TRUE facts across science, psychology, space, nature, history, the human body, animals.\n"
@@ -66,6 +107,10 @@ def build_prompt(n, existing_titles):
         "Emoji ONLY in the description text, NEVER inside any segment 'text' (spoken captions).\n"
         "- hashtags: 6-8 relevant tags including #facts #shorts #fyp.\n"
         f"- Do NOT reuse any of these existing titles: {existing_titles}\n"
+        "- HOOK RULE (critical for retention): segment 1 must be the single most shocking, "
+        "curiosity-gap opener that makes the viewer unable to scroll. Under 10 words, no "
+        "setup, lead with the most surprising fact or claim.\n"
+        + trend_block +
         "Return ONLY the JSON array."
     )
 
@@ -127,7 +172,8 @@ def main():
         print(f"Banka OK: {len(unused)} nepouzitych tem (>= {TARGET}), netreba dopnat.")
         return
     print(f"Nepouzitych {len(unused)} < {TARGET} -> generujem ~{need} novych tem cez {MODEL}...")
-    raw = call_model(build_prompt(need + 3, sorted(titles)))
+    trending = _gather_trends()
+    raw = call_model(build_prompt(need + 3, sorted(titles), trending))
     items = extract_json(raw)
     added = 0
     for t in items:
