@@ -194,36 +194,33 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
             return (0, -h) if h <= 2160 else (1, h)
 
         # query ladder: cely dotaz -> prve 2 slova -> hlavne slovo (graceful degradacia ked je dotaz uzky)
+        # ROZSIRENA kniznica: viac dotazov (cela fraza + dvojice + jednotlive slova) -> sirsi vyber
         words = keywords.split()
         ladder = [keywords]
         if len(words) >= 3:
             ladder.append(" ".join(words[:2]))
-        if len(words) >= 2 and words[-1] not in ladder:
-            ladder.append(words[-1])
+            ladder.append(" ".join(words[-2:]))
+        for w in words:
+            if len(w) > 3 and w not in ladder:
+                ladder.append(w)
+        ladder = ladder[:5]                           # cap kvoty API
 
-        best = None  # (score, vid, files)
+        # nazbieraj kandidatov zo VSETKYCH dotazov (dedup), vyber NAJlepsi (zhoda s temou, potom rozlisenie)
+        pool = {}  # vid -> (relevance, files, height)
         for q in ladder:
-            cands = []
             for v in search(q):
                 vid = v.get("id")
-                if vid in used_ids:
+                if vid in used_ids or vid in pool:
                     continue
                 files = [f for f in v.get("video_files", []) if (f.get("height") or 0) >= 720]
                 if not files:
                     continue
                 files.sort(key=res_rank)
-                cands.append((relevance(v), vid, files))
-            if not cands:
-                continue
-            cands.sort(key=lambda c: -c[0])           # najprv najzhodnejsie (stabilne -> pri zhode Pexels poradie)
-            if best is None or cands[0][0] > best[0]:
-                best = cands[0]
-            if best[0] >= 1:                          # nasli sme zaber co sedi s textom -> dost
-                break
-
-        if best is None:
+                pool[vid] = (relevance(v), files, files[0].get("height") or 0)
+        if not pool:
             return None, None
-        _, vid, files = best
+        vid = max(pool, key=lambda k: (pool[k][0], min(pool[k][2], 2160)))
+        files = pool[vid][1]
         cache = os.path.join(broll_dir, f"{vid}.mp4")
         if not os.path.exists(cache):
             data = requests.get(files[0]["link"], timeout=120).content
@@ -296,6 +293,36 @@ def render_segment(i, audio_path, duration, broll_path, cfg, tmp):
             run([ff, "-y", "-f", "lavfi", "-i", f"color=c={c0}:s={W}x{H}:r={FPS}",
                  "-i", audio_path, "-t", f"{duration:.3f}", "-vf", vf,
                  "-map", "0:v", "-map", "1:a", *common_out])
+    return out
+
+
+def render_asset_segment(i, audio_path, duration, asset_path, cfg, tmp):
+    """Segment z LOKALNEHO obrazka (napr. screenshot stranky) — FIT na rozmazane pozadie
+    (vidno celu stranku, neoreze sa) + jemny zoom. Pre how-to scenu 'ukaz tu obrazovku'."""
+    ff = cfg["ffmpeg"]
+    W, H, FPS = cfg["width"], cfg["height"], cfg["fps"]
+    grade = cfg.get("color_grade", "").strip()
+    out = os.path.join(tmp, f"seg_{i:03d}.mp4")
+    ext = os.path.splitext(asset_path)[1].lower()
+    if ext in (".mp4", ".mov", ".webm", ".mkv"):
+        # VIDEO asset (napr. micro-zostrih) -> cover na cely frame + audio (loop/trim na dlzku)
+        vf = (f"scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1,fps={FPS}"
+              + (("," + grade) if grade else "") + ",format=yuv420p")
+        run([ff, "-y", "-stream_loop", "-1", "-i", asset_path, "-i", audio_path, "-t", f"{duration:.3f}",
+             "-vf", vf, "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+             "-pix_fmt", "yuv420p", "-r", str(FPS), "-c:a", "aac", "-ar", "44100", "-b:a", "160k", out])
+        return out
+    fw = int(W * 0.92)
+    zr, zc = ("0.0013", "1.16") if i == 0 else ("0.0005", "1.07")   # HOOK = punchier zoom
+    fc = (f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:1,eq=brightness=-0.22[bg];"
+          f"[0:v]scale={fw}:-1[fg];"
+          f"[bg][fg]overlay=(W-w)/2:(H-h)/2,"
+          f"zoompan=z='min(zoom+{zr},{zc})':d=1:fps={FPS}:s={W}x{H}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+          + (("," + grade) if grade else "") + ",format=yuv420p[v]")
+    run([ff, "-y", "-loop", "1", "-i", asset_path, "-i", audio_path, "-filter_complex", fc,
+         "-map", "[v]", "-map", "1:a", "-t", f"{duration:.3f}",
+         "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-pix_fmt", "yuv420p", "-r", str(FPS),
+         "-c:a", "aac", "-ar", "44100", "-b:a", "160k", out])
     return out
 
 
@@ -508,6 +535,54 @@ def _ensure_cinematic_music(music_dir, cfg):
         pass
 
 
+def build_ass_pop(all_words, cfg, path):
+    """PRO animovane titulky: jedno velke slovo, pop-scale animacia, kluc. slova zltou.
+    Pouziva existujuce casovanie slov (all_words) - ziadny novy dependency. Reel-pro styl."""
+    import re
+    W, H = cfg["width"], cfg["height"]
+    font = cfg.get("caption_font", "Poppins")
+    fs = int(cfg.get("caption_pop_fontsize", 116))
+    mv = int(cfg.get("caption_pop_margin_v", 540))       # od spodu (Alignment 2)
+    align = int(cfg.get("caption_pop_alignment", 2))
+    hl = cfg.get("caption_pop_highlight_hex", "00C2F2")  # ASS BGR -> #F2C200 zlta na klucove slova
+    txt = cfg.get("caption_text_hex", "FFFFFF")
+    lead = float(cfg.get("caption_lead", 0.0))
+    emph_set = set(w.upper() for w in cfg.get("caption_emphasis",
+                   ["FREE", "NOW", "NEW", "FIRST", "EVER", "NEVER", "MILLION", "BILLION",
+                    "ZERO", "SECRET", "HUGE", "BEST", "INSANE", "FOLLOW", "STOP"]))
+
+    def ts(t):
+        t = max(0.0, t); h = int(t // 3600); m = int(t % 3600 // 60); s = t % 60
+        return f"{h}:{m:02d}:{s:05.2f}"
+
+    header = (
+        "[Script Info]\nScriptType: v4.00+\n"
+        f"PlayResX: {W}\nPlayResY: {H}\nWrapStyle: 2\nScaledBorderAndShadow: yes\n\n"
+        "[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, "
+        "BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, "
+        "Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
+        f"Style: P,{font},{fs},&H00{txt},&H00{txt},&H00000000,&H64000000,-1,0,0,0,100,100,0,0,1,9,3,{align},80,80,{mv},1\n\n"
+        "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
+
+    words = [(max(0.0, s - lead), d, t) for (s, d, t) in all_words]
+    ev = []
+    for i, (st, du, word) in enumerate(words):
+        w = (word or "").strip().replace("{", "(").replace("}", ")").replace("\n", " ")
+        if not w:
+            continue
+        up = w.upper()
+        end = words[i + 1][0] if i + 1 < len(words) else st + du
+        if end <= st:
+            end = st + 0.2
+        emph = bool(re.search(r"\d", up)) or up in emph_set or "$" in up
+        col = hl if emph else txt
+        tag = ("{\\fad(24,24)\\fscx52\\fscy52\\t(0,90,\\fscx112\\fscy112)"
+               "\\t(90,150,\\fscx100\\fscy100)\\1c&H" + col + "&}")
+        ev.append(f"Dialogue: 0,{ts(st)},{ts(end)},P,,0,0,0,,{tag}{up}")
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(header + "\n".join(ev) + "\n")
+
+
 def burn_captions(video, ass_path, out_path, cfg, tmp):
     ff = cfg["ffmpeg"]
     # subtitles filter ma problem s ':' vo Windows ceste -> spustime s cwd=tmp a relativnym menom
@@ -679,17 +754,22 @@ def main():
                         cfg.get("tts_rate", "+0%"), cfg.get("tts_pitch", "+0Hz"))
         trim_trailing_silence(cfg["ffmpeg"], raw_audio, audio, cfg.get("segment_gap", 0.12))
         dur = probe_duration(cfg["ffprobe"], audio)
-        if loop_end and i == last_i and first_broll:
-            broll, vid = first_broll, None      # bookend: koniec = zaciatok
+        asset = seg.get("asset")
+        if asset and os.path.exists(asset):
+            print(f"       (asset: {os.path.basename(asset)} -> fit na pozadie)")
+            render_asset_segment(i, audio, dur, asset, cfg, tmp)
         else:
-            broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
-        if i == 0:
-            first_broll = broll
-        if vid is not None:
-            used_ids.add(vid)
-        if not broll and seg.get("keywords"):
-            print(f"       (bez B-roll -> fallback pozadie)")
-        render_segment(i, audio, dur, broll, cfg, tmp)
+            if loop_end and i == last_i and first_broll:
+                broll, vid = first_broll, None      # bookend: koniec = zaciatok
+            else:
+                broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
+            if i == 0:
+                first_broll = broll
+            if vid is not None:
+                used_ids.add(vid)
+            if not broll and seg.get("keywords"):
+                print(f"       (bez B-roll -> fallback pozadie)")
+            render_segment(i, audio, dur, broll, cfg, tmp)
         for (o, d, txt) in words:
             all_words.append((cursor + o, d, txt))
         if i > 0:
@@ -724,8 +804,18 @@ def main():
              "-c:a", "aac", "-ar", "44100", "-b:a", "160k", "-movflags", "+faststart", final])
     else:
         print("  Vypaľujem titulky...")
+        mode = cfg.get("caption_renderer", "pil")
         done = False
-        if cfg.get("caption_renderer", "pil") == "pil":
+        if mode == "pop":                                  # PRO animovane pop titulky (nova zakladna)
+            try:
+                ass_path = os.path.join(tmp, "subs.ass")
+                build_ass_pop(all_words, cfg, ass_path)
+                burn_captions(video, ass_path, final, cfg, tmp)
+                done = True
+            except Exception as e:
+                sys.stderr.write(f"[pozn.] POP titulky zlyhali ({str(e)[:80]}) -> fallback\n")
+                done = False
+        if not done and mode != "ass":
             try:
                 done = pil_caption_overlay(video, all_words, final, cfg, tmp)   # CISTE boxy len na akt. slove
             except Exception as e:
