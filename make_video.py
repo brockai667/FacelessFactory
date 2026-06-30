@@ -149,48 +149,87 @@ def trim_trailing_silence(ff, src, dst, gap=0.12):
 
 # ----------------------------------------------------------------------------- B-roll (Pexels)
 def get_broll(keywords, cfg, broll_dir, used_ids):
-    """Vrati (cesta, clip_id) k B-roll klipu, ktory este nebol pouzity v tomto videu.
-    Dedup podla ID klipu zabranuje opakovaniu rovnakeho zaberu. Inak (None, None)."""
+    """Vrati (cesta, clip_id) k B-roll klipu, ktory NAJLEPSIE sedi na keywords a este nebol pouzity.
+    Vyber: Pexels search -> preusporiadanie podla zhody URL-slugu s keywords (aby zaber sedel s textom,
+    nie len prvy "relevantny" vysledok) + query ladder ked je dotaz uzky. Dedup podla ID. Inak (None, None)."""
+    import re
     key = cfg.get("pexels_api_key", "").strip()
     if not key or not keywords:
         return None, None
     try:
         import requests
 
-        def search(params):
-            r = requests.get("https://api.pexels.com/videos/search", params=params,
-                             headers={"Authorization": key}, timeout=30)
-            r.raise_for_status()
-            return r.json().get("videos", [])
-
-        # 1) najprv klipy v SPRAVNEJ orientacii (shorts=portrait 9:16, docs=landscape 16:9)
-        #    -> sadnu natívne, minimalny orez, ostre. Ak ziadne, fallback na akukolvek orientaciu.
         orient = "portrait" if int(cfg.get("height", 1920)) >= int(cfg.get("width", 1080)) else "landscape"
-        vids = search({"query": keywords, "per_page": 40, "orientation": orient})
-        if not vids:
-            vids = search({"query": keywords, "per_page": 40})
+        kw_tokens = [w for w in re.findall(r"[a-z]+", keywords.lower()) if len(w) > 2]
 
-        def rank(f):
+        def search(q):
+            params = {"query": q, "per_page": 40, "orientation": orient}
+            try:
+                r = requests.get("https://api.pexels.com/videos/search", params=params,
+                                 headers={"Authorization": key}, timeout=30)
+                r.raise_for_status()
+                vids = r.json().get("videos", [])
+            except Exception:
+                vids = []
+            if not vids:  # fallback: akakolvek orientacia
+                try:
+                    r = requests.get("https://api.pexels.com/videos/search",
+                                     params={"query": q, "per_page": 40},
+                                     headers={"Authorization": key}, timeout=30)
+                    r.raise_for_status()
+                    vids = r.json().get("videos", [])
+                except Exception:
+                    vids = []
+            return vids
+
+        def slug_words(v):
+            seg = (v.get("url") or "").rstrip("/").split("/video/")[-1]
+            return set(w for w in re.findall(r"[a-z]+", seg.lower()) if len(w) > 2)
+
+        def relevance(v):  # kolko keywordov sa nachadza v popisnom slugu klipu
+            return sum(1 for k in kw_tokens if k in slug_words(v))
+
+        def res_rank(f):
             h = f.get("height") or 0
-            # preferuj co NAJVYSSIE rozlisenie do 2160 (ostry obraz po Ken Burns), potom co najmensie nad 2160
             return (0, -h) if h <= 2160 else (1, h)
 
-        # prejdi vysledky v poradi relevancie, vyber prvy NEPOUZITY klip
-        for v in vids:
-            vid = v.get("id")
-            if vid in used_ids:
+        # query ladder: cely dotaz -> prve 2 slova -> hlavne slovo (graceful degradacia ked je dotaz uzky)
+        words = keywords.split()
+        ladder = [keywords]
+        if len(words) >= 3:
+            ladder.append(" ".join(words[:2]))
+        if len(words) >= 2 and words[-1] not in ladder:
+            ladder.append(words[-1])
+
+        best = None  # (score, vid, files)
+        for q in ladder:
+            cands = []
+            for v in search(q):
+                vid = v.get("id")
+                if vid in used_ids:
+                    continue
+                files = [f for f in v.get("video_files", []) if (f.get("height") or 0) >= 720]
+                if not files:
+                    continue
+                files.sort(key=res_rank)
+                cands.append((relevance(v), vid, files))
+            if not cands:
                 continue
-            files = [f for f in v.get("video_files", []) if (f.get("height") or 0) >= 720]
-            if not files:
-                continue
-            files.sort(key=rank)                      # najvyssia kvalita (do 2160)
-            cache = os.path.join(broll_dir, f"{vid}.mp4")
-            if not os.path.exists(cache):
-                data = requests.get(files[0]["link"], timeout=120).content
-                with open(cache, "wb") as f:
-                    f.write(data)
-            return cache, vid
-        return None, None
+            cands.sort(key=lambda c: -c[0])           # najprv najzhodnejsie (stabilne -> pri zhode Pexels poradie)
+            if best is None or cands[0][0] > best[0]:
+                best = cands[0]
+            if best[0] >= 1:                          # nasli sme zaber co sedi s textom -> dost
+                break
+
+        if best is None:
+            return None, None
+        _, vid, files = best
+        cache = os.path.join(broll_dir, f"{vid}.mp4")
+        if not os.path.exists(cache):
+            data = requests.get(files[0]["link"], timeout=120).content
+            with open(cache, "wb") as f:
+                f.write(data)
+        return cache, vid
     except Exception as e:
         sys.stderr.write(f"[upozornenie] Pexels zlyhal pre '{keywords}': {e}\n")
         return None, None
