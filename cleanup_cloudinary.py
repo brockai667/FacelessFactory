@@ -19,14 +19,17 @@ cloudinary.config(
     secure=True,
 )
 
-cutoff = datetime.datetime.utcnow() - datetime.timedelta(days=KEEP_DAYS)
+cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=KEEP_DAYS)
 
 
 def parse(ts):
-    return datetime.datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ")
+    """Naparsuje Cloudinary 'created_at' (UTC, napr. '2026-01-01T12:00:00Z') na tz-aware datetime."""
+    return datetime.datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
 
 
 def main():
+    """Najde a zmaze videa v Cloudinary priecinku 'facelessfactory/' stare viac nez KEEP_DAYS dni
+    (maze po davkach 100 kvoli API limitu na delete_resources)."""
     old = []
     cursor = None
     while True:
