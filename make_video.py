@@ -228,7 +228,8 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
         orient = "portrait" if int(cfg.get("height", 1920)) >= int(cfg.get("width", 1080)) else "landscape"
         kw_tokens = keyword_tokens(keywords)
 
-        import time
+        import time, os as _os
+        pix = (cfg.get("pixabay_api_key") or _os.environ.get("PIXABAY_API_KEY", "")).strip()
         def _get(params):
             for attempt in range(2):
                 try:
@@ -241,11 +242,29 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
                 except Exception:
                     return []
             return []
+        def _pixabay(q):                              # 2. FREE zdroj -> vacsia kniznica (normalizovane do Pexels tvaru)
+            if not pix:
+                return []
+            try:
+                r = requests.get("https://pixabay.com/api/videos/",
+                                 params={"key": pix, "q": q, "per_page": 30, "safesearch": "true"}, timeout=30)
+                if r.status_code >= 400:
+                    return []
+                out = []
+                for h in r.json().get("hits", []):
+                    slug = "/video/" + re.sub(r"[^a-z0-9]+", "-", (h.get("tags", "") or "").lower())
+                    files = [{"height": (v.get("height") or 0), "link": v.get("url")}
+                             for v in (h.get("videos") or {}).values() if v.get("url")]
+                    if files:
+                        out.append({"id": "pb%s" % h.get("id"), "url": slug, "video_files": files})
+                return out
+            except Exception:
+                return []
         def search(q):
             vids = _get({"query": q, "per_page": 40, "orientation": orient})
             if not vids:  # fallback: akakolvek orientacia
                 vids = _get({"query": q, "per_page": 40})
-            return vids
+            return vids + _pixabay(q)                 # Pexels + Pixabay dohromady
 
         # nazbieraj kandidatov zo VSETKYCH dotazov (dedup), vyber NAJlepsi (zhoda s temou, potom rozlisenie)
         pool = {}  # vid -> (relevance, files, height)
