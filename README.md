@@ -123,7 +123,9 @@ tento reťazec krokov (každý ďalší kryje zlyhanie predchádzajúceho, aby j
 Sieťové volania (Pexels, Buffer GraphQL, Cloudinary upload, GitHub Models, Reddit/YouTube trendy)
 majú vstavaný retry s krátkym odstupom na prechodné výpadky (timeout/connection error); trvalé
 aplikačné chyby (napr. zlý token) sa neopakujú, lebo by len znova zlyhali rovnako. Zlyhanie
-uploadu jedného videa nezhodí celú dávku — pipeline pokračuje ďalším videom.
+uploadu jedného videa nezhodí celú dávku — pipeline pokračuje ďalším videom. Podobne, ak
+`generate_topics.py` dostane od modelu nevalidný JSON alebo zlyhá autorizácia, banka tém ostane
+nezmenená a denný beh pokračuje s existujúcimi témami (namiesto nezachytenej výnimky).
 
 ### Lokálne spustenie krokov manuálne
 ```powershell
@@ -140,7 +142,8 @@ python cleanup_cloudinary.py         # upratovanie starých videí na Cloudinary
 ## Testovanie
 
 Unit testy pokrývajú čisté funkcie pipeline (výber B-rollu, generovanie titulkov, timing/strih,
-topic generation, retry logika) — bežia cez štandardný `unittest`, žiadna extra závislosť netreba:
+topic generation, config parsing, retry logika a graceful zlyhania pri zlom tokene/JSON) — bežia
+cez štandardný `unittest`, plne offline (žiadne reálne siete/uploady) a bez novej závislosti:
 
 ```powershell
 python -m unittest discover -s tests -t .

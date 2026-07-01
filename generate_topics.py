@@ -188,7 +188,8 @@ def valid(t):
 
 def main():
     """Ak je nepouzitych tem v banke menej ako TARGET, dogeneruje nove cez GitHub Models
-    (volitelne inspirovane aktualnymi trendami) a zapise ich do topics_bank.json."""
+    (volitelne inspirovane aktualnymi trendami) a zapise ich do topics_bank.json.
+    Zly token alebo nevalidny JSON z modelu banku nezmeni (graceful, netreba zhodit beh)."""
     if not TOKEN:
         print("CHYBA: chyba MODELS_TOKEN/GITHUB_TOKEN")
         sys.exit(1)
