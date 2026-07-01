@@ -106,15 +106,15 @@ class TestBuildQueryLadder(unittest.TestCase):
         self.assertEqual(ladder[0], "big trees")
         self.assertIn("trees", ladder)
 
-    def test_three_or_more_words_adds_pairs(self):
+    def test_three_or_more_words_prioritizes_pair_over_single_words(self):
+        # cap je 2 (kvoli Pexels rate-limitu) -> po celom dotaze nasleduje "prve 2 slova",
+        # nie jednotlive slovo (tie by prisli na rad az neskor v neorezanom rebricku)
         ladder = mv.build_query_ladder("giant sequoia trees california")
-        self.assertEqual(ladder[0], "giant sequoia trees california")
-        self.assertIn("giant sequoia", ladder)
-        self.assertIn("trees california", ladder)
+        self.assertEqual(ladder, ["giant sequoia trees california", "giant sequoia"])
 
-    def test_capped_at_five(self):
+    def test_capped_at_two(self):
         ladder = mv.build_query_ladder("alpha bravo charlie delta echo foxtrot")
-        self.assertLessEqual(len(ladder), 5)
+        self.assertLessEqual(len(ladder), 2)
 
     def test_empty_keywords(self):
         self.assertEqual(mv.build_query_ladder(""), [""])
