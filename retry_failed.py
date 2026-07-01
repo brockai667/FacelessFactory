@@ -94,8 +94,10 @@ def main():
             print("  [%s] znova zaradene OK" % svc)
             try:
                 gql(DEL, {"id": n["id"]})
-            except Exception:
-                pass
+            except Exception as del_ex:
+                # stary chybny zaznam ostane v Bufferi (kozmeticke) - nova kopia uz je zaradena OK,
+                # takze to nie je kriticke, ale nech je to vidno v logoch
+                print("  [%s] pozn.: zmazanie stareho chybneho postu zlyhalo: %s" % (svc, str(del_ex)[:120]))
         except Exception as ex:
             print("  [%s] chyba: %s" % (svc, str(ex)[:120]))
         time.sleep(1)

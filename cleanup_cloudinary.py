@@ -29,14 +29,19 @@ def parse(ts):
 
 def main():
     """Najde a zmaze videa v Cloudinary priecinku 'facelessfactory/' stare viac nez KEEP_DAYS dni
-    (maze po davkach 100 kvoli API limitu na delete_resources)."""
+    (maze po davkach 100 kvoli API limitu na delete_resources). Sietova chyba pri listovani/mazani
+    beh nezhodi - vypise sa a skusi znova nabuduce (denny beh)."""
     old = []
     cursor = None
     while True:
-        resp = cloudinary.api.resources(
-            type="upload", resource_type="video", prefix="facelessfactory/",
-            max_results=500, next_cursor=cursor,
-        )
+        try:
+            resp = cloudinary.api.resources(
+                type="upload", resource_type="video", prefix="facelessfactory/",
+                max_results=500, next_cursor=cursor,
+            )
+        except Exception as e:
+            print(f"CHYBA: listovanie Cloudinary zlyhalo ({str(e)[:200]}), skusim nabuduce.")
+            return
         for r in resp.get("resources", []):
             try:
                 if parse(r["created_at"]) < cutoff:
@@ -52,8 +57,11 @@ def main():
     deleted = 0
     for i in range(0, len(old), 100):
         chunk = old[i:i + 100]
-        cloudinary.api.delete_resources(chunk, resource_type="video")
-        deleted += len(chunk)
+        try:
+            cloudinary.api.delete_resources(chunk, resource_type="video")
+            deleted += len(chunk)
+        except Exception as e:
+            print(f"CHYBA: mazanie davky ({len(chunk)} videi) zlyhalo ({str(e)[:200]}), pokracujem dalsou davkou.")
     print(f"Cloudinary: zmazanych {deleted} starych videi (> {KEEP_DAYS} dni).")
 
 

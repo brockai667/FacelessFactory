@@ -247,9 +247,11 @@ def main():
             print(f"  (dry-run) {v} -> chyba: {', '.join(pend)}")
         return
 
-    slots = next_slots(len(todo))  # 08:00/15:00/20:00 Bratislava - i-te video -> i-ty slot
-    for i, vid in enumerate(todo):
-        due = slots[i]
+    # slotov je najviac zatial ako videi v 'todo' (horny odhad); slot_idx sa posunie LEN pri
+    # videu, ktore sa naozaj zaraduje - zlyhany upload tak neplytva slotom pre dalsie video
+    slots = next_slots(len(todo))  # 08:00/15:00/20:00 Bratislava
+    slot_idx = 0
+    for vid in todo:
         done = set(pushed.get(vid, []))
         pending = [c for c in targets if c["service"].lower() not in done]
         if not pending:
@@ -258,6 +260,7 @@ def main():
         title, body = read_txt(mp4[:-4] + ".txt")
         title = title or "Daily Facts"
         yt_title = (title + " #shorts")[:100]
+        due = slots[slot_idx]
         print(f"\n=== {vid} ===  (cas {due}; chyba: {', '.join(c['service'] for c in pending)})")
         print("  nahravam na Cloudinary...")
         try:
@@ -265,6 +268,7 @@ def main():
         except Exception as e:
             print(f"  CHYBA: upload na Cloudinary zlyhal ({str(e)[:160]}) -> preskakujem toto video, pokracujem dalsim")
             continue
+        slot_idx += 1
         for c in pending:
             svc = c["service"].lower()
             t = yt_title if svc == "youtube" else title

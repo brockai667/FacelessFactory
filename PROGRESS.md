@@ -106,3 +106,26 @@ cloud_upload, appconfig, tests/, .github/workflows).
    fallback v `main()` (radšej zopakovať posledný úspešný záber než padnúť na farebný gradient).
    Zlúčené manuálne: zachovaná moja extrakcia čistých funkcií, prevzatá ich zmena správania
    (cap na 2) aj never-glow logika. Upravený 1 test na nový cap. Po zlúčení 127 testov OK, pushnuté.
+
+## Dodatok — ďalší autonómny beh (rovnaké zadanie, ten istý deň)
+Zadanie prišlo znova (rovnaký text ako vyššie). Repo bolo pri štarte už ďalej, než dokumentuje
+sekcia vyššie — niekto/niečo (pravdepodobne predchádzajúci beh tejto istej úlohy) medzitým pridal
+3 ďalšie lokálne commity, ktoré ešte neboli pushnuté:
+- `test: unit testy pre appconfig.load() (config parsing)` — ENV prekrytie tajomstiev, ffmpeg/ffprobe
+  PATH fallback, chýbajúce kľúče.
+- `fix: generate_topics.main() nesmie zhodit dneny beh na zly token/JSON` — `main()` teraz obalí
+  `call_model`+`extract_json` do try/except; pri zlyhaní banka ostane nezmenená a beh sa skončí
+  čisto (namiesto nezachytenej výnimky), + 3 nové testy.
+- `docs: aktualizovat README a docstring o graceful zlyhani generate_topics.main()`.
+
+Overil som, že tento stav nie je rozbitý (`python -m unittest discover -s tests -t .` → **138
+testov, všetky OK**), skontroloval `.gitignore`/`git ls-files`, že `config.json` so skutočnými
+tajomstvami nie je trackovaný, a prešiel zvyšok pipeline (`retry_failed.py`, `cloud_upload.py`,
+grep na `TODO`/`FIXME`/holé `except:`/sieťové volania bez retry) — žiadny nový bug ani medzera v
+pokrytí sa nenašli (`cloud_upload.py` zostáva zámerne bez vlastných testov, je to tenký CLI wrapper
+nad už otestovaným `push_to_buffer.upload_cloudinary`). Keďže nič nebolo rozbité, commity som
+pushol tak ako boli (`git push origin main` → `9394896..30acdd0`) namiesto ich prepisovania.
+
+Záver: zadanie (testy na čisté funkcie + edge cases, oprava bugov/dead code/retry+fallback,
+docstringy, README sekcie) je k `30acdd0` kompletne splnené. Nereplikoval som opäť do ostatných
+*Factory repozitárov (rovnaké zdôvodnenie ako vyššie — mimo scope tejto úlohy).

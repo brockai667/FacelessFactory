@@ -53,8 +53,15 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             json.dump(spec, f, ensure_ascii=False, indent=2)
         print(f"\n===== [{i}/{len(batch)}] {title} =====")
-        r = subprocess.run([sys.executable, os.path.join(ROOT, "make_video.py"), path])
-        if r.returncode == 0:
+        try:
+            r = subprocess.run([sys.executable, os.path.join(ROOT, "make_video.py"), path])
+            ok = r.returncode == 0
+        except OSError as e:
+            # napr. make_video.py alebo interpreter sa nepodarilo spustit -> tato tema zlyhala,
+            # ale davka pokracuje dalsou (skusi sa znova nabuduce, nie je v used_topics.json)
+            print(f"[CHYBA] nepodarilo sa spustit make_video.py pre '{title}': {str(e)[:200]}")
+            ok = False
+        if ok:
             made.append(title)
             used.append(title)
             with open(STATE, "w", encoding="utf-8") as sf:

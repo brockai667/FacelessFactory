@@ -156,5 +156,58 @@ class TestUploadCloudinary(unittest.TestCase):
                 pb.upload_cloudinary(cfg, "output/video.mp4", attempts=2)
 
 
+class TestMainSlotAssignment(unittest.TestCase):
+    """Regresny test na bug: zlyhany upload jedneho videa nesmie 'ukradnut' publikacny slot
+    videu, ktore sa naozaj odosle - inak by dalsie video dostalo neskorsi/nespravny cas."""
+
+    def _setup(self, tmp, video_names):
+        out_dir = os.path.join(tmp, "output")
+        os.makedirs(out_dir, exist_ok=True)
+        for name in video_names:
+            with open(os.path.join(out_dir, name), "wb") as f:
+                f.write(b"fake")
+            with open(os.path.join(out_dir, name[:-4] + ".txt"), "w", encoding="utf-8") as f:
+                f.write("Title\nDescription body\n#tag")
+        return out_dir
+
+    def test_failed_upload_does_not_waste_slot_for_next_video(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self._setup(tmp, ["a.mp4", "b.mp4"])
+            cfg = {
+                "buffer_token": "tok",
+                "cloudinary_cloud_name": "x", "cloudinary_api_key": "y", "cloudinary_api_secret": "z",
+                "buffer_channels": [{"id": "chan1", "service": "youtube", "name": "c"}],
+            }
+            fixed_slots = ["2026-07-01T13:00:00.000Z", "2026-07-01T18:00:00.000Z"]
+            upload_calls = []
+
+            def fake_upload(cfg_, path, attempts=3):
+                upload_calls.append(path)
+                if path.endswith("a.mp4"):
+                    raise RuntimeError("cloudinary down")
+                return "https://cdn/" + os.path.basename(path)
+
+            due_times_used = []
+
+            def fake_create_post(token, svc, channel_id, text, url, title, due):
+                due_times_used.append(due)
+                return True, ""
+
+            with mock.patch.object(pb, "ROOT", tmp), \
+                 mock.patch.object(pb, "PUSHED", os.path.join(tmp, "pushed.json")), \
+                 mock.patch.object(pb, "load_cfg", return_value=cfg), \
+                 mock.patch.object(pb, "next_slots", return_value=fixed_slots), \
+                 mock.patch.object(pb, "upload_cloudinary", side_effect=fake_upload), \
+                 mock.patch.object(pb, "create_post", side_effect=fake_create_post), \
+                 mock.patch.object(sys, "argv", ["push_to_buffer.py"]):
+                pb.main()
+
+        self.assertEqual(upload_calls, [os.path.join(tmp, "output", "a.mp4"),
+                                         os.path.join(tmp, "output", "b.mp4")])
+        # 'a.mp4' zlyhal na uploade -> 'b.mp4' (jediny uspesne odoslany) MUSI dostat PRVY
+        # volny slot (13:00), nie druhy (18:00), ktory by dostal, keby sme slotovali podla indexu.
+        self.assertEqual(due_times_used, ["2026-07-01T13:00:00.000Z"])
+
+
 if __name__ == "__main__":
     unittest.main()
