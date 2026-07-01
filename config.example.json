@@ -63,5 +63,6 @@
   "kokoro_speed": 0.92,
   "caption_renderer": "ass",
   "caption_pop_fontsize": 116,
-  "caption_pop_margin_v": 560
+  "caption_pop_margin_v": 560,
+  "broll_fallback_query": "abstract science nature"
 }
