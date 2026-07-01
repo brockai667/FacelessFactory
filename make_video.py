@@ -203,7 +203,7 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
         for w in words:
             if len(w) > 3 and w not in ladder:
                 ladder.append(w)
-        ladder = ladder[:5]                           # cap kvoty API
+        ladder = ladder[:2]                           # cap kvoty API
 
         # nazbieraj kandidatov zo VSETKYCH dotazov (dedup), vyber NAJlepsi (zhoda s temou, potom rozlisenie)
         pool = {}  # vid -> (relevance, files, height)
@@ -739,6 +739,7 @@ def main():
     cursor = 0.0
     cuts = []           # casy strihov -> jemne zvukove efekty
     first_broll = None  # loop-bookend: posledny zaber = prvy -> plynuly loop
+    last_broll = None   # never-glow: posledny uspesny zaber
     used_ids = set()    # ID klipov uz pouzitych v tomto videu -> ziadne opakovanie
     loop_end = cfg.get("loop_bookend", True)
     last_i = len(segments) - 1
@@ -763,12 +764,16 @@ def main():
                 broll, vid = first_broll, None      # bookend: koniec = zaciatok
             else:
                 broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
-            if i == 0:
+            if not broll:
+                broll = last_broll or first_broll
+                if broll:
+                    print("       (bez zhody -> zopakujem predosly zaber, nie glow)")
+            if i == 0 and broll:
                 first_broll = broll
+            if broll:
+                last_broll = broll
             if vid is not None:
                 used_ids.add(vid)
-            if not broll and seg.get("keywords"):
-                print(f"       (bez B-roll -> fallback pozadie)")
             render_segment(i, audio, dur, broll, cfg, tmp)
         for (o, d, txt) in words:
             all_words.append((cursor + o, d, txt))
