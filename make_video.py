@@ -228,24 +228,23 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
         orient = "portrait" if int(cfg.get("height", 1920)) >= int(cfg.get("width", 1080)) else "landscape"
         kw_tokens = keyword_tokens(keywords)
 
-        def search(q):
-            params = {"query": q, "per_page": 40, "orientation": orient}
-            try:
-                r = requests.get("https://api.pexels.com/videos/search", params=params,
-                                 headers={"Authorization": key}, timeout=30)
-                r.raise_for_status()
-                vids = r.json().get("videos", [])
-            except Exception:
-                vids = []
-            if not vids:  # fallback: akakolvek orientacia
+        import time
+        def _get(params):
+            for attempt in range(2):
                 try:
-                    r = requests.get("https://api.pexels.com/videos/search",
-                                     params={"query": q, "per_page": 40},
+                    r = requests.get("https://api.pexels.com/videos/search", params=params,
                                      headers={"Authorization": key}, timeout=30)
+                    if r.status_code == 429:          # rate limit -> kratky backoff a skus raz
+                        time.sleep(3); continue
                     r.raise_for_status()
-                    vids = r.json().get("videos", [])
+                    return r.json().get("videos", [])
                 except Exception:
-                    vids = []
+                    return []
+            return []
+        def search(q):
+            vids = _get({"query": q, "per_page": 40, "orientation": orient})
+            if not vids:  # fallback: akakolvek orientacia
+                vids = _get({"query": q, "per_page": 40})
             return vids
 
         # nazbieraj kandidatov zo VSETKYCH dotazov (dedup), vyber NAJlepsi (zhoda s temou, potom rozlisenie)
@@ -853,8 +852,13 @@ def main():
                 broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
             if not broll:
                 broll = last_broll or first_broll
+                if not broll:                     # este niet ziadneho zaberu -> vseobecny fallback dotaz (NIKDY neon)
+                    fq = cfg.get("broll_fallback_query", "abstract background motion")
+                    broll, fvid = get_broll(fq, cfg, broll_dir, used_ids)
+                    if fvid is not None:
+                        used_ids.add(fvid)
                 if broll:
-                    print("       (bez zhody -> zopakujem predosly zaber, nie glow)")
+                    print("       (bez zhody -> nahradny zaber, nie glow)")
             if i == 0 and broll:
                 first_broll = broll
             if broll:
