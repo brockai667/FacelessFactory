@@ -112,6 +112,8 @@ def build_prompt(n, existing_titles, trending=None):
         "Emoji ONLY in the description text, NEVER inside any segment 'text' (spoken captions).\n"
         "- hashtags: 6-8 relevant tags including #facts #shorts #fyp.\n"
         f"- Do NOT reuse any of these existing titles: {existing_titles}\n"
+        "- Do NOT repeat the same SUBJECT, fact or concept as any existing title above, even reworded, "
+        "renumbered or from a different angle. Every topic must be a genuinely DIFFERENT idea.\n"
         "- HOOK RULE (critical for retention): segment 1 must be the single most shocking, "
         "curiosity-gap opener that makes the viewer unable to scroll. Under 10 words, no "
         "setup, lead with the most surprising fact or claim.\n"
@@ -186,6 +188,31 @@ def valid(t):
     return True
 
 
+_STOP = {"why", "your", "the", "is", "a", "of", "you", "that", "are", "and", "to", "in",
+         "on", "how", "this", "for", "with", "it", "its", "can", "cant", "not", "be", "do",
+         "than", "them", "their", "own", "what", "when", "was", "were", "has", "have", "from",
+         "more", "most", "just", "every", "an", "as", "or", "but", "so", "hidden", "secret",
+         "surprising", "truth", "facts", "fact", "these", "there", "they"}
+
+
+def _sig(title):
+    return set(w for w in re.findall(r"[a-z]+", str(title).lower()) if len(w) > 2 and w not in _STOP)
+
+
+def _too_similar(sig, existing_sigs):
+    if not sig:
+        return False
+    for es in existing_sigs:
+        if not es:
+            continue
+        inter = len(sig & es)
+        if inter >= 3:
+            return True
+        if inter >= 2 and inter / (len(sig | es) or 1) >= 0.5:
+            return True
+    return False
+
+
 def main():
     """Ak je nepouzitych tem v banke menej ako TARGET, dogeneruje nove cez GitHub Models
     (volitelne inspirovane aktualnymi trendami) a zapise ich do topics_bank.json.
@@ -216,11 +243,16 @@ def main():
         print(f"CHYBA: generovanie novych tem zlyhalo ({str(e)[:200]}), banka ostava nezmenena.")
         return
     added = 0
+    existing_sigs = [_sig(x) for x in titles]
     for t in items:
         if not valid(t) or t["title"] in titles:
             continue
+        _s = _sig(t["title"])
+        if _too_similar(_s, existing_sigs):   # ta ista TEMA (iny nazov) -> preskoc (ziadne opakovanie)
+            print("  preskocene (podobna tema):", t["title"]); continue
         bank.append(t)
         titles.add(t["title"])
+        existing_sigs.append(_s)
         added += 1
     with open(BANK, "w", encoding="utf-8") as f:
         json.dump(bank, f, ensure_ascii=False, indent=2)
