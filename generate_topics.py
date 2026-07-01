@@ -189,8 +189,12 @@ def main():
     if not TOKEN:
         print("CHYBA: chyba MODELS_TOKEN/GITHUB_TOKEN")
         sys.exit(1)
-    bank = json.load(open(BANK, encoding="utf-8"))
-    used = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else []
+    with open(BANK, encoding="utf-8") as f:
+        bank = json.load(f)
+    used = []
+    if os.path.exists(STATE):
+        with open(STATE, encoding="utf-8") as f:
+            used = json.load(f)
     titles = {t["title"] for t in bank}
     unused = [t for t in bank if t["title"] not in used]
     need = TARGET - len(unused)
@@ -208,7 +212,8 @@ def main():
         bank.append(t)
         titles.add(t["title"])
         added += 1
-    json.dump(bank, open(BANK, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    with open(BANK, "w", encoding="utf-8") as f:
+        json.dump(bank, f, ensure_ascii=False, indent=2)
     print(f"Pridanych {added} novych tem. Banka ma teraz {len(bank)} tem.")
 
 

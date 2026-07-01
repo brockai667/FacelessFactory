@@ -22,13 +22,20 @@ STATE = os.path.join(ROOT, "used_topics.json")
 
 
 def slug(t):
+    """Prevedie nazov temy na bezpecny nazov suboru: lowercase, nealfanum. znaky -> '_', max 50 znakov."""
     return re.sub(r"[^a-z0-9]+", "_", t.lower()).strip("_")[:50] or "video"
 
 
 def main():
+    """Vezme prvych N nepouzitych tem z banky, vyrenderuje kazdu cez make_video.py a oznaci
+    ako pouzitu (used_topics.json) len ak render uspel - zlyhane sa skusia znova nabuduce."""
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 10
-    bank = json.load(open(BANK, encoding="utf-8"))
-    used = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else []
+    with open(BANK, encoding="utf-8") as f:
+        bank = json.load(f)
+    used = []
+    if os.path.exists(STATE):
+        with open(STATE, encoding="utf-8") as f:
+            used = json.load(f)
 
     remaining = [t for t in bank if t["title"] not in used]
     if not remaining:
@@ -50,7 +57,8 @@ def main():
         if r.returncode == 0:
             made.append(title)
             used.append(title)
-            json.dump(used, open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+            with open(STATE, "w", encoding="utf-8") as sf:
+                json.dump(used, sf, ensure_ascii=False, indent=2)
         else:
             print(f"[CHYBA] render zlyhal pre: {title}")
 

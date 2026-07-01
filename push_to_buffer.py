@@ -153,9 +153,11 @@ def build_mutation(service):
 
 
 def read_txt(txt_path):
+    """Nacita popis videa (.txt vedla .mp4): prvy riadok = title, zvysok = telo popisu (max 2000 znakov)."""
     if not os.path.exists(txt_path):
         return "", ""
-    lines = open(txt_path, encoding="utf-8").read().split("\n")
+    with open(txt_path, encoding="utf-8") as f:
+        lines = f.read().split("\n")
     title = lines[0].strip() if lines else ""
     body = "\n".join(lines[1:]).strip()
     return title, body[:2000]
@@ -165,7 +167,8 @@ def load_pushed():
     """Vrati {filename: [sluzby_kde_uz_doslo]}. Migruje staru schemu (zoznam mien)."""
     if not os.path.exists(PUSHED):
         return {}
-    data = json.load(open(PUSHED, encoding="utf-8"))
+    with open(PUSHED, encoding="utf-8") as f:
+        data = json.load(f)
     if isinstance(data, list):
         # stara schema: ber kazde video ako hotove na vsetkych sluzbach (ziadne duplicity)
         return {name: sorted(WANT_SERVICES) for name in data}
@@ -173,7 +176,9 @@ def load_pushed():
 
 
 def save_pushed(pushed):
-    json.dump(pushed, open(PUSHED, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    """Ulozi stav odoslanych videi (filename -> zoznam sluzieb, kde uz bolo publikovane)."""
+    with open(PUSHED, "w", encoding="utf-8") as f:
+        json.dump(pushed, f, ensure_ascii=False, indent=2)
 
 
 def create_post(token, service, channel_id, text, url, title, due):
