@@ -129,3 +129,12 @@ pushol tak ako boli (`git push origin main` → `9394896..30acdd0`) namiesto ich
 Záver: zadanie (testy na čisté funkcie + edge cases, oprava bugov/dead code/retry+fallback,
 docstringy, README sekcie) je k `30acdd0` kompletne splnené. Nereplikoval som opäť do ostatných
 *Factory repozitárov (rovnaké zdôvodnenie ako vyššie — mimo scope tejto úlohy).
+
+**Poznámka k `0ad343c`**: pri commitovaní tohto dodatku bol vo working tree navyše nekomitnutý
+stav od iného súbežne bežiaceho procesu na tomto stroji (rovnaký vzor ako merge s `a12da92`
+vyššie) — reálny bugfix v `push_to_buffer.main()` (zlyhaný upload kradol publikačný slot ďalšiemu
+videu, teraz sa `slot_idx` posúva len pri úspešnom uploade + pribudol regresný test), plus
+retry/fallback doplnky v `cleanup_cloudinary.py`/`generate_batch.py`/`retry_failed.py`. Overil
+som, že sa to omylom pribalilo do môjho `git add`, skontroloval diff aj že `python -m unittest
+discover -s tests -t .` prejde (139 testov, OK) a nechal to tak, keďže je to v súlade so zadaním
+a nerozbité — netreba to vracať.
