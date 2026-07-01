@@ -17,6 +17,7 @@ import json
 import os
 import re
 import ssl
+import time
 import urllib.parse
 import urllib.request
 
@@ -25,10 +26,20 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 _CTX = ssl._create_unverified_context()
 
 
-def _get(url, headers=None, timeout=20):
+def _get(url, headers=None, timeout=20, attempts=2):
+    """HTTP GET s textovou odpovedou. Kratky retry (siete Reddit/YouTube casto zapichnu na 1 pokus);
+    volajuci si aj tak vsetko chrani vlastnym try/except (best-effort zdroj)."""
     req = urllib.request.Request(url, headers=headers or {"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=timeout, context=_CTX) as r:
-        return r.read().decode("utf-8", "replace")
+    last_err = None
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout, context=_CTX) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            last_err = e
+            if attempt < attempts - 1:
+                time.sleep(1.5)
+    raise last_err
 
 
 def _clean(title):

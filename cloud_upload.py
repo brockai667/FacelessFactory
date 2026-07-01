@@ -2,27 +2,29 @@
 """Nahra jedno video na Cloudinary a vypise verejnu HTTPS URL.
 Pouzitie: python cloud_upload.py output/nazov.mp4
 """
-import json
 import os
 import sys
 
-import cloudinary
-import cloudinary.uploader
-
-ROOT = os.path.dirname(os.path.abspath(__file__))
 import appconfig
-cfg = appconfig.load()
-cloudinary.config(
-    cloud_name=cfg["cloudinary_cloud_name"],
-    api_key=cfg["cloudinary_api_key"],
-    api_secret=cfg["cloudinary_api_secret"],
-    secure=True,
-)
+from push_to_buffer import upload_cloudinary
 
-path = sys.argv[1]
-public_id = os.path.splitext(os.path.basename(path))[0]
-res = cloudinary.uploader.upload_large(
-    path, resource_type="video", folder="facelessfactory",
-    public_id=public_id, use_filename=True, unique_filename=False, overwrite=True,
-)
-print(res["secure_url"])
+
+def main():
+    if len(sys.argv) < 2:
+        print("Pouzitie: python cloud_upload.py output/nazov.mp4")
+        sys.exit(1)
+    path = sys.argv[1]
+    if not os.path.exists(path):
+        print(f"CHYBA: subor neexistuje: {path}")
+        sys.exit(1)
+    cfg = appconfig.load()
+    try:
+        url = upload_cloudinary(cfg, path)
+    except Exception as e:
+        print(f"CHYBA: upload na Cloudinary zlyhal: {str(e)[:300]}")
+        sys.exit(1)
+    print(url)
+
+
+if __name__ == "__main__":
+    main()

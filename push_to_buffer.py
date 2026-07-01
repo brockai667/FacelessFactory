@@ -29,14 +29,15 @@ YT_CATEGORY = "27"  # Education
 SLOT_HOURS = [8, 15, 20]  # presne casy publikovania (Europe/Bratislava)
 
 
-def next_slots(n):
-    """Vrati n najblizsich buducich casov 08:00/15:00/20:00 (Bratislava) ako ISO UTC."""
+def next_slots(n, now=None):
+    """Vrati n najblizsich buducich casov 08:00/15:00/20:00 (Bratislava) ako ISO UTC.
+    'now' je volitelny (pre testy); default = aktualny cas Europe/Bratislava."""
     try:
         from zoneinfo import ZoneInfo
         tz = ZoneInfo("Europe/Bratislava")
     except Exception:
         tz = datetime.timezone(datetime.timedelta(hours=2))
-    now = datetime.datetime.now(tz)
+    now = now.astimezone(tz) if now is not None else datetime.datetime.now(tz)
     out, day = [], 0
     while len(out) < n:
         for h in SLOT_HOURS:
@@ -54,17 +55,27 @@ def load_cfg():
     return appconfig.load()
 
 
-def gql(token, query, variables=None):
-    r = requests.post(
-        BUFFER_API,
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-        json={"query": query, "variables": variables or {}},
-        timeout=60,
-    )
-    data = r.json()
-    if "errors" in data:
-        raise RuntimeError(json.dumps(data["errors"], indent=2))
-    return data["data"]
+def gql(token, query, variables=None, attempts=3):
+    """GraphQL volanie na Buffer API. Retry len na PRECHODNE sietove chyby (timeout/connection) -
+    aplikacne chyby (napr. GraphQL 'errors') sa neopakuju, lebo by len znova zlyhali rovnako."""
+    last_err = None
+    for attempt in range(attempts):
+        try:
+            r = requests.post(
+                BUFFER_API,
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                json={"query": query, "variables": variables or {}},
+                timeout=60,
+            )
+            data = r.json()
+            if "errors" in data:
+                raise RuntimeError(json.dumps(data["errors"], indent=2))
+            return data["data"]
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+            last_err = e
+            if attempt < attempts - 1:
+                time.sleep(2 * (attempt + 1))
+    raise last_err
 
 
 def get_channels(token):
@@ -77,7 +88,9 @@ def get_channels(token):
     return chans
 
 
-def upload_cloudinary(cfg, path):
+def upload_cloudinary(cfg, path, attempts=3):
+    """Nahra video na Cloudinary, s niekolkymi pokusmi (velky upload cez nespolahlivu siet
+    casto zlyha na jeden raz). Vyhodi poslednu chybu ak zlyhaju vsetky pokusy."""
     import cloudinary
     import cloudinary.uploader
     cloudinary.config(
@@ -87,11 +100,19 @@ def upload_cloudinary(cfg, path):
         secure=True,
     )
     public_id = os.path.splitext(os.path.basename(path))[0]
-    res = cloudinary.uploader.upload_large(
-        path, resource_type="video", folder="facelessfactory",
-        public_id=public_id, use_filename=True, unique_filename=False, overwrite=True,
-    )
-    return res["secure_url"]
+    last_err = None
+    for attempt in range(attempts):
+        try:
+            res = cloudinary.uploader.upload_large(
+                path, resource_type="video", folder="facelessfactory",
+                public_id=public_id, use_filename=True, unique_filename=False, overwrite=True,
+            )
+            return res["secure_url"]
+        except Exception as e:
+            last_err = e
+            if attempt < attempts - 1:
+                time.sleep(3 * (attempt + 1))
+    raise last_err
 
 
 def build_mutation(service):
@@ -229,7 +250,11 @@ def main():
         yt_title = (title + " #shorts")[:100]
         print(f"\n=== {vid} ===  (cas {due}; chyba: {', '.join(c['service'] for c in pending)})")
         print("  nahravam na Cloudinary...")
-        url = upload_cloudinary(cfg, mp4)
+        try:
+            url = upload_cloudinary(cfg, mp4)
+        except Exception as e:
+            print(f"  CHYBA: upload na Cloudinary zlyhal ({str(e)[:160]}) -> preskakujem toto video, pokracujem dalsim")
+            continue
         for c in pending:
             svc = c["service"].lower()
             t = yt_title if svc == "youtube" else title

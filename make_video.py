@@ -15,14 +15,12 @@ Pouzitie:
 
 import argparse
 import asyncio
-import hashlib
 import json
 import os
 import random
 import re
 import subprocess
 import sys
-import tempfile
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -148,11 +146,71 @@ def trim_trailing_silence(ff, src, dst, gap=0.12):
 
 
 # ----------------------------------------------------------------------------- B-roll (Pexels)
+def keyword_tokens(keywords):
+    """Rozlozi 'keywords' na anglicke tokeny dlzky > 2 znaky (pre relevance scoring)."""
+    return [w for w in re.findall(r"[a-z]+", (keywords or "").lower()) if len(w) > 2]
+
+
+def slug_words(video):
+    """Vytiahne slova z URL-slugu Pexels klipu (napr. .../video/ocean-waves-123 -> {ocean, waves})."""
+    seg = (video.get("url") or "").rstrip("/").split("/video/")[-1]
+    return set(w for w in re.findall(r"[a-z]+", seg.lower()) if len(w) > 2)
+
+
+def relevance(video, kw_tokens):
+    """Kolko keywordov sa nachadza v popisnom slugu klipu (vyssie = lepsia zhoda s temou)."""
+    return sum(1 for k in kw_tokens if k in slug_words(video))
+
+
+def res_rank(f):
+    """Zoradi video_files: preferuj najvyssie rozlisenie <=2160p, extremne vysoke (>2160p) az posledne."""
+    h = f.get("height") or 0
+    return (0, -h) if h <= 2160 else (1, h)
+
+
+def build_query_ladder(keywords):
+    """Query ladder: cely dotaz -> prve 2 slova -> posledne 2 slova -> jednotlive slova (>3 znaky).
+    Graceful degradacia ked je dotaz uzky/specificky a Pexels nema dost vysledkov. Cap na 5 dotazov."""
+    words = (keywords or "").split()
+    ladder = [keywords]
+    if len(words) >= 3:
+        ladder.append(" ".join(words[:2]))
+        ladder.append(" ".join(words[-2:]))
+    for w in words:
+        if len(w) > 3 and w not in ladder:
+            ladder.append(w)
+    return ladder[:5]
+
+
+def select_best_candidate(pool):
+    """Z poolu {vid: (relevance, files, height)} vyber najlepsi: najvyssia zhoda s temou,
+    potom najvyssie rozlisenie (orezane na 2160p). Vrati vid alebo None ak je pool prazdny."""
+    if not pool:
+        return None
+    return max(pool, key=lambda k: (pool[k][0], min(pool[k][2], 2160)))
+
+
+def _download_with_retry(url, timeout=120, attempts=3, backoff=2.0):
+    """GET s binarnym obsahom, s niekolkymi pokusmi (siet je nespolahliva). Vyhodi poslednu chybu."""
+    import time
+    import requests
+    last_err = None
+    for attempt in range(attempts):
+        try:
+            r = requests.get(url, timeout=timeout)
+            r.raise_for_status()
+            return r.content
+        except Exception as e:
+            last_err = e
+            if attempt < attempts - 1:
+                time.sleep(backoff * (attempt + 1))
+    raise last_err
+
+
 def get_broll(keywords, cfg, broll_dir, used_ids):
     """Vrati (cesta, clip_id) k B-roll klipu, ktory NAJLEPSIE sedi na keywords a este nebol pouzity.
     Vyber: Pexels search -> preusporiadanie podla zhody URL-slugu s keywords (aby zaber sedel s textom,
     nie len prvy "relevantny" vysledok) + query ladder ked je dotaz uzky. Dedup podla ID. Inak (None, None)."""
-    import re
     key = cfg.get("pexels_api_key", "").strip()
     if not key or not keywords:
         return None, None
@@ -160,7 +218,7 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
         import requests
 
         orient = "portrait" if int(cfg.get("height", 1920)) >= int(cfg.get("width", 1080)) else "landscape"
-        kw_tokens = [w for w in re.findall(r"[a-z]+", keywords.lower()) if len(w) > 2]
+        kw_tokens = keyword_tokens(keywords)
 
         def search(q):
             params = {"query": q, "per_page": 40, "orientation": orient}
@@ -182,32 +240,9 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
                     vids = []
             return vids
 
-        def slug_words(v):
-            seg = (v.get("url") or "").rstrip("/").split("/video/")[-1]
-            return set(w for w in re.findall(r"[a-z]+", seg.lower()) if len(w) > 2)
-
-        def relevance(v):  # kolko keywordov sa nachadza v popisnom slugu klipu
-            return sum(1 for k in kw_tokens if k in slug_words(v))
-
-        def res_rank(f):
-            h = f.get("height") or 0
-            return (0, -h) if h <= 2160 else (1, h)
-
-        # query ladder: cely dotaz -> prve 2 slova -> hlavne slovo (graceful degradacia ked je dotaz uzky)
-        # ROZSIRENA kniznica: viac dotazov (cela fraza + dvojice + jednotlive slova) -> sirsi vyber
-        words = keywords.split()
-        ladder = [keywords]
-        if len(words) >= 3:
-            ladder.append(" ".join(words[:2]))
-            ladder.append(" ".join(words[-2:]))
-        for w in words:
-            if len(w) > 3 and w not in ladder:
-                ladder.append(w)
-        ladder = ladder[:5]                           # cap kvoty API
-
         # nazbieraj kandidatov zo VSETKYCH dotazov (dedup), vyber NAJlepsi (zhoda s temou, potom rozlisenie)
         pool = {}  # vid -> (relevance, files, height)
-        for q in ladder:
+        for q in build_query_ladder(keywords):
             for v in search(q):
                 vid = v.get("id")
                 if vid in used_ids or vid in pool:
@@ -216,14 +251,14 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
                 if not files:
                     continue
                 files.sort(key=res_rank)
-                pool[vid] = (relevance(v), files, files[0].get("height") or 0)
-        if not pool:
+                pool[vid] = (relevance(v, kw_tokens), files, files[0].get("height") or 0)
+        vid = select_best_candidate(pool)
+        if vid is None:
             return None, None
-        vid = max(pool, key=lambda k: (pool[k][0], min(pool[k][2], 2160)))
         files = pool[vid][1]
         cache = os.path.join(broll_dir, f"{vid}.mp4")
         if not os.path.exists(cache):
-            data = requests.get(files[0]["link"], timeout=120).content
+            data = _download_with_retry(files[0]["link"])
             with open(cache, "wb") as f:
                 f.write(data)
         return cache, vid
@@ -339,6 +374,29 @@ def secs_to_ass(t):
     return f"{h}:{m:02d}:{s:02d}.{cs:02d}"
 
 
+def apply_case(text, case):
+    """Aplikuje pismenkovy styl na text titulku: 'upper' | 'lower' | inak (sentence/asis) nezmeneny."""
+    if case == "upper":
+        return text.upper()
+    if case == "lower":
+        return text.lower()
+    return text
+
+
+def apply_lead(words, lead):
+    """Posunie casovanie kazdeho slova o 'lead' sekund dopredu (nikdy pod 0), aby titulky
+    nepôsobili oneskorene voci hlasu. words: [(start, duration, text), ...]."""
+    if not lead:
+        return words
+    return [(max(0.0, s - lead), d, t) for (s, d, t) in words]
+
+
+def chunk_words(words, per):
+    """Rozdeli zoznam (start, duration, text) do skupin po 'per' slovach (riadky titulkov)."""
+    per = max(1, per)
+    return [words[j:j + per] for j in range(0, len(words), per)]
+
+
 def build_ass(all_words, cfg, path):
     W, H = cfg["width"], cfg["height"]
     fs = cfg.get("caption_fontsize", 82)
@@ -354,13 +412,6 @@ def build_ass(all_words, cfg, path):
     align = int(cfg.get("caption_alignment", 2))          # 2=dole, 8=hore, 5=stred (ASS numpad)
     case = cfg.get("caption_case", "upper")               # upper | lower | sentence/asis (bez zmeny)
     fade_ms = int(cfg.get("caption_fade_ms", 0))          # jemny fade-in slova (Style C elegancia)
-
-    def _case(s):
-        if case == "upper":
-            return s.upper()
-        if case == "lower":
-            return s.lower()
-        return s                                          # sentence/asis -> nechaj ako v scenari
 
     if style == "box":
         # BorderStyle=3 = nepriehladny BOX za textom; box zapneme len na aktivnom slove
@@ -405,9 +456,8 @@ def build_ass(all_words, cfg, path):
         return f"{{\\alpha&HFF&}}{word}{{\\r}}"
 
     lead = float(cfg.get("caption_lead", 0.0))            # mierny predstih -> titulky nepôsobia oneskorene
-    if lead:
-        all_words = [(max(0.0, s - lead), d, t) for (s, d, t) in all_words]
-    chunks = [all_words[j:j + per] for j in range(0, len(all_words), per)]
+    all_words = apply_lead(all_words, lead)
+    chunks = chunk_words(all_words, per)
     lines = []
     for ci, chunk in enumerate(chunks):
         next_start = chunks[ci + 1][0][0] if ci + 1 < len(chunks) else chunk[-1][0] + chunk[-1][1]
@@ -418,7 +468,7 @@ def build_ass(all_words, cfg, path):
                 ev_end = ev_start + 0.15
             parts = []
             for k, w in enumerate(chunk):
-                word = _case(w[2]).replace("\n", " ").replace("{", "(").replace("}", ")")
+                word = apply_case(w[2], case).replace("\n", " ").replace("{", "(").replace("}", ")")
                 if not word.strip():
                     continue                                  # preskoc prazdne tokeny (inak prazdny box)
                 state = "active" if k == wi else ("past" if k < wi else "future")
@@ -440,6 +490,13 @@ def build_ass(all_words, cfg, path):
             lines.append(f"Dialogue: 0,{secs_to_ass(ev_start)},{secs_to_ass(ev_end)},Default,,0,0,0,,{text}")
     with open(path, "w", encoding="utf-8") as f:
         f.write(header + "\n".join(lines) + "\n")
+
+
+def advance_cursor(cursor, i, duration):
+    """Posunie casovu os o dalsi segment. Vrati (novy_cursor, cas_strihu_alebo_None).
+    Strih (pre SFX) sa pocita na ZACIATKU kazdeho segmentu okrem prveho (i==0 nema predchadzajuci strih)."""
+    cut = cursor if i > 0 else None
+    return cursor + duration, cut
 
 
 # ----------------------------------------------------------------------------- assembly
@@ -524,21 +581,30 @@ def _ensure_cinematic_music(music_dir, cfg):
             p = os.path.join(music_dir, f"cine_{tid}.mp3")
             if os.path.exists(p) and os.path.getsize(p) > 100000:
                 continue
-            try:
-                data = _u.urlopen(_u.Request(f"https://assets.mixkit.co/music/{tid}/{tid}.mp3", headers=ua),
-                                  context=ctx, timeout=120).read()
-                with open(p, "wb") as f:
-                    f.write(data)
-            except Exception:
-                pass
+            import time
+            for attempt in range(3):
+                try:
+                    data = _u.urlopen(_u.Request(f"https://assets.mixkit.co/music/{tid}/{tid}.mp3", headers=ua),
+                                      context=ctx, timeout=120).read()
+                    with open(p, "wb") as f:
+                        f.write(data)
+                    break
+                except Exception:
+                    if attempt < 2:
+                        time.sleep(2 * (attempt + 1))
     except Exception:
         pass
+
+
+def is_emphasized(word_upper, emph_set):
+    """True ak slovo (uz v UPPERCASE) ma byt zvyraznene zltou: obsahuje cislicu, je v emph_set,
+    alebo obsahuje '$' (peniaze). Pouzite pre POP titulky (kluc. slova pre virality)."""
+    return bool(re.search(r"\d", word_upper)) or word_upper in emph_set or "$" in word_upper
 
 
 def build_ass_pop(all_words, cfg, path):
     """PRO animovane titulky: jedno velke slovo, pop-scale animacia, kluc. slova zltou.
     Pouziva existujuce casovanie slov (all_words) - ziadny novy dependency. Reel-pro styl."""
-    import re
     W, H = cfg["width"], cfg["height"]
     font = cfg.get("caption_font", "Poppins")
     fs = int(cfg.get("caption_pop_fontsize", 116))
@@ -564,7 +630,7 @@ def build_ass_pop(all_words, cfg, path):
         f"Style: P,{font},{fs},&H00{txt},&H00{txt},&H00000000,&H64000000,-1,0,0,0,100,100,0,0,1,9,3,{align},80,80,{mv},1\n\n"
         "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
 
-    words = [(max(0.0, s - lead), d, t) for (s, d, t) in all_words]
+    words = apply_lead(all_words, lead)
     ev = []
     for i, (st, du, word) in enumerate(words):
         w = (word or "").strip().replace("{", "(").replace("}", ")").replace("\n", " ")
@@ -574,7 +640,7 @@ def build_ass_pop(all_words, cfg, path):
         end = words[i + 1][0] if i + 1 < len(words) else st + du
         if end <= st:
             end = st + 0.2
-        emph = bool(re.search(r"\d", up)) or up in emph_set or "$" in up
+        emph = is_emphasized(up, emph_set)
         col = hl if emph else txt
         tag = ("{\\fad(24,24)\\fscx52\\fscy52\\t(0,90,\\fscx112\\fscy112)"
                "\\t(90,150,\\fscx100\\fscy100)\\1c&H" + col + "&}")
@@ -772,9 +838,9 @@ def main():
             render_segment(i, audio, dur, broll, cfg, tmp)
         for (o, d, txt) in words:
             all_words.append((cursor + o, d, txt))
-        if i > 0:
-            cuts.append(cursor)                 # strih na zaciatku tohto segmentu
-        cursor += dur
+        cursor, cut = advance_cursor(cursor, i, dur)
+        if cut is not None:
+            cuts.append(cut)
         seg_files.append(os.path.join(tmp, f"seg_{i:03d}.mp4"))
 
     print(f"  Skladam {len(seg_files)} segmentov (dlzka ~{cursor:.1f}s)...")

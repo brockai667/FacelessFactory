@@ -79,6 +79,8 @@ EXAMPLE = {
 
 
 def build_prompt(n, existing_titles, trending=None):
+    """Zostavi user-prompt pre call_model(): poziada o 'n' novych tem, vyluci existujuce
+    titulky (existing_titles) a volitelne prida trending sekciu (viz _trend_block)."""
     trend_block = _trend_block(trending)
     return (
         f"Generate {n} NEW faceless short-form 'facts' video topics for TikTok / Reels / YouTube Shorts.\n"
@@ -115,26 +117,46 @@ def build_prompt(n, existing_titles, trending=None):
     )
 
 
-def call_model(user_text):
-    r = requests.post(
-        BASE.rstrip("/") + "/chat/completions",
-        headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
-        json={
-            "model": MODEL,
-            "temperature": 0.95,
-            "messages": [
-                {"role": "system", "content": SYSTEM},
-                {"role": "user", "content": user_text},
-            ],
-        },
-        timeout=180,
-    )
-    if r.status_code >= 400:
-        raise RuntimeError(f"Models API {r.status_code}: {r.text[:500]}")
-    return r.json()["choices"][0]["message"]["content"]
+def call_model(user_text, attempts=3):
+    """Zavola GitHub Models chat-completion API a vrati text odpovede.
+    Retry na 429 (rate limit) a 5xx (prechodne server chyby) aj na sietove vypadky;
+    4xx (napr. zla autorizacia) sa neopakuva, lebo by len znova zlyhalo rovnako."""
+    last_err = None
+    for attempt in range(attempts):
+        try:
+            r = requests.post(
+                BASE.rstrip("/") + "/chat/completions",
+                headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
+                json={
+                    "model": MODEL,
+                    "temperature": 0.95,
+                    "messages": [
+                        {"role": "system", "content": SYSTEM},
+                        {"role": "user", "content": user_text},
+                    ],
+                },
+                timeout=180,
+            )
+            if r.status_code == 429 or r.status_code >= 500:
+                raise RuntimeError(f"Models API {r.status_code}: {r.text[:500]}")
+            if r.status_code >= 400:
+                raise RuntimeError(f"Models API {r.status_code} (neopakuje sa): {r.text[:500]}")
+            return r.json()["choices"][0]["message"]["content"]
+        except requests.exceptions.RequestException as e:
+            last_err = e
+        except RuntimeError as e:
+            last_err = e
+            if "neopakuje sa" in str(e):
+                raise
+        if attempt < attempts - 1:
+            import time
+            time.sleep(3 * (attempt + 1))
+    raise last_err
 
 
 def extract_json(s):
+    """Vytiahne JSON pole z odpovede modelu: odstrani markdown code-fence (```json ... ```)
+    ak je pritomny a orezie na prvu '[' a poslednu ']' (model niekedy prida komentar okolo)."""
     s = s.strip()
     s = re.sub(r"^```(?:json)?", "", s).strip()
     s = re.sub(r"```$", "", s).strip()
@@ -145,6 +167,8 @@ def extract_json(s):
 
 
 def valid(t):
+    """True ak tema 't' ma minimalnu pozadovanu strukturu (title, >=4 segmenty s text+keywords).
+    Doplni chybajuce 'description'/'hashtags' defaultmi (mutuje 't')."""
     if not isinstance(t, dict):
         return False
     if "title" not in t or "segments" not in t:
@@ -160,6 +184,8 @@ def valid(t):
 
 
 def main():
+    """Ak je nepouzitych tem v banke menej ako TARGET, dogeneruje nove cez GitHub Models
+    (volitelne inspirovane aktualnymi trendami) a zapise ich do topics_bank.json."""
     if not TOKEN:
         print("CHYBA: chyba MODELS_TOKEN/GITHUB_TOKEN")
         sys.exit(1)

@@ -10,6 +10,8 @@ URL = "https://api.buffer.com"
 
 
 def build_mutation(service):
+    """Vrati (GraphQL mutation, pouziva_title) pre dany Buffer 'service' (instagram/youtube/tiktok/ostatne).
+    Na rozdiel od push_to_buffer.py pouziva mode=addToQueue (nie presny cas) - je to obnova, nie novy plan."""
     if service == "instagram":
         meta = "metadata: { instagram: { type: reel, shouldShareToFeed: true } }"
         decl = "$channelId: ChannelId!, $text: String!, $url: String!"; ut = False
@@ -28,6 +30,7 @@ def build_mutation(service):
 
 
 def title_of(text):
+    """Odvodi kratky titulok z popisu postu: prvy riadok, orezany na prvu vetu, max 90 znakov."""
     t = text.split("\n")[0].split(". ")[0].strip()
     return t[:90] or "Daily"
 
@@ -37,17 +40,28 @@ DEL = ("mutation($id: PostId!) { deletePost(input:{id:$id}) "
 
 
 def main():
+    """Najde Buffer posty so statusom 'error', skusi ich znova zaradit do fronty
+    a pri uspechu zmaze povodny chybny zaznam."""
     cfg = appconfig.load()
     token = (cfg.get("buffer_token") or "").strip()
     if not token:
         print("retry: chyba buffer_token, koncim."); return
     H = {"Authorization": "Bearer " + token, "Content-Type": "application/json"}
 
-    def gql(q, v=None):
-        d = requests.post(URL, headers=H, json={"query": q, "variables": v or {}}, timeout=60).json()
-        if "errors" in d:
-            raise RuntimeError(json.dumps(d["errors"], ensure_ascii=False)[:300])
-        return d["data"]
+    def gql(q, v=None, attempts=3):
+        """Retry len na prechodne sietove chyby (timeout/connection), nie na aplikacne GraphQL chyby."""
+        last_err = None
+        for attempt in range(attempts):
+            try:
+                d = requests.post(URL, headers=H, json={"query": q, "variables": v or {}}, timeout=60).json()
+                if "errors" in d:
+                    raise RuntimeError(json.dumps(d["errors"], ensure_ascii=False)[:300])
+                return d["data"]
+            except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as e:
+                last_err = e
+                if attempt < attempts - 1:
+                    time.sleep(2 * (attempt + 1))
+        raise last_err
 
     try:
         org = gql("query { account { organizations { id } } }")["account"]["organizations"][0]["id"]
