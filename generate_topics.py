@@ -206,8 +206,14 @@ def main():
         return
     print(f"Nepouzitych {len(unused)} < {TARGET} -> generujem ~{need} novych tem cez {MODEL}...")
     trending = _gather_trends()
-    raw = call_model(build_prompt(need + 3, sorted(titles), trending))
-    items = extract_json(raw)
+    try:
+        raw = call_model(build_prompt(need + 3, sorted(titles), trending))
+        items = extract_json(raw)
+    except Exception as e:
+        # zly token / vycerpany retry / nevalidny JSON z modelu -> banka ostava nezmenena,
+        # dnesny beh pokracuje s existujucimi temami (netreba zhodit cely denny beh)
+        print(f"CHYBA: generovanie novych tem zlyhalo ({str(e)[:200]}), banka ostava nezmenena.")
+        return
     added = 0
     for t in items:
         if not valid(t) or t["title"] in titles:

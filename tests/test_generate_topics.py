@@ -1,6 +1,8 @@
 """Unit testy pre generate_topics.py: validacia a parsovanie generovanych tem, retry na Models API."""
+import json
 import os
 import sys
+import tempfile
 import unittest
 from unittest import mock
 
@@ -122,6 +124,53 @@ class TestCallModel(unittest.TestCase):
             with self.assertRaises(requests.exceptions.ConnectionError):
                 gt.call_model("prompt", attempts=2)
         self.assertEqual(m.call_count, 2)
+
+
+class TestMain(unittest.TestCase):
+    """main() nesmie zhodit cely denny beh na zly token / nevalidny JSON z modelu (jedna
+    zla odpoved = banka ostava nezmenena, beh pokracuje inde)."""
+
+    def _bank_with_few_unused(self, tmp):
+        bank = [{"title": f"Topic {i}", "segments": [{"text": "a", "keywords": "kw"}] * 4}
+                for i in range(3)]
+        bank_path = os.path.join(tmp, "bank.json")
+        state_path = os.path.join(tmp, "state.json")
+        with open(bank_path, "w", encoding="utf-8") as f:
+            json.dump(bank, f)
+        with open(state_path, "w", encoding="utf-8") as f:
+            json.dump([], f)
+        return bank_path, state_path, bank
+
+    def test_model_failure_does_not_crash_and_leaves_bank_unchanged(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bank_path, state_path, original_bank = self._bank_with_few_unused(tmp)
+            with mock.patch.object(gt, "BANK", bank_path), \
+                 mock.patch.object(gt, "STATE", state_path), \
+                 mock.patch.object(gt, "TOKEN", "faketoken"), \
+                 mock.patch.object(gt, "TARGET", 15), \
+                 mock.patch.object(gt, "_gather_trends", return_value=[]), \
+                 mock.patch.object(gt, "call_model", side_effect=RuntimeError("bad token")):
+                gt.main()  # nesmie vyhodit vynimku
+            with open(bank_path, encoding="utf-8") as f:
+                self.assertEqual(json.load(f), original_bank)
+
+    def test_malformed_json_from_model_does_not_crash(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bank_path, state_path, original_bank = self._bank_with_few_unused(tmp)
+            with mock.patch.object(gt, "BANK", bank_path), \
+                 mock.patch.object(gt, "STATE", state_path), \
+                 mock.patch.object(gt, "TOKEN", "faketoken"), \
+                 mock.patch.object(gt, "TARGET", 15), \
+                 mock.patch.object(gt, "_gather_trends", return_value=[]), \
+                 mock.patch.object(gt, "call_model", return_value="not valid json {{{"):
+                gt.main()
+            with open(bank_path, encoding="utf-8") as f:
+                self.assertEqual(json.load(f), original_bank)
+
+    def test_missing_token_exits_without_traceback(self):
+        with mock.patch.object(gt, "TOKEN", ""):
+            with self.assertRaises(SystemExit):
+                gt.main()
 
 
 if __name__ == "__main__":
