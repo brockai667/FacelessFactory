@@ -46,8 +46,8 @@
   "ffmpeg": "ffmpeg",
   "ffprobe": "ffprobe",
   "caption_style": "box",
-  "caption_highlight_hex": "F66D2D",
-  "caption_box_hex": "F66D2D",
+  "caption_highlight_hex": "FFE500",
+  "caption_box_hex": "FFE500",
   "caption_text_hex": "FFFFFF",
   "caption_pop_scale": 110,
   "brand_primary": "0x041014",
@@ -61,7 +61,7 @@
   "caption_lead": 0.12,
   "caption_font": "Poppins",
   "kokoro_speed": 0.92,
-  "caption_renderer": "pop",
+  "caption_renderer": "pil",
   "caption_pop_fontsize": 116,
   "caption_pop_margin_v": 560
 }
