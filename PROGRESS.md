@@ -99,4 +99,10 @@ cloud_upload, appconfig, tests/, .github/workflows).
 3. `fix: cleanup_cloudinary pouziva deprecated datetime.utcnow()`
 4. `docs: doplnene docstringy pre hlavne funkcie pipeline`
 5. `docs: README sekcia 'Ako pipeline beží' + Testovanie + aktualizovana Mapa suborov`
-6. (tento) `docs: PROGRESS.md so zaznamom rozhodnuti` + push
+6. `docs: PROGRESS.md so zaznamom rozhodnuti`
+7. `merge: integrate upstream never-glow fallback + Pexels rate-limit fix` — pri `git push` prišiel
+   nový commit `a12da92` (zrejme z iného bežiaceho procesu na tomto stroji), ktorý menil rovnaké
+   miesto v `get_broll()` (cap query ladder z 5 na 2 kôli rate-limitu) a pridal "never-glow"
+   fallback v `main()` (radšej zopakovať posledný úspešný záber než padnúť na farebný gradient).
+   Zlúčené manuálne: zachovaná moja extrakcia čistých funkcií, prevzatá ich zmena správania
+   (cap na 2) aj never-glow logika. Upravený 1 test na nový cap. Po zlúčení 127 testov OK, pushnuté.
