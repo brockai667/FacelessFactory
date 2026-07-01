@@ -18,6 +18,8 @@ ENV_MAP = {
 
 
 def load():
+    """Nacita config.json, prekry tajomstva z ENV (ak su nastavene) a opravi ffmpeg/ffprobe
+    cestu na PATH ak ulozena cesta na disku neexistuje (napr. Windows cesta spustena na Linuxe)."""
     with open(os.path.join(ROOT, "config.json"), "r", encoding="utf-8") as f:
         cfg = json.load(f)
     # prekry tajomstva z prostredia, ak su nastavene

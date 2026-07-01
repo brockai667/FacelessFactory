@@ -51,6 +51,7 @@ def next_slots(n, now=None):
 
 
 def load_cfg():
+    """Nacita config.json (+ ENV prekrytie tajomstiev) cez appconfig."""
     import appconfig
     return appconfig.load()
 
@@ -79,6 +80,8 @@ def gql(token, query, variables=None, attempts=3):
 
 
 def get_channels(token):
+    """Vrati zoznam vsetkych Buffer kanalov (vsetkych organizacii) pre dany token.
+    Pouzite len ako fallback, ak config.json neobsahuje 'buffer_channels' explicitne."""
     q = """
     query { account { organizations { id channels { id name service } } } }"""
     data = gql(token, q)
@@ -203,6 +206,8 @@ def create_post(token, service, channel_id, text, url, title, due):
 
 
 def main():
+    """Vezme najstarsie nezaradene videa z output/, nahra ich na Cloudinary a naplanuje ich
+    na najblizsie publikacne sloty (08:00/15:00/20:00 Bratislava) na vsetky Buffer kanaly."""
     args = sys.argv[1:]
     dry = "--dry-run" in args
     nums = [a for a in args if a.isdigit()]

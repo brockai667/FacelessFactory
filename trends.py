@@ -43,6 +43,8 @@ def _get(url, headers=None, timeout=20, attempts=2):
 
 
 def _clean(title):
+    """Vycisti surovy titulok (Reddit/YouTube): odstrani hashtagy, [prefixy], HTML entity a
+    prebytocne medzery/interpunkciu na krajoch."""
     t = html.unescape(title or "")
     t = re.sub(r"#\w+", " ", t)                  # preč hashtagy (#shorts, #fyp…)
     t = re.sub(r"\s+", " ", t).strip()

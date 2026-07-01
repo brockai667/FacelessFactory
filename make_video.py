@@ -30,6 +30,7 @@ PALETTE = ["0x0f172a", "0x1e1b4b", "0x172554", "0x3b0764", "0x064e3b", "0x431407
 
 # ----------------------------------------------------------------------------- helpers
 def load_config():
+    """Nacita config.json (+ ENV prekrytie tajomstiev pre cloud beh) cez appconfig."""
     import appconfig
     return appconfig.load()
 
@@ -45,18 +46,22 @@ def run(cmd):
 
 
 def probe_duration(ffprobe, path):
+    """Zisti dlzku audio/video suboru v sekundach cez ffprobe."""
     p = run([ffprobe, "-v", "error", "-show_entries", "format=duration",
              "-of", "default=noprint_wrappers=1:nokey=1", path])
     return float(p.stdout.strip())
 
 
 def slugify(text):
+    """Prevedie text na bezpecny nazov suboru: lowercase, nealfanum. znaky -> '_', max 50 znakov."""
     s = re.sub(r"[^a-zA-Z0-9]+", "_", text).strip("_").lower()
     return (s or "video")[:50]
 
 
 # ----------------------------------------------------------------------------- TTS
 async def _tts(text, voice, out_mp3, rate="+0%", pitch="+0Hz"):
+    """Vygeneruje MP3 hlas cez edge-tts a vrati presne casovanie kazdeho slova
+    [(offset_s, duration_s, slovo), ...] pre synchronizaciu titulkov."""
     import edge_tts
     words = []
     comm = edge_tts.Communicate(text, voice, rate=rate, pitch=pitch, boundary="WordBoundary")
@@ -71,6 +76,7 @@ async def _tts(text, voice, out_mp3, rate="+0%", pitch="+0Hz"):
 
 
 def tts(text, voice, out_mp3, rate="+0%", pitch="+0Hz"):
+    """Synchronny wrapper okolo _tts() (edge-tts je async)."""
     return asyncio.run(_tts(text, voice, out_mp3, rate, pitch))
 
 
@@ -78,6 +84,7 @@ _KOKORO = None
 
 
 def _kokoro_model_dir(cfg):
+    """Najde adresar s Kokoro modelom (config -> lokalny ROOT/kokoro -> znamy lokalny fallback)."""
     cands = [cfg.get("kokoro_model_dir"), os.path.join(ROOT, "kokoro"), r"C:\Users\damia\kokoro"]
     for c in cands:
         if c and os.path.exists(os.path.join(c, "kokoro-v1.0.onnx")):
@@ -269,6 +276,8 @@ def get_broll(keywords, cfg, broll_dir, used_ids):
 
 # ----------------------------------------------------------------------------- render segment
 def render_segment(i, audio_path, duration, broll_path, cfg, tmp):
+    """Vyrenderuje jeden segment (seg_NNN.mp4): B-roll s Ken Burns pohybom (alebo znackovy
+    gradient ak broll_path chyba) + priradene audio, orezane na 'duration' sekund."""
     ff = cfg["ffmpeg"]
     W, H, FPS = cfg["width"], cfg["height"], cfg["fps"]
     grade = cfg.get("color_grade", "").strip()   # jednotny vzhlad pre vsetky klipy
@@ -363,6 +372,7 @@ def render_asset_segment(i, audio_path, duration, asset_path, cfg, tmp):
 
 # ----------------------------------------------------------------------------- captions (ASS)
 def secs_to_ass(t):
+    """Formatuje sekundy na ASS casovy format 'H:MM:SS.cc' (zaporne casy oreze na 0)."""
     if t < 0:
         t = 0
     h = int(t // 3600); t -= h * 3600
@@ -398,6 +408,8 @@ def chunk_words(words, per):
 
 
 def build_ass(all_words, cfg, path):
+    """Vygeneruje .ass subor s klasickymi word-by-word titulkami (box alebo color styl,
+    zvyraznenie aktivneho slova) a ulozi ho na 'path'."""
     W, H = cfg["width"], cfg["height"]
     fs = cfg.get("caption_fontsize", 82)
     per = max(1, cfg.get("caption_words_per_line", 3))
@@ -501,6 +513,7 @@ def advance_cursor(cursor, i, duration):
 
 # ----------------------------------------------------------------------------- assembly
 def concat_segments(seg_files, cfg, tmp):
+    """Spoji vsetky segmenty (seg_NNN.mp4) do jedneho videa cez ffmpeg concat demuxer (bez rekodovania)."""
     ff = cfg["ffmpeg"]
     listfile = os.path.join(tmp, "concat.txt")
     with open(listfile, "w", encoding="utf-8") as f:
@@ -650,6 +663,7 @@ def build_ass_pop(all_words, cfg, path):
 
 
 def burn_captions(video, ass_path, out_path, cfg, tmp):
+    """'Vypali' .ass titulky natvrdo do videa (libass subtitles filter) + loudness normalizacia zvuku."""
     ff = cfg["ffmpeg"]
     # subtitles filter ma problem s ':' vo Windows ceste -> spustime s cwd=tmp a relativnym menom
     ass_rel = os.path.basename(ass_path)
@@ -665,6 +679,8 @@ def burn_captions(video, ass_path, out_path, cfg, tmp):
 
 
 def run_in(cmd, cwd):
+    """Ako run(), ale spusti prikaz v danom pracovnom adresari (cwd) - potrebne pre ffmpeg subtitles
+    filter, ktory ma problem s ':' vo Windows absolutnych cestach."""
     p = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8",
                        errors="replace", cwd=cwd)
     if p.returncode != 0:
@@ -674,6 +690,8 @@ def run_in(cmd, cwd):
 
 
 def _bgr_to_rgb(h):
+    """Prevedie ASS farebny hex (BGR poradie bajtov, napr. '&HF66D2D' alebo '#F66D2D') na RGB tuple.
+    Pri neplatnom vstupe vrati bezpecny fallback (znackova modra)."""
     h = (h or "").strip().lstrip("&H").lstrip("#")
     try:
         return (int(h[4:6], 16), int(h[2:4], 16), int(h[0:2], 16))   # ASS hex je BGR
@@ -772,6 +790,8 @@ def pil_caption_overlay(video, all_words, out_path, cfg, tmp):
 
 # ----------------------------------------------------------------------------- main
 def main():
+    """CLI vstupny bod: nacita JSON scenar, vyrenderuje kazdy segment (TTS + B-roll/asset),
+    poskladá ich, prida hudbu a SFX na strihy, vypali titulky a zapise popis + hashtagy."""
     ap = argparse.ArgumentParser()
     ap.add_argument("script", help="cesta k JSON scenaru")
     ap.add_argument("--open", action="store_true", help="otvor hotove video")

@@ -22,6 +22,8 @@ TREND_YT_QUERIES = ['amazing facts', 'mind blowing facts', 'did you know facts']
 
 
 def _gather_trends():
+    """Zavola trends.gather() (Reddit + YouTube) a vrati zoznam trending titulkov.
+    Best-effort: ak modul 'trends' chyba alebo zdroj zlyha, vrati prazdny zoznam."""
     if trends is None:
         return []
     try:
@@ -37,6 +39,7 @@ def _gather_trends():
 
 
 def _trend_block(trending):
+    """Zostavi textovu sekciu promptu s aktualnymi trendami (alebo prazdny retazec, ak ich niet)."""
     if not trending:
         return ""
     joined = "\n".join("- " + t for t in trending)

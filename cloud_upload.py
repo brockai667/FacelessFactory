@@ -10,6 +10,7 @@ from push_to_buffer import upload_cloudinary
 
 
 def main():
+    """CLI vstupny bod: precita cestu k videu z argv, nahra ho na Cloudinary (s retry) a vypise URL."""
     if len(sys.argv) < 2:
         print("Pouzitie: python cloud_upload.py output/nazov.mp4")
         sys.exit(1)
