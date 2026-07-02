@@ -67,6 +67,6 @@
   "broll_fallback_query": "abstract science nature",
   "pixabay_api_key": "",
   "visual_engine": "motion",
-  "motion_bg": "stars",
+  "motion_bg": "auto",
   "motion_style": "cinematic photograph, dark background, dramatic light, rich detail, single clear subject, no text, no watermark"
 }

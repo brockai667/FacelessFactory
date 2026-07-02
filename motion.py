@@ -207,7 +207,14 @@ class Ctx:
         self.style = cfg.get("motion_style",
                              "cinematic photograph, dark clean background, dramatic soft light, "
                              "ultra detailed, no text, no watermark")
-        self.bgmode = cfg.get("motion_bg", "stars")
+        # pozadie PODLA TEMY videa: hviezdy len ked je tema o vesmire, inak brand gradient
+        bgmode = cfg.get("motion_bg", "auto")
+        if bgmode == "auto":
+            blob = " ".join([str(spec.get("title", ""))]
+                            + [f"{s.get('keywords', '')} {s.get('text', '')}"
+                               for s in spec.get("segments", [])])
+            bgmode = "stars" if _SPACE.search(blob) else "gradient"
+        self.bgmode = bgmode
         self.brand0 = str(cfg.get("brand_primary", "0x0a0d14")).replace("0x", "#")
         self.title = re.sub(r"#\S+", "", str(spec.get("title", ""))).strip()
         self.seed = int(hashlib.md5(self.title.encode()).hexdigest()[:6], 16) % 99991
@@ -658,6 +665,11 @@ def _find_number(text):
 _PLACE = re.compile(r"\b(landscape|mountain|island|city|forest|ocean|sea|desert|valley|temple|"
                     r"ruins|beach|waterfall|canyon|village|castle|cave|lake|river|aerial|skyline|"
                     r"coast|cliff|glacier|jungle|street)\b", re.IGNORECASE)
+
+_SPACE = re.compile(r"\b(space|planet|planets|universe|galaxy|galaxies|cosmos|cosmic|stars?|"
+                    r"asteroid|comet|moon|lunar|mars|jupiter|saturn|venus|mercury|neptune|uranus|"
+                    r"solar|astronaut|nasa|orbit|black hole|nebula|meteor|telescope|alien|ufo|"
+                    r"interstellar|spacecraft|rocket)\b", re.IGNORECASE)
 
 
 def _vis_base(seg):
