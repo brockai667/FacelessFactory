@@ -221,6 +221,8 @@ class Ctx:
         self.cache = os.path.join(ROOT, "assets", "ai_cache")
         self.events = []                      # (typ, globalny_cas) pre SFX
         self.cursor = 0.0                     # globalny cas (plni make_video)
+        self.used_imgs = set()                # proti opakovaniu rovnakych obrazkov
+        self.first_img = None                 # hook obrazok -> CTA bookend (koniec = zaciatok)
         self._bg = None
         self._twk = None
         self._dust = None
@@ -500,8 +502,8 @@ def scene_callouts(ctx, dur, img_path, labels, tempo="calm", idx=0):
     CW, CH = int(W * 1.7), int(H * 1.7)
     canvas = ctx.bg_canvas(CW, CH, seed_off=idx + 3)
     if img_path:
-        jsz = int(CW * 0.76)                 # objekt mensi + vyssie -> titulky dole ho neprekryvaju
-        paste_lighten(canvas, load_img(img_path, (jsz, jsz)), CW // 2, int(CH * 0.385))
+        jsz = int(CW * 0.70)                 # objekt vyvazene v hornej polovici (nie nalepeny hore)
+        paste_lighten(canvas, load_img(img_path, (jsz, jsz)), CW // 2, int(CH * 0.42))
     big = Image.fromarray(canvas)
     spots = [((W * 0.44, H * 0.30), (W * 0.08, H * 0.10)),
              ((W * 0.60, H * 0.45), (W * 0.50, H * 0.185))]
@@ -524,10 +526,10 @@ def scene_cta(ctx, dur, img_path, brand, tempo="calm", idx=0):
     base = ctx.stars_v().copy()
     es = int(W * 0.58)
     if img_path:
-        paste_lighten(base, load_img(img_path, (es, es)), W // 2, int(H * 0.34))
+        paste_lighten(base, load_img(img_path, (es, es)), W // 2, int(H * 0.40))
     frame = Image.fromarray(base)
     n = max(2, int(dur * FPS))
-    cy = int(H * 0.34)
+    cy = int(H * 0.40)
     for fi in range(n):
         t = fi / max(1, n - 1)
         im = frame.convert("RGBA")
@@ -719,16 +721,28 @@ def render_motion_segment(i, seg, scene, audio_path, duration, cfg, tmp, ctx):
     styp = scene.get("type", "kenburns")
     tempo = "punch" if styp in ("hook", "counter") else "calm"
 
+    VIEWS = ["front view", "three-quarter view", "extreme close-up detail", "side profile view",
+             "dramatic low angle view"]
+
     def img_of(prompt, w=768, h=1344, soff=0, obj=True):
         """obj=True -> izolovany 3D render na ciernom (v9 look, komponuje sa na zive pozadie);
-        obj=False -> celoplosna scena (len kenburns/krajiny)."""
+        obj=False -> celoplosna scena (len kenburns/krajiny).
+        + variacia pohladu podla segmentu a dedup -> ziadne opakovanie rovnakych obrazkov."""
         if not prompt:
             return None
         suffix = OBJ_STYLE if obj else ctx.style
-        return ai_image(f"{prompt}. {suffix}", w, h, ctx.seed + soff, ctx.cache, obj=obj)
+        view = f", {VIEWS[i % len(VIEWS)]}" if obj else ""
+        p = ai_image(f"{prompt}{view}. {suffix}", w, h, ctx.seed + soff, ctx.cache, obj=obj)
+        if p and p in ctx.used_imgs:          # presne ten isty obrazok uz vo videu -> iny seed
+            p = ai_image(f"{prompt}{view}. {suffix}", w, h, ctx.seed + soff + 977, ctx.cache, obj=obj) or p
+        if p:
+            ctx.used_imgs.add(p)
+        return p
 
     if styp == "hook":
-        gen = scene_hook(ctx, duration, img_of(scene.get("prompt"), 896, 896, 1),
+        _hi = img_of(scene.get("prompt"), 896, 896, 1)
+        ctx.first_img = _hi                               # CTA bookend: koniec = zaciatok
+        gen = scene_hook(ctx, duration, _hi,
                          scene.get("big") or ctx.title, threat=scene.get("threat", True), idx=i)
         ctx.events.append(("boom", ctx.cursor + 0.10))
     elif styp == "counter":
@@ -757,7 +771,8 @@ def render_motion_segment(i, seg, scene, audio_path, duration, cfg, tmp, ctx):
                           img_of(scene.get("to_prompt"), 640, 640, 21),
                           scene.get("label", ""), idx=i)
     elif styp == "cta":
-        gen = scene_cta(ctx, duration, img_of(scene.get("prompt"), 768, 768, 30),
+        _ci = ctx.first_img or img_of(scene.get("prompt"), 768, 768, 30)   # bookend: hook obrazok
+        gen = scene_cta(ctx, duration, _ci,
                         cfg.get("brand_handle", "").lstrip("@") or cfg.get("brand_name", ""), idx=i)
     else:
         lab = (scene.get("labels") or [None])[0]
