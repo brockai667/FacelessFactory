@@ -607,7 +607,8 @@ def scene_arrow(ctx, dur, img_from, img_to, label, tempo="calm", idx=0):
     if img_to:
         paste_lighten(base, load_img(img_to, (int(W * 0.48), int(W * 0.48))), int(W * 0.86), int(H * 0.55))
     frame = Image.fromarray(base)
-    p0, p1, p2 = (W * 0.15, H * 0.10), (W * 0.45, H * 0.45), (W * 0.90, H * 0.60)
+    # sipka vedie OD spodneho objektu K hornemu (nie z prazdneho rohu)
+    p0, p1, p2 = (W * 0.27, H * 0.74), (W * 0.36, H * 0.30), (W * 0.79, H * 0.50)
     n = max(2, int(dur * FPS))
 
     def bez(s):
@@ -673,6 +674,13 @@ _SPACE = re.compile(r"\b(space|planet|planets|universe|galaxy|galaxies|cosmos|co
                     r"solar|astronaut|nasa|orbit|black hole|nebula|meteor|telescope|alien|ufo|"
                     r"interstellar|spacecraft|rocket)\b", re.IGNORECASE)
 
+# veta o pohybe/spojeni/prenose -> ANIMOVANA SIPKA medzi dvoma objektmi (v9 Jupiter styl)
+_FLOW = re.compile(r"\b(communicat\w*|connect\w*|travel\w*|mov\w*|send\w*|flow\w*|pull\w*|push\w*|"
+                   r"transfer\w*|signal\w*|deflect\w*|escap\w*|reach\w*|spread\w*|carr\w*|"
+                   r"through|toward|between)\b", re.IGNORECASE)
+_KW_STOP = {"the", "and", "with", "illustration", "animation", "concept", "effect", "effects",
+            "reaction", "connection", "system", "health", "style"}
+
 
 def _vis_base(seg):
     """DOSLOVNY vizualny motiv: primarne 'keywords' (LLM ich pisal ako popis ZABERU pre tuto vetu),
@@ -708,6 +716,14 @@ def plan_visual(seg, i, n_total, title):
                 "label": kw[:30]}
     if _PLACE.search(base):
         return {"type": "kenburns", "prompt": f"{base}, epic cinematic wide shot, no people"}
+    if _FLOW.search(text):
+        toks = [w for w in re.findall(r"[A-Za-z]+", kw)
+                if len(w) > 2 and w.lower() not in _KW_STOP]
+        if len(toks) >= 2:
+            return {"type": "arrow",
+                    "from_prompt": f"{toks[0]}, themed around {t_clean}",
+                    "to_prompt": f"{toks[-1]}, themed around {t_clean}",
+                    "label": " ".join(toks[:2])[:22]}
     labels = [" ".join(kw.split()[:2])] if (i % 2 == 0 and kw) else []
     return {"type": "callouts", "prompt": anchored, "labels": labels}
 
