@@ -40,9 +40,10 @@ GREEN = (60, 230, 110)
 
 # OBJEKTOVY styl (jadro v9 looku): motiv ako izolovany 3D render na CIERNOM pozadi ->
 # lighten-blend na zive pozadie (hviezdy/gradient) = komponovana scena, ziadna nahodna fotka
-OBJ_STYLE = ("glossy detailed 3d render, on pure black background, centered, "
-             "single isolated object, studio lighting, plain surface without any writing, "
-             "no text, no letters, no typography, no watermark")
+OBJ_STYLE = ("highly detailed 3D render, CGI digital artwork in the style of a modern 3D "
+             "explainer animation, glossy materials, octane render, studio lighting, "
+             "on pure black background, centered, single isolated subject, "
+             "plain surfaces without any writing, no text, no letters, no typography, no watermark")
 
 # filmovy look (2026): bloom cez lighten (POZOR: screen blend kazi farby), vignette, jemne zrno
 CINEMA_VF = ("format=gbrp,eq=contrast=1.08:saturation=1.08,"
@@ -99,7 +100,13 @@ def _mean_lum(path):
         return 255.0
 
 
-_PERSON_OK = re.compile(r"\b(person|people|man|woman|human|portrait|silhouette|athlete|crowd|hand|hands|face)\b", re.IGNORECASE)
+# fotorealisticki ludia su ZAKAZANI (AI sracky) - povoleny je LEN nas riadeny styl:
+# "3D cartoon character" (stylizovana postavicka) alebo silueta
+_PERSON_OK = re.compile(r"(3D cartoon character|silhouette)", re.IGNORECASE)
+# slova v keywords ktore znamenaju cloveka/cinnost cloveka -> preformulovat na 3D postavicku
+_PERSONISH = re.compile(r"\b(person|people|man|woman|human|portrait|athlete|meditat\w*|yoga|"
+                        r"walk\w*|runn\w*|sleep\w*|exercis\w*|stretch\w*|breath\w*|sitting|"
+                        r"stress\w*|relax\w*|happy|happiness|smiling|crying|tired)\b", re.IGNORECASE)
 
 
 def _skin_ratio(path):
@@ -205,7 +212,7 @@ class Ctx:
         self.FPS = int(cfg.get("fps", 30))
         self.accent = _hex_bgr_to_rgb(cfg.get("motion_accent") or cfg.get("caption_highlight_hex"))
         self.style = cfg.get("motion_style",
-                             "cinematic photograph, dark clean background, dramatic soft light, "
+                             "stylized 3D rendered scene, CGI digital artwork, dramatic lighting, "
                              "ultra detailed, no text, no watermark")
         # pozadie PODLA TEMY videa: hviezdy len ked je tema o vesmire, inak brand gradient
         bgmode = cfg.get("motion_bg", "auto")
@@ -684,11 +691,15 @@ _KW_STOP = {"the", "and", "with", "illustration", "animation", "concept", "effec
 
 def _vis_base(seg):
     """DOSLOVNY vizualny motiv: primarne 'keywords' (LLM ich pisal ako popis ZABERU pre tuto vetu),
-    nie cela veta (abstraktne vety -> divne surrealne obrazky)."""
+    nie cela veta (abstraktne vety -> divne surrealne obrazky).
+    Ludia/ludske cinnosti -> STYLIZOVANA 3D POSTAVICKA (nikdy fotorealisticky clovek)."""
     kw = re.sub(r"\b(animation|illustration|footage|video|clip)\b", "", str(seg.get("keywords", "")),
                 flags=re.IGNORECASE).strip(" ,")
     tx = str(seg.get("text", "")).strip()
-    return kw if len(kw) >= 6 else tx
+    base = kw if len(kw) >= 6 else tx
+    if _PERSONISH.search(base):
+        base = f"cute stylized 3D cartoon character, {base}, minimalist smooth design"
+    return base
 
 
 def plan_visual(seg, i, n_total, title):
