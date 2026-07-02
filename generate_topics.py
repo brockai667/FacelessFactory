@@ -81,6 +81,17 @@ EXAMPLE = {
 }
 
 
+import random  # CTAS_ROTATE
+
+CTAS = [
+    "Follow for a mind-blowing fact every day.",
+    "Follow if you love learning something new.",
+    "Hit follow for your daily dose of wow.",
+    "Follow for facts that sound fake but aren't.",
+    "Follow so you never run out of fun facts.",
+]
+
+
 def build_prompt(n, existing_titles, trending=None):
     """Zostavi user-prompt pre call_model(): poziada o 'n' novych tem, vyluci existujuce
     titulky (existing_titles) a volitelne prida trending sekciu (viz _trend_block)."""
@@ -111,6 +122,9 @@ def build_prompt(n, existing_titles, trending=None):
         "- About half the time, add ONE fitting emoji at the very END of the description (e.g. 🤯, 🌌, 💡, 🔥). "
         "Emoji ONLY in the description text, NEVER inside any segment 'text' (spoken captions).\n"
         "- hashtags: 6-8 relevant tags including #facts #shorts #fyp.\n"
+        "- VARY THE TITLE FORMAT: do NOT start more than one in five titles with a number "
+        "(avoid the repetitive 'N things' pattern). Mix a bold claim, a question, a "
+        "'why/how' angle and a curiosity gap so titles never look the same.\n"
         f"- Do NOT reuse any of these existing titles: {existing_titles}\n"
         "- Do NOT repeat the same SUBJECT, fact or concept as any existing title above, even reworded, "
         "renumbered or from a different angle. Every topic must be a genuinely DIFFERENT idea.\n"
@@ -250,6 +264,8 @@ def main():
         _s = _sig(t["title"])
         if _too_similar(_s, existing_sigs):   # ta ista TEMA (iny nazov) -> preskoc (ziadne opakovanie)
             print("  preskocene (podobna tema):", t["title"]); continue
+        if t.get("segments"):
+            t["segments"][-1]["text"] = random.choice(CTAS)  # CTAS_ROTATE: nie vzdy rovnaka veta
         bank.append(t)
         titles.add(t["title"])
         existing_sigs.append(_s)
