@@ -65,5 +65,8 @@
   "caption_pop_fontsize": 116,
   "caption_pop_margin_v": 560,
   "broll_fallback_query": "abstract science nature",
-  "pixabay_api_key": ""
+  "pixabay_api_key": "",
+  "visual_engine": "motion",
+  "motion_bg": "stars",
+  "motion_style": "cinematic documentary still, dark moody atmosphere, dramatic volumetric light, ultra detailed, no text, no watermark"
 }

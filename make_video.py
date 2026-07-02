@@ -29,6 +29,13 @@ PALETTE = ["0x0f172a", "0x1e1b4b", "0x172554", "0x3b0764", "0x064e3b", "0x431407
 
 
 # ----------------------------------------------------------------------------- helpers
+try:
+    import motion                      # AI motion-graphics engine (ziadne stock videa)
+except Exception as _me:
+    motion = None
+    print('[motion nedostupny]', str(_me)[:80])
+
+
 def load_config():
     """Nacita config.json (+ ENV prekrytie tajomstiev pre cloud beh) cez appconfig."""
     import appconfig
@@ -824,6 +831,10 @@ def main():
 
     voice = spec.get("voice") or cfg["voice"]
     segments = spec["segments"]
+    use_motion = bool(cfg.get("visual_engine") == "motion" and motion is not None)
+    mctx = motion.Ctx(cfg, spec) if use_motion else None
+    if use_motion:
+        print("   vizual: MOTION engine (AI sceny, ziadne stock videa)")
     tmp = os.path.join(ROOT, "temp")
     broll_dir = os.path.join(ROOT, "assets", "broll")
     out_dir = os.path.join(ROOT, "output")
@@ -860,16 +871,32 @@ def main():
                         cfg.get("tts_rate", "+0%"), cfg.get("tts_pitch", "+0Hz"))
         trim_trailing_silence(cfg["ffmpeg"], raw_audio, audio, cfg.get("segment_gap", 0.12))
         dur = probe_duration(cfg["ffprobe"], audio)
+        if use_motion:
+            words = motion.align_words(audio, words)   # presny sync titulkov s hlasom
         asset = seg.get("asset")
         if asset and os.path.exists(asset):
             print(f"       (asset: {os.path.basename(asset)} -> fit na pozadie)")
             render_asset_segment(i, audio, dur, asset, cfg, tmp)
         else:
-            if loop_end and i == last_i and first_broll:
+            rendered_motion = False
+            if use_motion:
+                try:
+                    mctx.cursor = cursor
+                    scene = motion.plan_visual(seg, i, len(segments), mctx.title)
+                    motion.render_motion_segment(i, seg, scene, audio, dur, cfg, tmp, mctx)
+                    print(f"       (motion scena: {scene.get('type')})")
+                    rendered_motion = True
+                except Exception as _mex:
+                    print(f"       [motion zlyhal: {str(_mex)[:80]}] -> stock fallback")
+            if rendered_motion:
+                pass
+            elif loop_end and i == last_i and first_broll:
                 broll, vid = first_broll, None      # bookend: koniec = zaciatok
             else:
                 broll, vid = get_broll(seg.get("keywords", ""), cfg, broll_dir, used_ids)
-            if not broll:
+            if rendered_motion:
+                broll, vid = None, None
+            if (not rendered_motion) and not broll:
                 broll = last_broll or first_broll
                 if not broll:                     # este niet ziadneho zaberu -> vseobecny fallback dotaz (NIKDY neon)
                     fq = cfg.get("broll_fallback_query", "abstract background motion")
@@ -884,7 +911,8 @@ def main():
                 last_broll = broll
             if vid is not None:
                 used_ids.add(vid)
-            render_segment(i, audio, dur, broll, cfg, tmp)
+            if not rendered_motion:
+                render_segment(i, audio, dur, broll, cfg, tmp)
         for (o, d, txt) in words:
             all_words.append((cursor + o, d, txt))
         cursor, cut = advance_cursor(cursor, i, dur)
@@ -909,6 +937,15 @@ def main():
     if cfg.get("sfx", True):
         print("  Pridavam jemne zvukove efekty na strihy...")
         video = add_sfx(cfg["ffmpeg"], video, cuts, tmp)
+
+    if use_motion and mctx.events:
+        try:
+            _sw = os.path.join(tmp, "motion_sfx.wav")
+            motion.build_sfx(mctx.events, cursor, _sw)
+            video = motion.mix_sfx(video, _sw, cfg, tmp)
+            print(f"  Motion SFX: {len(mctx.events)} udalosti (boom/tick)")
+        except Exception as _sex:
+            print("  [motion sfx preskocene]", str(_sex)[:60])
 
     slug = slugify(spec.get("title", "video"))
     final = os.path.join(out_dir, slug + ".mp4")
