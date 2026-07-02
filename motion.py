@@ -139,8 +139,8 @@ class Ctx:
         self.FPS = int(cfg.get("fps", 30))
         self.accent = _hex_bgr_to_rgb(cfg.get("motion_accent") or cfg.get("caption_highlight_hex"))
         self.style = cfg.get("motion_style",
-                             "cinematic still, dark moody, dramatic volumetric light, ultra detailed, "
-                             "muted colors, black dark background, no text, no watermark")
+                             "cinematic photograph, dark clean background, dramatic soft light, "
+                             "ultra detailed, no text, no watermark")
         self.bgmode = cfg.get("motion_bg", "stars")
         self.brand0 = str(cfg.get("brand_primary", "0x0a0d14")).replace("0x", "#")
         self.title = re.sub(r"#\S+", "", str(spec.get("title", ""))).strip()
@@ -589,6 +589,16 @@ def _find_number(text):
     return None
 
 
+def _vis_prompt(seg):
+    """DOSLOVNY vizualny motiv: primarne 'keywords' (LLM ich pisal ako popis ZABERU pre tuto vetu),
+    nie cela veta (abstraktne vety -> divne surrealne obrazky)."""
+    kw = re.sub(r"\b(animation|illustration|footage|video|clip)\b", "", str(seg.get("keywords", "")),
+                flags=re.IGNORECASE).strip(" ,")
+    tx = str(seg.get("text", "")).strip()
+    base = kw if len(kw) >= 6 else tx
+    return f"clear, instantly recognizable photo of {base}, single main subject, centered"
+
+
 def plan_visual(seg, i, n_total, title):
     """Vrati scene-spec pre segment: explicitny storyboard (seg['visual']) alebo auto-odvodeny."""
     v = seg.get("visual")
@@ -597,17 +607,18 @@ def plan_visual(seg, i, n_total, title):
     text = str(seg.get("text", ""))
     kw = str(seg.get("keywords", "")).strip()
     if i == 0:
-        return {"type": "hook", "prompt": f"{text}", "big": title}
+        return {"type": "hook", "prompt": _vis_prompt(seg), "big": title}
     if i == n_total - 1:
-        return {"type": "cta", "prompt": kw or text}
+        return {"type": "cta", "prompt": _vis_prompt(seg)}
     num = _find_number(text)
     if num and num >= 10:
         sfx = "x" if re.search(r"\btimes\b", text, re.IGNORECASE) else ""
         return {"type": "counter", "target": min(num, 999999), "suffix": sfx,
                 "label": kw[:30]}
     if (i % 3) == 2 and kw:
-        return {"type": "callouts", "prompt": text, "labels": [kw.split()[0] + " " + (kw.split()[1] if len(kw.split()) > 1 else "")]}
-    return {"type": "kenburns", "prompt": text}
+        return {"type": "callouts", "prompt": _vis_prompt(seg),
+                "labels": [" ".join(kw.split()[:2])]}
+    return {"type": "kenburns", "prompt": _vis_prompt(seg)}
 
 
 # ----------------------------------------------------------------------------- RENDER segmentu
