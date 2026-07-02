@@ -38,6 +38,12 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 FONT_DIR = os.path.join(ROOT, "assets", "fonts")
 GREEN = (60, 230, 110)
 
+# OBJEKTOVY styl (jadro v9 looku): motiv ako izolovany 3D render na CIERNOM pozadi ->
+# lighten-blend na zive pozadie (hviezdy/gradient) = komponovana scena, ziadna nahodna fotka
+OBJ_STYLE = ("glossy detailed 3d render, on pure black background, centered, "
+             "single isolated object, studio lighting, plain surface without any writing, "
+             "no text, no letters, no typography, no watermark")
+
 # filmovy look (2026): bloom cez lighten (POZOR: screen blend kazi farby), vignette, jemne zrno
 CINEMA_VF = ("format=gbrp,eq=contrast=1.08:saturation=1.08,"
              "split=2[b][g];[g]gblur=sigma=18[g2];[b][g2]blend=all_mode=lighten:all_opacity=0.5,"
@@ -85,28 +91,88 @@ def sample(canvas, out_w, out_h, cx, cy, win_w, win_h):
 
 
 # ----------------------------------------------------------------------------- AI obrazky (zadarmo)
-def ai_image(prompt, w, h, seed, cache_dir, timeout=240):
-    """Pollinations/Flux - free, bez kluca. Cache + 3 pokusy. Vrati cestu alebo None."""
+def _mean_lum(path):
+    try:
+        im = Image.open(path).convert("L").resize((64, 64))
+        return float(np.asarray(im).mean())
+    except Exception:
+        return 255.0
+
+
+_PERSON_OK = re.compile(r"\b(person|people|man|woman|human|portrait|silhouette|athlete|crowd|hand|hands|face)\b", re.IGNORECASE)
+
+
+def _skin_ratio(path):
+    """Hruby odhad kolko zaberu tvoria kozove tony (tvare/ruky = AI slop riziko)."""
+    try:
+        a = np.asarray(Image.open(path).convert("RGB").resize((64, 64))).astype(int)
+        r, g, b = a[..., 0], a[..., 1], a[..., 2]
+        m = ((r > 60) & (g > 35) & (b > 25) & (r > g) & (g > b)
+             & ((r - g) >= 10) & ((r - g) <= 85) & ((r - b) >= 18))
+        return float(m.mean())
+    except Exception:
+        return 0.0
+
+
+def _subject_visible(path, obj):
+    """obj: motiv na CIERNOM pozadi -> priemer jasu nefunguje; staci ked >=6% pixelov je jasnych."""
+    try:
+        g = np.asarray(Image.open(path).convert("L").resize((64, 64)))
+        if obj:
+            return float((g > 70).mean()) >= 0.06
+        return float(g.mean()) >= 26
+    except Exception:
+        return True
+
+
+def ai_image(prompt, w, h, seed, cache_dir, timeout=240, min_lum=26, obj=False):
+    """Pollinations/Flux - free, bez kluca. Cache + retry + SAMOKONTROLA KVALITY:
+    (a) prilis tmavy obrazok -> re-gen so svetlejsim promptom;
+    (b) tvare/ruky kde nemaju byt (kozove tony >28% a prompt cloveka nechce -> AI slop)
+        -> re-gen s 'isolated object, empty scene' (Flux negacie ignoruje, treba pozitivne)."""
     os.makedirs(cache_dir, exist_ok=True)
-    key = hashlib.md5(f"{prompt}|{w}x{h}|{seed}".encode()).hexdigest()[:20]
-    p = os.path.join(cache_dir, f"ai_{key}.jpg")
-    if os.path.exists(p) and os.path.getsize(p) > 8000:
-        return p
-    url = (f"https://image.pollinations.ai/prompt/{urllib.parse.quote(prompt[:900])}"
-           f"?width={w}&height={h}&model=flux&nologo=true&seed={seed}")
-    for att in range(3):
-        try:
-            r = requests.get(url, timeout=timeout)
-            if r.status_code == 200 and r.headers.get("content-type", "").startswith("image"):
-                with open(p, "wb") as f:
-                    f.write(r.content)
-                return p
-            print(f"   [ai_image] HTTP {r.status_code} (pokus {att + 1}/3)")
-        except Exception as e:
-            print(f"   [ai_image] {str(e)[:70]} (pokus {att + 1}/3)")
-        import time as _t
-        _t.sleep(4 + 5 * att)
-    return None
+    allow_people = bool(_PERSON_OK.search(prompt))
+    dark, skin = False, False
+    p = None
+    for att in range(4):
+        pr = prompt
+        if dark:
+            pr += ", brightly lit, clearly visible subject"
+        if skin:
+            pr += ", isolated object only, empty scene, macro photography style"
+        sd = seed + att * 137
+        key = hashlib.md5(f"{pr}|{w}x{h}|{sd}".encode()).hexdigest()[:20]
+        p = os.path.join(cache_dir, f"ai_{key}.jpg")
+        if not (os.path.exists(p) and os.path.getsize(p) > 8000):
+            url = (f"https://image.pollinations.ai/prompt/{urllib.parse.quote(pr[:900])}"
+                   f"?width={w}&height={h}&model=flux&nologo=true&seed={sd}")
+            try:
+                r = requests.get(url, timeout=timeout)
+                if r.status_code == 200 and r.headers.get("content-type", "").startswith("image"):
+                    with open(p, "wb") as f:
+                        f.write(r.content)
+                else:
+                    print(f"   [ai_image] HTTP {r.status_code} (pokus {att + 1}/4)")
+                    import time as _t
+                    _t.sleep(4 + 5 * att)
+                    continue
+            except Exception as e:
+                print(f"   [ai_image] {str(e)[:70]} (pokus {att + 1}/4)")
+                import time as _t
+                _t.sleep(4 + 5 * att)
+                continue
+        bad = False
+        if not _subject_visible(p, obj):
+            dark = True
+            bad = True
+            print(f"   [ai_image] motiv nevidno -> re-gen svetlejsie")
+        if (not allow_people) and _skin_ratio(p) > 0.28:
+            skin = True
+            bad = True
+            print(f"   [ai_image] tvare/ruky v zabere -> re-gen ako izolovany objekt")
+        if not bad:
+            return p
+    return p if (p and os.path.exists(p)) else None
 
 
 def load_img(path, size=None, crop_bottom=0.07):
@@ -427,11 +493,11 @@ def scene_callouts(ctx, dur, img_path, labels, tempo="calm", idx=0):
     CW, CH = int(W * 1.7), int(H * 1.7)
     canvas = ctx.bg_canvas(CW, CH, seed_off=idx + 3)
     if img_path:
-        jsz = int(CW * 0.9)
-        paste_lighten(canvas, load_img(img_path, (jsz, jsz)), CW // 2, int(CH * 0.44))
+        jsz = int(CW * 0.76)                 # objekt mensi + vyssie -> titulky dole ho neprekryvaju
+        paste_lighten(canvas, load_img(img_path, (jsz, jsz)), CW // 2, int(CH * 0.385))
     big = Image.fromarray(canvas)
-    spots = [((W * 0.44, H * 0.32), (W * 0.08, H * 0.11)),
-             ((W * 0.60, H * 0.50), (W * 0.50, H * 0.20))]
+    spots = [((W * 0.44, H * 0.30), (W * 0.08, H * 0.10)),
+             ((W * 0.60, H * 0.45), (W * 0.50, H * 0.185))]
     n = max(2, int(dur * FPS))
     for fi in range(n):
         t = fi / max(1, n - 1)
@@ -589,36 +655,47 @@ def _find_number(text):
     return None
 
 
-def _vis_prompt(seg):
+_PLACE = re.compile(r"\b(landscape|mountain|island|city|forest|ocean|sea|desert|valley|temple|"
+                    r"ruins|beach|waterfall|canyon|village|castle|cave|lake|river|aerial|skyline|"
+                    r"coast|cliff|glacier|jungle|street)\b", re.IGNORECASE)
+
+
+def _vis_base(seg):
     """DOSLOVNY vizualny motiv: primarne 'keywords' (LLM ich pisal ako popis ZABERU pre tuto vetu),
     nie cela veta (abstraktne vety -> divne surrealne obrazky)."""
     kw = re.sub(r"\b(animation|illustration|footage|video|clip)\b", "", str(seg.get("keywords", "")),
                 flags=re.IGNORECASE).strip(" ,")
     tx = str(seg.get("text", "")).strip()
-    base = kw if len(kw) >= 6 else tx
-    return f"clear, instantly recognizable photo of {base}, single main subject, centered"
+    return kw if len(kw) >= 6 else tx
 
 
 def plan_visual(seg, i, n_total, title):
-    """Vrati scene-spec pre segment: explicitny storyboard (seg['visual']) alebo auto-odvodeny."""
+    """Vrati scene-spec pre segment: explicitny storyboard (seg['visual']) alebo auto-odvodeny.
+    AUTO default = KOMPONOVANA scena (objekt na zivom pozadi, ako v9) - NIE nahodna fotka;
+    celoplosny kenburns len pre krajiny/miesta (travel zabery)."""
     v = seg.get("visual")
     if isinstance(v, dict) and v.get("type"):
         return dict(v)
     text = str(seg.get("text", ""))
     kw = str(seg.get("keywords", "")).strip()
+    base = _vis_base(seg)
+    # ukotvenie na temu videa -> aj abstraktne keywords daju KONKRETNY objekt k teme
+    # (BEZ uvodzoviek a bez slova 'topic' - citovany nazov zvadza Flux k pisaniu textu do obrazka)
+    t_clean = re.sub(r"[\"'#:!?]", "", str(title or "")).strip()
+    anchored = f"{base}, themed around {t_clean}" if t_clean else base
     if i == 0:
-        return {"type": "hook", "prompt": _vis_prompt(seg), "big": title}
+        return {"type": "hook", "prompt": anchored, "big": title}
     if i == n_total - 1:
-        return {"type": "cta", "prompt": _vis_prompt(seg)}
+        return {"type": "cta", "prompt": anchored}
     num = _find_number(text)
     if num and num >= 10:
         sfx = "x" if re.search(r"\btimes\b", text, re.IGNORECASE) else ""
         return {"type": "counter", "target": min(num, 999999), "suffix": sfx,
                 "label": kw[:30]}
-    if (i % 3) == 2 and kw:
-        return {"type": "callouts", "prompt": _vis_prompt(seg),
-                "labels": [" ".join(kw.split()[:2])]}
-    return {"type": "kenburns", "prompt": _vis_prompt(seg)}
+    if _PLACE.search(base):
+        return {"type": "kenburns", "prompt": f"{base}, epic cinematic wide shot, no people"}
+    labels = [" ".join(kw.split()[:2])] if (i % 2 == 0 and kw) else []
+    return {"type": "callouts", "prompt": anchored, "labels": labels}
 
 
 # ----------------------------------------------------------------------------- RENDER segmentu
@@ -630,10 +707,13 @@ def render_motion_segment(i, seg, scene, audio_path, duration, cfg, tmp, ctx):
     styp = scene.get("type", "kenburns")
     tempo = "punch" if styp in ("hook", "counter") else "calm"
 
-    def img_of(prompt, w=768, h=1344, soff=0):
+    def img_of(prompt, w=768, h=1344, soff=0, obj=True):
+        """obj=True -> izolovany 3D render na ciernom (v9 look, komponuje sa na zive pozadie);
+        obj=False -> celoplosna scena (len kenburns/krajiny)."""
         if not prompt:
             return None
-        return ai_image(f"{prompt}. {ctx.style}", w, h, ctx.seed + soff, ctx.cache)
+        suffix = OBJ_STYLE if obj else ctx.style
+        return ai_image(f"{prompt}. {suffix}", w, h, ctx.seed + soff, ctx.cache, obj=obj)
 
     if styp == "hook":
         gen = scene_hook(ctx, duration, img_of(scene.get("prompt"), 896, 896, 1),
@@ -669,7 +749,7 @@ def render_motion_segment(i, seg, scene, audio_path, duration, cfg, tmp, ctx):
                         cfg.get("brand_handle", "").lstrip("@") or cfg.get("brand_name", ""), idx=i)
     else:
         lab = (scene.get("labels") or [None])[0]
-        gen = scene_kenburns(ctx, duration, img_of(scene.get("prompt"), 768, 1344, 40 + i),
+        gen = scene_kenburns(ctx, duration, img_of(scene.get("prompt"), 768, 1344, 40 + i, obj=False),
                              tempo=tempo, label=lab, idx=i)
 
     # (whoosh na strihoch uz robi add_sfx v make_video -> tu len boom/tick udalosti scen)
