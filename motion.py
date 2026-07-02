@@ -40,10 +40,10 @@ GREEN = (60, 230, 110)
 
 # OBJEKTOVY styl (jadro v9 looku): motiv ako izolovany 3D render na CIERNOM pozadi ->
 # lighten-blend na zive pozadie (hviezdy/gradient) = komponovana scena, ziadna nahodna fotka
-OBJ_STYLE = ("highly detailed 3D render, CGI digital artwork in the style of a modern 3D "
-             "explainer animation, glossy materials, octane render, studio lighting, "
-             "on pure black background, centered, single isolated subject, "
-             "plain surfaces without any writing, no text, no letters, no typography, no watermark")
+# POTVRDENY styl (Jupiter + gut video) - vazny premiovy 3D render, NIE cartoon/hracka
+OBJ_STYLE = ("glossy detailed 3d render, on pure black background, centered, "
+             "single isolated subject, studio lighting, plain surfaces without any writing, "
+             "no text, no letters, no typography, no watermark")
 
 # filmovy look (2026): bloom cez lighten (POZOR: screen blend kazi farby), vignette, jemne zrno
 CINEMA_VF = ("format=gbrp,eq=contrast=1.08:saturation=1.08,"
@@ -182,14 +182,23 @@ def ai_image(prompt, w, h, seed, cache_dir, timeout=240, min_lum=26, obj=False):
     return p if (p and os.path.exists(p)) else None
 
 
-def load_img(path, size=None, crop_bottom=0.07):
-    """Nacitaj AI obrazok (odrez spodok - obcasny vodoznak) ako RGB numpy."""
+def load_img(path, size=None, crop_bottom=0.07, feather=0.14):
+    """Nacitaj AI obrazok (odrez spodok - obcasny vodoznak) ako RGB numpy.
+    feather>0: okraje sa roztopia do CIERNA -> pri lighten paste NIKDY nevidno stvorcovu platnu."""
     im = Image.open(path).convert("RGB")
     if crop_bottom:
         im = im.crop((0, 0, im.size[0], int(im.size[1] * (1 - crop_bottom))))
     if size:
         im = im.resize(size, Image.LANCZOS)
-    return np.asarray(im).astype(np.uint8)
+    a = np.asarray(im).astype(np.float32)
+    if feather:
+        h, w = a.shape[:2]
+        fy = np.clip(np.minimum(np.arange(h), h - 1 - np.arange(h)) / (h * feather), 0, 1)
+        fx = np.clip(np.minimum(np.arange(w), w - 1 - np.arange(w)) / (w * feather), 0, 1)
+        mask = np.minimum(fy[:, None], fx[None, :])
+        mask = mask * mask * (3 - 2 * mask)               # smoothstep
+        a *= mask[..., None]
+    return a.astype(np.uint8)
 
 
 def paste_lighten(bg, obj, cx, cy):
@@ -552,14 +561,13 @@ def scene_compare(ctx, dur, img_small, img_big, lab_small, lab_big, stat, tempo=
 
 
 def scene_callouts(ctx, dur, img_path, labels, tempo="calm", idx=0):
-    """ZIVA scena (default): subjekt DYCHA/hojda sa, za nim sa OTACAJU luce,
-    okolo OBIEHAJU castice, kamera jazdi, popisky sa kreslia. Nic nestoji ako fotka."""
+    """Default scena = POTVRDENY recept (gut video): subjekt na zivom pozadi, DYCHA/hojda sa,
+    kamera jazdi (push-in + drift), popisky sa kreslia. Ziadne vymysly navyse."""
     W, H, FPS = ctx.W, ctx.H, ctx.FPS
     CW, CH = int(W * 1.25), int(H * 1.25)
     bgc = Image.fromarray(ctx.bg_canvas(CW, CH, seed_off=idx + 3))
-    base_sz = int(W * 0.72)
+    base_sz = int(W * 0.74)
     obj = load_img(img_path, (int(base_sz * 1.1), int(base_sz * 1.1))) if img_path else None
-    rays = make_rays(int(W * 1.15), ctx.accent, seed=idx + 2)
     scx, scy = W // 2, int(H * 0.40)
     spots = [((W * 0.44, H * 0.28), (W * 0.08, H * 0.10)),
              ((W * 0.60, H * 0.44), (W * 0.50, H * 0.185))]
@@ -568,26 +576,16 @@ def scene_callouts(ctx, dur, img_path, labels, tempo="calm", idx=0):
         t = fi / max(1, n - 1)
         ts = t * dur                                       # animacny cas scenY (sekundy)
         # kamera: push-in + jemny drift
-        z = 1.0 + 0.10 * ease(t, tempo)
+        z = 1.0 + 0.12 * ease(t, tempo)
         cx = CW / 2.0 + CW * 0.015 * math.sin(ts * 1.3)
         frame = np.asarray(sample(bgc, W, H, cx, CH * 0.5, CW / z / 1.25, CH / z / 1.25).convert("RGB")).copy()
-        # rotujuce luce za subjektom (premultiply alfou -> JEMNE svetlo, nie plne kliny)
-        r = rays.rotate(ts * 9.0, resample=Image.BILINEAR)
-        rr = np.asarray(r).astype(np.float32)
-        rn = (rr[..., :3] * (rr[..., 3:4] / 255.0)).astype(np.uint8)
-        rh, rw = rn.shape[:2]
-        y0 = max(0, scy - rh // 2); x0 = max(0, scx - rw // 2)
-        y1 = min(H, y0 + rh); x1 = min(W, x0 + rw)
-        frame[y0:y1, x0:x1] = np.maximum(frame[y0:y1, x0:x1], rn[:y1 - y0, :x1 - x0])
-        # SUBJEKT ZIJE: dych + hojdanie + bob
+        # SUBJEKT ZIJE: dych + hojdanie + bob (jemne, ako planety vo schvalenom deme)
         if obj is not None:
             zoomed = int(base_sz * (1.0 + 0.10 * ease(t, tempo)))
             live, ybob = live_subject(obj, zoomed, ts)
             paste_lighten(frame, live, scx, scy + ybob)
         im = Image.fromarray(frame).convert("RGBA")
         ov = _overlay(ctx)
-        # obiehajuce castice okolo subjektu
-        draw_orbiters(ov, scx, scy, W * 0.40, H * 0.145, ts, ctx.accent)
         for li, lab in enumerate(labels[:2]):
             anchor, box = spots[li]
             draw_callout(ctx, ov, lab.upper(), anchor, box, (t - 0.12 - 0.38 * li) / 0.28)
@@ -768,7 +766,8 @@ def _vis_base(seg):
     tx = str(seg.get("text", "")).strip()
     base = kw if len(kw) >= 6 else tx
     if _PERSONISH.search(base):
-        base = f"cute stylized 3D cartoon character, {base}, minimalist smooth design"
+        # clovek -> ELEGANTNA TMAVA SILUETA (vazny styl schvalenych videi; NIKDY cartoon/fotka)
+        base = f"elegant dark silhouette of {base}, dramatic rim light"
     return base
 
 
