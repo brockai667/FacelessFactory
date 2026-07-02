@@ -204,6 +204,51 @@ def paste_lighten(bg, obj, cx, cy):
     bg[by0:by1, bx0:bx1] = np.maximum(bg[by0:by1, bx0:bx1], sub)
 
 
+# ------------------------------------------------ ZIVA ANIMACIA (nic nestoji ako fotka)
+def live_subject(obj_np, base_size, t):
+    """'Idle' animacia subjektu kazdy frame: dych (scale) + hojdanie (naklon) + bob (y).
+    Presne to robi rozdiel medzi FOTKOU figurky a ANIMOVANOU postavickou."""
+    ang = 2.6 * math.sin(t * 2.1)
+    sc = 1.0 + 0.030 * math.sin(t * 2.9)
+    w = max(8, int(base_size * sc))
+    im = Image.fromarray(obj_np).resize((w, w), Image.BILINEAR)
+    im = im.rotate(ang, resample=Image.BICUBIC, expand=False, fillcolor=(0, 0, 0))
+    ybob = int(12 * math.sin(t * 2.4))
+    return np.asarray(im), ybob
+
+
+def make_rays(size, color, n=9, seed=3):
+    """Predpocitane svetelne luce (RGBA) - v scene sa pomaly OTACAJU za subjektom."""
+    im = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    cx = cy = size // 2
+    rng = np.random.default_rng(seed)
+    for k in range(n):
+        a0 = k * (360 / n) + float(rng.uniform(-8, 8))
+        w = float(rng.uniform(5, 11))
+        d.polygon([(cx, cy),
+                   (cx + size * 0.52 * math.cos(math.radians(a0 - w)),
+                    cy + size * 0.52 * math.sin(math.radians(a0 - w))),
+                   (cx + size * 0.52 * math.cos(math.radians(a0 + w)),
+                    cy + size * 0.52 * math.sin(math.radians(a0 + w)))],
+                  fill=color + (46,))
+    return im.filter(ImageFilter.GaussianBlur(8))
+
+
+def draw_orbiters(ov, cx, cy, rx, ry, t, color, k_n=4):
+    """Castice obiehaju okolo subjektu (s chvostikmi) -> scena zije."""
+    d = ImageDraw.Draw(ov)
+    for k in range(k_n):
+        base_a = t * 1.4 + k * (2 * math.pi / k_n)
+        for tr in range(6):
+            a = base_a - tr * 0.07
+            x = (cx + rx * math.cos(a)) * 2
+            y = (cy + ry * math.sin(a)) * 2
+            r = max(2.0, 8 - tr * 1.2)
+            al = int(200 * (1 - tr / 6) * (0.6 + 0.4 * math.sin(a)))
+            d.ellipse([x - r, y - r, x + r, y + r], fill=color + (max(0, al),))
+
+
 # ----------------------------------------------------------------------------- kontext (per video)
 class Ctx:
     def __init__(self, cfg, spec):
@@ -407,20 +452,23 @@ def scene_hook(ctx, dur, img_path, big_text, threat=True, tempo="punch", idx=0):
     """Hook: subjekt centrovany + velka otazka/titulok + prilietajuca energia + flash."""
     W, H, FPS = ctx.W, ctx.H, ctx.FPS
     CW, CH = int(W * 1.5), int(H * 1.5)
-    canvas = ctx.bg_canvas(CW, CH, seed_off=1)
-    if img_path:
-        es = int(min(CW, CH) * 0.62)
-        obj = load_img(img_path, (es, es))
-        paste_lighten(canvas, obj, CW // 2, int(CH * 0.44))
-    big = Image.fromarray(canvas)
-    ecx, ecy, er = W / 2.0, H * 0.44, min(CW, CH) * 0.62 / 3.0
+    bgc = Image.fromarray(ctx.bg_canvas(CW, CH, seed_off=1))
+    es = int(W * 0.64)
+    obj = load_img(img_path, (int(es * 1.1), int(es * 1.1))) if img_path else None
+    ecx, ecy, er = W / 2.0, H * 0.44, es / 2.6
     lines = _wrap_big(big_text, max_chars=15, max_lines=2)
     n = max(2, int(dur * FPS))
     for fi in range(n):
         t = fi / max(1, n - 1)
+        ts = t * dur
         z = 1.0 + 0.10 * smooth(t)
         shake = 10 * math.sin(t * 55) * max(0.0, 1 - t / 0.16)
-        bg = sample(big, W, H, CW / 2.0 + shake, CH * 0.46, CW / z / 1.5, CH / z / 1.5).convert("RGBA")
+        frame = np.asarray(sample(bgc, W, H, CW / 2.0 + shake, CH * 0.46,
+                                  CW / z / 1.5, CH / z / 1.5).convert("RGB")).copy()
+        if obj is not None:                                # subjekt ZIJE aj v hooku
+            live, ybob = live_subject(obj, int(es * (1.0 + 0.06 * smooth(t))), ts)
+            paste_lighten(frame, live, int(ecx), int(ecy) + ybob)
+        bg = Image.fromarray(frame).convert("RGBA")
         ov = _overlay(ctx)
         d = ImageDraw.Draw(ov)
         if threat:
@@ -504,42 +552,64 @@ def scene_compare(ctx, dur, img_small, img_big, lab_small, lab_big, stat, tempo=
 
 
 def scene_callouts(ctx, dur, img_path, labels, tempo="calm", idx=0):
-    """Subjekt (zoom-in) + 1-2 popisky s ciarami."""
+    """ZIVA scena (default): subjekt DYCHA/hojda sa, za nim sa OTACAJU luce,
+    okolo OBIEHAJU castice, kamera jazdi, popisky sa kreslia. Nic nestoji ako fotka."""
     W, H, FPS = ctx.W, ctx.H, ctx.FPS
-    CW, CH = int(W * 1.7), int(H * 1.7)
-    canvas = ctx.bg_canvas(CW, CH, seed_off=idx + 3)
-    if img_path:
-        jsz = int(CW * 0.70)                 # objekt vyvazene v hornej polovici (nie nalepeny hore)
-        paste_lighten(canvas, load_img(img_path, (jsz, jsz)), CW // 2, int(CH * 0.42))
-    big = Image.fromarray(canvas)
-    spots = [((W * 0.44, H * 0.30), (W * 0.08, H * 0.10)),
-             ((W * 0.60, H * 0.45), (W * 0.50, H * 0.185))]
+    CW, CH = int(W * 1.25), int(H * 1.25)
+    bgc = Image.fromarray(ctx.bg_canvas(CW, CH, seed_off=idx + 3))
+    base_sz = int(W * 0.72)
+    obj = load_img(img_path, (int(base_sz * 1.1), int(base_sz * 1.1))) if img_path else None
+    rays = make_rays(int(W * 1.15), ctx.accent, seed=idx + 2)
+    scx, scy = W // 2, int(H * 0.40)
+    spots = [((W * 0.44, H * 0.28), (W * 0.08, H * 0.10)),
+             ((W * 0.60, H * 0.44), (W * 0.50, H * 0.185))]
     n = max(2, int(dur * FPS))
     for fi in range(n):
         t = fi / max(1, n - 1)
-        z = 1.02 + 0.20 * smooth(t)
-        drift = (t - 0.5) * (CW * 0.03)
-        bg = sample(big, W, H, CW / 2.0 + drift, CH * 0.47, CW / z / 1.7, CH / z / 1.7).convert("RGBA")
+        ts = t * dur                                       # animacny cas scenY (sekundy)
+        # kamera: push-in + jemny drift
+        z = 1.0 + 0.10 * ease(t, tempo)
+        cx = CW / 2.0 + CW * 0.015 * math.sin(ts * 1.3)
+        frame = np.asarray(sample(bgc, W, H, cx, CH * 0.5, CW / z / 1.25, CH / z / 1.25).convert("RGB")).copy()
+        # rotujuce luce za subjektom (premultiply alfou -> JEMNE svetlo, nie plne kliny)
+        r = rays.rotate(ts * 9.0, resample=Image.BILINEAR)
+        rr = np.asarray(r).astype(np.float32)
+        rn = (rr[..., :3] * (rr[..., 3:4] / 255.0)).astype(np.uint8)
+        rh, rw = rn.shape[:2]
+        y0 = max(0, scy - rh // 2); x0 = max(0, scx - rw // 2)
+        y1 = min(H, y0 + rh); x1 = min(W, x0 + rw)
+        frame[y0:y1, x0:x1] = np.maximum(frame[y0:y1, x0:x1], rn[:y1 - y0, :x1 - x0])
+        # SUBJEKT ZIJE: dych + hojdanie + bob
+        if obj is not None:
+            zoomed = int(base_sz * (1.0 + 0.10 * ease(t, tempo)))
+            live, ybob = live_subject(obj, zoomed, ts)
+            paste_lighten(frame, live, scx, scy + ybob)
+        im = Image.fromarray(frame).convert("RGBA")
         ov = _overlay(ctx)
+        # obiehajuce castice okolo subjektu
+        draw_orbiters(ov, scx, scy, W * 0.40, H * 0.145, ts, ctx.accent)
         for li, lab in enumerate(labels[:2]):
             anchor, box = spots[li]
             draw_callout(ctx, ov, lab.upper(), anchor, box, (t - 0.12 - 0.38 * li) / 0.28)
-        yield bg, ov
+        yield im, ov
 
 
 def scene_cta(ctx, dur, img_path, brand, tempo="calm", idx=0):
     """Outro V STYLE zvysku: subjekt + akcentovy kruh + FOLLOW chip."""
     W, H, FPS = ctx.W, ctx.H, ctx.FPS
-    base = ctx.stars_v().copy()
     es = int(W * 0.58)
-    if img_path:
-        paste_lighten(base, load_img(img_path, (es, es)), W // 2, int(H * 0.40))
-    frame = Image.fromarray(base)
+    obj = load_img(img_path, (int(es * 1.1), int(es * 1.1))) if img_path else None
+    bgnp = ctx.stars_v()
     n = max(2, int(dur * FPS))
     cy = int(H * 0.40)
     for fi in range(n):
         t = fi / max(1, n - 1)
-        im = frame.convert("RGBA")
+        ts = t * dur
+        frame = bgnp.copy()
+        if obj is not None:                                # subjekt DYCHA aj v outre
+            live, ybob = live_subject(obj, es, ts)
+            paste_lighten(frame, live, W // 2, cy + ybob // 2)
+        im = Image.fromarray(frame).convert("RGBA")
         ov = _overlay(ctx)
         d = ImageDraw.Draw(ov)
         R = es * 0.62
