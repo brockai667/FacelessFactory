@@ -1812,5 +1812,202 @@
       "#fyp",
       "#engineering"
     ]
+  },
+  {
+    "title": "3 Facts About Crows",
+    "segments": [
+      {
+        "text": "Crows can remember human faces for years.",
+        "keywords": "crows remembering faces",
+        "visual": {
+          "type": "hook",
+          "prompt": "dramatic scene image",
+          "big": "Crows Remember Faces!"
+        }
+      },
+      {
+        "text": "And yes, they hold grudges.",
+        "keywords": "angry crow",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "angry crow looking at a person"
+        }
+      },
+      {
+        "text": "They can also use tools, like sticks.",
+        "keywords": "crow using tool",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "crow using stick as tool"
+        }
+      },
+      {
+        "text": "Some can even solve complex puzzles.",
+        "keywords": "crow solving puzzle",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "crow interacting with puzzle"
+        }
+      },
+      {
+        "text": "These birds are often smarter than dogs.",
+        "keywords": "crow comparison dogs",
+        "visual": {
+          "type": "compare",
+          "small_prompt": "Crows",
+          "big_prompt": "Dogs",
+          "small_label": "SMARTER",
+          "big_label": "LESS SMART",
+          "stat": "5x"
+        }
+      },
+      {
+        "text": "Follow so you never run out of fun facts.",
+        "keywords": "crow facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "silhouette of a crow"
+        }
+      }
+    ],
+    "description": "Crows have impressive intelligence and memory. Follow for daily facts! 🐦",
+    "hashtags": [
+      "#crows",
+      "#facts",
+      "#birds",
+      "#nature",
+      "#science",
+      "#shorts",
+      "#fyp",
+      "#weirdfacts"
+    ]
+  },
+  {
+    "title": "3 Unbelievable Facts About Stars",
+    "segments": [
+      {
+        "text": "A single star can outshine 100 billion suns.",
+        "keywords": "massive star",
+        "visual": {
+          "type": "hook",
+          "prompt": "dramatic scene image",
+          "big": "Star Outshines Suns!"
+        }
+      },
+      {
+        "text": "But it's not as bright as it seems.",
+        "keywords": "star brightness",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "star shining in space"
+        }
+      },
+      {
+        "text": "Most stars are actually red dwarfs, not yellow or white.",
+        "keywords": "red dwarf star",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "red dwarf stars in space"
+        }
+      },
+      {
+        "text": "They make up about 70% of the universe's stars.",
+        "keywords": "star composition",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "many stars in the sky"
+        }
+      },
+      {
+        "text": "And massive stars die in spectacular supernovae.",
+        "keywords": "supernova explosion",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "supernova explosion in space"
+        }
+      },
+      {
+        "text": "Follow for a mind-blowing fact every day.",
+        "keywords": "star facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "image of a star in the night sky"
+        }
+      }
+    ],
+    "description": "Stars hold secrets that will blow your mind! Follow for daily facts! 🌌",
+    "hashtags": [
+      "#stars",
+      "#space",
+      "#facts",
+      "#science",
+      "#shorts",
+      "#fyp",
+      "#universe"
+    ]
+  },
+  {
+    "title": "3 Incredible Facts About Honey",
+    "segments": [
+      {
+        "text": "Honey never spoils; it’s found in ancient tombs.",
+        "keywords": "ancient honey",
+        "visual": {
+          "type": "hook",
+          "prompt": "dramatic scene image",
+          "big": "Honey Never Spoils!"
+        }
+      },
+      {
+        "text": "Archaeologists found honey that’s over 3000 years old.",
+        "keywords": "archaeological honey findings",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "ancient tomb with honey"
+        }
+      },
+      {
+        "text": "It can even heal wounds.",
+        "keywords": "honey healing wounds",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "wound being treated with honey"
+        }
+      },
+      {
+        "text": "Honey has natural preservatives, making it last forever.",
+        "keywords": "natural preservatives",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "honey jar on shelf"
+        }
+      },
+      {
+        "text": "Bees communicate through a 'waggle dance' to find flowers.",
+        "keywords": "bee waggle dance",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "bees dancing around flowers"
+        }
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "keywords": "honey facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "jar of honey"
+        }
+      }
+    ],
+    "description": "Honey is nature's miracle with amazing properties! Follow for daily facts! 🍯",
+    "hashtags": [
+      "#honey",
+      "#facts",
+      "#food",
+      "#science",
+      "#shorts",
+      "#fyp",
+      "#nature"
+    ]
   }
 ]
