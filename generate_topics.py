@@ -233,6 +233,80 @@ def _too_similar(sig, existing_sigs):
     return False
 
 
+
+# --- ANTI-OPAKOVANIE (dedup): po behu odstrani z banky NEPOUZITE temy, ktore su subjektom
+# prilis podobne inej teme. Signatura = title+description+hook + cisla/roky; caste niche-slova
+# sa auto-ignoruju cez frekvenciu (df). Duale pravidlo: rovnaky ROK + prekrytie = dup;
+# rozne roky = rozne pripady; bezrocnove niky -> silna slovna zhoda. Publikovane sa NIKDY nemazu.
+_DD_STOP = set("""a an the this that these those and or but so of to in on for with at by from as is are was
+were be been being it its you your they them their our we he she his her my me i do does did not no can cant
+will just every most more than then there here what when why how who which while into over out up down off only
+also very much many some any all if thing things way ways get make made youre follow daily wisdom mindset day
+today need needs about like want wants nobody tells tell told never ever still story people world reveal
+revealed discover""".split())
+
+
+def _dd_sig(t):
+    txt = (str(t.get("title", "")) + " " + str(t.get("description", "")) + " "
+           + (t.get("segments", [{}])[0].get("text", "") if t.get("segments") else ""))
+    low = txt.lower()
+    toks = set(w for w in re.findall(r"[a-z]+", low) if len(w) > 2 and w not in _DD_STOP)
+    toks |= set("#" + n for n in re.findall(r"\d{2,}", low))
+    return toks
+
+
+def _dd_years(s):
+    return set(w for w in s if len(w) == 5 and w[0] == "#" and w[1] in "12")
+
+
+def _dd_dup(si, sj):
+    common = si & sj
+    if len(common) < 3:
+        return False
+    yi, yj = _dd_years(si), _dd_years(sj)
+    yc = yi & yj
+    if yi and yj and not yc:
+        return False                                   # rozne roky = rozne pripady
+    jac = len(common) / (len(si | sj) or 1)
+    if yc and len(common) >= 3:
+        return True                                    # spolocny rok + prekrytie
+    if not (yi or yj) and len(common) >= 4 and jac >= 0.5:
+        return True                                    # bezrocnove niky -> silna slovna zhoda
+    return False
+
+
+def _clean_bank():
+    """Odstrani NEPOUZITE temy prilis podobne inej teme (ziadne opakovanie videi).
+    Publikovane (used_topics) sa nikdy nemazu. Best-effort, nikdy nezhodi denny beh."""
+    from collections import Counter
+    bank = json.load(open(BANK, encoding="utf-8"))
+    used = set(json.load(open(STATE, encoding="utf-8"))) if os.path.exists(STATE) else set()
+    raws = [_dd_sig(t) for t in bank]
+    df = Counter()
+    for s in raws:
+        for w in s:
+            df[w] += 1
+    cutoff = max(2, int(len(bank) * 0.25))             # slovo vo >25% tem = niche-filler -> ignoruj
+    sigs = [set(w for w in s if df[w] <= cutoff) for s in raws]
+    ks = [s for t, s in zip(bank, sigs) if t.get("title") in used]   # seed: vsetky publikovane
+    kept, removed = [], 0
+    for t, s in zip(bank, sigs):
+        if t.get("title") in used:
+            kept.append(t)
+            continue
+        if s and any(_dd_dup(s, k) for k in ks):
+            removed += 1
+            continue
+        kept.append(t)
+        ks.append(s)
+    if removed:
+        json.dump(kept, open(BANK, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+        print("Dedup: odstranenych %d podobnych nepouzitych tem (ziadne opakovanie)." % removed)
+    else:
+        print("Dedup: ziadne podobne nepouzite temy.")
+
+
+
 def main():
     """Ak je nepouzitych tem v banke menej ako TARGET, dogeneruje nove cez GitHub Models
     (volitelne inspirovane aktualnymi trendami) a zapise ich do topics_bank.json.
@@ -283,3 +357,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    try:
+        _clean_bank()
+    except Exception as _e:
+        print("Dedup preskoceny:", str(_e)[:150])
