@@ -2009,5 +2009,609 @@
       "#fyp",
       "#nature"
     ]
+  },
+  {
+    "title": "The Human Brain's Power",
+    "segments": [
+      {
+        "text": "Your brain generates enough energy to power a small light bulb.",
+        "keywords": "brain energy",
+        "visual": {
+          "type": "hook",
+          "prompt": "glowing light bulb",
+          "big": "Brain Powers Light Bulb"
+        }
+      },
+      {
+        "text": "And there's more to this story.",
+        "keywords": "brain complex",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "3D animated brain structure"
+        }
+      },
+      {
+        "text": "It uses about 20% of your body's total energy.",
+        "keywords": "energy brain",
+        "visual": {
+          "type": "counter",
+          "target": 20,
+          "suffix": "%",
+          "label": "TOTAL ENERGY USE"
+        }
+      },
+      {
+        "text": "That's despite being only 2% of your body weight.",
+        "keywords": "human body",
+        "visual": {
+          "type": "compare",
+          "small_prompt": "Brain Weight",
+          "big_prompt": "Total Body Weight",
+          "small_label": "2%",
+          "big_label": "100%",
+          "stat": "50x"
+        }
+      },
+      {
+        "text": "Your brain is more active when you're asleep than awake.",
+        "keywords": "brain sleep",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "3D animated brain with stars"
+        }
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "keywords": "brain facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D brain icon"
+        }
+      }
+    ],
+    "description": "Your brain can power a light bulb! Incredible, right? Follow for daily facts! 💡",
+    "hashtags": [
+      "#brain",
+      "#facts",
+      "#science",
+      "#psychology",
+      "#shorts",
+      "#fyp",
+      "#nature"
+    ]
+  },
+  {
+    "title": "Your Skin's Amazing Secrets",
+    "segments": [
+      {
+        "text": "Your skin is your body's largest organ!",
+        "keywords": "human skin",
+        "visual": {
+          "type": "hook",
+          "prompt": "human silhouette with glowing skin",
+          "big": "Largest Organ Revealed!"
+        }
+      },
+      {
+        "text": "Wait until you hear about its layers.",
+        "keywords": "skin layers",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "3D animated skin layers"
+        }
+      },
+      {
+        "text": "It has three main layers: epidermis, dermis, and subcutaneous.",
+        "keywords": "skin anatomy",
+        "visual": {
+          "type": "lineup",
+          "items": [
+            {
+              "name": "Epidermis",
+              "prompt": "outer layer of skin"
+            },
+            {
+              "name": "Dermis",
+              "prompt": "middle layer of skin"
+            },
+            {
+              "name": "Subcutaneous",
+              "prompt": "inner layer of skin"
+            }
+          ]
+        }
+      },
+      {
+        "text": "Your skin can regenerate itself every 28 days.",
+        "keywords": "cell regeneration",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "animated skin regeneration"
+        }
+      },
+      {
+        "text": "In fact, you lose around 40 pounds of skin in a lifetime!",
+        "keywords": "skin loss",
+        "visual": {
+          "type": "compare",
+          "small_prompt": "Pounds Lost",
+          "big_prompt": "Your Lifetime Weight",
+          "small_label": "40 lbs",
+          "big_label": "Your Body Weight",
+          "stat": "100x"
+        }
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "keywords": "skin facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D skin icon"
+        }
+      }
+    ],
+    "description": "Did you know your skin is your biggest organ? Follow for daily facts! 🔍",
+    "hashtags": [
+      "#skin",
+      "#facts",
+      "#health",
+      "#science",
+      "#shorts",
+      "#fyp",
+      "#nature"
+    ]
+  },
+  {
+    "title": "Bizarre Animal Facts",
+    "segments": [
+      {
+        "text": "A snail can sleep for three years!",
+        "keywords": "snail sleeping",
+        "visual": {
+          "type": "hook",
+          "prompt": "snail on a leaf",
+          "big": "Three-Year Slumber!"
+        }
+      },
+      {
+        "text": "But that's just the start of it.",
+        "keywords": "snail interesting",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "snail crawling slowly"
+        }
+      },
+      {
+        "text": "Elephants can recognize themselves in mirrors.",
+        "keywords": "elephant reflection",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "elephant looking into water"
+        }
+      },
+      {
+        "text": "And octopuses have three hearts and nine brains.",
+        "keywords": "octopus hearts",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "animated octopus swimming"
+        }
+      },
+      {
+        "text": "Kangaroos can't walk backward!",
+        "keywords": "kangaroo hopping",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "kangaroo hopping in nature"
+        }
+      },
+      {
+        "text": "Hit follow for your daily dose of wow.",
+        "keywords": "animal facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D animal icons"
+        }
+      }
+    ],
+    "description": "Can a snail truly nap for years? Amazing animal facts await! Follow for daily facts! 🐌",
+    "hashtags": [
+      "#animals",
+      "#facts",
+      "#nature",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Insane Food Facts",
+    "segments": [
+      {
+        "text": "Honey never spoils; it's been found in 3000-year-old tombs!",
+        "keywords": "honey ancient tombs",
+        "visual": {
+          "type": "hook",
+          "prompt": "ancient Egyptian tomb",
+          "big": "Honey from the Past!"
+        }
+      },
+      {
+        "text": "But that's not the only surprise.",
+        "keywords": "food interesting",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "3D honey jar"
+        }
+      },
+      {
+        "text": "Chocolate was once used as currency.",
+        "keywords": "chocolate money",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "chocolate coins"
+        }
+      },
+      {
+        "text": "Cucumbers can actually absorb sound!",
+        "keywords": "cucumbers sound",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "cucumbers on a table"
+        }
+      },
+      {
+        "text": "And apples float in water because they're 25% air.",
+        "keywords": "apples floating",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "apples in water"
+        }
+      },
+      {
+        "text": "Follow so you never run out of fun facts.",
+        "keywords": "food facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D food icon"
+        }
+      }
+    ],
+    "description": "How can honey last for centuries? Discover culinary wonders! Follow for daily facts! 🍯",
+    "hashtags": [
+      "#food",
+      "#facts",
+      "#cooking",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Stunning Space Facts",
+    "segments": [
+      {
+        "text": "A day on Venus is longer than a year on Venus!",
+        "keywords": "Venus rotation",
+        "visual": {
+          "type": "hook",
+          "prompt": "Venus in space",
+          "big": "Venus Time Mystery!"
+        }
+      },
+      {
+        "text": "And wait until you hear about its atmosphere.",
+        "keywords": "Venus atmosphere",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "clouds on Venus"
+        }
+      },
+      {
+        "text": "Venus is covered in clouds of sulfuric acid.",
+        "keywords": "sulfuric acid clouds",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "Sulfuric acid cloud animation"
+        }
+      },
+      {
+        "text": "It's hotter than Mercury, despite being farther from the Sun.",
+        "keywords": "heat comparison",
+        "visual": {
+          "type": "compare",
+          "small_prompt": "Venus Temperature",
+          "big_prompt": "Mercury Temperature",
+          "small_label": "900°F",
+          "big_label": "800°F",
+          "stat": "1.125x"
+        }
+      },
+      {
+        "text": "Also, a single spoonful of a neutron star weighs about 6 billion tons.",
+        "keywords": "neutron star weight",
+        "visual": {
+          "type": "counter",
+          "target": 6000000000,
+          "suffix": " tons",
+          "label": "SINGLE SPOONFUL WEIGHT"
+        }
+      },
+      {
+        "text": "Follow so you never run out of fun facts.",
+        "keywords": "space facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D space icon"
+        }
+      }
+    ],
+    "description": "Can a day really outlast a year in space? Find out more! Follow for daily facts! 🌌",
+    "hashtags": [
+      "#space",
+      "#facts",
+      "#science",
+      "#astronomy",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "History's Hidden Treasures",
+    "segments": [
+      {
+        "text": "Gold was so abundant in ancient Egypt, it was considered worthless!",
+        "keywords": "Egypt gold",
+        "visual": {
+          "type": "hook",
+          "prompt": "Egyptian pyramids",
+          "big": "Ancient Egypt Treasure!"
+        }
+      },
+      {
+        "text": "And there's so much more lurking in history.",
+        "keywords": "historical treasures",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "treasure chest buried"
+        }
+      },
+      {
+        "text": "Cleopatra lived closer to the moon landing than to the building of the pyramids.",
+        "keywords": "Cleopatra timeline",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "timeline of events"
+        }
+      },
+      {
+        "text": "Many ancient Romans used urine as mouthwash.",
+        "keywords": "Roman hygiene",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "ancient Roman artifacts"
+        }
+      },
+      {
+        "text": "In medieval times, people believed in animal soulmates for loyalty.",
+        "keywords": "medieval beliefs",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "medieval village scene"
+        }
+      },
+      {
+        "text": "Follow if you love learning something new.",
+        "keywords": "history facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D historical icons"
+        }
+      }
+    ],
+    "description": "Did you know gold was once worthless? Uncover strange truths! Follow for daily facts! ⏳",
+    "hashtags": [
+      "#history",
+      "#facts",
+      "#ancient",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Incredible Earth Facts",
+    "segments": [
+      {
+        "text": "Earth is the only known planet with life!",
+        "keywords": "Earth planet",
+        "visual": {
+          "type": "hook",
+          "prompt": "Earth from space",
+          "big": "Life Exists Here!"
+        }
+      },
+      {
+        "text": "But wait, there's more weirdness.",
+        "keywords": "Earth life",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "3D Earth model"
+        }
+      },
+      {
+        "text": "About 71% of Earth's surface is covered in water.",
+        "keywords": "Earth water",
+        "visual": {
+          "type": "counter",
+          "target": 71,
+          "suffix": "%",
+          "label": "WATER COVERAGE"
+        }
+      },
+      {
+        "text": "Mount Everest grows about 4 millimeters every year.",
+        "keywords": "Mount Everest growth",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "Mount Everest mountain range"
+        }
+      },
+      {
+        "text": "There's more than 30,000 species of edible plants on Earth.",
+        "keywords": "edible plants",
+        "visual": {
+          "type": "counter",
+          "target": 30000,
+          "suffix": " species",
+          "label": "EDIBLE PLANTS"
+        }
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "keywords": "Earth facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D Earth icon"
+        }
+      }
+    ],
+    "description": "Did you know Earth is the only planet with life? Learn more amazing facts! Follow for daily facts! 🌍",
+    "hashtags": [
+      "#Earth",
+      "#facts",
+      "#nature",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Astounding Animal Communication",
+    "segments": [
+      {
+        "text": "Dolphins have names for each other!",
+        "keywords": "dolphin communication",
+        "visual": {
+          "type": "hook",
+          "prompt": "dolphins swimming together",
+          "big": "Dolphins Have Names!"
+        }
+      },
+      {
+        "text": "And that's just the tip of the iceberg.",
+        "keywords": "animal communication",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "iceberg in ocean"
+        }
+      },
+      {
+        "text": "Crows can use tools just like humans.",
+        "keywords": "crows using tools",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "crow using a stick"
+        }
+      },
+      {
+        "text": "Bees communicate through a dance to show directions.",
+        "keywords": "bee dance",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "animated bees dancing"
+        }
+      },
+      {
+        "text": "Parrots can mimic human speech perfectly.",
+        "keywords": "parrot talking",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "parrot on a branch"
+        }
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "keywords": "animal facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D animal icons"
+        }
+      }
+    ],
+    "description": "Can dolphins actually have names? Dive into animal facts! Follow for daily facts! 🐬",
+    "hashtags": [
+      "#animals",
+      "#facts",
+      "#communication",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Unbelievable Human Facts",
+    "segments": [
+      {
+        "text": "Humans shed about 600,000 particles of skin every hour.",
+        "keywords": "skin particles",
+        "visual": {
+          "type": "hook",
+          "prompt": "particles in air",
+          "big": "Skin Particles Everywhere!"
+        }
+      },
+      {
+        "text": "And there's a lot more to uncover.",
+        "keywords": "human body",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "animated skin shedding"
+        }
+      },
+      {
+        "text": "Your stomach produces a new lining every few days.",
+        "keywords": "stomach lining",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "stomach anatomy"
+        }
+      },
+      {
+        "text": "The average person has about 100,000 hairs on their head.",
+        "keywords": "human hair",
+        "visual": {
+          "type": "counter",
+          "target": 100000,
+          "suffix": " hairs",
+          "label": "AVERAGE HAIRS"
+        }
+      },
+      {
+        "text": "Humans are the only species that blush.",
+        "keywords": "blushing humans",
+        "visual": {
+          "type": "kenburns",
+          "prompt": "close-up of a blushing face"
+        }
+      },
+      {
+        "text": "Hit follow for your daily dose of wow.",
+        "keywords": "human facts",
+        "visual": {
+          "type": "cta",
+          "prompt": "3D human figure"
+        }
+      }
+    ],
+    "description": "Did you know we shed skin constantly? Discover more unbelievable facts! Follow for daily facts! 😲",
+    "hashtags": [
+      "#humans",
+      "#facts",
+      "#science",
+      "#health",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]
