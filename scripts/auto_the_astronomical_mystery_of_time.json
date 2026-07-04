@@ -1,0 +1,68 @@
+{
+  "title": "The Astronomical Mystery of Time!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Time actually moves differently in space compared to Earth!",
+      "hook_top": "TIME IS RELATIVE",
+      "query": "astronaut in space",
+      "query2": "earth from space"
+    },
+    {
+      "role": "fact",
+      "text": "Due to gravity, time moves slower the closer you are to a massive object.",
+      "query": "black hole simulation",
+      "query2": "gravity visual",
+      "chips": [
+        {
+          "t": "GRAVITY AFFECTS TIME",
+          "on": "gravity",
+          "style": "accent"
+        }
+      ],
+      "punch": "slower"
+    },
+    {
+      "role": "fact",
+      "text": "This means astronauts ages slightly slower than people on Earth!",
+      "query": "astronauts on the ISS",
+      "query2": "spacewalk outside ISS",
+      "chips": [
+        {
+          "t": "AGE DIFFERENCES",
+          "on": "ages",
+          "style": "white"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "The closer to a black hole, the more pronounced this effect becomes!",
+      "query": "black hole visuals",
+      "query2": "event horizon illustration",
+      "label": "EXTREME TIME WARP",
+      "sub": "near a black hole!",
+      "label_on": "black hole",
+      "punch": "pronounced"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "cosmic visuals",
+      "query2": "galaxy view"
+    }
+  ],
+  "description": "Time doesn’t fly the same in space! Discover how gravity alters our perception of time. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#space",
+    "#time",
+    "#science",
+    "#cosmos",
+    "#shorts",
+    "#fyp"
+  ]
+}

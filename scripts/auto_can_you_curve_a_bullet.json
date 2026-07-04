@@ -1,0 +1,68 @@
+{
+  "title": "Can You Curve a Bullet?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "It's possible to curve a bullet, but not how movies show!",
+      "hook_top": "CURVING BULLETS",
+      "query": "bullet trajectory",
+      "query2": "bullet firing in slow motion"
+    },
+    {
+      "role": "fact",
+      "text": "Using spinning techniques can actually affect a bullet's path!",
+      "query": "bullet spin manipulation",
+      "query2": "bullet in slow motion",
+      "chips": [
+        {
+          "t": "SPIN TECHNIQUES",
+          "on": "spinning",
+          "style": "accent"
+        }
+      ],
+      "punch": "spin"
+    },
+    {
+      "role": "fact",
+      "text": "However, real-life curving is only minor and requires precise conditions.",
+      "query": "precision shooting",
+      "query2": "gun aiming",
+      "chips": [
+        {
+          "t": "PRECISION NEEDED",
+          "on": "precision",
+          "style": "white"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Curving can be achieved in controlled environments, not in action films.",
+      "query": "gun range shot",
+      "query2": "shooting at target",
+      "label": "NOT A MOVIE TRICK",
+      "sub": "it's all in the spin!",
+      "label_on": "curving",
+      "punch": "achieve"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "gun shooting range",
+      "query2": "shooting sports"
+    }
+  ],
+  "description": "Curving a bullet? It can happen, but not like in the movies! Discover how and why with us! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#bullet",
+    "#science",
+    "#curiosity",
+    "#shooting",
+    "#shorts",
+    "#fyp"
+  ]
+}
