@@ -38,6 +38,8 @@ def main():
             used = json.load(f)
 
     remaining = [t for t in bank if t["title"] not in used]
+    # preferuj temy NOVEHO (PRO) formatu
+    remaining.sort(key=lambda t: 0 if t.get("scenes") else 1)
     if not remaining:
         print("Vsetky temy z banky su uz pouzite. Pridaj nove do topics_bank.json.")
         return
@@ -54,7 +56,8 @@ def main():
             json.dump(spec, f, ensure_ascii=False, indent=2)
         print(f"\n===== [{i}/{len(batch)}] {title} =====")
         try:
-            r = subprocess.run([sys.executable, os.path.join(ROOT, "make_video.py"), path])
+            renderer = "pro_engine.py" if spec.get("scenes") else "make_video.py"
+            r = subprocess.run([sys.executable, os.path.join(ROOT, renderer), path])
             ok = r.returncode == 0
         except OSError as e:
             # napr. make_video.py alebo interpreter sa nepodarilo spustit -> tato tema zlyhala,
