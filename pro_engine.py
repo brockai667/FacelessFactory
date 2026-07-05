@@ -851,7 +851,8 @@ def main():
     final = os.path.join(OUT_DIR, name + ".mp4")
     run([FF, "-y", "-i", "video.mp4", "-i", "mixed.wav",
          "-filter_complex", "[0:v]subtitles=captions.ass:fontsdir=fonts[v]",
-         "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "19",
+         "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+         "-maxrate", "9M", "-bufsize", "14M",   # cap: Cloudinary free = 100MB/subor (grain zral 142MB)
          "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart",
          os.path.abspath(final)], cwd=work)
     # .txt sidecar pre Buffer: titulok + popis (kde + kecy + hashtagy)
