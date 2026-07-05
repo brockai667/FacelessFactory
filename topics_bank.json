@@ -2817,5 +2817,214 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "The Animal With Three Hearts",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "An octopus has three hearts, nine brains, and blue blood.",
+        "hook_top": "THREE HEARTS NINE BRAINS",
+        "query": "octopus underwater close",
+        "query2": "octopus swimming ocean"
+      },
+      {
+        "role": "fact",
+        "text": "Two of those hearts stop beating every time it swims, which is why it prefers to crawl.",
+        "query": "octopus crawling seabed",
+        "query2": "octopus tentacles macro",
+        "chips": [
+          {
+            "t": "3 HEARTS",
+            "on": "hearts",
+            "style": "white"
+          },
+          {
+            "t": "9 BRAINS",
+            "on": "brains",
+            "style": "accent"
+          }
+        ],
+        "punch": "stop"
+      },
+      {
+        "role": "fact",
+        "text": "Its blood is blue because it runs on copper instead of iron.",
+        "query": "octopus blue ocean",
+        "query2": "deep ocean blue water",
+        "chips": [
+          {
+            "t": "COPPER BLOOD",
+            "on": "copper",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "And each of its eight arms can taste, touch, and decide on its own.",
+        "query": "octopus tentacles suckers close",
+        "query2": "octopus arm suckers",
+        "label": "ARMS THAT THINK",
+        "sub": "each one decides on its own",
+        "label_on": "arms",
+        "punch": "decide"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for more facts that sound fake but are real.",
+        "query": "octopus ocean cinematic",
+        "query2": "underwater ocean light rays"
+      }
+    ],
+    "description": "An octopus has 3 hearts, 9 brains and blue copper-based blood - and every arm thinks for itself. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#octopus",
+      "#ocean",
+      "#science",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Bananas Are Slightly Radioactive",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Every banana you eat is very slightly radioactive.",
+        "hook_top": "BANANAS ARE RADIOACTIVE",
+        "query": "banana close up",
+        "query2": "bananas bunch yellow"
+      },
+      {
+        "role": "fact",
+        "text": "They're packed with potassium, and a tiny fraction of all potassium is a radioactive isotope called potassium forty.",
+        "query": "bananas market fruit",
+        "query2": "banana peeling close",
+        "chips": [
+          {
+            "t": "POTASSIUM-40",
+            "on": "potassium",
+            "style": "accent"
+          }
+        ],
+        "punch": "radioactive"
+      },
+      {
+        "role": "fact",
+        "text": "It's so tiny that scientists half-jokingly measure radiation in banana equivalent doses.",
+        "query": "person eating banana",
+        "query2": "fruit bowl kitchen",
+        "chips": [
+          {
+            "t": "THE BANANA DOSE",
+            "on": "doses",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "You'd have to eat millions in one sitting to be in any danger, so eat up.",
+        "query": "bananas pile many",
+        "query2": "grocery bananas shelf",
+        "label": "COMPLETELY SAFE",
+        "sub": "millions to be a danger",
+        "label_on": "danger",
+        "punch": "millions"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "fruit colorful close up",
+        "query2": "nature food macro"
+      }
+    ],
+    "description": "Bananas are naturally, very slightly radioactive - thanks to potassium-40. Scientists even measure radiation in 'banana doses'. Totally safe. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#bananas",
+      "#science",
+      "#radioactive",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Your Body Glows in the Dark",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Your body is glowing right now. You just can't see it.",
+        "hook_top": "YOUR BODY GLOWS",
+        "query": "human silhouette light dark",
+        "query2": "person dark room glow"
+      },
+      {
+        "role": "fact",
+        "text": "Humans give off a faint visible light, about a thousand times weaker than our eyes can detect.",
+        "query": "glowing cells microscope",
+        "query2": "bioluminescence blue dark",
+        "chips": [
+          {
+            "t": "1,000x TOO FAINT",
+            "on": "thousand",
+            "style": "accent"
+          }
+        ],
+        "punch": "light"
+      },
+      {
+        "role": "fact",
+        "text": "It comes from chemical reactions inside your cells, and it's brightest in the late afternoon.",
+        "query": "human body anatomy glow",
+        "query2": "cells biology microscope",
+        "chips": [
+          {
+            "t": "BRIGHTEST LATE DAY",
+            "on": "afternoon",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Ultra-sensitive cameras have actually captured it. We are, faintly, creatures of light.",
+        "query": "camera lab dark research",
+        "query2": "night vision glow person",
+        "label": "CAUGHT ON CAMERA",
+        "sub": "we glow, faintly",
+        "label_on": "cameras",
+        "punch": "light"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "glowing particles dark",
+        "query2": "bioluminescence ocean night"
+      }
+    ],
+    "description": "Humans emit a faint visible glow - about 1,000x too weak for our eyes, brightest in the late afternoon. Special cameras have caught it. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#humanbody",
+      "#science",
+      "#biology",
+      "#glow",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]
