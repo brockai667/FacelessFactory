@@ -1,0 +1,73 @@
+{
+  "title": "The Animal With Three Hearts",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "An octopus has three hearts, nine brains, and blue blood.",
+      "hook_top": "THREE HEARTS NINE BRAINS",
+      "query": "octopus underwater close",
+      "query2": "octopus swimming ocean"
+    },
+    {
+      "role": "fact",
+      "text": "Two of those hearts stop beating every time it swims, which is why it prefers to crawl.",
+      "query": "octopus crawling seabed",
+      "query2": "octopus tentacles macro",
+      "chips": [
+        {
+          "t": "3 HEARTS",
+          "on": "hearts",
+          "style": "white"
+        },
+        {
+          "t": "9 BRAINS",
+          "on": "brains",
+          "style": "accent"
+        }
+      ],
+      "punch": "stop"
+    },
+    {
+      "role": "fact",
+      "text": "Its blood is blue because it runs on copper instead of iron.",
+      "query": "octopus blue ocean",
+      "query2": "deep ocean blue water",
+      "chips": [
+        {
+          "t": "COPPER BLOOD",
+          "on": "copper",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "And each of its eight arms can taste, touch, and decide on its own.",
+      "query": "octopus tentacles suckers close",
+      "query2": "octopus arm suckers",
+      "label": "ARMS THAT THINK",
+      "sub": "each one decides on its own",
+      "label_on": "arms",
+      "punch": "decide"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for more facts that sound fake but are real.",
+      "query": "octopus ocean cinematic",
+      "query2": "underwater ocean light rays"
+    }
+  ],
+  "description": "An octopus has 3 hearts, 9 brains and blue copper-based blood - and every arm thinks for itself. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#octopus",
+    "#ocean",
+    "#science",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

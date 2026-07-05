@@ -1776,845 +1776,6 @@
     ]
   },
   {
-    "title": "3 Surprising Facts About Skyscrapers",
-    "segments": [
-      {
-        "text": "The tallest building sways over 6 feet!",
-        "keywords": "tall skyscraper"
-      },
-      {
-        "text": "And there's a clever reason for this.",
-        "keywords": "skyscraper engineering"
-      },
-      {
-        "text": "Engineers design them to withstand strong winds.",
-        "keywords": "wind testing"
-      },
-      {
-        "text": "Some use a pendulum system to stabilize.",
-        "keywords": "pendulum skyscraper"
-      },
-      {
-        "text": "Can you believe they’re built to dance with the wind?",
-        "keywords": "skyscraper wind"
-      },
-      {
-        "text": "Follow for more facts that sound fake but are real.",
-        "keywords": "skyscraper facts"
-      }
-    ],
-    "description": "The tallest buildings sway over 6 feet! How wild is that? Follow for daily facts! 🌆",
-    "hashtags": [
-      "#skyscraper",
-      "#facts",
-      "#architecture",
-      "#shorts",
-      "#fyp",
-      "#engineering"
-    ]
-  },
-  {
-    "title": "3 Facts About Crows",
-    "segments": [
-      {
-        "text": "Crows can remember human faces for years.",
-        "keywords": "crows remembering faces",
-        "visual": {
-          "type": "hook",
-          "prompt": "dramatic scene image",
-          "big": "Crows Remember Faces!"
-        }
-      },
-      {
-        "text": "And yes, they hold grudges.",
-        "keywords": "angry crow",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "angry crow looking at a person"
-        }
-      },
-      {
-        "text": "They can also use tools, like sticks.",
-        "keywords": "crow using tool",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "crow using stick as tool"
-        }
-      },
-      {
-        "text": "Some can even solve complex puzzles.",
-        "keywords": "crow solving puzzle",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "crow interacting with puzzle"
-        }
-      },
-      {
-        "text": "These birds are often smarter than dogs.",
-        "keywords": "crow comparison dogs",
-        "visual": {
-          "type": "compare",
-          "small_prompt": "Crows",
-          "big_prompt": "Dogs",
-          "small_label": "SMARTER",
-          "big_label": "LESS SMART",
-          "stat": "5x"
-        }
-      },
-      {
-        "text": "Follow so you never run out of fun facts.",
-        "keywords": "crow facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "silhouette of a crow"
-        }
-      }
-    ],
-    "description": "Crows have impressive intelligence and memory. Follow for daily facts! 🐦",
-    "hashtags": [
-      "#crows",
-      "#facts",
-      "#birds",
-      "#nature",
-      "#science",
-      "#shorts",
-      "#fyp",
-      "#weirdfacts"
-    ]
-  },
-  {
-    "title": "3 Unbelievable Facts About Stars",
-    "segments": [
-      {
-        "text": "A single star can outshine 100 billion suns.",
-        "keywords": "massive star",
-        "visual": {
-          "type": "hook",
-          "prompt": "dramatic scene image",
-          "big": "Star Outshines Suns!"
-        }
-      },
-      {
-        "text": "But it's not as bright as it seems.",
-        "keywords": "star brightness",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "star shining in space"
-        }
-      },
-      {
-        "text": "Most stars are actually red dwarfs, not yellow or white.",
-        "keywords": "red dwarf star",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "red dwarf stars in space"
-        }
-      },
-      {
-        "text": "They make up about 70% of the universe's stars.",
-        "keywords": "star composition",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "many stars in the sky"
-        }
-      },
-      {
-        "text": "And massive stars die in spectacular supernovae.",
-        "keywords": "supernova explosion",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "supernova explosion in space"
-        }
-      },
-      {
-        "text": "Follow for a mind-blowing fact every day.",
-        "keywords": "star facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "image of a star in the night sky"
-        }
-      }
-    ],
-    "description": "Stars hold secrets that will blow your mind! Follow for daily facts! 🌌",
-    "hashtags": [
-      "#stars",
-      "#space",
-      "#facts",
-      "#science",
-      "#shorts",
-      "#fyp",
-      "#universe"
-    ]
-  },
-  {
-    "title": "3 Incredible Facts About Honey",
-    "segments": [
-      {
-        "text": "Honey never spoils; it’s found in ancient tombs.",
-        "keywords": "ancient honey",
-        "visual": {
-          "type": "hook",
-          "prompt": "dramatic scene image",
-          "big": "Honey Never Spoils!"
-        }
-      },
-      {
-        "text": "Archaeologists found honey that’s over 3000 years old.",
-        "keywords": "archaeological honey findings",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "ancient tomb with honey"
-        }
-      },
-      {
-        "text": "It can even heal wounds.",
-        "keywords": "honey healing wounds",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "wound being treated with honey"
-        }
-      },
-      {
-        "text": "Honey has natural preservatives, making it last forever.",
-        "keywords": "natural preservatives",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "honey jar on shelf"
-        }
-      },
-      {
-        "text": "Bees communicate through a 'waggle dance' to find flowers.",
-        "keywords": "bee waggle dance",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "bees dancing around flowers"
-        }
-      },
-      {
-        "text": "Follow for facts that sound fake but aren't.",
-        "keywords": "honey facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "jar of honey"
-        }
-      }
-    ],
-    "description": "Honey is nature's miracle with amazing properties! Follow for daily facts! 🍯",
-    "hashtags": [
-      "#honey",
-      "#facts",
-      "#food",
-      "#science",
-      "#shorts",
-      "#fyp",
-      "#nature"
-    ]
-  },
-  {
-    "title": "The Human Brain's Power",
-    "segments": [
-      {
-        "text": "Your brain generates enough energy to power a small light bulb.",
-        "keywords": "brain energy",
-        "visual": {
-          "type": "hook",
-          "prompt": "glowing light bulb",
-          "big": "Brain Powers Light Bulb"
-        }
-      },
-      {
-        "text": "And there's more to this story.",
-        "keywords": "brain complex",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "3D animated brain structure"
-        }
-      },
-      {
-        "text": "It uses about 20% of your body's total energy.",
-        "keywords": "energy brain",
-        "visual": {
-          "type": "counter",
-          "target": 20,
-          "suffix": "%",
-          "label": "TOTAL ENERGY USE"
-        }
-      },
-      {
-        "text": "That's despite being only 2% of your body weight.",
-        "keywords": "human body",
-        "visual": {
-          "type": "compare",
-          "small_prompt": "Brain Weight",
-          "big_prompt": "Total Body Weight",
-          "small_label": "2%",
-          "big_label": "100%",
-          "stat": "50x"
-        }
-      },
-      {
-        "text": "Your brain is more active when you're asleep than awake.",
-        "keywords": "brain sleep",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "3D animated brain with stars"
-        }
-      },
-      {
-        "text": "Follow for facts that sound fake but aren't.",
-        "keywords": "brain facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D brain icon"
-        }
-      }
-    ],
-    "description": "Your brain can power a light bulb! Incredible, right? Follow for daily facts! 💡",
-    "hashtags": [
-      "#brain",
-      "#facts",
-      "#science",
-      "#psychology",
-      "#shorts",
-      "#fyp",
-      "#nature"
-    ]
-  },
-  {
-    "title": "Your Skin's Amazing Secrets",
-    "segments": [
-      {
-        "text": "Your skin is your body's largest organ!",
-        "keywords": "human skin",
-        "visual": {
-          "type": "hook",
-          "prompt": "human silhouette with glowing skin",
-          "big": "Largest Organ Revealed!"
-        }
-      },
-      {
-        "text": "Wait until you hear about its layers.",
-        "keywords": "skin layers",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "3D animated skin layers"
-        }
-      },
-      {
-        "text": "It has three main layers: epidermis, dermis, and subcutaneous.",
-        "keywords": "skin anatomy",
-        "visual": {
-          "type": "lineup",
-          "items": [
-            {
-              "name": "Epidermis",
-              "prompt": "outer layer of skin"
-            },
-            {
-              "name": "Dermis",
-              "prompt": "middle layer of skin"
-            },
-            {
-              "name": "Subcutaneous",
-              "prompt": "inner layer of skin"
-            }
-          ]
-        }
-      },
-      {
-        "text": "Your skin can regenerate itself every 28 days.",
-        "keywords": "cell regeneration",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "animated skin regeneration"
-        }
-      },
-      {
-        "text": "In fact, you lose around 40 pounds of skin in a lifetime!",
-        "keywords": "skin loss",
-        "visual": {
-          "type": "compare",
-          "small_prompt": "Pounds Lost",
-          "big_prompt": "Your Lifetime Weight",
-          "small_label": "40 lbs",
-          "big_label": "Your Body Weight",
-          "stat": "100x"
-        }
-      },
-      {
-        "text": "Follow for facts that sound fake but aren't.",
-        "keywords": "skin facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D skin icon"
-        }
-      }
-    ],
-    "description": "Did you know your skin is your biggest organ? Follow for daily facts! 🔍",
-    "hashtags": [
-      "#skin",
-      "#facts",
-      "#health",
-      "#science",
-      "#shorts",
-      "#fyp",
-      "#nature"
-    ]
-  },
-  {
-    "title": "Bizarre Animal Facts",
-    "segments": [
-      {
-        "text": "A snail can sleep for three years!",
-        "keywords": "snail sleeping",
-        "visual": {
-          "type": "hook",
-          "prompt": "snail on a leaf",
-          "big": "Three-Year Slumber!"
-        }
-      },
-      {
-        "text": "But that's just the start of it.",
-        "keywords": "snail interesting",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "snail crawling slowly"
-        }
-      },
-      {
-        "text": "Elephants can recognize themselves in mirrors.",
-        "keywords": "elephant reflection",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "elephant looking into water"
-        }
-      },
-      {
-        "text": "And octopuses have three hearts and nine brains.",
-        "keywords": "octopus hearts",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "animated octopus swimming"
-        }
-      },
-      {
-        "text": "Kangaroos can't walk backward!",
-        "keywords": "kangaroo hopping",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "kangaroo hopping in nature"
-        }
-      },
-      {
-        "text": "Hit follow for your daily dose of wow.",
-        "keywords": "animal facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D animal icons"
-        }
-      }
-    ],
-    "description": "Can a snail truly nap for years? Amazing animal facts await! Follow for daily facts! 🐌",
-    "hashtags": [
-      "#animals",
-      "#facts",
-      "#nature",
-      "#science",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
-    "title": "Insane Food Facts",
-    "segments": [
-      {
-        "text": "Honey never spoils; it's been found in 3000-year-old tombs!",
-        "keywords": "honey ancient tombs",
-        "visual": {
-          "type": "hook",
-          "prompt": "ancient Egyptian tomb",
-          "big": "Honey from the Past!"
-        }
-      },
-      {
-        "text": "But that's not the only surprise.",
-        "keywords": "food interesting",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "3D honey jar"
-        }
-      },
-      {
-        "text": "Chocolate was once used as currency.",
-        "keywords": "chocolate money",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "chocolate coins"
-        }
-      },
-      {
-        "text": "Cucumbers can actually absorb sound!",
-        "keywords": "cucumbers sound",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "cucumbers on a table"
-        }
-      },
-      {
-        "text": "And apples float in water because they're 25% air.",
-        "keywords": "apples floating",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "apples in water"
-        }
-      },
-      {
-        "text": "Follow so you never run out of fun facts.",
-        "keywords": "food facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D food icon"
-        }
-      }
-    ],
-    "description": "How can honey last for centuries? Discover culinary wonders! Follow for daily facts! 🍯",
-    "hashtags": [
-      "#food",
-      "#facts",
-      "#cooking",
-      "#science",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
-    "title": "Stunning Space Facts",
-    "segments": [
-      {
-        "text": "A day on Venus is longer than a year on Venus!",
-        "keywords": "Venus rotation",
-        "visual": {
-          "type": "hook",
-          "prompt": "Venus in space",
-          "big": "Venus Time Mystery!"
-        }
-      },
-      {
-        "text": "And wait until you hear about its atmosphere.",
-        "keywords": "Venus atmosphere",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "clouds on Venus"
-        }
-      },
-      {
-        "text": "Venus is covered in clouds of sulfuric acid.",
-        "keywords": "sulfuric acid clouds",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "Sulfuric acid cloud animation"
-        }
-      },
-      {
-        "text": "It's hotter than Mercury, despite being farther from the Sun.",
-        "keywords": "heat comparison",
-        "visual": {
-          "type": "compare",
-          "small_prompt": "Venus Temperature",
-          "big_prompt": "Mercury Temperature",
-          "small_label": "900°F",
-          "big_label": "800°F",
-          "stat": "1.125x"
-        }
-      },
-      {
-        "text": "Also, a single spoonful of a neutron star weighs about 6 billion tons.",
-        "keywords": "neutron star weight",
-        "visual": {
-          "type": "counter",
-          "target": 6000000000,
-          "suffix": " tons",
-          "label": "SINGLE SPOONFUL WEIGHT"
-        }
-      },
-      {
-        "text": "Follow so you never run out of fun facts.",
-        "keywords": "space facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D space icon"
-        }
-      }
-    ],
-    "description": "Can a day really outlast a year in space? Find out more! Follow for daily facts! 🌌",
-    "hashtags": [
-      "#space",
-      "#facts",
-      "#science",
-      "#astronomy",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
-    "title": "History's Hidden Treasures",
-    "segments": [
-      {
-        "text": "Gold was so abundant in ancient Egypt, it was considered worthless!",
-        "keywords": "Egypt gold",
-        "visual": {
-          "type": "hook",
-          "prompt": "Egyptian pyramids",
-          "big": "Ancient Egypt Treasure!"
-        }
-      },
-      {
-        "text": "And there's so much more lurking in history.",
-        "keywords": "historical treasures",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "treasure chest buried"
-        }
-      },
-      {
-        "text": "Cleopatra lived closer to the moon landing than to the building of the pyramids.",
-        "keywords": "Cleopatra timeline",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "timeline of events"
-        }
-      },
-      {
-        "text": "Many ancient Romans used urine as mouthwash.",
-        "keywords": "Roman hygiene",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "ancient Roman artifacts"
-        }
-      },
-      {
-        "text": "In medieval times, people believed in animal soulmates for loyalty.",
-        "keywords": "medieval beliefs",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "medieval village scene"
-        }
-      },
-      {
-        "text": "Follow if you love learning something new.",
-        "keywords": "history facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D historical icons"
-        }
-      }
-    ],
-    "description": "Did you know gold was once worthless? Uncover strange truths! Follow for daily facts! ⏳",
-    "hashtags": [
-      "#history",
-      "#facts",
-      "#ancient",
-      "#science",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
-    "title": "Incredible Earth Facts",
-    "segments": [
-      {
-        "text": "Earth is the only known planet with life!",
-        "keywords": "Earth planet",
-        "visual": {
-          "type": "hook",
-          "prompt": "Earth from space",
-          "big": "Life Exists Here!"
-        }
-      },
-      {
-        "text": "But wait, there's more weirdness.",
-        "keywords": "Earth life",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "3D Earth model"
-        }
-      },
-      {
-        "text": "About 71% of Earth's surface is covered in water.",
-        "keywords": "Earth water",
-        "visual": {
-          "type": "counter",
-          "target": 71,
-          "suffix": "%",
-          "label": "WATER COVERAGE"
-        }
-      },
-      {
-        "text": "Mount Everest grows about 4 millimeters every year.",
-        "keywords": "Mount Everest growth",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "Mount Everest mountain range"
-        }
-      },
-      {
-        "text": "There's more than 30,000 species of edible plants on Earth.",
-        "keywords": "edible plants",
-        "visual": {
-          "type": "counter",
-          "target": 30000,
-          "suffix": " species",
-          "label": "EDIBLE PLANTS"
-        }
-      },
-      {
-        "text": "Follow for facts that sound fake but aren't.",
-        "keywords": "Earth facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D Earth icon"
-        }
-      }
-    ],
-    "description": "Did you know Earth is the only planet with life? Learn more amazing facts! Follow for daily facts! 🌍",
-    "hashtags": [
-      "#Earth",
-      "#facts",
-      "#nature",
-      "#science",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
-    "title": "Astounding Animal Communication",
-    "segments": [
-      {
-        "text": "Dolphins have names for each other!",
-        "keywords": "dolphin communication",
-        "visual": {
-          "type": "hook",
-          "prompt": "dolphins swimming together",
-          "big": "Dolphins Have Names!"
-        }
-      },
-      {
-        "text": "And that's just the tip of the iceberg.",
-        "keywords": "animal communication",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "iceberg in ocean"
-        }
-      },
-      {
-        "text": "Crows can use tools just like humans.",
-        "keywords": "crows using tools",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "crow using a stick"
-        }
-      },
-      {
-        "text": "Bees communicate through a dance to show directions.",
-        "keywords": "bee dance",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "animated bees dancing"
-        }
-      },
-      {
-        "text": "Parrots can mimic human speech perfectly.",
-        "keywords": "parrot talking",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "parrot on a branch"
-        }
-      },
-      {
-        "text": "Follow for facts that sound fake but aren't.",
-        "keywords": "animal facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D animal icons"
-        }
-      }
-    ],
-    "description": "Can dolphins actually have names? Dive into animal facts! Follow for daily facts! 🐬",
-    "hashtags": [
-      "#animals",
-      "#facts",
-      "#communication",
-      "#nature",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
-    "title": "Unbelievable Human Facts",
-    "segments": [
-      {
-        "text": "Humans shed about 600,000 particles of skin every hour.",
-        "keywords": "skin particles",
-        "visual": {
-          "type": "hook",
-          "prompt": "particles in air",
-          "big": "Skin Particles Everywhere!"
-        }
-      },
-      {
-        "text": "And there's a lot more to uncover.",
-        "keywords": "human body",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "animated skin shedding"
-        }
-      },
-      {
-        "text": "Your stomach produces a new lining every few days.",
-        "keywords": "stomach lining",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "stomach anatomy"
-        }
-      },
-      {
-        "text": "The average person has about 100,000 hairs on their head.",
-        "keywords": "human hair",
-        "visual": {
-          "type": "counter",
-          "target": 100000,
-          "suffix": " hairs",
-          "label": "AVERAGE HAIRS"
-        }
-      },
-      {
-        "text": "Humans are the only species that blush.",
-        "keywords": "blushing humans",
-        "visual": {
-          "type": "kenburns",
-          "prompt": "close-up of a blushing face"
-        }
-      },
-      {
-        "text": "Hit follow for your daily dose of wow.",
-        "keywords": "human facts",
-        "visual": {
-          "type": "cta",
-          "prompt": "3D human figure"
-        }
-      }
-    ],
-    "description": "Did you know we shed skin constantly? Discover more unbelievable facts! Follow for daily facts! 😲",
-    "hashtags": [
-      "#humans",
-      "#facts",
-      "#science",
-      "#health",
-      "#shorts",
-      "#fyp"
-    ]
-  },
-  {
     "title": "Can You Curve a Bullet?",
     "place": "",
     "country": "",
@@ -3023,6 +2184,676 @@
       "#science",
       "#biology",
       "#glow",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Can Paper Really Only Fold 7 Times?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "You can only fold a piece of paper 7 times, no matter the size!",
+        "hook_top": "PAPER FOLDING LIMIT",
+        "query": "paper folding close up",
+        "query2": "person folding paper"
+      },
+      {
+        "role": "fact",
+        "text": "This limit is due to exponential growth in thickness with each fold.",
+        "query": "paper stack thick close",
+        "query2": "folded paper layers",
+        "chips": [
+          {
+            "t": "7 TIMES",
+            "on": "times",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "fact",
+        "text": "Theoretical scenarios suggest you need a large sheet, like a giant pizza box, to fold more.",
+        "query": "large pizza box",
+        "query2": "giant pizza",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "The thickness doubles every fold!",
+        "query": "stack of paper doubling",
+        "query2": "paper folding layers",
+        "label": "THICKNESS DOUBLES",
+        "sub": "exponential growth explained",
+        "label_on": "fold",
+        "punch": "doubles"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "scenic paper folding",
+        "query2": "beautiful paper cuts"
+      }
+    ],
+    "description": "Can paper only fold seven times? Explore the science behind this surprising fact! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#paper",
+      "#science",
+      "#curiosities",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Your Body is a Light Source!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Did you know your body emits visible light?",
+        "hook_top": "BODY LIGHT SOURCES",
+        "query": "person glowing in dark",
+        "query2": "body and light visuals"
+      },
+      {
+        "role": "fact",
+        "text": "Humans radiate a small amount of visible light, peaking in brightness at certain times of the day.",
+        "query": "person standing in sunlight",
+        "query2": "human health light",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "This light is too weak for the naked eye, but it’s there!",
+        "query": "human aura close",
+        "query2": "light perception",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Our body's light shifts with our mood!",
+        "query": "person showing emotions",
+        "query2": "body language gestures",
+        "label": "MOOD LIGHTING",
+        "sub": "light changes with feelings",
+        "label_on": "light",
+        "punch": "shifts"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "glowing light waves",
+        "query2": "bright illumination"
+      }
+    ],
+    "description": "Your body doesn’t just reflect light; it actually emits it! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#humanbody",
+      "#light",
+      "#science",
+      "#curiosities",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Animals That Can Regenerate!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Did you know some animals can regrow entire limbs?",
+        "hook_top": "REGENERATING ANIMALS",
+        "query": "axolotl underwater",
+        "query2": "axolotls swimming"
+      },
+      {
+        "role": "fact",
+        "text": "Axolotls can regenerate limbs, heart, and even parts of their brain!",
+        "query": "axolotl limb regeneration",
+        "query2": "axolotl close up",
+        "chips": [
+          {
+            "t": "LIMITLESS REGROWTH",
+            "on": "regenerate",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "fact",
+        "text": "Starfish can regenerate lost arms and even grow a new central disk.",
+        "query": "starfish regenerating",
+        "query2": "starfish pool ocean",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Some lizards can regrow their tails too!",
+        "query": "lizard tail close up",
+        "query2": "lizard in nature",
+        "label": "TAIL REGENERATION",
+        "sub": "lizards and their tails",
+        "label_on": "lizards",
+        "punch": "tails"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "animals in the wild",
+        "query2": "nature fauna"
+      }
+    ],
+    "description": "Some animals can regenerate limbs or even organs! Discover the wonders of nature! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#animals",
+      "#regeneration",
+      "#science",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Is Time Travel Possible?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Time travel isn't just a sci-fi dream; it's a scientific possibility!",
+        "hook_top": "TIME TRAVEL IS REAL",
+        "query": "time travel concept art",
+        "query2": "space-time visuals"
+      },
+      {
+        "role": "fact",
+        "text": "Relativity suggests that time is relative; it can stretch and compress!",
+        "query": "Einstein theory illustration",
+        "query2": "space theory",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "NASA even sends astronauts on missions that age them slower than people on Earth.",
+        "query": "NASA astronauts space",
+        "query2": "astronauts in space",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Black holes could warp time dramatically!",
+        "query": "black hole visualization",
+        "query2": "space black hole image",
+        "label": "TIME WARPING",
+        "sub": "gravity's effects shown",
+        "label_on": "black holes",
+        "punch": "warp"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "space exploration",
+        "query2": "cosmic scenes"
+      }
+    ],
+    "description": "Time travel may be scientifically feasible! Discover how relativity changes our perception of time. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#science",
+      "#spacetime",
+      "#NASA",
+      "#curiosities",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "This Object Can Go Invisible!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Did you know scientists created materials that can render objects invisible?",
+        "hook_top": "INVISIBLE MATERIALS",
+        "query": "scientist experimenting vision",
+        "query2": "optical illusion experiments"
+      },
+      {
+        "role": "fact",
+        "text": "These materials bend light around an object, making it seem invisible!",
+        "query": "light bending experiment",
+        "query2": "light waves reflections",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "This technology is being researched for military applications and cloaking devices.",
+        "query": "military cloaking technology",
+        "query2": "stealth tech visuals",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Cloaking devices could change warfare!",
+        "query": "military tech in action",
+        "query2": "beautiful armed tech",
+        "label": "WARRIOR CLOAKING",
+        "sub": "future of military tech",
+        "label_on": "cloaking",
+        "punch": "change"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "tech innovations",
+        "query2": "future tech visuals"
+      }
+    ],
+    "description": "Invisibility isn’t just for Harry Potter; it’s becoming a reality through advanced materials! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#invisibility",
+      "#technology",
+      "#science",
+      "#curiosities",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Secret Language of Dolphins",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Dolphins have complex communication that resembles human language!",
+        "hook_top": "DOLPHIN LANGUAGE",
+        "query": "dolphins communicating",
+        "query2": "dolphins in water"
+      },
+      {
+        "role": "fact",
+        "text": "They use a variety of clicks and whistles to communicate and even name each other.",
+        "query": "dolphin clicks close",
+        "query2": "dolphin underwater close",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "Studies show they can even solve problems and understand social dynamics, like humans.",
+        "query": "dolphin socializing",
+        "query2": "dolphins playing",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Their communication is a mix of sounds, body language, and echo location!",
+        "query": "dolphin showing movements",
+        "query2": "dolphin swimming in formation",
+        "label": "MULTI-MEDIA TALK",
+        "sub": "talking in the sea",
+        "label_on": "communication",
+        "punch": "mix"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "dolphins jumping out of water",
+        "query2": "dolphins in action"
+      }
+    ],
+    "description": "Dolphins communicate in a way that mirrors human language! Discover their amazing social behaviors. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#dolphins",
+      "#animals",
+      "#communication",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Can You Survive Without Bones?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Did you know there are jellyfish that are 95% water and have no bones?",
+        "hook_top": "NO BONES REQUIRED",
+        "query": "jellyfish underwater",
+        "query2": "close up jellyfish"
+      },
+      {
+        "role": "fact",
+        "text": "Jellyfish have a simple body structure that allows them to thrive in oceans.",
+        "query": "jellyfish swimming",
+        "query2": "jellyfish in nature",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "Some jellyfish have even been known to regenerate after injury, like starfish!",
+        "query": "jellyfish regeneration close",
+        "query2": "shows jellyfish in water",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "These creatures can live for years without bones!",
+        "query": "jellyfish in calm waters",
+        "query2": "clear deep waters",
+        "label": "LIFETIME WITHOUT BONES",
+        "sub": "jellyfish longevity",
+        "label_on": "live",
+        "punch": "live"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "ocean life wonders",
+        "query2": "sea creatures visuals"
+      }
+    ],
+    "description": "These incredible jellyfish can live and thrive without bones, showcasing nature's mysteries! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#jellyfish",
+      "#ocean",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Woolly Mammoths Are Closer Than You Think!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Woolly Mammoths may soon be resurrected using ancient DNA!",
+        "hook_top": "MAMMOTHS TO RETURN",
+        "query": "woolly mammoth in ice",
+        "query2": "mammoth fossil visuals"
+      },
+      {
+        "role": "fact",
+        "text": "Scientists are using CRISPR technology to edit genes and bring them back.",
+        "query": "CRISPR technology lab",
+        "query2": "scientific experiments",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "This could help restore the ecosystem of the Arctic regions.",
+        "query": "Arctic tundra ecosystem",
+        "query2": "wild Arctic visuals",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Mammoths could help combat climate change!",
+        "query": "ecosystem balance nature",
+        "query2": "nature climate visuals",
+        "label": "ECOLOGICAL WARRIORS",
+        "sub": "restoring nature's balance",
+        "label_on": "mammoths",
+        "punch": "combat"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "scientific discovery lab",
+        "query2": "scientific breakthroughs"
+      }
+    ],
+    "description": "Woolly Mammoths could make a comeback through modern science! Discover the implications. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#mammoth",
+      "#science",
+      "#ecosystem",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Mind-Controlled Robots Are Here!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Scientists have created robots controlled by brainwaves!",
+        "hook_top": "BRAINCONTROLLED ROBOTS",
+        "query": "robot and brain waves",
+        "query2": "brain computer interface"
+      },
+      {
+        "role": "fact",
+        "text": "These robots can perform tasks based on the user's thoughts and intentions.",
+        "query": "brain control robot task",
+        "query2": "robot doing work",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "This technology is being developed for medical applications, helping those with disabilities.",
+        "query": "robot assisting disabled",
+        "query2": "robot with person",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Mind control could revolutionize rehabilitation!",
+        "query": "rehabilitation technology",
+        "query2": "patients using technology",
+        "label": "REVOLUTIONIZING REHAB",
+        "sub": "the future of therapy",
+        "label_on": "rehabilitation",
+        "punch": "revolutionize"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "futuristic robots",
+        "query2": "advanced robotics scenes"
+      }
+    ],
+    "description": "Mind-controlled robots are no longer science fiction! Discover their incredible potential for therapy and more. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#robots",
+      "#technology",
+      "#futurism",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Hidden Lives of Ants!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Ants communicate and organize in ways that rival human societies!",
+        "hook_top": "ANT SOCIETY SECRETS",
+        "query": "ants working together",
+        "query2": "ant colony close"
+      },
+      {
+        "role": "fact",
+        "text": "They use pheromones to signal danger and lead others to food.",
+        "query": "ants following trail",
+        "query2": "food trail ants",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "Some ants will even sacrifice themselves for the colony's safety!",
+        "query": "ant sacrifice close",
+        "query2": "ants in action",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Many species exhibit agriculture, farming fungi and raising aphids!",
+        "query": "ants farming visuals",
+        "query2": "fungi and aphids",
+        "label": "ANT AGRICULTURE",
+        "sub": "farming their own food",
+        "label_on": "agriculture",
+        "punch": "exhibit"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "nature's wonders",
+        "query2": "wildlife and ecosystems"
+      }
+    ],
+    "description": "Ants lead complex lives, communicating and organizing just like humans. Discover their secrets! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#ants",
+      "#nature",
+      "#society",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Humans Share DNA With Bananas!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Humans share about 60% of their DNA with bananas!",
+        "hook_top": "BANANA DNA SHOCKER",
+        "query": "banana close up",
+        "query2": "banana and human cells"
+      },
+      {
+        "role": "fact",
+        "text": "This shows how all living things share common ancestry and genetic material.",
+        "query": "DNA strand visuals",
+        "query2": "genetic connections",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "This DNA similarity explains why all life is interconnected.",
+        "query": "connected life forms",
+        "query2": "genetic family tree",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Life is more interconnected than we realize!",
+        "query": "nature intertwining",
+        "query2": "ecosystem connection",
+        "label": "INTERCONNECTED LIFE",
+        "sub": "common ancestry revealed",
+        "label_on": "DNA",
+        "punch": "interconnected"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "scientific genetics lab",
+        "query2": "human biology"
+      }
+    ],
+    "description": "Believe it or not, humans share a significant amount of DNA with bananas! Explore the connections of life. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#banana",
+      "#DNA",
+      "#genetics",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "What Lies Beneath the Surface of Ice?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Hidden beneath the ice, entire ecosystems thrive!",
+        "hook_top": "UNDER ICE ECOSYSTEMS",
+        "query": "iceberg underwater",
+        "query2": "ice sheet close"
+      },
+      {
+        "role": "fact",
+        "text": "Microbial life survives in extreme conditions, feeding on the nutrients in the ice.",
+        "query": "microorganisms in ice",
+        "query2": "life in ice close",
+        "chips": []
+      },
+      {
+        "role": "fact",
+        "text": "Some species can even survive for thousands of years frozen in ice.",
+        "query": "frozen ecosystems emerging",
+        "query2": "ice melting scenes",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "These ecosystems hold secrets to Earth's climate history!",
+        "query": "scientist examining ice core",
+        "query2": "ice core analysis",
+        "label": "CLIMATE HISTORIANS",
+        "sub": "secrets of the past",
+        "label_on": "secrets",
+        "punch": "hold"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "ice landscape",
+        "query2": "beautiful frozen scenery"
+      }
+    ],
+    "description": "Beneath icy surfaces, hidden ecosystems thrive, providing insights into our planet's history! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#ice",
+      "#ecosystems",
+      "#nature",
+      "#science",
       "#shorts",
       "#fyp"
     ]

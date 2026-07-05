@@ -1,0 +1,68 @@
+{
+  "title": "Bananas Are Slightly Radioactive",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Every banana you eat is very slightly radioactive.",
+      "hook_top": "BANANAS ARE RADIOACTIVE",
+      "query": "banana close up",
+      "query2": "bananas bunch yellow"
+    },
+    {
+      "role": "fact",
+      "text": "They're packed with potassium, and a tiny fraction of all potassium is a radioactive isotope called potassium forty.",
+      "query": "bananas market fruit",
+      "query2": "banana peeling close",
+      "chips": [
+        {
+          "t": "POTASSIUM-40",
+          "on": "potassium",
+          "style": "accent"
+        }
+      ],
+      "punch": "radioactive"
+    },
+    {
+      "role": "fact",
+      "text": "It's so tiny that scientists half-jokingly measure radiation in banana equivalent doses.",
+      "query": "person eating banana",
+      "query2": "fruit bowl kitchen",
+      "chips": [
+        {
+          "t": "THE BANANA DOSE",
+          "on": "doses",
+          "style": "white"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "You'd have to eat millions in one sitting to be in any danger, so eat up.",
+      "query": "bananas pile many",
+      "query2": "grocery bananas shelf",
+      "label": "COMPLETELY SAFE",
+      "sub": "millions to be a danger",
+      "label_on": "danger",
+      "punch": "millions"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "fruit colorful close up",
+      "query2": "nature food macro"
+    }
+  ],
+  "description": "Bananas are naturally, very slightly radioactive - thanks to potassium-40. Scientists even measure radiation in 'banana doses'. Totally safe. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#bananas",
+    "#science",
+    "#radioactive",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

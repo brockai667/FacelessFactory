@@ -1,0 +1,68 @@
+{
+  "title": "Your Body Glows in the Dark",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Your body is glowing right now. You just can't see it.",
+      "hook_top": "YOUR BODY GLOWS",
+      "query": "human silhouette light dark",
+      "query2": "person dark room glow"
+    },
+    {
+      "role": "fact",
+      "text": "Humans give off a faint visible light, about a thousand times weaker than our eyes can detect.",
+      "query": "glowing cells microscope",
+      "query2": "bioluminescence blue dark",
+      "chips": [
+        {
+          "t": "1,000x TOO FAINT",
+          "on": "thousand",
+          "style": "accent"
+        }
+      ],
+      "punch": "light"
+    },
+    {
+      "role": "fact",
+      "text": "It comes from chemical reactions inside your cells, and it's brightest in the late afternoon.",
+      "query": "human body anatomy glow",
+      "query2": "cells biology microscope",
+      "chips": [
+        {
+          "t": "BRIGHTEST LATE DAY",
+          "on": "afternoon",
+          "style": "white"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Ultra-sensitive cameras have actually captured it. We are, faintly, creatures of light.",
+      "query": "camera lab dark research",
+      "query2": "night vision glow person",
+      "label": "CAUGHT ON CAMERA",
+      "sub": "we glow, faintly",
+      "label_on": "cameras",
+      "punch": "light"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "glowing particles dark",
+      "query2": "bioluminescence ocean night"
+    }
+  ],
+  "description": "Humans emit a faint visible glow - about 1,000x too weak for our eyes, brightest in the late afternoon. Special cameras have caught it. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#humanbody",
+    "#science",
+    "#biology",
+    "#glow",
+    "#shorts",
+    "#fyp"
+  ]
+}
