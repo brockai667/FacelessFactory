@@ -1,0 +1,61 @@
+{
+  "title": "Animals That Can Regenerate!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Did you know some animals can regrow entire limbs?",
+      "hook_top": "REGENERATING ANIMALS",
+      "query": "axolotl underwater",
+      "query2": "axolotls swimming"
+    },
+    {
+      "role": "fact",
+      "text": "Axolotls can regenerate limbs, heart, and even parts of their brain!",
+      "query": "axolotl limb regeneration",
+      "query2": "axolotl close up",
+      "chips": [
+        {
+          "t": "LIMITLESS REGROWTH",
+          "on": "regenerate",
+          "style": "white"
+        }
+      ]
+    },
+    {
+      "role": "fact",
+      "text": "Starfish can regenerate lost arms and even grow a new central disk.",
+      "query": "starfish regenerating",
+      "query2": "starfish pool ocean",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Some lizards can regrow their tails too!",
+      "query": "lizard tail close up",
+      "query2": "lizard in nature",
+      "label": "TAIL REGENERATION",
+      "sub": "lizards and their tails",
+      "label_on": "lizards",
+      "punch": "tails"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "animals in the wild",
+      "query2": "nature fauna"
+    }
+  ],
+  "description": "Some animals can regenerate limbs or even organs! Discover the wonders of nature! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#animals",
+    "#regeneration",
+    "#science",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

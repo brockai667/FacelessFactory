@@ -1,0 +1,60 @@
+{
+  "title": "Can Paper Really Only Fold 7 Times?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "You can only fold a piece of paper 7 times, no matter the size!",
+      "hook_top": "PAPER FOLDING LIMIT",
+      "query": "paper folding close up",
+      "query2": "person folding paper"
+    },
+    {
+      "role": "fact",
+      "text": "This limit is due to exponential growth in thickness with each fold.",
+      "query": "paper stack thick close",
+      "query2": "folded paper layers",
+      "chips": [
+        {
+          "t": "7 TIMES",
+          "on": "times",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "fact",
+      "text": "Theoretical scenarios suggest you need a large sheet, like a giant pizza box, to fold more.",
+      "query": "large pizza box",
+      "query2": "giant pizza",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "The thickness doubles every fold!",
+      "query": "stack of paper doubling",
+      "query2": "paper folding layers",
+      "label": "THICKNESS DOUBLES",
+      "sub": "exponential growth explained",
+      "label_on": "fold",
+      "punch": "doubles"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "scenic paper folding",
+      "query2": "beautiful paper cuts"
+    }
+  ],
+  "description": "Can paper only fold seven times? Explore the science behind this surprising fact! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#paper",
+    "#science",
+    "#curiosities",
+    "#shorts",
+    "#fyp"
+  ]
+}

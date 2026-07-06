@@ -2857,5 +2857,273 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "The Slowest Animal on Earth!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "The three-toed sloth moves slower than a turtle!",
+        "hook_top": "SLOWEST ANIMAL",
+        "query": "three-toed sloth tree",
+        "query2": "sloth hanging from tree"
+      },
+      {
+        "role": "fact",
+        "text": "They move at a sluggish pace of about 0.03 miles per hour.",
+        "query": "sloth moving slowly",
+        "query2": "sloth on a branch",
+        "chips": [
+          {
+            "t": "0.03 MPH!",
+            "on": "miles per hour",
+            "style": "white"
+          }
+        ],
+        "punch": "sluggish"
+      },
+      {
+        "role": "fact",
+        "text": "Their slow pace helps them conserve energy and avoid predators.",
+        "query": "sloth resting in tree",
+        "query2": "sloth hanging",
+        "chips": [
+          {
+            "t": "ENERGY SAVE",
+            "on": "conserve",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "They can hold their breath underwater for up to 40 minutes!",
+        "query": "sloth swimming underwater",
+        "query2": "sloth in water",
+        "label": "SURPRISING SKILLS",
+        "sub": "not just slow!",
+        "label_on": "skills",
+        "punch": "hold"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "biodiversity close-up",
+        "query2": "nature scene"
+      }
+    ],
+    "description": "Discover the slow-motion life of the three-toed sloth, the slowest animal on Earth! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#sloth",
+      "#animals",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Unbelievable Crow Intelligence!",
+    "place": "Various locations",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Crows can recognize human faces and remember them for years!",
+        "hook_top": "CROWS HAVE MEMORY",
+        "query": "crow face close-up",
+        "query2": "crows in nature"
+      },
+      {
+        "role": "fact",
+        "text": "They can associate certain faces with danger or food.",
+        "query": "crow collecting food",
+        "query2": "crow with snack",
+        "chips": [
+          {
+            "t": "FACE RECOGNITION",
+            "on": "recognize",
+            "style": "white"
+          }
+        ],
+        "punch": "danger"
+      },
+      {
+        "role": "fact",
+        "text": "Studies show crows can remember faces for up to five years.",
+        "query": "crows in a group",
+        "query2": "group of crows",
+        "chips": [
+          {
+            "t": "5 YEARS!",
+            "on": "years",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "They even share information with other crows about threats!",
+        "query": "crows in conversation",
+        "query2": "two crows communicating",
+        "label": "SOCIAL INTELLIGENCE",
+        "sub": "crows are communicators.",
+        "label_on": "share",
+        "punch": "information"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "group of birds in flight",
+        "query2": "birds flying"
+      }
+    ],
+    "description": "Crows aren't just smart; they recognize human faces and can remember them! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#crows",
+      "#animalintelligence",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Secret of the Moon's Size",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "The Moon is slowly drifting away from Earth!",
+        "hook_top": "MOON IS MOVING AWAY",
+        "query": "moon in night sky",
+        "query2": "moon phases"
+      },
+      {
+        "role": "fact",
+        "text": "It's moving approximately 1.5 inches farther every year.",
+        "query": "moon orbiting Earth",
+        "query2": "moon rising",
+        "chips": [
+          {
+            "t": "1.5 INCHES!",
+            "on": "inches",
+            "style": "white"
+          }
+        ],
+        "punch": "drifting"
+      },
+      {
+        "role": "fact",
+        "text": "This phenomenon affects tidal patterns and Earth’s rotation.",
+        "query": "tides coming in",
+        "query2": "ocean waves",
+        "chips": [
+          {
+            "t": "AFFECTS TIDES",
+            "on": "tides",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "In about 600 million years, nights will be darker!",
+        "query": "night sky with stars",
+        "query2": "starry night",
+        "label": "FUTURE OF NIGHT",
+        "sub": "a dramatic change!",
+        "label_on": "darker",
+        "punch": "future"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "stars in the night sky",
+        "query2": "galaxy view"
+      }
+    ],
+    "description": "Did you know that the Moon is moving away from us? This will change our future nights! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#moon",
+      "#space",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Can Trees Communicate With Each Other?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Trees can actually 'talk' to each other underground!",
+        "hook_top": "TREES 'TALK' UNDERGROUND",
+        "query": "forest trees",
+        "query2": "trees in a park"
+      },
+      {
+        "role": "fact",
+        "text": "They use a network of fungi to share nutrients and information.",
+        "query": "mycorrhizal fungi close",
+        "query2": "fungi in soil",
+        "chips": [
+          {
+            "t": "FUNGAL NETWORK",
+            "on": "fungi",
+            "style": "white"
+          }
+        ],
+        "punch": "share"
+      },
+      {
+        "role": "fact",
+        "text": "Older trees can even help nourish younger ones through this network.",
+        "query": "old tree with young",
+        "query2": "big tree and sapling",
+        "chips": [
+          {
+            "t": "OLDER NOURISHES",
+            "on": "nourish",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "This underground communication is essential for forest health.",
+        "query": "forest health",
+        "query2": "lush forest",
+        "label": "FOREST COMMUNICATION",
+        "sub": "critical for trees.",
+        "label_on": "communication",
+        "punch": "essential"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "nature scenery",
+        "query2": "beautiful forest"
+      }
+    ],
+    "description": "Trees can communicate and support each other through an underground network! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#trees",
+      "#nature",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]

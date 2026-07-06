@@ -1,0 +1,55 @@
+{
+  "title": "Your Body is a Light Source!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Did you know your body emits visible light?",
+      "hook_top": "BODY LIGHT SOURCES",
+      "query": "person glowing in dark",
+      "query2": "body and light visuals"
+    },
+    {
+      "role": "fact",
+      "text": "Humans radiate a small amount of visible light, peaking in brightness at certain times of the day.",
+      "query": "person standing in sunlight",
+      "query2": "human health light",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "This light is too weak for the naked eye, but it’s there!",
+      "query": "human aura close",
+      "query2": "light perception",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Our body's light shifts with our mood!",
+      "query": "person showing emotions",
+      "query2": "body language gestures",
+      "label": "MOOD LIGHTING",
+      "sub": "light changes with feelings",
+      "label_on": "light",
+      "punch": "shifts"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "glowing light waves",
+      "query2": "bright illumination"
+    }
+  ],
+  "description": "Your body doesn’t just reflect light; it actually emits it! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#humanbody",
+    "#light",
+    "#science",
+    "#curiosities",
+    "#shorts",
+    "#fyp"
+  ]
+}
