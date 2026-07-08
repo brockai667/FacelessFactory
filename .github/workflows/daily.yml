@@ -29,6 +29,14 @@ jobs:
       - name: Install Python deps
         run: pip install edge-tts requests cloudinary kokoro-onnx soundfile Pillow faster-whisper scipy numpy
 
+      - name: Cache TTS/STT modely (setri ~340MB kokoro + whisper kazdy beh)
+        uses: actions/cache@v4
+        with:
+          path: |
+            kokoro
+            ~/.cache/huggingface
+          key: pro-models-v1
+
       - name: Prepare config
         run: cp config.example.json config.json
 
