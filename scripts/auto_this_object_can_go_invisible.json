@@ -1,0 +1,55 @@
+{
+  "title": "This Object Can Go Invisible!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Did you know scientists created materials that can render objects invisible?",
+      "hook_top": "INVISIBLE MATERIALS",
+      "query": "scientist experimenting vision",
+      "query2": "optical illusion experiments"
+    },
+    {
+      "role": "fact",
+      "text": "These materials bend light around an object, making it seem invisible!",
+      "query": "light bending experiment",
+      "query2": "light waves reflections",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "This technology is being researched for military applications and cloaking devices.",
+      "query": "military cloaking technology",
+      "query2": "stealth tech visuals",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Cloaking devices could change warfare!",
+      "query": "military tech in action",
+      "query2": "beautiful armed tech",
+      "label": "WARRIOR CLOAKING",
+      "sub": "future of military tech",
+      "label_on": "cloaking",
+      "punch": "change"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "tech innovations",
+      "query2": "future tech visuals"
+    }
+  ],
+  "description": "Invisibility isn’t just for Harry Potter; it’s becoming a reality through advanced materials! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#invisibility",
+    "#technology",
+    "#science",
+    "#curiosities",
+    "#shorts",
+    "#fyp"
+  ]
+}

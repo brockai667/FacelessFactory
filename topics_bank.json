@@ -3125,5 +3125,208 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "Why Can't You Taste Food Without Smell?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "You actually taste food with your nose, not just your mouth!",
+        "hook_top": "TASTE WITH YOUR NOSE",
+        "query": "person tasting food",
+        "query2": "close up of food tasting"
+      },
+      {
+        "role": "fact",
+        "text": "About 80% of what you think is taste is actually your sense of smell.",
+        "query": "scented food close",
+        "query2": "aromatic spices",
+        "chips": [
+          {
+            "t": "80% SMELL",
+            "on": "smell",
+            "style": "white"
+          }
+        ],
+        "punch": "taste"
+      },
+      {
+        "role": "fact",
+        "text": "When you hold your nose, flavors become dull and bland.",
+        "query": "person pinching nose",
+        "query2": "bland food",
+        "chips": [
+          {
+            "t": "DULL FLAVORS",
+            "on": "dull",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Smell and taste work together to shape your dining experience.",
+        "query": "food taste experience",
+        "query2": "dining setting",
+        "label": "SENSES COMBINE!",
+        "sub": "a true culinary experience.",
+        "label_on": "experience",
+        "punch": "dine"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "person enjoying food",
+        "query2": "happy dining experience"
+      }
+    ],
+    "description": "Did you know you taste food more with your nose than your mouth? Discover how our senses work together! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#taste",
+      "#smell",
+      "#psychology",
+      "#science",
+      "#food",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "What Makes Flamingos Pink?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Flamingos aren't born pink; they get their color from food!",
+        "hook_top": "FOOD TURNS THEM PINK",
+        "query": "flamingo in nature",
+        "query2": "flamingo standing"
+      },
+      {
+        "role": "fact",
+        "text": "They feed on algae and crustaceans rich in carotenoids, which turn their feathers pink.",
+        "query": "flamingo feeding close",
+        "query2": "close-up of algae",
+        "chips": [
+          {
+            "t": "CAROTENOIDS",
+            "on": "carotenoids",
+            "style": "white"
+          }
+        ],
+        "punch": "color"
+      },
+      {
+        "role": "fact",
+        "text": "Without a diet rich in these pigments, they would be gray or white.",
+        "query": "gray flamingo",
+        "query2": "flamingo in the wild",
+        "chips": [
+          {
+            "t": "NOT PINK!",
+            "on": "not",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Their pink coloration is a sign of health and vitality!",
+        "query": "healthy flamingo",
+        "query2": "flamingo group stand",
+        "label": "SIGN OF HEALTH",
+        "sub": "the brighter, the better!",
+        "label_on": "health",
+        "punch": "shine"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "flamingos in nature",
+        "query2": "vibrant wildlife"
+      }
+    ],
+    "description": "Flamingos owe their pink color to their diet! Discover how their food influences their beauty. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#flamingos",
+      "#animals",
+      "#nature",
+      "#science",
+      "#color",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Most Dangerous Job in the World!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Logging is statistically the most dangerous job in the world!",
+        "hook_top": "LOGGING IS DEADLY",
+        "query": "logs being cut",
+        "query2": "forest logging scene"
+      },
+      {
+        "role": "fact",
+        "text": "Loggers face fatal injury rates much higher than other professions.",
+        "query": "logger working",
+        "query2": "sawing wood",
+        "chips": [
+          {
+            "t": "HIGH FATALITY RATE",
+            "on": "fatality",
+            "style": "white"
+          }
+        ],
+        "punch": "danger"
+      },
+      {
+        "role": "fact",
+        "text": "Hazards include falling trees, heavy equipment accidents, and rough terrains.",
+        "query": "logging equipment",
+        "query2": "heavy machinery in forest",
+        "chips": [
+          {
+            "t": "FALLING TREES",
+            "on": "trees",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Push for safety regulations continues to save lives!",
+        "query": "logger safety equipment",
+        "query2": "safety training",
+        "label": "SAFETY FIRST!",
+        "sub": "because every life matters.",
+        "label_on": "safety",
+        "punch": "save"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "people working",
+        "query2": "variety of jobs"
+      }
+    ],
+    "description": "Logging is one of the most dangerous professions worldwide, but safety efforts are making a difference! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#dangerousjobs",
+      "#logging",
+      "#safety",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]
