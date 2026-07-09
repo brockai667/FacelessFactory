@@ -1,0 +1,55 @@
+{
+  "title": "Woolly Mammoths Are Closer Than You Think!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Woolly Mammoths may soon be resurrected using ancient DNA!",
+      "hook_top": "MAMMOTHS TO RETURN",
+      "query": "woolly mammoth in ice",
+      "query2": "mammoth fossil visuals"
+    },
+    {
+      "role": "fact",
+      "text": "Scientists are using CRISPR technology to edit genes and bring them back.",
+      "query": "CRISPR technology lab",
+      "query2": "scientific experiments",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "This could help restore the ecosystem of the Arctic regions.",
+      "query": "Arctic tundra ecosystem",
+      "query2": "wild Arctic visuals",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Mammoths could help combat climate change!",
+      "query": "ecosystem balance nature",
+      "query2": "nature climate visuals",
+      "label": "ECOLOGICAL WARRIORS",
+      "sub": "restoring nature's balance",
+      "label_on": "mammoths",
+      "punch": "combat"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "scientific discovery lab",
+      "query2": "scientific breakthroughs"
+    }
+  ],
+  "description": "Woolly Mammoths could make a comeback through modern science! Discover the implications. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#mammoth",
+    "#science",
+    "#ecosystem",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

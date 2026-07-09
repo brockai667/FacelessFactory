@@ -1,0 +1,54 @@
+{
+  "title": "Can You Survive Without Bones?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Did you know there are jellyfish that are 95% water and have no bones?",
+      "hook_top": "NO BONES REQUIRED",
+      "query": "jellyfish underwater",
+      "query2": "close up jellyfish"
+    },
+    {
+      "role": "fact",
+      "text": "Jellyfish have a simple body structure that allows them to thrive in oceans.",
+      "query": "jellyfish swimming",
+      "query2": "jellyfish in nature",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "Some jellyfish have even been known to regenerate after injury, like starfish!",
+      "query": "jellyfish regeneration close",
+      "query2": "shows jellyfish in water",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "These creatures can live for years without bones!",
+      "query": "jellyfish in calm waters",
+      "query2": "clear deep waters",
+      "label": "LIFETIME WITHOUT BONES",
+      "sub": "jellyfish longevity",
+      "label_on": "live",
+      "punch": "live"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "ocean life wonders",
+      "query2": "sea creatures visuals"
+    }
+  ],
+  "description": "These incredible jellyfish can live and thrive without bones, showcasing nature's mysteries! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#jellyfish",
+    "#ocean",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

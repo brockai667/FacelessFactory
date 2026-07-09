@@ -1,0 +1,55 @@
+{
+  "title": "Mind-Controlled Robots Are Here!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Scientists have created robots controlled by brainwaves!",
+      "hook_top": "BRAINCONTROLLED ROBOTS",
+      "query": "robot and brain waves",
+      "query2": "brain computer interface"
+    },
+    {
+      "role": "fact",
+      "text": "These robots can perform tasks based on the user's thoughts and intentions.",
+      "query": "brain control robot task",
+      "query2": "robot doing work",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "This technology is being developed for medical applications, helping those with disabilities.",
+      "query": "robot assisting disabled",
+      "query2": "robot with person",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Mind control could revolutionize rehabilitation!",
+      "query": "rehabilitation technology",
+      "query2": "patients using technology",
+      "label": "REVOLUTIONIZING REHAB",
+      "sub": "the future of therapy",
+      "label_on": "rehabilitation",
+      "punch": "revolutionize"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "futuristic robots",
+      "query2": "advanced robotics scenes"
+    }
+  ],
+  "description": "Mind-controlled robots are no longer science fiction! Discover their incredible potential for therapy and more. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#robots",
+    "#technology",
+    "#futurism",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}
