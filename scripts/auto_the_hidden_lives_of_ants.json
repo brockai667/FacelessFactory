@@ -1,0 +1,55 @@
+{
+  "title": "The Hidden Lives of Ants!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Ants communicate and organize in ways that rival human societies!",
+      "hook_top": "ANT SOCIETY SECRETS",
+      "query": "ants working together",
+      "query2": "ant colony close"
+    },
+    {
+      "role": "fact",
+      "text": "They use pheromones to signal danger and lead others to food.",
+      "query": "ants following trail",
+      "query2": "food trail ants",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "Some ants will even sacrifice themselves for the colony's safety!",
+      "query": "ant sacrifice close",
+      "query2": "ants in action",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Many species exhibit agriculture, farming fungi and raising aphids!",
+      "query": "ants farming visuals",
+      "query2": "fungi and aphids",
+      "label": "ANT AGRICULTURE",
+      "sub": "farming their own food",
+      "label_on": "agriculture",
+      "punch": "exhibit"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "nature's wonders",
+      "query2": "wildlife and ecosystems"
+    }
+  ],
+  "description": "Ants lead complex lives, communicating and organizing just like humans. Discover their secrets! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#ants",
+    "#nature",
+    "#society",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}

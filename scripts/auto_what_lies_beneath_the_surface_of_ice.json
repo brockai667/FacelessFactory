@@ -1,0 +1,55 @@
+{
+  "title": "What Lies Beneath the Surface of Ice?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Hidden beneath the ice, entire ecosystems thrive!",
+      "hook_top": "UNDER ICE ECOSYSTEMS",
+      "query": "iceberg underwater",
+      "query2": "ice sheet close"
+    },
+    {
+      "role": "fact",
+      "text": "Microbial life survives in extreme conditions, feeding on the nutrients in the ice.",
+      "query": "microorganisms in ice",
+      "query2": "life in ice close",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "Some species can even survive for thousands of years frozen in ice.",
+      "query": "frozen ecosystems emerging",
+      "query2": "ice melting scenes",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "These ecosystems hold secrets to Earth's climate history!",
+      "query": "scientist examining ice core",
+      "query2": "ice core analysis",
+      "label": "CLIMATE HISTORIANS",
+      "sub": "secrets of the past",
+      "label_on": "secrets",
+      "punch": "hold"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "ice landscape",
+      "query2": "beautiful frozen scenery"
+    }
+  ],
+  "description": "Beneath icy surfaces, hidden ecosystems thrive, providing insights into our planet's history! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#ice",
+    "#ecosystems",
+    "#nature",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}

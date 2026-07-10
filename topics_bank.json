@@ -3530,5 +3530,265 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "The Truth About Cashiers!",
+    "place": "USA",
+    "country": "United States",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Most cashiers in the USA can't sit while working!",
+        "hook_top": "CASHIERS CAN'T SIT",
+        "query": "cashier working grocery store",
+        "query2": "cashier standing at register"
+      },
+      {
+        "role": "fact",
+        "text": "This rule exists to maintain alertness and customer service.",
+        "query": "busy grocery store",
+        "query2": "customers in supermarket",
+        "chips": [
+          {
+            "t": "STANDING RULE",
+            "on": "rule",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "fact",
+        "text": "Some employers even have specific policies forbidding chairs.",
+        "query": "cash register with no chair",
+        "query2": "cashier workspace",
+        "chips": [
+          {
+            "t": "NO CHAIRS",
+            "on": "chairs",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "This can lead to long hours of discomfort.",
+        "query": "cashier looking tired",
+        "query2": "tired cashier working",
+        "label": "DISCOMFORTING HOURS",
+        "sub": "a tough job for many",
+        "label_on": "hours"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "customers in grocery store",
+        "query2": "grocery store exterior"
+      }
+    ],
+    "description": "Did you know most cashiers in the USA can't sit while working? This rule impacts their comfort and service. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#cashiers",
+      "#work",
+      "#USA",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Mystery of Curved Bullets!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "You can curve a bullet, but it's far from simple!",
+        "hook_top": "CURVE A BULLET",
+        "query": "bullet flying in air",
+        "query2": "bullet traveling motion"
+      },
+      {
+        "role": "fact",
+        "text": "Special techniques like spin and angle can create an arc.",
+        "query": "bullet with spin effect",
+        "query2": "bullet spinning in air",
+        "chips": [
+          {
+            "t": "SPIN AND ANGLE",
+            "on": "spin",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "fact",
+        "text": "It's often seen in movies but is extremely hard to master.",
+        "query": "action movie shooting scene",
+        "query2": "movie gunfight",
+        "chips": [
+          {
+            "t": "MOVIE Myth",
+            "on": "movies",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Real-world physics make this very challenging.",
+        "query": "bullet trajectory diagram",
+        "query2": "physics diagram",
+        "label": "PHYSICS AT PLAY",
+        "sub": "a tough skill to learn",
+        "label_on": "challenges"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "action movies explosion",
+        "query2": "movie action scene"
+      }
+    ],
+    "description": "Curving a bullet is a real technique, but it's incredibly difficult! Discover the physics behind it and follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#bullets",
+      "#physics",
+      "#movies",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Bizarre Border Crossing Secrets!",
+    "place": "Border Zones",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some illegal border crossing routes are incredibly dangerous!",
+        "hook_top": "DANGEROUS CROSSINGS",
+        "query": "border crossing sign",
+        "query2": "border area landscape"
+      },
+      {
+        "role": "fact",
+        "text": "Traveling these routes can mean risking exposure to extreme elements.",
+        "query": "desert crossing terrain",
+        "query2": "desert landscape",
+        "chips": [
+          {
+            "t": "EXTREME ELEMENTS",
+            "on": "elements",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "fact",
+        "text": "Many people undertake these journeys despite the risks involved.",
+        "query": "people traveling harsh landscape",
+        "query2": "group crossing border area",
+        "chips": [
+          {
+            "t": "HIGH RISKS",
+            "on": "risks",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Desperation drives individuals to take perilous paths.",
+        "query": "people looking determined",
+        "query2": "determined group crossing",
+        "label": "DESPERATE JOURNEY",
+        "sub": "risking it all",
+        "label_on": "desperation"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "landscape border crossing",
+        "query2": "border area overview"
+      }
+    ],
+    "description": "Illegal border crossings are fraught with danger. Discover the risks people take for a better life and follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#bordercrossing",
+      "#risk",
+      "#humanstories",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Secrets of Dangerous Kitchen Hacks!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some kitchen hacks can actually be quite dangerous!",
+        "hook_top": "DANGEROUS KITCHEN HACKS",
+        "query": "kitchen with cooking tools",
+        "query2": "kitchen scene"
+      },
+      {
+        "role": "fact",
+        "text": "Hacks like using aluminum foil can lead to accidental burns.",
+        "query": "aluminum foil in oven",
+        "query2": "oven with foil",
+        "chips": [
+          {
+            "t": "ACCIDENTAL BURNS",
+            "on": "burns",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "fact",
+        "text": "Improper use of knives can cause serious injuries, too.",
+        "query": "knife cutting vegetables",
+        "query2": "close-up knife cutting",
+        "chips": [
+          {
+            "t": "SERIOUS INJURIES",
+            "on": "injuries",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Always prioritize safety in the kitchen!",
+        "query": "person using safety tools",
+        "query2": "using kitchen safety gear",
+        "label": "KITCHEN SAFETY",
+        "sub": "be cautious!",
+        "label_on": "safety"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "safe cooking techniques",
+        "query2": "kitchen safe techniques"
+      }
+    ],
+    "description": "While kitchen hacks can be fun, some are surprisingly dangerous! Learn the risks and follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#kitchenhacks",
+      "#safety",
+      "#cooking",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]

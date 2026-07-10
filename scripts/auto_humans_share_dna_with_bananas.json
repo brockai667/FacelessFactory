@@ -1,0 +1,55 @@
+{
+  "title": "Humans Share DNA With Bananas!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Humans share about 60% of their DNA with bananas!",
+      "hook_top": "BANANA DNA SHOCKER",
+      "query": "banana close up",
+      "query2": "banana and human cells"
+    },
+    {
+      "role": "fact",
+      "text": "This shows how all living things share common ancestry and genetic material.",
+      "query": "DNA strand visuals",
+      "query2": "genetic connections",
+      "chips": []
+    },
+    {
+      "role": "fact",
+      "text": "This DNA similarity explains why all life is interconnected.",
+      "query": "connected life forms",
+      "query2": "genetic family tree",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Life is more interconnected than we realize!",
+      "query": "nature intertwining",
+      "query2": "ecosystem connection",
+      "label": "INTERCONNECTED LIFE",
+      "sub": "common ancestry revealed",
+      "label_on": "DNA",
+      "punch": "interconnected"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "scientific genetics lab",
+      "query2": "human biology"
+    }
+  ],
+  "description": "Believe it or not, humans share a significant amount of DNA with bananas! Explore the connections of life. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#banana",
+    "#DNA",
+    "#genetics",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}
