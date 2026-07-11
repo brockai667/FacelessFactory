@@ -3790,5 +3790,197 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "Rats Can’t Vomit!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Rats are one of the only mammals that cannot vomit!",
+        "hook_top": "RATS CAN'T VOMIT",
+        "query": "rat close-up",
+        "query2": "rat running"
+      },
+      {
+        "role": "fact",
+        "text": "This unique trait makes them especially vulnerable to poison.",
+        "query": "rat poison product",
+        "query2": "rat in environment",
+        "chips": [
+          {
+            "t": "VULNERABLE TO POISON",
+            "on": "vulnerable",
+            "style": "white"
+          }
+        ],
+        "punch": "vulnerable"
+      },
+      {
+        "role": "fact",
+        "text": "They can, however, absorb toxins, leading to serious health issues.",
+        "query": "toxic substances rats",
+        "query2": "close up of rat",
+        "chips": [
+          {
+            "t": "ABSORB TOXINS",
+            "on": "absorb",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "A survival trait with deadly consequences!",
+        "query": "rat running away",
+        "query2": "rat in danger",
+        "label": "SURVIVAL TRAIT",
+        "sub": "with deadly consequences",
+        "label_on": "trait",
+        "punch": "trait"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "curious rat exploring",
+        "query2": "rat searching food"
+      }
+    ],
+    "description": "Rats can't vomit, making them particularly susceptible to poisoning. Discover more amazing animal facts! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#rats",
+      "#animals",
+      "#science",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Why Cashiers Can't Sit",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Most cashiers in the USA are not allowed to sit down!",
+        "hook_top": "CASHIERS CAN'T SIT",
+        "query": "cashier at checkout",
+        "query2": "cashier smiling"
+      },
+      {
+        "role": "fact",
+        "text": "This policy is often due to strict store policies and safety regulations.",
+        "query": "busy store checkout",
+        "query2": "cashier handling items",
+        "chips": [
+          {
+            "t": "STRICT STORE POLICIES",
+            "on": "policies",
+            "style": "white"
+          }
+        ],
+        "punch": "strict"
+      },
+      {
+        "role": "fact",
+        "text": "Standing for long hours can lead to serious health risks.",
+        "query": "health hazards cashier",
+        "query2": "person sitting",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "An exhausting job with hidden dangers!",
+        "query": "busy cashier line",
+        "query2": "cashier working hard",
+        "label": "HIDDEN DANGERS",
+        "sub": "of standing all day",
+        "label_on": "job",
+        "punch": "dangers"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "cashier in store",
+        "query2": "storefront outside"
+      }
+    ],
+    "description": "In the USA, most cashiers cannot sit during their shifts, leading to potential health issues. Follow for more unbelievable job facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#cashiers",
+      "#jobs",
+      "#work",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Slowest Man in the World!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "There’s actually a man known for being the slowest runner in the world!",
+        "hook_top": "SLOWEST RUNNER ON EARTH",
+        "query": "man running slow motion",
+        "query2": "person jogging"
+      },
+      {
+        "role": "fact",
+        "text": "He completed a marathon in over 54 hours, breaking the record!",
+        "query": "marathon runner slow",
+        "query2": "runner crossing finish line",
+        "chips": [
+          {
+            "t": "54 HOURS",
+            "on": "54 hours",
+            "style": "accent"
+          }
+        ],
+        "punch": "record"
+      },
+      {
+        "role": "fact",
+        "text": "His journey is a testament to determination and spirit.",
+        "query": "runner training hard",
+        "query2": "person running uphill",
+        "chips": []
+      },
+      {
+        "role": "callout",
+        "text": "Slow and steady can win the race!",
+        "query": "runner cheering",
+        "query2": "person celebrating",
+        "label": "SLOW AND STEADY",
+        "sub": "wins the race",
+        "label_on": "steady",
+        "punch": "win"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "runner crossing finish line",
+        "query2": "runner excited"
+      }
+    ],
+    "description": "Meet the man known as the slowest runner in the world, completing marathons with unwavering determination. Follow for daily inspiring facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#marathon",
+      "#inspiration",
+      "#running",
+      "#sports",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]

@@ -1,0 +1,67 @@
+{
+  "title": "The Slowest Animal on Earth!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "The three-toed sloth moves slower than a turtle!",
+      "hook_top": "SLOWEST ANIMAL",
+      "query": "three-toed sloth tree",
+      "query2": "sloth hanging from tree"
+    },
+    {
+      "role": "fact",
+      "text": "They move at a sluggish pace of about 0.03 miles per hour.",
+      "query": "sloth moving slowly",
+      "query2": "sloth on a branch",
+      "chips": [
+        {
+          "t": "0.03 MPH!",
+          "on": "miles per hour",
+          "style": "white"
+        }
+      ],
+      "punch": "sluggish"
+    },
+    {
+      "role": "fact",
+      "text": "Their slow pace helps them conserve energy and avoid predators.",
+      "query": "sloth resting in tree",
+      "query2": "sloth hanging",
+      "chips": [
+        {
+          "t": "ENERGY SAVE",
+          "on": "conserve",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "They can hold their breath underwater for up to 40 minutes!",
+      "query": "sloth swimming underwater",
+      "query2": "sloth in water",
+      "label": "SURPRISING SKILLS",
+      "sub": "not just slow!",
+      "label_on": "skills",
+      "punch": "hold"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "biodiversity close-up",
+      "query2": "nature scene"
+    }
+  ],
+  "description": "Discover the slow-motion life of the three-toed sloth, the slowest animal on Earth! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#sloth",
+    "#animals",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

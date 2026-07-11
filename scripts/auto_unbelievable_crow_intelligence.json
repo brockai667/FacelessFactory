@@ -1,0 +1,67 @@
+{
+  "title": "Unbelievable Crow Intelligence!",
+  "place": "Various locations",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Crows can recognize human faces and remember them for years!",
+      "hook_top": "CROWS HAVE MEMORY",
+      "query": "crow face close-up",
+      "query2": "crows in nature"
+    },
+    {
+      "role": "fact",
+      "text": "They can associate certain faces with danger or food.",
+      "query": "crow collecting food",
+      "query2": "crow with snack",
+      "chips": [
+        {
+          "t": "FACE RECOGNITION",
+          "on": "recognize",
+          "style": "white"
+        }
+      ],
+      "punch": "danger"
+    },
+    {
+      "role": "fact",
+      "text": "Studies show crows can remember faces for up to five years.",
+      "query": "crows in a group",
+      "query2": "group of crows",
+      "chips": [
+        {
+          "t": "5 YEARS!",
+          "on": "years",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "They even share information with other crows about threats!",
+      "query": "crows in conversation",
+      "query2": "two crows communicating",
+      "label": "SOCIAL INTELLIGENCE",
+      "sub": "crows are communicators.",
+      "label_on": "share",
+      "punch": "information"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "group of birds in flight",
+      "query2": "birds flying"
+    }
+  ],
+  "description": "Crows aren't just smart; they recognize human faces and can remember them! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#crows",
+    "#animalintelligence",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}
