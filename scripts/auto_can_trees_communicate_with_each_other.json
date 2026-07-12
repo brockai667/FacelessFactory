@@ -1,0 +1,67 @@
+{
+  "title": "Can Trees Communicate With Each Other?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Trees can actually 'talk' to each other underground!",
+      "hook_top": "TREES 'TALK' UNDERGROUND",
+      "query": "forest trees",
+      "query2": "trees in a park"
+    },
+    {
+      "role": "fact",
+      "text": "They use a network of fungi to share nutrients and information.",
+      "query": "mycorrhizal fungi close",
+      "query2": "fungi in soil",
+      "chips": [
+        {
+          "t": "FUNGAL NETWORK",
+          "on": "fungi",
+          "style": "white"
+        }
+      ],
+      "punch": "share"
+    },
+    {
+      "role": "fact",
+      "text": "Older trees can even help nourish younger ones through this network.",
+      "query": "old tree with young",
+      "query2": "big tree and sapling",
+      "chips": [
+        {
+          "t": "OLDER NOURISHES",
+          "on": "nourish",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "This underground communication is essential for forest health.",
+      "query": "forest health",
+      "query2": "lush forest",
+      "label": "FOREST COMMUNICATION",
+      "sub": "critical for trees.",
+      "label_on": "communication",
+      "punch": "essential"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "nature scenery",
+      "query2": "beautiful forest"
+    }
+  ],
+  "description": "Trees can communicate and support each other through an underground network! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#trees",
+    "#nature",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}

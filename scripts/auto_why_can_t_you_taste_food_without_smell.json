@@ -1,0 +1,68 @@
+{
+  "title": "Why Can't You Taste Food Without Smell?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "You actually taste food with your nose, not just your mouth!",
+      "hook_top": "TASTE WITH YOUR NOSE",
+      "query": "person tasting food",
+      "query2": "close up of food tasting"
+    },
+    {
+      "role": "fact",
+      "text": "About 80% of what you think is taste is actually your sense of smell.",
+      "query": "scented food close",
+      "query2": "aromatic spices",
+      "chips": [
+        {
+          "t": "80% SMELL",
+          "on": "smell",
+          "style": "white"
+        }
+      ],
+      "punch": "taste"
+    },
+    {
+      "role": "fact",
+      "text": "When you hold your nose, flavors become dull and bland.",
+      "query": "person pinching nose",
+      "query2": "bland food",
+      "chips": [
+        {
+          "t": "DULL FLAVORS",
+          "on": "dull",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Smell and taste work together to shape your dining experience.",
+      "query": "food taste experience",
+      "query2": "dining setting",
+      "label": "SENSES COMBINE!",
+      "sub": "a true culinary experience.",
+      "label_on": "experience",
+      "punch": "dine"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "person enjoying food",
+      "query2": "happy dining experience"
+    }
+  ],
+  "description": "Did you know you taste food more with your nose than your mouth? Discover how our senses work together! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#taste",
+    "#smell",
+    "#psychology",
+    "#science",
+    "#food",
+    "#shorts",
+    "#fyp"
+  ]
+}

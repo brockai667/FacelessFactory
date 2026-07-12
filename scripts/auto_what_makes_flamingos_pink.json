@@ -1,0 +1,68 @@
+{
+  "title": "What Makes Flamingos Pink?",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Flamingos aren't born pink; they get their color from food!",
+      "hook_top": "FOOD TURNS THEM PINK",
+      "query": "flamingo in nature",
+      "query2": "flamingo standing"
+    },
+    {
+      "role": "fact",
+      "text": "They feed on algae and crustaceans rich in carotenoids, which turn their feathers pink.",
+      "query": "flamingo feeding close",
+      "query2": "close-up of algae",
+      "chips": [
+        {
+          "t": "CAROTENOIDS",
+          "on": "carotenoids",
+          "style": "white"
+        }
+      ],
+      "punch": "color"
+    },
+    {
+      "role": "fact",
+      "text": "Without a diet rich in these pigments, they would be gray or white.",
+      "query": "gray flamingo",
+      "query2": "flamingo in the wild",
+      "chips": [
+        {
+          "t": "NOT PINK!",
+          "on": "not",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Their pink coloration is a sign of health and vitality!",
+      "query": "healthy flamingo",
+      "query2": "flamingo group stand",
+      "label": "SIGN OF HEALTH",
+      "sub": "the brighter, the better!",
+      "label_on": "health",
+      "punch": "shine"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "flamingos in nature",
+      "query2": "vibrant wildlife"
+    }
+  ],
+  "description": "Flamingos owe their pink color to their diet! Discover how their food influences their beauty. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#flamingos",
+    "#animals",
+    "#nature",
+    "#science",
+    "#color",
+    "#shorts",
+    "#fyp"
+  ]
+}
