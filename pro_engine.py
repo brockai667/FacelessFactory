@@ -319,18 +319,50 @@ def seamless_base(path, need_dur, idx, work):
 
 
 # ---------------------------------------------------------------- geokod (ziadne vymyslene suradnice)
+# nezemepisne / prazdne hodnoty -> ziadna mapa (inak pin skonci naslepo v oceane, napr. 'OUTER SPACE'/'N/A')
+_GEO_JUNK = {
+    "", "n/a", "na", "n.a.", "none", "null", "nil", "unknown", "unknown location",
+    "outer space", "space", "deep space", "the universe", "universe", "cosmos",
+    "earth", "the earth", "world", "the world", "worldwide", "global", "everywhere",
+    "various", "multiple", "multiple locations", "internet", "online", "cyberspace",
+    "classified", "undisclosed", "redacted", "tbd", "unspecified", "not applicable",
+}
+
+
+def _geo_clean(s):
+    return re.sub(r"\s+", " ", str(s or "").strip()).lower()
+
+
 def geocode(spec):
+    place = _geo_clean(spec.get("place"))
+    country = _geo_clean(spec.get("country"))
+    # ak miesto aj krajina su nezemepisne/prazdne -> mapa nedava zmysel
+    if place in _GEO_JUNK and country in _GEO_JUNK:
+        return None
+    if place in _GEO_JUNK and len(country) < 3:
+        return None
     q = f"{spec.get('place', '')}, {spec.get('country', '')}".strip(", ")
     try:
         r = requests.get("https://nominatim.openstreetmap.org/search", headers=UA,
                          params={"q": q, "format": "json", "limit": 1}, timeout=30).json()
         if r:
-            return float(r[0]["lat"]), float(r[0]["lon"])
+            top = r[0]
+            imp = float(top.get("importance") or 0.0)
+            cls = str(top.get("class") or "")
+            # realne miesta (mesto/hranica) alebo dost silna zhoda; inak radsej ziadna mapa
+            if imp >= 0.30 or cls in ("place", "boundary"):
+                return float(top["lat"]), float(top["lon"])
+            sys.stderr.write(f"[geocode] slaba zhoda (imp={imp:.2f}, {cls}) pre '{q}' -> bez mapy\n")
     except Exception as e:
         sys.stderr.write(f"[geocode] {str(e)[:80]}\n")
     ll = spec.get("latlon")
     if isinstance(ll, (list, tuple)) and len(ll) == 2:
-        return float(ll[0]), float(ll[1])
+        try:
+            la, lo = float(ll[0]), float(ll[1])
+            if -90 <= la <= 90 and -180 <= lo <= 180 and not (abs(la) < 0.01 and abs(lo) < 0.01):
+                return la, lo
+        except Exception:
+            pass
     return None
 
 
@@ -517,11 +549,15 @@ def render_map_frames(sc, spec, idx, work):
         cy = sh / 2 + (fy - sh / 2) * z
         cx = min(max(cx, cw / 2), sw - cw / 2)
         cy = min(max(cy, ch / 2), sh - ch / 2)
-        box = (int(cx - cw / 2), int(cy - ch / 2), int(cx + cw / 2), int(cy + ch / 2))
-        crop = src.crop(box).resize((W, int(H * map_h_frac)), Image.LANCZOS)
+        Hm = int(H * map_h_frac)
+        left = cx - cw / 2.0
+        top_ = cy - ch / 2.0
+        # sub-pixelovy zoom cez affinnu transformaciu -> ziadne int() skoky crop-boxu = plynule
+        crop = src.transform((W, Hm), Image.AFFINE, (cw / W, 0, left, 0, ch / Hm, top_),
+                             resample=Image.BICUBIC)
         crop = Image.eval(crop, lambda v: int(v * 0.92))
         cv = Image.new("RGBA", (W, H), (8, 11, 16, 255))
-        y0 = int((H - crop.height) / 2)
+        y0 = int((H - Hm) / 2)
         cv.paste(crop, (0, y0))
         gr = Image.new("L", (1, 120), 0)
         for y in range(120):
@@ -530,8 +566,8 @@ def render_map_frames(sc, spec, idx, work):
         dark = Image.new("RGBA", (W, 120), (8, 11, 16, 255)); dark.putalpha(grad)
         cv.alpha_composite(dark, (0, y0))
         cv.alpha_composite(dark.transpose(Image.FLIP_TOP_BOTTOM), (0, y0 + crop.height - 120))
-        pxc = (fx - box[0]) / cw * W
-        pyc = y0 + (fy - box[1]) / ch * crop.height
+        pxc = (fx - left) / cw * W
+        pyc = y0 + (fy - top_) / ch * Hm
         dd = ImageDraw.Draw(cv)
         ph = (t % 1.6) / 1.6
         rr = 18 + 34 * ph
