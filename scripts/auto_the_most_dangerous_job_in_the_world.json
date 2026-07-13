@@ -1,0 +1,67 @@
+{
+  "title": "The Most Dangerous Job in the World!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Logging is statistically the most dangerous job in the world!",
+      "hook_top": "LOGGING IS DEADLY",
+      "query": "logs being cut",
+      "query2": "forest logging scene"
+    },
+    {
+      "role": "fact",
+      "text": "Loggers face fatal injury rates much higher than other professions.",
+      "query": "logger working",
+      "query2": "sawing wood",
+      "chips": [
+        {
+          "t": "HIGH FATALITY RATE",
+          "on": "fatality",
+          "style": "white"
+        }
+      ],
+      "punch": "danger"
+    },
+    {
+      "role": "fact",
+      "text": "Hazards include falling trees, heavy equipment accidents, and rough terrains.",
+      "query": "logging equipment",
+      "query2": "heavy machinery in forest",
+      "chips": [
+        {
+          "t": "FALLING TREES",
+          "on": "trees",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Push for safety regulations continues to save lives!",
+      "query": "logger safety equipment",
+      "query2": "safety training",
+      "label": "SAFETY FIRST!",
+      "sub": "because every life matters.",
+      "label_on": "safety",
+      "punch": "save"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "people working",
+      "query2": "variety of jobs"
+    }
+  ],
+  "description": "Logging is one of the most dangerous professions worldwide, but safety efforts are making a difference! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#dangerousjobs",
+    "#logging",
+    "#safety",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}

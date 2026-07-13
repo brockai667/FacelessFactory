@@ -1,0 +1,67 @@
+{
+  "title": "Flamingos Aren't Naturally Pink!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Flamingos are born gray but turn pink from their diet!",
+      "hook_top": "FLAMINGOS NATURALLY GRAY",
+      "query": "flamingo chicks",
+      "query2": "baby flamingos"
+    },
+    {
+      "role": "fact",
+      "text": "Their pink color comes from carotenoid pigments found in the food.",
+      "query": "flamingos eating",
+      "query2": "flamingos at feeding site",
+      "chips": [
+        {
+          "t": "DIET OF CAROTENOIDS",
+          "on": "diet",
+          "style": "white"
+        }
+      ],
+      "punch": "pink"
+    },
+    {
+      "role": "fact",
+      "text": "Without these pigments, they would remain gray their entire lives.",
+      "query": "flamingos in mud",
+      "query2": "flamingos without color",
+      "chips": [
+        {
+          "t": "REMAIN GRAY",
+          "on": "gray",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Color is a product of what they eat!",
+      "query": "flamingos at sunset",
+      "query2": "flamingos in water",
+      "label": "DIET DETERMINES COLOR",
+      "sub": "nature's palette",
+      "label_on": "color",
+      "punch": "palette"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "flamingos in action",
+      "query2": "group of flamingos"
+    }
+  ],
+  "description": "Flamingos start off gray and turn pink thanks to their food. It's all about carotenoid pigments in their diet! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#flamingos",
+    "#nature",
+    "#wildlife",
+    "#shorts",
+    "#fyp"
+  ]
+}

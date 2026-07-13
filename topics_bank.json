@@ -3982,5 +3982,344 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "Your Brain Accepts a Sixth Finger!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "If you've lost a finger, your brain can adapt to feel a phantom sixth one.",
+        "hook_top": "PHANTOM SIXTH FINGER",
+        "query": "hands touching",
+        "query2": "hand with missing finger"
+      },
+      {
+        "role": "fact",
+        "text": "Patients often report feeling sensations in the area of their amputated limb.",
+        "query": "physical therapy hand",
+        "query2": "hand exercises",
+        "chips": [
+          {
+            "t": "PHANTOM SENSATIONS",
+            "on": "sensations",
+            "style": "white"
+          }
+        ],
+        "punch": "report"
+      },
+      {
+        "role": "fact",
+        "text": "This phenomenon occurs because the brain remaps itself, filling in the gaps.",
+        "query": "brain imaging scan",
+        "query2": "sci-fi brain visuals",
+        "chips": [
+          {
+            "t": "BRAIN REMAP",
+            "on": "remaps",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "The brain's plasticity allows it to adapt quickly to changes.",
+        "query": "neuroscience lab",
+        "query2": "scientist studying brain",
+        "label": "BRAIN PLASTICITY",
+        "sub": "adapt to any changes",
+        "label_on": "plasticity",
+        "punch": "adapt"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "human brain close",
+        "query2": "brain study images"
+      }
+    ],
+    "description": "Your brain can adapt to the loss of a finger and create sensations for a phantom sixth one! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#brain",
+      "#neurons",
+      "#psychology",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Most Unusual Animal Sleep!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some animals sleep with their eyes open!",
+        "hook_top": "SLEEP WITH EYES OPEN",
+        "query": "animal sleeping",
+        "query2": "animals in nature"
+      },
+      {
+        "role": "fact",
+        "text": "Certain reptiles, like some species of turtles, can sleep with their eyes open.",
+        "query": "turtle on a rock",
+        "query2": "turtle underwater",
+        "chips": [
+          {
+            "t": "TURTLE SLEEP",
+            "on": "turtles",
+            "style": "white"
+          }
+        ],
+        "punch": "sleep"
+      },
+      {
+        "role": "fact",
+        "text": "This helps them remain alert to predators even while resting.",
+        "query": "predator watching animal",
+        "query2": "nature predator prey",
+        "chips": [
+          {
+            "t": "PREDATOR ALERT",
+            "on": "predators",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Some fish also sleep by slowing their gills, but remain motionless.",
+        "query": "fish swimming slowly",
+        "query2": "underwater peaceful fish",
+        "label": "UNIQUE SLEEP",
+        "sub": "motionless but resting",
+        "label_on": "sleep",
+        "punch": "slow"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "wildlife in nature",
+        "query2": "animal documentaries"
+      }
+    ],
+    "description": "Certain animals, like reptiles and fish, have unique sleeping habits that keep them alert. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#animals",
+      "#wildlife",
+      "#nature",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "This Planet Rains Metal!",
+    "place": "HD 189733b",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "On HD 189733b, it rains glass at over 4,500°F!",
+        "hook_top": "RAIN OF GLASS",
+        "query": "alien planet visualization",
+        "query2": "space planet graphics"
+      },
+      {
+        "role": "fact",
+        "text": "Winds on this planet can reach speeds of 5,400 mph, rapidly chilling the glass.",
+        "query": "stormy planet visualization",
+        "query2": "space cyclone graphics",
+        "chips": [
+          {
+            "t": "5,400 MPH WINDS",
+            "on": "winds",
+            "style": "white"
+          }
+        ],
+        "punch": "speed"
+      },
+      {
+        "role": "fact",
+        "text": "The intense heat and pressure create a hostile environment unfit for life.",
+        "query": "hostile alien landscape",
+        "query2": "destructive space visuals",
+        "chips": [
+          {
+            "t": "HOSTILE ENVIRONMENT",
+            "on": "life",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Temperature and pressure levels are far beyond human survival limits.",
+        "query": "illustration of extremes",
+        "query2": "infographic showing extremes",
+        "label": "EXTREME CONDITIONS",
+        "sub": "too hot for life",
+        "label_on": "temperature",
+        "punch": "beyond"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "space visuals",
+        "query2": "infinite universe"
+      }
+    ],
+    "description": "On planet HD 189733b, extreme winds and temperatures create stunning yet lethal glass rains. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#space",
+      "#planets",
+      "#science",
+      "#universe",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Mystery of the Bermuda Triangle!",
+    "place": "Bermuda Triangle",
+    "country": "USA",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "The Bermuda Triangle has mystified many with its vanishing ships!",
+        "hook_top": "VANISHING SHIPS",
+        "query": "ocean waves",
+        "query2": "mysterious waters"
+      },
+      {
+        "role": "fact",
+        "text": "Over 1,000 ships and planes have reportedly disappeared in this region.",
+        "query": "map of Bermuda Triangle",
+        "query2": "naval incident graphics",
+        "chips": [
+          {
+            "t": "1,000+ INCIDENTS",
+            "on": "disappeared",
+            "style": "white"
+          }
+        ],
+        "punch": "vanishing"
+      },
+      {
+        "role": "fact",
+        "text": "Many theories exist, from magnetic anomalies to underwater methane eruptions.",
+        "query": "infographic on theories",
+        "query2": "documentary on Bermuda Triangle",
+        "chips": [
+          {
+            "t": "THEORY EXPLAINED",
+            "on": "theories",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Despite numerous investigations, no definitive explanation has been found.",
+        "query": "research investigation",
+        "query2": "investigating team at sea",
+        "label": "UNSOLVED MYSTERY",
+        "sub": "curiosity persists",
+        "label_on": "mystery",
+        "punch": "found"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "ocean waves close-up",
+        "query2": "deep ocean"
+      }
+    ],
+    "description": "The Bermuda Triangle has seen over 1,000 disappearances, leaving many theories yet unexplained. Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#history",
+      "#mystery",
+      "#science",
+      "#ocean",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Cold Water Can Freeze Instantly!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Water can freeze instantly under special conditions!",
+        "hook_top": "INSTANT FREEZING",
+        "query": "cold water splash",
+        "query2": "ice forming"
+      },
+      {
+        "role": "fact",
+        "text": "This phenomenon is known as 'supercooling', where water stays liquid below freezing.",
+        "query": "water in freezer",
+        "query2": "ice cubes close-up",
+        "chips": [
+          {
+            "t": "SUPERCOOLING",
+            "on": "supercooling",
+            "style": "white"
+          }
+        ],
+        "punch": "liquid"
+      },
+      {
+        "role": "fact",
+        "text": "When disturbed, supercooled water can freeze almost instantly into ice.",
+        "query": "ice cube forms",
+        "query2": "water to ice transition",
+        "chips": [
+          {
+            "t": "INSTANT ICE",
+            "on": "freeze",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "This can occur in controlled conditions, like in labs or during certain weather conditions.",
+        "query": "scientific experiment",
+        "query2": "laboratory visuals",
+        "label": "FREEZING SCIENCE",
+        "sub": "controlled conditions matter",
+        "label_on": "conditions",
+        "punch": "occurs"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "frozen water close",
+        "query2": "ice crystal close-up"
+      }
+    ],
+    "description": "Under special conditions, water can freeze instantly! Follow for more fascinating science facts!",
+    "hashtags": [
+      "#facts",
+      "#science",
+      "#didyouknow",
+      "#water",
+      "#physics",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]

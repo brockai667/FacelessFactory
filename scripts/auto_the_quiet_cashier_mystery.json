@@ -1,0 +1,68 @@
+{
+  "title": "The Quiet Cashier Mystery",
+  "place": "",
+  "country": "USA",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Most cashiers in the USA aren't allowed to sit down on the job.",
+      "hook_top": "CASHIERS STAND ALL DAY",
+      "query": "cashier at checkout",
+      "query2": "busy supermarket cashier"
+    },
+    {
+      "role": "fact",
+      "text": "This standing policy is based on traditions and workplace dynamics.",
+      "query": "people shopping in store",
+      "query2": "crowded grocery store",
+      "chips": [
+        {
+          "t": "TRADITIONAL POLICY",
+          "on": "policy",
+          "style": "white"
+        }
+      ],
+      "punch": "traditions"
+    },
+    {
+      "role": "fact",
+      "text": "Long shifts standing can lead to health issues like back pain.",
+      "query": "cashier stretching back",
+      "query2": "person uncomfortable working",
+      "chips": [
+        {
+          "t": "BACK PAIN",
+          "on": "pain",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Why are we prioritizing standing over comfort?",
+      "query": "cashier looking tired",
+      "query2": "cashier resting",
+      "label": "STANDING OVER COMFORT",
+      "sub": "time for a change?",
+      "label_on": "standing",
+      "punch": "comfort"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "busy cashier",
+      "query2": "checkout line"
+    }
+  ],
+  "description": "Did you know most cashiers in the USA are not allowed to sit? This standing policy can lead to health issues. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#cashier",
+    "#workplace",
+    "#health",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}
