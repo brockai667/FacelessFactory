@@ -1,0 +1,65 @@
+{
+  "title": "The Mystery of Curved Bullets!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "You can curve a bullet, but it's far from simple!",
+      "hook_top": "CURVE A BULLET",
+      "query": "bullet flying in air",
+      "query2": "bullet traveling motion"
+    },
+    {
+      "role": "fact",
+      "text": "Special techniques like spin and angle can create an arc.",
+      "query": "bullet with spin effect",
+      "query2": "bullet spinning in air",
+      "chips": [
+        {
+          "t": "SPIN AND ANGLE",
+          "on": "spin",
+          "style": "white"
+        }
+      ]
+    },
+    {
+      "role": "fact",
+      "text": "It's often seen in movies but is extremely hard to master.",
+      "query": "action movie shooting scene",
+      "query2": "movie gunfight",
+      "chips": [
+        {
+          "t": "MOVIE Myth",
+          "on": "movies",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Real-world physics make this very challenging.",
+      "query": "bullet trajectory diagram",
+      "query2": "physics diagram",
+      "label": "PHYSICS AT PLAY",
+      "sub": "a tough skill to learn",
+      "label_on": "challenges"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "action movies explosion",
+      "query2": "movie action scene"
+    }
+  ],
+  "description": "Curving a bullet is a real technique, but it's incredibly difficult! Discover the physics behind it and follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#bullets",
+    "#physics",
+    "#movies",
+    "#shorts",
+    "#fyp"
+  ]
+}

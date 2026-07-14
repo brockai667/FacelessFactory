@@ -1,0 +1,67 @@
+{
+  "title": "Crows Can Remember Your Face For Years!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Crows have an amazing memory and can recognize human faces for years!",
+      "hook_top": "CROWS ID YOUR FACE",
+      "query": "crow observing person",
+      "query2": "crow close-up"
+    },
+    {
+      "role": "fact",
+      "text": "They remember individuals who have wronged them, but also those who feed them.",
+      "query": "crow eating",
+      "query2": "crow with food",
+      "chips": [
+        {
+          "t": "MEMORY MATTERS",
+          "on": "memory",
+          "style": "white"
+        }
+      ],
+      "punch": "individuals"
+    },
+    {
+      "role": "fact",
+      "text": "This ability helps them navigate complex social structures.",
+      "query": "crows interacting",
+      "query2": "crows gathering",
+      "chips": [
+        {
+          "t": "SOCIAL STRUCTURES",
+          "on": "structures",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Crows aren’t just smart; they’re social engineers!",
+      "query": "crows playing with each other",
+      "query2": "crows in trees",
+      "label": "SOCIAL ENGINEERS",
+      "sub": "a complex society",
+      "label_on": "social",
+      "punch": "engineers"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "crows in nature",
+      "query2": "crows flying"
+    }
+  ],
+  "description": "Crows can recognize human faces for years, a trait that aids their social interactions. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#crows",
+    "#animals",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

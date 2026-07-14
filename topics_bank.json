@@ -4321,5 +4321,205 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "Don't Sleep on This!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "A third of your life is spent sleeping!",
+        "hook_top": "13 OF YOUR LIFE",
+        "query": "sleeping person",
+        "query2": "peaceful sleep"
+      },
+      {
+        "role": "fact",
+        "text": "Sleep is essential for memory consolidation and learning.",
+        "query": "brain during sleep",
+        "query2": "sleeping brain scans",
+        "chips": [
+          {
+            "t": "ESSENTIAL FOR LEARNING",
+            "on": "memory",
+            "style": "white"
+          }
+        ],
+        "punch": "consolidation"
+      },
+      {
+        "role": "fact",
+        "text": "Without enough sleep, cognitive functions decline significantly.",
+        "query": "tired person",
+        "query2": "yawning person",
+        "chips": [
+          {
+            "t": "COGNITIVE DECLINE",
+            "on": "cognitive",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Sleep isn’t just rest; it’s vital!",
+        "query": "restful sleep scene",
+        "query2": "calm sleeping environment",
+        "label": "VITAL SLEEP",
+        "sub": "it boosts your mind!",
+        "label_on": "vital",
+        "punch": "boost"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "peaceful sleep environment",
+        "query2": "relaxing bedroom"
+      }
+    ],
+    "description": "You spend a third of your life sleeping, and it’s crucial for your brain! Discover its importance! Follow for daily facts!",
+    "hashtags": [
+      "#sleep",
+      "#health",
+      "#science",
+      "#facts",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Deepest Ice on Earth!",
+    "place": "Antarctica",
+    "country": "Antarctica",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Antarctica has ice that's over 4 kilometers thick!",
+        "hook_top": "ICE THICKNESS",
+        "query": "Antarctica ice sheet",
+        "query2": "icebergs in Antarctica"
+      },
+      {
+        "role": "fact",
+        "text": "This ice holds records of Earth's climate for millions of years.",
+        "query": "ice core samples",
+        "query2": "scientists drilling ice",
+        "chips": [
+          {
+            "t": "CLIMATE RECORDS",
+            "on": "records",
+            "style": "white"
+          }
+        ],
+        "punch": "millions"
+      },
+      {
+        "role": "fact",
+        "text": "The weight of the ice causes elevation changes and shifts in the land.",
+        "query": "land shifting under ice",
+        "query2": "glacial movement",
+        "chips": [
+          {
+            "t": "LAND SHIFTING",
+            "on": "shifts",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Antarctica is a time capsule of the planet!",
+        "query": "Antarctica landscape",
+        "query2": "vast ice fields",
+        "label": "TIME CAPSULE",
+        "sub": "holding Earth's secrets!",
+        "label_on": "capsule",
+        "punch": "secrets"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "Antarctica scenic view",
+        "query2": "ice caps in sunlight"
+      }
+    ],
+    "description": "Antarctica’s ice is a giant time capsule, holding climate records for millions of years! Follow for daily facts!",
+    "hashtags": [
+      "#Antarctica",
+      "#ice",
+      "#science",
+      "#facts",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Resilient Immortal Jellyfish!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "The immortal jellyfish can revert back to its youthful state!",
+        "hook_top": "IMMORTAL JELLYFISH",
+        "query": "immortal jellyfish",
+        "query2": "jellyfish swimming"
+      },
+      {
+        "role": "fact",
+        "text": "It can transform back into a polyp after reaching maturity.",
+        "query": "jellyfish lifecycle",
+        "query2": "jellyfish life stages",
+        "chips": [
+          {
+            "t": "AGELESS",
+            "on": "immortal",
+            "style": "white"
+          }
+        ],
+        "punch": "transform"
+      },
+      {
+        "role": "fact",
+        "text": "This unique ability allows it to escape death repeatedly.",
+        "query": "jellyfish regenerating",
+        "query2": "jellyfish thriving in ocean",
+        "chips": [
+          {
+            "t": "ESCAPING DEATH",
+            "on": "escape",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "It's a true marvel of evolution!",
+        "query": "jellyfish in ocean",
+        "query2": "jellyfish close-up",
+        "label": "MARVEL OF NATURE",
+        "sub": "a living miracle!",
+        "label_on": "marvel",
+        "punch": "miracle"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "jellyfish underwater",
+        "query2": "beautiful jellyfish in water"
+      }
+    ],
+    "description": "The immortal jellyfish can revert to its youthful form, effectively escaping death! Follow for daily facts!",
+    "hashtags": [
+      "#jellyfish",
+      "#ocean",
+      "#biology",
+      "#facts",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]
