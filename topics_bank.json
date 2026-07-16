@@ -4655,5 +4655,209 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "The Strangest Animal Births",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some animals are born in the most bizarre ways imaginable.",
+        "hook_top": "WEIRD ANIMAL BIRTHS",
+        "query": "animal giving birth",
+        "query2": "animal baby moments"
+      },
+      {
+        "role": "fact",
+        "text": "For instance, sea turtles return to the shore to lay their eggs after being born in the ocean.",
+        "query": "sea turtle hatching",
+        "query2": "turtle on beach",
+        "chips": [
+          {
+            "t": "RETURN TO SHORE",
+            "on": "shore",
+            "style": "white"
+          }
+        ],
+        "punch": "shore"
+      },
+      {
+        "role": "fact",
+        "text": "Some species of frogs actually lay eggs inside their skin until ready to hatch.",
+        "query": "frog laying eggs",
+        "query2": "frog in pond",
+        "chips": [
+          {
+            "t": "EGGS IN SKIN",
+            "on": "skin",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "These incredible adaptations keep their young safe until the right moment.",
+        "query": "frog tadpole transition",
+        "query2": "frogs life cycle",
+        "label": "NATURE'S STRATEGY",
+        "sub": "safety in birth",
+        "label_on": "adaptations",
+        "punch": "incredible"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "animal nature documentary",
+        "query2": "wildlife moments"
+      }
+    ],
+    "description": "Explore the strangest animal births! From turtles to frogs, nature has unique ways to keep their young safe. Follow for daily facts!",
+    "hashtags": [
+      "#animalfacts",
+      "#didyouknow",
+      "#nature",
+      "#wildlife",
+      "#science",
+      "#bizarre",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Power of Your Body’s Glow!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Did you know your body actually emits light?",
+        "hook_top": "BODY EMITS LIGHT",
+        "query": "body glowing in dark",
+        "query2": "human silhouette glowing"
+      },
+      {
+        "role": "fact",
+        "text": "All living things radiate a small amount of bioluminescence, invisible to the naked eye.",
+        "query": "body bioluminescence",
+        "query2": "close up of human skin",
+        "chips": [
+          {
+            "t": "INVISIBLE GLOW",
+            "on": "invisible",
+            "style": "accent"
+          }
+        ],
+        "punch": "radiate"
+      },
+      {
+        "role": "fact",
+        "text": "This glow is highest in the evening and lowest during the day.",
+        "query": "human at sunset",
+        "query2": "sunset silhouette person",
+        "chips": [
+          {
+            "t": "EVENING BRIGHTNESS",
+            "on": "evening",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Every living body has its own unique light signature.",
+        "query": "body sensors and lights",
+        "query2": "human with lights",
+        "label": "UNIQUE SIGNATURE",
+        "sub": "we all glow differently!",
+        "label_on": "body",
+        "punch": "unique"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "glowing human form",
+        "query2": "abstract glowing body"
+      }
+    ],
+    "description": "Your body emits light! This bioluminescence is invisible but fascinating, changing throughout the day. Follow for daily facts!",
+    "hashtags": [
+      "#bodyfacts",
+      "#didyouknow",
+      "#bioluminescence",
+      "#science",
+      "#humanbody",
+      "#light",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Mystery of Unidentified Sounds!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some strange noises on Earth go unexplained!",
+        "hook_top": "UNIDENTIFIED SOUNDS",
+        "query": "people listening to sound",
+        "query2": "mysterious sound event"
+      },
+      {
+        "role": "fact",
+        "text": "In 1997, a puzzling noise called 'The Wow! Signal' was detected from space.",
+        "query": "space radio telescope",
+        "query2": "deep space view",
+        "chips": [
+          {
+            "t": "WOW SIGNAL",
+            "on": "signal",
+            "style": "accent"
+          }
+        ],
+        "punch": "signal"
+      },
+      {
+        "role": "fact",
+        "text": "Some strange oceanic sounds, like 'The Bloop', are still unexplained and incredibly deep.",
+        "query": "ocean underwater",
+        "query2": "deep ocean sounds",
+        "chips": [
+          {
+            "t": "THE BLOOP",
+            "on": "bloop",
+            "style": "white"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "These mysteries fuel our curiosity about what lies beyond.",
+        "query": "exploration in ocean",
+        "query2": "scientists exploring ocean",
+        "label": "SOUND MYSTERIES",
+        "sub": "what's out there?",
+        "label_on": "mystery",
+        "punch": "curiosity"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "mysterious nature",
+        "query2": "curious explorer"
+      }
+    ],
+    "description": "Unexplained sounds like 'The Wow! Signal' and 'The Bloop' spark curiosity about our universe. Follow for daily facts!",
+    "hashtags": [
+      "#mystery",
+      "#facts",
+      "#science",
+      "#space",
+      "#ocean",
+      "#sounds",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]

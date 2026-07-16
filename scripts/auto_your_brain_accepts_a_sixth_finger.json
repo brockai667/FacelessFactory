@@ -1,0 +1,68 @@
+{
+  "title": "Your Brain Accepts a Sixth Finger!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "If you've lost a finger, your brain can adapt to feel a phantom sixth one.",
+      "hook_top": "PHANTOM SIXTH FINGER",
+      "query": "hands touching",
+      "query2": "hand with missing finger"
+    },
+    {
+      "role": "fact",
+      "text": "Patients often report feeling sensations in the area of their amputated limb.",
+      "query": "physical therapy hand",
+      "query2": "hand exercises",
+      "chips": [
+        {
+          "t": "PHANTOM SENSATIONS",
+          "on": "sensations",
+          "style": "white"
+        }
+      ],
+      "punch": "report"
+    },
+    {
+      "role": "fact",
+      "text": "This phenomenon occurs because the brain remaps itself, filling in the gaps.",
+      "query": "brain imaging scan",
+      "query2": "sci-fi brain visuals",
+      "chips": [
+        {
+          "t": "BRAIN REMAP",
+          "on": "remaps",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "The brain's plasticity allows it to adapt quickly to changes.",
+      "query": "neuroscience lab",
+      "query2": "scientist studying brain",
+      "label": "BRAIN PLASTICITY",
+      "sub": "adapt to any changes",
+      "label_on": "plasticity",
+      "punch": "adapt"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "human brain close",
+      "query2": "brain study images"
+    }
+  ],
+  "description": "Your brain can adapt to the loss of a finger and create sensations for a phantom sixth one! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#brain",
+    "#neurons",
+    "#psychology",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}

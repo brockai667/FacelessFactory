@@ -1,0 +1,62 @@
+{
+  "title": "The Slowest Man in the World!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "There’s actually a man known for being the slowest runner in the world!",
+      "hook_top": "SLOWEST RUNNER ON EARTH",
+      "query": "man running slow motion",
+      "query2": "person jogging"
+    },
+    {
+      "role": "fact",
+      "text": "He completed a marathon in over 54 hours, breaking the record!",
+      "query": "marathon runner slow",
+      "query2": "runner crossing finish line",
+      "chips": [
+        {
+          "t": "54 HOURS",
+          "on": "54 hours",
+          "style": "accent"
+        }
+      ],
+      "punch": "record"
+    },
+    {
+      "role": "fact",
+      "text": "His journey is a testament to determination and spirit.",
+      "query": "runner training hard",
+      "query2": "person running uphill",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "Slow and steady can win the race!",
+      "query": "runner cheering",
+      "query2": "person celebrating",
+      "label": "SLOW AND STEADY",
+      "sub": "wins the race",
+      "label_on": "steady",
+      "punch": "win"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "runner crossing finish line",
+      "query2": "runner excited"
+    }
+  ],
+  "description": "Meet the man known as the slowest runner in the world, completing marathons with unwavering determination. Follow for daily inspiring facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#marathon",
+    "#inspiration",
+    "#running",
+    "#sports",
+    "#shorts",
+    "#fyp"
+  ]
+}

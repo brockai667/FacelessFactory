@@ -1,0 +1,62 @@
+{
+  "title": "Why Cashiers Can't Sit",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Most cashiers in the USA are not allowed to sit down!",
+      "hook_top": "CASHIERS CAN'T SIT",
+      "query": "cashier at checkout",
+      "query2": "cashier smiling"
+    },
+    {
+      "role": "fact",
+      "text": "This policy is often due to strict store policies and safety regulations.",
+      "query": "busy store checkout",
+      "query2": "cashier handling items",
+      "chips": [
+        {
+          "t": "STRICT STORE POLICIES",
+          "on": "policies",
+          "style": "white"
+        }
+      ],
+      "punch": "strict"
+    },
+    {
+      "role": "fact",
+      "text": "Standing for long hours can lead to serious health risks.",
+      "query": "health hazards cashier",
+      "query2": "person sitting",
+      "chips": []
+    },
+    {
+      "role": "callout",
+      "text": "An exhausting job with hidden dangers!",
+      "query": "busy cashier line",
+      "query2": "cashier working hard",
+      "label": "HIDDEN DANGERS",
+      "sub": "of standing all day",
+      "label_on": "job",
+      "punch": "dangers"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "cashier in store",
+      "query2": "storefront outside"
+    }
+  ],
+  "description": "In the USA, most cashiers cannot sit during their shifts, leading to potential health issues. Follow for more unbelievable job facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#cashiers",
+    "#jobs",
+    "#work",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}
