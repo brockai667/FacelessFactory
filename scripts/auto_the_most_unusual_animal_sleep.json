@@ -1,0 +1,68 @@
+{
+  "title": "The Most Unusual Animal Sleep!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Some animals sleep with their eyes open!",
+      "hook_top": "SLEEP WITH EYES OPEN",
+      "query": "animal sleeping",
+      "query2": "animals in nature"
+    },
+    {
+      "role": "fact",
+      "text": "Certain reptiles, like some species of turtles, can sleep with their eyes open.",
+      "query": "turtle on a rock",
+      "query2": "turtle underwater",
+      "chips": [
+        {
+          "t": "TURTLE SLEEP",
+          "on": "turtles",
+          "style": "white"
+        }
+      ],
+      "punch": "sleep"
+    },
+    {
+      "role": "fact",
+      "text": "This helps them remain alert to predators even while resting.",
+      "query": "predator watching animal",
+      "query2": "nature predator prey",
+      "chips": [
+        {
+          "t": "PREDATOR ALERT",
+          "on": "predators",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Some fish also sleep by slowing their gills, but remain motionless.",
+      "query": "fish swimming slowly",
+      "query2": "underwater peaceful fish",
+      "label": "UNIQUE SLEEP",
+      "sub": "motionless but resting",
+      "label_on": "sleep",
+      "punch": "slow"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "wildlife in nature",
+      "query2": "animal documentaries"
+    }
+  ],
+  "description": "Certain animals, like reptiles and fish, have unique sleeping habits that keep them alert. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#animals",
+    "#wildlife",
+    "#nature",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ]
+}

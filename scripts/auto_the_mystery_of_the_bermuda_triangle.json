@@ -1,0 +1,68 @@
+{
+  "title": "The Mystery of the Bermuda Triangle!",
+  "place": "Bermuda Triangle",
+  "country": "USA",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "The Bermuda Triangle has mystified many with its vanishing ships!",
+      "hook_top": "VANISHING SHIPS",
+      "query": "ocean waves",
+      "query2": "mysterious waters"
+    },
+    {
+      "role": "fact",
+      "text": "Over 1,000 ships and planes have reportedly disappeared in this region.",
+      "query": "map of Bermuda Triangle",
+      "query2": "naval incident graphics",
+      "chips": [
+        {
+          "t": "1,000+ INCIDENTS",
+          "on": "disappeared",
+          "style": "white"
+        }
+      ],
+      "punch": "vanishing"
+    },
+    {
+      "role": "fact",
+      "text": "Many theories exist, from magnetic anomalies to underwater methane eruptions.",
+      "query": "infographic on theories",
+      "query2": "documentary on Bermuda Triangle",
+      "chips": [
+        {
+          "t": "THEORY EXPLAINED",
+          "on": "theories",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Despite numerous investigations, no definitive explanation has been found.",
+      "query": "research investigation",
+      "query2": "investigating team at sea",
+      "label": "UNSOLVED MYSTERY",
+      "sub": "curiosity persists",
+      "label_on": "mystery",
+      "punch": "found"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "ocean waves close-up",
+      "query2": "deep ocean"
+    }
+  ],
+  "description": "The Bermuda Triangle has seen over 1,000 disappearances, leaving many theories yet unexplained. Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#history",
+    "#mystery",
+    "#science",
+    "#ocean",
+    "#shorts",
+    "#fyp"
+  ]
+}

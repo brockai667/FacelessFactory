@@ -4859,5 +4859,342 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "Sunfish: The Unlikely Survivor",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Sunfish are the heaviest bony fish and are nearly immune to extinction.",
+        "hook_top": "HEAVIEST BONY FISH",
+        "query": "sunfish swimming",
+        "query2": "sunfish ocean surface"
+      },
+      {
+        "role": "fact",
+        "text": "These massive fish can weigh over 2,200 pounds and grow up to 10 feet wide.",
+        "query": "sunfish size comparison",
+        "query2": "sunfish underwater",
+        "chips": [
+          {
+            "t": "2200 POUNDS",
+            "on": "weight",
+            "style": "white"
+          }
+        ],
+        "punch": "weight"
+      },
+      {
+        "role": "fact",
+        "text": "Their unique shape helps them float effortlessly near the ocean surface.",
+        "query": "sunfish floating",
+        "query2": "sunfish seen from above",
+        "chips": [
+          {
+            "t": "FLOATING EXPERT",
+            "on": "float",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "They're natural sunbathers, often seen basking in the sun!",
+        "query": "sunfish basking",
+        "query2": "ocean sunlit",
+        "label": "NATURAL SUNBATHERS",
+        "sub": "enjoying the sunlight",
+        "label_on": "basking",
+        "punch": "enjoy"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "sunlight ocean waves",
+        "query2": "underwater ocean light rays"
+      }
+    ],
+    "description": "Sunfish are the heaviest bony fish, nearly immune to extinction! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#sunfish",
+      "#ocean",
+      "#science",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "What Seals Can Teach Us!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Seals can dive deeper than any human-built submarine!",
+        "hook_top": "SUBMARINE DIVERS",
+        "query": "seal diving underwater",
+        "query2": "seal jumping into water"
+      },
+      {
+        "role": "fact",
+        "text": "Some seals can dive to depths over 5,000 feet and hold their breath for up to two hours.",
+        "query": "seal diving deep",
+        "query2": "seal underwater close",
+        "chips": [
+          {
+            "t": "5000 FEET",
+            "on": "depth",
+            "style": "white"
+          }
+        ],
+        "punch": "depth"
+      },
+      {
+        "role": "fact",
+        "text": "Their bodies are specially adapted to withstand pressure at extreme depths.",
+        "query": "seal deep sea pressure",
+        "query2": "seal swimming deep",
+        "chips": [
+          {
+            "t": "ADAPTED BODIES",
+            "on": "adapted",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "They can even slow their heart rate to conserve oxygen!",
+        "query": "seal swimming calm",
+        "query2": "seal resting",
+        "label": "OXYGEN CONSERVATION",
+        "sub": "slowing to survive",
+        "label_on": "heart rate",
+        "punch": "slow"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "seal ocean surface",
+        "query2": "seal on a rock"
+      }
+    ],
+    "description": "Seals can dive deeper than submarines! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#seals",
+      "#ocean",
+      "#animals",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Real Life Whispering Statues!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some statues have hidden acoustic properties that can carry whispers!",
+        "hook_top": "WHISPERING STATUES",
+        "query": "whispering gallery statue",
+        "query2": "statue echo experiment"
+      },
+      {
+        "role": "fact",
+        "text": "These structures are designed to amplify sound, creating echoes from afar.",
+        "query": "echoing whispers",
+        "query2": "sound amplification",
+        "chips": [
+          {
+            "t": "AMPLIFIED SOUND",
+            "on": "amplify",
+            "style": "white"
+          }
+        ],
+        "punch": "echo"
+      },
+      {
+        "role": "fact",
+        "text": "Many famous locations, like St. Paul's Cathedral, demonstrate this eerie phenomenon.",
+        "query": "St. Paul's Cathedral",
+        "query2": "cathedral interior",
+        "chips": [
+          {
+            "t": "ST. PAUL'S",
+            "on": "St. Paul's",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "You can whisper at one end and be heard clearly at the other!",
+        "query": "whispering gallery",
+        "query2": "people whispering near statue",
+        "label": "AUDIO ILLUSION",
+        "sub": "statues that listen!",
+        "label_on": "whisper",
+        "punch": "hear"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "statues in museum",
+        "query2": "people looking at statues"
+      }
+    ],
+    "description": "Some statues carry whispers! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#history",
+      "#statues",
+      "#acoustics",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Can You Trust Your Memories?",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Most of your memories are actually not as accurate as you think!",
+        "hook_top": "MEMORY MISTRUST",
+        "query": "person recalling memory",
+        "query2": "fade memories"
+      },
+      {
+        "role": "fact",
+        "text": "Our brains are constantly reconstructing memories rather than playing them back.",
+        "query": "brain activity memories",
+        "query2": "visual representation of memory",
+        "chips": [
+          {
+            "t": "RECONSTRUCTED",
+            "on": "reconstructing",
+            "style": "white"
+          }
+        ],
+        "punch": "reconstruct"
+      },
+      {
+        "role": "fact",
+        "text": "This means that memories can be influenced and even altered by new information.",
+        "query": "misleading memory",
+        "query2": "memory distortion illustration",
+        "chips": [
+          {
+            "t": "ALTERED",
+            "on": "altered",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "It's possible for many people to confidently misremember events!",
+        "query": "person questioning memory",
+        "query2": "two people discussing",
+        "label": "CONFIDENTLY WRONG",
+        "sub": "trust your intuition?",
+        "label_on": "misremember",
+        "punch": "confident"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "brain neuroscience",
+        "query2": "brain scans"
+      }
+    ],
+    "description": "Your memories may not be as accurate as you believe! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#psychology",
+      "#memory",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "The Weird Behavior of Lemmings!",
+    "place": "",
+    "country": "",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Lemmings are known for their mass migrations, but they don't actually commit suicide!",
+        "hook_top": "LEMMING MYTH DEBUNKED",
+        "query": "lemmings migrating",
+        "query2": "lemmings in snow"
+      },
+      {
+        "role": "fact",
+        "text": "Their migratory behavior is driven by population pressure and food scarcity!",
+        "query": "lemmings searching for food",
+        "query2": "lemmings in winter",
+        "chips": [
+          {
+            "t": "MIGRATORY BEHAVIOR",
+            "on": "migratory",
+            "style": "white"
+          }
+        ],
+        "punch": "migrate"
+      },
+      {
+        "role": "fact",
+        "text": "When their populations swell, they travel in large groups seeking new habitats.",
+        "query": "lemmings in groups",
+        "query2": "large group of lemmings",
+        "chips": [
+          {
+            "t": "LARGE GROUPS",
+            "on": "groups",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "The myth of mass suicide originated from early films that misrepresented them!",
+        "query": "film about lemmings",
+        "query2": "vintage film still",
+        "label": "MYTH EXPOSED",
+        "sub": "they just migrate!",
+        "label_on": "myth",
+        "punch": "exposed"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "lemmings in nature",
+        "query2": "animals in the wild"
+      }
+    ],
+    "description": "Lemmings migrate in groups, not commit suicide! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#didyouknow",
+      "#lemmings",
+      "#animals",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]
