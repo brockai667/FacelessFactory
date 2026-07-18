@@ -1,0 +1,67 @@
+{
+  "title": "Cold Water Can Freeze Instantly!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Water can freeze instantly under special conditions!",
+      "hook_top": "INSTANT FREEZING",
+      "query": "cold water splash",
+      "query2": "ice forming"
+    },
+    {
+      "role": "fact",
+      "text": "This phenomenon is known as 'supercooling', where water stays liquid below freezing.",
+      "query": "water in freezer",
+      "query2": "ice cubes close-up",
+      "chips": [
+        {
+          "t": "SUPERCOOLING",
+          "on": "supercooling",
+          "style": "white"
+        }
+      ],
+      "punch": "liquid"
+    },
+    {
+      "role": "fact",
+      "text": "When disturbed, supercooled water can freeze almost instantly into ice.",
+      "query": "ice cube forms",
+      "query2": "water to ice transition",
+      "chips": [
+        {
+          "t": "INSTANT ICE",
+          "on": "freeze",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "This can occur in controlled conditions, like in labs or during certain weather conditions.",
+      "query": "scientific experiment",
+      "query2": "laboratory visuals",
+      "label": "FREEZING SCIENCE",
+      "sub": "controlled conditions matter",
+      "label_on": "conditions",
+      "punch": "occurs"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "frozen water close",
+      "query2": "ice crystal close-up"
+    }
+  ],
+  "description": "Under special conditions, water can freeze instantly! Follow for more fascinating science facts!",
+  "hashtags": [
+    "#facts",
+    "#science",
+    "#didyouknow",
+    "#water",
+    "#physics",
+    "#shorts",
+    "#fyp"
+  ]
+}

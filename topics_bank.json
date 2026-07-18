@@ -5196,5 +5196,139 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "The World's Smallest Snake?",
+    "place": "Tropics",
+    "country": "Various",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "The world's smallest snake is just 10 cm long!",
+        "hook_top": "TINY SNAKE ALERT",
+        "query": "smallest snake close",
+        "query2": "tiny snake habitat"
+      },
+      {
+        "role": "fact",
+        "text": "Known as the Barbados threadsnake, it's thinner than a pencil.",
+        "query": "Barbados threadsnake",
+        "query2": "snake on ground",
+        "chips": [
+          {
+            "t": "10 CM",
+            "on": "10 cm",
+            "style": "white"
+          }
+        ],
+        "punch": "thin"
+      },
+      {
+        "role": "fact",
+        "text": "This snake is so small, it often escapes detection!",
+        "query": "snake hiding in grass",
+        "query2": "snake blending in",
+        "chips": [
+          {
+            "t": "ESCAPE ARTIST",
+            "on": "detection",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Its diet mainly consists of tiny insects and larvae.",
+        "query": "tiny insect close",
+        "query2": "snake hunting",
+        "label": "MINI MEAL",
+        "sub": "eats small creepy crawlies",
+        "label_on": "diet",
+        "punch": "meal"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "snake in nature",
+        "query2": "snake in foliage"
+      }
+    ],
+    "description": "The world's smallest snake measures just 10 cm long and is often undetectable! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#snake",
+      "#animalfacts",
+      "#nature",
+      "#wildlife",
+      "#shorts",
+      "#fyp"
+    ]
+  },
+  {
+    "title": "Strangest Things Found Inside Statues!",
+    "place": "Worldwide",
+    "country": "Various",
+    "scenes": [
+      {
+        "role": "hook",
+        "text": "Some statues hid the strangest secrets inside them!",
+        "hook_top": "HIDDEN STATUE SECRETS",
+        "query": "statue mystery",
+        "query2": "statue close-up"
+      },
+      {
+        "role": "fact",
+        "text": "In 1957, a time capsule was found inside a statue in Richmond.",
+        "query": "Richmond time capsule",
+        "query2": "statue moment",
+        "chips": [
+          {
+            "t": "TIME CAPSULE",
+            "on": "time capsule",
+            "style": "white"
+          }
+        ],
+        "punch": "found"
+      },
+      {
+        "role": "fact",
+        "text": "Statues have hidden compartments to store historical items!",
+        "query": "statue revealing hidden item",
+        "query2": "secret compartment",
+        "chips": [
+          {
+            "t": "HIDDEN COMPARTMENTS",
+            "on": "compartments",
+            "style": "accent"
+          }
+        ]
+      },
+      {
+        "role": "callout",
+        "text": "Some even contain messages from the past!",
+        "query": "old messages in stone",
+        "query2": "scroll inside statue",
+        "label": "MESSAGES FROM HISTORY",
+        "sub": "whispers of the past",
+        "label_on": "messages",
+        "punch": "messages"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "statue in park",
+        "query2": "statue landscape"
+      }
+    ],
+    "description": "Statues can hide strange secrets, from time capsules to messages! Follow for daily facts!",
+    "hashtags": [
+      "#facts",
+      "#history",
+      "#mystery",
+      "#statues",
+      "#art",
+      "#shorts",
+      "#fyp"
+    ]
   }
 ]
