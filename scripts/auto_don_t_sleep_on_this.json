@@ -1,0 +1,66 @@
+{
+  "title": "Don't Sleep on This!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "A third of your life is spent sleeping!",
+      "hook_top": "13 OF YOUR LIFE",
+      "query": "sleeping person",
+      "query2": "peaceful sleep"
+    },
+    {
+      "role": "fact",
+      "text": "Sleep is essential for memory consolidation and learning.",
+      "query": "brain during sleep",
+      "query2": "sleeping brain scans",
+      "chips": [
+        {
+          "t": "ESSENTIAL FOR LEARNING",
+          "on": "memory",
+          "style": "white"
+        }
+      ],
+      "punch": "consolidation"
+    },
+    {
+      "role": "fact",
+      "text": "Without enough sleep, cognitive functions decline significantly.",
+      "query": "tired person",
+      "query2": "yawning person",
+      "chips": [
+        {
+          "t": "COGNITIVE DECLINE",
+          "on": "cognitive",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Sleep isn’t just rest; it’s vital!",
+      "query": "restful sleep scene",
+      "query2": "calm sleeping environment",
+      "label": "VITAL SLEEP",
+      "sub": "it boosts your mind!",
+      "label_on": "vital",
+      "punch": "boost"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "peaceful sleep environment",
+      "query2": "relaxing bedroom"
+    }
+  ],
+  "description": "You spend a third of your life sleeping, and it’s crucial for your brain! Discover its importance! Follow for daily facts!",
+  "hashtags": [
+    "#sleep",
+    "#health",
+    "#science",
+    "#facts",
+    "#shorts",
+    "#fyp"
+  ]
+}
