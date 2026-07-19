@@ -180,15 +180,28 @@ def pexels_find(query, place_toks, min_dur=0.0):
     return None, False
 
 
+# NIKDY nezobraz realnu osobu/obet (zla tvar pri cold-case = strata doveryhodnosti; napr. fotka
+# nezvestneho dietata k inemu pribehu). Commons person-fotky su takmer vzdy v tychto kategoriach:
+_PERSON_CATS = (" births", " deaths", "missing people", "missing person", "portrait photographs",
+                "mugshot", "wanted posters", "murder victims", "crime victims", "disappearances",
+                "people of ", "schoolgirls", "schoolboys", "children of", "murderers", "criminals")
+_PERSON_TITLE = ("missing", "mugshot", "portrait", "headshot", "selfie", "yearbook", "wanted poster")
+_STOPQ = {"the", "a", "an", "of", "and", "in", "on", "at", "to", "for", "from", "with", "was",
+          "were", "is", "case", "mystery", "story", "man", "woman", "murder", "death"}
+
+
 def wiki_photo(query, work, name):
-    """Fotka miesta z Wikimedia Commons (fallback: presna fotka > genericke video)."""
+    """Fotka MIESTA/OBJEKTU/DOKUMENTU z Wikimedia Commons. NIKDY realna osoba/obet
+    (kategorie births/deaths/missing -> odmietni). + relevancia: obrazok musi zdielat slovo s query
+    (inak nahodna zla zhoda subjektu). Ak nic vhodne -> None (scena degraduje na atmosfericky b-roll)."""
     try:
         r = requests.get("https://commons.wikimedia.org/w/api.php", headers=UA, timeout=30,
             params={"action": "query", "generator": "search", "gsrsearch": query,
-                    "gsrnamespace": "6", "gsrlimit": "10", "prop": "imageinfo",
-                    "iiprop": "url|size", "iiurlwidth": "2000", "format": "json"})
+                    "gsrnamespace": "6", "gsrlimit": "12", "prop": "imageinfo|categories",
+                    "cllimit": "50", "iiprop": "url|size", "iiurlwidth": "2000", "format": "json"})
         pages = sorted(r.json().get("query", {}).get("pages", {}).values(),
                        key=lambda p: p.get("index", 99))
+        qwords = {w for w in re.findall(r"[a-z0-9]{4,}", str(query).lower()) if w not in _STOPQ}
         for p in pages:
             ii = p.get("imageinfo")
             title = (p.get("title", "") or "").lower()
@@ -198,6 +211,14 @@ def wiki_photo(query, work, name):
             if not cand.lower().split("?")[0].endswith((".jpg", ".jpeg", ".png")):
                 continue
             if any(b in title for b in ("icon", "logo", "flag", "seal", "coat of arms", "map")):
+                continue
+            cats = " || ".join(c.get("title", "").lower() for c in (p.get("categories") or []))
+            if any(pc in cats for pc in _PERSON_CATS) or any(pt in title for pt in _PERSON_TITLE):
+                sys.stderr.write(f"[wiki foto] preskocena osoba/obet pre '{query}'\n")
+                continue
+            twords = set(re.findall(r"[a-z0-9]{4,}", title))
+            if qwords and not (qwords & twords):
+                sys.stderr.write(f"[wiki foto] slaba zhoda subjektu pre '{query}' -> preskok\n")
                 continue
             data = requests.get(cand, headers=UA, timeout=90).content
             if len(data) < 20000:
