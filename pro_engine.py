@@ -848,6 +848,99 @@ def slugify(t):
     return re.sub(r"[^a-z0-9]+", "_", str(t).lower()).strip("_")[:50] or "video"
 
 
+def make_thumbnail(spec, work, out_path):
+    """Putavy YouTube thumbnail: cisty b-roll frame (pred hook textom) + velky hook titulok
+    + accent keyword + brand handle. Best-effort - nikdy nezhodi render."""
+    try:
+        cand = []
+        # kandidati: cisty hook opening (video.mp4 pred textom) + CISTE b-roll scen (base_i.mp4 pred overlaymi)
+        srcs = [("video.mp4", "0.12")]
+        for i in range(1, 7):
+            if os.path.exists(os.path.join(work, f"base_{i}.mp4")):
+                srcs.append((f"base_{i}.mp4", "1.0"))
+        for src, ts in srcs:
+            fp = "th_" + src.replace(".mp4", "") + ".png"
+            run([FF, "-y", "-ss", ts, "-i", src, "-frames:v", "1", fp], cwd=work)
+            p = os.path.join(work, fp)
+            if os.path.exists(p):
+                px = list(Image.open(p).convert("L").resize((32, 32)).getdata())
+                mean = sum(px) / len(px)
+                var = sum((v - mean) ** 2 for v in px) / len(px)
+                score = min(mean, 200) + var ** 0.5   # jas (nie cierne) + kontrast (nie ploche/mriezka)
+                cand.append((score, p))   # jas -> obide cierne/prechodove framy
+        if not cand:
+            return None
+        cand.sort(reverse=True)
+        bg = Image.open(cand[0][1]).convert("RGB")
+        r = max(W / bg.width, H / bg.height)
+        bg = bg.resize((int(bg.width * r), int(bg.height * r)), Image.LANCZOS)
+        ox, oy = (bg.width - W) // 2, (bg.height - H) // 2
+        bg = bg.crop((ox, oy, ox + W, oy + H)).convert("RGBA")
+        bg.alpha_composite(Image.new("RGBA", (W, H), (0, 0, 0, 42)))     # lahke stmavenie -> subjekt vidno
+        grad = Image.new("L", (1, H), 0)
+        for y in range(H):
+            grad.putpixel((0, y), int(245 * (min(1, max(0, (y - H * 0.5) / (H * 0.5))) ** 1.15)))
+        gg = Image.new("RGBA", (W, H), (5, 7, 10, 255)); gg.putalpha(grad.resize((W, H)))
+        bg.alpha_composite(gg)
+        d = ImageDraw.Draw(bg)
+        # 2026 best-practice: <=3 slova, ziadny clutter (handle netreba - grid ukazuje nazov kanala)
+        raw = spec.get("thumb") or spec["scenes"][0].get("hook_top") or spec.get("title", "")
+        words = [w for w in re.sub(r"[^A-Za-z0-9'? ]", "", str(raw).upper()).split() if w]
+        if not spec.get("thumb"):
+            while words and words[0] in ("THE", "A", "AN"):
+                words.pop(0)
+            words = words[:3]
+        words = words[:4] or ["?"]
+        n = len(words); acc_i = n - 1
+        size = 196 if n <= 2 else (172 if n == 3 else 150)
+        fT = ImageFont.truetype(FONT_ANT, size)
+        lines, line, lw = [], [], 0
+        for i, w in enumerate(words):
+            wwd = d.textlength(w, font=fT)
+            if lw + wwd > W - 110 and line:
+                lines.append(line); line, lw = [], 0
+            line.append((w, i, wwd)); lw += wwd + 28
+        if line:
+            lines.append(line)
+        lh = int(size * 1.06); y0 = H - 215 - len(lines) * lh
+        for li, ln in enumerate(lines):
+            tot = sum(x for _, _, x in ln) + 28 * (len(ln) - 1); x = (W - tot) / 2
+            for w, i, wwd in ln:
+                fill = ACCENT if i == acc_i else (255, 255, 255)
+                d.text((x, y0 + li * lh), w, font=fT, fill=fill + (255,),
+                       stroke_width=12, stroke_fill=(4, 4, 6, 255))
+                x += wwd + 28
+        bg.convert("RGB").save(out_path, quality=94)
+        print(f"  thumbnail OK: {os.path.basename(out_path)}")
+        return out_path
+    except Exception as e:
+        sys.stderr.write(f"[thumb] {str(e)[:120]}\n")
+        return None
+
+
+def prepend_cover(final_path, jpg_path, work):
+    """Predsadi ~0.6s dizajnovy cover (thumbnail) na zaciatok videa: pekny 'grid' thumbnail na
+    VSETKYCH kanaloch (bez telefon-verifikacie) + posilneny hook. Best-effort - pri chybe necha original."""
+    try:
+        if not os.path.exists(jpg_path):
+            return
+        run([FF, "-y", "-loop", "1", "-i", jpg_path, "-f", "lavfi",
+             "-i", "anullsrc=r=44100:cl=stereo", "-t", "0.6",
+             "-vf", f"scale={W}:{H},format=yuv420p", "-r", str(FPS),
+             "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+             "-c:a", "aac", "-b:a", "160k", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+             "cover.mp4"], cwd=work)
+        run([FF, "-y", "-i", "cover.mp4", "-i", final_path,
+             "-filter_complex", "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]",
+             "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+             "-maxrate", "9M", "-bufsize", "14M", "-pix_fmt", "yuv420p",
+             "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", "with_cover.mp4"], cwd=work)
+        shutil.copy(os.path.join(work, "with_cover.mp4"), final_path)
+        print("  cover predsadeny (0.6s) -> grid thumbnail + silny hook")
+    except Exception as e:
+        sys.stderr.write(f"[cover] {str(e)[:120]}\n")
+
+
 def main():
     if len(sys.argv) < 2:
         print("Pouzitie: python pro_engine.py scripts/spec.json"); sys.exit(1)
@@ -919,6 +1012,9 @@ def main():
     body = desc if place_line.lower() in desc.lower() else f"{place_line} - {desc}".strip(" -")
     open(os.path.join(OUT_DIR, name + ".txt"), "w", encoding="utf-8").write(
         f"{spec.get('title', name)}\n{body}\n\n{tags}\n")
+    jpg = os.path.join(OUT_DIR, name + ".jpg")
+    make_thumbnail(spec, work, jpg)                     # 2026 thumbnail (<slug>.jpg)
+    prepend_cover(os.path.abspath(final), jpg, work)    # predsadi ho ako ~0.6s cover
     shutil.rmtree(work, ignore_errors=True)
     print(f"OK: {final}")
 
