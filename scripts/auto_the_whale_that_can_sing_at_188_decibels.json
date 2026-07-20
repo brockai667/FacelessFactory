@@ -1,0 +1,67 @@
+{
+  "title": "The Whale That Can Sing at 188 Decibels!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "A blue whale's call can reach up to 188 decibels, louder than a jet engine!",
+      "hook_top": "LOUDER THAN A JET ENGINE",
+      "query": "blue whale underwater",
+      "query2": "blue whale breaching"
+    },
+    {
+      "role": "fact",
+      "text": "These calls travel hundreds of miles across ocean waters, making it the loudest animal.",
+      "query": "ocean sound waves",
+      "query2": "ocean horizon wide",
+      "chips": [
+        {
+          "t": "188 DECIBELS",
+          "on": "decibels",
+          "style": "white"
+        }
+      ],
+      "punch": "travel"
+    },
+    {
+      "role": "fact",
+      "text": "They use their vocalizations for communication and navigation in the deep sea.",
+      "query": "whale underwater sonar",
+      "query2": "whale swimming close",
+      "chips": [
+        {
+          "t": "COMMUNICATION",
+          "on": "communication",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Whales can also adapt their frequencies to communicate with each other.",
+      "query": "whales swimming together",
+      "query2": "whale pod surface",
+      "label": "SONG OF THE SEA",
+      "sub": "they share a language",
+      "label_on": "whales",
+      "punch": "share"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "blue whale ocean view",
+      "query2": "whale breaching sunset"
+    }
+  ],
+  "description": "A blue whale's call is louder than a jet engine and can travel hundreds of miles, enabling deep-sea communication. Follow for daily facts!",
+  "hashtags": [
+    "#whales",
+    "#ocean",
+    "#nature",
+    "#science",
+    "#facts",
+    "#shorts",
+    "#fyp"
+  ]
+}

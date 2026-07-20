@@ -1,0 +1,67 @@
+{
+  "title": "The Resilient Immortal Jellyfish!",
+  "place": "",
+  "country": "",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "The immortal jellyfish can revert back to its youthful state!",
+      "hook_top": "IMMORTAL JELLYFISH",
+      "query": "immortal jellyfish",
+      "query2": "jellyfish swimming"
+    },
+    {
+      "role": "fact",
+      "text": "It can transform back into a polyp after reaching maturity.",
+      "query": "jellyfish lifecycle",
+      "query2": "jellyfish life stages",
+      "chips": [
+        {
+          "t": "AGELESS",
+          "on": "immortal",
+          "style": "white"
+        }
+      ],
+      "punch": "transform"
+    },
+    {
+      "role": "fact",
+      "text": "This unique ability allows it to escape death repeatedly.",
+      "query": "jellyfish regenerating",
+      "query2": "jellyfish thriving in ocean",
+      "chips": [
+        {
+          "t": "ESCAPING DEATH",
+          "on": "escape",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "It's a true marvel of evolution!",
+      "query": "jellyfish in ocean",
+      "query2": "jellyfish close-up",
+      "label": "MARVEL OF NATURE",
+      "sub": "a living miracle!",
+      "label_on": "marvel",
+      "punch": "miracle"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "jellyfish underwater",
+      "query2": "beautiful jellyfish in water"
+    }
+  ],
+  "description": "The immortal jellyfish can revert to its youthful form, effectively escaping death! Follow for daily facts!",
+  "hashtags": [
+    "#jellyfish",
+    "#ocean",
+    "#biology",
+    "#facts",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}

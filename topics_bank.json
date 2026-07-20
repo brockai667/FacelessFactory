@@ -5330,5 +5330,68 @@
       "#shorts",
       "#fyp"
     ]
+  },
+  {
+    "title": "The Crazy Science of Ice Cream Overload!",
+    "thumb": "ICE CREAM SECRETS",
+    "scenes": [
+      {
+        "text": "Did you know that ice cream can be a science experiment? It can lower your body temperature when consumed in large amounts!",
+        "hook_top": "ICE CREAM CAN LOWER TEMP",
+        "query": "ice cream hypothermia effects",
+        "query2": "the effects of excessive ice cream",
+        "fact": "In extreme cases, consuming over 3 gallons of ice cream can cause hypothermia.",
+        "chips": [
+          {
+            "t": "3 GALLONS",
+            "on": "gallons",
+            "style": "white"
+          }
+        ],
+        "punch": "dangerous",
+        "role": "hook"
+      },
+      {
+        "text": "The average American consumes about 23 pounds of ice cream per year!",
+        "query": "ice cream pints per year",
+        "query2": "pint consumption in America",
+        "fact": "That's nearly 48 pints of pure delight!",
+        "chips": [
+          {
+            "t": "48 PINTS",
+            "on": "pints",
+            "style": "accent"
+          }
+        ],
+        "punch": "mind-blowing",
+        "role": "fact"
+      },
+      {
+        "text": "But here's the twist: Eating cold foods doesn't actually cool you down!",
+        "reveal_top": "COLD FOODS DON'T COOL YOU!",
+        "query": "cold foods body temperature effect",
+        "query2": "do cold foods lower body temperature",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow for more facts",
+        "query2": "subscribe for interesting facts",
+        "cta": "Follow us for more amazing discoveries!",
+        "role": "cta"
+      }
+    ],
+    "description": "Ice cream is not just a delicious treat, but it also holds secrets about your body and temperature! Follow for more mind-blowing facts!",
+    "hashtags": [
+      "#icecream",
+      "#science",
+      "#mindblowingfacts",
+      "#foodfacts",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

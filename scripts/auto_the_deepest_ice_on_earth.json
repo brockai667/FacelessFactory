@@ -1,0 +1,67 @@
+{
+  "title": "The Deepest Ice on Earth!",
+  "place": "Antarctica",
+  "country": "Antarctica",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Antarctica has ice that's over 4 kilometers thick!",
+      "hook_top": "ICE THICKNESS",
+      "query": "Antarctica ice sheet",
+      "query2": "icebergs in Antarctica"
+    },
+    {
+      "role": "fact",
+      "text": "This ice holds records of Earth's climate for millions of years.",
+      "query": "ice core samples",
+      "query2": "scientists drilling ice",
+      "chips": [
+        {
+          "t": "CLIMATE RECORDS",
+          "on": "records",
+          "style": "white"
+        }
+      ],
+      "punch": "millions"
+    },
+    {
+      "role": "fact",
+      "text": "The weight of the ice causes elevation changes and shifts in the land.",
+      "query": "land shifting under ice",
+      "query2": "glacial movement",
+      "chips": [
+        {
+          "t": "LAND SHIFTING",
+          "on": "shifts",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Antarctica is a time capsule of the planet!",
+      "query": "Antarctica landscape",
+      "query2": "vast ice fields",
+      "label": "TIME CAPSULE",
+      "sub": "holding Earth's secrets!",
+      "label_on": "capsule",
+      "punch": "secrets"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "Antarctica scenic view",
+      "query2": "ice caps in sunlight"
+    }
+  ],
+  "description": "Antarctica’s ice is a giant time capsule, holding climate records for millions of years! Follow for daily facts!",
+  "hashtags": [
+    "#Antarctica",
+    "#ice",
+    "#science",
+    "#facts",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ]
+}
