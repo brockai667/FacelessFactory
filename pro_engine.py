@@ -418,6 +418,17 @@ def chip_png(text, size=58, kind="orange", font=FONT_ANT, tracking=2):
         ImageDraw.Draw(mask).rounded_rectangle((0, 0, w - 1, h - 1), radius=r, fill=255)
         im.paste(grad, (0, 0), mask)
         fg = (16, 14, 10, 255)
+    elif kind == "red":
+        grad = Image.new("RGBA", (1, h))
+        for y in range(h):
+            tt = y / max(1, h - 1)
+            c = tuple(int((214, 48, 49)[i] * (1 - tt) + (150, 24, 28)[i] * tt) for i in range(3)) + (255,)
+            grad.putpixel((0, y), c)
+        grad = grad.resize((w, h))
+        mask = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(mask).rounded_rectangle((0, 0, w - 1, h - 1), radius=r, fill=255)
+        im.paste(grad, (0, 0), mask)
+        fg = (255, 255, 255, 255)
     elif kind == "glass":
         d.rounded_rectangle((0, 0, w - 1, h - 1), radius=r, fill=(12, 14, 18, 205))
         d.rounded_rectangle((0, 0, w - 1, h - 1), radius=r, outline=(255, 255, 255, 70), width=2)
@@ -509,6 +520,63 @@ def render_overlay_seq(sc, idx, work):
                 ImageDraw.Draw(cv).rounded_rectangle(
                     (W / 2 - uw / 2, last_y, W / 2 + uw / 2, last_y + 18),
                     radius=9, fill=ACCENT + (255,))
+        elif role == "count":
+            num = str(sc.get("num") or 1)
+            fN = ImageFont.truetype(FONT_ANT, 300)
+            tmpd = ImageDraw.Draw(Image.new("RGBA", (8, 8)))
+            nw = int(tmpd.textlength(num, font=fN))
+            p = ease_out_back((t - 0.12) / 0.34)
+            if t >= 0.12:
+                nim = Image.new("RGBA", (nw + 80, 380), (0, 0, 0, 0))
+                ImageDraw.Draw(nim).text((40, 10), num, font=fN, fill=ACCENT + (255,),
+                                         stroke_width=9, stroke_fill=(10, 10, 12, 235))
+                paste_scaled(cv, _shadowed(nim, blur=16, dy=10), W / 2, 470,
+                             0.6 + 0.4 * min(1, p), min(1, p * 1.4))
+            lab = str(sc.get("label", "")).upper()[:24]
+            if lab and t >= 0.5:
+                p2 = ease_out_back((t - 0.5) / 0.34)
+                paste_scaled(cv, chip_png(lab, 60, "accent"), W / 2, 770,
+                             min(1, p2), min(1, p2 * 1.5))
+        elif role in ("myth", "truth"):
+            band_txt = "MYTH" if role == "myth" else "ACTUALLY"
+            band_kind = "red" if role == "myth" else "accent"
+            p = ease_out_back((t - 0.12) / 0.34)
+            if t >= 0.12:
+                paste_scaled(cv, chip_png(band_txt, 66, band_kind), W / 2, 430,
+                             min(1, p), min(1, p * 1.5))
+            claim = str(sc.get("label") or "")[:30]
+            if claim and t >= 0.5:
+                p2 = ease_out_cubic((t - 0.5) / 0.4)
+                paste_scaled(cv, chip_png(claim, 46, "glass", FONT_POP), W / 2, 600,
+                             min(1, p2), min(1, p2 * 1.5))
+        elif role == "reveal":
+            fl = max(0.0, 1 - abs(t - 0.30) / 0.18)
+            if fl > 0.02:
+                cv.alpha_composite(Image.new("RGBA", (W, H), (255, 255, 255, int(170 * fl))))
+            raw = re.sub(r"[^A-Za-z0-9' ]", "", (sc.get("reveal_top") or sc.get("text", "")).upper())
+            words = raw.split()[:6]
+            fR = ImageFont.truetype(FONT_ANT, 92)
+            dtmp = ImageDraw.Draw(cv)
+            lines, line, lw = [], [], 0
+            for wtxt in words:
+                wwd = dtmp.textlength(wtxt, font=fR)
+                if lw + wwd > W - 200 and line:
+                    lines.append(line); line, lw = [], 0
+                line.append((wtxt, wwd)); lw += wwd + 26
+            if line:
+                lines.append(line)
+            p = ease_out_back((t - 0.30) / 0.36)
+            if t >= 0.30:
+                for li, ln in enumerate(lines):
+                    total = sum(wd for _, wd in ln) + 26 * (len(ln) - 1)
+                    x = (W - total) / 2
+                    for (wtxt, wwd) in ln:
+                        wim = Image.new("RGBA", (int(wwd) + 40, 150), (0, 0, 0, 0))
+                        ImageDraw.Draw(wim).text((20, 8), wtxt, font=fR, fill=(255, 255, 255, 255),
+                                                 stroke_width=6, stroke_fill=(10, 10, 12, 235))
+                        paste_scaled(cv, _shadowed(wim, blur=12, dy=6), x + wwd / 2,
+                                     520 + li * 130, 0.7 + 0.3 * min(1, p), min(1, p * 1.4))
+                        x += wwd + 26
         else:
             ypos = [360, 505 if role == "callout" else 520]
             for ci in sorted(chips):
@@ -985,6 +1053,11 @@ def main():
             sfx.append(("whoosh", sc["t0"] + word_time(sc, sc.get("label_on") or sc.get("punch"), 1.2), {}))
         elif sc["role"] == "cta":
             sfx.append(("whoosh", sc["t0"] + 0.35, {}))
+        elif sc["role"] in ("count", "myth", "truth", "reveal"):
+            sfx.append(("whoosh", sc["t0"] + (0.30 if sc["role"] == "reveal" else 0.14),
+                        {"vol": 0.12 if sc["role"] == "reveal" else 0.10}))
+            if sc["role"] == "count":
+                sfx.append(("tick", sc["t0"] + 0.5, {}))
     print("  audio mix...")
     build_audio(work, sfx)
     for i, sc in enumerate(SCENES):
