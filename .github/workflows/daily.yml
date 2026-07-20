@@ -47,9 +47,8 @@ jobs:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: python generate_topics.py
 
-      # MindBlown YT kanal je 3-rocny reaktivovany a potlaceny (41 views/38 videi) -> docasne 1/den,
-      # aby sme neplytvali renderom a nezhorsovali spam-flood. Vratit na 3 az bude CERSTVY kanal.
-      - name: Generate 1 video + push to Buffer
+      # MindBlown sa 7/17 ZOBUDIL (686 views/video, najlepsi v sieti) -> kadencia SPAT na 3/den
+      - name: Generate 3 videos + push to Buffer
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
@@ -59,8 +58,8 @@ jobs:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # GitHub Release hosting videa
         run: |
-          python generate_batch.py 1
-          python push_to_buffer.py 1
+          python generate_batch.py 3
+          python push_to_buffer.py 3
 
       - name: Retry failed Buffer posts (auto-heal)
         continue-on-error: true
