@@ -4718,5 +4718,135 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Do We Get Goosebumps?",
+    "thumb": "GOOSEBUMPS REVEALED",
+    "scenes": [
+      {
+        "text": "Have you ever felt goosebumps for no reason?",
+        "hook_top": "GOOSEBUMPS FOR NO REASON",
+        "query": "goosebumps",
+        "query2": "human body response",
+        "role": "hook"
+      },
+      {
+        "text": "Goosebumps are caused by tiny muscles contracting, raising hair follicles.",
+        "chips": [
+          {
+            "t": "MUSCLE CONTRACTING",
+            "on": "tiny muscles",
+            "style": "white"
+          }
+        ],
+        "query": "goosebumps causes",
+        "query2": "how do goosebumps occur",
+        "role": "fact"
+      },
+      {
+        "text": "This reaction is a remnant of our ancestors' fight or flight responses.",
+        "chips": [
+          {
+            "t": "FIGHT OR FLIGHT",
+            "on": "ancestors",
+            "style": "accent"
+          }
+        ],
+        "query": "evolution of goosebumps",
+        "query2": "history of goosebumps",
+        "role": "fact"
+      },
+      {
+        "text": "THEY'RE LEFTOVERS FROM OUR EVOLUTION!",
+        "reveal_top": "LEFTOVERS FROM EVOLUTION!",
+        "query": "evolutionary leftovers",
+        "query2": "evolution and goosebumps",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow for facts",
+        "query2": "science facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Ever wondered why we get goosebumps? Discover the surprising evolution behind this curious reaction! Follow for more amazing facts.",
+    "hashtags": [
+      "#science",
+      "#fact",
+      "#curiosity",
+      "#humanbody",
+      "#goosebumps",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Hidden Secret of Bananas",
+    "thumb": "BANANA SECRET UNVEILED",
+    "scenes": [
+      {
+        "text": "Did you know bananas contain a strange secret?",
+        "hook_top": "BANANAS HAVE A SECRET",
+        "query": "banana secret",
+        "query2": "unusual banana fact",
+        "role": "hook"
+      },
+      {
+        "text": "They are naturally radioactive due to the presence of potassium-40.",
+        "chips": [
+          {
+            "t": "POTASSIUM-40",
+            "on": "radioactive",
+            "style": "white"
+          }
+        ],
+        "query": "radioactive bananas",
+        "query2": "is banana radioactive",
+        "role": "fact"
+      },
+      {
+        "text": "This tiny amount of radiation is harmless but can be surprising!",
+        "chips": [
+          {
+            "t": "HARMLESS RADIATION",
+            "on": "tiny amount",
+            "style": "accent"
+          }
+        ],
+        "query": "harmless radiation in bananas",
+        "query2": "bananas health facts",
+        "role": "fact"
+      },
+      {
+        "text": "YES, BANANAS ARE RADIOACTIVE!",
+        "reveal_top": "BANANAS ARE RADIOACTIVE!",
+        "query": "banana radioactivity",
+        "query2": "potassium in bananas",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow if you love learning something new.",
+        "query": "follow for more facts",
+        "query2": "mind-blowing facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Learn about the surprising secret behind bananas! Their natural radioactivity is just one of their many incredible traits. Follow for more mind-blowing facts.",
+    "hashtags": [
+      "#banana",
+      "#science",
+      "#fact",
+      "#health",
+      "#weirdfacts",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

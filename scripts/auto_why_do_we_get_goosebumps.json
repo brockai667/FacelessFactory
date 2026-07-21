@@ -1,0 +1,65 @@
+{
+  "title": "Why Do We Get Goosebumps?",
+  "thumb": "GOOSEBUMPS REVEALED",
+  "scenes": [
+    {
+      "text": "Have you ever felt goosebumps for no reason?",
+      "hook_top": "GOOSEBUMPS FOR NO REASON",
+      "query": "goosebumps",
+      "query2": "human body response",
+      "role": "hook"
+    },
+    {
+      "text": "Goosebumps are caused by tiny muscles contracting, raising hair follicles.",
+      "chips": [
+        {
+          "t": "MUSCLE CONTRACTING",
+          "on": "tiny muscles",
+          "style": "white"
+        }
+      ],
+      "query": "goosebumps causes",
+      "query2": "how do goosebumps occur",
+      "role": "fact"
+    },
+    {
+      "text": "This reaction is a remnant of our ancestors' fight or flight responses.",
+      "chips": [
+        {
+          "t": "FIGHT OR FLIGHT",
+          "on": "ancestors",
+          "style": "accent"
+        }
+      ],
+      "query": "evolution of goosebumps",
+      "query2": "history of goosebumps",
+      "role": "fact"
+    },
+    {
+      "text": "THEY'RE LEFTOVERS FROM OUR EVOLUTION!",
+      "reveal_top": "LEFTOVERS FROM EVOLUTION!",
+      "query": "evolutionary leftovers",
+      "query2": "evolution and goosebumps",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow for facts",
+      "query2": "science facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Ever wondered why we get goosebumps? Discover the surprising evolution behind this curious reaction! Follow for more amazing facts.",
+  "hashtags": [
+    "#science",
+    "#fact",
+    "#curiosity",
+    "#humanbody",
+    "#goosebumps",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

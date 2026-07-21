@@ -1,0 +1,67 @@
+{
+  "title": "Strangest Things Found Inside Statues!",
+  "place": "Worldwide",
+  "country": "Various",
+  "scenes": [
+    {
+      "role": "hook",
+      "text": "Some statues hid the strangest secrets inside them!",
+      "hook_top": "HIDDEN STATUE SECRETS",
+      "query": "statue mystery",
+      "query2": "statue close-up"
+    },
+    {
+      "role": "fact",
+      "text": "In 1957, a time capsule was found inside a statue in Richmond.",
+      "query": "Richmond time capsule",
+      "query2": "statue moment",
+      "chips": [
+        {
+          "t": "TIME CAPSULE",
+          "on": "time capsule",
+          "style": "white"
+        }
+      ],
+      "punch": "found"
+    },
+    {
+      "role": "fact",
+      "text": "Statues have hidden compartments to store historical items!",
+      "query": "statue revealing hidden item",
+      "query2": "secret compartment",
+      "chips": [
+        {
+          "t": "HIDDEN COMPARTMENTS",
+          "on": "compartments",
+          "style": "accent"
+        }
+      ]
+    },
+    {
+      "role": "callout",
+      "text": "Some even contain messages from the past!",
+      "query": "old messages in stone",
+      "query2": "scroll inside statue",
+      "label": "MESSAGES FROM HISTORY",
+      "sub": "whispers of the past",
+      "label_on": "messages",
+      "punch": "messages"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "statue in park",
+      "query2": "statue landscape"
+    }
+  ],
+  "description": "Statues can hide strange secrets, from time capsules to messages! Follow for daily facts!",
+  "hashtags": [
+    "#facts",
+    "#history",
+    "#mystery",
+    "#statues",
+    "#art",
+    "#shorts",
+    "#fyp"
+  ]
+}
