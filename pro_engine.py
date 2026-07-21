@@ -49,6 +49,7 @@ OUT_DIR = os.path.join(ROOT, "output")
 
 WORDS = []           # whisper word-timingy celeho hlasu
 SPEC = {}            # aktualny spec (per-topic hlas atd.)
+MUSIC_CREDIT = ""
 SCENES = []          # naplni sa zo specu
 
 
@@ -786,11 +787,22 @@ def build_audio(work, sfx_times):
     voice, _ = sf.read(os.path.join(work, "voice.wav"))
     voice = rms_leveler(highpass(voice.astype(np.float64)))
     n = len(voice)
-    music_src = os.path.join(ROOT, "assets", "music", "bg.mp3")
+    _mdir = os.path.join(ROOT, "assets", "music")
+    _cands = sorted(f for f in os.listdir(_mdir) if f.endswith(".mp3"))
+    _niche = [f for f in _cands if f != "bg.mp3"] or _cands or ["bg.mp3"]
+    import random as _rnd
+    _pick = _rnd.choice(_niche)
+    music_src = os.path.join(_mdir, _pick)
+    global MUSIC_CREDIT
+    if _pick != "bg.mp3":
+        MUSIC_CREDIT = ("\nMusic: " + os.path.splitext(_pick)[0]
+                        + " - Kevin MacLeod (incompetech.com), CC BY 4.0")
+    print("  hudba: " + _pick)
     run([FF, "-y", "-i", music_src, "-t", str(int(n / SR) + 3), "-ar", str(SR), "-ac", "1",
          "music24.wav"], cwd=work)
     music, _ = sf.read(os.path.join(work, "music24.wav"))
     music = music.astype(np.float64)[:n] if len(music) >= n else np.pad(music, (0, n - len(music)))
+    music = music / (np.sqrt(np.mean(music ** 2)) + 1e-9) * 0.2   # konzist. hlasitost trackov
     fi = int(1.2 * SR); music[:fi] *= np.linspace(0, 1, fi)
     fo = int(1.5 * SR); music[-fo:] *= np.linspace(1, 0, fo)
     music *= 0.16 * (1.0 - 0.62 * speech_envelope(voice))
@@ -1084,7 +1096,7 @@ def main():
     place_line = ", ".join(x for x in (spec.get("place"), spec.get("country")) if x)
     body = desc if place_line.lower() in desc.lower() else f"{place_line} - {desc}".strip(" -")
     open(os.path.join(OUT_DIR, name + ".txt"), "w", encoding="utf-8").write(
-        f"{spec.get('title', name)}\n{body}\n\n{tags}\n")
+        f"{spec.get('title', name)}\n{body}{MUSIC_CREDIT}\n\n{tags}\n")
     jpg = os.path.join(OUT_DIR, name + ".jpg")
     make_thumbnail(spec, work, jpg)                     # 2026 thumbnail (<slug>.jpg)
     prepend_cover(os.path.abspath(final), jpg, work)    # predsadi ho ako ~0.6s cover
