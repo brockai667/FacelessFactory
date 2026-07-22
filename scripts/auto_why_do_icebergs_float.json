@@ -1,0 +1,64 @@
+{
+  "title": "Why Do Icebergs Float?",
+  "thumb": "ICEBERGS CAN FLOAT!",
+  "scenes": [
+    {
+      "text": "Did you know only 10% of icebergs are above water?",
+      "hook_top": "ICEBERGS ONLY SHOW 10",
+      "query": "iceberg visibility fact",
+      "query2": "iceberg floating",
+      "role": "hook"
+    },
+    {
+      "text": "This is because ice is less dense than water!",
+      "chips": [
+        {
+          "t": "LESS DENSE",
+          "on": "dense",
+          "style": "white"
+        }
+      ],
+      "query": "ice density",
+      "query2": "ice water density",
+      "role": "fact"
+    },
+    {
+      "text": "Most of each iceberg remains submerged!",
+      "chips": [
+        {
+          "t": "90% HIDDEN",
+          "on": "hidden",
+          "style": "white"
+        }
+      ],
+      "query": "iceberg submerged part",
+      "query2": "iceberg water level",
+      "role": "fact"
+    },
+    {
+      "text": "THERE'S A MASSIVE HIDDEN WORLD BENEATH!",
+      "reveal_top": "HIDDEN WORLD BENEATH!",
+      "query": "iceberg underwater",
+      "query2": "underwater iceberg",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "subscribe for nature facts",
+      "query2": "follow for nature",
+      "role": "cta"
+    }
+  ],
+  "description": "Ever wondered why icebergs float? Discover the incredible science behind these massive icy structures. Follow us for more amazing facts!",
+  "hashtags": [
+    "#icebergs",
+    "#ocean",
+    "#naturefacts",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

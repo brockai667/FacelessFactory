@@ -4848,5 +4848,198 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "The Hidden Power of Bananas!",
+    "thumb": "BANANAS ARE AMAZING!",
+    "scenes": [
+      {
+        "text": "Bananas float in water! Have you seen this?",
+        "hook_top": "BANANAS FLOAT IN WATER",
+        "query": "banana buoyancy fact",
+        "query2": "banana science fact",
+        "role": "hook"
+      },
+      {
+        "text": "Because they are less dense than water!",
+        "chips": [
+          {
+            "t": "LESS DENSE",
+            "on": "dense",
+            "style": "white"
+          }
+        ],
+        "query": "banana density",
+        "query2": "what makes bananas float",
+        "role": "fact"
+      },
+      {
+        "text": "Also, 90% of a banana’s weight is water!",
+        "chips": [
+          {
+            "t": "90% WATER",
+            "on": "weight",
+            "style": "white"
+          }
+        ],
+        "query": "banana water content",
+        "query2": "banana composition",
+        "role": "fact"
+      },
+      {
+        "text": "THEY'RE NATURAL SWIMMERS!",
+        "reveal_top": "NATURAL SWIMMERS!",
+        "query": "banana swimming",
+        "query2": "do bananas swim",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow so you never run out of fun facts.",
+        "query": "subscribe for facts",
+        "query2": "follow for more",
+        "role": "cta"
+      }
+    ],
+    "description": "You won't believe what bananas can do! Discover the amazing science behind this common fruit. Follow us for more incredible facts!",
+    "hashtags": [
+      "#bananas",
+      "#science",
+      "#mindblown",
+      "#nature",
+      "#funfacts",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Icebergs Float?",
+    "thumb": "ICEBERGS CAN FLOAT!",
+    "scenes": [
+      {
+        "text": "Did you know only 10% of icebergs are above water?",
+        "hook_top": "ICEBERGS ONLY SHOW 10",
+        "query": "iceberg visibility fact",
+        "query2": "iceberg floating",
+        "role": "hook"
+      },
+      {
+        "text": "This is because ice is less dense than water!",
+        "chips": [
+          {
+            "t": "LESS DENSE",
+            "on": "dense",
+            "style": "white"
+          }
+        ],
+        "query": "ice density",
+        "query2": "ice water density",
+        "role": "fact"
+      },
+      {
+        "text": "Most of each iceberg remains submerged!",
+        "chips": [
+          {
+            "t": "90% HIDDEN",
+            "on": "hidden",
+            "style": "white"
+          }
+        ],
+        "query": "iceberg submerged part",
+        "query2": "iceberg water level",
+        "role": "fact"
+      },
+      {
+        "text": "THERE'S A MASSIVE HIDDEN WORLD BENEATH!",
+        "reveal_top": "HIDDEN WORLD BENEATH!",
+        "query": "iceberg underwater",
+        "query2": "underwater iceberg",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "subscribe for nature facts",
+        "query2": "follow for nature",
+        "role": "cta"
+      }
+    ],
+    "description": "Ever wondered why icebergs float? Discover the incredible science behind these massive icy structures. Follow us for more amazing facts!",
+    "hashtags": [
+      "#icebergs",
+      "#ocean",
+      "#naturefacts",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Secret Life of Ants!",
+    "thumb": "ANTS HAVE SUPERPOWERS!",
+    "scenes": [
+      {
+        "text": "Did you know some ants can lift 50 times their body weight?",
+        "hook_top": "ANTS CAN LIFT 50X WEIGHT",
+        "query": "ant lifting strength",
+        "query2": "ant strength fact",
+        "role": "hook"
+      },
+      {
+        "text": "That's the same as a human lifting a car!",
+        "chips": [
+          {
+            "t": "LIFTING A CAR",
+            "on": "lifting",
+            "style": "accent"
+          }
+        ],
+        "query": "human car lifting comparison",
+        "query2": "ant vs human strength",
+        "role": "fact"
+      },
+      {
+        "text": "Ants also communicate using pheromones!",
+        "chips": [
+          {
+            "t": "USE PHEROMONES",
+            "on": "communicate",
+            "style": "white"
+          }
+        ],
+        "query": "ant communication method",
+        "query2": "how ants communicate",
+        "role": "fact"
+      },
+      {
+        "text": "THEY'RE NATURE'S SUPERHEROES!",
+        "reveal_top": "NATURE'S SUPERHEROES!",
+        "query": "ant superhero facts",
+        "query2": "amazing ant abilities",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow if you love learning something new.",
+        "query": "subscribe for animal facts",
+        "query2": "follow for more animals",
+        "role": "cta"
+      }
+    ],
+    "description": "Ants are more fascinating than you might think! Discover their incredible strength and unique communication methods. Follow us for more amazing animal facts!",
+    "hashtags": [
+      "#ants",
+      "#animalfacts",
+      "#nature",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

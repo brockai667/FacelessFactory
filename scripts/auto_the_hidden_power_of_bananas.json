@@ -1,0 +1,65 @@
+{
+  "title": "The Hidden Power of Bananas!",
+  "thumb": "BANANAS ARE AMAZING!",
+  "scenes": [
+    {
+      "text": "Bananas float in water! Have you seen this?",
+      "hook_top": "BANANAS FLOAT IN WATER",
+      "query": "banana buoyancy fact",
+      "query2": "banana science fact",
+      "role": "hook"
+    },
+    {
+      "text": "Because they are less dense than water!",
+      "chips": [
+        {
+          "t": "LESS DENSE",
+          "on": "dense",
+          "style": "white"
+        }
+      ],
+      "query": "banana density",
+      "query2": "what makes bananas float",
+      "role": "fact"
+    },
+    {
+      "text": "Also, 90% of a banana’s weight is water!",
+      "chips": [
+        {
+          "t": "90% WATER",
+          "on": "weight",
+          "style": "white"
+        }
+      ],
+      "query": "banana water content",
+      "query2": "banana composition",
+      "role": "fact"
+    },
+    {
+      "text": "THEY'RE NATURAL SWIMMERS!",
+      "reveal_top": "NATURAL SWIMMERS!",
+      "query": "banana swimming",
+      "query2": "do bananas swim",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow so you never run out of fun facts.",
+      "query": "subscribe for facts",
+      "query2": "follow for more",
+      "role": "cta"
+    }
+  ],
+  "description": "You won't believe what bananas can do! Discover the amazing science behind this common fruit. Follow us for more incredible facts!",
+  "hashtags": [
+    "#bananas",
+    "#science",
+    "#mindblown",
+    "#nature",
+    "#funfacts",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
