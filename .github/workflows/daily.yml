@@ -2,7 +2,7 @@ name: FacelessFactory Daily
 
 on:
   schedule:
-    - cron: "0 20 * * *"   # 01:00 UTC (~03:00 Bratislava) - skoro rano, hotove davno pred publik. slotom
+    - cron: "4 1 * * *"   # rozhadzane (anti rate-limit GitHub Models)
   workflow_dispatch: {}    # umoznuje rucne spustenie z GitHub UI
 
 permissions:
