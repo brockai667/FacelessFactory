@@ -157,12 +157,16 @@ def _place_tokens(spec):
     return {t for t in toks if len(t) > 3 and t not in {"lake", "lakes", "national", "park", "island", "city", "the"}}
 
 
+_STOPB = {"the", "and", "for", "with", "from", "cinematic", "dark", "night", "moody", "aerial",
+          "view", "shot", "scene", "closeup", "close", "footage", "background", "abstract", "slow",
+          "motion", "wide", "establishing", "dramatic", "atmospheric", "mysterious", "eerie"}
 def pexels_find(query, place_toks, min_dur=0.0):
-    """Najde portrait video; preferuje vysledky, ktorych slug obsahuje token miesta."""
+    """Portrait video: preferuje query-RELEVANTNE (slug zdiela slovo s query), potom miesto;
+    ak nic relevantne -> fallback na najlepsie dostupne (ziadna regresia/crash)."""
     try:
         r = requests.get("https://api.pexels.com/videos/search",
                          headers={"Authorization": CFG["pexels_api_key"]},
-                         params={"query": query, "per_page": 12, "orientation": "portrait"},
+                         params={"query": query, "per_page": 15, "orientation": "portrait"},
                          timeout=30).json()
     except Exception:
         return None, False
@@ -170,8 +174,12 @@ def pexels_find(query, place_toks, min_dur=0.0):
     if min_dur:
         long_enough = [v for v in vids if v.get("duration", 0) >= min_dur + 0.5]
         vids = long_enough + [v for v in vids if v not in long_enough]   # dlhsie klipy prve
-    exact = [v for v in vids if place_toks & set(re.findall(r"[a-z]+", (v.get("url") or "").lower()))]
-    pick_from = exact or vids
+    def _sw(v):
+        return set(re.findall(r"[a-z]+", (v.get("url") or "").lower()))
+    qw = {w for w in re.findall(r"[a-z]+", str(query).lower()) if len(w) > 3 and w not in _STOPB}
+    relevant = [v for v in vids if qw & _sw(v)] if qw else vids
+    exact = [v for v in (relevant or vids) if place_toks & _sw(v)]
+    pick_from = exact or relevant or vids   # miesto+relevant -> relevant -> fallback hocico
     for v in pick_from:
         files = [f for f in v.get("video_files", []) if f.get("height", 0) >= 1080
                  and f.get("width", 0) < f.get("height", 0)]
