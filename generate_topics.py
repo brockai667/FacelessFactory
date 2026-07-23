@@ -310,6 +310,13 @@ def valid(t):
     if not isinstance(scenes, list) or not (4 <= len(scenes) <= 7):
         return False
     for sc in scenes:
+        # model casto vracia {'hook':'<text>'} namiesto {'role':'hook','text':'<text>'} -> zosuladit
+        if isinstance(sc, dict) and not sc.get("text"):
+            for _role in ("hook", "map", "fact", "archive", "callout", "cta", "count", "myth", "truth", "reveal"):
+                if isinstance(sc.get(_role), str) and sc.get(_role).strip():
+                    sc["role"] = _role
+                    sc["text"] = sc.pop(_role)
+                    break
         if not isinstance(sc, dict) or not sc.get("text"):
             return False
         sc.setdefault("role", "fact")
