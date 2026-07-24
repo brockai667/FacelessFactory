@@ -5041,5 +5041,536 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "3 Mysterious Facts About Ice Formations",
+    "thumb": "MYSTERIOUS ICE FORMATIONS",
+    "scenes": [
+      {
+        "hook_top": "LAKE BAIKAL ICE SINGS",
+        "count": 1,
+        "num": 1,
+        "label": "SINGS AT COLD TEMPS",
+        "label_on": "SINGS",
+        "query": "Lake Baikal ice property",
+        "query2": "how ice sings",
+        "role": "hook",
+        "text": "Lake Baikal's ice can sing when it's cold!"
+      },
+      {
+        "hook_top": "GLACIERS ARE BLUE",
+        "count": 1,
+        "num": 2,
+        "label": "GLACIER APPEARANCE",
+        "label_on": "BLUE",
+        "query": "why glaciers are blue",
+        "query2": "blue glacier phenomenon",
+        "role": "hook",
+        "text": "Some glaciers are actually blue!"
+      },
+      {
+        "hook_top": "INSTANT FREEZING WATER",
+        "count": 1,
+        "num": 3,
+        "label": "INSTANT FREEZING",
+        "label_on": "FREEZES",
+        "query": "instant freezing phenomenon",
+        "query2": "water can freeze instantly",
+        "role": "hook",
+        "text": "Water can freeze instantly under certain conditions!"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "3 Mysterious Facts About Ice Formations",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Explore the fascinating properties of ice that will astound you! You won't believe what water can do!",
+    "hashtags": [
+      "#facts",
+      "#science",
+      "#ice",
+      "#mystery",
+      "#nature",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "3 Weird Secrets Behind Your Morning Coffee",
+    "thumb": "COFFEE SECRETS REVEALED",
+    "scenes": [
+      {
+        "hook_top": "COFFEE TASTE VARIES",
+        "count": 1,
+        "num": 1,
+        "label": "GROWING REGION TASTE",
+        "label_on": "TASTE",
+        "query": "coffee taste based on geography",
+        "query2": "how coffee is affected by region",
+        "role": "hook",
+        "text": "Coffee can taste different based on where it's grown!"
+      },
+      {
+        "hook_top": "BRAIN LOVES COFFEE",
+        "count": 1,
+        "num": 2,
+        "label": "BRAIN REWARD RESPONSE",
+        "label_on": "REWARD",
+        "query": "brain reward coffee",
+        "query2": "coffee and brain activity",
+        "role": "hook",
+        "text": "Your brain's reward center activates with each sip!"
+      },
+      {
+        "hook_top": "COFFEE BOOSTS MEMORY",
+        "count": 1,
+        "num": 3,
+        "label": "MEMORY ENHANCER",
+        "label_on": "BOOSTS",
+        "query": "coffee short-term memory benefits",
+        "query2": "how coffee affects memory",
+        "role": "hook",
+        "text": "Coffee can improve your short-term memory!"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "3 Weird Secrets Behind Your Morning Coffee",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Unpack the unexpected benefits of your daily cup of coffee! It's more than just a morning ritual!",
+    "hashtags": [
+      "#coffee",
+      "#morningroutine",
+      "#psychology",
+      "#shorts",
+      "#fyp",
+      "#funfacts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "3 Shocking Facts About Animal Camouflage",
+    "thumb": "ANIMAL CAMOUFLAGE SECRETS",
+    "scenes": [
+      {
+        "hook_top": "CHAMELEONS CHANGE FAST",
+        "count": 1,
+        "num": 1,
+        "label": "CHAMELEON SPEED",
+        "label_on": "CHANGE",
+        "query": "chameleons color change speed",
+        "query2": "how chameleons camouflage",
+        "role": "hook",
+        "text": "Some chameleons can change colors in seconds!"
+      },
+      {
+        "hook_top": "OCTOPUS MASTER MIMIC",
+        "count": 1,
+        "num": 2,
+        "label": "OCTOPUS MIMICRY",
+        "label_on": "MIMIC",
+        "query": "octopus mimic objects",
+        "query2": "octopus camouflage tactics",
+        "role": "hook",
+        "text": "Octopuses can mimic objects to hide from predators!"
+      },
+      {
+        "hook_top": "POLAR BEARS AREN'T WHITE",
+        "count": 1,
+        "num": 3,
+        "label": "FUR COLOR TRICK",
+        "label_on": "FUR",
+        "query": "polar bear fur color",
+        "query2": "polar bear camouflage details",
+        "role": "hook",
+        "text": "Polar bears' fur isn't actually white!"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "3 Shocking Facts About Animal Camouflage",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Explore the astonishing world of animal camouflage that helps them survive! Nature is full of surprises!",
+    "hashtags": [
+      "#animalfacts",
+      "#camouflage",
+      "#nature",
+      "#shorts",
+      "#fyp",
+      "#wildlife"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "3 Surprising Facts About Ancient Civilizations",
+    "thumb": "ANCIENT CIVILIZATION SECRETS",
+    "scenes": [
+      {
+        "hook_top": "PYRAMID WAS TALLEST",
+        "count": 1,
+        "num": 1,
+        "label": "PYRAMID HEIGHT RECORD",
+        "label_on": "TALLEST",
+        "query": "Great Pyramid height record",
+        "query2": "historical building comparison",
+        "role": "hook",
+        "text": "The Great Pyramid was the tallest structure for over 3,800 years!"
+      },
+      {
+        "hook_top": "ROMAN AQUEDUCTS WERE COMPLEX",
+        "count": 1,
+        "num": 2,
+        "label": "AQUEDUCT ENGINEERING",
+        "label_on": "AQUEDUCTS",
+        "query": "Roman aqueduct system",
+        "query2": "water supply engineering history",
+        "role": "hook",
+        "text": "Rome had a complex system of aqueducts for water!"
+      },
+      {
+        "hook_top": "ADVANCED INDUS PLANNING",
+        "count": 1,
+        "num": 3,
+        "label": "URBAN PLANNING IN ANCIENT",
+        "label_on": "PLANNING",
+        "query": "Indus Valley urban planning",
+        "query2": "ancient city organization",
+        "role": "hook",
+        "text": "The Indus Valley Civilization had advanced urban planning!"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "3 Surprising Facts About Ancient Civilizations",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Dive into the incredible achievements of ancient civilizations that shaped our world! The past holds many secrets!",
+    "hashtags": [
+      "#history",
+      "#ancientcivilizations",
+      "#archaeology",
+      "#shorts",
+      "#fyp",
+      "#educational"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "3 Unusual Facts About Animal Venom",
+    "thumb": "ANIMAL VENOM REVEALED",
+    "scenes": [
+      {
+        "hook_top": "SNAKE VENOM FIGHTS CANCER",
+        "count": 1,
+        "num": 1,
+        "label": "VENOM CANCER TREATMENT",
+        "label_on": "ANTI-CANCER",
+        "query": "snake venom cancer research",
+        "query2": "how snake venom works",
+        "role": "hook",
+        "text": "Some snake venom contains anti-cancer properties!"
+      },
+      {
+        "hook_top": "BOX JELLYFISH IS DEADLY",
+        "count": 1,
+        "num": 2,
+        "label": "DEADLY BOX JELLYFISH",
+        "label_on": "HEART FAILURE",
+        "query": "box jellyfish venom",
+        "query2": "effects of jellyfish venom",
+        "role": "hook",
+        "text": "Box jellyfish venom can cause heart failure in minutes!"
+      },
+      {
+        "hook_top": "FROG TOXINS NUMB PAIN",
+        "count": 1,
+        "num": 3,
+        "label": "PAIN NUMBING TOXINS",
+        "label_on": "NUMB PAIN",
+        "query": "frog skin toxins pain relief",
+        "query2": "how frog toxins work",
+        "role": "hook",
+        "text": "Some frogs produce skin toxins that can numb pain!"
+      },
+      {
+        "role": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "3 Unusual Facts About Animal Venom",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Uncover the astonishing truths about animal venom that may surprise you! Nature has its own weapons!",
+    "hashtags": [
+      "#animalfacts",
+      "#venom",
+      "#wildlife",
+      "#shorts",
+      "#fyp",
+      "#surprising"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Secret Lives of Trees",
+    "thumb": "HIDDEN TREE SECRETS",
+    "scenes": [
+      {
+        "hook_top": "TREES TALK TO EACH OTHER",
+        "query": "tree communication",
+        "query2": "how trees communicate",
+        "role": "hook",
+        "text": "There are trees that can communicate!"
+      },
+      {
+        "chips": [
+          {
+            "t": "DISTRESS SIGNALS",
+            "on": "distress",
+            "style": "accent"
+          }
+        ],
+        "query": "tree distress signals",
+        "query2": "tree root systems",
+        "role": "fact",
+        "text": "Trees can send distress signals via root systems."
+      },
+      {
+        "chips": [
+          {
+            "t": "NUTRIENT SHARING",
+            "on": "nutrients",
+            "style": "accent"
+          }
+        ],
+        "query": "nutrient sharing in trees",
+        "query2": "tree ecosystems",
+        "role": "fact",
+        "text": "Some trees can share nutrients with their neighbors."
+      },
+      {
+        "reveal_top": "TREES ARE SOCIAL BEINGS",
+        "query": "social trees",
+        "query2": "tree behavior",
+        "role": "reveal",
+        "text": "Trees are social beings!"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Discover how trees communicate and interact like never before! Follow for more incredible nature facts.",
+    "hashtags": [
+      "#trees",
+      "#nature",
+      "#communication",
+      "#science",
+      "#shorts",
+      "#fyp",
+      "#mindblown",
+      "#wildlife"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Your Body's Hidden Superpowers",
+    "thumb": "BODY ODDITIES REVEALED",
+    "scenes": [
+      {
+        "hook_top": "YOUR BODY IS AMAZING",
+        "query": "human body abilities",
+        "query2": "body superpowers",
+        "role": "hook",
+        "text": "Your body can do something incredible!"
+      },
+      {
+        "chips": [
+          {
+            "t": "LIVER REGENERATION",
+            "on": "regenerate",
+            "style": "accent"
+          }
+        ],
+        "query": "liver regeneration",
+        "query2": "human liver facts",
+        "role": "fact",
+        "text": "Most humans can regenerate their liver!"
+      },
+      {
+        "chips": [
+          {
+            "t": "BILLIONS OF BACTERIA",
+            "on": "bacteria",
+            "style": "accent"
+          }
+        ],
+        "query": "beneficial bacteria in humans",
+        "query2": "gut health",
+        "role": "fact",
+        "text": "Your body has millions of bacteria that help you digest food."
+      },
+      {
+        "reveal_top": "TINY SUPERHEROES INSIDE YOU",
+        "query": "human gut microbiome",
+        "query2": "beneficial bacteria",
+        "role": "reveal",
+        "text": "It’s like having tiny superheroes inside you!"
+      },
+      {
+        "query": "amazing body facts",
+        "query2": "mind-blowing human facts",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Explore the amazing abilities of your body and its hidden superpowers! Follow for more incredible insights.",
+    "hashtags": [
+      "#humanbody",
+      "#biology",
+      "#health",
+      "#shorts",
+      "#fyp",
+      "#mindblown",
+      "#sciencefacts",
+      "#oddities"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Animals With Shocking Skills",
+    "thumb": "ANIMAL TALENTS UNVEILED",
+    "scenes": [
+      {
+        "hook_top": "ANIMALS SEE THE INVISIBLE",
+        "query": "animal vision capabilities",
+        "query2": "how animals see",
+        "role": "hook",
+        "text": "Did you know some animals can see what we can't?"
+      },
+      {
+        "chips": [
+          {
+            "t": "ULTRAVIOLET DETECTION",
+            "on": "detect",
+            "style": "accent"
+          }
+        ],
+        "query": "birds ultraviolet light",
+        "query2": "animal vision",
+        "role": "fact",
+        "text": "Many birds can detect ultraviolet light."
+      },
+      {
+        "chips": [
+          {
+            "t": "POLARIZED LIGHT",
+            "on": "polarized",
+            "style": "accent"
+          }
+        ],
+        "query": "insects polarized light",
+        "query2": "insect vision",
+        "role": "fact",
+        "text": "Certain insects can see polarized light."
+      },
+      {
+        "reveal_top": "A WORLD WE CAN'T IMAGINE",
+        "query": "animal sensory perception",
+        "query2": "animals seeing differently",
+        "role": "reveal",
+        "text": "They experience a world we can't even imagine!"
+      },
+      {
+        "query": "amazing animal facts",
+        "query2": "incredible animal abilities",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Uncover the incredible vision abilities of animals that allow them to see more than we do! Follow for more mind-blowing insights.",
+    "hashtags": [
+      "#animals",
+      "#wildlife",
+      "#science",
+      "#shorts",
+      "#fyp",
+      "#mindblown",
+      "#animalfacts",
+      "#nature"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Chilling Truth About Ice",
+    "thumb": "ICE FREEZES INSTANTLY!",
+    "scenes": [
+      {
+        "hook_top": "ICE FREEZING SECRETS",
+        "fact": "Supercooled water can freeze within seconds upon disturbance.",
+        "chips": [
+          {
+            "t": "SECONDS",
+            "on": "disturbance",
+            "style": "accent"
+          }
+        ],
+        "query": "supercooled water",
+        "query2": "instant freezing phenomenon",
+        "role": "hook",
+        "text": "Instant freezing water occurs at -48°C!"
+      },
+      {
+        "chips": [],
+        "query": "flash freezing",
+        "query2": "instant freezing science",
+        "role": "fact",
+        "text": "This phenomenon is known as flash freezing."
+      },
+      {
+        "label": "Freezing Phenomena",
+        "sub": "Discover the science behind it.",
+        "label_on": "phenomena",
+        "query": "freezing phenomena",
+        "query2": "ice science",
+        "role": "callout",
+        "text": "FREEZING FASCINATION!"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Ever heard of instant freezing? Supercooled water can freeze in just seconds! Follow for more fascinating science insights.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#mystery",
+      "#freezing",
+      "#facts",
+      "#educational"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

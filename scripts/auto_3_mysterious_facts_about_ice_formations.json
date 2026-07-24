@@ -1,0 +1,57 @@
+{
+  "title": "3 Mysterious Facts About Ice Formations",
+  "thumb": "MYSTERIOUS ICE FORMATIONS",
+  "scenes": [
+    {
+      "hook_top": "LAKE BAIKAL ICE SINGS",
+      "count": 1,
+      "num": 1,
+      "label": "SINGS AT COLD TEMPS",
+      "label_on": "SINGS",
+      "query": "Lake Baikal ice property",
+      "query2": "how ice sings",
+      "role": "hook",
+      "text": "Lake Baikal's ice can sing when it's cold!"
+    },
+    {
+      "hook_top": "GLACIERS ARE BLUE",
+      "count": 1,
+      "num": 2,
+      "label": "GLACIER APPEARANCE",
+      "label_on": "BLUE",
+      "query": "why glaciers are blue",
+      "query2": "blue glacier phenomenon",
+      "role": "hook",
+      "text": "Some glaciers are actually blue!"
+    },
+    {
+      "hook_top": "INSTANT FREEZING WATER",
+      "count": 1,
+      "num": 3,
+      "label": "INSTANT FREEZING",
+      "label_on": "FREEZES",
+      "query": "instant freezing phenomenon",
+      "query2": "water can freeze instantly",
+      "role": "hook",
+      "text": "Water can freeze instantly under certain conditions!"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "3 Mysterious Facts About Ice Formations",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Explore the fascinating properties of ice that will astound you! You won't believe what water can do!",
+  "hashtags": [
+    "#facts",
+    "#science",
+    "#ice",
+    "#mystery",
+    "#nature",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
