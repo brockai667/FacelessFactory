@@ -1,0 +1,56 @@
+{
+  "title": "3 Unusual Facts About Animal Venom",
+  "thumb": "ANIMAL VENOM REVEALED",
+  "scenes": [
+    {
+      "hook_top": "SNAKE VENOM FIGHTS CANCER",
+      "count": 1,
+      "num": 1,
+      "label": "VENOM CANCER TREATMENT",
+      "label_on": "ANTI-CANCER",
+      "query": "snake venom cancer research",
+      "query2": "how snake venom works",
+      "role": "hook",
+      "text": "Some snake venom contains anti-cancer properties!"
+    },
+    {
+      "hook_top": "BOX JELLYFISH IS DEADLY",
+      "count": 1,
+      "num": 2,
+      "label": "DEADLY BOX JELLYFISH",
+      "label_on": "HEART FAILURE",
+      "query": "box jellyfish venom",
+      "query2": "effects of jellyfish venom",
+      "role": "hook",
+      "text": "Box jellyfish venom can cause heart failure in minutes!"
+    },
+    {
+      "hook_top": "FROG TOXINS NUMB PAIN",
+      "count": 1,
+      "num": 3,
+      "label": "PAIN NUMBING TOXINS",
+      "label_on": "NUMB PAIN",
+      "query": "frog skin toxins pain relief",
+      "query2": "how frog toxins work",
+      "role": "hook",
+      "text": "Some frogs produce skin toxins that can numb pain!"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "3 Unusual Facts About Animal Venom",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Uncover the astonishing truths about animal venom that may surprise you! Nature has its own weapons!",
+  "hashtags": [
+    "#animalfacts",
+    "#venom",
+    "#wildlife",
+    "#shorts",
+    "#fyp",
+    "#surprising"
+  ],
+  "place": "",
+  "country": ""
+}

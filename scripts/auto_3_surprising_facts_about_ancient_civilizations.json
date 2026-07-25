@@ -1,0 +1,56 @@
+{
+  "title": "3 Surprising Facts About Ancient Civilizations",
+  "thumb": "ANCIENT CIVILIZATION SECRETS",
+  "scenes": [
+    {
+      "hook_top": "PYRAMID WAS TALLEST",
+      "count": 1,
+      "num": 1,
+      "label": "PYRAMID HEIGHT RECORD",
+      "label_on": "TALLEST",
+      "query": "Great Pyramid height record",
+      "query2": "historical building comparison",
+      "role": "hook",
+      "text": "The Great Pyramid was the tallest structure for over 3,800 years!"
+    },
+    {
+      "hook_top": "ROMAN AQUEDUCTS WERE COMPLEX",
+      "count": 1,
+      "num": 2,
+      "label": "AQUEDUCT ENGINEERING",
+      "label_on": "AQUEDUCTS",
+      "query": "Roman aqueduct system",
+      "query2": "water supply engineering history",
+      "role": "hook",
+      "text": "Rome had a complex system of aqueducts for water!"
+    },
+    {
+      "hook_top": "ADVANCED INDUS PLANNING",
+      "count": 1,
+      "num": 3,
+      "label": "URBAN PLANNING IN ANCIENT",
+      "label_on": "PLANNING",
+      "query": "Indus Valley urban planning",
+      "query2": "ancient city organization",
+      "role": "hook",
+      "text": "The Indus Valley Civilization had advanced urban planning!"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "3 Surprising Facts About Ancient Civilizations",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Dive into the incredible achievements of ancient civilizations that shaped our world! The past holds many secrets!",
+  "hashtags": [
+    "#history",
+    "#ancientcivilizations",
+    "#archaeology",
+    "#shorts",
+    "#fyp",
+    "#educational"
+  ],
+  "place": "",
+  "country": ""
+}

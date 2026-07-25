@@ -1,0 +1,56 @@
+{
+  "title": "3 Shocking Facts About Animal Camouflage",
+  "thumb": "ANIMAL CAMOUFLAGE SECRETS",
+  "scenes": [
+    {
+      "hook_top": "CHAMELEONS CHANGE FAST",
+      "count": 1,
+      "num": 1,
+      "label": "CHAMELEON SPEED",
+      "label_on": "CHANGE",
+      "query": "chameleons color change speed",
+      "query2": "how chameleons camouflage",
+      "role": "hook",
+      "text": "Some chameleons can change colors in seconds!"
+    },
+    {
+      "hook_top": "OCTOPUS MASTER MIMIC",
+      "count": 1,
+      "num": 2,
+      "label": "OCTOPUS MIMICRY",
+      "label_on": "MIMIC",
+      "query": "octopus mimic objects",
+      "query2": "octopus camouflage tactics",
+      "role": "hook",
+      "text": "Octopuses can mimic objects to hide from predators!"
+    },
+    {
+      "hook_top": "POLAR BEARS AREN'T WHITE",
+      "count": 1,
+      "num": 3,
+      "label": "FUR COLOR TRICK",
+      "label_on": "FUR",
+      "query": "polar bear fur color",
+      "query2": "polar bear camouflage details",
+      "role": "hook",
+      "text": "Polar bears' fur isn't actually white!"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "3 Shocking Facts About Animal Camouflage",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Explore the astonishing world of animal camouflage that helps them survive! Nature is full of surprises!",
+  "hashtags": [
+    "#animalfacts",
+    "#camouflage",
+    "#nature",
+    "#shorts",
+    "#fyp",
+    "#wildlife"
+  ],
+  "place": "",
+  "country": ""
+}
