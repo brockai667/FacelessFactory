@@ -1,0 +1,65 @@
+{
+  "title": "Your Body's Hidden Superpowers",
+  "thumb": "BODY ODDITIES REVEALED",
+  "scenes": [
+    {
+      "hook_top": "YOUR BODY IS AMAZING",
+      "query": "human body abilities",
+      "query2": "body superpowers",
+      "role": "hook",
+      "text": "Your body can do something incredible!"
+    },
+    {
+      "chips": [
+        {
+          "t": "LIVER REGENERATION",
+          "on": "regenerate",
+          "style": "accent"
+        }
+      ],
+      "query": "liver regeneration",
+      "query2": "human liver facts",
+      "role": "fact",
+      "text": "Most humans can regenerate their liver!"
+    },
+    {
+      "chips": [
+        {
+          "t": "BILLIONS OF BACTERIA",
+          "on": "bacteria",
+          "style": "accent"
+        }
+      ],
+      "query": "beneficial bacteria in humans",
+      "query2": "gut health",
+      "role": "fact",
+      "text": "Your body has millions of bacteria that help you digest food."
+    },
+    {
+      "reveal_top": "TINY SUPERHEROES INSIDE YOU",
+      "query": "human gut microbiome",
+      "query2": "beneficial bacteria",
+      "role": "reveal",
+      "text": "It’s like having tiny superheroes inside you!"
+    },
+    {
+      "query": "amazing body facts",
+      "query2": "mind-blowing human facts",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Explore the amazing abilities of your body and its hidden superpowers! Follow for more incredible insights.",
+  "hashtags": [
+    "#humanbody",
+    "#biology",
+    "#health",
+    "#shorts",
+    "#fyp",
+    "#mindblown",
+    "#sciencefacts",
+    "#oddities"
+  ],
+  "place": "",
+  "country": ""
+}

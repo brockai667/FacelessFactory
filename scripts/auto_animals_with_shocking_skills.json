@@ -1,0 +1,65 @@
+{
+  "title": "Animals With Shocking Skills",
+  "thumb": "ANIMAL TALENTS UNVEILED",
+  "scenes": [
+    {
+      "hook_top": "ANIMALS SEE THE INVISIBLE",
+      "query": "animal vision capabilities",
+      "query2": "how animals see",
+      "role": "hook",
+      "text": "Did you know some animals can see what we can't?"
+    },
+    {
+      "chips": [
+        {
+          "t": "ULTRAVIOLET DETECTION",
+          "on": "detect",
+          "style": "accent"
+        }
+      ],
+      "query": "birds ultraviolet light",
+      "query2": "animal vision",
+      "role": "fact",
+      "text": "Many birds can detect ultraviolet light."
+    },
+    {
+      "chips": [
+        {
+          "t": "POLARIZED LIGHT",
+          "on": "polarized",
+          "style": "accent"
+        }
+      ],
+      "query": "insects polarized light",
+      "query2": "insect vision",
+      "role": "fact",
+      "text": "Certain insects can see polarized light."
+    },
+    {
+      "reveal_top": "A WORLD WE CAN'T IMAGINE",
+      "query": "animal sensory perception",
+      "query2": "animals seeing differently",
+      "role": "reveal",
+      "text": "They experience a world we can't even imagine!"
+    },
+    {
+      "query": "amazing animal facts",
+      "query2": "incredible animal abilities",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Uncover the incredible vision abilities of animals that allow them to see more than we do! Follow for more mind-blowing insights.",
+  "hashtags": [
+    "#animals",
+    "#wildlife",
+    "#science",
+    "#shorts",
+    "#fyp",
+    "#mindblown",
+    "#animalfacts",
+    "#nature"
+  ],
+  "place": "",
+  "country": ""
+}
