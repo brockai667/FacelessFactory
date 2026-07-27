@@ -1,0 +1,55 @@
+{
+  "title": "The Chilling Truth About Ice",
+  "thumb": "ICE FREEZES INSTANTLY!",
+  "scenes": [
+    {
+      "hook_top": "ICE FREEZING SECRETS",
+      "fact": "Supercooled water can freeze within seconds upon disturbance.",
+      "chips": [
+        {
+          "t": "SECONDS",
+          "on": "disturbance",
+          "style": "accent"
+        }
+      ],
+      "query": "supercooled water",
+      "query2": "instant freezing phenomenon",
+      "role": "hook",
+      "text": "Instant freezing water occurs at -48°C!"
+    },
+    {
+      "chips": [],
+      "query": "flash freezing",
+      "query2": "instant freezing science",
+      "role": "fact",
+      "text": "This phenomenon is known as flash freezing."
+    },
+    {
+      "label": "Freezing Phenomena",
+      "sub": "Discover the science behind it.",
+      "label_on": "phenomena",
+      "query": "freezing phenomena",
+      "query2": "ice science",
+      "role": "callout",
+      "text": "FREEZING FASCINATION!"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Ever heard of instant freezing? Supercooled water can freeze in just seconds! Follow for more fascinating science insights.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#mystery",
+    "#freezing",
+    "#facts",
+    "#educational"
+  ],
+  "place": "",
+  "country": ""
+}

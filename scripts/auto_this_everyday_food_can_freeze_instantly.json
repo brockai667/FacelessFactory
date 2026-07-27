@@ -1,0 +1,54 @@
+{
+  "title": "This Everyday Food Can Freeze Instantly!",
+  "thumb": "INSTANT FREEZING FOOD",
+  "scenes": [
+    {
+      "hook_top": "WATER FREEZES INSTANTLY",
+      "query": "instant freezing water",
+      "query2": "supercooled water",
+      "fact": "Water can freeze in seconds when supercooled.",
+      "chips": [],
+      "punch": "mind-bending!",
+      "role": "hook",
+      "text": "Did you know water can freeze instantly?"
+    },
+    {
+      "query": "supercooled water",
+      "query2": "freezing point of water",
+      "chips": [
+        {
+          "t": "32°F",
+          "on": "32°F",
+          "style": "accent"
+        }
+      ],
+      "punch": "incredible!",
+      "role": "fact",
+      "text": "This happens at temperatures below 32°F."
+    },
+    {
+      "reveal_top": "DISTURBANCE TRIGGERS FREEZING",
+      "query": "supercooling effect",
+      "query2": "disturbance effects",
+      "role": "reveal",
+      "text": "Even a slight disturbance can trigger freezing!"
+    },
+    {
+      "query": "instant freezing water",
+      "query2": "freezing phenomena",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Witness the magic of supercooled water that can freeze instantly! Learn how a simple disturbance triggers this miraculous change. Follow for more mind-blowing insights!",
+  "hashtags": [
+    "#foodfacts",
+    "#science",
+    "#freezing",
+    "#mindblowing",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

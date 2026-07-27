@@ -1,0 +1,54 @@
+{
+  "title": "Mysterious Conditions of the Bermuda Triangle!",
+  "thumb": "BERMUDA TRIANGLE MYSTERY",
+  "scenes": [
+    {
+      "hook_top": "1000 SHIPS GONE",
+      "query": "Bermuda Triangle",
+      "query2": "mysterious phenomena",
+      "fact": "The Bermuda Triangle has disappeared over 1,000 ships and planes.",
+      "chips": [
+        {
+          "t": "1,000",
+          "on": "1,000",
+          "style": "white"
+        }
+      ],
+      "punch": "vanished!",
+      "role": "hook",
+      "text": "1,000 ships have vanished in this area!"
+    },
+    {
+      "query": "Bermuda Triangle phenomena",
+      "query2": "magnetic anomalies",
+      "chips": [],
+      "punch": "unexplainable!",
+      "role": "fact",
+      "text": "Many incidents were attributed to magnetic anomalies."
+    },
+    {
+      "reveal_top": "A SCIENTIFIC PUZZLE",
+      "query": "scientific explanations",
+      "query2": "scientific studies",
+      "role": "reveal",
+      "text": "Even scientists have been baffled!"
+    },
+    {
+      "query": "Bermuda Triangle",
+      "query2": "mysterious phenomena",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "The Bermuda Triangle, a zone of mystery! Explore the unexplained vanishings and magnetic anomalies. Follow for more incredible insights!",
+  "hashtags": [
+    "#BermudaTriangle",
+    "#mystery",
+    "#facts",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

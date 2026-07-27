@@ -5947,5 +5947,167 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "3 Astonishing Facts About The Bermuda Triangle",
+    "thumb": "BERMUDA TRIANGLE SECRETS",
+    "scenes": [
+      {
+        "hook_top": "SHOCKING BERMUDA TRIANGLE",
+        "query": "Bermuda Triangle missing aircraft",
+        "query2": "aviation incidents in Bermuda Triangle",
+        "count": "1",
+        "label": "MISSING AIRCRAFT",
+        "label_on": "missing aircraft",
+        "role": "hook",
+        "text": "The Bermuda Triangle has a shocking history of disappearances!"
+      },
+      {
+        "label": "MYSTERIOUS SHIPS",
+        "label_on": "mysterious ships",
+        "query": "Bermuda Triangle mysterious ships",
+        "query2": "ships lost in Bermuda Triangle",
+        "role": "count",
+        "text": "2",
+        "num": 1
+      },
+      {
+        "label": "WEATHER ANOMALIES",
+        "label_on": "weather anomalies",
+        "query": "Bermuda Triangle weather anomalies",
+        "query2": "weather phenomena in Bermuda Triangle",
+        "role": "count",
+        "text": "3",
+        "num": 2
+      },
+      {
+        "query": "Bermuda Triangle mysteries",
+        "query2": "mysteries of Bermuda Triangle",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Discover the eerie truths behind the notorious Bermuda Triangle! Follow us for more mind-bending facts.",
+    "hashtags": [
+      "#BermudaTriangle",
+      "#mystery",
+      "#facts",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "3 Unusual Facts About Everyday Metal!",
+    "thumb": "METAL SECRETS EXPOSED",
+    "scenes": [
+      {
+        "hook_top": "METAL CHANGES ALERT",
+        "query": "metal hardness changes",
+        "query2": "metal transformation",
+        "count": "1",
+        "label": "METAL HARDNESS",
+        "label_on": "metal hardness",
+        "role": "hook",
+        "text": "Some metals can change just by cooling down!"
+      },
+      {
+        "label": "GOLD IN EVERYDAY ITEMS",
+        "label_on": "gold in items",
+        "query": "gold in everyday items",
+        "query2": "items containing gold",
+        "role": "count",
+        "text": "2",
+        "num": 1
+      },
+      {
+        "label": "SILVER ANTIMICROBIAL",
+        "label_on": "silver use",
+        "query": "silver antimicrobial properties",
+        "query2": "uses of silver",
+        "role": "count",
+        "text": "3",
+        "num": 2
+      },
+      {
+        "query": "metal facts",
+        "query2": "facts about metals",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Discover the intriguing secrets hidden in everyday metals! Make sure to follow for more amazing insights.",
+    "hashtags": [
+      "#MetalFacts",
+      "#science",
+      "#everydayitems",
+      "#shorts",
+      "#fyp",
+      "#curiosity"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Real Reason Bananas Are Curved",
+    "thumb": "CURVED BANANAS?",
+    "scenes": [
+      {
+        "hook_top": "BANANAS HAVE A SECRET",
+        "fact": "Bananas grow upwards against gravity, a phenomenon called negative geotropism. It's how they reach for sunlight.",
+        "chips": [
+          {
+            "t": "NEGATIVE GEOTROPISM",
+            "on": "geotropism",
+            "style": "accent"
+          }
+        ],
+        "query": "banana growth process",
+        "query2": "why bananas are curved",
+        "role": "hook",
+        "text": "You won't believe why bananas curve!"
+      },
+      {
+        "chips": [
+          {
+            "t": "UNIQUE GROWTH ANGLE",
+            "on": "growth",
+            "style": "white"
+          }
+        ],
+        "query": "banana avoiding obstacles",
+        "query2": "banana growth",
+        "role": "fact",
+        "text": "This unique growth angle helps them avoid obstacles in their environment, ensuring they thrive."
+      },
+      {
+        "label": "NATURE'S DESIGN",
+        "sub": "A quirky plant secret!",
+        "label_on": "design",
+        "query": "nature's clever design",
+        "query2": "banana plant secrets",
+        "role": "callout",
+        "text": "Nature's Clever Design"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "amazing nature facts",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Curved bananas have a fascinating story, tied to how they grow! Stay tuned for more amazing insights.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#bananas",
+      "#nature",
+      "#fascinatingfacts",
+      "#science"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
