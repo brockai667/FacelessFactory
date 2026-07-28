@@ -1,0 +1,52 @@
+{
+  "title": "Unbelievable Ice Properties!",
+  "thumb": "ICE CAN FREEZE INSTANTLY!",
+  "scenes": [
+    {
+      "hook_top": "ICE THAT FREEZES FAST",
+      "fact": "Supercooled water can freeze instantly upon disturbance.",
+      "chips": [],
+      "punch": "shocking",
+      "query": "supercooled water",
+      "query2": "instant freezing",
+      "role": "hook",
+      "text": "Do you know water can freeze in seconds?"
+    },
+    {
+      "chips": [],
+      "punch": "fascinating",
+      "query": "ice density fact",
+      "query2": "properties of ice",
+      "role": "fact",
+      "text": "Ice is less dense than liquid water, causing it to float."
+    },
+    {
+      "label": "FREEZING SECRETS",
+      "sub": "Learn about bizarre ice properties.",
+      "label_on": "ice",
+      "query": "interesting ice properties",
+      "query2": "ice science",
+      "role": "callout",
+      "text": "Amazing Ice Facts!"
+    },
+    {
+      "query": "amazing scientific facts",
+      "query2": "science truths",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Explore the strange properties of ice and the incredible phenomenon of instant freezing! Follow for more exciting facts.",
+  "hashtags": [
+    "#ice",
+    "#science",
+    "#shorts",
+    "#fyp",
+    "#freezing",
+    "#amazingfacts",
+    "#mystery",
+    "#weirdscience"
+  ],
+  "place": "",
+  "country": ""
+}
