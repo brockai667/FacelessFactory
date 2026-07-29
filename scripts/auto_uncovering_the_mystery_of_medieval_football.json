@@ -1,0 +1,56 @@
+{
+  "title": "Uncovering the Mystery of Medieval Football!",
+  "thumb": "MYSTERIOUS MEDIEVAL GAME",
+  "scenes": [
+    {
+      "hook_top": "MEDIEVAL FOOTBALL BREAKDOWN",
+      "fact": "In medieval times, football had no rules, just chaos!",
+      "chips": [],
+      "punch": "",
+      "query": "medieval football history",
+      "query2": "medieval football",
+      "role": "hook",
+      "text": "More than just a game: Football's wild past!"
+    },
+    {
+      "chips": [
+        {
+          "t": "UNLIMITED PLAYERS",
+          "on": "unlimited",
+          "style": "accent"
+        }
+      ],
+      "punch": "Wow!",
+      "query": "towns involved in medieval football",
+      "query2": "medieval football towns",
+      "role": "fact",
+      "text": "Entire towns participated in matches with unlimited players!"
+    },
+    {
+      "label": "FOOTBALL CHAOS",
+      "sub": "Unleashing the wild!",
+      "label_on": "football's chaos",
+      "query": "chaotic origins of football",
+      "query2": "football evolution",
+      "role": "callout",
+      "text": "Football's Chaotic Origins"
+    },
+    {
+      "query": "wild history facts",
+      "query2": "strange historical facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Discover the lawless and chaotic world of medieval football! Follow for more mind-blowing historical facts.",
+  "hashtags": [
+    "#medieval",
+    "#football",
+    "#history",
+    "#chaos",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

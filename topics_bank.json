@@ -6287,5 +6287,245 @@
       "#octopus",
       "#ocean"
     ]
+  },
+  {
+    "title": "The Unseen Connection Between Blood Types",
+    "thumb": "BLOOD TYPE SECRETS",
+    "scenes": [
+      {
+        "text": "Did you know that people with type O blood can donate to all other types?",
+        "hook_top": "BLOOD TYPE O IS SPECIAL",
+        "query": "blood types",
+        "query2": "blood donation facts",
+        "role": "hook"
+      },
+      {
+        "text": "Type O blood is the most common, making up about 45% of the population.",
+        "chips": [
+          {
+            "t": "45% OF PEOPLE",
+            "on": "O blood frequency",
+            "style": "white"
+          }
+        ],
+        "punch": "frequency",
+        "query": "blood type demographics",
+        "query2": "blood type statistics",
+        "role": "fact"
+      },
+      {
+        "text": "However, having type O blood can increase the risk for certain infections.",
+        "chips": [
+          {
+            "t": "HIGHER RISK",
+            "on": "infections",
+            "style": "accent"
+          }
+        ],
+        "punch": "risk",
+        "query": "blood type health risks",
+        "query2": "infections and blood type",
+        "role": "fact"
+      },
+      {
+        "text": "SURPRISINGLY, O BLOOD TYPES HAVE DISADVANTAGES!",
+        "reveal_top": "O BLOOD IS NOT ALWAYS BEST",
+        "query": "blood type advantages and disadvantages",
+        "query2": "blood type secrets",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "mind-blowing facts",
+        "query2": "facts to follow",
+        "role": "cta"
+      }
+    ],
+    "description": "Blood types hold secrets beyond compatibility! Discover why type O isn't always the best choice. Follow for more amazing insights!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#bloodtypes",
+      "#health",
+      "#sciencefacts",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Weird Facts Behind Common Caffeine",
+    "thumb": "CAFFEINE TRUTHS",
+    "scenes": [
+      {
+        "text": "Coffee was originally consumed as a food before it became a drink.",
+        "hook_top": "COFFEE AS FOOD YES",
+        "query": "history of coffee",
+        "query2": "coffee origins",
+        "role": "hook"
+      },
+      {
+        "text": "In ancient Ethiopia, people mixed coffee beans with fat to create an energy-rich bite.",
+        "chips": [
+          {
+            "t": "ENERGY RICH",
+            "on": "energy",
+            "style": "white"
+          }
+        ],
+        "punch": "rich",
+        "query": "Ethiopian coffee traditions",
+        "query2": "coffee energy facts",
+        "role": "fact"
+      },
+      {
+        "text": "Modern coffee consumption can increase anxiety levels in some people.",
+        "chips": [
+          {
+            "t": "CAFFEINE ANXIETY",
+            "on": "anxiety",
+            "style": "accent"
+          }
+        ],
+        "punch": "increase",
+        "query": "caffeine effects on anxiety",
+        "query2": "caffeine health impacts",
+        "role": "fact"
+      },
+      {
+        "text": "SHOCKINGLY, COFFEE CAN CAUSE STRESS!",
+        "reveal_top": "CAFFEINE HAS A DARK SIDE",
+        "query": "caffeine stress",
+        "query2": "coffee surprising effects",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "food facts",
+        "query2": "interesting food insights",
+        "role": "cta"
+      }
+    ],
+    "description": "Caffeine has a surprising history and effects! Learn how it can both energize and stress you out. Follow for more fascinating food truths!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#caffeine",
+      "#coffee",
+      "#foodfacts",
+      "#interesting"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Chilling Science of Instant Freezing!",
+    "thumb": "INSTANT FREEZE SCIENCE",
+    "scenes": [
+      {
+        "hook_top": "INSTANT FREEZING WATER",
+        "fact": "Supercooled water can freeze almost instantly when disturbed.",
+        "chips": [],
+        "query": "supercooled water instant freeze",
+        "query2": "water freezing tricks",
+        "role": "hook",
+        "text": "How can water freeze in an instant?"
+      },
+      {
+        "chips": [
+          {
+            "t": "ICE EXPLOSION!",
+            "on": "explosion",
+            "style": "accent"
+          }
+        ],
+        "query": "massive ice explosion",
+        "query2": "icicles forming quickly",
+        "role": "fact",
+        "text": "One drop can create a massive ice explosion."
+      },
+      {
+        "label": "Instant Freeze Explained",
+        "sub": "How water behaves oddly.",
+        "label_on": "freeze",
+        "query": "phenomenon of instant freezing",
+        "query2": "quirky science facts",
+        "role": "callout",
+        "text": "Instant Freeze Phenomenon"
+      },
+      {
+        "query": "follow mind-blowing facts",
+        "query2": "more cool science",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Water can freeze instantly under certain conditions, leading to fascinating effects like explosive ice formations. Discover the wonders of supercooled water!",
+    "hashtags": [
+      "#shorts",
+      "#science",
+      "#facts",
+      "#mindblown",
+      "#education",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Weirdness of Unused Body Parts!",
+    "thumb": "HIDDEN BODY ODDITIES",
+    "scenes": [
+      {
+        "hook_top": "HIDDEN BODY PARTS",
+        "fact": "Humans possess a vestigial tailbone, remnants of an ancient tail.",
+        "chips": [],
+        "query": "human vestigial tailbone",
+        "query2": "tailbone facts",
+        "role": "hook",
+        "text": "Did you know you have a hidden body part?"
+      },
+      {
+        "chips": [
+          {
+            "t": "POLYDactyly!",
+            "on": "extra fingers",
+            "style": "accent"
+          }
+        ],
+        "query": "polydactyly extra fingers",
+        "query2": "body oddities",
+        "role": "fact",
+        "text": "Some people are born with extra fingers or toes."
+      },
+      {
+        "label": "Who Has Extra Appendages?",
+        "sub": "You might be surprised!",
+        "label_on": "extra appendages",
+        "query": "fascinating body oddities",
+        "query2": "human body facts",
+        "role": "callout",
+        "text": "Fascinating Physical Oddities"
+      },
+      {
+        "query": "follow human body facts",
+        "query2": "more body oddities",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Your body holds surprising mysteries, like the vestigial tailbone and extra digits! Explore the peculiarities of human anatomy.",
+    "hashtags": [
+      "#shorts",
+      "#humanbody",
+      "#oddities",
+      "#facts",
+      "#mindblown",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

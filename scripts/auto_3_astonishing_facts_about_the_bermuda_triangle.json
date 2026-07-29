@@ -1,0 +1,51 @@
+{
+  "title": "3 Astonishing Facts About The Bermuda Triangle",
+  "thumb": "BERMUDA TRIANGLE SECRETS",
+  "scenes": [
+    {
+      "hook_top": "SHOCKING BERMUDA TRIANGLE",
+      "query": "Bermuda Triangle missing aircraft",
+      "query2": "aviation incidents in Bermuda Triangle",
+      "count": "1",
+      "label": "MISSING AIRCRAFT",
+      "label_on": "missing aircraft",
+      "role": "hook",
+      "text": "The Bermuda Triangle has a shocking history of disappearances!"
+    },
+    {
+      "label": "MYSTERIOUS SHIPS",
+      "label_on": "mysterious ships",
+      "query": "Bermuda Triangle mysterious ships",
+      "query2": "ships lost in Bermuda Triangle",
+      "role": "count",
+      "text": "2",
+      "num": 1
+    },
+    {
+      "label": "WEATHER ANOMALIES",
+      "label_on": "weather anomalies",
+      "query": "Bermuda Triangle weather anomalies",
+      "query2": "weather phenomena in Bermuda Triangle",
+      "role": "count",
+      "text": "3",
+      "num": 2
+    },
+    {
+      "query": "Bermuda Triangle mysteries",
+      "query2": "mysteries of Bermuda Triangle",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Discover the eerie truths behind the notorious Bermuda Triangle! Follow us for more mind-bending facts.",
+  "hashtags": [
+    "#BermudaTriangle",
+    "#mystery",
+    "#facts",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
