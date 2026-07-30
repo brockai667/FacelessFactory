@@ -6527,5 +6527,192 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "The Law That Allows Gardens Everywhere!",
+    "thumb": "MIND-BLOWING GARDEN LAWS",
+    "scenes": [
+      {
+        "text": "In Colorado, you have the RIGHT to grow a vegetable garden anywhere in your yard.",
+        "hook_top": "COLORADO GARDEN RIGHTS",
+        "query": "Colorado garden laws",
+        "query2": "gardening laws in America",
+        "role": "hook"
+      },
+      {
+        "text": "This law prevents homeowners' associations from banning your garden.",
+        "chips": [
+          {
+            "t": "HOMEOWNER PROTECTION",
+            "on": "law",
+            "style": "white"
+          }
+        ],
+        "query": "homeowner association rules",
+        "query2": "HOA vegetable garden laws",
+        "role": "fact"
+      },
+      {
+        "text": "Many states lack similar protections, leaving gardeners at risk.",
+        "chips": [
+          {
+            "t": "GARDENING VULNERABILITY",
+            "on": "states",
+            "style": "white"
+          }
+        ],
+        "query": "state gardening laws",
+        "query2": "vegetable garden protections",
+        "role": "fact"
+      },
+      {
+        "text": "IS YOUR GARDEN SAFE?",
+        "reveal_top": "UNUSUAL GARDEN LAWS!",
+        "query": "surprising gardening laws",
+        "query2": "odd garden rules",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow if you love learning something new.",
+        "query": "mind blowing facts",
+        "query2": "interesting fun facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Uncover the surprising rights you have when it comes to vegetable gardening in Colorado! Learn more about these unique laws.",
+    "hashtags": [
+      "#gardening",
+      "#Colorado",
+      "#laws",
+      "#gardens",
+      "#vegetables",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Animal Instincts: The Pantry Builders!",
+    "thumb": "BIRDS BUILD FOOD PANTRIES",
+    "scenes": [
+      {
+        "text": "Some birds create their own FOOD PANTRIES to store meals.",
+        "hook_top": "BIRDS MAKE FOOD PANTRIES",
+        "query": "birds food pantries",
+        "query2": "animal food storage behaviors",
+        "role": "hook"
+      },
+      {
+        "text": "The Siberian jay stocks up on food, hiding it in tree crevices.",
+        "chips": [
+          {
+            "t": "SIBERIAN JAY",
+            "on": "bird",
+            "style": "accent"
+          }
+        ],
+        "query": "Siberian jay habits",
+        "query2": "bird food storage",
+        "role": "fact"
+      },
+      {
+        "text": "They remember the locations and return to feast when food is scarce.",
+        "chips": [
+          {
+            "t": "FOOD LOCATION MEMORY",
+            "on": "memory",
+            "style": "white"
+          }
+        ],
+        "query": "bird memory food",
+        "query2": "animal memory abilities",
+        "role": "fact"
+      },
+      {
+        "text": "THEY'RE NATURE'S FOOD HORDERS!",
+        "reveal_top": "BIRDS WITH FOOD SECRETS!",
+        "query": "birds food secrets",
+        "query2": "interesting bird facts",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow if you love learning something new.",
+        "query": "mind blowing animal facts",
+        "query2": "amazing animal behaviors",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover the incredible food-storing habits of the Siberian jay and other birds! There's more than meets the eye in the animal kingdom.",
+    "hashtags": [
+      "#birds",
+      "#nature",
+      "#animals",
+      "#foodstorage",
+      "#wildlife",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Your Body Is Always Glowing!",
+    "thumb": "BODY GLOWS BRIGHT",
+    "scenes": [
+      {
+        "hook_top": "YOUR BODY GLOWS",
+        "fact": "The human body emits about 600 nanometers of visible light.",
+        "chips": [
+          {
+            "t": "600 nanometers",
+            "on": "visible light",
+            "style": "white"
+          }
+        ],
+        "punch": "Bright!",
+        "query": "human body light emission",
+        "query2": "bioluminescence in humans",
+        "role": "hook",
+        "text": "Your body emits visible light! How much?"
+      },
+      {
+        "chips": [],
+        "punch": "Peak!",
+        "query": "light emission peak times",
+        "query2": "circadian rhythm light",
+        "role": "fact",
+        "text": "This light is strongest in the late afternoon."
+      },
+      {
+        "label": "BODY LIGHTS",
+        "sub": "Your body glows constantly!",
+        "label_on": "glow",
+        "query": "body light facts",
+        "query2": "bioluminescence",
+        "role": "callout",
+        "text": "Incredible but true!"
+      },
+      {
+        "query": "follow amazing facts",
+        "query2": "interesting fact videos",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Did you know that your body glows? Learn about this fascinating phenomenon and how it works! Follow for more mind-blowing facts.",
+    "hashtags": [
+      "#science",
+      "#bodyfacts",
+      "#light",
+      "#shorts",
+      "#fyp",
+      "#curiosity",
+      "#weirdfacts"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

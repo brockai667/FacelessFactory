@@ -1,0 +1,51 @@
+{
+  "title": "3 Unusual Facts About Everyday Metal!",
+  "thumb": "METAL SECRETS EXPOSED",
+  "scenes": [
+    {
+      "hook_top": "METAL CHANGES ALERT",
+      "query": "metal hardness changes",
+      "query2": "metal transformation",
+      "count": "1",
+      "label": "METAL HARDNESS",
+      "label_on": "metal hardness",
+      "role": "hook",
+      "text": "Some metals can change just by cooling down!"
+    },
+    {
+      "label": "GOLD IN EVERYDAY ITEMS",
+      "label_on": "gold in items",
+      "query": "gold in everyday items",
+      "query2": "items containing gold",
+      "role": "count",
+      "text": "2",
+      "num": 1
+    },
+    {
+      "label": "SILVER ANTIMICROBIAL",
+      "label_on": "silver use",
+      "query": "silver antimicrobial properties",
+      "query2": "uses of silver",
+      "role": "count",
+      "text": "3",
+      "num": 2
+    },
+    {
+      "query": "metal facts",
+      "query2": "facts about metals",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Discover the intriguing secrets hidden in everyday metals! Make sure to follow for more amazing insights.",
+  "hashtags": [
+    "#MetalFacts",
+    "#science",
+    "#everydayitems",
+    "#shorts",
+    "#fyp",
+    "#curiosity"
+  ],
+  "place": "",
+  "country": ""
+}

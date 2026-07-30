@@ -1,0 +1,65 @@
+{
+  "title": "The BODY's Hidden Garden!",
+  "thumb": "BODY GARDEN REVEALED",
+  "scenes": [
+    {
+      "hook_top": "IMMUNE CELL SECRETS REVEALED",
+      "query": "immune cells in the gut",
+      "query2": "immune system facts",
+      "role": "hook",
+      "text": "75% of your body's immune cells live here!"
+    },
+    {
+      "chips": [
+        {
+          "t": "TRILLIONS",
+          "on": "bacteria",
+          "style": "accent"
+        }
+      ],
+      "punch": "mind-blowing",
+      "query": "gut microbiome",
+      "query2": "bacteria facts",
+      "role": "fact",
+      "text": "The gut microbiome contains trillions of bacteria, essential for health."
+    },
+    {
+      "chips": [
+        {
+          "t": "DIVERSITY BOOST",
+          "on": "improve",
+          "style": "white"
+        }
+      ],
+      "punch": "incredible",
+      "query": "microbiome mood connection",
+      "query2": "mood and gut health",
+      "role": "fact",
+      "text": "A diverse microbiome can improve your mood and cognitive abilities."
+    },
+    {
+      "reveal_top": "GUT HEALTHY MIND",
+      "query": "gut health",
+      "query2": "health benefits of gut",
+      "role": "reveal",
+      "text": "Your gut is like a garden, influencing overall well-being!"
+    },
+    {
+      "query": "follow mind blowing facts",
+      "query2": "mind blowing facts",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Discover the surprising role of your gut in health and mood! Follow for more mind-blowing insights.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#health",
+    "#microbiome",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

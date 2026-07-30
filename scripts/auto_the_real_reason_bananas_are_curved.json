@@ -1,0 +1,60 @@
+{
+  "title": "The Real Reason Bananas Are Curved",
+  "thumb": "CURVED BANANAS?",
+  "scenes": [
+    {
+      "hook_top": "BANANAS HAVE A SECRET",
+      "fact": "Bananas grow upwards against gravity, a phenomenon called negative geotropism. It's how they reach for sunlight.",
+      "chips": [
+        {
+          "t": "NEGATIVE GEOTROPISM",
+          "on": "geotropism",
+          "style": "accent"
+        }
+      ],
+      "query": "banana growth process",
+      "query2": "why bananas are curved",
+      "role": "hook",
+      "text": "You won't believe why bananas curve!"
+    },
+    {
+      "chips": [
+        {
+          "t": "UNIQUE GROWTH ANGLE",
+          "on": "growth",
+          "style": "white"
+        }
+      ],
+      "query": "banana avoiding obstacles",
+      "query2": "banana growth",
+      "role": "fact",
+      "text": "This unique growth angle helps them avoid obstacles in their environment, ensuring they thrive."
+    },
+    {
+      "label": "NATURE'S DESIGN",
+      "sub": "A quirky plant secret!",
+      "label_on": "design",
+      "query": "nature's clever design",
+      "query2": "banana plant secrets",
+      "role": "callout",
+      "text": "Nature's Clever Design"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "amazing nature facts",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Curved bananas have a fascinating story, tied to how they grow! Stay tuned for more amazing insights.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bananas",
+    "#nature",
+    "#fascinatingfacts",
+    "#science"
+  ],
+  "place": "",
+  "country": ""
+}
