@@ -1,0 +1,66 @@
+{
+  "title": "The Unseen Connection Between Blood Types",
+  "thumb": "BLOOD TYPE SECRETS",
+  "scenes": [
+    {
+      "text": "Did you know that people with type O blood can donate to all other types?",
+      "hook_top": "BLOOD TYPE O IS SPECIAL",
+      "query": "blood types",
+      "query2": "blood donation facts",
+      "role": "hook"
+    },
+    {
+      "text": "Type O blood is the most common, making up about 45% of the population.",
+      "chips": [
+        {
+          "t": "45% OF PEOPLE",
+          "on": "O blood frequency",
+          "style": "white"
+        }
+      ],
+      "punch": "frequency",
+      "query": "blood type demographics",
+      "query2": "blood type statistics",
+      "role": "fact"
+    },
+    {
+      "text": "However, having type O blood can increase the risk for certain infections.",
+      "chips": [
+        {
+          "t": "HIGHER RISK",
+          "on": "infections",
+          "style": "accent"
+        }
+      ],
+      "punch": "risk",
+      "query": "blood type health risks",
+      "query2": "infections and blood type",
+      "role": "fact"
+    },
+    {
+      "text": "SURPRISINGLY, O BLOOD TYPES HAVE DISADVANTAGES!",
+      "reveal_top": "O BLOOD IS NOT ALWAYS BEST",
+      "query": "blood type advantages and disadvantages",
+      "query2": "blood type secrets",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "mind-blowing facts",
+      "query2": "facts to follow",
+      "role": "cta"
+    }
+  ],
+  "description": "Blood types hold secrets beyond compatibility! Discover why type O isn't always the best choice. Follow for more amazing insights!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bloodtypes",
+    "#health",
+    "#sciencefacts",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}

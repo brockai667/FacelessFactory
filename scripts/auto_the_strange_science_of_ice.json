@@ -1,0 +1,65 @@
+{
+  "title": "The Strange Science of Ice!",
+  "thumb": "ICE SCIENCE UNLOCKED",
+  "scenes": [
+    {
+      "hook_top": "INSTANT FREEZING ICE",
+      "query": "instant freezing ice",
+      "query2": "ice science facts",
+      "role": "hook",
+      "text": "This unique ice can freeze instantly under pressure!"
+    },
+    {
+      "chips": [
+        {
+          "t": "REGELATION",
+          "on": "regelation",
+          "style": "accent"
+        }
+      ],
+      "punch": "astonishing",
+      "query": "regelation phenomenon",
+      "query2": "ice under pressure",
+      "role": "fact",
+      "text": "This phenomenon, known as regelation, occurs at high pressure."
+    },
+    {
+      "chips": [
+        {
+          "t": "GLACIER MOVEMENT",
+          "on": "glaciers",
+          "style": "white"
+        }
+      ],
+      "punch": "remarkable",
+      "query": "ice and glaciers",
+      "query2": "glacier movement facts",
+      "role": "fact",
+      "text": "Regelation can be found in glaciers, affecting their movement."
+    },
+    {
+      "reveal_top": "ICE CRUNCHING TRICK",
+      "query": "ice pops crunchy",
+      "query2": "ice pops science",
+      "role": "reveal",
+      "text": "This same principle is why ice pops have that satisfying crunch!"
+    },
+    {
+      "query": "follow ice secrets",
+      "query2": "mind blowing facts",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "Explore the incredible science behind ice and its surprising properties! Don't forget to follow for more amazing facts.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#ice",
+    "#glaciers",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

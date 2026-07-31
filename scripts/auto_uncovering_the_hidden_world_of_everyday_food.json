@@ -1,0 +1,48 @@
+{
+  "title": "Uncovering the Hidden World of Everyday Food!",
+  "thumb": "FOOD SECRETS REVEALED",
+  "scenes": [
+    {
+      "hook_top": "FOOD WITH SECRETS",
+      "fact": "Green tea can boost metabolism and burn fat.",
+      "chips": [],
+      "punch": "Amazing!",
+      "query": "hidden benefits of green tea",
+      "query2": "green tea metabolism",
+      "role": "hook",
+      "text": "Certain foods have mind-blowing hidden benefits!"
+    },
+    {
+      "chips": [],
+      "punch": "Surprising!",
+      "query": "dark chocolate health benefits",
+      "query2": "benefits of dark chocolate",
+      "role": "fact",
+      "text": "Dark chocolate can enhance brain function by improving blood flow."
+    },
+    {
+      "label": "Food for Your Mind",
+      "sub": "Which food will you try?",
+      "label_on": "unlock",
+      "query": "food benefits for brain",
+      "query2": "health secrets of food",
+      "role": "callout",
+      "text": "Unlock Your Potential"
+    },
+    {
+      "query": "mind-blowing food facts",
+      "query2": "interesting food secrets",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Uncover the hidden benefits of everyday foods that can enhance your life! Join us for more fascinating facts. #shorts #fyp #food #health #secrets #brain",
+  "place": "",
+  "country": "",
+  "hashtags": [
+    "#facts",
+    "#didyouknow",
+    "#octopus",
+    "#ocean"
+  ]
+}
