@@ -273,7 +273,7 @@ def call_model(user_text, _tries=4):
         r = requests.post(
             BASE.rstrip("/") + "/chat/completions",
             headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
-            json={"model": MODEL, "temperature": 0.95,
+            json={"model": MODEL, "temperature": 0.95, "max_tokens": 2000,
                   "messages": [{"role": "system", "content": SYSTEM},
                                {"role": "user", "content": user_text}]},
             timeout=180,
@@ -281,7 +281,7 @@ def call_model(user_text, _tries=4):
         if r.status_code < 400:
             return r.json()["choices"][0]["message"]["content"]
         last = f"Models API {r.status_code}: {r.text[:300]}"
-        if r.status_code == 429 or r.status_code >= 500:
+        if r.status_code in (429, 413) or r.status_code >= 500:
             try:
                 _w = float(r.headers.get("retry-after") or 0)
             except Exception:
