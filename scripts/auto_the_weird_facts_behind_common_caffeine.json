@@ -1,0 +1,66 @@
+{
+  "title": "The Weird Facts Behind Common Caffeine",
+  "thumb": "CAFFEINE TRUTHS",
+  "scenes": [
+    {
+      "text": "Coffee was originally consumed as a food before it became a drink.",
+      "hook_top": "COFFEE AS FOOD YES",
+      "query": "history of coffee",
+      "query2": "coffee origins",
+      "role": "hook"
+    },
+    {
+      "text": "In ancient Ethiopia, people mixed coffee beans with fat to create an energy-rich bite.",
+      "chips": [
+        {
+          "t": "ENERGY RICH",
+          "on": "energy",
+          "style": "white"
+        }
+      ],
+      "punch": "rich",
+      "query": "Ethiopian coffee traditions",
+      "query2": "coffee energy facts",
+      "role": "fact"
+    },
+    {
+      "text": "Modern coffee consumption can increase anxiety levels in some people.",
+      "chips": [
+        {
+          "t": "CAFFEINE ANXIETY",
+          "on": "anxiety",
+          "style": "accent"
+        }
+      ],
+      "punch": "increase",
+      "query": "caffeine effects on anxiety",
+      "query2": "caffeine health impacts",
+      "role": "fact"
+    },
+    {
+      "text": "SHOCKINGLY, COFFEE CAN CAUSE STRESS!",
+      "reveal_top": "CAFFEINE HAS A DARK SIDE",
+      "query": "caffeine stress",
+      "query2": "coffee surprising effects",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "food facts",
+      "query2": "interesting food insights",
+      "role": "cta"
+    }
+  ],
+  "description": "Caffeine has a surprising history and effects! Learn how it can both energize and stress you out. Follow for more fascinating food truths!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#caffeine",
+    "#coffee",
+    "#foodfacts",
+    "#interesting"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -6714,5 +6714,375 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why a Giraffe's Spots Are Unique?",
+    "thumb": "GIRAFFE SPOTS",
+    "scenes": [
+      {
+        "hook_top": "NO TWO SPOTS",
+        "query": "giraffe spots",
+        "query2": "giraffe pattern",
+        "role": "hook",
+        "text": "2 giraffes have same spots"
+      },
+      {
+        "label": "Same Spots",
+        "query": "giraffe spot pattern",
+        "query2": "giraffe coat pattern",
+        "role": "myth",
+        "text": "Giraffes have the same spot patterns"
+      },
+      {
+        "label": "Unique Spots",
+        "query": "giraffe spot uniqueness",
+        "query2": "giraffe fingerprint analogy",
+        "role": "truth",
+        "text": "Each giraffe's spot pattern is unique, like human fingerprints"
+      },
+      {
+        "label": "Spot ID",
+        "sub": "each spot is unique",
+        "label_on": "just like us",
+        "query": "giraffe identification",
+        "query2": "giraffe spot identification",
+        "role": "callout",
+        "text": "Nature's own barcode for identification"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "natural world facts",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Giraffes have unique spot patterns, just like human fingerprints. Discover the fascinating world of giraffe identification and more mind-blowing facts about the natural world. Follow for more!",
+    "hashtags": [
+      "#giraffes",
+      "#wildlife",
+      "#nature",
+      "#mindblowingfacts",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Secret of the Red Dwarf Star",
+    "thumb": "RED DWARF STAR",
+    "scenes": [
+      {
+        "hook_top": "STARS NEAR US",
+        "query": "red dwarf stars",
+        "query2": "nearby stars",
+        "role": "hook",
+        "text": "25 red dwarf stars near Earth"
+      },
+      {
+        "label": "Short Life",
+        "query": "red dwarf star lifespan",
+        "query2": "star lifespan",
+        "role": "myth",
+        "text": "Red dwarf stars have short lifespans"
+      },
+      {
+        "label": "Long Life",
+        "query": "red dwarf star longevity",
+        "query2": "star longevity",
+        "role": "truth",
+        "text": "The universe is not old enough to have seen a red dwarf star die"
+      },
+      {
+        "label": "Longest Lived",
+        "sub": "billions of years",
+        "label_on": "still shining",
+        "query": "long-lived stars",
+        "query2": "star longevity",
+        "role": "callout",
+        "text": "The longest-lived stars in the universe"
+      },
+      {
+        "query": "space facts",
+        "query2": "universe facts",
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day."
+      }
+    ],
+    "description": "Red dwarf stars are the longest-lived stars in the universe, with lifespans that exceed the age of the universe itself. Discover more mind-blowing facts about space and the universe. Follow for more!",
+    "hashtags": [
+      "#reddwarfstars",
+      "#space",
+      "#universe",
+      "#mindblowingfacts",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Tigers Have Such Rough Tongues?",
+    "thumb": "TIGER TONGUE",
+    "scenes": [
+      {
+        "hook_top": "TIGER TONGUE SPINES",
+        "query": "tiger tongue",
+        "query2": "tiger eating",
+        "role": "hook",
+        "text": "A tiger's tongue is covered in 1,000 spines"
+      },
+      {
+        "chips": [
+          {
+            "t": "KERATIN",
+            "on": "keratin",
+            "style": "white"
+          }
+        ],
+        "punch": "sharp",
+        "query": "keratin structure",
+        "query2": "human hair microscopic view",
+        "role": "fact",
+        "text": "These spines are made of keratin, the same protein as human hair"
+      },
+      {
+        "chips": [
+          {
+            "t": "0.5MM",
+            "on": "mm long",
+            "style": "accent"
+          }
+        ],
+        "query": "tiger tongue closeup",
+        "query2": "microscopic view of tiger tongue",
+        "role": "fact",
+        "text": "The spines on a tiger's tongue can be up to 0.5 mm long"
+      },
+      {
+        "reveal_top": "TIGER TONGUE POWER",
+        "query": "tiger eating meat",
+        "query2": "tiger with prey",
+        "role": "reveal",
+        "text": "And they help tigers scrape meat off bones with ease"
+      },
+      {
+        "query": "animal facts logo",
+        "query2": "wildlife documentary",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "A tiger's tongue is a powerful tool that helps them eat their prey. But what makes it so special? Find out the surprising truth behind a tiger's rough tongue. Follow us for more mind-blowing animal facts!",
+    "hashtags": [
+      "#tigerfacts",
+      "#animalfacts",
+      "#wildlife",
+      "#tonguepower",
+      "#mindblowing",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Secret Life of Medieval Football",
+    "thumb": "MEDIEVAL FOOTBALL",
+    "scenes": [
+      {
+        "hook_top": "MEDIEVAL FOOTBALL CHAOS",
+        "query": "medieval football",
+        "query2": "old football match",
+        "role": "hook",
+        "text": "Medieval football was played with 1,000 players"
+      },
+      {
+        "chips": [
+          {
+            "t": "NO RULES",
+            "on": "no rules",
+            "style": "white"
+          }
+        ],
+        "punch": "chaotic",
+        "query": "medieval football illustration",
+        "query2": "old football players",
+        "role": "fact",
+        "text": "The game had no rules, except no murder"
+      },
+      {
+        "chips": [
+          {
+            "t": "WHOLE TOWN",
+            "on": "whole town",
+            "style": "accent"
+          }
+        ],
+        "query": "medieval town",
+        "query2": "old town square",
+        "role": "fact",
+        "text": "Entire towns would participate in the game"
+      },
+      {
+        "reveal_top": "MEDIEVAL FOOTBALL FRENZY",
+        "query": "medieval football match",
+        "query2": "old football game",
+        "role": "reveal",
+        "text": "And the game would often last for days"
+      },
+      {
+        "query": "history facts logo",
+        "query2": "history documentary",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Medieval football was a game like no other. With no rules and entire towns participating, it was a chaotic and intense experience. Find out the surprising truth behind medieval football. Follow us for more surprising history facts!",
+    "hashtags": [
+      "#medievalfootball",
+      "#historyfacts",
+      "#football",
+      "#chaoticgame",
+      "#mindblowing",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Dark Secret of Red Dwarf Stars",
+    "thumb": "RED DWARF MYSTERY",
+    "scenes": [
+      {
+        "hook_top": "BILLION YEAR SECRET",
+        "query": "red dwarf star",
+        "query2": "star life cycle",
+        "role": "hook",
+        "text": "4 billion years old"
+      },
+      {
+        "chips": [
+          {
+            "t": "100B",
+            "on": "lifespan",
+            "style": "white"
+          }
+        ],
+        "punch": "wow",
+        "query": "red dwarf star lifespan",
+        "query2": "star lifespan comparison",
+        "role": "fact",
+        "text": "Red dwarf stars have a lifespan of 100 billion years"
+      },
+      {
+        "chips": [
+          {
+            "t": "NEVER",
+            "on": "dying",
+            "style": "accent"
+          }
+        ],
+        "query": "red dwarf star death",
+        "query2": "star death observation",
+        "role": "fact",
+        "text": "We have never observed a red dwarf star dying"
+      },
+      {
+        "label": "UNIVERSE TOO YOUNG",
+        "sub": "not enough time",
+        "label_on": "universe",
+        "query": "universe age",
+        "query2": "cosmic timeline",
+        "role": "callout",
+        "text": "The universe is too young"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Discover the dark secret of red dwarf stars and why we have never observed one dying. The universe is too young for us to have seen it happen. Follow us for more mind-blowing facts! #shorts #fyp #reddwarfstars #space #astronomy",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#reddwarfstars",
+      "#space",
+      "#astronomy",
+      "#mindblowingfacts",
+      "#universe"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Tiger's Deadly Tongue",
+    "thumb": "TIGER TONGUE DANGER",
+    "scenes": [
+      {
+        "hook_top": "SHARP TIGER TONGUE",
+        "query": "tiger tongue",
+        "query2": "tiger anatomy",
+        "role": "hook",
+        "text": "Tiger's tongue is so sharp"
+      },
+      {
+        "chips": [
+          {
+            "t": "PAPIL",
+            "on": "hooks",
+            "style": "white"
+          }
+        ],
+        "punch": "sharp",
+        "query": "tiger tongue papillae",
+        "query2": "tiger tongue structure",
+        "role": "fact",
+        "text": "Tiger's tongue has tiny hooks called papillae"
+      },
+      {
+        "chips": [
+          {
+            "t": "MEAT",
+            "on": "scrape",
+            "style": "accent"
+          }
+        ],
+        "query": "tiger eating habits",
+        "query2": "tiger feeding behavior",
+        "role": "fact",
+        "text": "These papillae help scrape meat from bones"
+      },
+      {
+        "label": "DEADLY TOOL",
+        "sub": "tiger's secret",
+        "label_on": "tongue",
+        "query": "tiger tongue function",
+        "query2": "tiger tongue importance",
+        "role": "callout",
+        "text": "The tongue is a deadly tool"
+      },
+      {
+        "query": "wild facts",
+        "query2": "animal facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Discover the tiger's deadly tongue and how it uses its sharp papillae to scrape meat from bones. The tongue is a deadly tool in the tiger's arsenal. Follow us for more wild facts! #shorts #fyp #tiger #wildlife #animalfacts",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#tiger",
+      "#wildlife",
+      "#animalfacts",
+      "#tongue",
+      "#deadlytool"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

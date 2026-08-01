@@ -1,0 +1,54 @@
+{
+  "title": "The Chilling Science of Instant Freezing!",
+  "thumb": "INSTANT FREEZE SCIENCE",
+  "scenes": [
+    {
+      "hook_top": "INSTANT FREEZING WATER",
+      "fact": "Supercooled water can freeze almost instantly when disturbed.",
+      "chips": [],
+      "query": "supercooled water instant freeze",
+      "query2": "water freezing tricks",
+      "role": "hook",
+      "text": "How can water freeze in an instant?"
+    },
+    {
+      "chips": [
+        {
+          "t": "ICE EXPLOSION!",
+          "on": "explosion",
+          "style": "accent"
+        }
+      ],
+      "query": "massive ice explosion",
+      "query2": "icicles forming quickly",
+      "role": "fact",
+      "text": "One drop can create a massive ice explosion."
+    },
+    {
+      "label": "Instant Freeze Explained",
+      "sub": "How water behaves oddly.",
+      "label_on": "freeze",
+      "query": "phenomenon of instant freezing",
+      "query2": "quirky science facts",
+      "role": "callout",
+      "text": "Instant Freeze Phenomenon"
+    },
+    {
+      "query": "follow mind-blowing facts",
+      "query2": "more cool science",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Water can freeze instantly under certain conditions, leading to fascinating effects like explosive ice formations. Discover the wonders of supercooled water!",
+  "hashtags": [
+    "#shorts",
+    "#science",
+    "#facts",
+    "#mindblown",
+    "#education",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

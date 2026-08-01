@@ -1,0 +1,54 @@
+{
+  "title": "The Weirdness of Unused Body Parts!",
+  "thumb": "HIDDEN BODY ODDITIES",
+  "scenes": [
+    {
+      "hook_top": "HIDDEN BODY PARTS",
+      "fact": "Humans possess a vestigial tailbone, remnants of an ancient tail.",
+      "chips": [],
+      "query": "human vestigial tailbone",
+      "query2": "tailbone facts",
+      "role": "hook",
+      "text": "Did you know you have a hidden body part?"
+    },
+    {
+      "chips": [
+        {
+          "t": "POLYDactyly!",
+          "on": "extra fingers",
+          "style": "accent"
+        }
+      ],
+      "query": "polydactyly extra fingers",
+      "query2": "body oddities",
+      "role": "fact",
+      "text": "Some people are born with extra fingers or toes."
+    },
+    {
+      "label": "Who Has Extra Appendages?",
+      "sub": "You might be surprised!",
+      "label_on": "extra appendages",
+      "query": "fascinating body oddities",
+      "query2": "human body facts",
+      "role": "callout",
+      "text": "Fascinating Physical Oddities"
+    },
+    {
+      "query": "follow human body facts",
+      "query2": "more body oddities",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Your body holds surprising mysteries, like the vestigial tailbone and extra digits! Explore the peculiarities of human anatomy.",
+  "hashtags": [
+    "#shorts",
+    "#humanbody",
+    "#oddities",
+    "#facts",
+    "#mindblown",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
