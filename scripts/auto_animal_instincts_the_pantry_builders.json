@@ -1,0 +1,65 @@
+{
+  "title": "Animal Instincts: The Pantry Builders!",
+  "thumb": "BIRDS BUILD FOOD PANTRIES",
+  "scenes": [
+    {
+      "text": "Some birds create their own FOOD PANTRIES to store meals.",
+      "hook_top": "BIRDS MAKE FOOD PANTRIES",
+      "query": "birds food pantries",
+      "query2": "animal food storage behaviors",
+      "role": "hook"
+    },
+    {
+      "text": "The Siberian jay stocks up on food, hiding it in tree crevices.",
+      "chips": [
+        {
+          "t": "SIBERIAN JAY",
+          "on": "bird",
+          "style": "accent"
+        }
+      ],
+      "query": "Siberian jay habits",
+      "query2": "bird food storage",
+      "role": "fact"
+    },
+    {
+      "text": "They remember the locations and return to feast when food is scarce.",
+      "chips": [
+        {
+          "t": "FOOD LOCATION MEMORY",
+          "on": "memory",
+          "style": "white"
+        }
+      ],
+      "query": "bird memory food",
+      "query2": "animal memory abilities",
+      "role": "fact"
+    },
+    {
+      "text": "THEY'RE NATURE'S FOOD HORDERS!",
+      "reveal_top": "BIRDS WITH FOOD SECRETS!",
+      "query": "birds food secrets",
+      "query2": "interesting bird facts",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow if you love learning something new.",
+      "query": "mind blowing animal facts",
+      "query2": "amazing animal behaviors",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover the incredible food-storing habits of the Siberian jay and other birds! There's more than meets the eye in the animal kingdom.",
+  "hashtags": [
+    "#birds",
+    "#nature",
+    "#animals",
+    "#foodstorage",
+    "#wildlife",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

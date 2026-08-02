@@ -1,0 +1,57 @@
+{
+  "title": "Why Your Body Is Always Glowing!",
+  "thumb": "BODY GLOWS BRIGHT",
+  "scenes": [
+    {
+      "hook_top": "YOUR BODY GLOWS",
+      "fact": "The human body emits about 600 nanometers of visible light.",
+      "chips": [
+        {
+          "t": "600 nanometers",
+          "on": "visible light",
+          "style": "white"
+        }
+      ],
+      "punch": "Bright!",
+      "query": "human body light emission",
+      "query2": "bioluminescence in humans",
+      "role": "hook",
+      "text": "Your body emits visible light! How much?"
+    },
+    {
+      "chips": [],
+      "punch": "Peak!",
+      "query": "light emission peak times",
+      "query2": "circadian rhythm light",
+      "role": "fact",
+      "text": "This light is strongest in the late afternoon."
+    },
+    {
+      "label": "BODY LIGHTS",
+      "sub": "Your body glows constantly!",
+      "label_on": "glow",
+      "query": "body light facts",
+      "query2": "bioluminescence",
+      "role": "callout",
+      "text": "Incredible but true!"
+    },
+    {
+      "query": "follow amazing facts",
+      "query2": "interesting fact videos",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Did you know that your body glows? Learn about this fascinating phenomenon and how it works! Follow for more mind-blowing facts.",
+  "hashtags": [
+    "#science",
+    "#bodyfacts",
+    "#light",
+    "#shorts",
+    "#fyp",
+    "#curiosity",
+    "#weirdfacts"
+  ],
+  "place": "",
+  "country": ""
+}

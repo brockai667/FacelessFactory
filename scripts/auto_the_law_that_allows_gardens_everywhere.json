@@ -1,0 +1,65 @@
+{
+  "title": "The Law That Allows Gardens Everywhere!",
+  "thumb": "MIND-BLOWING GARDEN LAWS",
+  "scenes": [
+    {
+      "text": "In Colorado, you have the RIGHT to grow a vegetable garden anywhere in your yard.",
+      "hook_top": "COLORADO GARDEN RIGHTS",
+      "query": "Colorado garden laws",
+      "query2": "gardening laws in America",
+      "role": "hook"
+    },
+    {
+      "text": "This law prevents homeowners' associations from banning your garden.",
+      "chips": [
+        {
+          "t": "HOMEOWNER PROTECTION",
+          "on": "law",
+          "style": "white"
+        }
+      ],
+      "query": "homeowner association rules",
+      "query2": "HOA vegetable garden laws",
+      "role": "fact"
+    },
+    {
+      "text": "Many states lack similar protections, leaving gardeners at risk.",
+      "chips": [
+        {
+          "t": "GARDENING VULNERABILITY",
+          "on": "states",
+          "style": "white"
+        }
+      ],
+      "query": "state gardening laws",
+      "query2": "vegetable garden protections",
+      "role": "fact"
+    },
+    {
+      "text": "IS YOUR GARDEN SAFE?",
+      "reveal_top": "UNUSUAL GARDEN LAWS!",
+      "query": "surprising gardening laws",
+      "query2": "odd garden rules",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow if you love learning something new.",
+      "query": "mind blowing facts",
+      "query2": "interesting fun facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Uncover the surprising rights you have when it comes to vegetable gardening in Colorado! Learn more about these unique laws.",
+  "hashtags": [
+    "#gardening",
+    "#Colorado",
+    "#laws",
+    "#gardens",
+    "#vegetables",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

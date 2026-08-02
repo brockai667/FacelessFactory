@@ -7084,5 +7084,188 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "The Amazing Science of Tiger Tongues",
+    "thumb": "TIGER TONGUE",
+    "scenes": [
+      {
+        "hook_top": "TIGER TONGUE POWER",
+        "query": "tiger tongue",
+        "query2": "animal tongues",
+        "role": "hook",
+        "text": "1000 times stronger"
+      },
+      {
+        "num": 1,
+        "label": "STRONGEST TONGUE",
+        "label_on": "strength",
+        "query": "tiger tongue strength",
+        "query2": "animal tongue strength",
+        "role": "count",
+        "text": "A tiger's tongue is 1000 times stronger than a human's"
+      },
+      {
+        "num": 2,
+        "label": "RASPY TEXTURE",
+        "label_on": "texture",
+        "query": "tiger tongue texture",
+        "query2": "animal tongue texture",
+        "role": "count",
+        "text": "Tiger tongues have tiny spines that help scrape meat from bones"
+      },
+      {
+        "num": 3,
+        "label": "DEADLY PURPOSE",
+        "label_on": "purpose",
+        "query": "tiger hunting",
+        "query2": "tiger prey",
+        "role": "count",
+        "text": "Tigers use their tongues to hunt and kill prey"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "The Amazing Science of Tiger Tongues",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Get ready to be amazed by the incredible science of tiger tongues! From their super-strong tongues to their deadly purpose, tigers are full of fascinating facts. Follow us for more mind-blowing animal facts!",
+    "hashtags": [
+      "#TigerTongue",
+      "#AnimalFacts",
+      "#MindBlowing",
+      "#Wildlife",
+      "#Tigers",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Unstoppable Power of Pangong Lake",
+    "thumb": "PANGONG LAKE",
+    "scenes": [
+      {
+        "hook_top": "WORLD'S HIGHEST LAKE",
+        "query": "Pangong Lake",
+        "query2": "high-altitude lakes",
+        "role": "hook",
+        "text": "134 km long"
+      },
+      {
+        "num": 1,
+        "label": "HIGH ALTITUDE",
+        "label_on": "altitude",
+        "query": "Pangong Lake altitude",
+        "query2": "high-altitude lakes",
+        "role": "count",
+        "text": "Pangong Lake is situated at an altitude of over 4300 meters"
+      },
+      {
+        "num": 2,
+        "label": "SALINE WATER",
+        "label_on": "water",
+        "query": "Pangong Lake water",
+        "query2": "saline lakes",
+        "role": "count",
+        "text": "Pangong Lake is a saline water lake with no outlet"
+      },
+      {
+        "num": 3,
+        "label": "BORDER DISPUTE",
+        "label_on": "dispute",
+        "query": "Pangong Lake dispute",
+        "query2": "India China border dispute",
+        "role": "count",
+        "text": "Pangong Lake is a disputed territory between India and China"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "The Unstoppable Power of Pangong Lake",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "Discover the unstoppable power of Pangong Lake, one of the highest lakes in the world. From its high altitude to its disputed territory, Pangong Lake is full of fascinating facts. Follow us for more mind-blowing geography facts!",
+    "hashtags": [
+      "#PangongLake",
+      "#GeographyFacts",
+      "#MindBlowing",
+      "#HighAltitudeLakes",
+      "#IndiaChinaDispute",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Hidden Danger of Tiger Tongues",
+    "thumb": "TIGER TONGUE",
+    "scenes": [
+      {
+        "hook_top": "TIGER TONGUE",
+        "query": "tiger tongue",
+        "query2": "tiger",
+        "role": "hook",
+        "text": "1 tiger's tongue"
+      },
+      {
+        "chips": [
+          {
+            "t": "100",
+            "on": "spines",
+            "style": "white"
+          }
+        ],
+        "punch": "Spines",
+        "query": "tiger tongue spines",
+        "query2": "tiger tongue",
+        "role": "fact",
+        "text": "Tiger tongues have spines that point backwards"
+      },
+      {
+        "chips": [
+          {
+            "t": "80%",
+            "on": "meat",
+            "style": "accent"
+          }
+        ],
+        "query": "tiger eating",
+        "query2": "tiger meal",
+        "role": "fact",
+        "text": "These spines help tigers scrape meat from bones"
+      },
+      {
+        "label": "Tiger Tongue",
+        "sub": "Danger",
+        "label_on": "tiger",
+        "query": "tiger face",
+        "query2": "tiger",
+        "role": "callout",
+        "text": "Now you know the secret of the tiger's tongue"
+      },
+      {
+        "query": "brain",
+        "query2": "mind",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Discover the hidden danger of tiger tongues and how they help these big cats eat. Follow us for more mind-blowing facts! ",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#tiger",
+      "#tongue",
+      "#danger",
+      "#wildlife",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
