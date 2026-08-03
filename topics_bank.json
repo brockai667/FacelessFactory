@@ -7267,5 +7267,366 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "What Makes the Axolotl Regenerate?",
+    "thumb": "AXOLOTL SECRETS",
+    "scenes": [
+      {
+        "hook_top": "ANIMAL REGEN",
+        "query": "axolotl regrowing limb",
+        "query2": "salamander regrowth",
+        "role": "hook",
+        "text": "1 animal can regrow its limbs"
+      },
+      {
+        "num": 1,
+        "label": "UNIQUE GENES",
+        "label_on": "genes",
+        "query": "axolotl genome",
+        "query2": "salamander dna",
+        "role": "count",
+        "text": "1. It has a unique genetic makeup"
+      },
+      {
+        "num": 2,
+        "label": "CELL DIFF",
+        "label_on": "cells",
+        "query": "axolotl cell differentiation",
+        "query2": "salamander stem cells",
+        "role": "count",
+        "text": "2. Its cells can differentiate into different types"
+      },
+      {
+        "num": 3,
+        "label": "BRAIN REGEN",
+        "label_on": "brain",
+        "query": "axolotl brain regeneration",
+        "query2": "salamander spinal cord regrowth",
+        "role": "count",
+        "text": "3. It can regenerate its brain and parts of its spinal cord"
+      },
+      {
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "What Makes the Axolotl Regenerate?",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "The axolotl is a unique animal that can regrow its limbs. But what makes it so special? Find out the secrets behind its regeneration abilities. Follow us for more mind-blowing facts! #shorts #fyp #axolotl #regeneration #animalfacts",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#axolotl",
+      "#regeneration",
+      "#animalfacts",
+      "#wildlife",
+      "#science"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Real Reason Behind the Scream of the Marmot",
+    "thumb": "MARMOT SECRETS",
+    "scenes": [
+      {
+        "hook_top": "MARMOT SCREAM",
+        "query": "marmot screaming",
+        "query2": "marmot alarm call",
+        "role": "hook",
+        "text": "The 200-decibel scream of the marmot"
+      },
+      {
+        "num": 1,
+        "label": "WARNING CALL",
+        "label_on": "warning",
+        "query": "marmot warning call",
+        "query2": "groundhog alarm call",
+        "role": "count",
+        "text": "1. It is a warning call to other marmots"
+      },
+      {
+        "num": 2,
+        "label": "LONG DISTANCE",
+        "label_on": "distance",
+        "query": "marmot vocalization",
+        "query2": "groundhog sound",
+        "role": "count",
+        "text": "2. It can be heard from over a mile away"
+      },
+      {
+        "num": 3,
+        "label": "VOCAL ANATOMY",
+        "label_on": "vocal",
+        "query": "marmot vocal anatomy",
+        "query2": "groundhog vocal cords",
+        "role": "count",
+        "text": "3. The scream is a result of its unique vocal anatomy"
+      },
+      {
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "The Real Reason Behind the Scream of the Marmot",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "The marmot's scream is one of the loudest animal sounds in the world. But what's behind this ear-piercing call? Find out the secrets behind the marmot's scream. Follow us for more mind-blowing facts about animals! #shorts #fyp #marmot #scream #animalfacts",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#marmot",
+      "#scream",
+      "#animalfacts",
+      "#wildlife",
+      "#nature"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Narwhals Have a Unique Tusk?",
+    "thumb": "NARWHAL TUSK",
+    "scenes": [
+      {
+        "hook_top": "NARWHAL TUSK",
+        "query": "narwhal tusk",
+        "query2": "unicorn of the sea",
+        "role": "hook",
+        "text": "The 10-foot tusk of the narwhal"
+      },
+      {
+        "num": 1,
+        "label": "MODIFIED TOOTH",
+        "label_on": "tooth",
+        "query": "narwhal tusk tooth",
+        "query2": "narwhal dental anatomy",
+        "role": "count",
+        "text": "1. It is actually a modified tooth"
+      },
+      {
+        "num": 2,
+        "label": "TUSK DISTRIBUTION",
+        "label_on": "tusk",
+        "query": "narwhal tusk distribution",
+        "query2": "narwhal sex differences",
+        "role": "count",
+        "text": "2. The tusk is found in male narwhals and some females"
+      },
+      {
+        "num": 3,
+        "label": "SENSORY FUNCTION",
+        "label_on": "sensing",
+        "query": "narwhal tusk sensory function",
+        "query2": "narwhal sensory abilities",
+        "role": "count",
+        "text": "3. The tusk may be used for sensing the environment"
+      },
+      {
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "Why Do Narwhals Have a Unique Tusk?",
+        "query2": "cinematic nature landscape"
+      }
+    ],
+    "description": "The narwhal's tusk is one of the most unique features in the animal kingdom. But what's the purpose of this mysterious tusk? Find out the secrets behind the narwhal's tusk. Follow us for more fascinating facts about the ocean! #shorts #fyp #narwhal #tusk #oceanfacts",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#narwhal",
+      "#tusk",
+      "#oceanfacts",
+      "#marinebiology",
+      "#wildlife"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why is the Axolotl's Regeneration So Unique?",
+    "thumb": "AXOLOTL SECRETS",
+    "scenes": [
+      {
+        "hook_top": "AXOLOTL REGENERATION",
+        "query": "axolotl regrowing limb",
+        "query2": "salamander regeneration",
+        "role": "hook",
+        "text": "1 in 5 axolotls can regrow limbs"
+      },
+      {
+        "label": "Myth: Animal Regrowth",
+        "query": "animal limb regrowth",
+        "query2": "creature regeneration",
+        "role": "myth",
+        "text": "Most animals can regrow lost body parts"
+      },
+      {
+        "label": "Axolotl Regeneration",
+        "query": "axolotl genetic makeup",
+        "query2": "salamander genome",
+        "role": "truth",
+        "text": "Axolotls have a unique genetic makeup that allows them to regrow limbs, eyes, and parts of their brain"
+      },
+      {
+        "label": "Regrow Spinal Cord",
+        "sub": "Unlocking axolotl secrets",
+        "label_on": "Regeneration",
+        "query": "axolotl spinal cord regeneration",
+        "query2": "salamander spinal cord regrowth",
+        "role": "callout",
+        "text": "The axolotl's power to regrow its spinal cord is still not fully understood"
+      },
+      {
+        "query": "animal facts",
+        "query2": "wildlife secrets",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "The axolotl's unique regeneration abilities have fascinated scientists and animal lovers alike. But what makes this creature so special? Follow us for more mind-blowing animal facts! #shorts #animalregeneration #axolotl",
+    "hashtags": [
+      "#shorts",
+      "#animalregeneration",
+      "#axolotl",
+      "#regeneration",
+      "#wildlifesecrets",
+      "#mindblowingfacts",
+      "#animallovers",
+      "#science"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Pangong Lake Is Unique",
+    "thumb": "PANGONG LAKE",
+    "scenes": [
+      {
+        "hook_top": "PANGONG LAKE",
+        "query": "Pangong Lake",
+        "query2": "lake in India",
+        "role": "hook",
+        "text": "1 lake in India"
+      },
+      {
+        "chips": [
+          {
+            "t": "HIGHEST",
+            "on": "lake",
+            "style": "white"
+          }
+        ],
+        "punch": "high",
+        "query": "Pangong Lake location",
+        "query2": "highest lakes in the world",
+        "role": "fact",
+        "text": "Pangong Lake is one of the highest saltwater lakes"
+      },
+      {
+        "chips": [
+          {
+            "t": "3.3X",
+            "on": "salinity",
+            "style": "accent"
+          }
+        ],
+        "punch": "salty",
+        "query": "Pangong Lake water",
+        "query2": "saltwater lakes",
+        "role": "fact",
+        "text": "With a salinity of 3.3 times that of regular seawater"
+      },
+      {
+        "reveal_top": "FROZEN LAKE",
+        "query": "Pangong Lake frozen",
+        "query2": "frozen lakes",
+        "role": "reveal",
+        "text": "That freezes in winter but doesn't support aquatic life"
+      },
+      {
+        "query": "globe with countries",
+        "query2": "earth from space",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Discover the unique features of Pangong Lake, a fascinating natural wonder in India. With its high salinity and inability to support aquatic life, this lake is a true marvel. Follow for more fascinating facts about our planet.",
+    "hashtags": [
+      "#PangongLake",
+      "#UniqueLake",
+      "#IndiaFacts",
+      "#LakeLife",
+      "#FascinatingFacts",
+      "#Shorts",
+      "#Fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why a Giraffe's Tongue Is Blue?",
+    "thumb": "BLUE TONGUE",
+    "scenes": [
+      {
+        "hook_top": "BLUE TONGUE",
+        "query": "giraffe tongue",
+        "query2": "giraffe blue tongue",
+        "role": "hook",
+        "text": "1 weird giraffe feature"
+      },
+      {
+        "chips": [
+          {
+            "t": "2X",
+            "on": "bend",
+            "style": "white"
+          }
+        ],
+        "punch": "bend",
+        "query": "giraffe neck valve",
+        "query2": "giraffe brain blood flow",
+        "role": "fact",
+        "text": "Giraffes have a special valve in their neck to stop their brains from getting too much blood when they bend down"
+      },
+      {
+        "chips": [
+          {
+            "t": "18in",
+            "on": "long",
+            "style": "accent"
+          }
+        ],
+        "query": "giraffe tongue color",
+        "query2": "giraffe tongue protection",
+        "role": "fact",
+        "text": "Their blue-black tongue helps protect it from the sun"
+      },
+      {
+        "label": "Tongue Sunscreen",
+        "sub": "blue tongue",
+        "label_on": "sunscreen",
+        "query": "giraffe tongue closeup",
+        "query2": "giraffe eating leaves",
+        "role": "callout",
+        "text": "Nature's sunscreen"
+      },
+      {
+        "query": "animal facts",
+        "query2": "wildlife secrets",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Giraffes have a special feature that protects their brains and tongues. Find out what it is! Follow for more animal secrets",
+    "hashtags": [
+      "#giraffefacts",
+      "#animalsecrets",
+      "#wildlifewonders",
+      "#shorts",
+      "#fyp",
+      "#giraffetongue"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

@@ -1,0 +1,53 @@
+{
+  "title": "Why a Giraffe's Spots Are Unique?",
+  "thumb": "GIRAFFE SPOTS",
+  "scenes": [
+    {
+      "hook_top": "NO TWO SPOTS",
+      "query": "giraffe spots",
+      "query2": "giraffe pattern",
+      "role": "hook",
+      "text": "2 giraffes have same spots"
+    },
+    {
+      "label": "Same Spots",
+      "query": "giraffe spot pattern",
+      "query2": "giraffe coat pattern",
+      "role": "myth",
+      "text": "Giraffes have the same spot patterns"
+    },
+    {
+      "label": "Unique Spots",
+      "query": "giraffe spot uniqueness",
+      "query2": "giraffe fingerprint analogy",
+      "role": "truth",
+      "text": "Each giraffe's spot pattern is unique, like human fingerprints"
+    },
+    {
+      "label": "Spot ID",
+      "sub": "each spot is unique",
+      "label_on": "just like us",
+      "query": "giraffe identification",
+      "query2": "giraffe spot identification",
+      "role": "callout",
+      "text": "Nature's own barcode for identification"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "natural world facts",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Giraffes have unique spot patterns, just like human fingerprints. Discover the fascinating world of giraffe identification and more mind-blowing facts about the natural world. Follow for more!",
+  "hashtags": [
+    "#giraffes",
+    "#wildlife",
+    "#nature",
+    "#mindblowingfacts",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

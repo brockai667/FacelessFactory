@@ -1,0 +1,65 @@
+{
+  "title": "Why Do Tigers Have Such Rough Tongues?",
+  "thumb": "TIGER TONGUE",
+  "scenes": [
+    {
+      "hook_top": "TIGER TONGUE SPINES",
+      "query": "tiger tongue",
+      "query2": "tiger eating",
+      "role": "hook",
+      "text": "A tiger's tongue is covered in 1,000 spines"
+    },
+    {
+      "chips": [
+        {
+          "t": "KERATIN",
+          "on": "keratin",
+          "style": "white"
+        }
+      ],
+      "punch": "sharp",
+      "query": "keratin structure",
+      "query2": "human hair microscopic view",
+      "role": "fact",
+      "text": "These spines are made of keratin, the same protein as human hair"
+    },
+    {
+      "chips": [
+        {
+          "t": "0.5MM",
+          "on": "mm long",
+          "style": "accent"
+        }
+      ],
+      "query": "tiger tongue closeup",
+      "query2": "microscopic view of tiger tongue",
+      "role": "fact",
+      "text": "The spines on a tiger's tongue can be up to 0.5 mm long"
+    },
+    {
+      "reveal_top": "TIGER TONGUE POWER",
+      "query": "tiger eating meat",
+      "query2": "tiger with prey",
+      "role": "reveal",
+      "text": "And they help tigers scrape meat off bones with ease"
+    },
+    {
+      "query": "animal facts logo",
+      "query2": "wildlife documentary",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "A tiger's tongue is a powerful tool that helps them eat their prey. But what makes it so special? Find out the surprising truth behind a tiger's rough tongue. Follow us for more mind-blowing animal facts!",
+  "hashtags": [
+    "#tigerfacts",
+    "#animalfacts",
+    "#wildlife",
+    "#tonguepower",
+    "#mindblowing",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
