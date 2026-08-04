@@ -7628,5 +7628,255 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "What's the Purpose of the Uvula?",
+    "thumb": "UVULA SECRET",
+    "scenes": [
+      {
+        "hook_top": "SMALL ORGAN SECRET",
+        "query": "uvula",
+        "query2": "human mouth",
+        "role": "hook",
+        "text": "1 small organ"
+      },
+      {
+        "num": 1,
+        "label": "BACTERIA TRAP",
+        "label_on": "bacteria trap",
+        "query": "uvula function",
+        "query2": "nasal cavity",
+        "role": "count",
+        "text": "The uvula helps to trap bacteria and other debris that enter the nasal cavity"
+      },
+      {
+        "num": 2,
+        "label": "SALIVA PRODUCTION",
+        "label_on": "saliva production",
+        "query": "saliva production",
+        "query2": "swallowing process",
+        "role": "count",
+        "text": "It also plays a role in the production of saliva and the swallowing process"
+      },
+      {
+        "num": 3,
+        "label": "INFLAMMATION RISK",
+        "label_on": "inflammation risk",
+        "query": "uvula inflammation",
+        "query2": "throat infection",
+        "role": "count",
+        "text": "In some cases, the uvula can become inflamed or infected, leading to painful symptoms"
+      },
+      {
+        "query": "human body facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day."
+      }
+    ],
+    "description": "The uvula is a small organ located in the back of the throat, but it plays a vital role in our overall health. Find out what its purpose is and how it affects our daily lives. Follow us for more fascinating facts about the human body!",
+    "hashtags": [
+      "#Uvula",
+      "#HumanBody",
+      "#MouthSecrets",
+      "#ThroatHealth",
+      "#FascinatingFacts",
+      "#BodyFacts",
+      "#Shorts",
+      "#FYP",
+      "#Health"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Does the Uvula Exist?",
+    "thumb": "UVULA SECRET",
+    "scenes": [
+      {
+        "hook_top": "UVULA MYSTERY",
+        "query": "uvula anatomy",
+        "query2": "human throat",
+        "role": "hook",
+        "text": "22% of people have a uvula issue"
+      },
+      {
+        "label": "Useless",
+        "query": "uvula function",
+        "query2": "human body evolution",
+        "role": "myth",
+        "text": "The uvula is a useless body part"
+      },
+      {
+        "label": "Speech Aid",
+        "query": "uvula role in speech",
+        "query2": "human vocal cords",
+        "role": "truth",
+        "text": "The uvula helps with speech and swallowing"
+      },
+      {
+        "label": "Body Secrets",
+        "sub": "Discover the truth",
+        "label_on": "Now",
+        "query": "human body secrets",
+        "query2": "uvula facts",
+        "role": "callout",
+        "text": "The uvula is more important than you think, learn more about its role in your body"
+      },
+      {
+        "query": "human body facts",
+        "query2": "interesting body secrets",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Explore the mysterious world of the uvula and its importance in our daily lives. Learn more about the secrets of the human body and its fascinating functions. Follow us for more mind-blowing facts!",
+    "hashtags": [
+      "#uvula",
+      "#humanbody",
+      "#bodysecrets",
+      "#mindblowingfacts",
+      "#health",
+      "#science",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Mysterious Case of 7 Sleeping Sicknesses",
+    "thumb": "SLEEPING SICK",
+    "scenes": [
+      {
+        "hook_top": "SLEEPING SICKNESS",
+        "query": "sleeping sickness",
+        "query2": "encephalitis lethargica",
+        "role": "hook",
+        "text": "7 people got sleeping sickness"
+      },
+      {
+        "chips": [
+          {
+            "t": "1916",
+            "on": "outbreak",
+            "style": "white"
+          }
+        ],
+        "punch": "Coma",
+        "query": "encephalitis lethargica coma",
+        "query2": "sleeping sickness epidemic",
+        "role": "fact",
+        "text": "The sickness can cause a coma-like state"
+      },
+      {
+        "chips": [
+          {
+            "t": "60",
+            "on": "years asleep",
+            "style": "accent"
+          }
+        ],
+        "query": "longest sleeping sickness",
+        "query2": "sleeping sickness duration",
+        "role": "fact",
+        "text": "Some patients slept for up to 60 years"
+      },
+      {
+        "reveal_top": "STILL UNKNOWN",
+        "query": "sleeping sickness cause",
+        "query2": "encephalitis lethargica origin",
+        "role": "reveal",
+        "text": "The cause remains unknown to this day"
+      },
+      {
+        "query": "mysterious facts channel",
+        "query2": "mind-blowing facts page",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Discover the mysterious case of 7 sleeping sicknesses that left scientists baffled. What caused this strange illness? Follow us for more mind-blowing facts! #sleepingsickness #mystery #mindblowingfacts #health #science",
+    "hashtags": [
+      "#sleepingsickness",
+      "#mystery",
+      "#mindblowingfacts",
+      "#health",
+      "#science",
+      "#medical",
+      "#baffling",
+      "#strange",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "What's Behind the UVula?",
+    "thumb": "UVULA SECRETS",
+    "scenes": [
+      {
+        "hook_top": "UVULA MYSTERY",
+        "query": "uvula",
+        "query2": "human mouth",
+        "role": "hook",
+        "text": "1 tiny body part"
+      },
+      {
+        "chips": [
+          {
+            "t": "10%",
+            "on": "speech",
+            "style": "accent"
+          }
+        ],
+        "query": "uvula function",
+        "query2": "human speech organs",
+        "role": "fact",
+        "text": "The uvula helps with speech"
+      },
+      {
+        "chips": [
+          {
+            "t": "50%",
+            "on": "swallowing",
+            "style": "white"
+          }
+        ],
+        "punch": "swallow",
+        "query": "uvula swallowing",
+        "query2": "human digestive system",
+        "role": "fact",
+        "text": "It aids in swallowing food"
+      },
+      {
+        "label": "UVULA FACTS",
+        "sub": "Discover more",
+        "label_on": "secrets",
+        "query": "uvula interesting facts",
+        "query2": "human body secrets",
+        "role": "callout",
+        "text": "Unlock the uvula's secrets"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "interesting science facts",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Explore the mysterious world of the uvula, a tiny body part with a big role. Discover its secrets and functions. Follow us for more mind-blowing facts!",
+    "hashtags": [
+      "#uvula",
+      "#humanbody",
+      "#mindblowingfacts",
+      "#science",
+      "#secrets",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

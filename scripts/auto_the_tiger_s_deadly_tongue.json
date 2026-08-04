@@ -1,0 +1,67 @@
+{
+  "title": "The Tiger's Deadly Tongue",
+  "thumb": "TIGER TONGUE DANGER",
+  "scenes": [
+    {
+      "hook_top": "SHARP TIGER TONGUE",
+      "query": "tiger tongue",
+      "query2": "tiger anatomy",
+      "role": "hook",
+      "text": "Tiger's tongue is so sharp"
+    },
+    {
+      "chips": [
+        {
+          "t": "PAPIL",
+          "on": "hooks",
+          "style": "white"
+        }
+      ],
+      "punch": "sharp",
+      "query": "tiger tongue papillae",
+      "query2": "tiger tongue structure",
+      "role": "fact",
+      "text": "Tiger's tongue has tiny hooks called papillae"
+    },
+    {
+      "chips": [
+        {
+          "t": "MEAT",
+          "on": "scrape",
+          "style": "accent"
+        }
+      ],
+      "query": "tiger eating habits",
+      "query2": "tiger feeding behavior",
+      "role": "fact",
+      "text": "These papillae help scrape meat from bones"
+    },
+    {
+      "label": "DEADLY TOOL",
+      "sub": "tiger's secret",
+      "label_on": "tongue",
+      "query": "tiger tongue function",
+      "query2": "tiger tongue importance",
+      "role": "callout",
+      "text": "The tongue is a deadly tool"
+    },
+    {
+      "query": "wild facts",
+      "query2": "animal facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Discover the tiger's deadly tongue and how it uses its sharp papillae to scrape meat from bones. The tongue is a deadly tool in the tiger's arsenal. Follow us for more wild facts! #shorts #fyp #tiger #wildlife #animalfacts",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#tiger",
+    "#wildlife",
+    "#animalfacts",
+    "#tongue",
+    "#deadlytool"
+  ],
+  "place": "",
+  "country": ""
+}
