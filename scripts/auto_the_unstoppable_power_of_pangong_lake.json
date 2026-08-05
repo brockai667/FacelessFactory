@@ -1,0 +1,58 @@
+{
+  "title": "The Unstoppable Power of Pangong Lake",
+  "thumb": "PANGONG LAKE",
+  "scenes": [
+    {
+      "hook_top": "WORLD'S HIGHEST LAKE",
+      "query": "Pangong Lake",
+      "query2": "high-altitude lakes",
+      "role": "hook",
+      "text": "134 km long"
+    },
+    {
+      "num": 1,
+      "label": "HIGH ALTITUDE",
+      "label_on": "altitude",
+      "query": "Pangong Lake altitude",
+      "query2": "high-altitude lakes",
+      "role": "count",
+      "text": "Pangong Lake is situated at an altitude of over 4300 meters"
+    },
+    {
+      "num": 2,
+      "label": "SALINE WATER",
+      "label_on": "water",
+      "query": "Pangong Lake water",
+      "query2": "saline lakes",
+      "role": "count",
+      "text": "Pangong Lake is a saline water lake with no outlet"
+    },
+    {
+      "num": 3,
+      "label": "BORDER DISPUTE",
+      "label_on": "dispute",
+      "query": "Pangong Lake dispute",
+      "query2": "India China border dispute",
+      "role": "count",
+      "text": "Pangong Lake is a disputed territory between India and China"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "The Unstoppable Power of Pangong Lake",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Discover the unstoppable power of Pangong Lake, one of the highest lakes in the world. From its high altitude to its disputed territory, Pangong Lake is full of fascinating facts. Follow us for more mind-blowing geography facts!",
+  "hashtags": [
+    "#PangongLake",
+    "#GeographyFacts",
+    "#MindBlowing",
+    "#HighAltitudeLakes",
+    "#IndiaChinaDispute",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,58 @@
+{
+  "title": "The Amazing Science of Tiger Tongues",
+  "thumb": "TIGER TONGUE",
+  "scenes": [
+    {
+      "hook_top": "TIGER TONGUE POWER",
+      "query": "tiger tongue",
+      "query2": "animal tongues",
+      "role": "hook",
+      "text": "1000 times stronger"
+    },
+    {
+      "num": 1,
+      "label": "STRONGEST TONGUE",
+      "label_on": "strength",
+      "query": "tiger tongue strength",
+      "query2": "animal tongue strength",
+      "role": "count",
+      "text": "A tiger's tongue is 1000 times stronger than a human's"
+    },
+    {
+      "num": 2,
+      "label": "RASPY TEXTURE",
+      "label_on": "texture",
+      "query": "tiger tongue texture",
+      "query2": "animal tongue texture",
+      "role": "count",
+      "text": "Tiger tongues have tiny spines that help scrape meat from bones"
+    },
+    {
+      "num": 3,
+      "label": "DEADLY PURPOSE",
+      "label_on": "purpose",
+      "query": "tiger hunting",
+      "query2": "tiger prey",
+      "role": "count",
+      "text": "Tigers use their tongues to hunt and kill prey"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "The Amazing Science of Tiger Tongues",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Get ready to be amazed by the incredible science of tiger tongues! From their super-strong tongues to their deadly purpose, tigers are full of fascinating facts. Follow us for more mind-blowing animal facts!",
+  "hashtags": [
+    "#TigerTongue",
+    "#AnimalFacts",
+    "#MindBlowing",
+    "#Wildlife",
+    "#Tigers",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

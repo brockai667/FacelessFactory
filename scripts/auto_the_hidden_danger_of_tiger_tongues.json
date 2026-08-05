@@ -1,0 +1,67 @@
+{
+  "title": "The Hidden Danger of Tiger Tongues",
+  "thumb": "TIGER TONGUE",
+  "scenes": [
+    {
+      "hook_top": "TIGER TONGUE",
+      "query": "tiger tongue",
+      "query2": "tiger",
+      "role": "hook",
+      "text": "1 tiger's tongue"
+    },
+    {
+      "chips": [
+        {
+          "t": "100",
+          "on": "spines",
+          "style": "white"
+        }
+      ],
+      "punch": "Spines",
+      "query": "tiger tongue spines",
+      "query2": "tiger tongue",
+      "role": "fact",
+      "text": "Tiger tongues have spines that point backwards"
+    },
+    {
+      "chips": [
+        {
+          "t": "80%",
+          "on": "meat",
+          "style": "accent"
+        }
+      ],
+      "query": "tiger eating",
+      "query2": "tiger meal",
+      "role": "fact",
+      "text": "These spines help tigers scrape meat from bones"
+    },
+    {
+      "label": "Tiger Tongue",
+      "sub": "Danger",
+      "label_on": "tiger",
+      "query": "tiger face",
+      "query2": "tiger",
+      "role": "callout",
+      "text": "Now you know the secret of the tiger's tongue"
+    },
+    {
+      "query": "brain",
+      "query2": "mind",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Discover the hidden danger of tiger tongues and how they help these big cats eat. Follow us for more mind-blowing facts! ",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#tiger",
+    "#tongue",
+    "#danger",
+    "#wildlife",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
