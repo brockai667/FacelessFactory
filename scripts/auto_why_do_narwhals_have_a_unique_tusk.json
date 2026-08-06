@@ -1,0 +1,58 @@
+{
+  "title": "Why Do Narwhals Have a Unique Tusk?",
+  "thumb": "NARWHAL TUSK",
+  "scenes": [
+    {
+      "hook_top": "NARWHAL TUSK",
+      "query": "narwhal tusk",
+      "query2": "unicorn of the sea",
+      "role": "hook",
+      "text": "The 10-foot tusk of the narwhal"
+    },
+    {
+      "num": 1,
+      "label": "MODIFIED TOOTH",
+      "label_on": "tooth",
+      "query": "narwhal tusk tooth",
+      "query2": "narwhal dental anatomy",
+      "role": "count",
+      "text": "1. It is actually a modified tooth"
+    },
+    {
+      "num": 2,
+      "label": "TUSK DISTRIBUTION",
+      "label_on": "tusk",
+      "query": "narwhal tusk distribution",
+      "query2": "narwhal sex differences",
+      "role": "count",
+      "text": "2. The tusk is found in male narwhals and some females"
+    },
+    {
+      "num": 3,
+      "label": "SENSORY FUNCTION",
+      "label_on": "sensing",
+      "query": "narwhal tusk sensory function",
+      "query2": "narwhal sensory abilities",
+      "role": "count",
+      "text": "3. The tusk may be used for sensing the environment"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "Why Do Narwhals Have a Unique Tusk?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "The narwhal's tusk is one of the most unique features in the animal kingdom. But what's the purpose of this mysterious tusk? Find out the secrets behind the narwhal's tusk. Follow us for more fascinating facts about the ocean! #shorts #fyp #narwhal #tusk #oceanfacts",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#narwhal",
+    "#tusk",
+    "#oceanfacts",
+    "#marinebiology",
+    "#wildlife"
+  ],
+  "place": "",
+  "country": ""
+}

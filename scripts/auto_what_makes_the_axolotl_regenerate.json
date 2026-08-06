@@ -1,0 +1,58 @@
+{
+  "title": "What Makes the Axolotl Regenerate?",
+  "thumb": "AXOLOTL SECRETS",
+  "scenes": [
+    {
+      "hook_top": "ANIMAL REGEN",
+      "query": "axolotl regrowing limb",
+      "query2": "salamander regrowth",
+      "role": "hook",
+      "text": "1 animal can regrow its limbs"
+    },
+    {
+      "num": 1,
+      "label": "UNIQUE GENES",
+      "label_on": "genes",
+      "query": "axolotl genome",
+      "query2": "salamander dna",
+      "role": "count",
+      "text": "1. It has a unique genetic makeup"
+    },
+    {
+      "num": 2,
+      "label": "CELL DIFF",
+      "label_on": "cells",
+      "query": "axolotl cell differentiation",
+      "query2": "salamander stem cells",
+      "role": "count",
+      "text": "2. Its cells can differentiate into different types"
+    },
+    {
+      "num": 3,
+      "label": "BRAIN REGEN",
+      "label_on": "brain",
+      "query": "axolotl brain regeneration",
+      "query2": "salamander spinal cord regrowth",
+      "role": "count",
+      "text": "3. It can regenerate its brain and parts of its spinal cord"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "What Makes the Axolotl Regenerate?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "The axolotl is a unique animal that can regrow its limbs. But what makes it so special? Find out the secrets behind its regeneration abilities. Follow us for more mind-blowing facts! #shorts #fyp #axolotl #regeneration #animalfacts",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#axolotl",
+    "#regeneration",
+    "#animalfacts",
+    "#wildlife",
+    "#science"
+  ],
+  "place": "",
+  "country": ""
+}

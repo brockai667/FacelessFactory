@@ -1,0 +1,58 @@
+{
+  "title": "The Real Reason Behind the Scream of the Marmot",
+  "thumb": "MARMOT SECRETS",
+  "scenes": [
+    {
+      "hook_top": "MARMOT SCREAM",
+      "query": "marmot screaming",
+      "query2": "marmot alarm call",
+      "role": "hook",
+      "text": "The 200-decibel scream of the marmot"
+    },
+    {
+      "num": 1,
+      "label": "WARNING CALL",
+      "label_on": "warning",
+      "query": "marmot warning call",
+      "query2": "groundhog alarm call",
+      "role": "count",
+      "text": "1. It is a warning call to other marmots"
+    },
+    {
+      "num": 2,
+      "label": "LONG DISTANCE",
+      "label_on": "distance",
+      "query": "marmot vocalization",
+      "query2": "groundhog sound",
+      "role": "count",
+      "text": "2. It can be heard from over a mile away"
+    },
+    {
+      "num": 3,
+      "label": "VOCAL ANATOMY",
+      "label_on": "vocal",
+      "query": "marmot vocal anatomy",
+      "query2": "groundhog vocal cords",
+      "role": "count",
+      "text": "3. The scream is a result of its unique vocal anatomy"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "The Real Reason Behind the Scream of the Marmot",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "The marmot's scream is one of the loudest animal sounds in the world. But what's behind this ear-piercing call? Find out the secrets behind the marmot's scream. Follow us for more mind-blowing facts about animals! #shorts #fyp #marmot #scream #animalfacts",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#marmot",
+    "#scream",
+    "#animalfacts",
+    "#wildlife",
+    "#nature"
+  ],
+  "place": "",
+  "country": ""
+}
