@@ -8259,5 +8259,310 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Do Humans Get the Least Sleep?",
+    "thumb": "SLEEP FACTS",
+    "scenes": [
+      {
+        "hook_top": "HUMANS SLEEP LESS",
+        "query": "human sleep patterns",
+        "query2": "primate sleep patterns",
+        "role": "hook",
+        "text": "8 hours of sleep, but humans get less"
+      },
+      {
+        "num": 1,
+        "label": "LESS SLEEP",
+        "label_on": "humans",
+        "query": "human vs chimpanzee sleep",
+        "query2": "primate sleep comparison",
+        "role": "count",
+        "text": "Humans sleep 12% less than chimpanzees"
+      },
+      {
+        "num": 2,
+        "label": "BRAIN ENERGY",
+        "label_on": "sleep",
+        "query": "brain energy consumption",
+        "query2": "human brain function",
+        "role": "count",
+        "text": "The brain uses 20% of the body's energy while sleeping"
+      },
+      {
+        "num": 3,
+        "label": "COGNITIVE IMPACT",
+        "label_on": "sleep deprivation",
+        "query": "sleep deprivation effects",
+        "query2": "cognitive function impairment",
+        "role": "count",
+        "text": "Sleep deprivation can impair cognitive function by 40%"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Discover the surprising facts behind human sleep patterns. From the amount of sleep we get to the impact of sleep deprivation, learn more about the complexities of human sleep. Follow us for more mind-blowing facts!",
+    "hashtags": [
+      "#sleep",
+      "#humans",
+      "#mindblowing",
+      "#facts",
+      "#science",
+      "#health",
+      "#wellness",
+      "#brainfunction",
+      "#cognition"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Secret Life of Tigers' Tongues",
+    "thumb": "TIGER TONGUE",
+    "scenes": [
+      {
+        "hook_top": "TIGER TONGUE SECRET",
+        "query": "tiger tongue",
+        "query2": "tiger anatomy",
+        "role": "hook",
+        "text": "Tigers have a unique tongue feature"
+      },
+      {
+        "num": 1,
+        "label": "TONGUE HOOKS",
+        "label_on": "tigers",
+        "query": "tiger tongue papillae",
+        "query2": "tiger tongue structure",
+        "role": "count",
+        "text": "Tigers' tongues have tiny hooks called papillae"
+      },
+      {
+        "num": 2,
+        "label": "MEAT SCRAPING",
+        "label_on": "tigers",
+        "query": "tiger eating habits",
+        "query2": "tiger feeding behavior",
+        "role": "count",
+        "text": "These papillae help tigers scrape meat from bones"
+      },
+      {
+        "num": 3,
+        "label": "ROUGH TONGUE",
+        "label_on": "tigers",
+        "query": "tiger tongue texture",
+        "query2": "tiger tongue sensation",
+        "role": "count",
+        "text": "Tigers' tongues are also extremely rough, like sandpaper"
+      },
+      {
+        "query": "animal facts",
+        "query2": "wildlife facts",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Uncover the fascinating secrets behind tigers' tongues. From the unique tongue features to their eating habits, learn more about these majestic creatures. Follow us for more mind-blowing animal facts!",
+    "hashtags": [
+      "#tigers",
+      "#animalfacts",
+      "#wildlife",
+      "#nature",
+      "#conservation",
+      "#tongue",
+      "#anatomy",
+      "#zoology"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Humans Have Crooked Teeth?",
+    "thumb": "CROOKED TEETH",
+    "scenes": [
+      {
+        "hook_top": "CROOKED TEETH FACT",
+        "query": "human teeth",
+        "query2": "orthodontics",
+        "role": "hook",
+        "text": "80% of humans have crooked teeth"
+      },
+      {
+        "num": 1,
+        "label": "SMALL JAW",
+        "label_on": "humans",
+        "query": "human jaw structure",
+        "query2": "orthodontic issues",
+        "role": "count",
+        "text": "Humans' jaws are too small for their teeth"
+      },
+      {
+        "num": 2,
+        "label": "DIETARY INFLUENCE",
+        "label_on": "teeth",
+        "query": "human diet and teeth",
+        "query2": "nutrition and oral health",
+        "role": "count",
+        "text": "The shape of our teeth is influenced by our diet"
+      },
+      {
+        "num": 3,
+        "label": "GENETIC FACTOR",
+        "label_on": "teeth",
+        "query": "genetics and tooth alignment",
+        "query2": "inherited dental traits",
+        "role": "count",
+        "text": "Genetics play a significant role in tooth alignment"
+      },
+      {
+        "query": "human body facts",
+        "query2": "anatomy facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Discover the surprising reasons behind humans' crooked teeth. From jaw structure to diet and genetics, learn more about the complexities of human teeth. Follow us for more mind-blowing facts about the human body!",
+    "hashtags": [
+      "#teeth",
+      "#orthodontics",
+      "#humanbody",
+      "#anatomy",
+      "#dentistry",
+      "#oralhealth",
+      "#genetics"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Our Fingertips Have Unique Prints?",
+    "thumb": "FINGERPRINT SECRETS",
+    "scenes": [
+      {
+        "hook_top": "FINGERPRINTS",
+        "query": "human fingerprint",
+        "query2": "finger print",
+        "role": "hook",
+        "text": "1.6mm of skin"
+      },
+      {
+        "chips": [
+          {
+            "t": "100",
+            "on": "unique points",
+            "style": "white"
+          }
+        ],
+        "query": "fingerprint points",
+        "query2": "fingerprint unique",
+        "role": "fact",
+        "text": "Each fingerprint has around 100 unique points"
+      },
+      {
+        "query": "fingerprint twins",
+        "query2": "twins fingerprints",
+        "role": "fact",
+        "text": "No two fingerprints are alike, even among twins",
+        "chips": []
+      },
+      {
+        "label": "Fingerprint Secrets",
+        "sub": "Uncovered",
+        "label_on": "uncovered",
+        "query": "fingerprint secrets",
+        "query2": "fingerprint mystery",
+        "role": "callout",
+        "text": "Unravel the mystery behind unique fingerprints"
+      },
+      {
+        "query": "mind blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Discover the fascinating science behind unique fingerprints and how they're used to identify individuals. Follow us for more mind-blowing facts!",
+    "hashtags": [
+      "#FingerprintSecrets",
+      "#MindBlowingFacts",
+      "#Fingerprints",
+      "#UniqueIdentifiers",
+      "#Science",
+      "#Facts",
+      "#Shorts",
+      "#Fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "What's Behind the Unstoppable Power of Geysers?",
+    "thumb": "GEYSER POWER",
+    "scenes": [
+      {
+        "hook_top": "GEYSER ERUPTION",
+        "query": "geyser eruption",
+        "query2": "geyser explosion",
+        "role": "hook",
+        "text": "10,000 years of pressure"
+      },
+      {
+        "chips": [
+          {
+            "t": "17",
+            "on": "erupts",
+            "style": "accent"
+          }
+        ],
+        "query": "old faithful geyser",
+        "query2": "geyser eruption frequency",
+        "role": "fact",
+        "text": "Old Faithful erupts around 17 times a day"
+      },
+      {
+        "chips": [
+          {
+            "t": "1,700",
+            "on": "feet",
+            "style": "white"
+          }
+        ],
+        "query": "tallest geyser eruption",
+        "query2": "geyser height record",
+        "role": "fact",
+        "text": "The tallest geyser eruption reached 1,700 feet"
+      },
+      {
+        "label": "Geyser Secrets",
+        "sub": "Revealed",
+        "label_on": "revealed",
+        "query": "geyser secrets",
+        "query2": "geyser science",
+        "role": "callout",
+        "text": "Uncover the fascinating science behind geysers"
+      },
+      {
+        "query": "mind blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Explore the incredible world of geysers and the unstoppable power that drives them. Follow us for more mind-blowing facts!",
+    "hashtags": [
+      "#GeyserPower",
+      "#MindBlowingFacts",
+      "#Geysers",
+      "#Science",
+      "#Facts",
+      "#Shorts",
+      "#Fyp",
+      "#Nature"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

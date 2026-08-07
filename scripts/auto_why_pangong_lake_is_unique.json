@@ -1,0 +1,66 @@
+{
+  "title": "Why Pangong Lake Is Unique",
+  "thumb": "PANGONG LAKE",
+  "scenes": [
+    {
+      "hook_top": "PANGONG LAKE",
+      "query": "Pangong Lake",
+      "query2": "lake in India",
+      "role": "hook",
+      "text": "1 lake in India"
+    },
+    {
+      "chips": [
+        {
+          "t": "HIGHEST",
+          "on": "lake",
+          "style": "white"
+        }
+      ],
+      "punch": "high",
+      "query": "Pangong Lake location",
+      "query2": "highest lakes in the world",
+      "role": "fact",
+      "text": "Pangong Lake is one of the highest saltwater lakes"
+    },
+    {
+      "chips": [
+        {
+          "t": "3.3X",
+          "on": "salinity",
+          "style": "accent"
+        }
+      ],
+      "punch": "salty",
+      "query": "Pangong Lake water",
+      "query2": "saltwater lakes",
+      "role": "fact",
+      "text": "With a salinity of 3.3 times that of regular seawater"
+    },
+    {
+      "reveal_top": "FROZEN LAKE",
+      "query": "Pangong Lake frozen",
+      "query2": "frozen lakes",
+      "role": "reveal",
+      "text": "That freezes in winter but doesn't support aquatic life"
+    },
+    {
+      "query": "globe with countries",
+      "query2": "earth from space",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Discover the unique features of Pangong Lake, a fascinating natural wonder in India. With its high salinity and inability to support aquatic life, this lake is a true marvel. Follow for more fascinating facts about our planet.",
+  "hashtags": [
+    "#PangongLake",
+    "#UniqueLake",
+    "#IndiaFacts",
+    "#LakeLife",
+    "#FascinatingFacts",
+    "#Shorts",
+    "#Fyp"
+  ],
+  "place": "",
+  "country": ""
+}

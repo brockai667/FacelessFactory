@@ -1,0 +1,66 @@
+{
+  "title": "Why a Giraffe's Tongue Is Blue?",
+  "thumb": "BLUE TONGUE",
+  "scenes": [
+    {
+      "hook_top": "BLUE TONGUE",
+      "query": "giraffe tongue",
+      "query2": "giraffe blue tongue",
+      "role": "hook",
+      "text": "1 weird giraffe feature"
+    },
+    {
+      "chips": [
+        {
+          "t": "2X",
+          "on": "bend",
+          "style": "white"
+        }
+      ],
+      "punch": "bend",
+      "query": "giraffe neck valve",
+      "query2": "giraffe brain blood flow",
+      "role": "fact",
+      "text": "Giraffes have a special valve in their neck to stop their brains from getting too much blood when they bend down"
+    },
+    {
+      "chips": [
+        {
+          "t": "18in",
+          "on": "long",
+          "style": "accent"
+        }
+      ],
+      "query": "giraffe tongue color",
+      "query2": "giraffe tongue protection",
+      "role": "fact",
+      "text": "Their blue-black tongue helps protect it from the sun"
+    },
+    {
+      "label": "Tongue Sunscreen",
+      "sub": "blue tongue",
+      "label_on": "sunscreen",
+      "query": "giraffe tongue closeup",
+      "query2": "giraffe eating leaves",
+      "role": "callout",
+      "text": "Nature's sunscreen"
+    },
+    {
+      "query": "animal facts",
+      "query2": "wildlife secrets",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Giraffes have a special feature that protects their brains and tongues. Find out what it is! Follow for more animal secrets",
+  "hashtags": [
+    "#giraffefacts",
+    "#animalsecrets",
+    "#wildlifewonders",
+    "#shorts",
+    "#fyp",
+    "#giraffetongue"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,55 @@
+{
+  "title": "Why is the Axolotl's Regeneration So Unique?",
+  "thumb": "AXOLOTL SECRETS",
+  "scenes": [
+    {
+      "hook_top": "AXOLOTL REGENERATION",
+      "query": "axolotl regrowing limb",
+      "query2": "salamander regeneration",
+      "role": "hook",
+      "text": "1 in 5 axolotls can regrow limbs"
+    },
+    {
+      "label": "Myth: Animal Regrowth",
+      "query": "animal limb regrowth",
+      "query2": "creature regeneration",
+      "role": "myth",
+      "text": "Most animals can regrow lost body parts"
+    },
+    {
+      "label": "Axolotl Regeneration",
+      "query": "axolotl genetic makeup",
+      "query2": "salamander genome",
+      "role": "truth",
+      "text": "Axolotls have a unique genetic makeup that allows them to regrow limbs, eyes, and parts of their brain"
+    },
+    {
+      "label": "Regrow Spinal Cord",
+      "sub": "Unlocking axolotl secrets",
+      "label_on": "Regeneration",
+      "query": "axolotl spinal cord regeneration",
+      "query2": "salamander spinal cord regrowth",
+      "role": "callout",
+      "text": "The axolotl's power to regrow its spinal cord is still not fully understood"
+    },
+    {
+      "query": "animal facts",
+      "query2": "wildlife secrets",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "The axolotl's unique regeneration abilities have fascinated scientists and animal lovers alike. But what makes this creature so special? Follow us for more mind-blowing animal facts! #shorts #animalregeneration #axolotl",
+  "hashtags": [
+    "#shorts",
+    "#animalregeneration",
+    "#axolotl",
+    "#regeneration",
+    "#wildlifesecrets",
+    "#mindblowingfacts",
+    "#animallovers",
+    "#science"
+  ],
+  "place": "",
+  "country": ""
+}
