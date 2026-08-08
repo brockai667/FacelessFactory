@@ -1,0 +1,68 @@
+{
+  "title": "The Mysterious Case of 7 Sleeping Sicknesses",
+  "thumb": "SLEEPING SICK",
+  "scenes": [
+    {
+      "hook_top": "SLEEPING SICKNESS",
+      "query": "sleeping sickness",
+      "query2": "encephalitis lethargica",
+      "role": "hook",
+      "text": "7 people got sleeping sickness"
+    },
+    {
+      "chips": [
+        {
+          "t": "1916",
+          "on": "outbreak",
+          "style": "white"
+        }
+      ],
+      "punch": "Coma",
+      "query": "encephalitis lethargica coma",
+      "query2": "sleeping sickness epidemic",
+      "role": "fact",
+      "text": "The sickness can cause a coma-like state"
+    },
+    {
+      "chips": [
+        {
+          "t": "60",
+          "on": "years asleep",
+          "style": "accent"
+        }
+      ],
+      "query": "longest sleeping sickness",
+      "query2": "sleeping sickness duration",
+      "role": "fact",
+      "text": "Some patients slept for up to 60 years"
+    },
+    {
+      "reveal_top": "STILL UNKNOWN",
+      "query": "sleeping sickness cause",
+      "query2": "encephalitis lethargica origin",
+      "role": "reveal",
+      "text": "The cause remains unknown to this day"
+    },
+    {
+      "query": "mysterious facts channel",
+      "query2": "mind-blowing facts page",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Discover the mysterious case of 7 sleeping sicknesses that left scientists baffled. What caused this strange illness? Follow us for more mind-blowing facts! #sleepingsickness #mystery #mindblowingfacts #health #science",
+  "hashtags": [
+    "#sleepingsickness",
+    "#mystery",
+    "#mindblowingfacts",
+    "#health",
+    "#science",
+    "#medical",
+    "#baffling",
+    "#strange",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

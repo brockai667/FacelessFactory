@@ -1,0 +1,55 @@
+{
+  "title": "Why Does the Uvula Exist?",
+  "thumb": "UVULA SECRET",
+  "scenes": [
+    {
+      "hook_top": "UVULA MYSTERY",
+      "query": "uvula anatomy",
+      "query2": "human throat",
+      "role": "hook",
+      "text": "22% of people have a uvula issue"
+    },
+    {
+      "label": "Useless",
+      "query": "uvula function",
+      "query2": "human body evolution",
+      "role": "myth",
+      "text": "The uvula is a useless body part"
+    },
+    {
+      "label": "Speech Aid",
+      "query": "uvula role in speech",
+      "query2": "human vocal cords",
+      "role": "truth",
+      "text": "The uvula helps with speech and swallowing"
+    },
+    {
+      "label": "Body Secrets",
+      "sub": "Discover the truth",
+      "label_on": "Now",
+      "query": "human body secrets",
+      "query2": "uvula facts",
+      "role": "callout",
+      "text": "The uvula is more important than you think, learn more about its role in your body"
+    },
+    {
+      "query": "human body facts",
+      "query2": "interesting body secrets",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Explore the mysterious world of the uvula and its importance in our daily lives. Learn more about the secrets of the human body and its fascinating functions. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#uvula",
+    "#humanbody",
+    "#bodysecrets",
+    "#mindblowingfacts",
+    "#health",
+    "#science",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

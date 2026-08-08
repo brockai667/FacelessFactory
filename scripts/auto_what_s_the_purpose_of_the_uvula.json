@@ -1,0 +1,60 @@
+{
+  "title": "What's the Purpose of the Uvula?",
+  "thumb": "UVULA SECRET",
+  "scenes": [
+    {
+      "hook_top": "SMALL ORGAN SECRET",
+      "query": "uvula",
+      "query2": "human mouth",
+      "role": "hook",
+      "text": "1 small organ"
+    },
+    {
+      "num": 1,
+      "label": "BACTERIA TRAP",
+      "label_on": "bacteria trap",
+      "query": "uvula function",
+      "query2": "nasal cavity",
+      "role": "count",
+      "text": "The uvula helps to trap bacteria and other debris that enter the nasal cavity"
+    },
+    {
+      "num": 2,
+      "label": "SALIVA PRODUCTION",
+      "label_on": "saliva production",
+      "query": "saliva production",
+      "query2": "swallowing process",
+      "role": "count",
+      "text": "It also plays a role in the production of saliva and the swallowing process"
+    },
+    {
+      "num": 3,
+      "label": "INFLAMMATION RISK",
+      "label_on": "inflammation risk",
+      "query": "uvula inflammation",
+      "query2": "throat infection",
+      "role": "count",
+      "text": "In some cases, the uvula can become inflamed or infected, leading to painful symptoms"
+    },
+    {
+      "query": "human body facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "The uvula is a small organ located in the back of the throat, but it plays a vital role in our overall health. Find out what its purpose is and how it affects our daily lives. Follow us for more fascinating facts about the human body!",
+  "hashtags": [
+    "#Uvula",
+    "#HumanBody",
+    "#MouthSecrets",
+    "#ThroatHealth",
+    "#FascinatingFacts",
+    "#BodyFacts",
+    "#Shorts",
+    "#FYP",
+    "#Health"
+  ],
+  "place": "",
+  "country": ""
+}
