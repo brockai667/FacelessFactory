@@ -1,0 +1,57 @@
+{
+  "title": "Why Do Dolphins Sleep with Only Half Their Brain?",
+  "thumb": "DOLPHIN SLEEP",
+  "scenes": [
+    {
+      "hook_top": "DOLPHINS SLEEP",
+      "query": "dolphin sleeping",
+      "query2": "dolphin brain",
+      "role": "hook",
+      "text": "Dolphins sleep 5 hours a day"
+    },
+    {
+      "label": "Full Brain",
+      "query": "human brain sleep",
+      "query2": "dolphin sleep pattern",
+      "role": "myth",
+      "text": "Dolphins sleep like humans, with their whole brain"
+    },
+    {
+      "label": "Half Brain",
+      "query": "dolphin half brain sleep",
+      "query2": "unihemispheric slow-wave sleep",
+      "role": "truth",
+      "text": "Dolphins sleep with only half their brain at a time"
+    },
+    {
+      "label": "Predator Alert",
+      "sub": "Dolphins always on lookout",
+      "label_on": "always watching",
+      "query": "dolphin predator avoidance",
+      "query2": "dolphin defense mechanisms",
+      "role": "callout",
+      "text": "This unique sleep pattern helps them stay alert for predators"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "Why Do Dolphins Sleep with Only Half Their Brain?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Dolphins have a unique way of sleeping that helps them stay alert for predators. They sleep with only half their brain at a time, a process called unihemispheric slow-wave sleep. This allows them to rest while still being aware of their surroundings. Follow us for more fascinating animal facts!",
+  "hashtags": [
+    "#dolphins",
+    "#sleep",
+    "#animalsecrets",
+    "#mindblowingfacts",
+    "#wildlife",
+    "#ocean",
+    "#brainfacts",
+    "#sleep patterns",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

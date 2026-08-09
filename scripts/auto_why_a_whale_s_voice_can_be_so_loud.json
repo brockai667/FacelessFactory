@@ -1,0 +1,58 @@
+{
+  "title": "Why a Whale's Voice Can Be So Loud",
+  "thumb": "WHALE VOICES",
+  "scenes": [
+    {
+      "hook_top": "WHALE VOICE SECRETS",
+      "query": "whale sounds",
+      "query2": "whale communication",
+      "role": "hook",
+      "text": "Whales can produce sounds up to 188 decibels"
+    },
+    {
+      "num": 1,
+      "label": "SOUND PRODUCTION",
+      "label_on": "unique organ",
+      "query": "whale sound production",
+      "query2": "whale anatomy",
+      "role": "count",
+      "text": "1. They use a unique organ to produce sound"
+    },
+    {
+      "num": 2,
+      "label": "LONG DISTANCE",
+      "label_on": "hundreds of miles",
+      "query": "whale migration patterns",
+      "query2": "whale social behavior",
+      "role": "count",
+      "text": "2. Their voices can be heard for hundreds of miles"
+    },
+    {
+      "num": 3,
+      "label": "FREQUENCY COMMUNICATIO",
+      "label_on": "different frequencies",
+      "query": "whale communication methods",
+      "query2": "whale social structure",
+      "role": "count",
+      "text": "3. They use different frequencies to communicate"
+    },
+    {
+      "query": "whale in ocean",
+      "query2": "whale conservation",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Discover the secrets behind a whale's incredibly loud voice. From unique sound production to long-distance communication, their voices play a crucial role in their social behavior. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#whalefacts",
+    "#ocean",
+    "#mindblowing",
+    "#whalecommunication",
+    "#wildlife",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

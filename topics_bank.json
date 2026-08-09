@@ -8564,5 +8564,59 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Do Axolotls Regenerate?",
+    "thumb": "AXOLOTL REGROW",
+    "scenes": [
+      {
+        "hook_top": "AXOLOTL REGROW",
+        "query": "axolotl regrowing",
+        "query2": "axolotl limbs",
+        "role": "hook",
+        "text": "1 axolotl can regrow its limbs"
+      },
+      {
+        "label": "Age Factor",
+        "query": "axolotl aging",
+        "query2": "axolotl growth",
+        "role": "myth",
+        "text": "Axolotls regenerate due to their age"
+      },
+      {
+        "label": "Genetic Makeup",
+        "query": "axolotl genetics",
+        "query2": "axolotl dna",
+        "role": "truth",
+        "text": "Axolotls regenerate due to their unique genetic makeup"
+      },
+      {
+        "label": "Regrowth Power",
+        "sub": "Axolotl regeneration",
+        "label_on": "Regeneration",
+        "query": "axolotl regrowth",
+        "query2": "axolotl regeneration",
+        "role": "callout",
+        "text": "Axolotls have the power to regrow their bodies"
+      },
+      {
+        "query": "mind blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Hit follow for your daily dose of wow."
+      }
+    ],
+    "description": "Discover the secret behind axolotl regeneration. Follow us for more mind-blowing facts. ",
+    "hashtags": [
+      "#shorts",
+      "#axolotl",
+      "#regeneration",
+      "#mindblowingfacts",
+      "#animalfacts",
+      "#axolotlregeneration",
+      "#regrow"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

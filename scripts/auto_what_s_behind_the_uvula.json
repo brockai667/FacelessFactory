@@ -1,0 +1,67 @@
+{
+  "title": "What's Behind the UVula?",
+  "thumb": "UVULA SECRETS",
+  "scenes": [
+    {
+      "hook_top": "UVULA MYSTERY",
+      "query": "uvula",
+      "query2": "human mouth",
+      "role": "hook",
+      "text": "1 tiny body part"
+    },
+    {
+      "chips": [
+        {
+          "t": "10%",
+          "on": "speech",
+          "style": "accent"
+        }
+      ],
+      "query": "uvula function",
+      "query2": "human speech organs",
+      "role": "fact",
+      "text": "The uvula helps with speech"
+    },
+    {
+      "chips": [
+        {
+          "t": "50%",
+          "on": "swallowing",
+          "style": "white"
+        }
+      ],
+      "punch": "swallow",
+      "query": "uvula swallowing",
+      "query2": "human digestive system",
+      "role": "fact",
+      "text": "It aids in swallowing food"
+    },
+    {
+      "label": "UVULA FACTS",
+      "sub": "Discover more",
+      "label_on": "secrets",
+      "query": "uvula interesting facts",
+      "query2": "human body secrets",
+      "role": "callout",
+      "text": "Unlock the uvula's secrets"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting science facts",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Explore the mysterious world of the uvula, a tiny body part with a big role. Discover its secrets and functions. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#uvula",
+    "#humanbody",
+    "#mindblowingfacts",
+    "#science",
+    "#secrets",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
