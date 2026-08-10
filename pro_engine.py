@@ -93,8 +93,56 @@ def _ensure_kokoro(md):
             open(p, "wb").write(requests.get(base + fn, timeout=600).content)
 
 
+# --- TTS normalizacia cisiel (roky/meny/velke cisla) — divaci: "19hundred92", "Pound two, six million" ---
+_SM = ("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen "
+       "fifteen sixteen seventeen eighteen nineteen").split()
+_TN = "twenty thirty forty fifty sixty seventy eighty ninety".split()
+
+
+def _n2w(n):
+    n = int(n)
+    if n < 20: return _SM[n]
+    if n < 100: return _TN[n // 10 - 2] + ("" if n % 10 == 0 else " " + _SM[n % 10])
+    if n < 1000:
+        s = _SM[n // 100] + " hundred"
+        return s if n % 100 == 0 else s + " " + _n2w(n % 100)
+    for div, w in ((10 ** 9, "billion"), (10 ** 6, "million"), (10 ** 3, "thousand")):
+        if n >= div:
+            s = _n2w(n // div) + " " + w
+            return s if n % div == 0 else s + " " + _n2w(n % div)
+    return str(n)
+
+
+def _yr2w(y):
+    y = int(y)
+    if 2000 <= y <= 2009: return "two thousand" + ("" if y == 2000 else " " + _SM[y - 2000])
+    a, b = divmod(y, 100)
+    if b == 0: return _n2w(a) + " hundred"
+    if b < 10: return _n2w(a) + " oh " + _SM[b]
+    return _n2w(a) + " " + _n2w(b)
+
+
+def _speakable(s):
+    s = str(s)
+    _CUR = {"$": ("dollar", "dollars"), "\u00a3": ("pound", "pounds"), "\u20ac": ("euro", "euros")}
+    def _cur(m):
+        num = m.group(2).replace(",", ""); unit = (m.group(3) or "").strip()
+        word = _CUR[m.group(1)][0 if (num in ("1", "1.0") and not unit) else 1]
+        return num + ((" " + unit) if unit else "") + " " + word
+    s = re.sub(r"([$\u00a3\u20ac])\s?(\d[\d,]*\.?\d*)(?:\s+(million|billion|trillion|thousand))?\b", _cur, s)
+    def _dec(m):
+        a, b = divmod(int(m.group(1)), 100)
+        return _n2w(a) + " " + ("hundreds" if b == 0 else _TN[b // 10 - 2][:-1] + "ies")
+    s = re.sub(r"\b(1[5-9]\d0|20\d0)s\b", _dec, s)
+    s = re.sub(r"\b(1[5-9]\d\d|20\d\d)\b", lambda m: _yr2w(m.group(1)), s)
+    s = re.sub(r"\b\d{1,3}(?:,\d{3})+\b", lambda m: _n2w(m.group(0).replace(",", "")), s)
+    s = re.sub(r"\b\d{5,}\b", lambda m: _n2w(m.group(0)), s)
+    return s
+
+
 def _kokoro_chunks(s, limit=280):
     """Deli text na kusky < limit (kokoro pada na >510 fonemach)."""
+    s = _speakable(s)
     sents = re.split(r"(?<=[.!?])\s+", str(s).strip())
     out, cur = [], ""
     for sent in sents:
