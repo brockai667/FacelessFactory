@@ -1,0 +1,66 @@
+{
+  "title": "What's Behind Narwhal's Unique Tusk?",
+  "thumb": "NARWHAL TUSK",
+  "scenes": [
+    {
+      "hook_top": "NARWHAL TUSK",
+      "query": "narwhal tusk",
+      "query2": "narwhal",
+      "role": "hook",
+      "text": "1 narwhal has a 3-meter tusk"
+    },
+    {
+      "chips": [
+        {
+          "t": "1 TOOTH",
+          "on": "tooth",
+          "style": "white"
+        }
+      ],
+      "query": "narwhal tooth",
+      "query2": "tusk tooth",
+      "role": "fact",
+      "text": "Narwhals have a special tooth that grows into a tusk"
+    },
+    {
+      "chips": [
+        {
+          "t": "10,000",
+          "on": "sensors",
+          "style": "accent"
+        }
+      ],
+      "punch": "sensors",
+      "query": "sensitive sensor tusk",
+      "query2": "tusk sensor",
+      "role": "fact",
+      "text": "This tusk is actually a highly sensitive sensor"
+    },
+    {
+      "reveal_top": "TUSK SENSES",
+      "query": "arctic environment",
+      "query2": "narwhal habitat",
+      "role": "reveal",
+      "text": "It can detect changes in the Arctic environment"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "Discover the secret behind the narwhal's unique tusk. This Arctic whale has a special feature that sets it apart from others. Follow for more mind-blowing facts!",
+  "hashtags": [
+    "#narwhal",
+    "#tusk",
+    "#arctic",
+    "#whale",
+    "#mindblowingfacts",
+    "#wildlife",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,69 @@
+{
+  "title": "Why Do Giraffes Have Blue Tongues?",
+  "thumb": "BLUE TONGUE SECRET",
+  "scenes": [
+    {
+      "hook_top": "GIRAFFE BLUE TONGUE",
+      "query": "giraffe tongue",
+      "query2": "giraffe eating leaves",
+      "role": "hook",
+      "text": "1 in 5 giraffes has a blue tongue"
+    },
+    {
+      "chips": [
+        {
+          "t": "18 FT",
+          "on": "tongue length",
+          "style": "white"
+        }
+      ],
+      "punch": "sun",
+      "query": "giraffe tongue melanin",
+      "query2": "giraffe eating thorny leaves",
+      "role": "fact",
+      "text": "Giraffes have special melanin that protects their tongues from sun damage"
+    },
+    {
+      "chips": [
+        {
+          "t": "80%",
+          "on": "giraffe tongue color",
+          "style": "accent"
+        }
+      ],
+      "query": "giraffe social behavior",
+      "query2": "giraffe mating rituals",
+      "role": "fact",
+      "text": "The blue color also helps to signal dominance and attract mates"
+    },
+    {
+      "label": "Blue Tongue",
+      "sub": "Giraffe's Hidden Feature",
+      "label_on": "tongue structure",
+      "query": "giraffe tongue anatomy",
+      "query2": "giraffe tongue close-up",
+      "role": "callout",
+      "text": "The secret to the blue tongue lies in its unique structure"
+    },
+    {
+      "query": "giraffe facts",
+      "query2": "animal facts channel",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Discover the fascinating reason behind giraffes' blue tongues. From sun protection to social signaling, this unique feature plays a crucial role in their survival. Follow us for more mind-blowing animal facts! #giraffefacts #animalsecrets #wildlifewonders #bluetongue #giraffes #naturelovers #mindblowingfacts #wildlifeconservation #animallovers",
+  "hashtags": [
+    "#giraffefacts",
+    "#animalsecrets",
+    "#wildlifewonders",
+    "#bluetongue",
+    "#giraffes",
+    "#naturelovers",
+    "#mindblowingfacts",
+    "#wildlifeconservation",
+    "#animallovers"
+  ],
+  "place": "",
+  "country": ""
+}
