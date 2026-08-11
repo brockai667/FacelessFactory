@@ -1,0 +1,77 @@
+{
+  "title": "Why Do Sloths Have a Unique Fur Coat?",
+  "thumb": "SLOTH FUR SECRET",
+  "scenes": [
+    {
+      "hook_top": "SLOTH FUR MYSTERY",
+      "query": "sloth fur",
+      "query2": "sloth hair",
+      "role": "hook",
+      "text": "Sloths have 30% more fur"
+    },
+    {
+      "chips": [
+        {
+          "t": "30",
+          "on": "species",
+          "style": "white"
+        },
+        {
+          "t": "algae",
+          "on": "green",
+          "style": "accent"
+        }
+      ],
+      "punch": "living",
+      "query": "sloth fur ecosystem",
+      "query2": "sloth hair algae",
+      "role": "fact",
+      "text": "Sloths have an entire ecosystem in their fur"
+    },
+    {
+      "chips": [
+        {
+          "t": "60%",
+          "on": "camouflage",
+          "style": "white"
+        },
+        {
+          "t": "predators",
+          "on": "harm",
+          "style": "accent"
+        }
+      ],
+      "punch": "hide",
+      "query": "sloth camouflage",
+      "query2": "sloth predators",
+      "role": "fact",
+      "text": "This unique coat helps sloths camouflage"
+    },
+    {
+      "reveal_top": "FUR WEIGHT SECRET",
+      "query": "sloth weight",
+      "query2": "sloth fur weight",
+      "role": "reveal",
+      "text": "But it also makes them 30% heavier"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "Sloths have a unique fur coat that's home to an entire ecosystem. But what's the real reason behind this strange feature? Find out now! Follow for more mind-blowing facts!",
+  "hashtags": [
+    "#sloths",
+    "#fur",
+    "#ecosystem",
+    "#camouflage",
+    "#wildlife",
+    "#mindblowingfacts",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

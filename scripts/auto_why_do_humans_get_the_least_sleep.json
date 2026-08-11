@@ -1,0 +1,60 @@
+{
+  "title": "Why Do Humans Get the Least Sleep?",
+  "thumb": "SLEEP FACTS",
+  "scenes": [
+    {
+      "hook_top": "HUMANS SLEEP LESS",
+      "query": "human sleep patterns",
+      "query2": "primate sleep patterns",
+      "role": "hook",
+      "text": "8 hours of sleep, but humans get less"
+    },
+    {
+      "num": 1,
+      "label": "LESS SLEEP",
+      "label_on": "humans",
+      "query": "human vs chimpanzee sleep",
+      "query2": "primate sleep comparison",
+      "role": "count",
+      "text": "Humans sleep 12% less than chimpanzees"
+    },
+    {
+      "num": 2,
+      "label": "BRAIN ENERGY",
+      "label_on": "sleep",
+      "query": "brain energy consumption",
+      "query2": "human brain function",
+      "role": "count",
+      "text": "The brain uses 20% of the body's energy while sleeping"
+    },
+    {
+      "num": 3,
+      "label": "COGNITIVE IMPACT",
+      "label_on": "sleep deprivation",
+      "query": "sleep deprivation effects",
+      "query2": "cognitive function impairment",
+      "role": "count",
+      "text": "Sleep deprivation can impair cognitive function by 40%"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Discover the surprising facts behind human sleep patterns. From the amount of sleep we get to the impact of sleep deprivation, learn more about the complexities of human sleep. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#sleep",
+    "#humans",
+    "#mindblowing",
+    "#facts",
+    "#science",
+    "#health",
+    "#wellness",
+    "#brainfunction",
+    "#cognition"
+  ],
+  "place": "",
+  "country": ""
+}
