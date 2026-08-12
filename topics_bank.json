@@ -8738,5 +8738,73 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "The Real Reason Behind Instant-Freezing Water",
+    "thumb": "FREEZING WATER",
+    "scenes": [
+      {
+        "hook_top": "WATER SECRET",
+        "query": "freezing water",
+        "query2": "instant freeze",
+        "role": "hook",
+        "text": "5 scientists studied"
+      },
+      {
+        "chips": [
+          {
+            "t": "0°C",
+            "on": "freeze",
+            "style": "white"
+          }
+        ],
+        "punch": "Zero",
+        "query": "water freezing point",
+        "query2": "ice formation",
+        "role": "fact",
+        "text": "Water can only freeze at 0 degrees Celsius under pressure"
+      },
+      {
+        "chips": [
+          {
+            "t": "1",
+            "on": "instant",
+            "style": "accent"
+          }
+        ],
+        "punch": "Instant",
+        "query": "instant freezing water",
+        "query2": "supercooling",
+        "role": "fact",
+        "text": "But under specific conditions, it can happen instantly without ice nucleation"
+      },
+      {
+        "reveal_top": "SUPERCOOLING",
+        "query": "supercooling water",
+        "query2": "instant freeze science",
+        "role": "reveal",
+        "text": "This phenomenon is known as 'supercooling' and can occur naturally"
+      },
+      {
+        "query": "freezing water facts",
+        "query2": "science facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Discover the real reason behind instant-freezing water. It's not just a myth, it's a scientific phenomenon! Follow for more mind-blowing facts about everyday things.",
+    "hashtags": [
+      "#freezingwater",
+      "#supercooling",
+      "#science",
+      "#mindblowing",
+      "#funfacts",
+      "#water",
+      "#ice",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

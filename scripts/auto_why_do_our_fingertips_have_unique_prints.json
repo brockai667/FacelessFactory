@@ -1,0 +1,61 @@
+{
+  "title": "Why Do Our Fingertips Have Unique Prints?",
+  "thumb": "FINGERPRINT SECRETS",
+  "scenes": [
+    {
+      "hook_top": "FINGERPRINTS",
+      "query": "human fingerprint",
+      "query2": "finger print",
+      "role": "hook",
+      "text": "1.6mm of skin"
+    },
+    {
+      "chips": [
+        {
+          "t": "100",
+          "on": "unique points",
+          "style": "white"
+        }
+      ],
+      "query": "fingerprint points",
+      "query2": "fingerprint unique",
+      "role": "fact",
+      "text": "Each fingerprint has around 100 unique points"
+    },
+    {
+      "query": "fingerprint twins",
+      "query2": "twins fingerprints",
+      "role": "fact",
+      "text": "No two fingerprints are alike, even among twins",
+      "chips": []
+    },
+    {
+      "label": "Fingerprint Secrets",
+      "sub": "Uncovered",
+      "label_on": "uncovered",
+      "query": "fingerprint secrets",
+      "query2": "fingerprint mystery",
+      "role": "callout",
+      "text": "Unravel the mystery behind unique fingerprints"
+    },
+    {
+      "query": "mind blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Discover the fascinating science behind unique fingerprints and how they're used to identify individuals. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#FingerprintSecrets",
+    "#MindBlowingFacts",
+    "#Fingerprints",
+    "#UniqueIdentifiers",
+    "#Science",
+    "#Facts",
+    "#Shorts",
+    "#Fyp"
+  ],
+  "place": "",
+  "country": ""
+}

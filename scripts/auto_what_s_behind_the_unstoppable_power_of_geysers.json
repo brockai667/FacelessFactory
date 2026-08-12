@@ -1,0 +1,67 @@
+{
+  "title": "What's Behind the Unstoppable Power of Geysers?",
+  "thumb": "GEYSER POWER",
+  "scenes": [
+    {
+      "hook_top": "GEYSER ERUPTION",
+      "query": "geyser eruption",
+      "query2": "geyser explosion",
+      "role": "hook",
+      "text": "10,000 years of pressure"
+    },
+    {
+      "chips": [
+        {
+          "t": "17",
+          "on": "erupts",
+          "style": "accent"
+        }
+      ],
+      "query": "old faithful geyser",
+      "query2": "geyser eruption frequency",
+      "role": "fact",
+      "text": "Old Faithful erupts around 17 times a day"
+    },
+    {
+      "chips": [
+        {
+          "t": "1,700",
+          "on": "feet",
+          "style": "white"
+        }
+      ],
+      "query": "tallest geyser eruption",
+      "query2": "geyser height record",
+      "role": "fact",
+      "text": "The tallest geyser eruption reached 1,700 feet"
+    },
+    {
+      "label": "Geyser Secrets",
+      "sub": "Revealed",
+      "label_on": "revealed",
+      "query": "geyser secrets",
+      "query2": "geyser science",
+      "role": "callout",
+      "text": "Uncover the fascinating science behind geysers"
+    },
+    {
+      "query": "mind blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Explore the incredible world of geysers and the unstoppable power that drives them. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#GeyserPower",
+    "#MindBlowingFacts",
+    "#Geysers",
+    "#Science",
+    "#Facts",
+    "#Shorts",
+    "#Fyp",
+    "#Nature"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,58 @@
+{
+  "title": "Why Do Humans Have Crooked Teeth?",
+  "thumb": "CROOKED TEETH",
+  "scenes": [
+    {
+      "hook_top": "CROOKED TEETH FACT",
+      "query": "human teeth",
+      "query2": "orthodontics",
+      "role": "hook",
+      "text": "80% of humans have crooked teeth"
+    },
+    {
+      "num": 1,
+      "label": "SMALL JAW",
+      "label_on": "humans",
+      "query": "human jaw structure",
+      "query2": "orthodontic issues",
+      "role": "count",
+      "text": "Humans' jaws are too small for their teeth"
+    },
+    {
+      "num": 2,
+      "label": "DIETARY INFLUENCE",
+      "label_on": "teeth",
+      "query": "human diet and teeth",
+      "query2": "nutrition and oral health",
+      "role": "count",
+      "text": "The shape of our teeth is influenced by our diet"
+    },
+    {
+      "num": 3,
+      "label": "GENETIC FACTOR",
+      "label_on": "teeth",
+      "query": "genetics and tooth alignment",
+      "query2": "inherited dental traits",
+      "role": "count",
+      "text": "Genetics play a significant role in tooth alignment"
+    },
+    {
+      "query": "human body facts",
+      "query2": "anatomy facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Discover the surprising reasons behind humans' crooked teeth. From jaw structure to diet and genetics, learn more about the complexities of human teeth. Follow us for more mind-blowing facts about the human body!",
+  "hashtags": [
+    "#teeth",
+    "#orthodontics",
+    "#humanbody",
+    "#anatomy",
+    "#dentistry",
+    "#oralhealth",
+    "#genetics"
+  ],
+  "place": "",
+  "country": ""
+}
