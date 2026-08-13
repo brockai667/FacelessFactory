@@ -1,0 +1,53 @@
+{
+  "title": "Why Do Humans Have Unique Fingerprints?",
+  "thumb": "FINGERPRINT SECRETS",
+  "scenes": [
+    {
+      "hook_top": "FINGERPRINTS ARE UNIQUE",
+      "query": "fingerprint comparison",
+      "query2": "fingerprint patterns",
+      "role": "hook",
+      "text": "1 in 64 billion people share fingerprints"
+    },
+    {
+      "label": "Genetic Only",
+      "query": "fingerprint formation",
+      "query2": "fingerprint development",
+      "role": "myth",
+      "text": "Fingerprints are determined by genetics alone"
+    },
+    {
+      "label": "Genetic + Environmental",
+      "query": "fetal fingerprint formation",
+      "query2": "prenatal development",
+      "role": "truth",
+      "text": "Fingerprints are shaped by a combination of genetic and environmental factors during fetal development"
+    },
+    {
+      "label": "Fingerprint Insights",
+      "sub": "more than just identity",
+      "label_on": "fingerprint",
+      "query": "fingerprint analysis",
+      "query2": "biometric identification",
+      "role": "callout",
+      "text": "The unique patterns on your fingertips can reveal more about you than you think"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "Why Do Humans Have Unique Fingerprints?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Discover the fascinating science behind human fingerprints and what makes them unique. Follow us for more mind-blowing facts about the human body",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#fingerprints",
+    "#humanbody",
+    "#uniquefacts",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}

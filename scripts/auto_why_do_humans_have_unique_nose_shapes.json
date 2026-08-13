@@ -1,0 +1,67 @@
+{
+  "title": "Why Do Humans Have Unique Nose Shapes?",
+  "thumb": "NOSE SECRETS",
+  "scenes": [
+    {
+      "hook_top": "300 NOSE TYPES",
+      "query": "human nose shapes",
+      "query2": "nose anatomy",
+      "role": "hook",
+      "text": "300 types of noses"
+    },
+    {
+      "chips": [
+        {
+          "t": "1 TRILLION",
+          "on": "scents",
+          "style": "white"
+        }
+      ],
+      "punch": "Trillion",
+      "query": "human sense of smell",
+      "query2": "nose and smelling",
+      "role": "fact",
+      "text": "The human nose can detect over 1 trillion scents"
+    },
+    {
+      "chips": [
+        {
+          "t": "UNIQUE",
+          "on": "nose",
+          "style": "accent"
+        }
+      ],
+      "query": "unique nose shapes",
+      "query2": "nose and identity",
+      "role": "fact",
+      "text": "Each person's nose is unique, like a fingerprint"
+    },
+    {
+      "label": "NOSE GENES",
+      "sub": "14 genes",
+      "label_on": "nose shape",
+      "query": "genetics of nose shape",
+      "query2": "nose and genetics",
+      "role": "callout",
+      "text": "The shape of your nose is determined by 14 genes"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow."
+    }
+  ],
+  "description": "Discover the secrets behind human nose shapes and how they are unique to each person. Follow us for more mind-blowing facts! #nose #smell #unique",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#nose",
+    "#smell",
+    "#unique",
+    "#genes",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
