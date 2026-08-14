@@ -1,0 +1,54 @@
+{
+  "title": "Why Do Some Animals Have a Sixth Toe?",
+  "thumb": "SIXTH TOE",
+  "scenes": [
+    {
+      "hook_top": "EXTRA TOES",
+      "query": "polydactyl cat",
+      "query2": "sixth toe animals",
+      "role": "hook",
+      "text": "The polydactyl cat has 5 extra toes"
+    },
+    {
+      "label": "Genetic Mutation",
+      "query": "genetic mutation sixth toe",
+      "query2": "sixth toe causes",
+      "role": "myth",
+      "text": "A sixth toe is a result of genetic mutation alone"
+    },
+    {
+      "label": "Genetics & Environment",
+      "query": "sixth toe development",
+      "query2": "environmental factors sixth toe",
+      "role": "truth",
+      "text": "A sixth toe can be a result of both genetic and environmental factors"
+    },
+    {
+      "label": "Sixth Toe Secret",
+      "sub": "Genetics and environment combine",
+      "label_on": "combination",
+      "query": "sixth toe factors",
+      "query2": "polydactyly",
+      "role": "callout",
+      "text": "The sixth toe is more common than you think, and it's not just a result of genetics"
+    },
+    {
+      "role": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "Why Do Some Animals Have a Sixth Toe?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Explore the fascinating world of animal anatomy and discover the secrets behind the sixth toe. From polydactyl cats to other creatures, learn what makes this extra toe so unique. Follow us for more mind-blowing facts about animal oddities!",
+  "hashtags": [
+    "#sixthtoe",
+    "#polydactyly",
+    "#animalanatomy",
+    "#genetics",
+    "#environment",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

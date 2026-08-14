@@ -8985,5 +8985,172 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why is Amazon Jungle So Deadly?",
+    "thumb": "DEADLY JUNGLE",
+    "scenes": [
+      {
+        "hook_top": "DEADLY JUNGLE",
+        "query": "amazon jungle explorers",
+        "query2": "jungle survival",
+        "role": "hook",
+        "text": "1 in 5 explorers"
+      },
+      {
+        "label": "Jungle Myth",
+        "query": "amazon jungle safety",
+        "query2": "jungle dangers",
+        "role": "myth",
+        "text": "Amazon Jungle is a safe place to explore"
+      },
+      {
+        "label": "Jungle Fact",
+        "query": "amazon jungle venomous animals",
+        "query2": "jungle wildlife",
+        "role": "truth",
+        "text": "Amazon Jungle is home to over 2000 species of venomous animals"
+      },
+      {
+        "label": "Jungle Danger",
+        "sub": "Beware of the unknown",
+        "label_on": "survival",
+        "query": "jungle survival tips",
+        "query2": "amazon jungle hazards",
+        "role": "callout",
+        "text": "The jungle is full of hidden dangers"
+      },
+      {
+        "query": "mind blowing facts channel",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Explore the deadly side of the Amazon Jungle and discover the hidden dangers that lurk within. From venomous animals to treacherous terrain, the jungle is a force to be reckoned with. Follow us for more mind-blowing facts and stay ahead of the curve!",
+    "hashtags": [
+      "#AmazonJungle",
+      "#JungleSurvival",
+      "#MindBlowingFacts",
+      "#Wildlife",
+      "#Adventure",
+      "#Explore",
+      "#Danger",
+      "#Nature",
+      "#Shorts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Vikings Have a Weird Eating Habit?",
+    "thumb": "VIKING FOOD",
+    "scenes": [
+      {
+        "hook_top": "VIKING MEAT",
+        "query": "viking diet",
+        "query2": "viking food habits",
+        "role": "hook",
+        "text": "Viking warriors ate 2 kg of meat"
+      },
+      {
+        "label": "Viking Myth",
+        "query": "viking food myths",
+        "query2": "viking diet misconceptions",
+        "role": "myth",
+        "text": "Vikings only ate fish and berries"
+      },
+      {
+        "label": "Viking Fact",
+        "query": "viking diet facts",
+        "query2": "viking food history",
+        "role": "truth",
+        "text": "Vikings had a diet rich in meat and dairy"
+      },
+      {
+        "label": "Viking Secret",
+        "sub": "Uncover the truth",
+        "label_on": "history",
+        "query": "viking food history",
+        "query2": "viking diet",
+        "role": "callout",
+        "text": "The Viking diet was surprisingly hearty"
+      },
+      {
+        "query": "mind blowing facts channel",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Explore the fascinating world of Viking cuisine and discover the surprising eating habits of these fierce warriors. From meat and dairy to unexpected ingredients, the Viking diet was a true reflection of their strength and resilience. Follow us for more mind-blowing facts and stay informed!",
+    "hashtags": [
+      "#VikingFood",
+      "#VikingDiet",
+      "#MindBlowingFacts",
+      "#History",
+      "#Food",
+      "#Warriors",
+      "#Meat",
+      "#Dairy",
+      "#Shorts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "What Makes a Giant Paper Bag So Strange?",
+    "thumb": "GIANT PAPER BAG",
+    "scenes": [
+      {
+        "hook_top": "GIANT BAG",
+        "query": "giant paper bag",
+        "query2": "large paper bags",
+        "role": "hook",
+        "text": "A 10-foot paper bag"
+      },
+      {
+        "label": "Bag Myth",
+        "query": "giant paper bag uses",
+        "query2": "paper bag purposes",
+        "role": "myth",
+        "text": "Giant paper bags are just for show"
+      },
+      {
+        "label": "Bag Fact",
+        "query": "giant paper bag science experiments",
+        "query2": "paper bag science",
+        "role": "truth",
+        "text": "Giant paper bags can be used for scientific experiments"
+      },
+      {
+        "label": "Bag Secret",
+        "sub": "Uncover the truth",
+        "label_on": "science",
+        "query": "science experiments with paper bags",
+        "query2": "giant paper bag uses",
+        "role": "callout",
+        "text": "The bag is more than just a novelty"
+      },
+      {
+        "query": "mind blowing facts channel",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Discover the strange and fascinating world of giant paper bags. From scientific experiments to unique uses, the giant paper bag is more than just a novelty. Follow us for more mind-blowing facts and stay curious!",
+    "hashtags": [
+      "#GiantPaperBag",
+      "#ScienceExperiments",
+      "#MindBlowingFacts",
+      "#PaperBag",
+      "#Novelty",
+      "#Science",
+      "#Curiosity",
+      "#Shorts"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

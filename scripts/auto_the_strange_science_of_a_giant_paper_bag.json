@@ -1,0 +1,65 @@
+{
+  "title": "The Strange Science of a Giant Paper Bag",
+  "thumb": "GIANT PAPER BAG",
+  "scenes": [
+    {
+      "hook_top": "PAPER BAG POWER",
+      "query": "giant paper bag",
+      "query2": "strong paper bag",
+      "role": "hook",
+      "text": "A giant paper bag can hold 1000 kg"
+    },
+    {
+      "chips": [
+        {
+          "t": "molecular",
+          "on": "structure",
+          "style": "white"
+        }
+      ],
+      "punch": "strong",
+      "query": "paper molecular structure",
+      "query2": "paper science",
+      "role": "fact",
+      "text": "Due to its unique molecular structure"
+    },
+    {
+      "chips": [
+        {
+          "t": "50%",
+          "on": "stronger",
+          "style": "accent"
+        }
+      ],
+      "punch": "folded",
+      "query": "paper folding strength",
+      "query2": "paper folding science",
+      "role": "fact",
+      "text": "Paper is 50% stronger when folded"
+    },
+    {
+      "reveal_top": "PAPER BAG STRENGTH",
+      "query": "giant paper bag weight",
+      "query2": "strong paper bag test",
+      "role": "reveal",
+      "text": "Making it possible to hold massive weights"
+    },
+    {
+      "query": "science facts",
+      "query2": "interesting science",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "Explore the strange science behind a giant paper bag. From molecular structure to folding strength, we reveal the surprising facts behind this everyday object. Follow for more mind-blowing science facts and interesting discoveries. #paperbag #science #facts",
+  "hashtags": [
+    "#shorts",
+    "#paperbag",
+    "#science",
+    "#interestingfacts",
+    "#everydayobjects",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
