@@ -1,0 +1,56 @@
+{
+  "title": "Why is Amazon Jungle So Deadly?",
+  "thumb": "DEADLY JUNGLE",
+  "scenes": [
+    {
+      "hook_top": "DEADLY JUNGLE",
+      "query": "amazon jungle explorers",
+      "query2": "jungle survival",
+      "role": "hook",
+      "text": "1 in 5 explorers"
+    },
+    {
+      "label": "Jungle Myth",
+      "query": "amazon jungle safety",
+      "query2": "jungle dangers",
+      "role": "myth",
+      "text": "Amazon Jungle is a safe place to explore"
+    },
+    {
+      "label": "Jungle Fact",
+      "query": "amazon jungle venomous animals",
+      "query2": "jungle wildlife",
+      "role": "truth",
+      "text": "Amazon Jungle is home to over 2000 species of venomous animals"
+    },
+    {
+      "label": "Jungle Danger",
+      "sub": "Beware of the unknown",
+      "label_on": "survival",
+      "query": "jungle survival tips",
+      "query2": "amazon jungle hazards",
+      "role": "callout",
+      "text": "The jungle is full of hidden dangers"
+    },
+    {
+      "query": "mind blowing facts channel",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Explore the deadly side of the Amazon Jungle and discover the hidden dangers that lurk within. From venomous animals to treacherous terrain, the jungle is a force to be reckoned with. Follow us for more mind-blowing facts and stay ahead of the curve!",
+  "hashtags": [
+    "#AmazonJungle",
+    "#JungleSurvival",
+    "#MindBlowingFacts",
+    "#Wildlife",
+    "#Adventure",
+    "#Explore",
+    "#Danger",
+    "#Nature",
+    "#Shorts"
+  ],
+  "place": "",
+  "country": ""
+}

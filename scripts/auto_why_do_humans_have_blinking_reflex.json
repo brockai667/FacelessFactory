@@ -1,0 +1,60 @@
+{
+  "title": "Why Do Humans Have Blinking Reflex?",
+  "thumb": "BLINKING MYSTERY",
+  "scenes": [
+    {
+      "hook_top": "YOU BLINK",
+      "query": "human blinking",
+      "query2": "eye reflex",
+      "role": "hook",
+      "text": "Every 2-3 seconds"
+    },
+    {
+      "chips": [
+        {
+          "t": "12-15",
+          "on": "times",
+          "style": "white"
+        }
+      ],
+      "query": "human blink rate",
+      "query2": "eye movement study",
+      "role": "fact",
+      "text": "Humans blink around 12-15 times per minute"
+    },
+    {
+      "chips": [],
+      "query": "eye moisture",
+      "query2": "tear gland function",
+      "role": "fact",
+      "text": "The blinking reflex helps to keep our eyes moist and clean"
+    },
+    {
+      "label": "Blinking Secret",
+      "sub": "Stay curious",
+      "label_on": "secret",
+      "query": "blinking psychology",
+      "query2": "eye behavior",
+      "role": "callout",
+      "text": "So why do we blink so often?"
+    },
+    {
+      "query": "science facts channel",
+      "query2": " educational content",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "Discover the fascinating reason behind human blinking and how it helps our eyes. Follow us for more mind-blowing facts! #shorts #blinking #eyefacts #humanbody #mindblowing",
+  "hashtags": [
+    "#shorts",
+    "#blinking",
+    "#eyefacts",
+    "#humanbody",
+    "#mindblowing",
+    "#science",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

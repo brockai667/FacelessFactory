@@ -1,0 +1,56 @@
+{
+  "title": "Why Do Vikings Have a Weird Eating Habit?",
+  "thumb": "VIKING FOOD",
+  "scenes": [
+    {
+      "hook_top": "VIKING MEAT",
+      "query": "viking diet",
+      "query2": "viking food habits",
+      "role": "hook",
+      "text": "Viking warriors ate 2 kg of meat"
+    },
+    {
+      "label": "Viking Myth",
+      "query": "viking food myths",
+      "query2": "viking diet misconceptions",
+      "role": "myth",
+      "text": "Vikings only ate fish and berries"
+    },
+    {
+      "label": "Viking Fact",
+      "query": "viking diet facts",
+      "query2": "viking food history",
+      "role": "truth",
+      "text": "Vikings had a diet rich in meat and dairy"
+    },
+    {
+      "label": "Viking Secret",
+      "sub": "Uncover the truth",
+      "label_on": "history",
+      "query": "viking food history",
+      "query2": "viking diet",
+      "role": "callout",
+      "text": "The Viking diet was surprisingly hearty"
+    },
+    {
+      "query": "mind blowing facts channel",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Explore the fascinating world of Viking cuisine and discover the surprising eating habits of these fierce warriors. From meat and dairy to unexpected ingredients, the Viking diet was a true reflection of their strength and resilience. Follow us for more mind-blowing facts and stay informed!",
+  "hashtags": [
+    "#VikingFood",
+    "#VikingDiet",
+    "#MindBlowingFacts",
+    "#History",
+    "#Food",
+    "#Warriors",
+    "#Meat",
+    "#Dairy",
+    "#Shorts"
+  ],
+  "place": "",
+  "country": ""
+}
