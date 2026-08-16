@@ -1,0 +1,53 @@
+{
+  "title": "Why Do Giraffes Have Long Necks?",
+  "thumb": "GIRAFFE NECKS",
+  "scenes": [
+    {
+      "hook_top": "GIRAFFE NECK",
+      "query": "giraffe neck",
+      "query2": "animal neck",
+      "role": "hook",
+      "text": "Giraffes have 7 vertebrae"
+    },
+    {
+      "label": "Leaf Reach",
+      "query": "giraffe eating leaves",
+      "query2": "giraffe food",
+      "role": "myth",
+      "text": "Giraffes have long necks to reach leaves"
+    },
+    {
+      "label": "Mating Advantage",
+      "query": "giraffe mating",
+      "query2": "giraffe courtship",
+      "role": "truth",
+      "text": "Giraffes have long necks to attract mates"
+    },
+    {
+      "label": "Neck Size",
+      "sub": "Giraffes with longer necks are more dominant",
+      "label_on": "Dominance",
+      "query": "giraffe social status",
+      "query2": "giraffe hierarchy",
+      "role": "callout",
+      "text": "Neck size is key to giraffe social status"
+    },
+    {
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "Why Do Giraffes Have Long Necks?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Discover the surprising reason behind giraffes' long necks. From attracting mates to social status, the truth is more complex than you think. Follow us for more mind-blowing animal facts!",
+  "hashtags": [
+    "#giraffefacts",
+    "#animalsecrets",
+    "#wildlifewonders",
+    "#shorts",
+    "#fyp",
+    "#giraffe"
+  ],
+  "place": "",
+  "country": ""
+}

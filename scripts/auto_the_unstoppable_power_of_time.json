@@ -1,0 +1,58 @@
+{
+  "title": "The Unstoppable Power of Time",
+  "thumb": "TIME POWER",
+  "scenes": [
+    {
+      "hook_top": "TIME FACTS",
+      "query": "time facts",
+      "query2": "crazy facts",
+      "role": "hook",
+      "text": "5 crazy time facts"
+    },
+    {
+      "num": 1,
+      "label": "RELATIVE TIME",
+      "label_on": "relative time",
+      "query": "time relativity",
+      "query2": "gravity and time",
+      "role": "count",
+      "text": "Time is relative and can be affected by gravity and motion"
+    },
+    {
+      "num": 2,
+      "label": "SHORT TIME",
+      "label_on": "short time",
+      "query": "yoctosecond",
+      "query2": "time units",
+      "role": "count",
+      "text": "The shortest unit of time is the yoctosecond, which is 1/1,000,000,000,000,000 of a second"
+    },
+    {
+      "num": 3,
+      "label": "LONG SLEEP",
+      "label_on": "long sleep",
+      "query": "sleep deprivation",
+      "query2": "world records",
+      "role": "count",
+      "text": "The longest recorded time without sleep is 264.4 hours, set by Randy Gardner in 1964"
+    },
+    {
+      "query": "time",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Discover the unstoppable power of time, from relative time to the shortest units of time. Follow us for more!",
+  "hashtags": [
+    "#timefacts",
+    "#crazyfacts",
+    "#relativity",
+    "#sleep",
+    "#worldrecords",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

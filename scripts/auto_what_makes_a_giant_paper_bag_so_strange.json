@@ -1,0 +1,55 @@
+{
+  "title": "What Makes a Giant Paper Bag So Strange?",
+  "thumb": "GIANT PAPER BAG",
+  "scenes": [
+    {
+      "hook_top": "GIANT BAG",
+      "query": "giant paper bag",
+      "query2": "large paper bags",
+      "role": "hook",
+      "text": "A 10-foot paper bag"
+    },
+    {
+      "label": "Bag Myth",
+      "query": "giant paper bag uses",
+      "query2": "paper bag purposes",
+      "role": "myth",
+      "text": "Giant paper bags are just for show"
+    },
+    {
+      "label": "Bag Fact",
+      "query": "giant paper bag science experiments",
+      "query2": "paper bag science",
+      "role": "truth",
+      "text": "Giant paper bags can be used for scientific experiments"
+    },
+    {
+      "label": "Bag Secret",
+      "sub": "Uncover the truth",
+      "label_on": "science",
+      "query": "science experiments with paper bags",
+      "query2": "giant paper bag uses",
+      "role": "callout",
+      "text": "The bag is more than just a novelty"
+    },
+    {
+      "query": "mind blowing facts channel",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Discover the strange and fascinating world of giant paper bags. From scientific experiments to unique uses, the giant paper bag is more than just a novelty. Follow us for more mind-blowing facts and stay curious!",
+  "hashtags": [
+    "#GiantPaperBag",
+    "#ScienceExperiments",
+    "#MindBlowingFacts",
+    "#PaperBag",
+    "#Novelty",
+    "#Science",
+    "#Curiosity",
+    "#Shorts"
+  ],
+  "place": "",
+  "country": ""
+}
