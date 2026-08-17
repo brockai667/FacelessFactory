@@ -45,8 +45,8 @@ jobs:
         env:
           MODELS_TOKEN: ${{ secrets.MODELS_TOKEN }}
           MODELS_BASE_URL: https://api.groq.com/openai/v1
-          MODELS_MODEL: llama-3.3-70b-versatile
-          MODELS_FALLBACK: llama-3.1-8b-instant
+          MODELS_MODEL: openai/gpt-oss-120b
+          MODELS_FALLBACK: openai/gpt-oss-20b
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: python generate_topics.py
 
