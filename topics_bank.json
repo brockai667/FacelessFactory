@@ -9608,5 +9608,367 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Do 75% of People Have a Hidden Brain Quirk?",
+    "thumb": "HIDDEN BRAIN",
+    "scenes": [
+      {
+        "hook_top": "BRAIN QUIRK",
+        "query": "human brain",
+        "query2": "brain anatomy",
+        "role": "hook",
+        "text": "75% of humans have it"
+      },
+      {
+        "num": 1,
+        "label": "TONGUE ROLL",
+        "label_on": "Tongue trick",
+        "query": "tongue rolling",
+        "query2": "human tongue",
+        "role": "count",
+        "text": "1 in 4 people can't roll their tongues"
+      },
+      {
+        "num": 2,
+        "label": "NOSE PRINT",
+        "label_on": "Nose ID",
+        "query": "nose print",
+        "query2": "biometric identification",
+        "role": "count",
+        "text": "Most people have a unique nose print"
+      },
+      {
+        "num": 3,
+        "label": "EYE POWER",
+        "label_on": "Eye capacity",
+        "query": "human eye",
+        "query2": "eye anatomy",
+        "role": "count",
+        "text": "The human eye can process 36,000 bits of information every hour"
+      },
+      {
+        "query": "mind-blowing facts",
+        "query2": "interesting facts",
+        "role": "cta",
+        "text": "Follow for a mind-blowing fact every day."
+      }
+    ],
+    "description": "Discover the hidden brain quirk that 75% of people have and other mind-blowing facts about the human body. Follow us for more!",
+    "hashtags": [
+      "#shorts",
+      "#mindblowing",
+      "#brainquirk",
+      "#humanbody",
+      "#interestingfacts",
+      "#didyouknow"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "What's Behind the Mysterious Voynich Manuscript?",
+    "thumb": "MYSTERY BOOK",
+    "scenes": [
+      {
+        "hook_top": "MYSTERY CODE",
+        "query": "Voynich Manuscript",
+        "query2": "mysterious book",
+        "role": "hook",
+        "text": "The Voynich Manuscript remains unsolved"
+      },
+      {
+        "num": 1,
+        "label": "MYSTERY TEXT",
+        "label_on": "Unsolved code",
+        "query": "unsolved codes",
+        "query2": "mysterious texts",
+        "role": "count",
+        "text": "1 of the most mysterious texts in history"
+      },
+      {
+        "num": 2,
+        "label": "UNKNOWN PLANTS",
+        "label_on": "Mystery plants",
+        "query": "plant illustrations",
+        "query2": "botanical art",
+        "role": "count",
+        "text": "The manuscript contains over 200 unknown plant illustrations"
+      },
+      {
+        "num": 3,
+        "label": "UNKNOWN SCRIPT",
+        "label_on": "Lost language",
+        "query": "unknown scripts",
+        "query2": "lost languages",
+        "role": "count",
+        "text": "The Voynich Manuscript is written in an unknown script"
+      },
+      {
+        "query": "mysterious facts",
+        "query2": "unexplained phenomena",
+        "role": "cta",
+        "text": "Follow for facts that sound fake but aren't."
+      }
+    ],
+    "description": "Uncover the secrets behind the mysterious Voynich Manuscript and other mind-blowing mysteries. Follow us for more!",
+    "hashtags": [
+      "#shorts",
+      "#mystery",
+      "#voynichmanuscript",
+      "#unsolved",
+      "#codebreaking",
+      "#history"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do 25% of Humans Have a Sixth Finger?",
+    "thumb": "SIXTH FINGER",
+    "scenes": [
+      {
+        "hook_top": "SIXTH FINGER",
+        "query": "sixth finger",
+        "query2": "polydactyly",
+        "role": "hook",
+        "text": "1 in 4 people have a sixth finger gene"
+      },
+      {
+        "num": 1,
+        "label": "EXTRA BONE",
+        "label_on": "Finger bone",
+        "query": "sixth finger anatomy",
+        "query2": "human hand",
+        "role": "count",
+        "text": "1 unique feature of a sixth finger is its extra bone"
+      },
+      {
+        "num": 2,
+        "label": "ENHANCED DEXTERITY",
+        "label_on": "Finger skill",
+        "query": "sixth finger benefits",
+        "query2": "human abilities",
+        "role": "count",
+        "text": "People with a sixth finger often have enhanced dexterity"
+      },
+      {
+        "num": 3,
+        "label": "POPULATION LINK",
+        "label_on": "Finger genetics",
+        "query": "sixth finger genetics",
+        "query2": "population studies",
+        "role": "count",
+        "text": "The sixth finger gene is more common in certain populations"
+      },
+      {
+        "query": "genetic facts",
+        "query2": "human genetics",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Discover why 25% of humans have a sixth finger gene and other mind-blowing genetic facts. Follow us for more!",
+    "hashtags": [
+      "#shorts",
+      "#genetics",
+      "#sixthfinger",
+      "#polydactyly",
+      "#humanbody",
+      "#didyouknow"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do 90% of People Have a Hidden Birthmark?",
+    "thumb": "HIDDEN BIRTHMARKS",
+    "scenes": [
+      {
+        "hook_top": "HIDDEN BIRTHMARKS",
+        "query": "birthmarks on skin",
+        "query2": "common skin marks",
+        "role": "hook",
+        "text": "90% of people have a hidden birthmark"
+      },
+      {
+        "label": "Visible Birthmarks",
+        "query": "visible skin birthmarks",
+        "query2": "common birthmarks",
+        "role": "myth",
+        "text": "Most people think birthmarks are only visible on the skin"
+      },
+      {
+        "label": "Hidden Birthmarks",
+        "query": "internal organ birthmarks",
+        "query2": "rare birthmarks",
+        "role": "truth",
+        "text": "But research shows that 90% of people have a hidden birthmark, usually on their internal organs"
+      },
+      {
+        "label": "Surprising Truth",
+        "sub": "Hidden birthmarks are more common than you think",
+        "label_on": "revealed",
+        "query": "birthmark research",
+        "query2": "medical birthmark studies",
+        "role": "callout",
+        "text": "The truth about hidden birthmarks will surprise you"
+      },
+      {
+        "query": "human body facts",
+        "query2": "interesting body facts",
+        "role": "cta",
+        "text": "Follow so you never run out of fun facts."
+      }
+    ],
+    "description": "Discover the surprising truth about hidden birthmarks and how they affect 90% of people. Learn more about the human body and its secrets. Follow us for more mind-blowing facts!",
+    "hashtags": [
+      "#birthmarks",
+      "#humanbody",
+      "#mindblowingfacts",
+      "#health",
+      "#wellness",
+      "#bodysecrets",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Deadly Secret of Morning Coffee",
+    "thumb": "COFFEE SECRETS",
+    "scenes": [
+      {
+        "hook_top": "COFFEE LOVERS",
+        "query": "coffee cups",
+        "query2": "morning coffee",
+        "role": "hook",
+        "text": "1 in 10 people"
+      },
+      {
+        "chips": [
+          {
+            "t": "10%",
+            "on": "increase",
+            "style": "white"
+          },
+          {
+            "t": "15%",
+            "on": "heart rate",
+            "style": "accent"
+          }
+        ],
+        "punch": "Boom",
+        "query": "heart rate monitor",
+        "query2": "caffeine effects",
+        "role": "fact",
+        "text": "Caffeine can increase heart rate by 10-15%"
+      },
+      {
+        "chips": [
+          {
+            "t": "poop",
+            "on": "elephant",
+            "style": "white"
+          }
+        ],
+        "query": "elephant coffee beans",
+        "query2": "expensive coffee",
+        "role": "fact",
+        "text": "The world's most expensive coffee is made from elephant poop"
+      },
+      {
+        "reveal_top": "COFFEE POISON",
+        "query": "coffee poison warning",
+        "query2": "coffee safety",
+        "role": "reveal",
+        "text": "Your morning coffee can be poisonous if not made correctly"
+      },
+      {
+        "query": "follower icon",
+        "query2": "subscribe button",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Mind-blowing facts about morning coffee that will change your daily routine. Follow us for more secrets and surprises. ",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#coffee",
+      "#secrets",
+      "#mindblowing",
+      "#facts",
+      "#morningcoffee"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Baffling Case of the 12-Inch Tongue",
+    "thumb": "TIGER TONGUE",
+    "scenes": [
+      {
+        "hook_top": "TIGER TONGUE SECRETS",
+        "query": "tiger tongue",
+        "query2": "animal tongues",
+        "role": "hook",
+        "text": "Tigers have 12-inch tongues"
+      },
+      {
+        "chips": [
+          {
+            "t": "PAPILLAE",
+            "on": "papillae",
+            "style": "white"
+          }
+        ],
+        "punch": "ouch",
+        "query": "tiger tongue papillae",
+        "query2": "animal tongue spines",
+        "role": "fact",
+        "text": "A tiger's tongue is covered in tiny, backward-facing spines called papillae"
+      },
+      {
+        "chips": [
+          {
+            "t": "FUR",
+            "on": "fur",
+            "style": "accent"
+          }
+        ],
+        "query": "tiger grooming",
+        "query2": "animal fur grooming",
+        "role": "fact",
+        "text": "These spines help tigers scrape meat off bones and groom their fur"
+      },
+      {
+        "label": "Tiger Tongue",
+        "sub": "12-inch",
+        "label_on": "tiger",
+        "query": "tiger tongue closeup",
+        "query2": "animal tongues",
+        "role": "callout",
+        "text": "The secret to a tiger's tongue is its unique texture"
+      },
+      {
+        "query": "animal facts",
+        "query2": "wildlife",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Discover the fascinating world of tiger tongues and their unique features. From their 12-inch length to their tiny, backward-facing spines, every aspect of a tiger's tongue is adapted for survival. Follow us for more mind-blowing animal facts!",
+    "hashtags": [
+      "#tigers",
+      "#animalfacts",
+      "#wildlife",
+      "#mindblowing",
+      "#shorts",
+      "#fyp"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

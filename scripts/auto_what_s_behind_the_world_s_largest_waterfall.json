@@ -1,0 +1,58 @@
+{
+  "title": "What's Behind the World's Largest Waterfall?",
+  "thumb": "VICTORIA FALLS",
+  "scenes": [
+    {
+      "hook_top": "WATERFALL SECRETS",
+      "query": "Victoria Falls",
+      "query2": "waterfalls",
+      "role": "hook",
+      "text": "Victoria Falls drops 10 million liters"
+    },
+    {
+      "num": 1,
+      "label": "HEIGHT",
+      "label_on": "tallest",
+      "query": "Victoria Falls height",
+      "query2": "waterfall heights",
+      "role": "count",
+      "text": "1. It's over 100 meters high"
+    },
+    {
+      "num": 2,
+      "label": "MIST",
+      "label_on": "foggy",
+      "query": "Victoria Falls mist",
+      "query2": "waterfall mist",
+      "role": "count",
+      "text": "2. The falls create a mist"
+    },
+    {
+      "num": 3,
+      "label": "TEMP",
+      "label_on": "cold",
+      "query": "Victoria Falls temperature",
+      "query2": "waterfall climate",
+      "role": "count",
+      "text": "3. The local temperature drops"
+    },
+    {
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "What's Behind the World's Largest Waterfall?",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Discover the secrets behind Victoria Falls, one of the world's most impressive natural wonders. From its incredible height to the mist it creates, learn more about this amazing waterfall. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#VictoriaFalls",
+    "#waterfalls",
+    "#mindblowingfacts",
+    "#shorts",
+    "#fyp",
+    "#travel",
+    "#nature"
+  ],
+  "place": "",
+  "country": ""
+}
