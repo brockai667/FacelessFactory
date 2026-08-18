@@ -1,0 +1,53 @@
+{
+  "title": "The Hidden Danger of Giant Squid",
+  "thumb": "GIANT SQUID",
+  "scenes": [
+    {
+      "hook_top": "GIANT SQUID ALERT",
+      "query": "giant squid",
+      "query2": "deep sea creatures",
+      "role": "hook",
+      "text": "12 giant squid caught in 1 day"
+    },
+    {
+      "label": "Harmless Myth",
+      "query": "giant squid attack",
+      "query2": "squid human encounter",
+      "role": "myth",
+      "text": "Giant squid are harmless to humans"
+    },
+    {
+      "label": "Deadly Truth",
+      "query": "giant squid eyes",
+      "query2": "squid ship attack",
+      "role": "truth",
+      "text": "Giant squid have the largest eyes and can drag a ship down"
+    },
+    {
+      "label": "Sea Warning",
+      "sub": "Respect the ocean",
+      "label_on": "Danger",
+      "query": "deep sea warning",
+      "query2": "ocean respect",
+      "role": "callout",
+      "text": "Beware of the deep sea giant"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Discover the hidden danger of giant squid and how they can harm humans. Follow us for more mind-blowing facts.",
+  "hashtags": [
+    "#shorts",
+    "#giantssquid",
+    "#deepsea",
+    "#oceanwarnings",
+    "#mindblowingfacts",
+    "#wildlife"
+  ],
+  "place": "",
+  "country": ""
+}

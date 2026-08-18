@@ -1,0 +1,58 @@
+{
+  "title": "The Unstoppable Power of the Human Brain",
+  "thumb": "BRAIN POWER",
+  "scenes": [
+    {
+      "hook_top": "BRAIN SECRETS",
+      "query": "brain energy",
+      "query2": "brain facts",
+      "role": "hook",
+      "text": "The brain uses 20% of our energy"
+    },
+    {
+      "num": 1,
+      "label": "NEURONS",
+      "label_on": "brain cells",
+      "query": "brain neurons",
+      "query2": "neuroscience",
+      "role": "count",
+      "text": "1. It has 100 billion neurons"
+    },
+    {
+      "num": 2,
+      "label": "REWIRED",
+      "label_on": "neuroplasticity",
+      "query": "brain rewiring",
+      "query2": "neuroplasticity",
+      "role": "count",
+      "text": "2. The brain can rewire itself"
+    },
+    {
+      "num": 3,
+      "label": "COMPUTER",
+      "label_on": "processing",
+      "query": "brain vs computer",
+      "query2": "brain power",
+      "role": "count",
+      "text": "3. It's more powerful than a computer"
+    },
+    {
+      "role": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "The Unstoppable Power of the Human Brain",
+      "query2": "cinematic nature landscape"
+    }
+  ],
+  "description": "Discover the unstoppable power of the human brain and its incredible abilities. From energy usage to neuroplasticity, learn about the fascinating world of brain function. Follow us for more mind-blowing brain facts!",
+  "hashtags": [
+    "#brainpower",
+    "#brainfacts",
+    "#neuroscience",
+    "#mindblowingfacts",
+    "#shorts",
+    "#fyp",
+    "#psychology"
+  ],
+  "place": "",
+  "country": ""
+}

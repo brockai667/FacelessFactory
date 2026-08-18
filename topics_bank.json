@@ -9970,5 +9970,74 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Does a Hummingbird’s Heart Beat 1,200 Times Per Minute?",
+    "thumb": "HUMMINGBIRD HEART",
+    "scenes": [
+      {
+        "hook_top": "HUMMINGBIRD HEART RACE",
+        "query": "hummingbird heart rate",
+        "query2": "bird heart beats",
+        "role": "hook",
+        "text": "What makes a hummingbird’s heart race up to 1,200 beats each minute?"
+      },
+      {
+        "text": "A hummingbird’s heart can beat as fast as 1,200 times per minute while hovering.",
+        "chips": [
+          {
+            "t": "1,200 BPM",
+            "on": "beat",
+            "style": "accent"
+          }
+        ],
+        "punch": "fast",
+        "query": "hummingbird heart beats per minute",
+        "query2": "hummingbird heartbeat speed",
+        "role": "fact"
+      },
+      {
+        "text": "During nightly torpor, its heart slows dramatically to about 50 beats per minute.",
+        "chips": [
+          {
+            "t": "50 BPM",
+            "on": "slow",
+            "style": "accent"
+          }
+        ],
+        "punch": "slow",
+        "query": "hummingbird torpor heart rate",
+        "query2": "hummingbird low heart rate",
+        "role": "fact"
+      },
+      {
+        "text": "Tiny bird, massive metabolism – the hummingbird’s heart is a powerhouse.",
+        "label": "SMALL BODY BIG HEART",
+        "sub": "Even the tiniest bird needs a turbocharged pump.",
+        "label_on": "highlight",
+        "query": "hummingbird metabolism",
+        "query2": "bird heart power",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow channel",
+        "query2": "subscribe short",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover the astonishing speed of a hummingbird’s heart and its secret low‑power mode. Stay tuned for more mind‑blowing nature facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#hummingbird",
+      "#biology",
+      "#science",
+      "#mindblowing",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
