@@ -1,0 +1,57 @@
+{
+  "title": "Why Do 25% of Humans Have a Sixth Finger?",
+  "thumb": "SIXTH FINGER",
+  "scenes": [
+    {
+      "hook_top": "SIXTH FINGER",
+      "query": "sixth finger",
+      "query2": "polydactyly",
+      "role": "hook",
+      "text": "1 in 4 people have a sixth finger gene"
+    },
+    {
+      "num": 1,
+      "label": "EXTRA BONE",
+      "label_on": "Finger bone",
+      "query": "sixth finger anatomy",
+      "query2": "human hand",
+      "role": "count",
+      "text": "1 unique feature of a sixth finger is its extra bone"
+    },
+    {
+      "num": 2,
+      "label": "ENHANCED DEXTERITY",
+      "label_on": "Finger skill",
+      "query": "sixth finger benefits",
+      "query2": "human abilities",
+      "role": "count",
+      "text": "People with a sixth finger often have enhanced dexterity"
+    },
+    {
+      "num": 3,
+      "label": "POPULATION LINK",
+      "label_on": "Finger genetics",
+      "query": "sixth finger genetics",
+      "query2": "population studies",
+      "role": "count",
+      "text": "The sixth finger gene is more common in certain populations"
+    },
+    {
+      "query": "genetic facts",
+      "query2": "human genetics",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Discover why 25% of humans have a sixth finger gene and other mind-blowing genetic facts. Follow us for more!",
+  "hashtags": [
+    "#shorts",
+    "#genetics",
+    "#sixthfinger",
+    "#polydactyly",
+    "#humanbody",
+    "#didyouknow"
+  ],
+  "place": "",
+  "country": ""
+}

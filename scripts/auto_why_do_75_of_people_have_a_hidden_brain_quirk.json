@@ -1,0 +1,57 @@
+{
+  "title": "Why Do 75% of People Have a Hidden Brain Quirk?",
+  "thumb": "HIDDEN BRAIN",
+  "scenes": [
+    {
+      "hook_top": "BRAIN QUIRK",
+      "query": "human brain",
+      "query2": "brain anatomy",
+      "role": "hook",
+      "text": "75% of humans have it"
+    },
+    {
+      "num": 1,
+      "label": "TONGUE ROLL",
+      "label_on": "Tongue trick",
+      "query": "tongue rolling",
+      "query2": "human tongue",
+      "role": "count",
+      "text": "1 in 4 people can't roll their tongues"
+    },
+    {
+      "num": 2,
+      "label": "NOSE PRINT",
+      "label_on": "Nose ID",
+      "query": "nose print",
+      "query2": "biometric identification",
+      "role": "count",
+      "text": "Most people have a unique nose print"
+    },
+    {
+      "num": 3,
+      "label": "EYE POWER",
+      "label_on": "Eye capacity",
+      "query": "human eye",
+      "query2": "eye anatomy",
+      "role": "count",
+      "text": "The human eye can process 36,000 bits of information every hour"
+    },
+    {
+      "query": "mind-blowing facts",
+      "query2": "interesting facts",
+      "role": "cta",
+      "text": "Follow for a mind-blowing fact every day."
+    }
+  ],
+  "description": "Discover the hidden brain quirk that 75% of people have and other mind-blowing facts about the human body. Follow us for more!",
+  "hashtags": [
+    "#shorts",
+    "#mindblowing",
+    "#brainquirk",
+    "#humanbody",
+    "#interestingfacts",
+    "#didyouknow"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,57 @@
+{
+  "title": "What's Behind the Mysterious Voynich Manuscript?",
+  "thumb": "MYSTERY BOOK",
+  "scenes": [
+    {
+      "hook_top": "MYSTERY CODE",
+      "query": "Voynich Manuscript",
+      "query2": "mysterious book",
+      "role": "hook",
+      "text": "The Voynich Manuscript remains unsolved"
+    },
+    {
+      "num": 1,
+      "label": "MYSTERY TEXT",
+      "label_on": "Unsolved code",
+      "query": "unsolved codes",
+      "query2": "mysterious texts",
+      "role": "count",
+      "text": "1 of the most mysterious texts in history"
+    },
+    {
+      "num": 2,
+      "label": "UNKNOWN PLANTS",
+      "label_on": "Mystery plants",
+      "query": "plant illustrations",
+      "query2": "botanical art",
+      "role": "count",
+      "text": "The manuscript contains over 200 unknown plant illustrations"
+    },
+    {
+      "num": 3,
+      "label": "UNKNOWN SCRIPT",
+      "label_on": "Lost language",
+      "query": "unknown scripts",
+      "query2": "lost languages",
+      "role": "count",
+      "text": "The Voynich Manuscript is written in an unknown script"
+    },
+    {
+      "query": "mysterious facts",
+      "query2": "unexplained phenomena",
+      "role": "cta",
+      "text": "Follow for facts that sound fake but aren't."
+    }
+  ],
+  "description": "Uncover the secrets behind the mysterious Voynich Manuscript and other mind-blowing mysteries. Follow us for more!",
+  "hashtags": [
+    "#shorts",
+    "#mystery",
+    "#voynichmanuscript",
+    "#unsolved",
+    "#codebreaking",
+    "#history"
+  ],
+  "place": "",
+  "country": ""
+}
