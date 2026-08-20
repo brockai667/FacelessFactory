@@ -1,0 +1,66 @@
+{
+  "title": "The Baffling Case of the 12-Inch Tongue",
+  "thumb": "TIGER TONGUE",
+  "scenes": [
+    {
+      "hook_top": "TIGER TONGUE SECRETS",
+      "query": "tiger tongue",
+      "query2": "animal tongues",
+      "role": "hook",
+      "text": "Tigers have 12-inch tongues"
+    },
+    {
+      "chips": [
+        {
+          "t": "PAPILLAE",
+          "on": "papillae",
+          "style": "white"
+        }
+      ],
+      "punch": "ouch",
+      "query": "tiger tongue papillae",
+      "query2": "animal tongue spines",
+      "role": "fact",
+      "text": "A tiger's tongue is covered in tiny, backward-facing spines called papillae"
+    },
+    {
+      "chips": [
+        {
+          "t": "FUR",
+          "on": "fur",
+          "style": "accent"
+        }
+      ],
+      "query": "tiger grooming",
+      "query2": "animal fur grooming",
+      "role": "fact",
+      "text": "These spines help tigers scrape meat off bones and groom their fur"
+    },
+    {
+      "label": "Tiger Tongue",
+      "sub": "12-inch",
+      "label_on": "tiger",
+      "query": "tiger tongue closeup",
+      "query2": "animal tongues",
+      "role": "callout",
+      "text": "The secret to a tiger's tongue is its unique texture"
+    },
+    {
+      "query": "animal facts",
+      "query2": "wildlife",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Discover the fascinating world of tiger tongues and their unique features. From their 12-inch length to their tiny, backward-facing spines, every aspect of a tiger's tongue is adapted for survival. Follow us for more mind-blowing animal facts!",
+  "hashtags": [
+    "#tigers",
+    "#animalfacts",
+    "#wildlife",
+    "#mindblowing",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}

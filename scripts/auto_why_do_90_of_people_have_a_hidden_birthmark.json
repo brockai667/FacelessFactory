@@ -1,0 +1,55 @@
+{
+  "title": "Why Do 90% of People Have a Hidden Birthmark?",
+  "thumb": "HIDDEN BIRTHMARKS",
+  "scenes": [
+    {
+      "hook_top": "HIDDEN BIRTHMARKS",
+      "query": "birthmarks on skin",
+      "query2": "common skin marks",
+      "role": "hook",
+      "text": "90% of people have a hidden birthmark"
+    },
+    {
+      "label": "Visible Birthmarks",
+      "query": "visible skin birthmarks",
+      "query2": "common birthmarks",
+      "role": "myth",
+      "text": "Most people think birthmarks are only visible on the skin"
+    },
+    {
+      "label": "Hidden Birthmarks",
+      "query": "internal organ birthmarks",
+      "query2": "rare birthmarks",
+      "role": "truth",
+      "text": "But research shows that 90% of people have a hidden birthmark, usually on their internal organs"
+    },
+    {
+      "label": "Surprising Truth",
+      "sub": "Hidden birthmarks are more common than you think",
+      "label_on": "revealed",
+      "query": "birthmark research",
+      "query2": "medical birthmark studies",
+      "role": "callout",
+      "text": "The truth about hidden birthmarks will surprise you"
+    },
+    {
+      "query": "human body facts",
+      "query2": "interesting body facts",
+      "role": "cta",
+      "text": "Follow so you never run out of fun facts."
+    }
+  ],
+  "description": "Discover the surprising truth about hidden birthmarks and how they affect 90% of people. Learn more about the human body and its secrets. Follow us for more mind-blowing facts!",
+  "hashtags": [
+    "#birthmarks",
+    "#humanbody",
+    "#mindblowingfacts",
+    "#health",
+    "#wellness",
+    "#bodysecrets",
+    "#shorts",
+    "#fyp"
+  ],
+  "place": "",
+  "country": ""
+}
