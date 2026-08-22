@@ -205,16 +205,16 @@ def create_post(token, service, channel_id, text, url, title, due):
     return False, last
 
 
-def upload_github_release(cfg, path):
-    """Nahra MP4 ako asset GitHub Release (public repo = neobmedzeny free bandwidth).
-    Buffer stiahne video z verejnej browser_download_url. Vrati URL alebo vyhodi vynimku."""
+def upload_github_release(cfg, path, tag="media", ctype="video/mp4"):
+    """Nahra subor ako asset GitHub Release (public repo = neobmedzeny free bandwidth).
+    tag 'media' = videa pre Buffer, tag 'thumbs' = YT thumbnaily (dashboard setter ich
+    odtial berie pre thumbnails.set). Vrati URL alebo vyhodi vynimku."""
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or cfg.get("gh_token", "")
     repo = os.environ.get("GH_REPO") or os.environ.get("GITHUB_REPOSITORY") or cfg.get("gh_repo", "")
     if not token or not repo:
         raise RuntimeError("chyba GITHUB_TOKEN/GITHUB_REPOSITORY pre GitHub Release hosting")
     api = "https://api.github.com"
     H = {"Authorization": "Bearer " + token, "Accept": "application/vnd.github+json"}
-    tag = "media"
     r = requests.get(api + "/repos/" + repo + "/releases/tags/" + tag, headers=H, timeout=30)
     if r.status_code == 404:
         r = requests.post(api + "/repos/" + repo + "/releases", headers=H, timeout=30,
@@ -234,10 +234,21 @@ def upload_github_release(cfg, path):
     up = rel["upload_url"].split("{")[0]
     with open(path, "rb") as f:
         ur = requests.post(up + "?name=" + name,
-                          headers={"Authorization": "Bearer " + token, "Content-Type": "video/mp4"},
+                          headers={"Authorization": "Bearer " + token, "Content-Type": ctype},
                           data=f.read(), timeout=900)
     ur.raise_for_status()
     return ur.json()["browser_download_url"]
+
+
+def host_thumbnail(cfg, jpg):
+    """Nahra <slug>.jpg do 'thumbs' release (dashboard setter ho odtial vezme pre thumbnails.set)."""
+    try:
+        url = upload_github_release(cfg, jpg, tag="thumbs", ctype="image/jpeg")
+        print("  [thumb] hostnuty -> " + url)
+        return url
+    except Exception as e:
+        print("  [thumb] hosting zlyhal (nekriticke): " + str(e)[:140])
+        return None
 
 
 def host_video(cfg, path):
@@ -315,6 +326,9 @@ def main():
         except Exception as e:
             print(f"  CHYBA: upload na Cloudinary zlyhal ({str(e)[:160]}) -> preskakujem toto video, pokracujem dalsim")
             continue
+        jpg = mp4[:-4] + ".jpg"          # <slug>.jpg -> 'thumbs' release pre YT custom thumbnail
+        if os.path.exists(jpg):
+            host_thumbnail(cfg, jpg)
         slot_idx += 1
         for c in pending:
             svc = c["service"].lower()
