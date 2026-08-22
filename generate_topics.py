@@ -267,27 +267,44 @@ def build_prompt(n, existing_titles, trending=None):
 
 
 FALLBACK_MODEL = os.environ.get("MODELS_FALLBACK", "openai/gpt-oss-20b")
+FALLBACK2 = os.environ.get("MODELS_FALLBACK2", "groq/compound-mini")
 
 
-def call_model(user_text, _tries=4):
-    # retry+backoff + fallback model: 429/5xx = docasne (retry), 404 = model vyradeny (rovno fallback).
+def _msg_text(m):
+    # gpt-oss: ked reasoning zozerie max_tokens, content je prazdny a odpoved je v 'reasoning'
+    return (m.get("content") or "").strip() or (m.get("reasoning") or "").strip()
+
+
+def call_model(user_text, _tries=3):
+    # primar -> fallback -> fallback2; 429 = TPM (per minuta): raz pockaj 65 s na TEN ISTY model
     last = "Models API: neznama chyba"
-    for model in (MODEL, FALLBACK_MODEL):
+    for model in (MODEL, FALLBACK_MODEL, FALLBACK2):
+        payload = {"model": model, "temperature": 0.95, "max_tokens": 2500,
+                   "messages": [{"role": "system", "content": SYSTEM},
+                                {"role": "user", "content": user_text}]}
+        if model.startswith("openai/gpt-oss"):
+            payload["reasoning_effort"] = "low"          # inak reasoning minie max_tokens -> prazdny content
+        waited = False
         for _i in range(_tries):
             r = requests.post(
                 BASE.rstrip("/") + "/chat/completions",
                 headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
-                json={"model": model, "temperature": 0.95, "max_tokens": 2000,
-                      "messages": [{"role": "system", "content": SYSTEM},
-                                   {"role": "user", "content": user_text}]},
-                timeout=180,
+                json=payload, timeout=180,
             )
             if r.status_code < 400:
-                return r.json()["choices"][0]["message"]["content"]
+                txt = _msg_text(r.json()["choices"][0]["message"])
+                if txt:
+                    return txt
+                last = f"Models API ({model}): prazdna odpoved"
+                break
             last = f"Models API {r.status_code} ({model}): {r.text[:300]}"
             if r.status_code == 404:
-                break                                   # model neexistuje -> skus fallback
-            if r.status_code in (429, 413) or r.status_code >= 500:
+                break                                        # model neexistuje -> fallback
+            if r.status_code == 429:
+                if not waited:
+                    waited = True; time.sleep(65); continue  # TPM okno -> pockaj minutu, ten isty model
+                break                                        # 2. raz -> fallback (iny bucket)
+            if r.status_code == 413 or r.status_code >= 500:
                 try:
                     _w = float(r.headers.get("retry-after") or 0)
                 except Exception:
