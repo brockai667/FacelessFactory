@@ -10039,5 +10039,680 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Does Your Nose Run When You Cry?",
+    "thumb": "RUNNING NOSE",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Ever notice tears make your nose flood?",
+        "hook_top": "TEARS MAKE NOSE",
+        "query": "tears running into nose",
+        "query2": "crying nasal discharge",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think crying just fills your eyes with water.",
+        "label": "Crying only fills eyes",
+        "query": "common belief crying only eyes",
+        "query2": "myth crying eye water",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "The lacrimal ducts connect the eye to the nasal cavity, so tears drain into the nose, causing a runny nose.",
+        "label": "Tears drain to nose",
+        "query": "lacrimal duct anatomy",
+        "query2": "tear drainage nose",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Your nose is a tear outlet!",
+        "label": "Nose = Tear Outlet",
+        "sub": "Your nasal passage clears eye fluid.",
+        "label_on": "Nose",
+        "query": "tear drainage explanation",
+        "query2": "why nose runs when crying",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "shorts follow call to action",
+        "query2": "cta follow button",
+        "role": "cta"
+      }
+    ],
+    "description": "The surprising link between tears and a runny nose explained in seconds. Unlock more hidden body facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mythbust",
+      "#mindblowing",
+      "#curiosity"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Does Cutting a Banana Make It Sweetlier?",
+    "thumb": "SWEETER BANANA",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Cut a banana and taste a sweeter bite?",
+        "hook_top": "CUT BANANA SWEET",
+        "query": "banana cut sweeter taste",
+        "query2": "banana flavor after slicing",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "Many believe that slicing a banana releases extra sugars.",
+        "label": "Slicing adds sugar",
+        "query": "myth banana slicing adds sugar",
+        "query2": "banana cut sweet myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Bananas contain starch that converts to sugar as they ripen; cutting doesn’t accelerate this process, it only exposes the existing sugars.",
+        "label": "Ripening converts starch",
+        "query": "banana ripening starch to sugar",
+        "query2": "banana sugar conversion ripeness",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Only ripeness matters, not the cut!",
+        "label": "Ripeness > Cutting",
+        "sub": "Sugar level set by fruit age.",
+        "label_on": "Ripeness",
+        "query": "banana ripeness sweetness",
+        "query2": "banana sugar content ripening",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "food myth short cta follow",
+        "query2": "cta follow food facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Debunking the idea that a knife can sweeten a banana. Learn the real science behind fruit ripening.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#foodmyths",
+      "#banana",
+      "#science",
+      "#mythbusting",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Cats' Paws Smell Like Catnip?",
+    "thumb": "CATNIP PAWS",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Ever notice a cat's paws smell oddly sweet?",
+        "hook_top": "SWEET PAW ODOR",
+        "query": "cat paws smell sweet",
+        "query2": "cat paw odor catnip",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think cats store catnip in their paws.",
+        "label": "Paws store catnip",
+        "query": "myth cat paws catnip storage",
+        "query2": "catnip in cat paws myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "The scent comes from natural oils and the sebaceous glands on their foot pads, which can resemble the volatile compounds in catnip.",
+        "label": "Oil glands cause scent",
+        "query": "cat foot pad sebaceous glands odor",
+        "query2": "cat paw scent oil glands",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "It's just feline foot chemistry!",
+        "label": "Foot chemistry",
+        "sub": "No hidden catnip stash.",
+        "label_on": "Chemistry",
+        "query": "cat paw scent explanation",
+        "query2": "why cat paws smell",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "animal myth cta follow",
+        "query2": "cta follow animal facts",
+        "role": "cta"
+      }
+    ],
+    "description": "The real reason behind that mysterious sweet smell on a cat's feet. Dive into more quirky animal truths.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#cats",
+      "#animalmyths",
+      "#science",
+      "#mindblowing",
+      "#oddities"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Can You Really Hear Your Own Heart in a Quiet Room?",
+    "thumb": "HEART BEAT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Lie still in a silent room—do you hear your heart?",
+        "hook_top": "HEAR HEART QUIET",
+        "query": "hearing heartbeat in quiet room",
+        "query2": "perceiving own heart sound silence",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "Many think you only hear it when you’re stressed or ill.",
+        "label": "Only stress reveals beat",
+        "query": "myth hearing heartbeat only stress",
+        "query2": "heartbeat audible only illness myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "In a low-noise environment, the sound of blood flowing through the aorta can be heard with a stethoscope or even unaided, especially when lying down.",
+        "label": "Quiet reveals blood flow",
+        "query": "audible heartbeat low noise environment",
+        "query2": "hearing heart sound without stethoscope",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Your body is a built‑in speaker!",
+        "label": "Body speaker",
+        "sub": "Blood movement creates sound.",
+        "label_on": "Speaker",
+        "query": "body makes audible sounds blood flow",
+        "query2": "human body sound generation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "cta follow hidden body sounds",
+        "query2": "follow short body facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why you can sometimes hear your own pulse without any device. More hidden body wonders await.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#bodymyths",
+      "#science",
+      "#mindblowing",
+      "#heartbeat",
+      "#curiosity"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why does the Eiffel Tower sway in the wind?",
+    "thumb": "EIFFEL SWAY",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "The Eiffel Tower sways up to 7 cm in strong winds.",
+        "hook_top": "EIFFEL TOWER SWAYS",
+        "query": "Eiffel Tower sway measurement",
+        "query2": "Eiffel Tower wind movement",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Its iron lattice expands 0.6 mm per meter when heated 10 °C.",
+        "chips": [
+          {
+            "t": "0.6 mm/m",
+            "on": "expands",
+            "style": "white"
+          }
+        ],
+        "punch": "expand",
+        "query": "thermal expansion of Eiffel Tower",
+        "query2": "Eiffel Tower temperature expansion",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "During a gust of 130 km/h, the tower can lean 0.5 m at the top.",
+        "chips": [
+          {
+            "t": "0.5 m lean",
+            "on": "lean",
+            "style": "accent"
+          }
+        ],
+        "query": "Eiffel Tower wind lean 130 km/h",
+        "query2": "Eiffel Tower gust effect",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "But the sway is actually a safety feature designed by its engineer.",
+        "reveal_top": "ENGINEERED SAFETY SWAY",
+        "query": "Eiffel Tower design safety sway",
+        "query2": "Eiffel Tower engineered flexibility",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "CTA follow",
+        "query2": "CTA follow",
+        "role": "cta"
+      }
+    ],
+    "description": "The Eiffel Tower isn’t just a pretty landmark—it moves on purpose. Discover the clever engineering behind its gentle dance.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#engineering",
+      "#EiffelTower",
+      "#facts",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The secret behind why pineapples have eyes",
+    "thumb": "PINEAPPLE EYES",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A pineapple hides around 200 eyes on its surface.",
+        "hook_top": "PINEAPPLE HIDDEN EYES",
+        "query": "pineapple eye count",
+        "query2": "pineapple surface eyes",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Each eye is a separate fruit that fused as the plant grew.",
+        "chips": [
+          {
+            "t": "individual fruit",
+            "on": "fused",
+            "style": "white"
+          }
+        ],
+        "query": "pineapple eye fruit fusion",
+        "query2": "pineapple composite fruit",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The eyes contain bromelain enzyme that breaks down proteins.",
+        "chips": [
+          {
+            "t": "bromelain enzyme",
+            "on": "breaks",
+            "style": "accent"
+          }
+        ],
+        "query": "bromelain in pineapple eyes",
+        "query2": "pineapple enzyme protein",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "The eyes aren’t eyes at all—they’re the plant’s tiny berries.",
+        "reveal_top": "NOT REAL EYES",
+        "query": "pineapple eyes not eyes",
+        "query2": "pineapple berry explanation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "CTA follow",
+        "query2": "CTA follow",
+        "role": "cta"
+      }
+    ],
+    "description": "Those “eyes” you see on a pineapple are actually merged berries. Learn why the tropical fruit wears a face.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#foodfacts",
+      "#pineapple",
+      "#nature",
+      "#science",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "How a single raindrop can hold a tiny universe",
+    "thumb": "RAINDROP UNIVERSE",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "One raindrop holds about 10 quadrillion water molecules.",
+        "hook_top": "RAINDROP MICRO UNIVERSE",
+        "query": "water molecules per raindrop",
+        "query2": "raindrop molecule count",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "At room temperature, a 2 mm drop weighs roughly 0.05 g.",
+        "chips": [
+          {
+            "t": "0.05 g",
+            "on": "weighs",
+            "style": "white"
+          }
+        ],
+        "query": "mass of 2mm raindrop",
+        "query2": "raindrop weight",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Those molecules arrange in a crystalline lattice when frozen, creating snowflakes.",
+        "chips": [
+          {
+            "t": "crystalline lattice",
+            "on": "freeze",
+            "style": "accent"
+          }
+        ],
+        "query": "water molecules crystal lattice snowflake",
+        "query2": "snowflake formation molecules",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "Yet a single drop can trap tiny air bubbles that become clouds.",
+        "reveal_top": "DROP MAKES CLOUDS",
+        "query": "raindrop air bubbles cloud formation",
+        "query2": "raindrop cloud seed",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "CTA follow",
+        "query2": "CTA follow",
+        "role": "cta"
+      }
+    ],
+    "description": "A humble raindrop contains billions of molecules and even seeds clouds. Explore the hidden power of a single drop.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#weather",
+      "#water",
+      "#facts",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Does Your Stomach Growl When You’re Hungry?",
+    "thumb": "HUNGRY STOMACH",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your stomach makes three waves per minute when empty",
+        "hook_top": "EMPTY STOMACH WAVES",
+        "query": "gastric slow wave frequency",
+        "query2": "stomach pacemaker activity",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "These rhythmic contractions, called the migrating motor complex, sweep debris through the gut",
+        "chips": [
+          {
+            "t": "MIGRATING MOTOR COMPLEX",
+            "on": "migrating",
+            "style": "accent"
+          }
+        ],
+        "punch": "sweep",
+        "query": "migrating motor complex function",
+        "query2": "MMCs stomach cleaning",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "When food arrives, hormones like ghrelin trigger louder, irregular sounds that we hear as growling",
+        "chips": [
+          {
+            "t": "Ghrelin Hormone",
+            "on": "ghrelin",
+            "style": "white"
+          }
+        ],
+        "query": "ghrelin cause stomach growl",
+        "query2": "hunger hormone stomach sounds",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Your growl is a cleaning crew in action",
+        "label": "GUT CLEANING",
+        "sub": "The stomach’s own sanitation system",
+        "label_on": "cleaning",
+        "query": "stomach cleaning mechanism",
+        "query2": "why stomach growls",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "body secrets short",
+        "query2": "human physiology facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Ever wonder why your belly makes that rumbling noise? It’s a built‑in cleaning crew. Follow for more hidden body secrets!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#health",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Hidden Reason Dark Plates Melt Ice Cream Faster",
+    "thumb": "DARK PLATE MELT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Ice cream melts twice as fast on a black plate",
+        "hook_top": "BLACK PLATE MELT",
+        "query": "thermal conductivity dark plate ice cream",
+        "query2": "melting rate black surface",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Black surfaces absorb up to 90% of radiant heat, raising the cup’s temperature",
+        "chips": [
+          {
+            "t": "90% HEAT ABSORPTION",
+            "on": "absorb",
+            "style": "accent"
+          }
+        ],
+        "punch": "absorb",
+        "query": "black surface heat absorption percent",
+        "query2": "radiant heat black plate",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The warmer plate transfers heat to the ice cream faster than a white one, speeding melt",
+        "chips": [
+          {
+            "t": "CONDUCTION",
+            "on": "conduct",
+            "style": "white"
+          }
+        ],
+        "query": "heat conduction plate to ice cream",
+        "query2": "thermal transfer melting ice cream",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Choose light-colored dishes to keep desserts cooler",
+        "label": "COOLER DESSERTS",
+        "sub": "Light plates = slower melt",
+        "label_on": "cooler",
+        "query": "light colored plates ice cream melt",
+        "query2": "prevent ice cream melting",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "everyday science hacks short",
+        "query2": "science tips short",
+        "role": "cta"
+      }
+    ],
+    "description": "That black plate looks sleek, but it’s a melt accelerator. Switch to lighter dishes to savor every bite. Follow for more everyday science hacks!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#foodfacts",
+      "#everydayscience",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "What Allows the Axolotl to Regrow Its Limbs?",
+    "thumb": "AXOLOTL REGEN",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "The Mexican salamander can regrow a lost leg in weeks",
+        "hook_top": "AXOLOTL LEG REGEN",
+        "query": "axolotl limb regeneration timeline",
+        "query2": "axolotl regrow leg weeks",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Stem cells at the injury site form a blastema, a mass of undifferentiated cells",
+        "chips": [
+          {
+            "t": "BLASTEMA",
+            "on": "blastema",
+            "style": "accent"
+          }
+        ],
+        "punch": "mass",
+        "query": "blastema axolotl regeneration",
+        "query2": "stem cells blastema salamander",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "A unique gene called *nAG* reactivates developmental pathways, guiding new tissue growth",
+        "chips": [
+          {
+            "t": "nAG GENE",
+            "on": "nAG",
+            "style": "white"
+          }
+        ],
+        "query": "nAG gene axolotl regeneration",
+        "query2": "axolotl developmental genes",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Their biology could inspire human tissue repair",
+        "label": "FUTURE MEDICINE",
+        "sub": "Learning from salamander healing",
+        "label_on": "future",
+        "query": "axolotl medical research regeneration",
+        "query2": "salamander tissue repair",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "wild biology short",
+        "query2": "biology facts short",
+        "role": "cta"
+      }
+    ],
+    "description": "The axolotl’s ability to regrow limbs hinges on a blastema and a special gene. Could this unlock human healing? Follow for more wild biology wonders!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#biology",
+      "#regeneration",
+      "#science",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
