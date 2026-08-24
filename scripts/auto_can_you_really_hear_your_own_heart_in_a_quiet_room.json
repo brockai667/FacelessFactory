@@ -1,0 +1,62 @@
+{
+  "title": "Can You Really Hear Your Own Heart in a Quiet Room?",
+  "thumb": "HEART BEAT",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Lie still in a silent room—do you hear your heart?",
+      "hook_top": "HEAR HEART QUIET",
+      "query": "hearing heartbeat in quiet room",
+      "query2": "perceiving own heart sound silence",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "Many think you only hear it when you’re stressed or ill.",
+      "label": "Only stress reveals beat",
+      "query": "myth hearing heartbeat only stress",
+      "query2": "heartbeat audible only illness myth",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "In a low-noise environment, the sound of blood flowing through the aorta can be heard with a stethoscope or even unaided, especially when lying down.",
+      "label": "Quiet reveals blood flow",
+      "query": "audible heartbeat low noise environment",
+      "query2": "hearing heart sound without stethoscope",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "Your body is a built‑in speaker!",
+      "label": "Body speaker",
+      "sub": "Blood movement creates sound.",
+      "label_on": "Speaker",
+      "query": "body makes audible sounds blood flow",
+      "query2": "human body sound generation",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "cta follow hidden body sounds",
+      "query2": "follow short body facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover why you can sometimes hear your own pulse without any device. More hidden body wonders await.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bodymyths",
+    "#science",
+    "#mindblowing",
+    "#heartbeat",
+    "#curiosity"
+  ],
+  "place": "",
+  "country": ""
+}

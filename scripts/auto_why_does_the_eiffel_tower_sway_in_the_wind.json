@@ -1,0 +1,71 @@
+{
+  "title": "Why does the Eiffel Tower sway in the wind?",
+  "thumb": "EIFFEL SWAY",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "The Eiffel Tower sways up to 7 cm in strong winds.",
+      "hook_top": "EIFFEL TOWER SWAYS",
+      "query": "Eiffel Tower sway measurement",
+      "query2": "Eiffel Tower wind movement",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Its iron lattice expands 0.6 mm per meter when heated 10 °C.",
+      "chips": [
+        {
+          "t": "0.6 mm/m",
+          "on": "expands",
+          "style": "white"
+        }
+      ],
+      "punch": "expand",
+      "query": "thermal expansion of Eiffel Tower",
+      "query2": "Eiffel Tower temperature expansion",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "During a gust of 130 km/h, the tower can lean 0.5 m at the top.",
+      "chips": [
+        {
+          "t": "0.5 m lean",
+          "on": "lean",
+          "style": "accent"
+        }
+      ],
+      "query": "Eiffel Tower wind lean 130 km/h",
+      "query2": "Eiffel Tower gust effect",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "But the sway is actually a safety feature designed by its engineer.",
+      "reveal_top": "ENGINEERED SAFETY SWAY",
+      "query": "Eiffel Tower design safety sway",
+      "query2": "Eiffel Tower engineered flexibility",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "CTA follow",
+      "query2": "CTA follow",
+      "role": "cta"
+    }
+  ],
+  "description": "The Eiffel Tower isn’t just a pretty landmark—it moves on purpose. Discover the clever engineering behind its gentle dance.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#engineering",
+    "#EiffelTower",
+    "#facts",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}
