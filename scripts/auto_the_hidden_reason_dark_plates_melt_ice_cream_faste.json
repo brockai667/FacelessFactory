@@ -1,0 +1,72 @@
+{
+  "title": "The Hidden Reason Dark Plates Melt Ice Cream Faster",
+  "thumb": "DARK PLATE MELT",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Ice cream melts twice as fast on a black plate",
+      "hook_top": "BLACK PLATE MELT",
+      "query": "thermal conductivity dark plate ice cream",
+      "query2": "melting rate black surface",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Black surfaces absorb up to 90% of radiant heat, raising the cup’s temperature",
+      "chips": [
+        {
+          "t": "90% HEAT ABSORPTION",
+          "on": "absorb",
+          "style": "accent"
+        }
+      ],
+      "punch": "absorb",
+      "query": "black surface heat absorption percent",
+      "query2": "radiant heat black plate",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "The warmer plate transfers heat to the ice cream faster than a white one, speeding melt",
+      "chips": [
+        {
+          "t": "CONDUCTION",
+          "on": "conduct",
+          "style": "white"
+        }
+      ],
+      "query": "heat conduction plate to ice cream",
+      "query2": "thermal transfer melting ice cream",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Choose light-colored dishes to keep desserts cooler",
+      "label": "COOLER DESSERTS",
+      "sub": "Light plates = slower melt",
+      "label_on": "cooler",
+      "query": "light colored plates ice cream melt",
+      "query2": "prevent ice cream melting",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "everyday science hacks short",
+      "query2": "science tips short",
+      "role": "cta"
+    }
+  ],
+  "description": "That black plate looks sleek, but it’s a melt accelerator. Switch to lighter dishes to savor every bite. Follow for more everyday science hacks!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#foodfacts",
+    "#everydayscience",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}

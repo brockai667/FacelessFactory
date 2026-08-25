@@ -1,0 +1,70 @@
+{
+  "title": "How a single raindrop can hold a tiny universe",
+  "thumb": "RAINDROP UNIVERSE",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "One raindrop holds about 10 quadrillion water molecules.",
+      "hook_top": "RAINDROP MICRO UNIVERSE",
+      "query": "water molecules per raindrop",
+      "query2": "raindrop molecule count",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "At room temperature, a 2 mm drop weighs roughly 0.05 g.",
+      "chips": [
+        {
+          "t": "0.05 g",
+          "on": "weighs",
+          "style": "white"
+        }
+      ],
+      "query": "mass of 2mm raindrop",
+      "query2": "raindrop weight",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Those molecules arrange in a crystalline lattice when frozen, creating snowflakes.",
+      "chips": [
+        {
+          "t": "crystalline lattice",
+          "on": "freeze",
+          "style": "accent"
+        }
+      ],
+      "query": "water molecules crystal lattice snowflake",
+      "query2": "snowflake formation molecules",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "Yet a single drop can trap tiny air bubbles that become clouds.",
+      "reveal_top": "DROP MAKES CLOUDS",
+      "query": "raindrop air bubbles cloud formation",
+      "query2": "raindrop cloud seed",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "CTA follow",
+      "query2": "CTA follow",
+      "role": "cta"
+    }
+  ],
+  "description": "A humble raindrop contains billions of molecules and even seeds clouds. Explore the hidden power of a single drop.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#weather",
+    "#water",
+    "#facts",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}

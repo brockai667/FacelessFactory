@@ -1,0 +1,72 @@
+{
+  "title": "Why Does Your Stomach Growl When You’re Hungry?",
+  "thumb": "HUNGRY STOMACH",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your stomach makes three waves per minute when empty",
+      "hook_top": "EMPTY STOMACH WAVES",
+      "query": "gastric slow wave frequency",
+      "query2": "stomach pacemaker activity",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "These rhythmic contractions, called the migrating motor complex, sweep debris through the gut",
+      "chips": [
+        {
+          "t": "MIGRATING MOTOR COMPLEX",
+          "on": "migrating",
+          "style": "accent"
+        }
+      ],
+      "punch": "sweep",
+      "query": "migrating motor complex function",
+      "query2": "MMCs stomach cleaning",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "When food arrives, hormones like ghrelin trigger louder, irregular sounds that we hear as growling",
+      "chips": [
+        {
+          "t": "Ghrelin Hormone",
+          "on": "ghrelin",
+          "style": "white"
+        }
+      ],
+      "query": "ghrelin cause stomach growl",
+      "query2": "hunger hormone stomach sounds",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Your growl is a cleaning crew in action",
+      "label": "GUT CLEANING",
+      "sub": "The stomach’s own sanitation system",
+      "label_on": "cleaning",
+      "query": "stomach cleaning mechanism",
+      "query2": "why stomach growls",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "body secrets short",
+      "query2": "human physiology facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Ever wonder why your belly makes that rumbling noise? It’s a built‑in cleaning crew. Follow for more hidden body secrets!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#health",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}
