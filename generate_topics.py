@@ -520,9 +520,13 @@ def main():
     from collections import Counter as _Ctr
     plan = _Ctr(FORMAT_MIX[i % len(FORMAT_MIX)] for i in range(need + 2))
     items = []
+    _tl = [t["title"] for t in bank][-100:]   # cap: velka banka = prilis velky prompt (413); dedup bezi az PO vygenerovani
+    _first = True
     for _fmt, _cnt in plan.items():
         try:
-            got = extract_json(call_model(build_prompt_fmt(_fmt, _cnt, sorted(titles), trending, perf)))
+            if not _first: time.sleep(30)   # TPM bucket sa doplna po minute
+            _first = False
+            got = extract_json(call_model(build_prompt_fmt(_fmt, _cnt, _tl, trending, perf)))
             items += got
             print(f"  format {_fmt}: {len(got)} tem")
         except Exception as e:
