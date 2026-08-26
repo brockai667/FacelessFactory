@@ -1,0 +1,66 @@
+{
+  "title": "The Hidden Reason Your Teeth Whisper at Night",
+  "thumb": "NOCTURNAL TEETH",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your molars make tiny noises while you sleep in the dark!",
+      "hook_top": "SLEEPING TEETH NOISE",
+      "query": "teeth grinding sounds at night",
+      "query2": "nocturnal dental vibrations",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Bruxism—unconscious grinding—creates vibrations that travel through the jawbone.",
+      "label": "BRUXISM VIBRATIONS",
+      "label_on": "Grind",
+      "query": "bruxism jawbone vibration",
+      "query2": "teeth grinding sound source",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "Saliva’s surface tension amplifies the sound, making it audible to sensitive microphones.",
+      "label": "SALIVA AMPLIFIES",
+      "label_on": "Amplify",
+      "query": "saliva surface tension sound amplification",
+      "query2": "how saliva affects dental noises",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Stress hormones increase muscle tension, intensifying the grinding during REM cycles.",
+      "label": "STRESS‑DRIVEN GRIND",
+      "label_on": "Stress",
+      "query": "stress hormones bruxism REM sleep",
+      "query2": "stress related teeth grinding",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "person sleeping with mouth open",
+      "query2": "nighttime dental health",
+      "role": "cta"
+    }
+  ],
+  "description": "Your teeth have a secret nightly concert—learn why it happens and how to quiet it. Follow for more body oddities.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bodyfacts",
+    "#sleep",
+    "#bruxism",
+    "#mindblowing",
+    "#health"
+  ],
+  "place": "",
+  "country": ""
+}

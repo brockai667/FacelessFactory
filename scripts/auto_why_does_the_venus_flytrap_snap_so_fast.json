@@ -1,0 +1,66 @@
+{
+  "title": "Why Does the Venus Flytrap Snap So Fast?",
+  "thumb": "FAST PLANT TRAP",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "The plant that catches insects in 0.1 seconds!",
+      "hook_top": "LIGHTNING FAST PLANT",
+      "query": "Venus flytrap closing speed",
+      "query2": "Dionaea muscipula trap motion",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "It snaps shut using a built‑in spring mechanism powered by rapid cell swelling.",
+      "label": "CELL SWELLING SPRING",
+      "label_on": "Snap",
+      "query": "venus flytrap mechanism cell swelling",
+      "query2": "plant rapid movement biomechanics",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "Trigger hairs must be touched twice within 20 seconds to fire, preventing false alarms.",
+      "label": "DOUBLE‑TOUCH TRIGGER",
+      "label_on": "Trigger",
+      "query": "venus flytrap trigger hairs double touch",
+      "query2": "dionaea muscipula sensory hairs",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Each trap can only snap about 20 times before it dies, so the plant conserves energy.",
+      "label": "LIMITED SNAP COUNT",
+      "label_on": "Count",
+      "query": "venus flytrap trap lifespan",
+      "query2": "how many times can a flytrap close",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "venus flytrap close up",
+      "query2": "carnivorous plant action",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover the hidden mechanics behind the world’s fastest plant. Stay curious and hit follow for more nature mysteries.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#plants",
+    "#carnivorous",
+    "#mindblowing",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

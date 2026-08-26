@@ -1,0 +1,72 @@
+{
+  "title": "What Allows the Axolotl to Regrow Its Limbs?",
+  "thumb": "AXOLOTL REGEN",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "The Mexican salamander can regrow a lost leg in weeks",
+      "hook_top": "AXOLOTL LEG REGEN",
+      "query": "axolotl limb regeneration timeline",
+      "query2": "axolotl regrow leg weeks",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Stem cells at the injury site form a blastema, a mass of undifferentiated cells",
+      "chips": [
+        {
+          "t": "BLASTEMA",
+          "on": "blastema",
+          "style": "accent"
+        }
+      ],
+      "punch": "mass",
+      "query": "blastema axolotl regeneration",
+      "query2": "stem cells blastema salamander",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "A unique gene called *nAG* reactivates developmental pathways, guiding new tissue growth",
+      "chips": [
+        {
+          "t": "nAG GENE",
+          "on": "nAG",
+          "style": "white"
+        }
+      ],
+      "query": "nAG gene axolotl regeneration",
+      "query2": "axolotl developmental genes",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Their biology could inspire human tissue repair",
+      "label": "FUTURE MEDICINE",
+      "sub": "Learning from salamander healing",
+      "label_on": "future",
+      "query": "axolotl medical research regeneration",
+      "query2": "salamander tissue repair",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "wild biology short",
+      "query2": "biology facts short",
+      "role": "cta"
+    }
+  ],
+  "description": "The axolotl’s ability to regrow limbs hinges on a blastema and a special gene. Could this unlock human healing? Follow for more wild biology wonders!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#biology",
+    "#regeneration",
+    "#science",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}
