@@ -322,7 +322,23 @@ def extract_json(s):
     a, b = s.find("["), s.rfind("]")
     if a != -1 and b != -1:
         s = s[a:b + 1]
-    return json.loads(s)
+    elif a != -1:
+        s = s[a:]
+    try:
+        return json.loads(s)
+    except Exception:
+        # zachrana orezaneho vystupu (max_tokens odsekol pole): zahod posledny nekompletny objekt
+        i = s.rfind("}")
+        while i > 0:
+            frag = re.sub(r",\s*$", "", s[:i + 1].rstrip())
+            try:
+                out = json.loads(frag + "]")
+                if isinstance(out, list) and out:
+                    return out
+            except Exception:
+                pass
+            i = s.rfind("}", 0, i)
+        raise
 
 
 def valid(t):
