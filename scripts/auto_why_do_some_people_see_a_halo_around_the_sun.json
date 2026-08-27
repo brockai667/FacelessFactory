@@ -1,0 +1,66 @@
+{
+  "title": "Why Do Some People See a Halo Around the Sun?",
+  "thumb": "SUN HALO MYSTERY",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A bright 22‑degree halo circles the Sun on clear winter days!",
+      "hook_top": "WINTER SUN HALO",
+      "query": "22 degree solar halo winter",
+      "query2": "sun halo formation temperature",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Hexagonal ice crystals in high clouds refract sunlight at a 22‑degree angle.",
+      "label": "ICE CRYSTAL REFRACTION",
+      "label_on": "Refract",
+      "query": "hexagonal ice crystals sun halo",
+      "query2": "how ice crystals create solar halo",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "The specific crystal orientation creates a bright inner circle and a fainter outer one.",
+      "label": "ORIENTED CRYSTALS",
+      "label_on": "Orient",
+      "query": "crystal orientation sun halo inner outer ring",
+      "query2": "solar halo double ring explanation",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Meteorologists use halo sightings to predict upcoming weather fronts.",
+      "label": "WEATHER PREDICTION TOOL",
+      "label_on": "Predict",
+      "query": "solar halo weather forecasting",
+      "query2": "halo as indicator of approaching storm",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "people looking at sun halo",
+      "query2": "sun halo photography",
+      "role": "cta"
+    }
+  ],
+  "description": "Uncover the icy optics that paint a perfect ring around our star—and what they tell us about the forecast. Follow for more sky facts.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#astronomy",
+    "#weather",
+    "#mindblowing",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

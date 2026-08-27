@@ -1,0 +1,66 @@
+{
+  "title": "What Makes a Cuttlefish Change Color in 0.2 Seconds?",
+  "thumb": "INSTANT COLOR",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A sea creature flips its skin palette in just 0.2 seconds!",
+      "hook_top": "FAST COLOR SHIFT",
+      "query": "cuttlefish rapid color change speed",
+      "query2": "sepia officinalis skin flashing",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Special pigment cells called chromatophores expand or contract with muscle control.",
+      "label": "CHROMATOPHORES ACTION",
+      "label_on": "Expand",
+      "query": "cuttlefish chromatophore muscle control",
+      "query2": "how cuttlefish change color cells",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "Iridophores reflect light, adding shimmering blues and greens that shift instantly.",
+      "label": "IRIDOPHORES REFLECT",
+      "label_on": "Reflect",
+      "query": "cuttlefish iridophores light reflection",
+      "query2": "iridescent skin cells cuttlefish",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Neural signals travel at lightning speed, coordinating all cells for a seamless transition.",
+      "label": "NEURAL SPEED COORDINATION",
+      "label_on": "Signal",
+      "query": "cuttlefish neural control skin color",
+      "query2": "cephalopod nervous system color change",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "cuttlefish displaying colors",
+      "query2": "marine animal camouflage",
+      "role": "cta"
+    }
+  ],
+  "description": "Explore the ultra‑fast camouflage tech of cuttlefish—nature’s living mood ring. Hit follow for deeper ocean secrets.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#ocean",
+    "#cuttlefish",
+    "#biology",
+    "#mindblowing",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}
