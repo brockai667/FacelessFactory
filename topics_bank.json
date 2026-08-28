@@ -11742,5 +11742,475 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Rats Help Scientists Unlock Human Secrets",
+    "thumb": "RATS REVEALED",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "The lab rat in a New York study solved a mystery about human memory",
+        "hook_top": "LAB RAT MYSTERY",
+        "query": "lab rat memory experiment New York",
+        "query2": "rat cognition study",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "Rats can navigate mazes using whisker‑based sonar, a skill humans lack",
+        "label": "WHISKER SONAR NAVIGATION",
+        "label_on": "whisker sonar",
+        "query": "rat whisker sonar navigation maze",
+        "query2": "rodent vibrissae echolocation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "Their immune systems share 85% of the same genes as ours, making them perfect disease models",
+        "label": "85% GENETIC OVERLAP",
+        "label_on": "genetic overlap",
+        "query": "rat human immune system gene similarity 85%",
+        "query2": "rodent human genetic overlap immune",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "A single rat’s brain can produce a burst of dopamine that mirrors a human's reward response",
+        "label": "DOPAMINE REWARD BURST",
+        "label_on": "dopamine burst",
+        "query": "rat dopamine reward response study",
+        "query2": "rodent dopamine brain reward",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button animation",
+        "query2": "call to action graphic",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how tiny lab rats are the key to unlocking mysteries of our own brain and health. Their surprising abilities make them the ultimate scientific sidekick. Stay tuned for more mind‑blowing animal facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#rats",
+      "#biology",
+      "#mindblown",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Secret Physics Behind Your Coffee’s Foam",
+    "thumb": "FOAM PHYSICS",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A cup of espresso in Rome creates a crema that defies gravity",
+        "hook_top": "ROME ESPRESSO CREMA",
+        "query": "espresso crema physics Rome coffee",
+        "query2": "coffee foam surface tension",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "Micro‑bubbles trap carbon dioxide released during bean roasting, forming a stable foam layer",
+        "label": "CARBON DIOXIDE MICRO‑BUBBLES",
+        "label_on": "micro bubbles",
+        "query": "coffee crema carbon dioxide microbubbles",
+        "query2": "espresso foam bubble formation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "The oil coating on coffee beans acts as a surfactant, lowering surface tension and keeping the crema intact",
+        "label": "OIL SURFACTANT EFFECT",
+        "label_on": "oil surfactant",
+        "query": "coffee bean oil surfactant crema stability",
+        "query2": "espresso oil surface tension",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "The high pressure of an espresso machine (≈9 bar) forces water through the coffee puck, creating a rapid pressure drop that expands the bubbles",
+        "label": "9 BAR PRESSURE EXPANSION",
+        "label_on": "pressure expansion",
+        "query": "espresso machine 9 bar pressure bubble expansion",
+        "query2": "coffee extraction pressure crema",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button animation coffee",
+        "query2": "call to action coffee graphic",
+        "role": "cta"
+      }
+    ],
+    "description": "Ever wondered why that golden layer on your espresso looks like liquid gold? It’s physics, chemistry, and a dash of barista art. Follow for more everyday science secrets that will change how you see your mug.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#coffee",
+      "#science",
+      "#foodfacts",
+      "#mindblown",
+      "#barista"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "How a Single Ant Can Outsmart a Human Puzzle",
+    "thumb": "ANT PUZZLE",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "One desert ant in Sahara solved a maze faster than a human champion",
+        "hook_top": "DESERT ANT MAZE",
+        "query": "desert ant maze solving speed Sahara experiment",
+        "query2": "ant navigation laboratory maze",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "Ants use polarized light from the sky as an internal compass, even under cloudy conditions",
+        "label": "POLARIZED SKY COMPASS",
+        "label_on": "sky compass",
+        "query": "ant polarized light navigation study",
+        "query2": "insect sky compass research",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "Their tiny feet leave chemical footprints that guide colony mates back to the exact route",
+        "label": "CHEMICAL FOOTPRINT TRAILS",
+        "label_on": "footprint trails",
+        "query": "ant pheromone trail maze experiment",
+        "query2": "insect chemical navigation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "Each ant can calculate the shortest path by constantly comparing distance cues, a process called “path integration”",
+        "label": "PATH INTEGRATION CALCULATION",
+        "label_on": "path integration",
+        "query": "ant path integration shortest route study",
+        "query2": "insect navigation shortest path",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "follow button animation ant",
+        "query2": "call to action insect graphic",
+        "role": "cta"
+      }
+    ],
+    "description": "A lone ant’s brain may be tiny, but its navigation tricks beat even the fastest human puzzlers. Learn the hidden tools nature gives these insects. Subscribe for more mind‑blowing animal intelligence.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#animals",
+      "#science",
+      "#ant",
+      "#mindblown",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Can Rats Really Predict Earthquakes?",
+    "thumb": "EARTHQUAKE RAT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "When the 2011 Japan quake hit, rats supposedly ran out seconds early.",
+        "hook_top": "RATS FLED EARTHQUAKE",
+        "query": "2011 Japan earthquake rats fleeing",
+        "query2": "rat behavior during earthquake",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People believe rats can sense and warn us about an incoming earthquake.",
+        "label": "Rats predict quakes",
+        "query": "myth rats sense earthquakes",
+        "query2": "rats earthquake prediction belief",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Scientific studies show rats react to the same ground vibrations as humans; there’s no evidence they detect quakes before instruments.",
+        "label": "No early warning ability",
+        "query": "scientific study rats earthquake detection",
+        "query2": "research rats earthquake vibrations",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Rats feel the shake, they don’t foresee it.",
+        "label": "Shake, not foresight",
+        "sub": "They respond to actual motion, not a sixth sense.",
+        "label_on": "react",
+        "query": "rat reaction to seismic waves",
+        "query2": "animal response to ground motion",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow science channel",
+        "query2": "subscribe myth busting",
+        "role": "cta"
+      }
+    ],
+    "description": "The idea of rat‑run warnings sounds cinematic, but science tells a different story. Learn why this myth doesn’t hold up.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mythbust",
+      "#science",
+      "#earthquake",
+      "#rats",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Do Rats Never Get Cancer?",
+    "thumb": "RAT CANCER MYTH",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A 2015 study showed a lab rat lived 2 years without tumors.",
+        "hook_top": "RAT LIVED TUMORFREE",
+        "query": "2015 rat study tumor free lifespan",
+        "query2": "laboratory rat cancer free study",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "Many think rats are immune to cancer, making them perfect lab subjects.",
+        "label": "Rats immune to cancer",
+        "query": "myth rats immune cancer",
+        "query2": "belief rats can't get cancer",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Rats do develop tumors naturally; researchers actually induce cancers in them to study treatments.",
+        "label": "Rats can develop cancer",
+        "query": "rats develop spontaneous tumors",
+        "query2": "cancer research using rats",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "They’re useful because we can control cancer, not because they’re immune.",
+        "label": "Controlled model",
+        "sub": "Scientists create tumors to test therapies.",
+        "label_on": "model",
+        "query": "rat cancer model research",
+        "query2": "induced tumors in rats",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow science myths channel",
+        "query2": "subscribe for fact busts",
+        "role": "cta"
+      }
+    ],
+    "description": "Rats aren’t cancer‑free superheroes; they’re just adaptable lab models. Discover the real reason they’re used in oncology research.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mythbust",
+      "#biology",
+      "#cancer",
+      "#rats",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "How Rats Outsmart MRI in Cancer Detection",
+    "thumb": "RATS VS MRI",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Scientists found rats can sniff out cancer with 96% accuracy",
+        "hook_top": "RATS DETECT CANCER 96",
+        "query": "rats cancer detection study",
+        "query2": "rat olfactory cancer research",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "In a 2008 study, trained rats identified lung cancer in breath samples with about 96% sensitivity.",
+        "chips": [
+          {
+            "t": "2008 Study",
+            "on": "study",
+            "style": "white"
+          },
+          {
+            "t": "96% Sensitivity",
+            "on": "accuracy",
+            "style": "accent"
+          }
+        ],
+        "query": "2008 rat lung cancer breath test",
+        "query2": "rat olfaction cancer sensitivity",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The rats learn the task in roughly five days, far faster than many lab training programs.",
+        "chips": [
+          {
+            "t": "5‑Day Training",
+            "on": "training",
+            "style": "white"
+          }
+        ],
+        "query": "rat training duration cancer detection",
+        "query2": "how long to train rats for smell tests",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "One rat can screen a sample for a fraction of the cost of an MRI scan.",
+        "reveal_top": "CHEAPER THAN MRI",
+        "query": "cost comparison rat screening MRI",
+        "query2": "price of rat cancer detection vs MRI",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow call to action",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Rats are proving to be lightning‑fast, ultra‑accurate cancer detectors that could slash diagnostic costs. Curious how they do it? Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#cancerdetection",
+      "#rats",
+      "#healthtech",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why 95% of Lab Rats Hide a Secret",
+    "thumb": "RATS REVEALED",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Why 95% of lab rats hide a secret in their DNA?",
+        "hook_top": "RATS DNA SECRET",
+        "query": "lab rats DNA similarity",
+        "query2": "rat genetic research",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Rats share about 98% of their genes with humans, making them ideal for medical studies.",
+        "chips": [
+          {
+            "t": "98% GENE SHARE",
+            "on": "genes",
+            "style": "accent"
+          }
+        ],
+        "punch": "wow",
+        "query": "rat human DNA similarity",
+        "query2": "rat genetics percentage",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "They can sense low‑frequency vibrations and often react minutes before earthquakes strike.",
+        "chips": [
+          {
+            "t": "EARTHQUAKE SENSE",
+            "on": "vibrations",
+            "style": "white"
+          }
+        ],
+        "query": "rats detecting earthquakes",
+        "query2": "rodent seismic sensitivity",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Rats are nature's early‑warning system and medical stand‑ins.",
+        "label": "EARLY WARNING",
+        "sub": "DNA twins and quake detectors",
+        "label_on": "warning",
+        "query": "rats early warning system",
+        "query2": "rat research benefits",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow channel",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how rats' DNA and uncanny senses make them indispensable to science. Tap follow for more mind‑blowing animal facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#rats",
+      "#biology",
+      "#facts",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

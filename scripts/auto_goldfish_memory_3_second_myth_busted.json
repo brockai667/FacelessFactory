@@ -1,0 +1,62 @@
+{
+  "title": "Goldfish Memory: 3‑Second Myth Busted",
+  "thumb": "GOLDFISH MEMORY",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A goldfish can remember a maze for at least 5 months.",
+      "hook_top": "5MONTH MEMORY",
+      "query": "goldfish maze memory study",
+      "query2": "goldfish long term memory experiment",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "Everyone believes goldfish only have a 3‑second memory span.",
+      "label": "3‑second goldfish myth",
+      "query": "goldfish 3 second memory myth",
+      "query2": "goldfish short memory belief",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "Research shows goldfish can learn and retain information for weeks, even months, disproving the myth.",
+      "label": "Goldfish remember weeks",
+      "query": "goldfish learning retention study",
+      "query2": "goldfish memory research",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "Goldfish are smarter than you think.",
+      "label": "Smart Goldfish",
+      "sub": "They can be trained like pets.",
+      "label_on": "Smart",
+      "query": "goldfish training experiments",
+      "query2": "goldfish cognitive abilities",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "animal myth busting",
+      "query2": "short animal facts",
+      "role": "cta"
+    }
+  ],
+  "description": "The 3‑second myth is just a rumor—goldfish have impressive memory skills. Stay tuned for more hidden animal intelligence!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#goldfish",
+    "#mythbusting",
+    "#animalfacts",
+    "#science",
+    "#petscience"
+  ],
+  "place": "",
+  "country": ""
+}

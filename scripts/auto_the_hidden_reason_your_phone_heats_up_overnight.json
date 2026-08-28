@@ -1,0 +1,79 @@
+{
+  "title": "The Hidden Reason Your Phone Heats Up Overnight",
+  "thumb": "HOT PHONE",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your phone can reach 45 °C while you sleep.",
+      "hook_top": "OVERHEATED PHONE",
+      "query": "phone temperature overnight",
+      "query2": "smartphone heating while idle",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Background apps keep the processor active, generating heat even when the screen is off.",
+      "chips": [
+        {
+          "t": "BACKGROUND APPS",
+          "on": "background",
+          "style": "white"
+        },
+        {
+          "t": "CPU HEAT",
+          "on": "processor",
+          "style": "accent"
+        }
+      ],
+      "punch": "active",
+      "query": "background apps cpu usage phone heat",
+      "query2": "smartphone idle heat sources",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Charging overnight forces the battery to cycle, releasing extra thermal energy.",
+      "chips": [
+        {
+          "t": "BATTERY CYCLE",
+          "on": "battery",
+          "style": "accent"
+        }
+      ],
+      "punch": "cycle",
+      "query": "overnight charging battery heat",
+      "query2": "phone battery thermal management",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Unplug & limit apps to keep it cool.",
+      "label": "Cool Down Tip",
+      "sub": "Simple steps, cooler device.",
+      "label_on": "cool",
+      "query": "reduce phone heating tips",
+      "query2": "phone cooling methods",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "technology mystery short video",
+      "query2": "tech secrets shorts",
+      "role": "cta"
+    }
+  ],
+  "description": "That warm feeling on your nightstand isn’t magic—it's background apps and overnight charging. Learn the hidden cause and a quick fix. Follow for more tech‑mystery facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#tech",
+    "#phone",
+    "#mystery",
+    "#mindblowing",
+    "#science"
+  ],
+  "place": "",
+  "country": ""
+}
