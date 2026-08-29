@@ -12212,5 +12212,141 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why Does the Human Brain Consume 20% of Your Oxygen?",
+    "thumb": "BRAIN OXYGEN",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Why does the human brain consume 20% of your oxygen?",
+        "hook_top": "BRAIN STEALS OXYGEN",
+        "query": "human brain oxygen consumption",
+        "query2": "brain uses 20 percent oxygen",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "IT'S ONLY 2% OF BODY WEIGHT",
+        "label_on": "fact one",
+        "text": "Even though it’s only about 2% of your body weight, it uses a fifth of the oxygen you breathe.",
+        "query": "brain weight percentage of body",
+        "query2": "brain 2 percent body weight",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "HIGH ENERGY DEMAND",
+        "label_on": "fact two",
+        "text": "Neurons fire millions of times per second, requiring glucose and oxygen to keep electrical signals flowing.",
+        "query": "neuron firing energy demand",
+        "query2": "brain glucose oxygen usage",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "NO OXYGEN, QUICK FAINT",
+        "label_on": "fact three",
+        "text": "If oxygen drops just a few percent, you can lose consciousness in seconds because the brain can’t store it.",
+        "query": "brain oxygen deprivation fainting",
+        "query2": "low oxygen brain loss of consciousness",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "follow call to action text",
+        "query2": "subscribe reminder",
+        "role": "cta"
+      }
+    ],
+    "description": "Your brain is a tiny organ with a massive appetite for oxygen. Discover why it hogs a fifth of every breath you take. Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#brainfacts",
+      "#bodysecrets",
+      "#mindblown",
+      "#health"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Great White Sharks Actually Can Stop Swimming",
+    "thumb": "SHARK STOP",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Great White sharks must swim 30 miles each day to stay alive",
+        "hook_top": "SHARKS MUST SWIM",
+        "query": "Great White shark daily swimming distance",
+        "query2": "great white shark migration distance",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "About 70% of shark species use ram ventilation, forcing water over gills by moving forward",
+        "chips": [
+          {
+            "t": "70% OF SHARKS",
+            "on": "ram ventilation",
+            "style": "accent"
+          }
+        ],
+        "query": "ram ventilation sharks percentage",
+        "query2": "shark breathing by movement",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Great whites can store enough oxygen to pause for up to five minutes while hunting",
+        "chips": [
+          {
+            "t": "5‑MINUTE PAUSE",
+            "on": "oxygen storage",
+            "style": "white"
+          }
+        ],
+        "query": "great white shark oxygen storage duration",
+        "query2": "shark breath hold time",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "But many sharks, like nurse sharks, have spiracles that let them breathe while completely still",
+        "reveal_top": "SPIRACLES ENABLE REST",
+        "query": "nurse shark spiracle breathing",
+        "query2": "shark species that rest without swimming",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "call to action follow",
+        "query2": "subscribe reminder",
+        "role": "cta"
+      }
+    ],
+    "description": "You’ll think all sharks are forced to cruise forever, but some have a secret breathing trick. Dive deeper with us!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#sharks",
+      "#science",
+      "#wildlife",
+      "#mindblowing",
+      "#oceanfacts"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

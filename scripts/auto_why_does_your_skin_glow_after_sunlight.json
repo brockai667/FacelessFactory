@@ -1,0 +1,66 @@
+{
+  "title": "Why Does Your Skin Glow After Sunlight?",
+  "thumb": "GLOWING SKIN",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Ever wondered why your skin looks luminous after a sunny walk?",
+      "hook_top": "SUNLIGHT GLOWS",
+      "query": "human skin after sun exposure",
+      "query2": "skin glowing sunlight",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "label": "UV‑INDUCED MELATONIN",
+      "label_on": "melatonin",
+      "text": "UV light triggers a tiny rise in melatonin, a hormone that can give a subtle sheen.",
+      "query": "melatonin production UV exposure skin",
+      "query2": "UV melatonin skin glow",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "label": "OXYGENATED BLOOD VESSELS",
+      "label_on": "blood",
+      "text": "Blood flow increases, bringing oxygen‑rich blood that reflects light more brightly.",
+      "query": "increased blood flow skin sunlight",
+      "query2": "oxygenated blood skin glow",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "label": "SEBUM REFINEMENT",
+      "label_on": "sebum",
+      "text": "Heat softens sebum, creating a smooth surface that catches light like a natural highlighter.",
+      "query": "sebum softening sunlight skin",
+      "query2": "skin oil glow sunlight",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "follow call to action",
+      "query2": "cta follow",
+      "role": "cta"
+    }
+  ],
+  "description": "Your skin’s post‑sunshine shine isn’t magic—it’s science. Discover the three hidden reasons behind that radiant look. Follow for more hidden body secrets!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bodyfacts",
+    "#science",
+    "#glow",
+    "#skin",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}

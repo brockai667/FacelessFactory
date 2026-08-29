@@ -1,0 +1,70 @@
+{
+  "title": "Why Pineapple's Eyes Aren't Just Cute?",
+  "thumb": "PINEAPPLE EYES",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "12 pineapples' eyes hide a secret you can grow",
+      "hook_top": "12 PINEAPPLE EYES SECRETS",
+      "query": "pineapple eyes",
+      "query2": "pineapple top",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Each eye is actually an individual flower that fused into the fruit",
+      "chips": [
+        {
+          "t": "FLOWER EYE",
+          "on": "flower",
+          "style": "white"
+        }
+      ],
+      "query": "pineapple flower eye",
+      "query2": "pineapple fruitlet",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "A pineapple produces only one fruit, and the eyes are the remnants of that flower cluster",
+      "chips": [
+        {
+          "t": "ONE FRUIT",
+          "on": "fruit",
+          "style": "accent"
+        }
+      ],
+      "query": "pineapple single fruit",
+      "query2": "pineapple reproduction",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "Those eyes can be planted to grow a brand‑new pineapple plant",
+      "reveal_top": "EYES GROW PINEAPPLES",
+      "query": "plant pineapple eyes",
+      "query2": "pineapple propagation",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "nature hack follow",
+      "query2": "shorts follow",
+      "role": "cta"
+    }
+  ],
+  "description": "The tiny eyes on a pineapple aren’t just decorative—they’re each a former flower that can sprout a whole new plant. Learn the surprising way to propagate pineapples from those spots.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#pineapple",
+    "#naturefacts",
+    "#planthack",
+    "#science",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
