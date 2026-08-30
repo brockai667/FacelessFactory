@@ -1,0 +1,57 @@
+{
+  "title": "Is the Pacific Garbage Patch Visible From Space?",
+  "thumb": "GARBAGE PATCH",
+  "scenes": [
+    {
+      "text": "The Pacific's 1.6‑million‑square‑mile garbage patch looks like a floating island from orbit.",
+      "hook_top": "GIGANTIC OCEAN TRASH PATCH",
+      "query": "Pacific garbage patch satellite view",
+      "query2": "Pacific Ocean plastic debris from space",
+      "role": "hook"
+    },
+    {
+      "text": "Myth: You can see the massive trash swirl with the naked eye from space.",
+      "label": "Visible from space?",
+      "query": "satellite image visible garbage patch",
+      "query2": "astronaut view of Pacific trash",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Truth: The debris is mostly micro‑plastics spread thinly; even astronauts report it looks like ordinary water.",
+      "label": "Micro‑plastics, not visible",
+      "query": "astronaut statement Pacific garbage patch invisible",
+      "query2": "NASA crew view of ocean plastic",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Callout: Tiny particles, huge problem.",
+      "label": "Tiny, huge impact",
+      "sub": "Micro‑plastics spread over millions of square miles",
+      "label_on": "microplastics",
+      "query": "microplastics distribution Pacific Ocean",
+      "query2": "plastic particle concentration sea",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow so you never run out of fun facts.",
+      "query": "follow science channel",
+      "query2": "subscribe myth busting",
+      "role": "cta"
+    }
+  ],
+  "description": "We all hear the giant trash island floating in the Pacific, but can you really spot it from orbit? The truth will surprise you. Follow for more mind‑blowing facts.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#mythbusting",
+    "#plasticpollution",
+    "#space",
+    "#environment"
+  ],
+  "place": "",
+  "country": ""
+}

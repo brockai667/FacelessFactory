@@ -1,0 +1,66 @@
+{
+  "title": "What Makes a Banana Slightly Radioactive?",
+  "thumb": "BANANA RADIOACTIVITY",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Did you know a single banana contains a measurable amount of radiation?",
+      "hook_top": "BANANA RADIATION",
+      "query": "banana radiation potassium‑40",
+      "query2": "radioactivity in bananas",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "label": "POTASSIUM‑40 ISOTOPES",
+      "label_on": "potassium",
+      "text": "Bananas are rich in potassium‑40, a naturally occurring radioactive isotope.",
+      "query": "potassium‑40 in bananas",
+      "query2": "radioactive isotope potassium banana",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "label": "MEASURABLE DURATION",
+      "label_on": "dose",
+      "text": "One banana delivers about 0.1 microsieverts—far below any health risk.",
+      "query": "radiation dose banana microsieverts",
+      "query2": "banana radiation level",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "label": "BENCHMARK UNIT",
+      "label_on": "banana",
+      "text": "Scientists use “banana equivalents” to illustrate tiny radiation exposures in everyday life.",
+      "query": "banana equivalent dose",
+      "query2": "banana radiation benchmark",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "follow call to action",
+      "query2": "cta follow",
+      "role": "cta"
+    }
+  ],
+  "description": "A banana’s glow isn’t a myth—tiny potassium‑40 atoms make it slightly radioactive. Learn the three key facts behind this tasty quirk. Hit follow for more everyday science mysteries!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#foodfacts",
+    "#radiation",
+    "#banana",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,79 @@
+{
+  "title": "Why Does Your Skin Form Goosebumps at 7 °C?",
+  "thumb": "GOOSEBUMP SURGE",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "At 7 °C, your skin sprouts tiny hills.",
+      "hook_top": "7C SKIN HILLS",
+      "query": "goosebumps temperature 7°C",
+      "query2": "cold induced goosebumps",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Your body releases norepinephrine, pulling tiny muscles called arrectors at the base of each hair.",
+      "chips": [
+        {
+          "t": "NOREPINEPHRINE",
+          "on": "norepinephrine",
+          "style": "accent"
+        },
+        {
+          "t": "ARRECTOR MUSCLES",
+          "on": "arrector",
+          "style": "white"
+        }
+      ],
+      "punch": "shiver",
+      "query": "arrector pili muscle norepinephrine",
+      "query2": "how goosebumps form",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "When hairs stand up, they trap a thin layer of air, acting like natural insulation.",
+      "chips": [
+        {
+          "t": "AIR INSULATION",
+          "on": "insulation",
+          "style": "accent"
+        }
+      ],
+      "query": "goosebumps insulation air layer",
+      "query2": "purpose of goosebumps",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Your body’s tiny thermostat reacts to chill.",
+      "label": "Cold‑Trigger",
+      "sub": "Tiny muscles = instant heat guard",
+      "label_on": "cold trigger",
+      "query": "cold trigger goosebumps",
+      "query2": "physiology of shivering",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "body secrets short video",
+      "query2": "mystery science facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Ever wondered why your skin prickles in the cold? Discover the hidden thermostat that makes you goosebump. Follow for more mind‑blowing body oddities!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#mystery",
+    "#cold",
+    "#goosebumps",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
