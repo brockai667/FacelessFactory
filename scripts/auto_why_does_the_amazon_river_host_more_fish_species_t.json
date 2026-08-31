@@ -1,0 +1,85 @@
+{
+  "title": "Why does the Amazon River host more fish species than the Atlantic?",
+  "thumb": "RIVER REVEAL",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Why does the Amazon River host more fish species than the Atlantic?",
+      "hook_top": "AMAZON RIVER FISH FACT",
+      "query": "Amazon River fish species count",
+      "query2": "Amazon River biodiversity",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "The Amazon is home to roughly 2,200 fish species, the highest number for any river.",
+      "chips": [
+        {
+          "t": "2,200 species",
+          "on": "species",
+          "style": "white"
+        },
+        {
+          "t": "most river",
+          "on": "most",
+          "style": "accent"
+        }
+      ],
+      "punch": "wow",
+      "query": "number of fish species in Amazon River",
+      "query2": "fish diversity Amazon",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Its massive floodplain creates over 1,100 tributaries, each a micro‑habitat that fuels rapid speciation.",
+      "chips": [
+        {
+          "t": "1,100+ tributaries",
+          "on": "tributaries",
+          "style": "white"
+        },
+        {
+          "t": "micro‑habitat",
+          "on": "habitat",
+          "style": "accent"
+        }
+      ],
+      "punch": "boom",
+      "query": "Amazon River tributaries count",
+      "query2": "Amazon floodplain habitats",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Nature’s ultimate fish factory.",
+      "label": "Biodiversity Boost",
+      "sub": "Thousands of habitats, endless species.",
+      "label_on": "boost",
+      "query": "Amazon River biodiversity explanation",
+      "query2": "why Amazon has many fish species",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "call to action follow",
+      "query2": "subscribe prompt",
+      "role": "cta"
+    }
+  ],
+  "description": "The Amazon River isn’t just huge—it’s a living laboratory of evolution. Discover why its waters teem with more fish than any ocean. 🌊🔬 Follow for more mind‑blowing nature facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#AmazonRiver",
+    "#FishFacts",
+    "#NatureScience",
+    "#Biodiversity",
+    "#WildFacts",
+    "#ScienceShorts"
+  ],
+  "place": "",
+  "country": ""
+}
