@@ -1,0 +1,66 @@
+{
+  "title": "How a Single Ant Can Outsmart a Human Puzzle",
+  "thumb": "ANT PUZZLE",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "One desert ant in Sahara solved a maze faster than a human champion",
+      "hook_top": "DESERT ANT MAZE",
+      "query": "desert ant maze solving speed Sahara experiment",
+      "query2": "ant navigation laboratory maze",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Ants use polarized light from the sky as an internal compass, even under cloudy conditions",
+      "label": "POLARIZED SKY COMPASS",
+      "label_on": "sky compass",
+      "query": "ant polarized light navigation study",
+      "query2": "insect sky compass research",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "Their tiny feet leave chemical footprints that guide colony mates back to the exact route",
+      "label": "CHEMICAL FOOTPRINT TRAILS",
+      "label_on": "footprint trails",
+      "query": "ant pheromone trail maze experiment",
+      "query2": "insect chemical navigation",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Each ant can calculate the shortest path by constantly comparing distance cues, a process called “path integration”",
+      "label": "PATH INTEGRATION CALCULATION",
+      "label_on": "path integration",
+      "query": "ant path integration shortest route study",
+      "query2": "insect navigation shortest path",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "follow button animation ant",
+      "query2": "call to action insect graphic",
+      "role": "cta"
+    }
+  ],
+  "description": "A lone ant’s brain may be tiny, but its navigation tricks beat even the fastest human puzzlers. Learn the hidden tools nature gives these insects. Subscribe for more mind‑blowing animal intelligence.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#animals",
+    "#science",
+    "#ant",
+    "#mindblown",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

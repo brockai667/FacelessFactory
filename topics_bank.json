@@ -12619,5 +12619,332 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Why the Sahara’s Sand Can ‘Sing’ at Night",
+    "thumb": "SAND SINGING",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Ever heard the Sahara dunes hum after sunset?",
+        "hook_top": "SAND HUMMING",
+        "query": "Sahara desert sand singing phenomenon",
+        "query2": "desert sand acoustic effect",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "When sand grains are perfectly round and dry, they can rub together and create audible tones.",
+        "label": "ROUND DRY SAND",
+        "label_on": "sand",
+        "query": "singing sand dunes round dry sand",
+        "query2": "acoustic sand dunes physics",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "The sound is amplified by the dune’s shape, acting like a natural resonating chamber.",
+        "label": "DUNE RESONANCE",
+        "label_on": "dune",
+        "query": "sand dune resonating chamber sound",
+        "query2": "acoustic properties of sand dunes",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "Scientists have recorded frequencies from a low hum up to a high‑pitched squeak, depending on grain size.",
+        "label": "FREQUENCY RANGE",
+        "label_on": "frequency",
+        "query": "sand dune frequency range recordings",
+        "query2": "singing sand frequency measurements",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow us earth sound facts",
+        "query2": "subscribe hidden nature secrets",
+        "role": "cta"
+      }
+    ],
+    "description": "The Sahara hides a musical secret that only reveals itself after dark. Discover how tiny grains become a natural instrument. Follow for more unheard wonders!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#nature",
+      "#sahara",
+      "#mystery",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "The Human Heart Can Sync With Music – Here’s How",
+    "thumb": "HEART BEAT SYNC",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your heartbeat actually matches certain songs’ tempos.",
+        "hook_top": "HEART SYNC",
+        "query": "heart rate syncing with music studies",
+        "query2": "heartbeat music tempo correlation",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "When a song’s beats per minute (BPM) align with your resting heart rate, the body naturally entrains to the rhythm.",
+        "label": "BPM ENTRAINMENT",
+        "label_on": "bpm",
+        "query": "beats per minute heart rate entrainment research",
+        "query2": "music tempo heart synchronization",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "Studies show this alignment can lower stress hormones and improve focus.",
+        "label": "STRESS REDUCTION",
+        "label_on": "stress",
+        "query": "music heart rate stress hormone study",
+        "query2": "music therapy heart rate cortisol",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "Classical pieces around 60‑70 BPM often feel “calming” because they mirror an average adult’s resting pulse.",
+        "label": "CALMING BPM",
+        "label_on": "calming",
+        "query": "classical music 60-70 bpm calming effect",
+        "query2": "resting heart rate music tempo",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "follow rhythm body hacks",
+        "query2": "subscribe music health facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Your heart isn’t just a pump—it’s a rhythm matcher. Learn why certain songs calm you instantly and how to pick the perfect beat. Follow for more pulse‑pounding facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#psychology",
+      "#music",
+      "#heart",
+      "#mindblowing",
+      "#bodyhacks"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "How a Simple Light Bulb Can Reveal Dark Matter?",
+    "thumb": "BULB DARK MATTER",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A common LED bulb can help scientists hunt dark matter particles.",
+        "hook_top": "BULB HUNT",
+        "query": "LED bulb dark matter detection experiment",
+        "query2": "light bulb dark matter research",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "Researchers coat the bulb’s glass with a thin layer of xenon, which emits faint flashes when hit by hidden particles.",
+        "label": "XENON COATING",
+        "label_on": "xenon",
+        "query": "xenon coated light bulb dark matter detection",
+        "query2": "xenon flash dark matter experiment",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "The setup uses ultra‑sensitive photomultiplier tubes to capture those rare flashes.",
+        "label": "PHOTO TUBES",
+        "label_on": "photomultiplier",
+        "query": "photomultiplier tubes dark matter flash detection",
+        "query2": "photomultiplier dark matter experiment",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "If a flash is recorded, it could indicate a weakly interacting massive particle—a leading dark matter candidate.",
+        "label": "WIMP SIGNAL",
+        "label_on": "wimp",
+        "query": "WIMP signal light bulb experiment",
+        "query2": "dark matter weakly interacting massive particle detection",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow everyday cosmic secrets",
+        "query2": "subscribe hidden science facts",
+        "role": "cta"
+      }
+    ],
+    "description": "A kitchen staple becomes a portal to the universe’s biggest mystery. See how scientists turn a simple bulb into a dark‑matter detector. Follow for more hidden science!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#space",
+      "#science",
+      "#darkmatter",
+      "#mindblowing",
+      "#everydayphysics"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Do We Really Use Only 10% of Our Brain?",
+    "thumb": "BRAIN MYTH BUSTED",
+    "scenes": [
+      {
+        "text": "Your brain uses only 10% of its capacity?",
+        "hook_top": "ONLY 10 BRAIN USED",
+        "query": "human brain activity percentage",
+        "query2": "brain usage statistics",
+        "role": "hook"
+      },
+      {
+        "text": "Many believe we only use ten percent of our brain.",
+        "label": "We only use 10% of our brain",
+        "query": "brain usage myth",
+        "query2": "common brain misconceptions",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Neuroimaging shows the brain lights up across almost every region even at rest, meaning we use nearly 100% of it over a day.",
+        "label": "Brain uses nearly 100% daily",
+        "query": "brain MRI activity full brain usage",
+        "query2": "functional MRI whole brain activation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Your brain is always active, even when you’re sleeping.",
+        "label": "Always Active",
+        "sub": "Brain shows activity even at rest",
+        "label_on": "Brain",
+        "query": "brain activity during sleep",
+        "query2": "resting state brain function",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow if you love learning something new.",
+        "query": "shorts follow call to action",
+        "query2": "cta follow prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "The 10% brain myth persists, but science proves our minds are far more active than that. Discover the real truth and keep your curiosity sharp.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#mythbusting",
+      "#brainfacts",
+      "#mindblown",
+      "#psychology"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Why Do Bananas Turn Brown in Just 5 Seconds?",
+    "thumb": "BANANA BROWNING",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Bananas brown in just 5 seconds after a bite – why?",
+        "hook_top": "BANANAS BROWN IN 5 SECONDS",
+        "query": "banana browning after bite",
+        "query2": "banana skin turning brown quickly",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Polyphenol oxidase in banana cells reacts with oxygen, creating brown pigments called melanin.",
+        "chips": [
+          {
+            "t": "POLYPOHMELANIN REACTION",
+            "on": "polyphenol oxidase",
+            "style": "accent"
+          }
+        ],
+        "punch": "reaction",
+        "query": "polyphenol oxidase enzyme banana",
+        "query2": "banana melanin formation",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "When the fruit is cut, cells release air‑filled spaces, letting oxygen flood the flesh and speed up the reaction.",
+        "chips": [
+          {
+            "t": "OXYGEN FLOOD",
+            "on": "oxygen",
+            "style": "white"
+          }
+        ],
+        "punch": "exposure",
+        "query": "oxygen exposure banana flesh",
+        "query2": "air in cut banana cells",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "The brown layer actually shields the fruit, acting as an antioxidant barrier that slows deeper damage.",
+        "reveal_top": "BROWN IS PROTECTIVE SHIELD",
+        "query": "banana protective antioxidant response",
+        "query2": "brown pigment defense banana",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "mind blowing science channel",
+        "query2": "science facts short",
+        "role": "cta"
+      }
+    ],
+    "description": "A quick bite triggers a burst of chemistry that turns banana flesh brown. The color isn’t just decay—it’s nature’s armor. Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#foodfacts",
+      "#banana",
+      "#mindblowing",
+      "#biology"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
