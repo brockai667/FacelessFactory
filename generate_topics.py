@@ -213,7 +213,13 @@ def build_prompt_fmt(fmt, n, existing_titles, trending=None, perf=""):
         "- 'thumb' = 2-3 punchy UPPERCASE words for the thumbnail (most clickable phrase, NOT a sentence).\n"
         "- ACCURACY IS SACRED: only widely-documented facts and real numbers; never invent figures.\n"
         "- description: 1-2 engaging sentences + a short follow line; hashtags: 6-9 incl #shorts #fyp.\n"
-        "- VARY titles (bold claim / question / curiosity gap); max 1 in 5 starts with a number.\n"
+        "- TITLE RULE - measured on 1427 of our own videos, obey it exactly:\n"
+        "  * MAX 6 WORDS. Short titles get 1.25x the views (holds on 9/9 channels).\n"
+        "  * NO digits and NO $ amounts in the title (0.66x and 0.43x the views).\n"
+        "  * NO dash and NO colon (0.71x). NO 'you'/'your' (0.69x).\n"
+        "  * Name the subject plainly. Numbers belong in the SCENES, not the title.\n"
+        "  * Good shape: 4-6 plain words. Bad shape: a long sentence with a figure and a dash.\n"
+        "- VARY the angle across titles (bold claim / question / curiosity gap).\n"
         f"- Do NOT reuse or rephrase any of these existing titles: {existing_titles}\n"
         + PERFORMANCE + perf + trend_block +
         "Return ONLY the JSON array."
@@ -341,10 +347,43 @@ def extract_json(s):
         raise
 
 
+# --- nazvy: pravidlo z archivu 1427 videi (31.8.2026) ----------------------
+# kratky nazov <=6 slov = 1,25x dosah (9/9 kanalov); pomlcka 0,71x; cislo 0,66x;
+# $ suma 0,43x; "you/your" 0,69x. fix_title robi LEN bezpecne upravy a temu
+# NIKDY nezahodi - zahadzovanie by vyhladovalo banku.
+_T_TAG = re.compile(r"#\w+")
+_T_TAIL = re.compile(r"\s+[\u2013\u2014]\s+.*$|\s+-\s+.*$")
+
+
+def fix_title(s):
+    s = _T_TAG.sub("", str(s or ""))
+    s = _T_TAIL.sub("", s)                    # "A - privesok" -> "A"
+    head = s.split(":")[0]
+    if len(head.split()) >= 3:                # dvojbodku odrez len ak ostane zmysel
+        s = head
+    return " ".join(s.split()).strip(" .,;:-\u2013\u2014")
+
+
+def title_flags(s):
+    """Co na nazve podla dat este skodi - na reportovanie, nie na zahadzovanie."""
+    f = []
+    n = len(str(s).split())
+    if n > 6:
+        f.append(str(n) + "slov")
+    if re.search(r"\d", str(s)):
+        f.append("cislo")
+    if "$" in str(s):
+        f.append("$")
+    if re.search(r"\byou(r)?\b", str(s), re.I):
+        f.append("you")
+    return f
+
+
 def valid(t):
     """Overi + doopravi NOVY format temy (scenes). Stare/nevalidne temy odmietne."""
     if not isinstance(t, dict) or not t.get("title"):
         return False
+    t["title"] = fix_title(t["title"]) or str(t["title"]).strip()
     scenes = t.get("scenes")
     if not isinstance(scenes, list) or not (4 <= len(scenes) <= 7):
         return False
