@@ -356,12 +356,15 @@ _T_TAIL = re.compile(r"\s+[\u2013\u2014]\s+.*$|\s+-\s+.*$")
 
 
 def fix_title(s):
-    s = _T_TAG.sub("", str(s or ""))
-    s = _T_TAIL.sub("", s)                    # "A - privesok" -> "A"
+    """Orez privesok za pomlckou/dvojbodkou - ale NIKDY nevyrob pahyl:
+    ak by z nazvu ostali menej nez 3 slova, vrat povodny."""
+    orig = " ".join(_T_TAG.sub("", str(s or "")).split()).strip(" .,;:-\u2013\u2014")
+    s = _T_TAIL.sub("", orig)                 # "A - privesok" -> "A"
     head = s.split(":")[0]
     if len(head.split()) >= 3:                # dvojbodku odrez len ak ostane zmysel
         s = head
-    return " ".join(s.split()).strip(" .,;:-\u2013\u2014")
+    s = " ".join(s.split()).strip(" .,;:-\u2013\u2014")
+    return s if len(s.split()) >= 3 else orig
 
 
 def title_flags(s):
