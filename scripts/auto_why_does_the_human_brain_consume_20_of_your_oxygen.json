@@ -1,0 +1,66 @@
+{
+  "title": "Why Does the Human Brain Consume 20% of Your Oxygen?",
+  "thumb": "BRAIN OXYGEN",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Why does the human brain consume 20% of your oxygen?",
+      "hook_top": "BRAIN STEALS OXYGEN",
+      "query": "human brain oxygen consumption",
+      "query2": "brain uses 20 percent oxygen",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "label": "IT'S ONLY 2% OF BODY WEIGHT",
+      "label_on": "fact one",
+      "text": "Even though it’s only about 2% of your body weight, it uses a fifth of the oxygen you breathe.",
+      "query": "brain weight percentage of body",
+      "query2": "brain 2 percent body weight",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "label": "HIGH ENERGY DEMAND",
+      "label_on": "fact two",
+      "text": "Neurons fire millions of times per second, requiring glucose and oxygen to keep electrical signals flowing.",
+      "query": "neuron firing energy demand",
+      "query2": "brain glucose oxygen usage",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "label": "NO OXYGEN, QUICK FAINT",
+      "label_on": "fact three",
+      "text": "If oxygen drops just a few percent, you can lose consciousness in seconds because the brain can’t store it.",
+      "query": "brain oxygen deprivation fainting",
+      "query2": "low oxygen brain loss of consciousness",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "follow call to action text",
+      "query2": "subscribe reminder",
+      "role": "cta"
+    }
+  ],
+  "description": "Your brain is a tiny organ with a massive appetite for oxygen. Discover why it hogs a fifth of every breath you take. Follow for more mind‑blowing facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#brainfacts",
+    "#bodysecrets",
+    "#mindblown",
+    "#health"
+  ],
+  "place": "",
+  "country": ""
+}

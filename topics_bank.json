@@ -12946,5 +12946,275 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Sahara's Singing Sand Mystery",
+    "thumb": "SINGING SAND",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "At 250 meters, Sahara dunes start to sing",
+        "hook_top": "SAND SINGS AT 250M",
+        "query": "Sahara sand singing phenomenon",
+        "query2": "singing dunes physics",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "Fine silica grains rub together, creating a resonant hum when wind blows",
+        "label": "GRANULE SHAPE TRIGGERS HUM",
+        "label_on": "listen",
+        "query": "Sahara sand grain shape humming",
+        "query2": "sand grain resonance wind",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "Higher daytime temperatures expand the grains, amplifying the vibration into audible tones",
+        "label": "HEAT AMPLIFIES VIBRATION",
+        "label_on": "heat",
+        "query": "temperature effect on singing sand",
+        "query2": "heat amplifies dune vibration",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "Similar singing dunes exist in California’s Kelso and China’s Taklamakan, proving it’s a global sand secret",
+        "label": "OTHER SINGING DUNES",
+        "label_on": "other",
+        "query": "Kelso dune singing sand",
+        "query2": "Taklamakan singing dunes",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "earth hidden secrets",
+        "query2": "mystery earth facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why the Sahara’s dunes can produce eerie music and how temperature and grain shape make it happen. The planet hides many such acoustic wonders.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#nature",
+      "#sand",
+      "#mystery",
+      "#earthfacts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Hidden Brain Power Unlocked",
+    "thumb": "BRIGHT BRAIN",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your brain actually uses far more than 10% during a chess match",
+        "hook_top": "MORE THAN TEN PERCENT",
+        "query": "human brain activity during chess",
+        "query2": "brain PET scan chess players",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People believe we only use ten percent of our brain capacity.",
+        "label": "Only 10% of brain used",
+        "query": "myth 10 percent brain usage",
+        "query2": "common brain usage misconception",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Neuroimaging shows almost every region lights up during normal tasks, meaning we use virtually the whole brain over a day.",
+        "label": "Whole brain active",
+        "query": "fMRI whole brain activation study",
+        "query2": "brain activity map normal tasks",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Your brain never sleeps – it’s always at work!",
+        "label": "Brain Always Active",
+        "sub": "Even idle moments recruit brain areas",
+        "label_on": "active",
+        "query": "default mode network brain activity",
+        "query2": "brain idle state fMRI",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow brain facts short",
+        "query2": "subscribe science shorts",
+        "role": "cta"
+      }
+    ],
+    "description": "The 10% brain myth is a classic, but science tells a different story. Discover how modern scans reveal our minds are constantly buzzing. Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#brain",
+      "#mythbusted",
+      "#mindblown",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Hidden Power of Your Knees",
+    "thumb": "KNEE POWER",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your knees generate 300 watts of power while you walk.",
+        "hook_top": "KNEES GENERATE 300 WATTS",
+        "query": "knee power walking",
+        "query2": "human knee energy output",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "During steady walking the quadriceps can produce about 150 watts of mechanical power.",
+        "chips": [
+          {
+            "t": "150 WATTS",
+            "on": "power",
+            "style": "accent"
+          }
+        ],
+        "query": "quadriceps power walking",
+        "query2": "muscle power walking",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "When sprinting the leg muscles can exceed 500 watts, the highest output of any body part.",
+        "chips": [
+          {
+            "t": "500+ WATTS",
+            "on": "output",
+            "style": "accent"
+          }
+        ],
+        "query": "leg muscle power sprinting",
+        "query2": "muscle output sprint",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "Your knee joint works like a tiny generator, storing elastic energy and releasing it as electrical charge.",
+        "reveal_top": "KNEE IS A MICRO‑GENERATOR",
+        "query": "knee joint spring energy",
+        "query2": "human knee energy storage",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow button",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Your body hides astonishing power sources you never imagined. Discover how the knee turns every step into a mini‑generator. Follow for more mind‑blowing body facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mindblown",
+      "#health",
+      "#biology"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Hidden Power of Your Nose",
+    "thumb": "SUPER SNIFF",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your nose can detect one trillion different scents.",
+        "hook_top": "TRILLION SCENT DETECTION",
+        "query": "human nose scent detection trillion",
+        "query2": "olfactory sensitivity numbers",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Scientists estimate humans can distinguish over a trillion unique odors.",
+        "chips": [
+          {
+            "t": "OVER A TRILLION ODORS",
+            "on": "trillion",
+            "style": "accent"
+          }
+        ],
+        "query": "human odor discrimination trillion",
+        "query2": "olfaction odor count study",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The olfactory bulb processes smells faster than the visual cortex, triggering instant reactions.",
+        "chips": [
+          {
+            "t": "FAST OLFACORY PROCESSING",
+            "on": "faster",
+            "style": "white"
+          }
+        ],
+        "query": "olfactory bulb processing speed vs visual cortex",
+        "query2": "brain smell reaction time",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Your nose is a hidden super‑sensor.",
+        "label": "SNIFF SUPERPOWER",
+        "sub": "The strongest sense you never notice",
+        "label_on": "super‑sensor",
+        "query": "human nose super sensor fact",
+        "query2": "nose hidden superpower",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow call to action text",
+        "query2": "cta follow phrase",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how your nose outperforms every other sense with unbelievable detection power. Stay tuned for more hidden body wonders!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mindblown",
+      "#olfaction",
+      "#funfacts"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

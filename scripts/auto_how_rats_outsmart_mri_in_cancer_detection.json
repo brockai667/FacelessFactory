@@ -1,0 +1,75 @@
+{
+  "title": "How Rats Outsmart MRI in Cancer Detection",
+  "thumb": "RATS VS MRI",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Scientists found rats can sniff out cancer with 96% accuracy",
+      "hook_top": "RATS DETECT CANCER 96",
+      "query": "rats cancer detection study",
+      "query2": "rat olfactory cancer research",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "In a 2008 study, trained rats identified lung cancer in breath samples with about 96% sensitivity.",
+      "chips": [
+        {
+          "t": "2008 Study",
+          "on": "study",
+          "style": "white"
+        },
+        {
+          "t": "96% Sensitivity",
+          "on": "accuracy",
+          "style": "accent"
+        }
+      ],
+      "query": "2008 rat lung cancer breath test",
+      "query2": "rat olfaction cancer sensitivity",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "The rats learn the task in roughly five days, far faster than many lab training programs.",
+      "chips": [
+        {
+          "t": "5‑Day Training",
+          "on": "training",
+          "style": "white"
+        }
+      ],
+      "query": "rat training duration cancer detection",
+      "query2": "how long to train rats for smell tests",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "One rat can screen a sample for a fraction of the cost of an MRI scan.",
+      "reveal_top": "CHEAPER THAN MRI",
+      "query": "cost comparison rat screening MRI",
+      "query2": "price of rat cancer detection vs MRI",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "follow call to action",
+      "query2": "subscribe prompt",
+      "role": "cta"
+    }
+  ],
+  "description": "Rats are proving to be lightning‑fast, ultra‑accurate cancer detectors that could slash diagnostic costs. Curious how they do it? Follow for more mind‑blowing facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#cancerdetection",
+    "#rats",
+    "#healthtech",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
