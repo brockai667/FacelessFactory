@@ -1,0 +1,66 @@
+{
+  "title": "How 3,000 Wing Beats Keep Hummingbirds Hovering",
+  "thumb": "HUMMINGBIRD SPEED",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "3,000 wing beats per minute keep hummingbirds afloat",
+      "hook_top": "3000 WING BEATS",
+      "query": "hummingbird wing beat frequency",
+      "query2": "hummingbird fast wing movement",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "label": "FASTEST METABOLISM IN BIRDS",
+      "label_on": "Fact",
+      "text": "Their tiny bodies burn calories faster than any other bird, needing to eat half their weight daily",
+      "query": "hummingbird metabolism rate",
+      "query2": "hummingbird daily food intake",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "label": "SPECIALIZED WING JOINTS",
+      "label_on": "Fact",
+      "text": "Unique ball‑and‑socket shoulder joints let them rotate their wings 180 degrees for precise hovering",
+      "query": "hummingbird wing joint anatomy",
+      "query2": "hummingbird shoulder joint structure",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "label": "ENERGY‑STORING HEART",
+      "label_on": "Fact",
+      "text": "Their heart can beat up to 1,260 times per minute, pumping oxygen to sustain rapid wing strokes",
+      "query": "hummingbird heart rate",
+      "query2": "hummingbird cardiovascular system",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "hummingbird close‑up video",
+      "query2": "hummingbird hovering footage",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover the three hidden mechanisms that let hummingbirds hover like tiny helicopters. Stay tuned for more unbelievable nature facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#hummingbirds",
+    "#science",
+    "#wildlife",
+    "#mindblowing",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

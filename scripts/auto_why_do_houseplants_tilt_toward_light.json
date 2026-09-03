@@ -1,0 +1,62 @@
+{
+  "title": "Why Do Houseplants Tilt Toward Light?",
+  "thumb": "LIGHT TILT",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Ever notice a potted fern leaning toward the window?",
+      "hook_top": "PLANTS SEEK LIGHT",
+      "query": "houseplant leaning toward window",
+      "query2": "indoor plant phototropism",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "Most people think plants just grow where they get the most sunlight.",
+      "label": "Plants grow only where sun hits",
+      "query": "common belief plants need direct sun only",
+      "query2": "myth plants grow only in light",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "In fact, plants actively bend toward light through phototropism, using the hormone auxin to grow longer on the darker side.",
+      "label": "Phototropism uses auxin",
+      "query": "phototropism auxin mechanism illustration",
+      "query2": "plant hormone auxin light response",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "So the tilt is a growth response, not just a random habit.",
+      "label": "Growth Response",
+      "sub": "Plants steer themselves toward brighter spots",
+      "label_on": "Tilt",
+      "query": "plant bending toward light time lapse",
+      "query2": "phototropism time lapse video",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "nature facts short video end screen",
+      "query2": "science short CTA graphic",
+      "role": "cta"
+    }
+  ],
+  "description": "Houseplants aren’t lazy – they use a clever hormone trick to chase the sun. Discover the science behind that daily lean and why it matters for your green friends.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#plants",
+    "#phototropism",
+    "#mythbusting",
+    "#naturefacts"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,70 @@
+{
+  "title": "Why Great White Sharks Actually Can Stop Swimming",
+  "thumb": "SHARK STOP",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Great White sharks must swim 30 miles each day to stay alive",
+      "hook_top": "SHARKS MUST SWIM",
+      "query": "Great White shark daily swimming distance",
+      "query2": "great white shark migration distance",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "About 70% of shark species use ram ventilation, forcing water over gills by moving forward",
+      "chips": [
+        {
+          "t": "70% OF SHARKS",
+          "on": "ram ventilation",
+          "style": "accent"
+        }
+      ],
+      "query": "ram ventilation sharks percentage",
+      "query2": "shark breathing by movement",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Great whites can store enough oxygen to pause for up to five minutes while hunting",
+      "chips": [
+        {
+          "t": "5‑MINUTE PAUSE",
+          "on": "oxygen storage",
+          "style": "white"
+        }
+      ],
+      "query": "great white shark oxygen storage duration",
+      "query2": "shark breath hold time",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "But many sharks, like nurse sharks, have spiracles that let them breathe while completely still",
+      "reveal_top": "SPIRACLES ENABLE REST",
+      "query": "nurse shark spiracle breathing",
+      "query2": "shark species that rest without swimming",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "call to action follow",
+      "query2": "subscribe reminder",
+      "role": "cta"
+    }
+  ],
+  "description": "You’ll think all sharks are forced to cruise forever, but some have a secret breathing trick. Dive deeper with us!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#sharks",
+    "#science",
+    "#wildlife",
+    "#mindblowing",
+    "#oceanfacts"
+  ],
+  "place": "",
+  "country": ""
+}
