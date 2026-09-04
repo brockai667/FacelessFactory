@@ -1,0 +1,71 @@
+{
+  "title": "Why a 9‑Year‑Old Tree Outlasts Empires",
+  "thumb": "ANCIENT TREE",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A 9‑year‑old bristlecone pine dwarfs a city skyline!",
+      "hook_top": "9YEAR PINE GIGANTIC",
+      "query": "bristlecone pine tree age",
+      "query2": "oldest trees",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Bristlecone pines can live over 5,000 years, the longest‑living non‑clonal trees.",
+      "chips": [
+        {
+          "t": "5,000 YEARS",
+          "on": "years",
+          "style": "white"
+        }
+      ],
+      "query": "bristlecone pine lifespan",
+      "query2": "oldest living trees",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Their wood is packed with dense resin that blocks rot even in harsh mountain air.",
+      "chips": [
+        {
+          "t": "RESIN PROTECTION",
+          "on": "resin",
+          "style": "accent"
+        }
+      ],
+      "query": "bristlecone pine resin composition",
+      "query2": "tree resin durability",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "The real trick: their DNA constantly rewrites damage, acting like a living time‑machine.",
+      "reveal_top": "DNA TIME MACHINE",
+      "query": "bristlecone pine DNA repair",
+      "query2": "tree DNA longevity",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "mind blowing facts channel",
+      "query2": "science short videos",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover how a humble mountain pine outlives empires thanks to ancient DNA tricks. Stay curious and hit follow for daily science wonders.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#nature",
+    "#trees",
+    "#biology",
+    "#mindblowing",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,72 @@
+{
+  "title": "How a Saguaro Cactus Stores Hundreds of Liters of Water",
+  "thumb": "WATER STORAGE",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A single saguaro holds enough water to fill a bathtub",
+      "hook_top": "BATHTUB WATER CAPACITY",
+      "query": "saguaro cactus water storage",
+      "query2": "saguaro cactus water capacity",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "An adult saguaro can store up to 200 gallons (≈760 L) of water inside its ribs",
+      "chips": [
+        {
+          "t": "200 GALLONS",
+          "on": "water",
+          "style": "accent"
+        }
+      ],
+      "query": "saguaro cactus water capacity",
+      "query2": "saguaro water storage amount",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "It absorbs rain quickly, swelling its flesh like a sponge",
+      "chips": [
+        {
+          "t": "RAIN SPOON",
+          "on": "absorb",
+          "style": "white"
+        }
+      ],
+      "query": "saguaro cactus rain absorption",
+      "query2": "how saguaro cactus absorbs water",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Nature's water tank",
+      "label": "DESERT TANK",
+      "sub": "Cactus stores water for months",
+      "label_on": "store",
+      "query": "saguaro cactus water storage visual",
+      "query2": "saguaro water tank illustration",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "plant fact short video",
+      "query2": "nature fact short clip",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover how the iconic saguaro cactus hoards enough water to survive the harsh desert. Follow for more mind‑blowing nature secrets!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#naturefacts",
+    "#desertscience",
+    "#plantsecrets",
+    "#mindblowing",
+    "#science"
+  ],
+  "place": "",
+  "country": ""
+}

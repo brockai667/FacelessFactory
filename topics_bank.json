@@ -13348,5 +13348,205 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Mystery of Firefly Light",
+    "thumb": "FIREFLY GLOW",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Why does the firefly flash about once per second?",
+        "hook_top": "FIREFLY FLASHES EVERY SECOND",
+        "query": "firefly flashing frequency",
+        "query2": "firefly light interval",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "LUCIFERIN REACTS WITH OXYGEN",
+        "label_on": "First",
+        "text": "They produce light using luciferin that reacts with oxygen, a cold chemical reaction.",
+        "query": "firefly luciferin reaction",
+        "query2": "bioluminescence chemistry firefly",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "MATE SIGNALING FLASH PATTERN",
+        "label_on": "Second",
+        "text": "Each species has a unique flash pattern to attract mates across the night.",
+        "query": "firefly species flash pattern",
+        "query2": "firefly mating signals",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "SYNCHRONIZED FLASHING DETER PREDATORS",
+        "label_on": "Third",
+        "text": "Large groups synchronize their lights, creating a confusing display that deters predators.",
+        "query": "synchronized firefly flashing",
+        "query2": "firefly predator avoidance",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow button graphic",
+        "query2": "social media follow icon",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover the chemistry, romance, and survival tricks behind fireflies' nightly glow. Stay curious and hit follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#nature",
+      "#bioluminescence",
+      "#wildlife",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Spiders In Your Sleep Myth",
+    "thumb": "SPIDER MYTH",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Every night you swallow eight spiders while you sleep",
+        "hook_top": "EIGHT SPIDERS NIGHT",
+        "query": "person sleeping swallowing spiders",
+        "query2": "spider myth sleeping",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think we accidentally eat dozens of spiders during sleep",
+        "label": "We eat spiders nightly",
+        "query": "spider swallowing myth",
+        "query2": "spider sleep myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Surveys show no evidence; the story began as a joke, not science",
+        "label": "No proof of spider meals",
+        "query": "spider myth origin study",
+        "query2": "spider sleep research",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Stop fearing bedtime bites",
+        "label": "Myth busted",
+        "sub": "You aren't a spider snack",
+        "label_on": "busted",
+        "query": "spider myth bust",
+        "query2": "spider bedtime myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button",
+        "query2": "subscribe call",
+        "role": "cta"
+      }
+    ],
+    "description": "The creepy idea that you swallow spiders every night is pure fiction. Learn why the legend has no scientific backing. Follow for more myth‑busting facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mythbusted",
+      "#spiders",
+      "#science",
+      "#facts",
+      "#weirdfacts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Silent Ocean Depths' Hidden Light",
+    "thumb": "GLOWING DEPTHS",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Deep sea fish glow without sunlight",
+        "hook_top": "GLOWING DEEP SEA FISH",
+        "query": "deep sea fish bioluminescence",
+        "query2": "bioluminescent fish",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "The lantern shark emits light from specialized skin cells called photophores.",
+        "chips": [
+          {
+            "t": "PHOTOPHORES",
+            "on": "photophores",
+            "style": "accent"
+          }
+        ],
+        "query": "lantern shark photophores",
+        "query2": "shark bioluminescence",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "These lights lure prey and confuse predators in the pitch‑black abyss.",
+        "chips": [
+          {
+            "t": "LURE PREY",
+            "on": "lure",
+            "style": "white"
+          }
+        ],
+        "query": "bioluminescence hunting strategy",
+        "query2": "deep sea light function",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Nature’s own night‑lamp",
+        "label": "Bioluminescent Trick",
+        "sub": "Glow to survive",
+        "label_on": "glow",
+        "query": "photophore purpose",
+        "query2": "deep sea glow advantage",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "science short video",
+        "query2": "mind blowing facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how some deep‑sea creatures create their own light in total darkness. The ocean’s midnight glow is more than magic—it’s survival.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#bioluminescence",
+      "#deepsea",
+      "#sciencefacts",
+      "#oceanmystery",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

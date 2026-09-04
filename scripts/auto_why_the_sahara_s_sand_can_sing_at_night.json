@@ -1,0 +1,66 @@
+{
+  "title": "Why the Sahara’s Sand Can ‘Sing’ at Night",
+  "thumb": "SAND SINGING",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Ever heard the Sahara dunes hum after sunset?",
+      "hook_top": "SAND HUMMING",
+      "query": "Sahara desert sand singing phenomenon",
+      "query2": "desert sand acoustic effect",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "When sand grains are perfectly round and dry, they can rub together and create audible tones.",
+      "label": "ROUND DRY SAND",
+      "label_on": "sand",
+      "query": "singing sand dunes round dry sand",
+      "query2": "acoustic sand dunes physics",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "The sound is amplified by the dune’s shape, acting like a natural resonating chamber.",
+      "label": "DUNE RESONANCE",
+      "label_on": "dune",
+      "query": "sand dune resonating chamber sound",
+      "query2": "acoustic properties of sand dunes",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Scientists have recorded frequencies from a low hum up to a high‑pitched squeak, depending on grain size.",
+      "label": "FREQUENCY RANGE",
+      "label_on": "frequency",
+      "query": "sand dune frequency range recordings",
+      "query2": "singing sand frequency measurements",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "follow us earth sound facts",
+      "query2": "subscribe hidden nature secrets",
+      "role": "cta"
+    }
+  ],
+  "description": "The Sahara hides a musical secret that only reveals itself after dark. Discover how tiny grains become a natural instrument. Follow for more unheard wonders!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#nature",
+    "#sahara",
+    "#mystery",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
