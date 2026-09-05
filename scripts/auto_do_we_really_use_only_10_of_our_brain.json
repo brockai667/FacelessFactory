@@ -1,0 +1,57 @@
+{
+  "title": "Do We Really Use Only 10% of Our Brain?",
+  "thumb": "BRAIN MYTH BUSTED",
+  "scenes": [
+    {
+      "text": "Your brain uses only 10% of its capacity?",
+      "hook_top": "ONLY 10 BRAIN USED",
+      "query": "human brain activity percentage",
+      "query2": "brain usage statistics",
+      "role": "hook"
+    },
+    {
+      "text": "Many believe we only use ten percent of our brain.",
+      "label": "We only use 10% of our brain",
+      "query": "brain usage myth",
+      "query2": "common brain misconceptions",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Neuroimaging shows the brain lights up across almost every region even at rest, meaning we use nearly 100% of it over a day.",
+      "label": "Brain uses nearly 100% daily",
+      "query": "brain MRI activity full brain usage",
+      "query2": "functional MRI whole brain activation",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Your brain is always active, even when you’re sleeping.",
+      "label": "Always Active",
+      "sub": "Brain shows activity even at rest",
+      "label_on": "Brain",
+      "query": "brain activity during sleep",
+      "query2": "resting state brain function",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow if you love learning something new.",
+      "query": "shorts follow call to action",
+      "query2": "cta follow prompt",
+      "role": "cta"
+    }
+  ],
+  "description": "The 10% brain myth persists, but science proves our minds are far more active than that. Discover the real truth and keep your curiosity sharp.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#mythbusting",
+    "#brainfacts",
+    "#mindblown",
+    "#psychology"
+  ],
+  "place": "",
+  "country": ""
+}

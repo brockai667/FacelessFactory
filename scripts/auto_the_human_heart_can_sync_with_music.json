@@ -1,0 +1,66 @@
+{
+  "title": "The Human Heart Can Sync With Music",
+  "thumb": "HEART BEAT SYNC",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your heartbeat actually matches certain songs’ tempos.",
+      "hook_top": "HEART SYNC",
+      "query": "heart rate syncing with music studies",
+      "query2": "heartbeat music tempo correlation",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "When a song’s beats per minute (BPM) align with your resting heart rate, the body naturally entrains to the rhythm.",
+      "label": "BPM ENTRAINMENT",
+      "label_on": "bpm",
+      "query": "beats per minute heart rate entrainment research",
+      "query2": "music tempo heart synchronization",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "Studies show this alignment can lower stress hormones and improve focus.",
+      "label": "STRESS REDUCTION",
+      "label_on": "stress",
+      "query": "music heart rate stress hormone study",
+      "query2": "music therapy heart rate cortisol",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Classical pieces around 60‑70 BPM often feel “calming” because they mirror an average adult’s resting pulse.",
+      "label": "CALMING BPM",
+      "label_on": "calming",
+      "query": "classical music 60-70 bpm calming effect",
+      "query2": "resting heart rate music tempo",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "follow rhythm body hacks",
+      "query2": "subscribe music health facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Your heart isn’t just a pump—it’s a rhythm matcher. Learn why certain songs calm you instantly and how to pick the perfect beat. Follow for more pulse‑pounding facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#psychology",
+    "#music",
+    "#heart",
+    "#mindblowing",
+    "#bodyhacks"
+  ],
+  "place": "",
+  "country": ""
+}

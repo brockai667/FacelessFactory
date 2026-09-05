@@ -1,0 +1,66 @@
+{
+  "title": "How a Simple Light Bulb Can Reveal Dark Matter?",
+  "thumb": "BULB DARK MATTER",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A common LED bulb can help scientists hunt dark matter particles.",
+      "hook_top": "BULB HUNT",
+      "query": "LED bulb dark matter detection experiment",
+      "query2": "light bulb dark matter research",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Researchers coat the bulb’s glass with a thin layer of xenon, which emits faint flashes when hit by hidden particles.",
+      "label": "XENON COATING",
+      "label_on": "xenon",
+      "query": "xenon coated light bulb dark matter detection",
+      "query2": "xenon flash dark matter experiment",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "The setup uses ultra‑sensitive photomultiplier tubes to capture those rare flashes.",
+      "label": "PHOTO TUBES",
+      "label_on": "photomultiplier",
+      "query": "photomultiplier tubes dark matter flash detection",
+      "query2": "photomultiplier dark matter experiment",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "If a flash is recorded, it could indicate a weakly interacting massive particle—a leading dark matter candidate.",
+      "label": "WIMP SIGNAL",
+      "label_on": "wimp",
+      "query": "WIMP signal light bulb experiment",
+      "query2": "dark matter weakly interacting massive particle detection",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "follow everyday cosmic secrets",
+      "query2": "subscribe hidden science facts",
+      "role": "cta"
+    }
+  ],
+  "description": "A kitchen staple becomes a portal to the universe’s biggest mystery. See how scientists turn a simple bulb into a dark‑matter detector. Follow for more hidden science!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#space",
+    "#science",
+    "#darkmatter",
+    "#mindblowing",
+    "#everydayphysics"
+  ],
+  "place": "",
+  "country": ""
+}

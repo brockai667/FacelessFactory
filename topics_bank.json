@@ -13548,5 +13548,199 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Moon Shadow Speed Mystery",
+    "thumb": "FAST SHADOW",
+    "scenes": [
+      {
+        "text": "When the Moon blocks the Sun, its shadow races at over 1,600 km/h.",
+        "hook_top": "SHADOW RACES 1600 KMH",
+        "query": "solar eclipse shadow speed",
+        "query2": "eclipse umbra velocity",
+        "role": "hook"
+      },
+      {
+        "text": "The eclipse shadow travels faster than most passenger jets, reaching around 1,600 km per hour.",
+        "num": 1,
+        "label": "SHADOW SPEED EXCEEDS JET",
+        "label_on": "Speed",
+        "query": "solar eclipse shadow speed",
+        "query2": "eclipse umbra velocity",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "At the point of totality, the Moon's umbra can be as narrow as about 100 kilometers, roughly the size of a large city.",
+        "num": 2,
+        "label": "UMBRA NARROW AS CITY",
+        "label_on": "Width",
+        "query": "eclipse umbra width",
+        "query2": "totality narrow path size",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Because Earth's rotation adds to the Moon's motion, the shadow moves quickest near the equator, sometimes over 2,000 km/h.",
+        "num": 3,
+        "label": "FASTEST AT EQUATOR",
+        "label_on": "Location",
+        "query": "eclipse shadow speed equator",
+        "query2": "fastest eclipse shadow location",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button animation",
+        "query2": "subscribe graphic",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how the Moon's eclipse shadow outruns jets, narrows to city size, and speeds up at the equator. Stay curious and hit follow!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#space",
+      "#eclipse",
+      "#mindblowing",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Sharks Don't Need Constant Swimming",
+    "thumb": "SHARK MYTH",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A great white can travel over a thousand miles in a single day",
+        "hook_top": "THOUSANDMILE SHARK JOURNEY",
+        "query": "great white shark migration distance",
+        "query2": "shark daily travel miles",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think sharks must keep moving forever or they'll suffocate",
+        "label": "Sharks must swim nonstop",
+        "query": "shark swimming myth suffocation",
+        "query2": "shark needs constant motion belief",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Most shark species can rest on the ocean floor and pump water over their gills without swimming",
+        "label": "Sharks can rest stationary",
+        "query": "shark resting behavior stationary breathing",
+        "query2": "shark can breathe while still",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Even apex predators take nap breaks",
+        "label": "Sharks nap too",
+        "sub": "They simply hold water to breathe",
+        "label_on": "nap",
+        "query": "shark resting nap underwater",
+        "query2": "shark stationary breathing",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "follow science channel",
+        "query2": "subscribe myth busting",
+        "role": "cta"
+      }
+    ],
+    "description": "The idea that sharks must swim nonstop to survive is a classic myth. Learn how these predators actually rest while staying alive. Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#sharks",
+      "#mythbusting",
+      "#science",
+      "#ocean",
+      "#wildlife"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Hummingbird Heartbeat Mystery",
+    "thumb": "FAST BEAT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A tiny bird beats 1,200 times per minute.",
+        "hook_top": "TINY BIRD 1200 BPM",
+        "query": "hummingbird heart rate",
+        "query2": "bird beats per minute",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Hummingbirds have the highest metabolism of any animal.",
+        "chips": [
+          {
+            "t": "Highest Metabolism",
+            "on": "metabolism",
+            "style": "white"
+          }
+        ],
+        "punch": "wow",
+        "query": "hummingbird metabolism",
+        "query2": "bird metabolic rate",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Their heart can double in size during intense flight.",
+        "chips": [
+          {
+            "t": "Heart Doubles Size",
+            "on": "double",
+            "style": "accent"
+          }
+        ],
+        "query": "hummingbird heart size during flight",
+        "query2": "bird heart during flight",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "When they rest, the heart drops to just 50 beats per minute, letting them conserve energy.",
+        "reveal_top": "SLOWING FOR SURVIVAL",
+        "query": "hummingbird resting heart rate",
+        "query2": "bird heart rate sleep",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow call to action",
+        "query2": "subscribe reminder",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how the world’s fastest‑beating heart can magically slow down for survival. Stay tuned for more mind‑blowing animal secrets.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#birds",
+      "#nature",
+      "#facts",
+      "#wild"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
