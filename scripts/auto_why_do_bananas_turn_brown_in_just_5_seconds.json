@@ -1,0 +1,72 @@
+{
+  "title": "Why Do Bananas Turn Brown in Just 5 Seconds?",
+  "thumb": "BANANA BROWNING",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Bananas brown in just 5 seconds after a bite – why?",
+      "hook_top": "BANANAS BROWN IN 5 SECONDS",
+      "query": "banana browning after bite",
+      "query2": "banana skin turning brown quickly",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Polyphenol oxidase in banana cells reacts with oxygen, creating brown pigments called melanin.",
+      "chips": [
+        {
+          "t": "POLYPOHMELANIN REACTION",
+          "on": "polyphenol oxidase",
+          "style": "accent"
+        }
+      ],
+      "punch": "reaction",
+      "query": "polyphenol oxidase enzyme banana",
+      "query2": "banana melanin formation",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "When the fruit is cut, cells release air‑filled spaces, letting oxygen flood the flesh and speed up the reaction.",
+      "chips": [
+        {
+          "t": "OXYGEN FLOOD",
+          "on": "oxygen",
+          "style": "white"
+        }
+      ],
+      "punch": "exposure",
+      "query": "oxygen exposure banana flesh",
+      "query2": "air in cut banana cells",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "The brown layer actually shields the fruit, acting as an antioxidant barrier that slows deeper damage.",
+      "reveal_top": "BROWN IS PROTECTIVE SHIELD",
+      "query": "banana protective antioxidant response",
+      "query2": "brown pigment defense banana",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "mind blowing science channel",
+      "query2": "science facts short",
+      "role": "cta"
+    }
+  ],
+  "description": "A quick bite triggers a burst of chemistry that turns banana flesh brown. The color isn’t just decay—it’s nature’s armor. Follow for more mind‑blowing facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#foodfacts",
+    "#banana",
+    "#mindblowing",
+    "#biology"
+  ],
+  "place": "",
+  "country": ""
+}

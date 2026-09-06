@@ -1,0 +1,66 @@
+{
+  "title": "Sahara's Singing Sand Mystery",
+  "thumb": "SINGING SAND",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "At 250 meters, Sahara dunes start to sing",
+      "hook_top": "SAND SINGS AT 250M",
+      "query": "Sahara sand singing phenomenon",
+      "query2": "singing dunes physics",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "text": "Fine silica grains rub together, creating a resonant hum when wind blows",
+      "label": "GRANULE SHAPE TRIGGERS HUM",
+      "label_on": "listen",
+      "query": "Sahara sand grain shape humming",
+      "query2": "sand grain resonance wind",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "text": "Higher daytime temperatures expand the grains, amplifying the vibration into audible tones",
+      "label": "HEAT AMPLIFIES VIBRATION",
+      "label_on": "heat",
+      "query": "temperature effect on singing sand",
+      "query2": "heat amplifies dune vibration",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "text": "Similar singing dunes exist in California’s Kelso and China’s Taklamakan, proving it’s a global sand secret",
+      "label": "OTHER SINGING DUNES",
+      "label_on": "other",
+      "query": "Kelso dune singing sand",
+      "query2": "Taklamakan singing dunes",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "earth hidden secrets",
+      "query2": "mystery earth facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover why the Sahara’s dunes can produce eerie music and how temperature and grain shape make it happen. The planet hides many such acoustic wonders.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#nature",
+    "#sand",
+    "#mystery",
+    "#earthfacts"
+  ],
+  "place": "",
+  "country": ""
+}

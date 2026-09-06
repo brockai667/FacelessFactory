@@ -1,0 +1,62 @@
+{
+  "title": "Hidden Brain Power Unlocked",
+  "thumb": "BRIGHT BRAIN",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your brain actually uses far more than 10% during a chess match",
+      "hook_top": "MORE THAN TEN PERCENT",
+      "query": "human brain activity during chess",
+      "query2": "brain PET scan chess players",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "People believe we only use ten percent of our brain capacity.",
+      "label": "Only 10% of brain used",
+      "query": "myth 10 percent brain usage",
+      "query2": "common brain usage misconception",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "Neuroimaging shows almost every region lights up during normal tasks, meaning we use virtually the whole brain over a day.",
+      "label": "Whole brain active",
+      "query": "fMRI whole brain activation study",
+      "query2": "brain activity map normal tasks",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "Your brain never sleeps – it’s always at work!",
+      "label": "Brain Always Active",
+      "sub": "Even idle moments recruit brain areas",
+      "label_on": "active",
+      "query": "default mode network brain activity",
+      "query2": "brain idle state fMRI",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow brain facts short",
+      "query2": "subscribe science shorts",
+      "role": "cta"
+    }
+  ],
+  "description": "The 10% brain myth is a classic, but science tells a different story. Discover how modern scans reveal our minds are constantly buzzing. Follow for more mind‑blowing facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#brain",
+    "#mythbusted",
+    "#mindblown",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

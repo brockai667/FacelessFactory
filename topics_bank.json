@@ -13742,5 +13742,206 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Chewing Gum Myth Busted",
+    "thumb": "GUM MYTH",
+    "scenes": [
+      {
+        "text": "Your gum won't sit in your stomach for seven years.",
+        "hook_top": "GUM WON'T STAY SEVEN YEARS",
+        "query": "chewing gum in stomach",
+        "query2": "swallowed gum",
+        "role": "hook"
+      },
+      {
+        "text": "People believe swallowed gum remains in the body for up to seven years.",
+        "label": "Gum stays seven years",
+        "query": "gum staying in stomach myth",
+        "query2": "gum seven years belief",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "The digestive system can’t break gum but it passes through normally within days.",
+        "label": "Gum passes in days",
+        "query": "gum digestion process",
+        "query2": "gum passes through body",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "It’s out fast!",
+        "label": "Out fast!",
+        "sub": "Gum exits within a few days",
+        "label_on": "fast",
+        "query": "gum excretion timing",
+        "query2": "gum leaving stomach",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow button icon",
+        "query2": "subscribe graphic",
+        "role": "cta"
+      }
+    ],
+    "description": "Think chewing gum stays inside you for years? It actually moves on in just a few days. Stay curious and hit follow for more truth‑revealing facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mythbusting",
+      "#sciencefacts",
+      "#bodyfacts",
+      "#mindblowing",
+      "#funfacts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Sahara Sand's Secret Song",
+    "thumb": "SINGING DUNES",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "The Sahara dunes can produce a 110‑Hz hum",
+        "hook_top": "SAND HUM 110HZ",
+        "query": "Sahara sand singing sound 110 hertz",
+        "query2": "Sahara dunes acoustic phenomenon",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Researchers recorded a low‑frequency sound up to 110 hertz from dunes in Egypt's Siwa Oasis.",
+        "chips": [
+          {
+            "t": "110 HZ",
+            "on": "recorded",
+            "style": "accent"
+          }
+        ],
+        "query": "Siwa Oasis dune sound recording 110 hertz",
+        "query2": "Egypt sand dunes acoustic study",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The noise only appears when the sand is dry, well‑rounded, and about a tenth of a millimetre in size.",
+        "chips": [
+          {
+            "t": "0.1 MM GRAINS",
+            "on": "dry",
+            "style": "white"
+          }
+        ],
+        "query": "dry sand grain size 0.1 mm singing dunes",
+        "query2": "sand grain shape acoustic Sahara",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "It isn’t wind at all—moving sand grains vibrate like a massive speaker.",
+        "reveal_top": "SAND IS SPEAKER",
+        "query": "sand grain vibration speaker effect dunes",
+        "query2": "how sand produces sound Sahara",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "follow call to action",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "The desert’s quiet roar hides a simple physics trick. Discover why the Sahara can literally sing. Follow for more mind‑blowing secrets!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#nature",
+      "#Sahara",
+      "#acoustics",
+      "#mindblown",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Nature’s Hottest Electric Burst",
+    "thumb": "HOT LIGHTNING",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Lightning strikes hotter than the sun's surface",
+        "hook_top": "LIGHTNING HOTTER THAN SUN",
+        "query": "lightning temperature",
+        "query2": "lightning heat",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "A lightning bolt can reach about 30,000°C, far above the Sun's 5,500°C surface.",
+        "chips": [
+          {
+            "t": "30,000°C",
+            "on": "hot",
+            "style": "accent"
+          }
+        ],
+        "query": "lightning temperature 30000",
+        "query2": "lightning heat measurement",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Each strike releases up to a billion joules, enough to power a house for several days.",
+        "chips": [
+          {
+            "t": "1 billion joules",
+            "on": "energy",
+            "style": "white"
+          }
+        ],
+        "query": "lightning energy joules",
+        "query2": "lightning power output",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Lightning’s extreme heat powers nature’s wildest fireworks",
+        "label": "NATURE’S FIREWORK",
+        "sub": "The hottest natural phenomenon",
+        "label_on": "hot",
+        "query": "lightning fireworks",
+        "query2": "lightning natural display",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow button",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Lightning isn’t just a flash – it’s hotter than the Sun’s surface and packs massive energy. Stay charged with more mind‑blowing science facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#lightning",
+      "#nature",
+      "#mindblown",
+      "#facts",
+      "#physics"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
