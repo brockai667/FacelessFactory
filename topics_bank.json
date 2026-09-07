@@ -13943,5 +13943,262 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Octopus Masters Hidden Colors",
+    "thumb": "CAMOUFLAGE POWER",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Octopus can shift its skin tone in under a second.",
+        "hook_top": "SKIN SHIFT INSTANT",
+        "query": "octopus skin color change time lapse",
+        "query2": "octopus chromatophore fast change",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "CHROMATOPHORES CONTROL COLORS",
+        "label_on": "color",
+        "text": "Special cells called chromatophores expand or contract to produce vivid patterns.",
+        "query": "octopus chromatophores diagram",
+        "query2": "octopus skin pigment cells",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "IRIDOPHORES REFLECT LIGHT",
+        "label_on": "iridescence",
+        "text": "Iridophores reflect light, giving the animal shimmering blues and greens.",
+        "query": "octopus iridophore reflection",
+        "query2": "octopus shimmering skin",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "LEUCOPHORES CREATE WHITE",
+        "label_on": "white",
+        "text": "Leucophores scatter ambient light, allowing the octopus to appear pure white when needed.",
+        "query": "octopus leucophore function",
+        "query2": "octopus white camouflage",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow button animation",
+        "query2": "subscribe icon",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how octopuses become living chameleons with three hidden skin systems. Dive deeper into nature’s ultimate disguise. Follow for more mind‑blowing facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#octopus",
+      "#camouflage",
+      "#science",
+      "#animalfacts",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Hidden Truth About Goosebumps",
+    "thumb": "GOOSEBUMPS SECRET",
+    "scenes": [
+      {
+        "hook_top": "CHILLING BREEZE TRIGGER",
+        "query": "goosebumps skin reaction",
+        "query2": "goosebumps cold breeze",
+        "role": "hook",
+        "text": "Your skin chills when a 20°C breeze hits"
+      },
+      {
+        "label": "Goosebumps just from cold",
+        "query": "goosebumps cold myth",
+        "query2": "goosebumps only cold belief",
+        "role": "myth",
+        "text": "People think goosebumps only happen when you're cold."
+      },
+      {
+        "label": "Reflex for threat",
+        "query": "goosebumps sympathetic nervous system",
+        "query2": "goosebumps reflex danger",
+        "role": "truth",
+        "text": "They are a sympathetic‑nervous‑system reflex that readies hair follicles for danger, a vestigial alarm from our ancestors."
+      },
+      {
+        "label": "ANCIENT ALARM",
+        "sub": "Hair‑raising reflex from our ancestors",
+        "label_on": "alarm",
+        "query": "goosebumps alarm system",
+        "query2": "goosebumps ancient reflex",
+        "role": "callout",
+        "text": "It's your body’s ancient alarm system"
+      },
+      {
+        "query": "follow call to action",
+        "query2": "subscribe short facts",
+        "role": "cta",
+        "text": "Follow if you love learning something new."
+      }
+    ],
+    "description": "Most think goosebumps are just a cold response, but they're actually an ancient alarm that prepares us for danger. Discover the hidden science behind the shiver.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mythbusted",
+      "#psychology",
+      "#mindblown"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Silent Killer Inside Your Teeth",
+    "thumb": "TOOTH TRAP",
+    "scenes": [
+      {
+        "text": "One tooth can hide a silent killer",
+        "hook_top": "ONE TOOTH HIDES KILLER",
+        "query": "tooth hidden disease",
+        "query2": "tooth cavity danger",
+        "role": "hook"
+      },
+      {
+        "text": "Streptococcus mutans can drop mouth pH below 5.5, eroding enamel",
+        "chips": [
+          {
+            "t": "pH 5.5",
+            "on": "acid",
+            "style": "white"
+          }
+        ],
+        "query": "Streptococcus mutans pH effect",
+        "query2": "mouth acidity bacteria",
+        "role": "fact"
+      },
+      {
+        "text": "Around 40% of adults have at least one untreated cavity",
+        "chips": [
+          {
+            "t": "40% adults",
+            "on": "cavities",
+            "style": "accent"
+          }
+        ],
+        "query": "adult cavity prevalence statistics",
+        "query2": "untreated tooth decay rates",
+        "role": "fact"
+      },
+      {
+        "text": "Those cavities can let deadly bacteria slip into your bloodstream",
+        "reveal_top": "KILLER BACTERIA SPREAD",
+        "query": "cavity bacteria bloodstream infection",
+        "query2": "tooth decay systemic risk",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow so you never run out of fun facts.",
+        "query": "body secret follow prompt",
+        "query2": "science short follow call",
+        "role": "cta"
+      }
+    ],
+    "description": "Your mouth hides more than plaque—cavities can become portals for dangerous microbes. Discover the hidden threat lurking in a single tooth.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#bodyfacts",
+      "#science",
+      "#dental",
+      "#health",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Silent Secrets of the Human Nose",
+    "thumb": "TRILLION SCENT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your nose can detect one trillion different scents.",
+        "hook_top": "TRILLION SCENT DETECTION",
+        "query": "human nose scent detection",
+        "query2": "olfactory ability numbers",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Scientists estimate humans can distinguish up to one trillion odor molecules.",
+        "chips": [
+          {
+            "t": "ONE TRILLION ODORS",
+            "on": "odors",
+            "style": "white"
+          }
+        ],
+        "query": "human ability to smell trillion odors",
+        "query2": "olfactory capacity research",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Olfactory receptors regenerate every 30‑40 days, keeping the sense sharp.",
+        "chips": [
+          {
+            "t": "REGROW EVERY 30‑40 DAYS",
+            "on": "regrow",
+            "style": "accent"
+          }
+        ],
+        "query": "olfactory receptor regeneration period",
+        "query2": "nose cell turnover time",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Your nose outsmarts any lab sensor.",
+        "label": "Nose Power",
+        "sub": "More sensitive than most instruments",
+        "label_on": "power",
+        "query": "human nose sensitivity compared to sensors",
+        "query2": "nose vs lab equipment detection",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "mind blowing facts channel",
+        "query2": "body oddities short videos",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how your nose can sniff out a trillion scents and renew itself every month. Stay tuned for more uncanny body facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mindblowing",
+      "#bodyfacts",
+      "#science",
+      "#odors",
+      "#funfacts"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

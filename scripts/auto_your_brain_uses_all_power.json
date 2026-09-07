@@ -1,0 +1,62 @@
+{
+  "title": "Your Brain Uses All Power",
+  "thumb": "FULL BRAIN",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your brain lights up in 100% of its regions while you stay awake",
+      "hook_top": "FULL BRAIN POWER",
+      "query": "brain activity fMRI awake",
+      "query2": "human brain functional MRI",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "Many believe we only use about ten percent of our brain",
+      "label": "Only 10% of brain used",
+      "query": "10 percent brain myth",
+      "query2": "brain usage myth",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "Neuroimaging shows every part of the brain has a function and is active over a normal day",
+      "label": "Whole brain active daily",
+      "query": "whole brain activity study",
+      "query2": "brain region activation fMRI",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "Your mind is always at work, even when you rest",
+      "label": "Brain always active",
+      "sub": "All regions fire throughout the day",
+      "label_on": "active",
+      "query": "brain activity during rest",
+      "query2": "default mode network",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow button animation",
+      "query2": "subscribe call to action",
+      "role": "cta"
+    }
+  ],
+  "description": "The 10% brain myth is busted by modern science. Discover why every neuron matters. Follow for more shocking facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#brain",
+    "#mythbusted",
+    "#mindblown",
+    "#facts"
+  ],
+  "place": "",
+  "country": ""
+}

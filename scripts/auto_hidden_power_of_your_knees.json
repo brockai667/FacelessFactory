@@ -1,0 +1,70 @@
+{
+  "title": "Hidden Power of Your Knees",
+  "thumb": "KNEE POWER",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your knees generate 300 watts of power while you walk.",
+      "hook_top": "KNEES GENERATE 300 WATTS",
+      "query": "knee power walking",
+      "query2": "human knee energy output",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "During steady walking the quadriceps can produce about 150 watts of mechanical power.",
+      "chips": [
+        {
+          "t": "150 WATTS",
+          "on": "power",
+          "style": "accent"
+        }
+      ],
+      "query": "quadriceps power walking",
+      "query2": "muscle power walking",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "When sprinting the leg muscles can exceed 500 watts, the highest output of any body part.",
+      "chips": [
+        {
+          "t": "500+ WATTS",
+          "on": "output",
+          "style": "accent"
+        }
+      ],
+      "query": "leg muscle power sprinting",
+      "query2": "muscle output sprint",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "Your knee joint works like a tiny generator, storing elastic energy and releasing it as electrical charge.",
+      "reveal_top": "KNEE IS A MICRO‑GENERATOR",
+      "query": "knee joint spring energy",
+      "query2": "human knee energy storage",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow button",
+      "query2": "subscribe prompt",
+      "role": "cta"
+    }
+  ],
+  "description": "Your body hides astonishing power sources you never imagined. Discover how the knee turns every step into a mini‑generator. Follow for more mind‑blowing body facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#mindblown",
+    "#health",
+    "#biology"
+  ],
+  "place": "",
+  "country": ""
+}

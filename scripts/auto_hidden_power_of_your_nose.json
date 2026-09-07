@@ -1,0 +1,72 @@
+{
+  "title": "Hidden Power of Your Nose",
+  "thumb": "SUPER SNIFF",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your nose can detect one trillion different scents.",
+      "hook_top": "TRILLION SCENT DETECTION",
+      "query": "human nose scent detection trillion",
+      "query2": "olfactory sensitivity numbers",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Scientists estimate humans can distinguish over a trillion unique odors.",
+      "chips": [
+        {
+          "t": "OVER A TRILLION ODORS",
+          "on": "trillion",
+          "style": "accent"
+        }
+      ],
+      "query": "human odor discrimination trillion",
+      "query2": "olfaction odor count study",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "The olfactory bulb processes smells faster than the visual cortex, triggering instant reactions.",
+      "chips": [
+        {
+          "t": "FAST OLFACORY PROCESSING",
+          "on": "faster",
+          "style": "white"
+        }
+      ],
+      "query": "olfactory bulb processing speed vs visual cortex",
+      "query2": "brain smell reaction time",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Your nose is a hidden super‑sensor.",
+      "label": "SNIFF SUPERPOWER",
+      "sub": "The strongest sense you never notice",
+      "label_on": "super‑sensor",
+      "query": "human nose super sensor fact",
+      "query2": "nose hidden superpower",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "follow call to action text",
+      "query2": "cta follow phrase",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover how your nose outperforms every other sense with unbelievable detection power. Stay tuned for more hidden body wonders!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#mindblown",
+    "#olfaction",
+    "#funfacts"
+  ],
+  "place": "",
+  "country": ""
+}
