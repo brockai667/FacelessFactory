@@ -1,0 +1,66 @@
+{
+  "title": "Mystery of Firefly Light",
+  "thumb": "FIREFLY GLOW",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Why does the firefly flash about once per second?",
+      "hook_top": "FIREFLY FLASHES EVERY SECOND",
+      "query": "firefly flashing frequency",
+      "query2": "firefly light interval",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "label": "LUCIFERIN REACTS WITH OXYGEN",
+      "label_on": "First",
+      "text": "They produce light using luciferin that reacts with oxygen, a cold chemical reaction.",
+      "query": "firefly luciferin reaction",
+      "query2": "bioluminescence chemistry firefly",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "label": "MATE SIGNALING FLASH PATTERN",
+      "label_on": "Second",
+      "text": "Each species has a unique flash pattern to attract mates across the night.",
+      "query": "firefly species flash pattern",
+      "query2": "firefly mating signals",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "label": "SYNCHRONIZED FLASHING DETER PREDATORS",
+      "label_on": "Third",
+      "text": "Large groups synchronize their lights, creating a confusing display that deters predators.",
+      "query": "synchronized firefly flashing",
+      "query2": "firefly predator avoidance",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "follow button graphic",
+      "query2": "social media follow icon",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover the chemistry, romance, and survival tricks behind fireflies' nightly glow. Stay curious and hit follow for more mind‑blowing facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#nature",
+    "#bioluminescence",
+    "#wildlife",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}

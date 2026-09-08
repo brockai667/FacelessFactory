@@ -14200,5 +14200,133 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "The Secret of the Amazon River",
+    "thumb": "AMAZON RIVER MYSTERY",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Why does the Amazon River hide a secret?",
+        "hook_top": "AMAZON RIVER SECRET",
+        "query": "Amazon River secret fact",
+        "query2": "Amazon River mystery",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "It is home to millions of species, more than any other river on Earth.",
+        "label": "RIVER HOSTS MILLIONS",
+        "label_on": "Fact",
+        "query": "Amazon River fish species count",
+        "query2": "Amazon River biodiversity statistics",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "Its average discharge exceeds 200,000 cubic meters per second, the largest of any river.",
+        "label": "WORLD'S LARGEST DISCHARGE",
+        "label_on": "Fact",
+        "query": "Amazon River discharge volume",
+        "query2": "Amazon River water flow rate",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "At about 6,400 km long, it ranks as the second‑longest river after the Nile.",
+        "label": "SECOND LONGEST RIVER",
+        "label_on": "Fact",
+        "query": "Amazon River length ranking",
+        "query2": "Amazon River total length",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button graphic",
+        "query2": "subscribe icon",
+        "role": "cta"
+      }
+    ],
+    "description": "The Amazon River isn't just massive—it hides astonishing facts about life, water, and length. Discover the hidden wonders and stay curious.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#nature",
+      "#amazon",
+      "#facts",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Midnight Stomach Growl Mystery",
+    "thumb": "GROWL MYSTERY",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your stomach growls at midnight in the quiet house.",
+        "hook_top": "MIDNIGHT STOMACH GROWL",
+        "query": "stomach growling at night",
+        "query2": "abdominal rumbling sound",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think the rumble means you’re starving.",
+        "label": "Growl Means Hunger",
+        "query": "stomach rumble hunger myth",
+        "query2": "common belief stomach growl hungry",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "In reality, it’s the movement of gas and fluids as the intestines contract, even when no food is present.",
+        "label": "Intestine Contractions Cause Noise",
+        "query": "intestinal contractions cause stomach growling",
+        "query2": "borborygmus explanation",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Your gut talks, not your hunger.",
+        "label": "Gut Talk",
+        "sub": "Sounds come from muscle activity, not empty stomach.",
+        "label_on": "Borborygmus",
+        "query": "borborygmus definition",
+        "query2": "why stomach makes noise",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow call to action",
+        "query2": "subscribe reminder",
+        "role": "cta"
+      }
+    ],
+    "description": "Ever wondered why your belly rumbles in the dead of night? The truth lies in intestinal waves, not empty plates. Follow for more hidden body truths!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mythbusted",
+      "#health",
+      "#mindblowing"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

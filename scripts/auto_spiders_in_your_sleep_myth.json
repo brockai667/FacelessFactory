@@ -1,0 +1,62 @@
+{
+  "title": "Spiders In Your Sleep Myth",
+  "thumb": "SPIDER MYTH",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Every night you swallow eight spiders while you sleep",
+      "hook_top": "EIGHT SPIDERS NIGHT",
+      "query": "person sleeping swallowing spiders",
+      "query2": "spider myth sleeping",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "People think we accidentally eat dozens of spiders during sleep",
+      "label": "We eat spiders nightly",
+      "query": "spider swallowing myth",
+      "query2": "spider sleep myth",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "Surveys show no evidence; the story began as a joke, not science",
+      "label": "No proof of spider meals",
+      "query": "spider myth origin study",
+      "query2": "spider sleep research",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "Stop fearing bedtime bites",
+      "label": "Myth busted",
+      "sub": "You aren't a spider snack",
+      "label_on": "busted",
+      "query": "spider myth bust",
+      "query2": "spider bedtime myth",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "follow button",
+      "query2": "subscribe call",
+      "role": "cta"
+    }
+  ],
+  "description": "The creepy idea that you swallow spiders every night is pure fiction. Learn why the legend has no scientific backing. Follow for more myth‑busting facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#mythbusted",
+    "#spiders",
+    "#science",
+    "#facts",
+    "#weirdfacts"
+  ],
+  "place": "",
+  "country": ""
+}
