@@ -14328,5 +14328,71 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Invisible Secrets Inside Your Teeth",
+    "thumb": "TOOTH MYSTERY",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your molars hide a secret 0.5‑mm tunnel you never see",
+        "hook_top": "MOLECULAR TUNNEL SECRET",
+        "query": "tooth microscopic tunnel inside molar",
+        "query2": "dental microtunnel picture",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "text": "Enamel, the hardest material in the body, actually contains millions of microscopic pores",
+        "label": "ENAMEL PORES",
+        "label_on": "enamel",
+        "query": "tooth enamel microscopic pores",
+        "query2": "enamel pore close up",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "text": "Beneath enamel, dentin holds tiny channels called dentinal tubules that carry pain signals",
+        "label": "DENTINAL TUBULES",
+        "label_on": "dentin",
+        "query": "dentinal tubules cross section",
+        "query2": "dentin tubules diagram",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "text": "Wisdom teeth often grow at odd angles, pressing against the sinus cavity and causing pressure",
+        "label": "WISDOM TOOTH PRESSURE",
+        "label_on": "wisdom tooth",
+        "query": "wisdom tooth sinus pressure x‑ray",
+        "query2": "impacted wisdom tooth diagram",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "follow button animation",
+        "query2": "subscribe graphic",
+        "role": "cta"
+      }
+    ],
+    "description": "Your teeth hold mysteries you can't see. From porous enamel to hidden pressure points, discover the unseen world inside your mouth. Follow for more hidden body facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#teethfacts",
+      "#bodymystery",
+      "#science",
+      "#mindblowing",
+      "#didyouknow"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

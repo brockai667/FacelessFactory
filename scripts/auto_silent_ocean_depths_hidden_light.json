@@ -1,0 +1,72 @@
+{
+  "title": "Silent Ocean Depths' Hidden Light",
+  "thumb": "GLOWING DEPTHS",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Deep sea fish glow without sunlight",
+      "hook_top": "GLOWING DEEP SEA FISH",
+      "query": "deep sea fish bioluminescence",
+      "query2": "bioluminescent fish",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "The lantern shark emits light from specialized skin cells called photophores.",
+      "chips": [
+        {
+          "t": "PHOTOPHORES",
+          "on": "photophores",
+          "style": "accent"
+        }
+      ],
+      "query": "lantern shark photophores",
+      "query2": "shark bioluminescence",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "These lights lure prey and confuse predators in the pitch‑black abyss.",
+      "chips": [
+        {
+          "t": "LURE PREY",
+          "on": "lure",
+          "style": "white"
+        }
+      ],
+      "query": "bioluminescence hunting strategy",
+      "query2": "deep sea light function",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Nature’s own night‑lamp",
+      "label": "Bioluminescent Trick",
+      "sub": "Glow to survive",
+      "label_on": "glow",
+      "query": "photophore purpose",
+      "query2": "deep sea glow advantage",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "science short video",
+      "query2": "mind blowing facts",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover how some deep‑sea creatures create their own light in total darkness. The ocean’s midnight glow is more than magic—it’s survival.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bioluminescence",
+    "#deepsea",
+    "#sciencefacts",
+    "#oceanmystery",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}
