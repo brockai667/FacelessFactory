@@ -14394,5 +14394,270 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "The Secret Behind Antarctica’s Blood‑Red Lakes",
+    "thumb": "RED ICE LAKES",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Antarctica hides lakes that turn blood‑red every summer",
+        "hook_top": "RED LAKES REVEALED",
+        "query": "Antarctic blood red lakes",
+        "query2": "Antarctica Lake Vostok red algae",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "MICROALGAE TURN WATER RED",
+        "label_on": "red algae",
+        "text": "Microscopic algae called Chlamydomonas produce a red pigment that stains the water",
+        "query": "Chlamydomonas antarctica red pigment",
+        "query2": "Antarctic lake red algae",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "FREEZING POINT LOWERS",
+        "label_on": "cold water",
+        "text": "The high salinity from the algae lowers the freezing point, letting liquid water persist under the ice",
+        "query": "salinity lowers freezing point antarctic lakes",
+        "query2": "antartic lake brine freezing point",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "UNIQUE ECOSYSTEM",
+        "label_on": "ecosystem",
+        "text": "These crimson pools host specialized microbes that survive in complete darkness and near‑freezing temps",
+        "query": "microbial ecosystem antarctic red lakes",
+        "query2": "extremophile microbes antarctica lakes",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow us science channel",
+        "query2": "subscribe science shorts",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why some Antarctic lakes glow scarlet each summer and the tiny life that makes it happen. Stay curious and explore the unseen.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#antarctica",
+      "#microbiology",
+      "#nature"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Cold Weather Myth Busted",
+    "thumb": "COLD MYTH",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Why does a 3°C breeze never give you a cold?",
+        "hook_top": "FREEZING BREEZE MYTH",
+        "query": "cold weather causing colds",
+        "query2": "temperature and common cold",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "Many believe stepping outside in chilly air makes you catch a cold.",
+        "label": "Cold air causes colds",
+        "query": "people think cold causes illness",
+        "query2": "myth cold weather illness",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Colds are caused by rhinoviruses; temperature alone doesn't transmit the virus.",
+        "label": "Viruses, not temperature",
+        "query": "rhinovirus cause of common cold",
+        "query2": "cold virus transmission facts",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Stay warm, but wash hands!",
+        "label": "Hand hygiene wins",
+        "sub": "Clean hands stop the virus, not the chill.",
+        "label_on": "handwash",
+        "query": "hand washing prevents colds",
+        "query2": "hygiene vs cold weather myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "follow button animation",
+        "query2": "subscribe call to action",
+        "role": "cta"
+      }
+    ],
+    "description": "Think the cold makes you sick? The truth is far cooler. Learn the real reason behind colds and protect yourself the right way. Follow for more mind‑blowing fact checks!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mythbusting",
+      "#sciencefacts",
+      "#healthmyth",
+      "#coldvirus",
+      "#viraltruth"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Brain’s Oxygen Hunger Explained",
+    "thumb": "OXYGEN GOBBLER",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your brain uses twenty percent of oxygen.",
+        "hook_top": "BRAIN EATS 20 OXYGEN",
+        "query": "brain oxygen consumption",
+        "query2": "brain oxygen usage",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "At rest it receives about 750 ml of oxygen each minute.",
+        "chips": [
+          {
+            "t": "750 ml/min",
+            "on": "oxygen",
+            "style": "white"
+          }
+        ],
+        "query": "brain oxygen per minute",
+        "query2": "brain oxygen rate",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "It burns roughly 120 g of glucose daily, similar to a small soda.",
+        "chips": [
+          {
+            "t": "120 g glucose",
+            "on": "glucose",
+            "style": "accent"
+          }
+        ],
+        "query": "brain glucose usage",
+        "query2": "brain glucose consumption",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "The oxygen fuels automatic tasks like breathing, not just conscious thought.",
+        "reveal_top": "POWERING UNCONSCIOUS LIFE",
+        "query": "brain automatic functions",
+        "query2": "brain involuntary processes",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "body facts",
+        "query2": "human body secrets",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why your brain gulps a massive share of the oxygen you breathe. It’s the engine behind every breath and heartbeat, not just your thoughts. Stay curious!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mindblown",
+      "#brain",
+      "#health",
+      "#mystery"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Hidden Secrets of Human Blood",
+    "thumb": "BLOOD MYSTERY",
+    "scenes": [
+      {
+        "text": "The Sahara desert hides a 10‑meter deep underground river",
+        "hook_top": "DEEP SAND RIVER",
+        "query": "Sahara underground river",
+        "query2": "deep river Sahara",
+        "role": "hook"
+      },
+      {
+        "text": "An adult human carries roughly five liters of blood",
+        "chips": [
+          {
+            "t": "5 LITERS",
+            "on": "five",
+            "style": "white"
+          }
+        ],
+        "query": "human blood volume",
+        "query2": "average blood amount",
+        "role": "fact"
+      },
+      {
+        "text": "Each red blood cell lives about 120 days before being recycled",
+        "chips": [
+          {
+            "t": "120 DAYS",
+            "on": "one‑twenty",
+            "style": "accent"
+          }
+        ],
+        "query": "red blood cell lifespan",
+        "query2": "RBC lifespan",
+        "role": "fact"
+      },
+      {
+        "text": "Your blood is a self‑renewing river",
+        "label": "SELF‑RENEWING",
+        "sub": "Every 120 days new cells replace old",
+        "label_on": "renew",
+        "query": "blood cell turnover",
+        "query2": "RBC replacement cycle",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow call to action",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how your bloodstream works like a hidden river beneath the desert. Learn the numbers behind its volume and renewal cycle. Stay curious!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mindblowing",
+      "#biology",
+      "#didyouknow"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

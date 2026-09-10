@@ -1,0 +1,71 @@
+{
+  "title": "Hummingbird Heartbeat Mystery",
+  "thumb": "FAST BEAT",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "A tiny bird beats 1,200 times per minute.",
+      "hook_top": "TINY BIRD 1200 BPM",
+      "query": "hummingbird heart rate",
+      "query2": "bird beats per minute",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "Hummingbirds have the highest metabolism of any animal.",
+      "chips": [
+        {
+          "t": "Highest Metabolism",
+          "on": "metabolism",
+          "style": "white"
+        }
+      ],
+      "punch": "wow",
+      "query": "hummingbird metabolism",
+      "query2": "bird metabolic rate",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Their heart can double in size during intense flight.",
+      "chips": [
+        {
+          "t": "Heart Doubles Size",
+          "on": "double",
+          "style": "accent"
+        }
+      ],
+      "query": "hummingbird heart size during flight",
+      "query2": "bird heart during flight",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "When they rest, the heart drops to just 50 beats per minute, letting them conserve energy.",
+      "reveal_top": "SLOWING FOR SURVIVAL",
+      "query": "hummingbird resting heart rate",
+      "query2": "bird heart rate sleep",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow call to action",
+      "query2": "subscribe reminder",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover how the world’s fastest‑beating heart can magically slow down for survival. Stay tuned for more mind‑blowing animal secrets.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#birds",
+    "#nature",
+    "#facts",
+    "#wild"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,57 @@
+{
+  "title": "Chewing Gum Myth Busted",
+  "thumb": "GUM MYTH",
+  "scenes": [
+    {
+      "text": "Your gum won't sit in your stomach for seven years.",
+      "hook_top": "GUM WON'T STAY SEVEN YEARS",
+      "query": "chewing gum in stomach",
+      "query2": "swallowed gum",
+      "role": "hook"
+    },
+    {
+      "text": "People believe swallowed gum remains in the body for up to seven years.",
+      "label": "Gum stays seven years",
+      "query": "gum staying in stomach myth",
+      "query2": "gum seven years belief",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "The digestive system can’t break gum but it passes through normally within days.",
+      "label": "Gum passes in days",
+      "query": "gum digestion process",
+      "query2": "gum passes through body",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "It’s out fast!",
+      "label": "Out fast!",
+      "sub": "Gum exits within a few days",
+      "label_on": "fast",
+      "query": "gum excretion timing",
+      "query2": "gum leaving stomach",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow button icon",
+      "query2": "subscribe graphic",
+      "role": "cta"
+    }
+  ],
+  "description": "Think chewing gum stays inside you for years? It actually moves on in just a few days. Stay curious and hit follow for more truth‑revealing facts.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#mythbusting",
+    "#sciencefacts",
+    "#bodyfacts",
+    "#mindblowing",
+    "#funfacts"
+  ],
+  "place": "",
+  "country": ""
+}
