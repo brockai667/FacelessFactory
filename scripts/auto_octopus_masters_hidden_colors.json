@@ -1,0 +1,66 @@
+{
+  "title": "Octopus Masters Hidden Colors",
+  "thumb": "CAMOUFLAGE POWER",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Octopus can shift its skin tone in under a second.",
+      "hook_top": "SKIN SHIFT INSTANT",
+      "query": "octopus skin color change time lapse",
+      "query2": "octopus chromatophore fast change",
+      "role": "hook"
+    },
+    {
+      "type": "count",
+      "num": 1,
+      "label": "CHROMATOPHORES CONTROL COLORS",
+      "label_on": "color",
+      "text": "Special cells called chromatophores expand or contract to produce vivid patterns.",
+      "query": "octopus chromatophores diagram",
+      "query2": "octopus skin pigment cells",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 2,
+      "label": "IRIDOPHORES REFLECT LIGHT",
+      "label_on": "iridescence",
+      "text": "Iridophores reflect light, giving the animal shimmering blues and greens.",
+      "query": "octopus iridophore reflection",
+      "query2": "octopus shimmering skin",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "count",
+      "num": 3,
+      "label": "LEUCOPHORES CREATE WHITE",
+      "label_on": "white",
+      "text": "Leucophores scatter ambient light, allowing the octopus to appear pure white when needed.",
+      "query": "octopus leucophore function",
+      "query2": "octopus white camouflage",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow button animation",
+      "query2": "subscribe icon",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover how octopuses become living chameleons with three hidden skin systems. Dive deeper into nature’s ultimate disguise. Follow for more mind‑blowing facts.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#octopus",
+    "#camouflage",
+    "#science",
+    "#animalfacts",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}

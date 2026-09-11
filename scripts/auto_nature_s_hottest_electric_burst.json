@@ -1,0 +1,73 @@
+{
+  "title": "Nature’s Hottest Electric Burst",
+  "thumb": "HOT LIGHTNING",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Lightning strikes hotter than the sun's surface",
+      "hook_top": "LIGHTNING HOTTER THAN SUN",
+      "query": "lightning temperature",
+      "query2": "lightning heat",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "A lightning bolt can reach about 30,000°C, far above the Sun's 5,500°C surface.",
+      "chips": [
+        {
+          "t": "30,000°C",
+          "on": "hot",
+          "style": "accent"
+        }
+      ],
+      "query": "lightning temperature 30000",
+      "query2": "lightning heat measurement",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Each strike releases up to a billion joules, enough to power a house for several days.",
+      "chips": [
+        {
+          "t": "1 billion joules",
+          "on": "energy",
+          "style": "white"
+        }
+      ],
+      "query": "lightning energy joules",
+      "query2": "lightning power output",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Lightning’s extreme heat powers nature’s wildest fireworks",
+      "label": "NATURE’S FIREWORK",
+      "sub": "The hottest natural phenomenon",
+      "label_on": "hot",
+      "query": "lightning fireworks",
+      "query2": "lightning natural display",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow button",
+      "query2": "subscribe prompt",
+      "role": "cta"
+    }
+  ],
+  "description": "Lightning isn’t just a flash – it’s hotter than the Sun’s surface and packs massive energy. Stay charged with more mind‑blowing science facts.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#lightning",
+    "#nature",
+    "#mindblown",
+    "#facts",
+    "#physics"
+  ],
+  "place": "",
+  "country": ""
+}

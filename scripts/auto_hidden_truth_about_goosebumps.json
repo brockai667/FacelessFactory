@@ -1,0 +1,54 @@
+{
+  "title": "Hidden Truth About Goosebumps",
+  "thumb": "GOOSEBUMPS SECRET",
+  "scenes": [
+    {
+      "hook_top": "CHILLING BREEZE TRIGGER",
+      "query": "goosebumps skin reaction",
+      "query2": "goosebumps cold breeze",
+      "role": "hook",
+      "text": "Your skin chills when a 20°C breeze hits"
+    },
+    {
+      "label": "Goosebumps just from cold",
+      "query": "goosebumps cold myth",
+      "query2": "goosebumps only cold belief",
+      "role": "myth",
+      "text": "People think goosebumps only happen when you're cold."
+    },
+    {
+      "label": "Reflex for threat",
+      "query": "goosebumps sympathetic nervous system",
+      "query2": "goosebumps reflex danger",
+      "role": "truth",
+      "text": "They are a sympathetic‑nervous‑system reflex that readies hair follicles for danger, a vestigial alarm from our ancestors."
+    },
+    {
+      "label": "ANCIENT ALARM",
+      "sub": "Hair‑raising reflex from our ancestors",
+      "label_on": "alarm",
+      "query": "goosebumps alarm system",
+      "query2": "goosebumps ancient reflex",
+      "role": "callout",
+      "text": "It's your body’s ancient alarm system"
+    },
+    {
+      "query": "follow call to action",
+      "query2": "subscribe short facts",
+      "role": "cta",
+      "text": "Follow if you love learning something new."
+    }
+  ],
+  "description": "Most think goosebumps are just a cold response, but they're actually an ancient alarm that prepares us for danger. Discover the hidden science behind the shiver.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#mythbusted",
+    "#psychology",
+    "#mindblown"
+  ],
+  "place": "",
+  "country": ""
+}

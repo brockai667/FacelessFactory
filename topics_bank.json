@@ -14659,5 +14659,276 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Royal Pilot Secrets",
+    "thumb": "KING PILOT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "How does the King of the Netherlands still fly commercial jets every year?",
+        "hook_top": "KING OF NETHERLANDS",
+        "query": "King Willem‑Alexander pilot KLM flights",
+        "query2": "Netherlands monarch flying commercial",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "CERTIFIED CO‑PILOT TRAINING",
+        "label_on": "three",
+        "text": "He completed the full commercial co‑pilot certification, logging thousands of flight hours before his first solo take‑off.",
+        "query": "Dutch king co‑pilot certification",
+        "query2": "King Willem‑Alexander flight training",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "FLIES TWICE MONTHLY ROUTES",
+        "label_on": "two",
+        "text": "Since the 1990s he regularly pilots the Amsterdam‑New York route, usually on a Boeing 777.",
+        "query": "King Willem‑Alexander Amsterdam New York flight",
+        "query2": "royal pilot regular routes",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "MAINTAINS ANONYMOUS IDENTITY",
+        "label_on": "one",
+        "text": "He uses a civilian uniform and a standard employee badge, keeping his royal status hidden from passengers.",
+        "query": "king pilot civilian uniform Netherlands",
+        "query2": "royal identity hidden airline crew",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow button animation",
+        "query2": "call to action graphics",
+        "role": "cta"
+      }
+    ],
+    "description": "A reigning monarch still pilots commercial jets, blending royalty with ordinary skies. Learn the surprising details behind his secret cockpit life. Follow for more unbelievable facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#history",
+      "#aviation",
+      "#Netherlands",
+      "#royal",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Silent Shark Swimming Myth",
+    "thumb": "RESTING SHARK",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Great White sharks can travel 2 miles without stopping.",
+        "hook_top": "SHARKS TRAVEL 2 MILES",
+        "query": "Great White shark swimming distance",
+        "query2": "Great White shark migration",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think sharks die if they stop swimming.",
+        "label": "Sharks die if they stop",
+        "query": "shark swimming myth",
+        "query2": "shark must keep moving belief",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Certain shark species can rest motionless on the seabed and pump water over their gills.",
+        "label": "Sharks can rest on seabed",
+        "query": "shark resting behavior",
+        "query2": "shark stationary breathing",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Resting sharks exist.",
+        "label": "Resting sharks",
+        "sub": "Some sharks can pause and still breathe",
+        "label_on": "Rest",
+        "query": "shark resting example",
+        "query2": "shark motionless breathing",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow page",
+        "query2": "subscribe for facts",
+        "role": "cta"
+      }
+    ],
+    "description": "Many believe sharks must always move, but some can actually pause on the ocean floor. Discover the truth behind this finned myth. Follow for more mind‑blowing myth busts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#sharks",
+      "#mythbusted",
+      "#science",
+      "#ocean",
+      "#wildlife"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Silent River That Never Freezes",
+    "thumb": "THAMES ICE MYSTERY",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "The River Thames never freezes, even at minus ten degrees.",
+        "hook_top": "THAMES STAYS LIQUID",
+        "query": "Thames river winter freeze",
+        "query2": "Thames river temperature freeze",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "A strong current of about 1.5 m/s keeps the water moving quickly.",
+        "chips": [
+          {
+            "t": "1.5 m/s",
+            "on": "current",
+            "style": "white"
+          }
+        ],
+        "query": "Thames river current speed",
+        "query2": "Thames flow rate",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "London winters often drop to around -5°C, yet the surface stays unfrozen.",
+        "chips": [
+          {
+            "t": "-5°C",
+            "on": "temperature",
+            "style": "accent"
+          }
+        ],
+        "query": "London winter temperature Thames freeze",
+        "query2": "Thames winter low temperature",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "A small amount of dissolved minerals from upstream lowers the freezing point, so the water stays liquid.",
+        "reveal_top": "SALTS KEEP IT LIQUID",
+        "query": "Thames mineral content freezing point",
+        "query2": "River salts lower freezing temperature",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow hidden science call to action",
+        "query2": "follow science short",
+        "role": "cta"
+      }
+    ],
+    "description": "The Thames defies the cold thanks to its swift flow and a hint of mineral magic. Discover why this famous river never turns to ice.\nTap follow for more mind‑blowing secrets.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#riverfacts",
+      "#mysteryscience",
+      "#hiddenfacts",
+      "#mindblown"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Mystery of the Brain’s Blind Spot",
+    "thumb": "BLIND SPOT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "One tiny blind spot hides behind your eyes",
+        "hook_top": "ONE TINY BLIND SPOT",
+        "query": "human eye blind spot",
+        "query2": "optic nerve blind spot",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "The optic nerve creates a blind spot about 5° wide where no photoreceptors exist",
+        "chips": [
+          {
+            "t": "5° WIDE",
+            "on": "size",
+            "style": "white"
+          }
+        ],
+        "punch": "wow",
+        "query": "optic nerve blind spot size",
+        "query2": "human eye blind spot dimensions",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Your brain automatically fills in the missing image, so you never notice the gap",
+        "chips": [
+          {
+            "t": "BRAIN FILLS GAP",
+            "on": "fill",
+            "style": "accent"
+          }
+        ],
+        "query": "brain visual filling blind spot",
+        "query2": "perceptual completion blind spot",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Your brain tricks you daily",
+        "label": "VISUAL ILLUSION",
+        "sub": "The brain fills the gap automatically",
+        "label_on": "trick",
+        "query": "brain visual illusion blind spot",
+        "query2": "perception blind spot",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "brain facts channel",
+        "query2": "mind blowing science shorts",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why you never see the tiny blind spot in each eye and how your brain covers it up. Stay curious and unlock more hidden secrets of the mind.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#brainfacts",
+      "#science",
+      "#mindblowing",
+      "#visualillusion",
+      "#biology"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
