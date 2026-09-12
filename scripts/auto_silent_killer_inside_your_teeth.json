@@ -1,0 +1,65 @@
+{
+  "title": "Silent Killer Inside Your Teeth",
+  "thumb": "TOOTH TRAP",
+  "scenes": [
+    {
+      "text": "One tooth can hide a silent killer",
+      "hook_top": "ONE TOOTH HIDES KILLER",
+      "query": "tooth hidden disease",
+      "query2": "tooth cavity danger",
+      "role": "hook"
+    },
+    {
+      "text": "Streptococcus mutans can drop mouth pH below 5.5, eroding enamel",
+      "chips": [
+        {
+          "t": "pH 5.5",
+          "on": "acid",
+          "style": "white"
+        }
+      ],
+      "query": "Streptococcus mutans pH effect",
+      "query2": "mouth acidity bacteria",
+      "role": "fact"
+    },
+    {
+      "text": "Around 40% of adults have at least one untreated cavity",
+      "chips": [
+        {
+          "t": "40% adults",
+          "on": "cavities",
+          "style": "accent"
+        }
+      ],
+      "query": "adult cavity prevalence statistics",
+      "query2": "untreated tooth decay rates",
+      "role": "fact"
+    },
+    {
+      "text": "Those cavities can let deadly bacteria slip into your bloodstream",
+      "reveal_top": "KILLER BACTERIA SPREAD",
+      "query": "cavity bacteria bloodstream infection",
+      "query2": "tooth decay systemic risk",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow so you never run out of fun facts.",
+      "query": "body secret follow prompt",
+      "query2": "science short follow call",
+      "role": "cta"
+    }
+  ],
+  "description": "Your mouth hides more than plaque—cavities can become portals for dangerous microbes. Discover the hidden threat lurking in a single tooth.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#bodyfacts",
+    "#science",
+    "#dental",
+    "#health",
+    "#mindblowing"
+  ],
+  "place": "",
+  "country": ""
+}

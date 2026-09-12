@@ -14930,5 +14930,210 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Mysteries of the Human Nose",
+    "thumb": "NOSE SECRETS",
+    "scenes": [
+      {
+        "text": "The nose can sniff a trillion scents",
+        "hook_top": "TRILLION SCENT DETECTOR",
+        "query": "human nose trillion scents",
+        "query2": "nose smell trillion",
+        "role": "hook"
+      },
+      {
+        "text": "It can remember smells for decades",
+        "num": 1,
+        "label": "SMELLS LAST DECADES",
+        "label_on": "remember",
+        "query": "olfactory memory longevity",
+        "query2": "smell memory decades",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "It can sense subtle changes in humidity",
+        "num": 2,
+        "label": "DETECTS HUMIDITY",
+        "label_on": "sense",
+        "query": "nose humidity detection",
+        "query2": "olfactory humidity sensing",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Airflow through the nostrils creates a faint hum",
+        "num": 3,
+        "label": "GENERATES HUM",
+        "label_on": "hum",
+        "query": "nasal airflow sound",
+        "query2": "nose humming noise",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "follow button animation",
+        "query2": "subscribe call to action",
+        "role": "cta"
+      }
+    ],
+    "description": "Your nose does far more than just breathe— it remembers, measures, and even hums. Dive into these three surprising abilities. Stay tuned for more mind‑blowing body secrets.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mystery",
+      "#mindblowing",
+      "#humanbody"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Banana Radiation Explained",
+    "thumb": "RADIATION BANANA",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Banana packs a tiny radioactive punch",
+        "hook_top": "BANANA RADIOACTIVE PUNCH",
+        "query": "banana radiation",
+        "query2": "banana radioactivity",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "A single banana contains about 0.1 microsieverts of radiation.",
+        "chips": [
+          {
+            "t": "0.1 µSv",
+            "on": "radiation",
+            "style": "accent"
+          }
+        ],
+        "query": "banana radiation dose",
+        "query2": "microsievert banana",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The source is potassium‑40, a naturally occurring isotope in all potassium.",
+        "chips": [
+          {
+            "t": "Potassium‑40",
+            "on": "isotope",
+            "style": "white"
+          }
+        ],
+        "query": "potassium-40 bananas",
+        "query2": "potassium isotope banana",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "Despite the radiation, eating bananas is completely safe.",
+        "reveal_top": "SAFE BANANA RADIATION",
+        "query": "banana safety radiation",
+        "query2": "banana health radioactivity",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Bananas emit a minuscule amount of radiation thanks to potassium‑40. The dose is far below any health risk, so you can enjoy them worry‑free. Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#banana",
+      "#radiation",
+      "#mindblown"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Nose Secrets You Never Expected",
+    "thumb": "NIGHTMARE NOSE",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your nose houses more than 400 tiny hairs that trap particles.",
+        "hook_top": "400 HAIRS FILTER AIR",
+        "query": "human nose hair count",
+        "query2": "nasal hair density",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Scientists estimate the nose can distinguish over a trillion different scents.",
+        "chips": [
+          {
+            "t": "TRILLION SCENTS",
+            "on": "trillion",
+            "style": "accent"
+          }
+        ],
+        "punch": "wow",
+        "query": "human olfactory capacity trillion scents",
+        "query2": "number of scents humans can detect",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "Each breath is humidified to nearly 100% relative humidity inside the nasal cavity.",
+        "chips": [
+          {
+            "t": "100% HUMIDITY",
+            "on": "hundred",
+            "style": "white"
+          }
+        ],
+        "query": "nasal cavity humidity level",
+        "query2": "air humidification in nose",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Your nose is a built‑in air‑purifier and scent supercomputer.",
+        "label": "Air‑Purifier + Supercomputer",
+        "sub": "A silent guardian of every breath.",
+        "label_on": "air purifier",
+        "query": "nose function air filtration",
+        "query2": "nasal cavity role in breathing",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "shorts follow call to action",
+        "query2": "cta follow",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how your nose does far more than just smell—filtering particles and decoding a trillion aromas. Dive into the unseen science of the human nose.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#mindblowing",
+      "#nose",
+      "#biology",
+      "#oddities"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
