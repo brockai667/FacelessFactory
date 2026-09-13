@@ -15135,5 +15135,75 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Invisible Power of Your Heart",
+    "thumb": "HEART POWER",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your heart pumps about 5 liters of blood every minute.",
+        "hook_top": "HEART PUMPS 5 LITERS",
+        "query": "human heart blood pump rate",
+        "query2": "average cardiac output",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "In a day it circulates roughly 7,000 liters, enough to fill two swimming pools.",
+        "chips": [
+          {
+            "t": "7,000 LITERS DAILY",
+            "on": "circulates",
+            "style": "accent"
+          }
+        ],
+        "query": "daily blood volume circulated by heart",
+        "query2": "total blood pumped per day",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "The heart creates its own electrical rhythm, sending signals faster than a computer's processor.",
+        "chips": [
+          {
+            "t": "ELECTRIC HEART",
+            "on": "electrical",
+            "style": "white"
+          }
+        ],
+        "query": "heart electrical conduction speed",
+        "query2": "cardiac impulse velocity",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "Those same beats can lock onto the tempo of music, syncing your pulse to the beat.",
+        "reveal_top": "HEART LOCKS TO MUSIC",
+        "query": "heart rate synchronizing with music",
+        "query2": "cardiac entrainment rhythm",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow call to action",
+        "query2": "subscribe reminder",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover how your heart does far more than pump blood—it's a natural metronome that can match any song. Stay tuned for more invisible body powers.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#heart",
+      "#mindblowing",
+      "#hiddenpower"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
