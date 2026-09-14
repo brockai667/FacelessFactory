@@ -15205,5 +15205,269 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Lobster Blood Defies Expectations",
+    "thumb": "BLUE LOBSTER BLOOD",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Lobster blood is blue thanks to copper, atomic number 29",
+        "hook_top": "BLUE LOBSTER BLOOD SECRET",
+        "query": "lobster blue blood copper atomic number 29",
+        "query2": "lobster hemolymph blue copper",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "CAN LIVE 100 YEARS",
+        "label_on": "fact",
+        "text": "Lobsters can live for around a century in the wild",
+        "query": "lobster lifespan 100 years",
+        "query2": "how long do lobsters live",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "TASTE WITH THEIR FEET",
+        "label_on": "fact",
+        "text": "They taste food with sensory hairs on their legs and claws",
+        "query": "lobster taste with legs",
+        "query2": "lobster sensory hairs taste",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "MOLT TO GROW",
+        "label_on": "fact",
+        "text": "Lobsters must shed their shell, a process called molting, to grow larger",
+        "query": "lobster molting growth",
+        "query2": "how lobsters grow by shedding shell",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for a mind-blowing fact every day.",
+        "query": "follow button animation",
+        "query2": "subscribe call to action",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover the surprising science behind the lobster’s blue blood, long life, and unique senses. Dive deeper into ocean oddities!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#ocean",
+      "#lobster",
+      "#weirdfacts",
+      "#nature"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Nose Goosebumps Explained",
+    "thumb": "NOSE GOOSEBUMPS",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Your nose forms goosebumps at 7°C",
+        "hook_top": "NOSE GOOSEBUMPS AT 7C",
+        "query": "nose goosebumps 7°C temperature",
+        "query2": "nasal piloerection cold",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "ARRECTOR PILI MUSCLES",
+        "label_on": "fact",
+        "text": "Tiny arrector pili muscles pull tiny hairs upright, creating the bumps",
+        "query": "arrector pili muscles nose",
+        "query2": "muscles cause nose goosebumps",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "COLD OR EMOTION TRIGGER",
+        "label_on": "fact",
+        "text": "Cold air or strong emotions can activate the same reflex",
+        "query": "cold emotion trigger nose goosebumps",
+        "query2": "why nose hairs stand up cold",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "HAIRS STAND TO FILTER",
+        "label_on": "fact",
+        "text": "Raised hairs help filter incoming air when the environment is harsh",
+        "query": "nose hair filter cold air",
+        "query2": "function of nose piloerection",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow button animation body facts",
+        "query2": "subscribe call to action anatomy",
+        "role": "cta"
+      }
+    ],
+    "description": "Uncover why your nose gets goosebumps and how tiny muscles protect you from the cold. The hidden function is fascinating!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#body",
+      "#science",
+      "#anatomy",
+      "#weirdfacts",
+      "#health"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Lobster Blood Color Myth",
+    "thumb": "BLUE BLOOD",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Lobsters turn blue when chilled to just 4°C in ice water",
+        "hook_top": "LOBSTERS TURN BLUE ICE",
+        "query": "lobster ice water temperature",
+        "query2": "lobster blue color experiment",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People think lobster blood is bright red like ours",
+        "label": "Lobster blood is red",
+        "query": "lobster blood color myth",
+        "query2": "lobster blood red belief",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "In reality, lobster blood is blue because it uses copper‑based hemocyanin",
+        "label": "Lobster blood is blue",
+        "query": "lobster hemocyanin blue blood",
+        "query2": "lobster copper blood",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Blue, not red! Lobsters carry copper in their blood",
+        "label": "BLUE NOT RED",
+        "sub": "Lobster blood uses copper",
+        "label_on": "Blue",
+        "query": "lobster blood blue fact",
+        "query2": "lobster copper blood",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow mind blowing facts",
+        "query2": "subscribe science channel",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why a chilled lobster turns an eerie blue instead of staying red. The secret lies in copper‑based blood. Follow for more mind‑blowing myths!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#lobster",
+      "#mythbusting",
+      "#biology",
+      "#facts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Lobster Secrets Revealed",
+    "thumb": "KING PILOT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "King Willem‑Alexander flies a KLM jet twice a month",
+        "hook_top": "KING FLIES KLM JET",
+        "query": "King Willem-Alexander KLM pilot schedule",
+        "query2": "Dutch monarch commercial flights",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "He earned his commercial pilot licence in 1991 and has kept it active ever since",
+        "chips": [
+          {
+            "t": "1991 licence",
+            "on": "since",
+            "style": "white"
+          }
+        ],
+        "query": "King Willem-Alexander commercial pilot licence 1991",
+        "query2": "Dutch king pilot certification year",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "To date he has logged more than 3,000 flight hours on the Boeing 737",
+        "chips": [
+          {
+            "t": "3,000+ hours",
+            "on": "logged",
+            "style": "accent"
+          }
+        ],
+        "query": "Willem-Alexander 3000 flight hours Boeing 737",
+        "query2": "Dutch king flight hour total",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "He’s the only sitting monarch who regularly pilots a commercial airline",
+        "reveal_top": "ONLY MONARCH PILOT",
+        "query": "only reigning monarch commercial pilot",
+        "query2": "unique royal pilot fact",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow hidden truths call to action",
+        "query2": "subscribe for more facts",
+        "role": "cta"
+      }
+    ],
+    "description": "The Dutch king isn’t just a figurehead – he’s up in the cockpit every month. Discover the world‑first royal pilot story and stay tuned for more mind‑blowing facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#mindblowing",
+      "#science",
+      "#history",
+      "#royalty",
+      "#aviation"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

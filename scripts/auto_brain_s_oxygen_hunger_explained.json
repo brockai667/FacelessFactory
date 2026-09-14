@@ -1,0 +1,71 @@
+{
+  "title": "Brain’s Oxygen Hunger Explained",
+  "thumb": "OXYGEN GOBBLER",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Your brain uses twenty percent of oxygen.",
+      "hook_top": "BRAIN EATS 20 OXYGEN",
+      "query": "brain oxygen consumption",
+      "query2": "brain oxygen usage",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "At rest it receives about 750 ml of oxygen each minute.",
+      "chips": [
+        {
+          "t": "750 ml/min",
+          "on": "oxygen",
+          "style": "white"
+        }
+      ],
+      "query": "brain oxygen per minute",
+      "query2": "brain oxygen rate",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "It burns roughly 120 g of glucose daily, similar to a small soda.",
+      "chips": [
+        {
+          "t": "120 g glucose",
+          "on": "glucose",
+          "style": "accent"
+        }
+      ],
+      "query": "brain glucose usage",
+      "query2": "brain glucose consumption",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "The oxygen fuels automatic tasks like breathing, not just conscious thought.",
+      "reveal_top": "POWERING UNCONSCIOUS LIFE",
+      "query": "brain automatic functions",
+      "query2": "brain involuntary processes",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow if you love learning something new.",
+      "query": "body facts",
+      "query2": "human body secrets",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover why your brain gulps a massive share of the oxygen you breathe. It’s the engine behind every breath and heartbeat, not just your thoughts. Stay curious!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#mindblown",
+    "#brain",
+    "#health",
+    "#mystery"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,62 @@
+{
+  "title": "Cold Weather Myth Busted",
+  "thumb": "COLD MYTH",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Why does a 3°C breeze never give you a cold?",
+      "hook_top": "FREEZING BREEZE MYTH",
+      "query": "cold weather causing colds",
+      "query2": "temperature and common cold",
+      "role": "hook"
+    },
+    {
+      "type": "myth",
+      "text": "Many believe stepping outside in chilly air makes you catch a cold.",
+      "label": "Cold air causes colds",
+      "query": "people think cold causes illness",
+      "query2": "myth cold weather illness",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "truth",
+      "text": "Colds are caused by rhinoviruses; temperature alone doesn't transmit the virus.",
+      "label": "Viruses, not temperature",
+      "query": "rhinovirus cause of common cold",
+      "query2": "cold virus transmission facts",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "callout",
+      "text": "Stay warm, but wash hands!",
+      "label": "Hand hygiene wins",
+      "sub": "Clean hands stop the virus, not the chill.",
+      "label_on": "handwash",
+      "query": "hand washing prevents colds",
+      "query2": "hygiene vs cold weather myth",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow so you never run out of fun facts.",
+      "query": "follow button animation",
+      "query2": "subscribe call to action",
+      "role": "cta"
+    }
+  ],
+  "description": "Think the cold makes you sick? The truth is far cooler. Learn the real reason behind colds and protect yourself the right way. Follow for more mind‑blowing fact checks!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#mythbusting",
+    "#sciencefacts",
+    "#healthmyth",
+    "#coldvirus",
+    "#viraltruth"
+  ],
+  "place": "",
+  "country": ""
+}
