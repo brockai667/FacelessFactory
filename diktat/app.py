@@ -143,8 +143,8 @@ class DiktatApp:
         self.overlay.show("📝 prepisujem…", "stt")
         if self.cfg.get("tray", {}).get("notify_start_stop", True):
             self.tray.notify(f"⏹ Nahrávanie skončilo ({self.recorder.total_seconds:.0f} s) – prepisujem…")
-        if self.recorder.gate_rms:
-            ratio = audio.gated_ratio(self.recorder.gated_blocks, self.recorder.kept_blocks)
+        if getattr(self.recorder, "gate_rms", 0):
+            ratio = audio.gated_ratio(getattr(self.recorder, "gated_blocks", 0), getattr(self.recorder, "kept_blocks", 0))
             self._gate_note = f"brána vymazala {ratio:.0%} nahrávky"
             print("📐 " + self._gate_note, flush=True)
             if ratio >= 0.5:

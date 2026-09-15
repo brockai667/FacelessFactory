@@ -20,6 +20,9 @@ class FakeRecorder:
         self.sample_rate = sample_rate
         self.recording = False
         self.total_seconds = 0.0
+        self.gate_rms = 0.0
+        self.gated_blocks = self.kept_blocks = 0
+        self.last_level = 0.0
         self._chunks = list(chunks)
         self._rest = rest
         self.closed = False
