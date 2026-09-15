@@ -185,8 +185,8 @@ class Recorder:
     # -- API ---------------------------------------------------------------------------------------
     def _gate_decide(self, block, l0: float, l1: float, l2: float):
         """Rozhodne o bloku (l0) podľa dvoch nasledujúcich; dozvuk sa počíta v blokoch, nie v reálnom čase."""
-        since = self._since_burst_blocks * BLOCK_SECONDS
-        keep, in_burst = gate_keep3(l0, l1, l2, self.gate_rms, since, self.gate_hangover)
+        hangover_blocks = int(round(self.gate_hangover / BLOCK_SECONDS))     # celé bloky – bez chýb float aritmetiky
+        keep, in_burst = gate_keep3(l0, l1, l2, self.gate_rms, self._since_burst_blocks, hangover_blocks)
         if in_burst:
             self._since_burst_blocks = 0
         else:
