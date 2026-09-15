@@ -101,10 +101,21 @@ class DiktatApp:
         diktat sa vypne. Strážca (watch.py) ho spustí znova, keď sa objavia."""
         limit = float(self.cfg.get("follow", {}).get("exit_after_seconds") or 60)
         missing_since = None
+        first = True
         while True:
             time.sleep(5)
             try:
-                if procs.any_running(follow):
+                names = procs.running_process_names()
+                if first:
+                    seen = sorted(n for n in names if any(f.lower() in (n, n + ".exe") or n == f.lower() for f in follow))
+                    log.info("follow: procesov %d, sledované bežia: %s", len(names), ", ".join(seen) or "žiadny")
+                    first = False
+                if len(names) < 20:
+                    # Windows má vždy desiatky procesov – takto malý zoznam = zlyhanie enumerácie → nevypínať sa
+                    log.warning("follow: podozrivý zoznam procesov (%d), vypínanie preskakujem", len(names))
+                    missing_since = None
+                    continue
+                if procs.any_running(follow, names):
                     missing_since = None
                     continue
                 if missing_since is None:
