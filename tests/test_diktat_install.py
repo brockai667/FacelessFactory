@@ -127,16 +127,24 @@ class AutostartTests(unittest.TestCase):
             app_path = app_dir / "app.py"
             app_path.write_text("# app", encoding="utf-8")
             logs = []
+            (startup / install.VBS_NAME).parent.mkdir(parents=True, exist_ok=True)
+            (startup / install.VBS_NAME).write_text("old", encoding="utf-8")   # staršia inštalácia
             target = install.install_autostart("C:/py/python.exe", app_path, startup_dir=startup, log=logs.append)
+            self.assertEqual(target.name, install.WATCH_VBS_NAME)
             self.assertTrue(target.is_file())
             content = target.read_text(encoding="utf-8")
-            self.assertIn("--tray", content)
-            self.assertIn(str(app_path), content)
+            self.assertIn("watch.py", content)
+            self.assertNotIn("--tray", content)
             self.assertIn(", 0, False", content)          # skryté okno
-            self.assertTrue((app_dir / install.VBS_NAME).is_file())
+            self.assertFalse((startup / install.VBS_NAME).exists(), "priamy štart diktatu zo Startup sa má odstrániť")
+            local = (app_dir / install.VBS_NAME).read_text(encoding="utf-8")
+            self.assertIn("--tray", local)
+            self.assertIn(str(app_path), local)
+            self.assertTrue((app_dir / install.WATCH_VBS_NAME).is_file())
             install.remove_autostart(app_path, startup_dir=startup, log=logs.append)
             self.assertFalse(target.exists())
             self.assertFalse((app_dir / install.VBS_NAME).exists())
+            self.assertFalse((app_dir / install.WATCH_VBS_NAME).exists())
 
     def test_pythonw_fallback_when_missing(self):
         self.assertEqual(install.pythonw_for("/usr/bin/python3"), "/usr/bin/python3")

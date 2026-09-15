@@ -24,6 +24,11 @@ if exist logs\diktat.pid (
 rem pre istotu aj podla prikazoveho riadku (stare verzie bez PID suboru)
 powershell -NoProfile -Command "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*diktat*app.py*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }" >nul 2>&1
 timeout /t 2 >nul
+rem prvy raz po pridani strazcu: prepni autostart na strazcu (diktat_watch.vbs)
+if not exist diktat_watch.vbs .venv\Scripts\python.exe install.py --autostart >nul 2>&1
+if exist diktat_watch.vbs (
+  powershell -NoProfile -Command "if (-not (Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*diktat*watch.py*' })) { Start-Process wscript.exe -ArgumentList 'diktat_watch.vbs' }" >nul 2>&1
+)
 if exist diktat_tray.vbs (
   wscript diktat_tray.vbs
   echo Hotovo - diktat startuje pri hodinach (pol minuty nacitava model).

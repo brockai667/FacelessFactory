@@ -83,5 +83,13 @@
     "enabled": true,
     "alpha": 0.92,
     "font_size": 12
+  },
+  "follow": {
+    "processes": [
+      "claude.exe",
+      "opera.exe",
+      "chrome.exe"
+    ],
+    "exit_after_seconds": 60
   }
 }

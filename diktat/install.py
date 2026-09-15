@@ -33,6 +33,7 @@ HOOK_FILE = "diktat_hook.py"
 
 
 VBS_NAME = "diktat_tray.vbs"
+WATCH_VBS_NAME = "diktat_watch.vbs"
 
 
 def startup_folder() -> Path:
@@ -50,37 +51,46 @@ def pythonw_for(python_exe: str) -> str:
     return str(p)
 
 
-def vbs_launcher(python_exe: str, app_path: Path) -> str:
-    """VBScript, ktorý spustí daemon bez konzolového okna (0 = skryté)."""
+def vbs_launcher(python_exe: str, script_path: Path, args: str = "--tray") -> str:
+    """VBScript, ktorý spustí skript bez konzolového okna (0 = skryté)."""
     py = pythonw_for(python_exe)
+    arg = f" {args}" if args else ""
     return (
         'Set sh = CreateObject("WScript.Shell")\r\n'
-        f'sh.CurrentDirectory = "{app_path.parent}"\r\n'
-        f'sh.Run """{py}"" ""{app_path}"" --tray", 0, False\r\n'
+        f'sh.CurrentDirectory = "{script_path.parent}"\r\n'
+        f'sh.Run """{py}"" ""{script_path}""{arg}", 0, False\r\n'
     )
 
 
 def install_autostart(python_exe: str, app_path: Path, startup_dir: Path | None = None,
                       dry_run: bool = False, log=print) -> Path:
-    """Zapíše spúšťač do priečinka diktat (na ručné spustenie dvojklikom) aj do Startup priečinka."""
+    """diktat_tray.vbs (ručné spustenie dvojklikom) + diktat_watch.vbs v Startup priečinku:
+    strážca spustí diktat, keď beží Claude/prehliadač (follow.processes), a diktat sa sám vypne, keď nebežia."""
     startup_dir = startup_dir or startup_folder()
-    content = vbs_launcher(python_exe, app_path)
-    local = app_path.parent / VBS_NAME
-    target = startup_dir / VBS_NAME
     tag = "[dry-run] " if dry_run else ""
+    local = app_path.parent / VBS_NAME
+    watch_local = app_path.parent / WATCH_VBS_NAME
+    target = startup_dir / WATCH_VBS_NAME
     if not dry_run:
-        local.write_text(content, encoding="utf-8")
+        local.write_text(vbs_launcher(python_exe, app_path, "--tray"), encoding="utf-8")
+        watch_content = vbs_launcher(python_exe, app_path.parent / "watch.py", "")
+        watch_local.write_text(watch_content, encoding="utf-8")
         startup_dir.mkdir(parents=True, exist_ok=True)
-        target.write_text(content, encoding="utf-8")
-    log(f"{tag}✔ {local}: spúšťač (dvojklik = spusti diktat skryto hneď teraz)")
-    log(f"{tag}✔ {target}: autoštart po prihlásení do Windows")
+        target.write_text(watch_content, encoding="utf-8")
+        old = startup_dir / VBS_NAME              # staršia inštalácia spúšťala diktat priamo
+        if old.is_file():
+            old.unlink()
+    log(f"{tag}✔ {local}: spúšťač diktatu (dvojklik = spusti hneď teraz)")
+    log(f"{tag}✔ {watch_local}: strážca (dvojklik = spusti strážcu hneď teraz)")
+    log(f"{tag}✔ {target}: autoštart strážcu po prihlásení do Windows")
     return target
 
 
 def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: bool = False, log=print) -> None:
     startup_dir = startup_dir or startup_folder()
     tag = "[dry-run] " if dry_run else ""
-    for path in (startup_dir / VBS_NAME, app_path.parent / VBS_NAME):
+    for path in (startup_dir / VBS_NAME, startup_dir / WATCH_VBS_NAME,
+                 app_path.parent / VBS_NAME, app_path.parent / WATCH_VBS_NAME):
         if path.is_file():
             if not dry_run:
                 path.unlink()

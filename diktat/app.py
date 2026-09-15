@@ -29,7 +29,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows: neškodné varovanie pri sťahovaní modelu
 
-from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject, overlay as overlaymod, tray as traymod  # noqa: E402
+from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject, overlay as overlaymod, procs, tray as traymod  # noqa: E402
 
 log = logging.getLogger("diktat")
 
@@ -92,6 +92,38 @@ class DiktatApp:
         self._worker.start()
         self.overlay.level_fn = lambda: (self.recorder.last_level, self.recorder.gate_rms)
         self.overlay.show(f"✅ diktat pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
+        follow = [p for p in (self.cfg.get("follow", {}).get("processes") or []) if p]
+        if follow and sys.platform == "win32":
+            threading.Thread(target=self._follow_loop, args=(follow,), daemon=True, name="follow").start()
+
+    def _follow_loop(self, follow: list[str]) -> None:
+        """Keď žiadny zo sledovaných programov (Claude, prehliadač…) nebeží dlhšie ako exit_after_seconds,
+        diktat sa vypne. Strážca (watch.py) ho spustí znova, keď sa objavia."""
+        limit = float(self.cfg.get("follow", {}).get("exit_after_seconds") or 60)
+        missing_since = None
+        while True:
+            time.sleep(5)
+            try:
+                if procs.any_running(follow):
+                    missing_since = None
+                    continue
+                if missing_since is None:
+                    missing_since = time.monotonic()
+                    log.info("sledované programy nebežia (%s) – vypnem sa o %.0f s", ", ".join(follow), limit)
+                    continue
+                if time.monotonic() - missing_since < limit:
+                    continue
+                if self.recorder is not None and (self.recorder.recording or self.busy.locked()):
+                    continue                     # dokonči diktát, vypni sa až potom
+                log.info("Claude/prehliadač zatvorený – diktat sa vypína (spustí sa znova so strážcom)")
+                self.tray.notify("Claude zatvorený – diktat sa vypína. Spustí sa sám, keď Claude zapneš.")
+                self.overlay.show("💤 diktat sa vypína (Claude zatvorený) – zapne sa sám s Claude", "info", timeout=4)
+                time.sleep(1.5)
+                self.shutdown()
+                self.tray.stop()
+                os._exit(0)
+            except Exception:  # noqa: BLE001
+                log.exception("follow slučka")
 
     # -- ovládanie ----------------------------------------------------------------------------------
     def toggle(self) -> None:
@@ -611,12 +643,9 @@ def main(argv: list[str] | None = None) -> int:
     app = DiktatApp(cfg, no_paste=args.no_paste or bool(args.text) or bool(args.file))
 
     if args.text is None and not args.file and not single_instance(log_dir):
-        msg = ("diktat už beží (ikona pri hodinách, možno pod šípkou ^). Druhú inštanciu nespúšťam.\n\n"
-               "Ak ikonu nevidíš, ukonči starý beh: Správca úloh → pythonw.exe → Ukončiť úlohu, "
-               "alebo dvojklik na update_diktat.bat (ukončí starý a spustí nový).")
+        msg = "diktat už beží (ikona pri hodinách, možno pod šípkou ^). Druhú inštanciu nespúšťam."
         print(msg, flush=True)
-        if args.tray:
-            alert(msg, "diktat už beží")
+        log.warning(msg)
         return 0
 
     if args.text is not None:

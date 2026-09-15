@@ -62,6 +62,11 @@ DEFAULTS: dict = {
         "notify": True,               # oznámenia Windows (režim --tray)
         "notify_start_stop": True,    # aj pri štarte a konci nahrávania (nie len po vložení)
     },
+    "follow": {
+        # diktat beží len kým beží niektorý z týchto programov; strážca (watch.py) ho spustí, keď sa objavia
+        "processes": ["claude.exe", "opera.exe", "chrome.exe"],
+        "exit_after_seconds": 60,     # po zatvorení všetkých sa diktat vypne (uvoľní pamäť, napr. na hranie)
+    },
     "overlay": {
         "enabled": True,              # prúžok navrchu obrazovky so stavom (nahrávam / prepisujem / vložené)
         "alpha": 0.92,
