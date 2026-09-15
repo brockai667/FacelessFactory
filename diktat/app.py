@@ -54,6 +54,10 @@ class DiktatApp:
         loader = getattr(self.stt, "load", None)
         if loader:
             loader()   # stiahni/načítaj model hneď, nie až pri prvom diktáte
+        try:
+            audio.warm_up(a.get("sample_rate", 16000), a.get("device"))   # inak prvé nahrávanie štartuje s oneskorením
+        except Exception as exc:  # noqa: BLE001
+            log.warning("mikrofón sa nepodarilo otvoriť vopred: %s (skús --list-devices a audio.device v configu)", exc)
 
     # -- ovládanie ----------------------------------------------------------------------------------
     def toggle(self) -> None:
@@ -61,6 +65,10 @@ class DiktatApp:
             self.stop_and_process()
         else:
             self.start_recording()
+
+    def on_hotkey(self) -> None:
+        """Volané z vlákna klávesnice – nič v ňom nerob, len odovzdaj ďalej (inak sa kláves zdrží)."""
+        threading.Thread(target=self.toggle, daemon=True).start()
 
     def start_recording(self) -> None:
         if self.busy.locked():
@@ -161,7 +169,7 @@ class DiktatApp:
 
         if mode == "hold":
             combo = keyboard.HotKey.parse(hotkey)
-            hk = keyboard.HotKey(combo, self.start_recording)
+            hk = keyboard.HotKey(combo, lambda: threading.Thread(target=self.start_recording, daemon=True).start())
 
             def on_press(key):
                 hk.press(listener.canonical(key))
@@ -174,7 +182,7 @@ class DiktatApp:
             with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
                 listener.join()
         else:
-            with keyboard.GlobalHotKeys({hotkey: self.toggle}) as listener:
+            with keyboard.GlobalHotKeys({hotkey: self.on_hotkey}) as listener:
                 listener.join()
 
 

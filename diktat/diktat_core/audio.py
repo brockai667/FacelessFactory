@@ -109,11 +109,30 @@ def list_devices() -> str:
     return str(sd.query_devices())
 
 
-def beep(kind: str = "start") -> None:
-    """Krátke pípnutie (Windows: winsound; inde terminálový zvonček)."""
+def warm_up(sample_rate: int = 16000, device=None) -> float:
+    """Inicializuje PortAudio a vstupné zariadenie (na Windows to prvýkrát trvá aj niekoľko sekúnd),
+    aby prvé stlačenie skratky začalo nahrávať okamžite. Vráti trvanie v sekundách."""
+    import sounddevice as sd
+    t0 = time.monotonic()
+    sd.query_devices()
+    stream = sd.InputStream(samplerate=int(sample_rate), channels=1, dtype="float32", device=device)
+    stream.start()
+    stream.stop()
+    stream.close()
+    took = time.monotonic() - t0
+    log.info("mikrofón pripravený (%.1f s)", took)
+    return took
+
+
+def _beep_sync(kind: str) -> None:
     try:
         import winsound
         freq = {"start": 880, "stop": 660, "done": 1040, "error": 300}.get(kind, 700)
         winsound.Beep(freq, 120)
     except Exception:  # noqa: BLE001 – zvuk je len kozmetika
         print("\a", end="", flush=True)
+
+
+def beep(kind: str = "start") -> None:
+    """Krátke pípnutie (Windows: winsound; inde terminálový zvonček). Nezdržuje – beží vo vlákne."""
+    threading.Thread(target=_beep_sync, args=(kind,), daemon=True).start()
