@@ -352,9 +352,38 @@ class DiktatApp:
                 self._listener.stop()
         except Exception:  # noqa: BLE001
             pass
+        try:
+            if self.log_dir and (self.log_dir / "diktat.pid").is_file():
+                (self.log_dir / "diktat.pid").unlink()
+        except Exception:  # noqa: BLE001
+            pass
 
 
 # -- pomocné -----------------------------------------------------------------------------------------
+_instance_mutex = None
+
+
+def single_instance(log_dir: Path | None) -> bool:
+    """Zabezpečí, že beží len jeden daemon (Windows mutex) a zapíše PID do logs/diktat.pid (pre update_diktat.bat)."""
+    global _instance_mutex
+    if sys.platform == "win32":
+        try:
+            import ctypes
+            kernel32 = ctypes.windll.kernel32
+            _instance_mutex = kernel32.CreateMutexW(None, False, "Local\\diktat-daemon")
+            if kernel32.GetLastError() == 183:          # ERROR_ALREADY_EXISTS
+                return False
+        except Exception:  # noqa: BLE001
+            pass
+    try:
+        if log_dir:
+            log_dir.mkdir(parents=True, exist_ok=True)
+            (log_dir / "diktat.pid").write_text(str(os.getpid()), encoding="utf-8")
+    except Exception:  # noqa: BLE001
+        pass
+    return True
+
+
 def disable_console_quick_edit() -> None:
     """Windows konzola: kliknutie do okna zapne „QuickEdit“ (označovanie textu) a ZASTAVÍ výpis programu,
     kým sa označenie nezruší – daemon potom vyzerá zaseknutý. Vypneme to pre toto okno."""
@@ -463,6 +492,11 @@ def main(argv: list[str] | None = None) -> int:
         return keys_probe()
 
     app = DiktatApp(cfg, no_paste=args.no_paste or bool(args.text) or bool(args.file))
+
+    if args.text is None and not args.file and not single_instance(log_dir):
+        print("diktat už beží (ikona pri hodinách). Druhú inštanciu nespúšťam.", flush=True)
+        log.warning("diktat už beží – končím")
+        return 0
 
     if args.text is not None:
         app._finish(args.text, time.monotonic())
