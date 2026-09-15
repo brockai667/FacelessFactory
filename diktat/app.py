@@ -29,7 +29,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows: neškodné varovanie pri sťahovaní modelu
 
-from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject, tray as traymod  # noqa: E402
+from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject, overlay as overlaymod, tray as traymod  # noqa: E402
 
 log = logging.getLogger("diktat")
 
@@ -42,6 +42,7 @@ class DiktatApp:
         self.recorder = None
         self.stt = None
         self.tray = traymod.NoTray()
+        self.overlay = overlaymod.NoOverlay()
         self.log_dir = (HERE / cfg.get("log_dir", "logs")) if cfg.get("log_dir") else None
         # priebežný prepis
         self._queue: queue.Queue = queue.Queue()
@@ -53,8 +54,13 @@ class DiktatApp:
         self._listener = None
 
     # -- inicializácia ---------------------------------------------------------------------------
-    def prepare(self) -> None:
+    def prepare(self, with_overlay: bool = True) -> None:
         from diktat_core import audio, stt
+        ov = self.cfg.get("overlay", {})
+        if with_overlay and ov.get("enabled", True):
+            self.overlay = overlaymod.Overlay(alpha=ov.get("alpha", 0.92), font_size=ov.get("font_size", 12))
+            self.overlay.start()
+        self.overlay.show("⏳ diktat štartuje – načítavam model…", "info")
         a = self.cfg["audio"]
         self.recorder = audio.Recorder(
             sample_rate=a.get("sample_rate", 16000),
@@ -67,13 +73,21 @@ class DiktatApp:
         loader = getattr(self.stt, "load", None)
         if loader:
             loader()   # stiahni/načítaj model hneď, nie až pri prvom diktáte
+        warm = getattr(self.stt, "warm_up", None)
+        if warm:
+            try:
+                warm(self.cfg.get("language", "sk"))   # CUDA→CPU fallback + rozbeh modelu ešte pred prvým diktátom
+            except Exception as exc:  # noqa: BLE001
+                log.warning("rozbeh modelu zlyhal: %s", exc)
         try:
             self.recorder.open()   # stream beží stále → stlačenie skratky začne nahrávať okamžite
             log.info("mikrofón pripravený")
         except Exception as exc:  # noqa: BLE001
             log.warning("mikrofón sa nepodarilo otvoriť vopred: %s (skús --list-devices a audio.device v configu)", exc)
+            self.overlay.show(f"❌ mikrofón: {exc}", "error", timeout=8)
         self._worker = threading.Thread(target=self._stt_worker, daemon=True, name="stt-worker")
         self._worker.start()
+        self.overlay.show(f"✅ diktat pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
 
     # -- ovládanie ----------------------------------------------------------------------------------
     def toggle(self) -> None:
@@ -97,6 +111,7 @@ class DiktatApp:
         from diktat_core import audio
         print("🔴 NAHRÁVAM – hovor. (skratka znova = stop)", flush=True)
         self.tray.set_state("rec")
+        self.overlay.recording("🔴 NAHRÁVAM – hovor, skratka = stop")
         if self.cfg["audio"].get("beep"):
             audio.beep("start")
         self._results = {}
@@ -119,6 +134,7 @@ class DiktatApp:
         if self.cfg["audio"].get("beep"):
             audio.beep("stop")
         self.tray.set_state("stt")
+        self.overlay.show("📝 prepisujem…", "stt")
         if len(rest) >= self.recorder.sample_rate * 0.3:
             self._enqueue(rest)
         threading.Thread(target=self._finalize, daemon=True).start()
@@ -155,6 +171,10 @@ class DiktatApp:
                 prev_text = (prev_text + " " + text).strip()
                 print(f"📝 časť {seq}: {secs:.0f} s audia → {time.monotonic() - t:.1f} s  „{text[:70]}{'…' if len(text) > 70 else ''}“",
                       flush=True)
+                if self.recorder.recording:
+                    self.overlay.recording(f"🔴 NAHRÁVAM – prepísaná časť {seq}")
+                else:
+                    self.overlay.show(f"📝 prepisujem… časť {seq} hotová", "stt")
             except Exception as exc:  # noqa: BLE001
                 log.exception("prepis časti %d zlyhal", seq)
                 self._results[seq] = ""
@@ -167,6 +187,7 @@ class DiktatApp:
             if self._seq == 0:
                 print("… príliš krátke, ignorujem", flush=True)
                 self.tray.set_state("idle")
+                self.overlay.show("… príliš krátke, ignorujem", "info", timeout=2)
                 return
             print(f"⏳ dokončujem prepis ({self._seq} častí, {self.recorder.total_seconds:.0f} s audia)…", flush=True)
             self._queue.join()
@@ -182,6 +203,7 @@ class DiktatApp:
         from diktat_core import audio
         if not raw.strip():
             print("… nič som nerozpoznal", flush=True)
+            self.overlay.show("… nič som nerozpoznal", "info", timeout=3)
             return
         print(f"   surové: {raw}", flush=True)
         result = self.process_text(raw)
@@ -195,17 +217,21 @@ class DiktatApp:
               f"{' → ODOSIELAM' if result.send else ''}:\n{final}\n", flush=True)
         self._log(raw, result)
         if self.no_paste:
+            self.overlay.hide()
             return
         try:
             inject.deliver(final, self.cfg["output"], send=result.send)
             if self.cfg["audio"].get("beep"):
                 audio.beep("done")
-            self.tray.notify(f"Vložené {len(final)} znakov" + (" + Enter" if result.send else ""))
+            msg = f"✅ vložené {len(final)} znakov" + (" + Enter" if result.send else "")
+            self.tray.notify(msg)
+            self.overlay.show(msg, "ok", timeout=3)
         except Exception as exc:  # noqa: BLE001
             log.exception("vloženie zlyhalo")
             print(f"❌ vloženie zlyhalo: {exc}\nText je v schránke – vlož ho ručne (Ctrl+V).", flush=True)
             self.tray.set_state("error")
             self.tray.notify("Vloženie zlyhalo – text je v schránke, stlač Ctrl+V.")
+            self.overlay.show("❌ vloženie zlyhalo – text je v schránke, stlač Ctrl+V", "error", timeout=8)
 
     def _log(self, raw: str, result: cleanup.CleanResult) -> None:
         if not self.log_dir:
@@ -439,7 +465,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.file:
-        app.prepare()
+        app.prepare(with_overlay=False)
         t0 = time.monotonic()
         raw = app.stt.transcribe(args.file, language=cfg.get("language", "sk"))
         app._finish(raw, t0)

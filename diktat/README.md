@@ -86,7 +86,9 @@ Dva spôsoby behu:
 Po `--autostart` vznikne `diktat_tray.vbs` v priečinku diktat (dvojklik = spusti hneď teraz, bez okna)
 a jeho kópia v priečinku „Po spustení“ Windows, takže po každom prihlásení už diktat beží. Pri hodinách
 je ikona: **sivá** = pripravený, **červená** = nahráva, **žltá** = prepisuje, fialová = chyba.
-Pravý klik → „Otvoriť log“ / „Aktualizovať a reštartovať“ (git pull + závislosti + nový štart, bez PowerShellu)
+Navrchu obrazovky sa pri každej akcii objaví prúžok: „štartujem“, „🔴 NAHRÁVAM 0:12“, „📝 prepisujem… časť 2“,
+„✅ vložené 239 znakov“ (neberie fokus, vypnúť: `overlay.enabled: false`).
+Pravý klik na ikonu → „Otvoriť log“ / „Aktualizovať a reštartovať“ (git pull + závislosti + nový štart, bez PowerShellu)
 / „Ukončiť diktat“. To isté spraví dvojklik na `update_diktat.bat`. Výpis ide do `logs/diktat.log`.
 Zrušenie autoštartu: `install.py --no-autostart`.
 
@@ -222,6 +224,7 @@ diktat/
 │   ├── CLAUDE.diktat.md   blok do ~/.claude/CLAUDE.md
 │   └── skills/diktat/     globálny skill /diktat
 ├── diktat_core/tray.py    ikona v lište (pystray), stavy + oznámenia
+├── diktat_core/overlay.py prúžok so stavom navrchu obrazovky (tkinter, bez fokusu)
 ├── setup_windows.bat · run_diktat.bat · diktat_tray.vbs (vytvorí install.py --autostart)
 ├── requirements.txt
 └── requirements-gpu.txt   voliteľné CUDA knižnice pre NVIDIA GPU

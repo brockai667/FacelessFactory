@@ -57,6 +57,11 @@ DEFAULTS: dict = {
     "tray": {
         "notify": True,               # bublinové oznámenie po vložení textu (režim --tray)
     },
+    "overlay": {
+        "enabled": True,              # prúžok navrchu obrazovky so stavom (nahrávam / prepisujem / vložené)
+        "alpha": 0.92,
+        "font_size": 12,
+    },
     "log_dir": "logs",
 }
 

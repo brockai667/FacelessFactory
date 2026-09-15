@@ -104,6 +104,11 @@ class FasterWhisperBackend:
                 raise
         log.info("model pripravený (%s/%s)", self.device, self.compute_type)
 
+    def warm_up(self, language: str = "sk") -> None:
+        """Krátky prepis ticha: ak chýbajú CUDA knižnice, prepne sa na CPU už teraz, nie pri prvom diktáte."""
+        import numpy as np
+        self.transcribe(np.zeros(16000, dtype="float32"), language=language)
+
     def _run(self, audio, language: str, context: str | None = None) -> tuple[list[str], object]:
         prompt = self.initial_prompt or ""
         if context:
