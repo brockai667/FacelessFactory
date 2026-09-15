@@ -8,9 +8,47 @@ from __future__ import annotations
 import logging
 import os
 import platform
+import site
+from pathlib import Path
 from typing import Protocol
 
 log = logging.getLogger("diktat.stt")
+
+_CUDA_ERROR_HINTS = ("cublas", "cudnn", "cuda", "nvrtc", "cublasLt")
+
+
+def _looks_like_missing_cuda(exc: BaseException) -> bool:
+    msg = str(exc).lower()
+    return any(h.lower() in msg for h in _CUDA_ERROR_HINTS)
+
+
+def prepare_cuda_dll_dirs() -> list[str]:
+    """Windows: `pip install nvidia-cublas-cu12 nvidia-cudnn-cu12` uloží DLL do site-packages/nvidia/*/bin,
+    ale ctranslate2 ich tam nehľadá. Pridáme tie priečinky na PATH (a do DLL search path)."""
+    if platform.system() != "Windows":
+        return []
+    added: list[str] = []
+    roots = list(site.getsitepackages())
+    try:
+        roots.append(site.getusersitepackages())
+    except Exception:  # noqa: BLE001
+        pass
+    for root in roots:
+        base = Path(root) / "nvidia"
+        if not base.is_dir():
+            continue
+        for sub in ("cublas", "cudnn", "cuda_runtime", "cuda_nvrtc"):
+            d = base / sub / "bin"
+            if d.is_dir() and str(d) not in added:
+                os.environ["PATH"] = str(d) + os.pathsep + os.environ.get("PATH", "")
+                try:
+                    os.add_dll_directory(str(d))
+                except Exception:  # noqa: BLE001
+                    pass
+                added.append(str(d))
+    if added:
+        log.debug("CUDA DLL priečinky: %s", added)
+    return added
 
 
 class Backend(Protocol):
@@ -43,16 +81,30 @@ class FasterWhisperBackend:
         self.initial_prompt = initial_prompt or None
         self._model = None
 
+    def _fallback_to_cpu(self, exc: BaseException) -> None:
+        log.warning("CUDA knižnice chýbajú (%s). Prepínam na CPU/int8 – pomalšie, ale funguje. "
+                    "GPU zapneš podľa README (sekcia GPU).", str(exc).splitlines()[0][:120])
+        self.device, self.compute_type = "cpu", "int8"
+        self._model = None
+
     def load(self) -> None:
         if self._model is not None:
             return
+        if self.device == "cuda":
+            prepare_cuda_dll_dirs()
         from faster_whisper import WhisperModel
         log.info("načítavam Whisper model %s (%s/%s)…", self.model_name, self.device, self.compute_type)
-        self._model = WhisperModel(self.model_name, device=self.device, compute_type=self.compute_type)
-        log.info("model pripravený")
+        try:
+            self._model = WhisperModel(self.model_name, device=self.device, compute_type=self.compute_type)
+        except RuntimeError as exc:
+            if self.device == "cuda" and _looks_like_missing_cuda(exc):
+                self._fallback_to_cpu(exc)
+                self._model = WhisperModel(self.model_name, device=self.device, compute_type=self.compute_type)
+            else:
+                raise
+        log.info("model pripravený (%s/%s)", self.device, self.compute_type)
 
-    def transcribe(self, audio, language: str = "sk") -> str:
-        self.load()
+    def _run(self, audio, language: str) -> tuple[list[str], object]:
         segments, info = self._model.transcribe(
             audio,
             language=language or None,
@@ -61,7 +113,21 @@ class FasterWhisperBackend:
             initial_prompt=self.initial_prompt,
             condition_on_previous_text=False,
         )
+        # generátor je lenivý – chyby CUDA vyskočia až tu
         parts = [seg.text.strip() for seg in segments if seg.text and seg.text.strip()]
+        return parts, info
+
+    def transcribe(self, audio, language: str = "sk") -> str:
+        self.load()
+        try:
+            parts, info = self._run(audio, language)
+        except RuntimeError as exc:
+            if self.device == "cuda" and _looks_like_missing_cuda(exc):
+                self._fallback_to_cpu(exc)
+                self.load()
+                parts, info = self._run(audio, language)
+            else:
+                raise
         text = " ".join(parts).strip()
         log.info("prepis hotový (%d segmentov, jazyk %s)", len(parts), getattr(info, "language", language))
         return text

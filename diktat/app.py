@@ -14,6 +14,7 @@ import argparse
 import datetime as dt
 import json
 import logging
+import os
 import sys
 import threading
 import time
@@ -22,6 +23,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows: neškodné varovanie pri sťahovaní modelu
 
 from diktat_core import cleanup, config as cfgmod, inject  # noqa: E402
 
@@ -148,9 +150,13 @@ class DiktatApp:
         from pynput import keyboard
         hotkey = self.cfg.get("hotkey", "<ctrl>+<alt>+d")
         mode = (self.cfg.get("mode") or "toggle").lower()
+        clean_mode = self.cfg["cleanup"].get("mode")
+        clean_desc = f"{clean_mode}/{self.cfg['cleanup'].get('model')}" if clean_mode in ("llm", "auto") else clean_mode
+        stt_desc = f"{self.cfg['stt'].get('backend')}/{self.cfg['stt'].get('model')}"
+        if getattr(self.stt, "device", None):
+            stt_desc += f" ({self.stt.device}/{self.stt.compute_type})"
         print(f"🎤 diktat beží.  Skratka: {hotkey}  režim: {mode}  jazyk: {self.cfg.get('language')}"
-              f"  STT: {self.cfg['stt'].get('backend')}/{self.cfg['stt'].get('model')}"
-              f"  čistenie: {self.cfg['cleanup'].get('mode')}/{self.cfg['cleanup'].get('model')}", flush=True)
+              f"  STT: {stt_desc}  čistenie: {clean_desc}", flush=True)
         print("   Klikni do okna Claude Code, stlač skratku, hovor, stlač znova. Ctrl+C ukončí.\n", flush=True)
 
         if mode == "hold":

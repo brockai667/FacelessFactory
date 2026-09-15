@@ -117,7 +117,7 @@ slovníka náhrad.
 | `hotkey` | `<ctrl>+<alt>+d` | formát pynput; `mode: "hold"` = drž kláves, `toggle` = stlač/stlač |
 | `language` | `sk` | jazyk pre Whisper |
 | `stt.model` | `large-v3-turbo` | najlepšia kvalita SK: `large-v3` (pomalšie, ideálne GPU); rýchle: `medium` |
-| `stt.device` / `compute_type` | `auto` | GPU: `cuda` + `float16` (potrebuje CUDA 12 + cuDNN 9) |
+| `stt.device` / `compute_type` | `auto` | `auto` vyberie GPU, ak je NVIDIA karta; keď chýbajú CUDA knižnice, sám sa prepne na CPU/int8. Natvrdo: `cpu` alebo `cuda` + `float16` |
 | `stt.backend` | `faster-whisper` | `openai` = Whisper API ako záloha pre slabý počítač (`OPENAI_API_KEY`) |
 | `stt.initial_prompt` | tech slovník | slová, ktoré má Whisper „očakávať“ – dopĺňaj názvy projektov, knižníc |
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
@@ -132,6 +132,19 @@ slovníka náhrad.
 (Len pre režim `llm`: volanie má zapnutý server-side fallback `fallbacks: "default"`; pri chybe API
 sa vždy použijú pravidlá, diktovanie nikdy nespadne.)
 
+## GPU (NVIDIA) – voliteľné, ale 5–10× rýchlejší prepis
+
+faster-whisper na GPU potrebuje CUDA 12 + cuDNN 9. Netreba inštalovať CUDA Toolkit, stačia pip balíky:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-gpu.txt
+```
+
+diktat si ich DLL priečinky (`site-packages\nvidia\cublas\bin`, `...\cudnn\bin`) sám pridá na PATH.
+Bez nich sa pri prvom prepise objaví `Library cublas64_12.dll is not found` – daemon to zachytí,
+prepne sa na CPU/int8 a pokračuje (v konzole uvidíš varovanie). Ak GPU nechceš riešiť, nastav v
+`config.json` `"stt": {"device": "cpu"}` a varovanie zmizne.
+
 ## Riešenie problémov
 
 - **Nič sa nevloží** – text je vždy aj v schránke, stlač Ctrl+V ručne. Skontroluj, či bol kurzor
@@ -140,7 +153,8 @@ sa vždy použijú pravidlá, diktovanie nikdy nespadne.)
   Ak beží Claude Code s `/voice`, vypni ho (`/voice off`), nech si nekonkurujú.
 - **Zlá kvalita prepisu** – hovor bližšie k mikrofónu, skús `stt.model: "large-v3"`, doplň
   `initial_prompt` o slová, ktoré Whisper komolí, a pridaj náhrady do `cleanup.replacements`.
-- **Pomalé** – CPU + turbo je hranica; zapni GPU alebo `stt.backend: "openai"`.
+- **Pomalé** – CPU + turbo je hranica; zapni GPU (sekcia vyššie) alebo `stt.backend: "openai"`.
+- **`cublas64_12.dll` / `cudnn64_9.dll` not found** – chýbajú CUDA knižnice; viď sekcia GPU. Diktovanie medzitým beží na CPU.
 - **Claude Code hook „timed out“** – nechaj `hook.llm: false` (čistenie robí daemon).
 - **Kontrola, že globálne nastavenie sedí** – `python install.py --dry-run`; v Claude Code `/hooks`
   ukáže zaregistrovaný `UserPromptSubmit`, `/diktat` musí byť v zozname skillov.
@@ -187,7 +201,8 @@ diktat/
 │   ├── CLAUDE.diktat.md   blok do ~/.claude/CLAUDE.md
 │   └── skills/diktat/     globálny skill /diktat
 ├── setup_windows.bat · run_diktat.bat
-└── requirements.txt
+├── requirements.txt
+└── requirements-gpu.txt   voliteľné CUDA knižnice pre NVIDIA GPU
 ```
 
 ## Čo ďalej (nápady, zatiaľ nerobené)
