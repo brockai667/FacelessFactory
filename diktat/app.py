@@ -68,6 +68,8 @@ class DiktatApp:
             silence_auto_stop_seconds=a.get("silence_auto_stop_seconds", 0),
             max_seconds=a.get("max_seconds", 900),
             on_auto_stop=self._auto_stop,
+            gate_rms=a.get("gate_rms", 0),
+            gate_hangover_seconds=a.get("gate_hangover_seconds", 0.4),
         )
         self.stt = stt.make_backend(self.cfg)
         loader = getattr(self.stt, "load", None)
@@ -261,9 +263,10 @@ class DiktatApp:
         if getattr(self.stt, "device", None):
             stt_desc += f" ({self.stt.device}/{self.stt.compute_type})"
         chunk = self.cfg["stt"].get("chunk_seconds") or 0
+        gate = self.cfg["audio"].get("gate_rms") or 0
         print(f"🎤 diktat beží.  Skratka: {hotkey}  režim: {mode}  jazyk: {self.cfg.get('language')}"
               f"  STT: {stt_desc}  priebežný prepis: {'po ~' + str(chunk) + ' s' if chunk else 'vypnutý'}"
-              f"  čistenie: {clean_desc}", flush=True)
+              f"  brána: {gate if gate else 'vypnutá (--calibrate)'}  čistenie: {clean_desc}", flush=True)
         print("   Klikni do okna Claude Code, stlač skratku, hovor, stlač znova. Ctrl+C ukončí.", flush=True)
         if sys.platform == "win32" and not inject.running_as_admin():
             print("   (Ak cieľové okno beží „ako správca“, Windows simulované Ctrl+V zahodí – spusti aj diktat ako správca.)",
@@ -326,12 +329,69 @@ class DiktatApp:
             log_path = str(self.log_dir / "diktat.log") if self.log_dir else None
             self.tray = traymod.Tray(on_quit=self.shutdown, log_path=log_path,
                                      notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)),
-                                     on_update=self.update_and_restart if sys.platform == "win32" else None)
+                                     on_update=self.update_and_restart if sys.platform == "win32" else None,
+                                     on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start())
             self.tray.run()          # blokuje v hlavnom vlákne až po „Ukončiť“
         else:
             if use_tray:
                 log.warning("pystray/Pillow nie sú nainštalované – bežím bez ikony (pip install -r requirements.txt)")
             listener.join()
+
+    # -- kalibrácia brány (len môj hlas z pracovnej vzdialenosti) ------------------------------------
+    def calibrate(self, seconds: float = 5.0) -> dict | None:
+        """Zmeria úroveň tvojej reči a ruchu v pozadí, navrhne prah brány a uloží ho do config.json."""
+        from diktat_core import audio
+        if self.recorder is None or self.recorder.recording:
+            self.overlay.show("Kalibrácia: najprv ukonči nahrávanie", "error", timeout=3)
+            return None
+        if not self.busy.acquire(blocking=False):
+            return None
+        try:
+            old_gate = self.recorder.gate_rms
+            self.recorder.gate_rms = 0.0
+            self.tray.set_state("rec")
+
+            def measure(prompt: str) -> list[float]:
+                print(prompt, flush=True)
+                self.tray.notify(prompt)
+                for i in (3, 2, 1):
+                    self.overlay.show(f"{prompt}  (štart o {i})", "stt")
+                    time.sleep(1)
+                self.recorder.levels_probe = []
+                self.recorder.start()
+                t0 = time.monotonic()
+                while time.monotonic() - t0 < seconds:
+                    self.overlay.show(f"{prompt}  {int(seconds - (time.monotonic() - t0)) + 1} s", "rec")
+                    time.sleep(0.2)
+                self.recorder.stop()
+                levels, self.recorder.levels_probe = self.recorder.levels_probe, None
+                return levels
+
+            speech = measure("🎙 1/2 HOVOR normálne z miesta, kde pracuješ")
+            noise = measure("🤫 2/2 TICHO – nech hovoria ostatní / hrá hudba, ty mlč")
+            res = audio.suggest_gate(speech, noise)
+            self.recorder.gate_rms = res["gate"] if res["gate"] > 0 else old_gate
+            if res["gate"] > 0:
+                path = cfgmod.save_value(self.cfg, "audio.gate_rms", res["gate"])
+                self.cfg["audio"]["gate_rms"] = res["gate"]
+            else:
+                path = None
+            ratio = f"{res['ratio']:.1f}×" if res["ratio"] != float("inf") else "∞"
+            summary = (f"reč {res['speech']:.4f}, ruch {res['noise']:.4f} (pomer {ratio}) → brána {res['gate']:.4f}"
+                       + (f", uložené do {path.name}" if path else ""))
+            print("📐 kalibrácia: " + summary, flush=True)
+            if not res["ok"]:
+                msg = "⚠ rozdiel reč/ruch je malý – brána bude nespoľahlivá. Priblíž sa k mikrofónu alebo stíš pozadie a skús znova."
+                print(msg, flush=True)
+                self.overlay.show(msg, "error", timeout=8)
+                self.tray.notify(msg)
+            else:
+                self.overlay.show("✅ kalibrácia hotová – " + summary, "ok", timeout=6)
+                self.tray.notify("Kalibrácia hotová: " + summary)
+            return res
+        finally:
+            self.tray.set_state("idle")
+            self.busy.release()
 
     def update_and_restart(self) -> None:
         """Spustí update_diktat.bat (git pull + pip + nový štart cez diktat_tray.vbs) a tento proces ukončí."""
@@ -475,6 +535,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--list-devices", action="store_true", help="vypíš audio zariadenia")
     ap.add_argument("--keys", action="store_true", help="diagnostika: vypíš kódy stlačených klávesov (Esc = koniec)")
     ap.add_argument("--tray", action="store_true", help="beh na pozadí s ikonou v lište, log do logs/diktat.log")
+    ap.add_argument("--calibrate", action="store_true",
+                    help="zmeraj reč vs. ruch a nastav hlasitostnú bránu (len tvoj hlas z pracovnej vzdialenosti)")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
 
@@ -507,6 +569,13 @@ def main(argv: list[str] | None = None) -> int:
         t0 = time.monotonic()
         raw = app.stt.transcribe(args.file, language=cfg.get("language", "sk"))
         app._finish(raw, t0)
+        return 0
+
+    if args.calibrate:
+        app.cfg["stt"]["model"] = app.cfg["stt"].get("model")   # model netreba, ale prepare() ho načíta – ok
+        app.prepare()
+        app.calibrate()
+        app.shutdown()
         return 0
 
     app.prepare()

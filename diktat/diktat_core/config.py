@@ -32,6 +32,8 @@ DEFAULTS: dict = {
         "silence_auto_stop_seconds": 0,   # 0 = vypnuté (zastavuje sa len hotkey)
         "max_seconds": 900,
         "beep": True,
+        "gate_rms": 0,                    # hlasitostná brána: tichšie bloky (vzdialené hlasy, hudba) sa vymažú; 0 = vypnuté
+        "gate_hangover_seconds": 0.4,     # dozvuk po hlasnom bloku, aby sa neodrezali konce slov
     },
     "cleanup": {
         "mode": "light",                  # light (default, zadarmo) | rules | llm | none
@@ -104,3 +106,29 @@ def load_config(path: str | os.PathLike | None = None) -> dict:
     cfg = deep_merge(DEFAULTS, data)
     cfg["_path"] = str(found) if found else None
     return cfg
+
+
+def save_value(cfg: dict, dotted_key: str, value) -> Path:
+    """Zapíše jednu hodnotu (napr. "audio.gate_rms") do používateľského config.json a vráti jeho cestu.
+    Ak zatiaľ existuje len config.example.json, vytvorí config.json ako jeho kópiu s touto zmenou."""
+    path = Path(cfg.get("_path") or "")
+    if not path.is_file() or path.name != "config.json":
+        target = PACKAGE_DIR / "config.json"
+        data = {}
+        src = path if path.is_file() else PACKAGE_DIR / "config.example.json"
+        if src.is_file():
+            with open(src, "r", encoding="utf-8") as fh:
+                data = json.load(fh)
+        path = target
+    else:
+        with open(path, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    node = data
+    keys = dotted_key.split(".")
+    for k in keys[:-1]:
+        node = node.setdefault(k, {})
+    node[keys[-1]] = value
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, ensure_ascii=False, indent=2)
+        fh.write("\n")
+    return path

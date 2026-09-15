@@ -124,6 +124,20 @@ python app.py --list-devices
 Každý diktát sa loguje do `logs/RRRR-MM-DD.jsonl` (surový aj vyčistený text) – hodí sa na ladenie
 slovníka náhrad.
 
+## Len môj hlas (kolegovia, hudba v pozadí)
+
+Mikrofón zachytí aj ľudí 2–3 m ďaleko. Hlasitostná brána to rieši: bloky tichšie ako prah sa ešte pred
+prepisom nahradia tichom, takže vzdialené hlasy a hudba sa do textu nedostanú a ostane len to, čo je
+dosť hlasné – ty z pracovnej vzdialenosti. Prah nehádaj, odmeraj ho:
+
+- ikona pri hodinách → **„Kalibrovať mikrofón (len môj hlas)“**, alebo v konzole `python app.py --calibrate`
+- 1/2: 5 s **hovor normálne** z miesta, kde pracuješ (prúžok odpočítava)
+- 2/2: 5 s **mlč** – nech medzitým hovoria ostatní alebo hrá hudba tak, ako to býva
+
+Výsledok (reč vs. ruch, navrhnutý prah) sa uloží do `config.json` ako `audio.gate_rms` a platí hneď.
+Ak je pomer reč/ruch pod 2×, dostaneš varovanie – vtedy pomôže priblížiť mikrofón alebo stíšiť pozadie,
+brána nevie oddeliť rovnako hlasné zdroje. Vypnutie: `audio.gate_rms: 0`.
+
 ## Konfigurácia (`config.json`)
 
 | Kľúč | Default | Poznámka |
@@ -139,6 +153,8 @@ slovníka náhrad.
 | `tray.notify` | `true` | oznámenia Windows v režime s ikonou |
 | `tray.notify_start_stop` | `true` | oznámenie aj pri štarte („Nahrávam“) a konci („prepisujem“), nie len po vložení |
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
+| `audio.gate_rms` | `0` | hlasitostná brána (nastaví kalibrácia); tichšie bloky sa vymažú, `0` = vypnuté |
+| `audio.gate_hangover_seconds` | `0.4` | dozvuk po hlasnom bloku, aby sa neodrezali konce slov |
 | `cleanup.mode` | `light` | `light` (zadarmo: výplne + interpunkcia, opravy nechá session) · `rules` (offline vykoná príkazy) · `llm` (Claude API, platené) · `none` (surový text) · `auto` (llm ak je kľúč, inak rules) |
 | `cleanup.model` | `claude-opus-5` | len pre režim `llm`; `effort: low`; alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |
 | `cleanup.replacements` | slovník | fonetické → správne (`"pajton": "Python"`), rozširuj podľa logov |

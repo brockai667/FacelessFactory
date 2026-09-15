@@ -21,7 +21,9 @@
     "device": null,
     "silence_auto_stop_seconds": 0,
     "max_seconds": 900,
-    "beep": true
+    "beep": true,
+    "gate_rms": 0,
+    "gate_hangover_seconds": 0.4
   },
   "cleanup": {
     "mode": "light",
