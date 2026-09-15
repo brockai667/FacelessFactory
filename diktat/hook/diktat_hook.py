@@ -27,7 +27,7 @@ for candidate in (HERE, HERE.parent):
 CONTEXT_HEADER = """\
 Používateľ tento prompt NADIKTOVAL hlasom (slovenčina, automatický prepis Whisper). \
 Prepis môže obsahovať výplňové slová, prerieknutia, opravy („nie, teda…“, „škrtni to“, \
-„ignoruj posledné dva riadky“) a zle rozpoznané technické názvy. \
+„ignoruj posledné dva riadky“, „odznova“ = zahoď všetko predtým) a zle rozpoznané technické názvy. \
 Platí posledná verzia každej myšlienky; meta-príkazy vykonaj a neber ich ako obsah; \
 názvy súborov/funkcií/knižníc odvoď z kontextu projektu. Pri vecnej nejasnosti sa spýtaj, \
 štýl neriešiť."""
@@ -54,7 +54,7 @@ def build_context(prompt: str, cfg: dict, use_llm: bool) -> str | None:
 
     parts = [CONTEXT_HEADER]
     if cleaned and cleanup.normalize_ws(cleaned) != cleanup.normalize_ws(stripped):
-        parts.append(f"Automaticky vyčistená verzia ({method}) – použi ju ako primárne znenie zadania:\n{cleaned}")
+        parts.append(f"Orientačná verzia vyčistená automaticky ({method}); ak sa líši od zámeru v pôvodnom prepise, platí pôvodný prepis:\n{cleaned}")
     return "\n\n".join(parts)
 
 

@@ -14,6 +14,7 @@ python generate_batch.py
 ```
 
 ## diktat – hlasové diktovanie do Claude Code (slovenčina)
-Samostatný interný nástroj v `diktat/`: globálna skratka → Whisper (sk) → vyčistenie (pravidlá + Claude)
-→ vloženie do aktívneho okna, plus globálne pravidlá/skill/hook pre všetky Claude Code sessions.
+Samostatný interný nástroj v `diktat/`: globálna skratka → lokálny Whisper (sk) → ľahké vyčistenie
+→ vloženie do aktívneho okna; diktát si vyhodnotí sama každá Claude Code session podľa globálnych
+pravidiel/skillu/hooku. Bez API kľúča, zadarmo.
 Podrobnosti a inštalácia: [diktat/README.md](diktat/README.md).

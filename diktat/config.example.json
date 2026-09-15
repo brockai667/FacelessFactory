@@ -2,7 +2,6 @@
   "hotkey": "<ctrl>+<alt>+d",
   "mode": "toggle",
   "language": "sk",
-
   "stt": {
     "backend": "faster-whisper",
     "model": "large-v3-turbo",
@@ -14,7 +13,6 @@
     "openai_model": "whisper-1",
     "openai_api_key_env": "OPENAI_API_KEY"
   },
-
   "audio": {
     "sample_rate": 16000,
     "device": null,
@@ -22,9 +20,8 @@
     "max_seconds": 900,
     "beep": true
   },
-
   "cleanup": {
-    "mode": "auto",
+    "mode": "light",
     "model": "claude-opus-5",
     "effort": "low",
     "max_tokens": 4000,
@@ -41,20 +38,28 @@
       "klaud": "Claude"
     }
   },
-
   "output": {
     "method": "paste",
     "paste_shortcut": "ctrl+v",
     "marker": "🎤 ",
-    "markers_recognized": ["🎤", "[diktát]", "[diktat]", "[d]"],
+    "markers_recognized": [
+      "🎤",
+      "[diktát]",
+      "[diktat]",
+      "[d]"
+    ],
     "auto_enter": false,
-    "send_keywords": ["pošli to", "odošli to", "odošli", "pošli", "enter"],
+    "send_keywords": [
+      "pošli to",
+      "odošli to",
+      "odošli",
+      "pošli",
+      "enter"
+    ],
     "restore_clipboard": true
   },
-
   "hook": {
     "llm": false
   },
-
   "log_dir": "logs"
 }

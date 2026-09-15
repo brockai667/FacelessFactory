@@ -31,7 +31,7 @@ DEFAULTS: dict = {
         "beep": True,
     },
     "cleanup": {
-        "mode": "auto",                   # auto | llm | rules | none
+        "mode": "light",                  # light (default, zadarmo) | rules | llm | none
         "model": "claude-opus-5",
         "effort": "low",
         "max_tokens": 4000,

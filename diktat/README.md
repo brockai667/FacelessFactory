@@ -18,16 +18,22 @@ angličtinu. Navyše nerieši „premýšľanie nahlas“ – prepis ide 1:1 do 
                                                                        │
      ┌─────────────────────────────────────────────────────────────────┘
      ▼
- 1. Whisper (faster-whisper large-v3-turbo, jazyk sk, lokálne, offline)
- 2. pravidlá  : výplňové zvuky, „škrtni to“, „ignoruj posledné N riadkov/viet“,
-                „nový odsek“, opakované slová, slovník náhrad (pajton → Python)
- 3. Claude    : voľné opravy („nie, teda…“, „vlastne…“), interpunkcia, technické názvy
-                (voliteľné – bez kľúča beží len krok 2)
- 4. „pošli to“ na konci → po vložení stlačí Enter
+ 1. Whisper (faster-whisper large-v3-turbo, jazyk sk, lokálne, offline, zadarmo)
+ 2. light     : vyhodí len „hmm/ehm“, opakované slová, opraví interpunkciu, slovník náhrad
+                (pajton → Python). Opravy typu „škrtni to“, „to je blbosť“, „odznova“ NECHÁ v texte.
+ 3. „pošli to“ na konci → po vložení stlačí Enter
      │
      ▼
  vloží „🎤 <text>“ do AKTÍVNEHO okna (schránka + Ctrl+V)  →  ty skontroluješ, Enter
+     │
+     ▼
+ Claude Code session si diktát vyhodnotí SAMA podľa globálnych pravidiel (CLAUDE.md + hook):
+ „aha, toto škrtol, toto je posledná verzia, odznova = zahoď všetko predtým“.
 ```
+
+**Celé je to zadarmo** – Whisper beží lokálne a interpretáciu robí session, ktorú už máš v predplatnom.
+Nič sa nevolá cez Claude API. (Kto chce, môže zapnúť `cleanup.mode: "rules"` – offline vykonávanie
+príkazov – alebo `"llm"` – predčistenie cez API; predvolene sú vypnuté.)
 
 Do Claude Code sa navyše nainštaluje **globálna vrstva** (`install.py`), aby Claude rozumel diktátu
 aj keď čistenie niečo prehliadne, alebo keď text nadiktuješ inak (mobil, iný nástroj):
@@ -60,9 +66,8 @@ copy config.example.json config.json
 python install.py              # ~/.claude: CLAUDE.md blok + skill + hook  (--dry-run ukáže, --uninstall vráti)
 ```
 
-Čistenie cez Claude potrebuje prihlásenie k API – jedno z:
-`ant auth login` (uloží profil, SDK ho nájde sám) alebo premenná prostredia `ANTHROPIC_API_KEY`.
-Bez toho všetko beží, len s pravidlami (`cleanup.mode` sa v tom prípade správa ako `rules`).
+Žiadny API kľúč netreba. (Voliteľný režim `cleanup.mode: "llm"` by potreboval `ant auth login`
+alebo `ANTHROPIC_API_KEY`; bez nich sa sám vráti k pravidlám.)
 
 macOS/Linux: rovnaké kroky (`run`: `python app.py`). Na macOS treba terminálu povoliť Mikrofón a
 Accessibility (pynput). Na Linuxe pynput vyžaduje X11/XWayland.
@@ -78,17 +83,21 @@ run_diktat.bat           :: alebo: python app.py
 3. **Ctrl+Alt+D** → stop. O pár sekúnd sa v prompte objaví `🎤 vyčistený text`.
 4. Skontroluj, uprav, **Enter**. (Alebo na konci diktátu povedz *„pošli to“* – Enter sa stlačí sám.)
 
-Meta-príkazy, ktorým rozumejú pravidlá (Claude navyše chápe voľné opravy typu *„nie, teda…“*):
+Ako diktovať: premýšľaj nahlas, pomýľ sa, oprav sa. Session tomu rozumie vďaka pravidlám v
+`~/.claude/CLAUDE.md` (nainštaluje `install.py`). Príkazy, ktoré chápe Claude (a v režime `rules`
+aj offline pravidlá):
 
 | Povieš | Stane sa |
 |---|---|
 | *škrtni to* / *zruš to* / *zabudni na to* / *to nie* | vymaže predchádzajúcu vetu |
 | *ignoruj posledný riadok* / *poslednú vetu* / *posledné dva riadky* / *posledné 3 vety* | vymaže N viet |
+| *odznova* / *ešte raz od začiatku* | zahodí všetko predtým, platí len to, čo nasleduje |
+| *to je blbosť* / *toto vymaž* / *nie, teda…* / *vlastne…* | rozumie Claude podľa kontextu (posledná verzia platí) |
 | *nový odsek* / *nový riadok* | zalomenie |
 | *pošli to* / *odošli* (na konci) | po vložení stlačí Enter |
 
-Pravidlá pracujú po **vetách** podľa interpunkcie, ktorú dodá Whisper. Ak prepis interpunkciu nemá,
-*„škrtni to“* zmaže všetko od poslednej bodky – vrstva Claude to rieši presnejšie (rozumie, čo sa opravuje).
+Predvolený režim `light` tieto príkazy nevykonáva (aby sa omylom nič nezmazalo) – nechá ich v texte
+a vyhodnotí ich session. Režim `rules` ich vykonáva offline po vetách podľa interpunkcie z Whisperu.
 
 Test bez mikrofónu:
 
@@ -112,16 +121,16 @@ slovníka náhrad.
 | `stt.backend` | `faster-whisper` | `openai` = Whisper API ako záloha pre slabý počítač (`OPENAI_API_KEY`) |
 | `stt.initial_prompt` | tech slovník | slová, ktoré má Whisper „očakávať“ – dopĺňaj názvy projektov, knižníc |
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
-| `cleanup.mode` | `auto` | `auto` (Claude ak je kľúč, inak pravidlá) · `llm` · `rules` · `none` |
-| `cleanup.model` | `claude-opus-5` | `effort: low` – rýchle a lacné (≈ 1–2 centy / diktát); alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |
+| `cleanup.mode` | `light` | `light` (zadarmo: výplne + interpunkcia, opravy nechá session) · `rules` (offline vykoná príkazy) · `llm` (Claude API, platené) · `none` (surový text) · `auto` (llm ak je kľúč, inak rules) |
+| `cleanup.model` | `claude-opus-5` | len pre režim `llm`; `effort: low`; alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |
 | `cleanup.replacements` | slovník | fonetické → správne (`"pajton": "Python"`), rozširuj podľa logov |
 | `output.marker` | `🎤 ` | prefix, podľa ktorého Claude (CLAUDE.md + hook) spozná diktát |
 | `output.auto_enter` | `false` | `true` = odošle vždy hneď (odporúčam nechať `false` a používať „pošli to“) |
 | `output.paste_shortcut` | `ctrl+v` | terminály, kde vkladá Ctrl+Shift+V, nastav `ctrl+shift+v` |
 | `hook.llm` | `false` | `true` = hook čistí aj cez Claude (pomalšie; hook má limit 30 s) |
 
-Pri volaní Claude je zapnutý server-side fallback (`fallbacks: "default"`) – ak model požiadavku
-výnimočne odmietne, API ju samo zopakuje na náhradnom modeli; keď zlyhá aj to, použijú sa pravidlá.
+(Len pre režim `llm`: volanie má zapnutý server-side fallback `fallbacks: "default"`; pri chybe API
+sa vždy použijú pravidlá, diktovanie nikdy nespadne.)
 
 ## Riešenie problémov
 
@@ -143,6 +152,22 @@ Bez mikrofónu, bez API, stdlib `unittest` (rovnako ako zvyšok repa):
 ```bash
 python -m unittest tests.test_diktat_cleanup tests.test_diktat_hook tests.test_diktat_install
 ```
+
+Čo bolo overené kde:
+
+| Časť | Overené |
+|---|---|
+| čistenie (`light`/`rules`), „pošli to“, značka 🎤, „odznova“ | unit testy + ukážky na 3 diktátoch (cloud session) |
+| hook `UserPromptSubmit` (samostatný proces, JSON ako od Claude Code) | unit testy (cloud session) |
+| inštalátor (CLAUDE.md, skill, hook, settings.json, uninstall, dry-run) | unit testy v dočasnom adresári (cloud session) |
+| Whisper prepis slovenčiny, mikrofón, hotkey, vloženie Ctrl+V | **zatiaľ nie** – cloud session nemá mikrofón a huggingface.co (model) blokuje sieťová politika → otestuj na Windows podľa postupu nižšie |
+
+Prvý test na Windows (5 minút):
+
+1. `setup_windows.bat` (bez `install.py` – ten spusti až keď si spokojný; setup ho volá, môžeš ho pri otázke prerušiť alebo potom `python install.py --uninstall`).
+2. `python app.py --text "hmm chcem aby si ehm pridal testy, škrtni to, pridaj testy na slug, pošli to"` → musí vypísať vyčistený text s `Enter=True`.
+3. `run_diktat.bat`, otvor **Poznámkový blok**, klikni doň, Ctrl+Alt+D, povedz pár viet po slovensky s pauzami, Ctrl+Alt+D → text sa má objaviť v Poznámkovom bloku. Tým máš overený mikrofón + Whisper + vkladanie.
+4. To isté do okna Claude Code. Až potom `python install.py`, aby session rozumela značke 🎤.
 
 ## Štruktúra
 

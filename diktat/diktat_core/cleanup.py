@@ -6,7 +6,9 @@ Dve vrstvy:
   * `llm_clean`    – Claude (Anthropic SDK) rozumie aj voľným opravám ("nie, teda...", "vlastne...")
                      a opraví chyby prepisu podľa kontextu. Voliteľné (potrebuje prihlásenie / kľúč).
 
-`clean()` ich skladá podľa `cleanup.mode` v configu: auto | llm | rules | none.
+`clean()` ich skladá podľa `cleanup.mode` v configu: light (default, zadarmo – len výplne a
+interpunkcia, opravy nechá na Claude Code session) | rules | llm | none. „auto" = llm ak je
+prihlásenie, inak rules.
 Modul úmyselne neimportuje numpy ani anthropic na úrovni modulu, aby fungoval aj v hooku bez závislostí.
 """
 from __future__ import annotations
@@ -47,6 +49,7 @@ _CMD_RE = re.compile(
         (?P<unit>riadok|riadky|riadkov|vetu|vety|viet|veta|odsek|odseky|odsekov|bod|body|bodov|myšlienku|myslienku)
       | (?P<para>nov[ýy]\s+odsek)
       | (?P<line>nov[ýy]\s+riadok)
+      | (?P<restart>(?:tak\s+)?(?:idem\s+|začnem\s+|zacnem\s+|poviem\s+to\s+)?(?:odznova|od\s+znova|ešte\s+raz\s+od\s+začiatku|este\s+raz\s+od\s+zaciatku|zahoď\s+všetko|zahod\s+vsetko)(?=\s*(?:[,.!?…:]|$)))
     )
     [,;:.!?…\s]*
     """,
@@ -131,6 +134,8 @@ def apply_commands(text: str) -> str:
         elif m.group("line"):
             if out and out[-1] not in (PARA, LINE):
                 out.append(LINE)
+        elif m.group("restart"):
+            out.clear()
     tail = text[pos:]
     for para_i, para in enumerate(tail.split("\n\n")):
         if para_i:
@@ -187,6 +192,19 @@ def strip_marker(text: str, markers: list[str] | None) -> tuple[str, bool]:
         if mk and s.startswith(mk):
             return s[len(mk):].lstrip(), True
     return text, False
+
+
+# --- vrstva 0: light (predvolené) ----------------------------------------------------------------------
+def light_clean(text: str, replacements: dict | None = None) -> str:
+    """Neškodné čistenie: výplňové zvuky, opakované slová, slovník náhrad, interpunkcia.
+    Opravy a meta-príkazy („škrtni to", „ignoruj posledné dva riadky", „odznova") NECHÁVA v texte –
+    vyhodnotí ich Claude Code session podľa pravidiel v CLAUDE.md. Nič sa nestratí, nič nestojí."""
+    text = normalize_ws(text)
+    text = apply_replacements(text, replacements)
+    text = remove_fillers(text)
+    text = dedupe_words(text)
+    text = tidy_punctuation(text)
+    return text
 
 
 # --- vrstva 1: pravidlá ----------------------------------------------------------------------------
@@ -312,6 +330,11 @@ def clean(raw: str, cfg: dict) -> CleanResult:
     if mode == "none":
         text, send = detect_send(normalize_ws(raw), output_cfg.get("send_keywords"))
         return CleanResult(text=text, method="none", send=send, raw=raw)
+
+    if mode == "light":
+        text = light_clean(raw, cleanup_cfg.get("replacements"))
+        text, send = detect_send(text, output_cfg.get("send_keywords"))
+        return CleanResult(text=text, method="light", send=send, raw=raw)
 
     ruled = rules_clean(raw, cleanup_cfg.get("replacements"))
     ruled, send = detect_send(ruled, output_cfg.get("send_keywords"))

@@ -163,3 +163,40 @@ class ConfigTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LightAndRestartTests(unittest.TestCase):
+    def cfg(self, mode):
+        return cfgmod.deep_merge(cfgmod.DEFAULTS, {"cleanup": {"mode": mode}})
+
+    def test_default_mode_is_light_and_free(self):
+        self.assertEqual(cfgmod.DEFAULTS["cleanup"]["mode"], "light")
+        cfg = cfgmod.load_config(cfgmod.PACKAGE_DIR / "config.example.json")
+        self.assertEqual(cfg["cleanup"]["mode"], "light")
+        self.assertFalse(cfg["hook"]["llm"])
+
+    def test_light_removes_fillers_but_keeps_corrections_for_claude(self):
+        raw = "hmm chcem YouTube. Škrtni to. Chcem Pexels. Ignoruj posledný riadok. Odznova. Chcem Pixabay, pošli to"
+        res = cleanup.clean(raw, self.cfg("light"))
+        self.assertEqual(res.method, "light")
+        self.assertTrue(res.send)
+        self.assertEqual(res.text, "Chcem YouTube. Škrtni to. Chcem Pexels. Ignoruj posledný riadok. Odznova. Chcem Pixabay")
+
+    def test_light_never_calls_llm(self):
+        original = cleanup.llm_clean
+        cleanup.llm_clean = lambda *a, **k: (_ for _ in ()).throw(AssertionError("LLM sa nesmie volať"))
+        try:
+            res = cleanup.clean("ehm oprav testy", self.cfg("light"))
+        finally:
+            cleanup.llm_clean = original
+        self.assertEqual(res.text, "Oprav testy")
+
+    def test_rules_restart_drops_everything_before(self):
+        raw = "Sprav dashboard. Bude tam graf. Odznova. Sprav jednoduchý report."
+        self.assertEqual(cleanup.rules_clean(raw), "Sprav jednoduchý report.")
+        raw = "Sprav dashboard, tak ešte raz od začiatku, sprav report."
+        self.assertEqual(cleanup.rules_clean(raw), "Sprav report.")
+
+    def test_restart_not_triggered_inside_sentence(self):
+        text = cleanup.rules_clean("Spusti to odznova s novým configom.")
+        self.assertEqual(text, "Spusti to odznova s novým configom.")

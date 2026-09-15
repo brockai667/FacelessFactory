@@ -14,7 +14,7 @@ $ARGUMENTS
 1. **Vyčisti** prepis v hlave (nevypisuj ho celý znova, ak nie je požiadavka na prepis):
    - vyhoď výplňové slová a opakovania (hmm, ehm, no, proste, akože, čiže, vlastne),
    - pri opravách („nie, teda…“, „vlastne…“, „škrtni to“, „to nie“) platí **posledná verzia**,
-   - vykonaj meta-príkazy („ignoruj posledný riadok / poslednú vetu / posledné dva riadky“, „nový odsek“) a neber ich ako obsah,
+   - vykonaj meta-príkazy („ignoruj posledný riadok / poslednú vetu / posledné dva riadky“, „toto vymaž“, „nový odsek“; „odznova“ = zahoď všetko predtým) a neber ich ako obsah,
    - foneticky zapísané technické názvy preveď na správne anglické identifikátory podľa kontextu projektu (súbory v repe, funkcie v kóde).
 2. **Zhrň**, čo si pochopil, v 2–5 odrážkach po slovensky (zadanie, obmedzenia, čo je nejasné).
 3. Ak je niečo **vecne** nejasné (viac možností s odlišným výsledkom), polož iba tie otázky. Štýl, gramatiku ani formuláciu neriešiš.
