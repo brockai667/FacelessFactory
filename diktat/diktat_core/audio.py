@@ -55,13 +55,31 @@ def find_cut(rms_list: list[float], block_seconds: float, min_seconds: float, ma
 
 
 def gate_keep(prev_level: float, cur_level: float, gate_rms: float, since_loud: float, hangover: float) -> bool:
-    """Má sa PREDCHÁDZAJÚCI blok ponechať? Áno, ak bol sám hlasný, ak je hlasný nasledujúci (nábeh slova)
-    alebo ak od posledného hlasného bloku neubehol hangover (dozvuk slova). Inak sa nahradí tichom."""
+    """(Jednoduchšia verzia, ponechaná pre testy/kompatibilitu.) Má sa PREDCHÁDZAJÚCI blok ponechať?"""
     if gate_rms <= 0:
         return True
     if prev_level >= gate_rms or cur_level >= gate_rms:
         return True
     return since_loud <= hangover
+
+
+def gate_keep3(l0: float, l1: float, l2: float, gate_rms: float, since_burst: float, hangover: float) -> tuple[bool, bool]:
+    """Rozhodne o bloku l0, keď už vidí dva nasledujúce (l1, l2). Vráti (ponechať, začal/pokračuje burst).
+
+    „Burst“ = aspoň dva hlasné bloky za sebou (0,2 s) – osamotená špička (úder, výkrik z diaľky) sa vymaže.
+    Ponechá sa: blok v burste, nábeh pred burstom, a dozvuk (hangover) po burste."""
+    if gate_rms <= 0:
+        return True, False
+    loud0, loud1, loud2 = l0 >= gate_rms, l1 >= gate_rms, l2 >= gate_rms
+    if loud0 and loud1:
+        return True, True                       # súčasť burstu (aj jeho začiatok)
+    if loud0 and since_burst <= hangover:
+        return True, False                      # posledný hlasný blok burstu / dozvuk
+    if not loud0 and loud1 and loud2:
+        return True, False                      # nábeh slova
+    if since_burst <= hangover:
+        return True, False                      # dozvuk
+    return False, False
 
 
 def _percentile(values: list[float], pct: float) -> float:
@@ -103,8 +121,8 @@ class Recorder:
         self.device = device
         self.gate_rms = float(gate_rms or 0)
         self.gate_hangover = float(gate_hangover_seconds or 0)
-        self._pending = None            # (block, level) – čaká na rozhodnutie brány
-        self._last_loud_at = 0.0
+        self._pending: list = []        # [(block, level), ...] – čakajú na rozhodnutie brány (2 bloky dopredu)
+        self._since_burst_blocks = 10**6  # koľko blokov ubehlo od konca posledného burstu (deterministické, nie čas)
         self.levels_probe: list[float] | None = None   # kalibrácia: zbieraj surové úrovne
         self.last_level = 0.0                          # posledná nameraná úroveň (ukazovateľ v prúžku)
         self.gated_blocks = 0                          # štatistika za nahrávanie: koľko blokov brána vymazala
@@ -136,20 +154,17 @@ class Recorder:
         now = time.monotonic()
         if self.levels_probe is not None:
             self.levels_probe.append(level)
-        if level >= self.gate_rms:
-            self._last_loud_at = now
-        # brána s pohľadom o blok dopredu: rozhoduje sa o predchádzajúcom bloku
+        # brána s pohľadom o dva bloky dopredu: rozhoduje sa o najstaršom čakajúcom bloku
         to_push = []
-        if self._pending is not None:
-            pblock, plevel = self._pending
-            if gate_keep(plevel, level, self.gate_rms, now - self._last_loud_at, self.gate_hangover):
-                to_push.append((pblock, plevel))
-                self.kept_blocks += 1
-            else:
-                import numpy as np
-                to_push.append((np.zeros_like(pblock), 0.0))
-                self.gated_blocks += 1
-        self._pending = (block, level)
+        if self.gate_rms <= 0:
+            to_push.append((block, level))
+            self.kept_blocks += 1
+        else:
+            self._pending.append((block, level))
+            if len(self._pending) == 3:
+                (b0, l0), (_, l1), (_, l2) = self._pending
+                to_push.append(self._gate_decide(b0, l0, l1, l2))
+                self._pending.pop(0)
         with self._lock:
             for b, lv in to_push:
                 self._blocks.append(b)
@@ -168,6 +183,24 @@ class Recorder:
             threading.Thread(target=self.on_auto_stop, daemon=True).start()
 
     # -- API ---------------------------------------------------------------------------------------
+    def _gate_decide(self, block, l0: float, l1: float, l2: float):
+        """Rozhodne o bloku (l0) podľa dvoch nasledujúcich; dozvuk sa počíta v blokoch, nie v reálnom čase."""
+        since = self._since_burst_blocks * BLOCK_SECONDS
+        keep, in_burst = gate_keep3(l0, l1, l2, self.gate_rms, since, self.gate_hangover)
+        if in_burst:
+            self._since_burst_blocks = 0
+        else:
+            self._since_burst_blocks += 1
+        return self._gate_apply(block, l0, keep)
+
+    def _gate_apply(self, block, level: float, keep: bool):
+        if keep:
+            self.kept_blocks += 1
+            return block, level
+        import numpy as np
+        self.gated_blocks += 1
+        return np.zeros_like(block), 0.0
+
     def open(self) -> None:
         """Otvorí stream z mikrofónu a nechá ho bežať (volaj raz pri štarte programu)."""
         import sounddevice as sd
@@ -192,8 +225,8 @@ class Recorder:
         with self._lock:
             self._blocks, self._rms = [], []
             self.total_seconds = 0.0
-        self._pending = None
-        self._last_loud_at = 0.0
+        self._pending = []
+        self._since_burst_blocks = 10**6
         self.gated_blocks = self.kept_blocks = 0
         self._started_at = time.monotonic()
         self._last_voice_at = self._started_at
@@ -229,13 +262,16 @@ class Recorder:
         """Ukončí nahrávanie (stream ostáva otvorený) a vráti zvyšné audio v bufri."""
         self.recording = False
         with self._lock:
-            if self._pending is not None:          # posledný blok už nemá „dopredu“, rozhodni podľa seba
-                pblock, plevel = self._pending
-                if gate_keep(plevel, 0.0, self.gate_rms, time.monotonic() - self._last_loud_at, self.gate_hangover):
-                    self._blocks.append(pblock)
-                    self._rms.append(plevel)
-                    self.total_seconds += len(pblock) / self.sample_rate
-                self._pending = None
+            pending, self._pending = self._pending, []
+            levels = [lv for _, lv in pending] + [0.0, 0.0]
+            for i, (b, lv) in enumerate(pending):        # posledné bloky: „dopredu“ je už len ticho
+                if self.gate_rms > 0:
+                    b2, lv2 = self._gate_decide(b, levels[i], levels[i + 1], levels[i + 2])
+                else:
+                    b2, lv2 = b, lv
+                self._blocks.append(b2)
+                self._rms.append(lv2)
+                self.total_seconds += len(b2) / self.sample_rate
             blocks, self._blocks, self._rms = self._blocks, [], []
         audio = self._concat(blocks)
         log.info("nahrané spolu %.1f s", self.total_seconds)

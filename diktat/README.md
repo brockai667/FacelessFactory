@@ -139,7 +139,8 @@ Ak boli reč a pozadie blízko seba, kalibrácia to povie, ale hodnotu uloží �
 ikony → **Brána**: prísnejšia (+25 %), miernejšia (−20 %), vypnúť. Počas nahrávania prúžok ukazuje hlasitosť
 (`▮▮▮▯▯ ✓` = nad bránou, ide do prepisu; `·` = pod bránou, vymaže sa). Ak mikrofón vo Windows má zapnuté
 automatické zosilnenie (AGC), vzdialené zvuky zosilňuje a brána stráca účinnosť – vypína sa vo vlastnostiach
-mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné zdroje brána oddeliť nevie.
+mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné zdroje brána oddeliť nevie. Brána púšťa len zvuk hlasný aspoň 0,2 s v kuse (osamotené
+špičky – úder, výkrik z diaľky – vymaže) a úseky, pri ktorých si Whisper nie je istý, sa zahodia.
 
 ## Konfigurácia (`config.json`)
 
@@ -158,6 +159,8 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
 | `audio.gate_rms` | `0` | hlasitostná brána (nastaví kalibrácia); tichšie bloky sa vymažú, `0` = vypnuté |
 | `audio.gate_hangover_seconds` | `0.4` | dozvuk po hlasnom bloku, aby sa neodrezali konce slov |
+| `stt.min_avg_logprob` | `-1.0` | úseky, kde si Whisper nie je istý (útržky pozadia → nezmysly), sa zahodia; vyššie = prísnejšie |
+| `stt.max_no_speech_prob` | `0.7` | úseky, kde Whisper tipuje „nebola reč“, sa zahodia |
 | `cleanup.mode` | `light` | `light` (zadarmo: výplne + interpunkcia, opravy nechá session) · `rules` (offline vykoná príkazy) · `llm` (Claude API, platené) · `none` (surový text) · `auto` (llm ak je kľúč, inak rules) |
 | `cleanup.model` | `claude-opus-5` | len pre režim `llm`; `effort: low`; alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |
 | `cleanup.replacements` | slovník | fonetické → správne (`"pajton": "Python"`), rozširuj podľa logov |

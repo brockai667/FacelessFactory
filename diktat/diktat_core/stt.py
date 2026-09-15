@@ -69,11 +69,23 @@ def _auto_device_and_compute(device: str, compute_type: str) -> tuple[str, str]:
     return dev, ct
 
 
+def segment_ok(avg_logprob: float, no_speech_prob: float, min_avg_logprob: float, max_no_speech_prob: float) -> bool:
+    """Úsek prejde, ak má Whisper dostatočnú istotu (avg_logprob) a nemyslí si, že tam nebola reč."""
+    if avg_logprob is not None and avg_logprob < min_avg_logprob:
+        return False
+    if no_speech_prob is not None and no_speech_prob > max_no_speech_prob:
+        return False
+    return True
+
+
 class FasterWhisperBackend:
     """Lokálny prepis cez faster-whisper (CTranslate2). Model sa stiahne pri prvom spustení."""
 
     def __init__(self, model: str = "large-v3-turbo", device: str = "auto", compute_type: str = "auto",
-                 beam_size: int = 5, vad_filter: bool = True, initial_prompt: str = ""):
+                 beam_size: int = 5, vad_filter: bool = True, initial_prompt: str = "",
+                 min_avg_logprob: float = -1.0, max_no_speech_prob: float = 0.7):
+        self.min_avg_logprob = float(min_avg_logprob)       # úseky s nižšou istotou = útržky/nezmysly → zahodiť
+        self.max_no_speech_prob = float(max_no_speech_prob)
         self.model_name = model
         self.device, self.compute_type = _auto_device_and_compute(device, compute_type)
         self.beam_size = int(beam_size)
@@ -122,7 +134,17 @@ class FasterWhisperBackend:
             condition_on_previous_text=False,
         )
         # generátor je lenivý – chyby CUDA vyskočia až tu
-        parts = [seg.text.strip() for seg in segments if seg.text and seg.text.strip()]
+        parts = []
+        for seg in segments:
+            text = (seg.text or "").strip()
+            if not text:
+                continue
+            if not segment_ok(getattr(seg, "avg_logprob", 0.0), getattr(seg, "no_speech_prob", 0.0),
+                              self.min_avg_logprob, self.max_no_speech_prob):
+                log.info("zahodený úsek (istota %.2f, ticho %.2f): „%s“",
+                         getattr(seg, "avg_logprob", 0.0), getattr(seg, "no_speech_prob", 0.0), text[:60])
+                continue
+            parts.append(text)
         return parts, info
 
     def transcribe(self, audio, language: str = "sk", context: str | None = None) -> str:
@@ -198,6 +220,8 @@ def make_backend(cfg: dict) -> Backend:
             beam_size=stt.get("beam_size", 5),
             vad_filter=stt.get("vad_filter", True),
             initial_prompt=stt.get("initial_prompt", ""),
+            min_avg_logprob=stt.get("min_avg_logprob", -1.0),
+            max_no_speech_prob=stt.get("max_no_speech_prob", 0.7),
         )
     if backend == "openai":
         return OpenAIWhisperBackend(

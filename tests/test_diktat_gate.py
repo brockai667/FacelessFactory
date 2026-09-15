@@ -24,6 +24,49 @@ class GateKeepTests(unittest.TestCase):
         self.assertFalse(audio.gate_keep(0.001, 0.001, 0.02, 0.5, 0.4))
 
 
+class GateKeep3Tests(unittest.TestCase):
+    G = 0.02
+
+    def test_isolated_peak_is_dropped(self):
+        keep, burst = audio.gate_keep3(0.05, 0.001, 0.001, self.G, since_burst=99, hangover=0.4)
+        self.assertFalse(keep)
+        self.assertFalse(burst)
+
+    def test_two_loud_blocks_form_a_burst(self):
+        keep, burst = audio.gate_keep3(0.05, 0.05, 0.001, self.G, since_burst=99, hangover=0.4)
+        self.assertTrue(keep)
+        self.assertTrue(burst)
+
+    def test_onset_before_burst_is_kept(self):
+        keep, burst = audio.gate_keep3(0.001, 0.05, 0.05, self.G, since_burst=99, hangover=0.4)
+        self.assertTrue(keep)
+        self.assertFalse(burst)
+
+    def test_onset_before_isolated_peak_is_dropped(self):
+        keep, _ = audio.gate_keep3(0.001, 0.05, 0.001, self.G, since_burst=99, hangover=0.4)
+        self.assertFalse(keep)
+
+    def test_tail_within_hangover_is_kept(self):
+        keep, _ = audio.gate_keep3(0.05, 0.001, 0.001, self.G, since_burst=0.1, hangover=0.4)
+        self.assertTrue(keep)
+        keep, _ = audio.gate_keep3(0.001, 0.001, 0.001, self.G, since_burst=0.3, hangover=0.4)
+        self.assertTrue(keep)
+        keep, _ = audio.gate_keep3(0.001, 0.001, 0.001, self.G, since_burst=0.5, hangover=0.4)
+        self.assertFalse(keep)
+
+    def test_gate_off(self):
+        self.assertEqual(audio.gate_keep3(0, 0, 0, 0.0, 99, 0.4), (True, False))
+
+
+class SegmentFilterTests(unittest.TestCase):
+    def test_segment_ok(self):
+        from diktat.diktat_core import stt
+        self.assertTrue(stt.segment_ok(-0.3, 0.1, -1.0, 0.7))
+        self.assertFalse(stt.segment_ok(-1.4, 0.1, -1.0, 0.7))     # nízka istota = nezmysel z útržkov
+        self.assertFalse(stt.segment_ok(-0.3, 0.9, -1.0, 0.7))     # Whisper tipuje, že tam nebola reč
+        self.assertTrue(stt.segment_ok(None, None, -1.0, 0.7))
+
+
 class GatedRatioTests(unittest.TestCase):
     def test_ratio(self):
         self.assertEqual(audio.gated_ratio(0, 0), 0.0)
