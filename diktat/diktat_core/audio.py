@@ -21,8 +21,10 @@ def rms(block) -> float:
 
 
 class Recorder:
-    """Jednoduchý rekordér: start() → stop() vráti celé nahrané audio ako np.ndarray (float32, mono).
+    """Rekordér: start() → stop() vráti celé nahrané audio ako np.ndarray (float32, mono).
 
+    Stream z mikrofónu ostáva otvorený stále (open()), start/stop len prepínajú príznak – štart je
+    okamžitý, bez inicializácie zariadenia. Keď sa nenahráva, bloky sa zahadzujú.
     Voliteľné automatické zastavenie po `silence_auto_stop_seconds` ticha (0 = vypnuté) –
     zavolá `on_auto_stop` z audio vlákna, volajúci má spracovanie presunúť do vlastného vlákna.
     """
@@ -47,6 +49,8 @@ class Recorder:
     def _callback(self, indata, frames, time_info, status):  # noqa: D401 – signatúra sounddevice
         if status:
             log.debug("audio status: %s", status)
+        if not self.recording:
+            return
         block = indata[:, 0].copy()
         with self._lock:
             self._chunks.append(block)
@@ -65,31 +69,42 @@ class Recorder:
             threading.Thread(target=self.on_auto_stop, daemon=True).start()
 
     # -- API ---------------------------------------------------------------------------------------
-    def start(self) -> None:
+    def open(self) -> None:
+        """Otvorí stream z mikrofónu a nechá ho bežať (volaj raz pri štarte programu)."""
         import sounddevice as sd
-        with self._lock:
-            self._chunks = []
-        self._started_at = time.monotonic()
-        self._last_voice_at = self._started_at
-        self._heard_voice = False
-        self._auto_fired = False
+        if self._stream is not None:
+            return
         self._stream = sd.InputStream(
             samplerate=self.sample_rate, channels=1, dtype="float32",
             device=self.device, callback=self._callback,
         )
         self._stream.start()
-        self.recording = True
-        log.info("nahrávam…")
 
-    def stop(self):
-        """Zastaví stream a vráti audio (np.ndarray float32) alebo prázdne pole."""
-        import numpy as np
+    def close(self) -> None:
         if self._stream is not None:
             try:
                 self._stream.stop()
                 self._stream.close()
             finally:
                 self._stream = None
+        self.recording = False
+
+    def start(self) -> None:
+        with self._lock:
+            self._chunks = []
+        self._started_at = time.monotonic()
+        self._last_voice_at = self._started_at
+        self._heard_voice = False
+        self._auto_fired = False
+        if self._stream is None or not self._stream.active:
+            self.close()
+            self.open()
+        self.recording = True
+        log.info("nahrávam…")
+
+    def stop(self):
+        """Ukončí nahrávanie (stream ostáva otvorený) a vráti audio (np.ndarray float32) alebo prázdne pole."""
+        import numpy as np
         self.recording = False
         with self._lock:
             chunks = self._chunks

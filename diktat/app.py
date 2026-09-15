@@ -55,7 +55,8 @@ class DiktatApp:
         if loader:
             loader()   # stiahni/načítaj model hneď, nie až pri prvom diktáte
         try:
-            audio.warm_up(a.get("sample_rate", 16000), a.get("device"))   # inak prvé nahrávanie štartuje s oneskorením
+            self.recorder.open()   # stream beží stále → stlačenie skratky začne nahrávať okamžite
+            log.info("mikrofón pripravený")
         except Exception as exc:  # noqa: BLE001
             log.warning("mikrofón sa nepodarilo otvoriť vopred: %s (skús --list-devices a audio.device v configu)", exc)
 
@@ -75,10 +76,10 @@ class DiktatApp:
             print("⏳ ešte spracúvam predchádzajúci diktát…", flush=True)
             return
         from diktat_core import audio
-        self.recorder.start()
+        print("🔴 NAHRÁVAM – hovor. (hotkey znova = stop)", flush=True)
         if self.cfg["audio"].get("beep"):
             audio.beep("start")
-        print("🔴 NAHRÁVAM – hovor. (hotkey znova = stop)", flush=True)
+        self.recorder.start()
 
     def _auto_stop(self) -> None:
         print("🤫 ticho / limit – zastavujem", flush=True)
@@ -266,6 +267,9 @@ def main(argv: list[str] | None = None) -> int:
         app.run()
     except KeyboardInterrupt:
         print("\n👋 koniec")
+    finally:
+        if app.recorder is not None:
+            app.recorder.close()
     return 0
 
 
