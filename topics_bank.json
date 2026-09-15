@@ -15469,5 +15469,79 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Lobster’s Surprising Blue Blood",
+    "thumb": "BLUE BLOOD",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Lobster blood is blue, not red",
+        "hook_top": "BLUE BLOOD SHOCK",
+        "query": "Lobster blood color",
+        "query2": "blue lobster blood",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Lobsters use copper‑based hemocyanin to carry oxygen, which appears blue when oxygenated",
+        "chips": [
+          {
+            "t": "COPPER CARRY",
+            "on": "copper",
+            "style": "accent"
+          }
+        ],
+        "punch": "wow",
+        "query": "hemocyanin in lobsters",
+        "query2": "copper oxygen carrier",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "When exposed to air, the blue liquid turns greenish, but never red like human blood",
+        "chips": [
+          {
+            "t": "GREEN SHIFT",
+            "on": "green",
+            "style": "white"
+          }
+        ],
+        "query": "lobster blood color change",
+        "query2": "lobster hemolymph oxidation",
+        "role": "fact"
+      },
+      {
+        "type": "callout",
+        "text": "Your seafood dinner hides a secret",
+        "label": "SEAFOOD SECRET",
+        "sub": "Lobster blood isn’t red",
+        "label_on": "secret",
+        "query": "lobster blood secret",
+        "query2": "lobster hemolymph",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "follow callout",
+        "query2": "cta follow",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why lobsters pump blue copper blood instead of red. The ocean’s oddest circulatory system revealed! Follow for more mind‑blowing facts.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#biology",
+      "#lobster",
+      "#oddfacts",
+      "#mindblown",
+      "#wildnature"
+    ],
+    "place": "",
+    "country": ""
   }
 ]

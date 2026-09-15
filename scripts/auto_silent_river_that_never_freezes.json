@@ -1,0 +1,70 @@
+{
+  "title": "Silent River That Never Freezes",
+  "thumb": "THAMES ICE MYSTERY",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "The River Thames never freezes, even at minus ten degrees.",
+      "hook_top": "THAMES STAYS LIQUID",
+      "query": "Thames river winter freeze",
+      "query2": "Thames river temperature freeze",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "A strong current of about 1.5 m/s keeps the water moving quickly.",
+      "chips": [
+        {
+          "t": "1.5 m/s",
+          "on": "current",
+          "style": "white"
+        }
+      ],
+      "query": "Thames river current speed",
+      "query2": "Thames flow rate",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "London winters often drop to around -5°C, yet the surface stays unfrozen.",
+      "chips": [
+        {
+          "t": "-5°C",
+          "on": "temperature",
+          "style": "accent"
+        }
+      ],
+      "query": "London winter temperature Thames freeze",
+      "query2": "Thames winter low temperature",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "A small amount of dissolved minerals from upstream lowers the freezing point, so the water stays liquid.",
+      "reveal_top": "SALTS KEEP IT LIQUID",
+      "query": "Thames mineral content freezing point",
+      "query2": "River salts lower freezing temperature",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Hit follow for your daily dose of wow.",
+      "query": "follow hidden science call to action",
+      "query2": "follow science short",
+      "role": "cta"
+    }
+  ],
+  "description": "The Thames defies the cold thanks to its swift flow and a hint of mineral magic. Discover why this famous river never turns to ice.\nTap follow for more mind‑blowing secrets.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#riverfacts",
+    "#mysteryscience",
+    "#hiddenfacts",
+    "#mindblown"
+  ],
+  "place": "",
+  "country": ""
+}
