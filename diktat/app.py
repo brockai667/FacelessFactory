@@ -165,7 +165,11 @@ class DiktatApp:
             stt_desc += f" ({self.stt.device}/{self.stt.compute_type})"
         print(f"🎤 diktat beží.  Skratka: {hotkey}  režim: {mode}  jazyk: {self.cfg.get('language')}"
               f"  STT: {stt_desc}  čistenie: {clean_desc}", flush=True)
-        print("   Klikni do okna Claude Code, stlač skratku, hovor, stlač znova. Ctrl+C ukončí.\n", flush=True)
+        print("   Klikni do okna Claude Code, stlač skratku, hovor, stlač znova. Ctrl+C ukončí.", flush=True)
+        if sys.platform == "win32" and not inject.running_as_admin():
+            print("   (Ak cieľové okno beží „ako správca“, Windows simulované Ctrl+V zahodí – spusti aj diktat ako správca.)",
+                  flush=True)
+        print(flush=True)
 
         parsed = hotkeymod.parse_hotkey(hotkey)
         if parsed["kind"] == "vk":

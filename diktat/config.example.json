@@ -56,7 +56,7 @@
       "pošli",
       "enter"
     ],
-    "restore_clipboard": true
+    "restore_clipboard": false
   },
   "hook": {
     "llm": false

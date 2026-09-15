@@ -147,8 +147,11 @@ prepne sa na CPU/int8 a pokračuje (v konzole uvidíš varovanie). Ak GPU nechce
 
 ## Riešenie problémov
 
-- **Nič sa nevloží** – text je vždy aj v schránke, stlač Ctrl+V ručne. Skontroluj, či bol kurzor
-  v okne Claude Code; niektoré terminály chcú `ctrl+shift+v` (viď `output.paste_shortcut`).
+- **„odoslané ctrl+v“, ale v okne nič** – text ostal v schránke, stlač Ctrl+V ručne. V konzole je riadok
+  `vkladám (ctrl+v) do okna '…' (app.exe)` – skontroluj, že je to naozaj okno Claude Code a že kurzor bol
+  v textovom poli. Ak cieľová aplikácia beží „ako správca“, Windows simulované klávesy z bežného programu
+  zahodí – spusti aj diktat ako správca (PowerShell → Spustiť ako správca). Niektoré terminály vkladajú
+  cez `ctrl+shift+v` alebo `shift+insert` (viď `output.paste_shortcut`).
 - **Skratka nereaguje** – iná aplikácia ju má obsadenú alebo klávesnica nemá numpad; zmeň `hotkey` (napr. `<f9>`).
   Ak beží Claude Code s `/voice`, vypni ho (`/voice off`), nech si nekonkurujú.
 - **Zlá kvalita prepisu** – hovor bližšie k mikrofónu, skús `stt.model: "large-v3"`, doplň

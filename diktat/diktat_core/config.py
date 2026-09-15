@@ -45,7 +45,7 @@ DEFAULTS: dict = {
         "markers_recognized": ["🎤", "[diktát]", "[diktat]", "[d]"],
         "auto_enter": False,
         "send_keywords": ["pošli to", "odošli to", "odošli", "pošli"],
-        "restore_clipboard": True,
+        "restore_clipboard": False,      # text ostane v schránke → záloha: ručné Ctrl+V
     },
     "hook": {
         "llm": False,
