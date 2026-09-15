@@ -37,6 +37,21 @@ WATCH_VBS_NAME = "diktat_watch.vbs"
 TASK_NAME = "diktat-watch"
 
 
+def safe_print(msg: str) -> None:
+    """print, ktorý nespadne na emoji v konzole s cp1250 (a pri presmerovaní do súboru)."""
+    try:
+        print(msg, flush=True)
+    except UnicodeEncodeError:
+        print(msg.encode("ascii", "replace").decode("ascii"), flush=True)
+    try:
+        with open(HERE / "logs" / "install.log", "a", encoding="utf-8") as fh:
+            import datetime as _dt
+            fh.write(f"{_dt.datetime.now():%Y-%m-%d %H:%M:%S} {msg}\n")
+    except Exception:  # noqa: BLE001
+        pass
+
+
+
 def startup_folder() -> Path:
     """Windows priečinok „Po spustení“ aktuálneho používateľa."""
     appdata = os.environ.get("APPDATA") or str(Path.home() / "AppData" / "Roaming")
@@ -130,7 +145,7 @@ def task_xml(watch_vbs_path: Path) -> str:
 """
 
 
-def register_task(watch_vbs_path: Path, log=print) -> bool:
+def register_task(watch_vbs_path: Path, log=safe_print) -> bool:
     """Zaregistruje úlohu diktat-watch cez schtasks (bez práv správcu, pre aktuálneho používateľa)."""
     import subprocess
     import tempfile
@@ -138,17 +153,18 @@ def register_task(watch_vbs_path: Path, log=print) -> bool:
     xml_path.write_text(task_xml(watch_vbs_path), encoding="utf-16")
     try:
         res = subprocess.run(["schtasks", "/create", "/tn", TASK_NAME, "/xml", str(xml_path), "/f"],
-                             capture_output=True, text=True, timeout=60)
+                             capture_output=True, text=True, timeout=60, errors="replace")
     except Exception as exc:  # noqa: BLE001
         log(f"✖ schtasks zlyhal: {exc}")
         return False
     if res.returncode != 0:
-        log(f"✖ schtasks: {(res.stderr or res.stdout).strip()[:300]}")
+        log(f"✖ schtasks (kód {res.returncode}): {(res.stderr or res.stdout).strip()[:300]}")
         return False
+    log(f"schtasks: {(res.stdout or '').strip()[:200]}")
     return True
 
 
-def unregister_task(log=print) -> None:
+def unregister_task(log=safe_print) -> None:
     import subprocess
     try:
         subprocess.run(["schtasks", "/delete", "/tn", TASK_NAME, "/f"], capture_output=True, text=True, timeout=60)
@@ -157,7 +173,7 @@ def unregister_task(log=print) -> None:
 
 
 def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None = None,
-                      startup_dir: Path | None = None, dry_run: bool = False, log=print,
+                      startup_dir: Path | None = None, dry_run: bool = False, log=safe_print,
                       register: bool | None = None) -> Path:
     """diktat_tray.vbs (ručné spustenie) + diktat_watch.vbs + úloha Plánovača „diktat-watch“ (raz za minútu):
     ak beží Claude/prehliadač (follow.processes) a diktat nie, spustí ho. Žiadny proces nezostáva bežať.
@@ -202,7 +218,7 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
     return watch_local
 
 
-def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: bool = False, log=print) -> None:
+def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: bool = False, log=safe_print) -> None:
     startup_dir = startup_dir or startup_folder()
     tag = "[dry-run] " if dry_run else ""
     for path in (startup_dir / VBS_NAME, startup_dir / WATCH_VBS_NAME,
@@ -300,7 +316,7 @@ def _write_settings(path: Path, settings: dict, dry_run: bool) -> None:
 
 # --- orchestrácia -----------------------------------------------------------------------------------
 def install(claude_dir: Path, with_hook: bool = True, python_exe: str | None = None,
-            dry_run: bool = False, log=print) -> None:
+            dry_run: bool = False, log=safe_print) -> None:
     claude_dir = Path(claude_dir)
     python_exe = python_exe or sys.executable
     tag = "[dry-run] " if dry_run else ""
@@ -352,7 +368,7 @@ def install(claude_dir: Path, with_hook: bool = True, python_exe: str | None = N
         "(CLI, desktop app, VS Code). Nové sessions to načítajú automaticky; bežiacu session reštartuj.")
 
 
-def uninstall(claude_dir: Path, dry_run: bool = False, log=print) -> None:
+def uninstall(claude_dir: Path, dry_run: bool = False, log=safe_print) -> None:
     claude_dir = Path(claude_dir)
     tag = "[dry-run] " if dry_run else ""
     claude_md = claude_dir / "CLAUDE.md"

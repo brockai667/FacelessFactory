@@ -7,6 +7,8 @@ if /i not "%~1"=="--from-temp" (
   exit /b 0
 )
 cd /d "%~2"
+set PYTHONIOENCODING=utf-8
+if not exist logs mkdir logs
 echo Aktualizujem diktat v %CD% ...
 git pull
 if not exist .venv\Scripts\python.exe (
@@ -28,10 +30,26 @@ timeout /t 2 >nul
 echo [3/4] Planovac uloh (diktat-watch)...
 .venv\Scripts\python.exe install.py --autostart
 echo [4/4] Spustam diktat...
-if exist diktat_tray.vbs (
-  wscript diktat_tray.vbs
-  echo Hotovo - diktat startuje pri hodinach (pol minuty nacitava model). Ak sa neobjavi, uloha ho spusti do minuty.
-) else (
-  echo Hotovo. Spusti run_diktat.bat alebo install.py --autostart.
+if not exist diktat_tray.vbs (
+  echo Chyba: chyba diktat_tray.vbs - spusti install.py --autostart
+  pause
+  exit /b 1
 )
-timeout /t 8 >nul
+wscript diktat_tray.vbs
+rem pockaj, kym sa novy beh ohlasi PID suborom (max ~25 s); ak nie, skus este raz
+set /a tries=0
+:waitloop
+timeout /t 1 >nul
+if exist logs\diktat.pid goto started
+set /a tries+=1
+if %tries% lss 25 goto waitloop
+echo Diktat sa neohlasil, skusam este raz...
+wscript diktat_tray.vbs
+timeout /t 10 >nul
+if exist logs\diktat.pid goto started
+echo CHYBA: diktat nenastartoval. Pozri logs\diktat.log a posli ho Claudovi.
+pause
+exit /b 1
+:started
+echo Hotovo - diktat bezi (modra ikona = nacitava model, siva = pripraveny).
+timeout /t 5 >nul

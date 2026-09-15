@@ -537,16 +537,26 @@ def alert(message: str, title: str = "diktat") -> None:
         pass
 
 
-def single_instance(log_dir: Path | None) -> bool:
-    """Zabezpečí, že beží len jeden daemon (Windows mutex) a zapíše PID do logs/diktat.pid (pre update_diktat.bat)."""
+def single_instance(log_dir: Path | None, wait_seconds: float = 20.0) -> bool:
+    """Zabezpečí, že beží len jeden daemon (Windows mutex) a zapíše PID do logs/diktat.pid (pre update_diktat.bat).
+    Ak starý beh práve dobieha (po aktualizácii), počká naň až wait_seconds."""
     global _instance_mutex
     if sys.platform == "win32":
         try:
             import ctypes
             kernel32 = ctypes.windll.kernel32
-            _instance_mutex = kernel32.CreateMutexW(None, False, "Local\\diktat-daemon")
-            if kernel32.GetLastError() == 183:          # ERROR_ALREADY_EXISTS
-                return False
+            deadline = time.monotonic() + wait_seconds
+            while True:
+                handle = kernel32.CreateMutexW(None, False, "Local\\diktat-daemon")
+                if kernel32.GetLastError() != 183:      # ERROR_ALREADY_EXISTS
+                    _instance_mutex = handle
+                    break
+                if handle:
+                    kernel32.CloseHandle(handle)
+                if time.monotonic() >= deadline:
+                    return False
+                log.info("diktat ešte beží (dobieha?) – čakám…")
+                time.sleep(1.0)
         except Exception:  # noqa: BLE001
             pass
     try:
