@@ -11,9 +11,10 @@ from typing import Callable
 
 log = logging.getLogger("diktat.tray")
 
-COLORS = {"idle": (140, 140, 140), "rec": (220, 40, 40), "stt": (240, 190, 0), "error": (160, 60, 200)}
-TITLES = {"idle": "diktat – pripravený (stlač skratku)", "rec": "diktat – NAHRÁVAM", "stt": "diktat – prepisujem…",
-          "error": "diktat – chyba (pozri log)"}
+COLORS = {"starting": (40, 120, 220), "idle": (140, 140, 140), "rec": (220, 40, 40), "stt": (240, 190, 0),
+          "error": (160, 60, 200)}
+TITLES = {"starting": "diktat – štartujem (načítavam model)…", "idle": "diktat – pripravený (stlač skratku)",
+          "rec": "diktat – NAHRÁVAM", "stt": "diktat – prepisujem…", "error": "diktat – chyba (pozri log)"}
 
 
 def available() -> bool:
@@ -94,7 +95,8 @@ class Tray:
             pystray.MenuItem("Aktualizovať a reštartovať", update_, enabled=bool(self.on_update)),
             pystray.MenuItem("Ukončiť diktat", quit_),
         )
-        self._icon = pystray.Icon("diktat", self._images["idle"], TITLES["idle"], menu)
+        self._icon = pystray.Icon("diktat", self._images.get(self.state, self._images["idle"]),
+                                  TITLES.get(self.state, TITLES["idle"]), menu)
 
     def run(self) -> None:
         """Blokuje (hlavné vlákno) až do Ukončiť."""

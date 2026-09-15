@@ -378,8 +378,7 @@ class DiktatApp:
         return listener
 
     def run(self, use_tray: bool = False) -> None:
-        self.banner()
-        listener = self.start_listener()
+        """Konzola: priprav → skratka → čakaj. Tray: ikona HNEĎ (modrá „štartujem“), model sa načíta na pozadí."""
         if use_tray and traymod.available():
             log_path = str(self.log_dir / "diktat.log") if self.log_dir else None
             self.tray = traymod.Tray(on_quit=self.shutdown, log_path=log_path,
@@ -387,11 +386,30 @@ class DiktatApp:
                                      on_update=self.update_and_restart if sys.platform == "win32" else None,
                                      on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start(),
                                      on_gate=self.adjust_gate, gate_text=self.gate_text)
+            self.tray.state = "starting"
+
+            def boot():
+                try:
+                    self.prepare()
+                    self.banner()
+                    self.start_listener()
+                    self.tray.set_state("idle")
+                except Exception as exc:  # noqa: BLE001
+                    import traceback
+                    log.error("štart zlyhal:\n%s", traceback.format_exc())
+                    self.tray.set_state("error")
+                    alert(f"diktat sa nepodarilo spustiť:\n\n{type(exc).__name__}: {exc}\n\n"
+                          f"Log: {log_path}", "diktat – chyba")
+
+            threading.Thread(target=boot, daemon=True, name="boot").start()
             self.tray.run()          # blokuje v hlavnom vlákne až po „Ukončiť“
-        else:
-            if use_tray:
-                log.warning("pystray/Pillow nie sú nainštalované – bežím bez ikony (pip install -r requirements.txt)")
-            listener.join()
+            return
+        if use_tray:
+            log.warning("pystray/Pillow nie sú nainštalované – bežím bez ikony (pip install -r requirements.txt)")
+        self.prepare()
+        self.banner()
+        listener = self.start_listener()
+        listener.join()
 
     # -- kalibrácia brány (len môj hlas z pracovnej vzdialenosti) ------------------------------------
     def calibrate(self, seconds: float = 5.0) -> dict | None:
@@ -677,7 +695,6 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     try:
-        app.prepare()
         app.run(use_tray=args.tray)
     except KeyboardInterrupt:
         print("\n👋 koniec")
