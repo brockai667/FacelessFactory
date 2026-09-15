@@ -69,7 +69,11 @@ class DiktatApp:
 
     def on_hotkey(self) -> None:
         """Volané z vlákna klávesnice – nič v ňom nerob, len odovzdaj ďalej (inak sa kláves zdrží)."""
-        threading.Thread(target=self.toggle, daemon=True).start()
+        threading.Thread(target=self._hotkey_worker, daemon=True).start()
+
+    def _hotkey_worker(self) -> None:
+        print(f"⌨  skratka ({dt.datetime.now():%H:%M:%S})", flush=True)
+        self.toggle()
 
     def start_recording(self) -> None:
         if self.busy.locked():
@@ -221,6 +225,23 @@ class DiktatApp:
             listener.join()
 
 
+def disable_console_quick_edit() -> None:
+    """Windows konzola: kliknutie do okna zapne „QuickEdit“ (označovanie textu) a ZASTAVÍ výpis programu,
+    kým sa označenie nezruší – daemon potom vyzerá zaseknutý. Vypneme to pre toto okno."""
+    if sys.platform != "win32":
+        return
+    try:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.GetStdHandle(-10)                  # STD_INPUT_HANDLE
+        mode = ctypes.c_uint()
+        if kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+            new_mode = (mode.value | 0x0080) & ~0x0040        # ENABLE_EXTENDED_FLAGS, ~ENABLE_QUICK_EDIT_MODE
+            kernel32.SetConsoleMode(handle, new_mode)
+    except Exception:  # noqa: BLE001
+        pass
+
+
 def keys_probe() -> int:
     """Diagnostika: vypíše VK kód (+ extended príznak) každého stlačeného klávesu. Esc ukončí."""
     from pynput import keyboard
@@ -247,16 +268,19 @@ def keys_probe() -> int:
         def on_press(key):
             if key == keyboard.Key.esc:
                 return False
-        with keyboard.Listener(on_press=on_press, win32_event_filter=flt) as listener:
-            listener.join()
+        listener = keyboard.Listener(on_press=on_press, win32_event_filter=flt)
     else:
         def on_press(key):
             if key == keyboard.Key.esc:
                 return False
             vk = getattr(key, "vk", None) or getattr(getattr(key, "value", None), "vk", None)
             print(f"{key!r} vk={vk}", flush=True)
-        with keyboard.Listener(on_press=on_press) as listener:
+        listener = keyboard.Listener(on_press=on_press)
+    try:
+        with listener:
             listener.join()
+    except KeyboardInterrupt:
+        pass
     return 0
 
 
@@ -281,6 +305,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     _setup_logging(args.verbose)
+    disable_console_quick_edit()
     cfg = cfgmod.load_config(args.config)
     log.info("config: %s", cfg.get("_path") or "(len defaulty)")
 

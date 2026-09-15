@@ -152,6 +152,9 @@ prepne sa na CPU/int8 a pokračuje (v konzole uvidíš varovanie). Ak GPU nechce
   v textovom poli. Ak cieľová aplikácia beží „ako správca“, Windows simulované klávesy z bežného programu
   zahodí – spusti aj diktat ako správca (PowerShell → Spustiť ako správca). Niektoré terminály vkladajú
   cez `ctrl+shift+v` alebo `shift+insert` (viď `output.paste_shortcut`).
+- **Daemon „zamrzol“, po stlačení skratky nič** – ak si klikol do okna konzoly, Windows zaplo režim označovania
+  textu (v titulku okna je „Select“) a výpis stojí; stlač Esc alebo Enter v tom okne. diktat tento režim pri
+  štarte vypína, ale iné terminály (ConEmu, staré cmd) ho môžu mať vlastný.
 - **Skratka nereaguje** – iná aplikácia ju má obsadenú alebo klávesnica nemá numpad; zmeň `hotkey` (napr. `<f9>`).
   Ak beží Claude Code s `/voice`, vypni ho (`/voice off`), nech si nekonkurujú.
 - **Zlá kvalita prepisu** – hovor bližšie k mikrofónu, skús `stt.model: "large-v3"`, doplň
