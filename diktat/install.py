@@ -181,13 +181,13 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
     startup_dir = startup_dir or startup_folder()
     tag = "[dry-run] " if dry_run else ""
     if follow is None:
-        import json as _json
-        cfg_path = app_path.parent / "config.json"
-        src = cfg_path if cfg_path.is_file() else app_path.parent / "config.example.json"
         try:
-            follow = _json.loads(src.read_text(encoding="utf-8")).get("follow", {}).get("processes") or []
-        except Exception:  # noqa: BLE001
-            follow = []
+            sys.path.insert(0, str(app_path.parent))
+            from diktat_core import config as _cfgmod
+            follow = _cfgmod.load_config(app_path.parent / "config.json").get("follow", {}).get("processes") or []
+        except Exception as exc:  # noqa: BLE001
+            log(f"✖ config sa nepodarilo načítať ({exc}) – používam predvolený zoznam programov")
+            follow = ["claude.exe", "opera.exe", "chrome.exe"]
     local = app_path.parent / VBS_NAME
     watch_local = app_path.parent / WATCH_VBS_NAME
     if not dry_run:
