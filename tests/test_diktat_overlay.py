@@ -27,5 +27,14 @@ class OverlayTests(unittest.TestCase):
         self.assertFalse(ov.enabled)
 
 
+class LevelBarTests(unittest.TestCase):
+    def test_bar_scales_and_marks_gate(self):
+        self.assertEqual(overlay.level_bar(0.0, 0.0), "▯" * 10)
+        self.assertEqual(overlay.level_bar(0.12, 0.0), "▮" * 10)
+        self.assertTrue(overlay.level_bar(0.06, 0.02).endswith(" ✓"))
+        self.assertTrue(overlay.level_bar(0.01, 0.02).endswith(" ·"))
+        self.assertEqual(overlay.level_bar(0.5, 0.0), "▮" * 10)   # nad rozsahom sa oreže
+
+
 if __name__ == "__main__":
     unittest.main()

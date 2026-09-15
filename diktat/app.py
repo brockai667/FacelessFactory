@@ -89,6 +89,7 @@ class DiktatApp:
             self.overlay.show(f"❌ mikrofón: {exc}", "error", timeout=8)
         self._worker = threading.Thread(target=self._stt_worker, daemon=True, name="stt-worker")
         self._worker.start()
+        self.overlay.level_fn = lambda: (self.recorder.last_level, self.recorder.gate_rms)
         self.overlay.show(f"✅ diktat pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
 
     # -- ovládanie ----------------------------------------------------------------------------------
@@ -330,7 +331,8 @@ class DiktatApp:
             self.tray = traymod.Tray(on_quit=self.shutdown, log_path=log_path,
                                      notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)),
                                      on_update=self.update_and_restart if sys.platform == "win32" else None,
-                                     on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start())
+                                     on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start(),
+                                     on_gate=self.adjust_gate, gate_text=self.gate_text)
             self.tray.run()          # blokuje v hlavnom vlákne až po „Ukončiť“
         else:
             if use_tray:
@@ -381,9 +383,11 @@ class DiktatApp:
                        + (f", uložené do {path.name}" if path else ""))
             print("📐 kalibrácia: " + summary, flush=True)
             if not res["ok"]:
-                msg = "⚠ rozdiel reč/ruch je malý – brána bude nespoľahlivá. Priblíž sa k mikrofónu alebo stíš pozadie a skús znova."
-                print(msg, flush=True)
-                self.overlay.show(msg, "error", timeout=8)
+                msg = (f"Uložené (brána {res['gate']:.4f}). Tvoja reč {res['speech']:.4f} a pozadie {res['noise']:.4f} "
+                       f"boli blízko seba – vyskúšaj v praxi; ak brána odrezáva aj teba alebo púšťa okolie, "
+                       f"dolaď ju v menu ikony → Brána.")
+                print("📐 " + msg, flush=True)
+                self.overlay.show("📐 " + msg, "stt", timeout=10)
                 self.tray.notify(msg)
             else:
                 self.overlay.show("✅ kalibrácia hotová – " + summary, "ok", timeout=6)
@@ -392,6 +396,34 @@ class DiktatApp:
         finally:
             self.tray.set_state("idle")
             self.busy.release()
+
+    def gate_text(self) -> str:
+        g = self.recorder.gate_rms if self.recorder else 0
+        return f"brána: {g:.4f}" if g else "brána: vypnutá"
+
+    def adjust_gate(self, action: str) -> None:
+        """Doladenie brány z menu: stricter (+25 %), looser (−20 %), off."""
+        if self.recorder is None:
+            return
+        cur = self.recorder.gate_rms or 0.0
+        if action == "off":
+            new = 0.0
+        elif action == "stricter":
+            new = round((cur or 0.01) * 1.25, 5)
+        elif action == "looser":
+            new = round(cur * 0.8, 5) if cur else 0.0
+        else:
+            return
+        self.recorder.gate_rms = new
+        self.cfg["audio"]["gate_rms"] = new
+        try:
+            cfgmod.save_value(self.cfg, "audio.gate_rms", new)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("brána: uloženie zlyhalo: %s", exc)
+        msg = f"Brána: {new:.4f}" if new else "Brána vypnutá – prepisuje sa všetko"
+        print("📐 " + msg, flush=True)
+        self.overlay.show("📐 " + msg, "info", timeout=3)
+        self.tray.notify(msg)
 
     def update_and_restart(self) -> None:
         """Spustí update_diktat.bat (git pull + pip + nový štart cez diktat_tray.vbs) a tento proces ukončí."""

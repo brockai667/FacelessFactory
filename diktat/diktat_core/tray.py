@@ -37,10 +37,13 @@ def _image(color):
 
 class Tray:
     def __init__(self, on_quit: Callable[[], None], log_path: str | None = None, notify_enabled: bool = True,
-                 on_update: Callable[[], None] | None = None, on_calibrate: Callable[[], None] | None = None):
+                 on_update: Callable[[], None] | None = None, on_calibrate: Callable[[], None] | None = None,
+                 on_gate: Callable[[str], None] | None = None, gate_text: Callable[[], str] | None = None):
         self.on_quit = on_quit
         self.on_update = on_update
         self.on_calibrate = on_calibrate
+        self.on_gate = on_gate
+        self.gate_text = gate_text
         self.log_path = log_path
         self.notify_enabled = notify_enabled
         self.state = "idle"
@@ -73,9 +76,20 @@ class Tray:
             if self.on_calibrate:
                 self.on_calibrate()
 
+        def gate_item(label, action):
+            return pystray.MenuItem(label, lambda icon, item: self.on_gate(action), enabled=bool(self.on_gate))
+
+        gate_menu = pystray.Menu(
+            pystray.MenuItem(lambda item: (self.gate_text() if self.gate_text else "brána"), None, enabled=False),
+            gate_item("Prísnejšia (+25 %) – menej okolia", "stricter"),
+            gate_item("Miernejšia (−20 %) – ak odrezáva aj mňa", "looser"),
+            gate_item("Vypnúť bránu", "off"),
+        )
+
         menu = pystray.Menu(
             pystray.MenuItem(lambda item: TITLES.get(self.state, "diktat"), None, enabled=False),
             pystray.MenuItem("Kalibrovať mikrofón (len môj hlas)", calibrate_, enabled=bool(self.on_calibrate)),
+            pystray.MenuItem("Brána (len môj hlas)", gate_menu),
             pystray.MenuItem("Otvoriť log", open_log, enabled=bool(self.log_path)),
             pystray.MenuItem("Aktualizovať a reštartovať", update_, enabled=bool(self.on_update)),
             pystray.MenuItem("Ukončiť diktat", quit_),

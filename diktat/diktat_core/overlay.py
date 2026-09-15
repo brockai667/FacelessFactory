@@ -26,6 +26,7 @@ class Overlay:
         self._thread = None
         self._rec_started: float | None = None
         self._ready = threading.Event()
+        self.level_fn = None            # callable → (level, gate) pre ukazovateľ hlasitosti počas nahrávania
 
     # -- verejné API (volateľné z hociktorého vlákna) -------------------------------------------------
     def start(self) -> None:
@@ -115,7 +116,14 @@ class Overlay:
                     pass
                 if state["visible"] and state["kind"] == "rec" and self._rec_started is not None:
                     secs = int(time.monotonic() - self._rec_started)
-                    label.configure(text=f"{state['base_text']}  {secs // 60}:{secs % 60:02d}")
+                    meter = ""
+                    if self.level_fn is not None:
+                        try:
+                            level, gate = self.level_fn()
+                            meter = "  " + level_bar(level, gate)
+                        except Exception:  # noqa: BLE001
+                            meter = ""
+                    label.configure(text=f"{state['base_text']}  {secs // 60}:{secs % 60:02d}{meter}")
                     place()
                 root.after(150, poll)
 
@@ -126,6 +134,15 @@ class Overlay:
             log.warning("overlay skončil: %s", exc)
             self.enabled = False
             self._ready.set()
+
+
+def level_bar(level: float, gate: float = 0.0, width: int = 10, full: float = 0.12) -> str:
+    """Textový ukazovateľ hlasitosti. S bránou: ✓ = nad prahom (ide do prepisu), · = pod prahom (vymaže sa)."""
+    n = min(width, int(round((level / full) * width))) if full > 0 else 0
+    bar = "▮" * n + "▯" * (width - n)
+    if gate > 0:
+        return f"{bar} {'✓' if level >= gate else '·'}"
+    return bar
 
 
 def _no_activate(root) -> None:

@@ -135,8 +135,11 @@ dosť hlasné – ty z pracovnej vzdialenosti. Prah nehádaj, odmeraj ho:
 - 2/2: 5 s **mlč** – nech medzitým hovoria ostatní alebo hrá hudba tak, ako to býva
 
 Výsledok (reč vs. ruch, navrhnutý prah) sa uloží do `config.json` ako `audio.gate_rms` a platí hneď.
-Ak je pomer reč/ruch pod 2×, dostaneš varovanie – vtedy pomôže priblížiť mikrofón alebo stíšiť pozadie,
-brána nevie oddeliť rovnako hlasné zdroje. Vypnutie: `audio.gate_rms: 0`.
+Ak boli reč a pozadie blízko seba, kalibrácia to povie, ale hodnotu uloží – vyskúšaj v praxi a dolaď z menu
+ikony → **Brána**: prísnejšia (+25 %), miernejšia (−20 %), vypnúť. Počas nahrávania prúžok ukazuje hlasitosť
+(`▮▮▮▯▯ ✓` = nad bránou, ide do prepisu; `·` = pod bránou, vymaže sa). Ak mikrofón vo Windows má zapnuté
+automatické zosilnenie (AGC), vzdialené zvuky zosilňuje a brána stráca účinnosť – vypína sa vo vlastnostiach
+mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné zdroje brána oddeliť nevie.
 
 ## Konfigurácia (`config.json`)
 

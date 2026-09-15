@@ -106,6 +106,7 @@ class Recorder:
         self._pending = None            # (block, level) – čaká na rozhodnutie brány
         self._last_loud_at = 0.0
         self.levels_probe: list[float] | None = None   # kalibrácia: zbieraj surové úrovne
+        self.last_level = 0.0                          # posledná nameraná úroveň (ukazovateľ v prúžku)
         self.silence_auto_stop = float(silence_auto_stop_seconds or 0)
         self.max_seconds = float(max_seconds or 0)
         self.on_auto_stop = on_auto_stop
@@ -129,6 +130,7 @@ class Recorder:
             return
         block = indata[:, 0].copy()
         level = rms(block)
+        self.last_level = level
         now = time.monotonic()
         if self.levels_probe is not None:
             self.levels_probe.append(level)
