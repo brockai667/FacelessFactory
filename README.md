@@ -12,3 +12,8 @@ it's on the back burner.
 cp config.example.json config.json   # fill your own keys
 python generate_batch.py
 ```
+
+## diktat – hlasové diktovanie do Claude Code (slovenčina)
+Samostatný interný nástroj v `diktat/`: globálna skratka → Whisper (sk) → vyčistenie (pravidlá + Claude)
+→ vloženie do aktívneho okna, plus globálne pravidlá/skill/hook pre všetky Claude Code sessions.
+Podrobnosti a inštalácia: [diktat/README.md](diktat/README.md).
