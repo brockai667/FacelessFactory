@@ -221,6 +221,45 @@ class DiktatApp:
             listener.join()
 
 
+def keys_probe() -> int:
+    """Diagnostika: vypíše VK kód (+ extended príznak) každého stlačeného klávesu. Esc ukončí."""
+    from pynput import keyboard
+    print("Stláčaj klávesy (napr. numpad ,/Del). Vypíšem, čo Windows posiela. Esc = koniec.\n", flush=True)
+    target = hotkeymod.parse_hotkey(cfgmod.load_config().get("hotkey", "numpad_decimal"))
+
+    def describe(vk, extended, msg=None):
+        hit = ""
+        if target["kind"] == "vk":
+            m = hotkeymod.RawKeyMatcher(target["vks"], target["nonext_vks"], target["ext_vks"], suppress=False)
+            hit = "  ← TOTO je skratka diktat" if m.is_target(vk, extended) else ""
+        kind = {0x100: "down", 0x104: "sysdown", 0x101: "up", 0x105: "sysup"}.get(msg, "")
+        print(f"vk={vk} (0x{vk:02X}) extended={extended} {kind}{hit}", flush=True)
+
+    if sys.platform == "win32":
+        def flt(msg, data):
+            vk = int(data.vkCode)
+            if msg in (0x100, 0x104):
+                describe(vk, bool(int(data.flags) & 1), msg)
+            if vk == 0x1B:
+                return False
+            return True
+
+        def on_press(key):
+            if key == keyboard.Key.esc:
+                return False
+        with keyboard.Listener(on_press=on_press, win32_event_filter=flt) as listener:
+            listener.join()
+    else:
+        def on_press(key):
+            if key == keyboard.Key.esc:
+                return False
+            vk = getattr(key, "vk", None) or getattr(getattr(key, "value", None), "vk", None)
+            print(f"{key!r} vk={vk}", flush=True)
+        with keyboard.Listener(on_press=on_press) as listener:
+            listener.join()
+    return 0
+
+
 def _setup_logging(verbose: bool) -> None:
     logging.basicConfig(
         level=logging.DEBUG if verbose else logging.INFO,
@@ -237,6 +276,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--text", help="len vyčisti zadaný text (test čistenia bez mikrofónu)")
     ap.add_argument("--no-paste", action="store_true", help="nevkladaj do okna, len vypíš")
     ap.add_argument("--list-devices", action="store_true", help="vypíš audio zariadenia")
+    ap.add_argument("--keys", action="store_true", help="diagnostika: vypíš kódy stlačených klávesov (Esc = koniec)")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
 
@@ -248,6 +288,8 @@ def main(argv: list[str] | None = None) -> int:
         from diktat_core import audio
         print(audio.list_devices())
         return 0
+    if args.keys:
+        return keys_probe()
 
     app = DiktatApp(cfg, no_paste=args.no_paste or bool(args.text) or bool(args.file))
 
