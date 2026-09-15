@@ -71,6 +71,8 @@ class DiktatApp:
             on_auto_stop=self._auto_stop,
             gate_rms=a.get("gate_rms", 0),
             gate_hangover_seconds=a.get("gate_hangover_seconds", 0.4),
+            gate_envelope_halflife=a.get("gate_envelope_halflife", 0.5),
+            gate_sustain_seconds=a.get("gate_sustain_seconds", 1.0),
         )
         self.stt = stt.make_backend(self.cfg)
         loader = getattr(self.stt, "load", None)
@@ -444,26 +446,22 @@ class DiktatApp:
             speech = measure("🎙 1/2 HOVOR normálne z miesta, kde pracuješ")
             noise = measure("🤫 2/2 TICHO – nech hovoria ostatní / hrá hudba, ty mlč")
             res = audio.suggest_gate(speech, noise)
-            self.recorder.gate_rms = res["gate"] if res["gate"] > 0 else old_gate
-            if res["gate"] > 0:
-                path = cfgmod.save_value(self.cfg, "audio.gate_rms", res["gate"])
-                self.cfg["audio"]["gate_rms"] = res["gate"]
-            else:
-                path = None
+            self.recorder.gate_rms = res["gate"]
+            path = cfgmod.save_value(self.cfg, "audio.gate_rms", res["gate"])
+            self.cfg["audio"]["gate_rms"] = res["gate"]
             ratio = f"{res['ratio']:.1f}×" if res["ratio"] != float("inf") else "∞"
-            summary = (f"reč {res['speech']:.4f}, ruch {res['noise']:.4f} (pomer {ratio}) → brána {res['gate']:.4f}"
-                       + (f", uložené do {path.name}" if path else ""))
-            print("📐 kalibrácia: " + summary, flush=True)
+            summary = f"reč {res['speech']:.4f}, pozadie {res['noise']:.4f} (pomer {ratio})"
+            print("📐 kalibrácia: " + summary + f" → brána {res['gate']:.4f}, uložené do {path.name}", flush=True)
             if not res["ok"]:
-                msg = (f"Uložené (brána {res['gate']:.4f}). Tvoja reč {res['speech']:.4f} a pozadie {res['noise']:.4f} "
-                       f"boli blízko seba – vyskúšaj v praxi; ak brána odrezáva aj teba alebo púšťa okolie, "
-                       f"dolaď ju v menu ikony → Brána.")
+                msg = (f"{summary}: pozadie je skoro také hlasné ako ty, brána by sekala tvoje slová – nechávam ju "
+                       f"VYPNUTÚ. Ak ju chceš skúsiť aj tak, menu ikony → Brána → Prísnejšia.")
                 print("📐 " + msg, flush=True)
                 self.overlay.show("📐 " + msg, "stt", timeout=10)
                 self.tray.notify(msg)
             else:
-                self.overlay.show("✅ kalibrácia hotová – " + summary, "ok", timeout=6)
-                self.tray.notify("Kalibrácia hotová: " + summary)
+                msg = f"✅ kalibrácia hotová – {summary} → brána {res['gate']:.4f}"
+                self.overlay.show(msg, "ok", timeout=6)
+                self.tray.notify(msg)
             return res
         finally:
             self.tray.set_state("idle")
@@ -481,7 +479,7 @@ class DiktatApp:
         if action == "off":
             new = 0.0
         elif action == "stricter":
-            new = round((cur or 0.01) * 1.25, 5)
+            new = round(cur * 1.25, 5) if cur else 0.008
         elif action == "looser":
             new = round(cur * 0.8, 5) if cur else 0.0
         else:

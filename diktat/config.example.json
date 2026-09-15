@@ -13,8 +13,8 @@
     "chunk_seconds": 15,
     "chunk_max_seconds": 30,
     "chunk_silence_rms": 0.008,
-    "min_avg_logprob": -1.0,
-    "max_no_speech_prob": 0.7,
+    "min_avg_logprob": -1.5,
+    "max_no_speech_prob": 0.85,
     "openai_model": "whisper-1",
     "openai_api_key_env": "OPENAI_API_KEY"
   },
@@ -25,7 +25,9 @@
     "max_seconds": 900,
     "beep": true,
     "gate_rms": 0,
-    "gate_hangover_seconds": 0.4
+    "gate_hangover_seconds": 0.4,
+    "gate_envelope_halflife": 0.5,
+    "gate_sustain_seconds": 1.0
   },
   "cleanup": {
     "mode": "light",

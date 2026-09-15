@@ -23,8 +23,8 @@ DEFAULTS: dict = {
         "chunk_seconds": 15,           # priebežný prepis: rež audio v pauzách po ~15 s (0 = až po stope)
         "chunk_max_seconds": 30,       # ak pauza nepríde, odrež natvrdo po 30 s
         "chunk_silence_rms": 0.008,    # čo je „ticho“ pri hľadaní pauzy
-        "min_avg_logprob": -1.0,       # úseky, kde si Whisper nie je istý (útržky, nezmysly), sa zahodia
-        "max_no_speech_prob": 0.7,     # úseky, kde Whisper tipuje „nebola reč“, sa zahodia
+        "min_avg_logprob": -1.5,       # úseky, kde si Whisper vôbec nie je istý (útržky, nezmysly), sa zahodia
+        "max_no_speech_prob": 0.85,    # úseky, kde Whisper tipuje „nebola reč“, sa zahodia
         "openai_model": "whisper-1",
         "openai_api_key_env": "OPENAI_API_KEY",
     },
@@ -36,6 +36,8 @@ DEFAULTS: dict = {
         "beep": True,
         "gate_rms": 0,                    # hlasitostná brána: tichšie bloky (vzdialené hlasy, hudba) sa vymažú; 0 = vypnuté
         "gate_hangover_seconds": 0.4,     # dozvuk po hlasnom bloku, aby sa neodrezali konce slov
+        "gate_envelope_halflife": 0.5,    # obálka hlasitosti (polčas) – drží bránu otvorenú cez tiché slabiky
+        "gate_sustain_seconds": 1.0,      # ako dlho po hlasnej časti obálka ešte môže držať bránu otvorenú
     },
     "cleanup": {
         "mode": "light",                  # light (default, zadarmo) | rules | llm | none

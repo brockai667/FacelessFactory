@@ -57,6 +57,19 @@ class GateKeep3Tests(unittest.TestCase):
     def test_gate_off(self):
         self.assertEqual(audio.gate_keep3(0, 0, 0, 0.0, 99, 0.4), (True, False))
 
+    def test_soft_syllable_inside_word_kept_by_envelope(self):
+        # tichý blok (0.008 < prah) krátko po burste, obálka ešte 0.03 → ponechať
+        keep, burst = audio.gate_keep3(0.008, 0.008, 0.008, self.G, since_burst=6, hangover=4, env0=0.03, sustain=10)
+        self.assertTrue(keep)
+        self.assertFalse(burst)
+        # to isté, ale burst je dávno preč → obálka už nesmie držať
+        keep, _ = audio.gate_keep3(0.008, 0.008, 0.008, self.G, since_burst=20, hangover=4, env0=0.03, sustain=10)
+        self.assertFalse(keep)
+
+    def test_isolated_peak_not_rescued_by_its_own_envelope(self):
+        keep, _ = audio.gate_keep3(0.08, 0.001, 0.001, self.G, since_burst=99, hangover=4, env0=0.08, sustain=10)
+        self.assertFalse(keep)
+
 
 class SegmentFilterTests(unittest.TestCase):
     def test_segment_ok(self):
@@ -85,10 +98,11 @@ class SuggestGateTests(unittest.TestCase):
         self.assertAlmostEqual(res["speech"], 0.04)
         self.assertAlmostEqual(res["noise"], 0.004)
 
-    def test_noisy_environment_flagged(self):
+    def test_noisy_environment_keeps_gate_off(self):
         res = audio.suggest_gate([0.02] * 20, [0.015] * 20)
         self.assertFalse(res["ok"])
-        self.assertGreater(res["gate"], 0)
+        self.assertEqual(res["gate"], 0.0)
+        self.assertGreater(res["suggested"], 0)
 
     def test_no_speech(self):
         res = audio.suggest_gate([], [0.01] * 5)
