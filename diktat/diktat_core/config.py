@@ -20,6 +20,9 @@ DEFAULTS: dict = {
         "beam_size": 5,
         "vad_filter": True,
         "initial_prompt": "",
+        "chunk_seconds": 15,           # priebežný prepis: rež audio v pauzách po ~15 s (0 = až po stope)
+        "chunk_max_seconds": 30,       # ak pauza nepríde, odrež natvrdo po 30 s
+        "chunk_silence_rms": 0.008,    # čo je „ticho“ pri hľadaní pauzy
         "openai_model": "whisper-1",
         "openai_api_key_env": "OPENAI_API_KEY",
     },
@@ -49,6 +52,9 @@ DEFAULTS: dict = {
     },
     "hook": {
         "llm": False,
+    },
+    "tray": {
+        "notify": True,               # bublinové oznámenie po vložení textu (režim --tray)
     },
     "log_dir": "logs",
 }

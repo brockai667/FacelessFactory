@@ -14,6 +14,8 @@ Použitie:
   python install.py --dry-run      # len ukáž, čo by sa zmenilo
   python install.py --uninstall    # odstráň všetko, čo inštalátor pridal
   python install.py --claude-dir C:/iná/cesta/.claude
+  python install.py --autostart    # Windows: spúšťaj diktat skryto (ikona v lište) po prihlásení
+  python install.py --no-autostart # zruš autoštart
 """
 from __future__ import annotations
 
@@ -28,6 +30,61 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BEGIN, END = "<!-- diktat:begin -->", "<!-- diktat:end -->"
 HOOK_FILE = "diktat_hook.py"
+
+
+VBS_NAME = "diktat_tray.vbs"
+
+
+def startup_folder() -> Path:
+    """Windows priečinok „Po spustení“ aktuálneho používateľa."""
+    appdata = os.environ.get("APPDATA") or str(Path.home() / "AppData" / "Roaming")
+    return Path(appdata) / "Microsoft" / "Windows" / "Start Menu" / "Programs" / "Startup"
+
+
+def pythonw_for(python_exe: str) -> str:
+    p = Path(python_exe)
+    if p.name.lower() == "python.exe":
+        cand = p.with_name("pythonw.exe")
+        if cand.is_file():
+            return str(cand)
+    return str(p)
+
+
+def vbs_launcher(python_exe: str, app_path: Path) -> str:
+    """VBScript, ktorý spustí daemon bez konzolového okna (0 = skryté)."""
+    py = pythonw_for(python_exe)
+    return (
+        'Set sh = CreateObject("WScript.Shell")\r\n'
+        f'sh.CurrentDirectory = "{app_path.parent}"\r\n'
+        f'sh.Run """{py}"" ""{app_path}"" --tray", 0, False\r\n'
+    )
+
+
+def install_autostart(python_exe: str, app_path: Path, startup_dir: Path | None = None,
+                      dry_run: bool = False, log=print) -> Path:
+    """Zapíše spúšťač do priečinka diktat (na ručné spustenie dvojklikom) aj do Startup priečinka."""
+    startup_dir = startup_dir or startup_folder()
+    content = vbs_launcher(python_exe, app_path)
+    local = app_path.parent / VBS_NAME
+    target = startup_dir / VBS_NAME
+    tag = "[dry-run] " if dry_run else ""
+    if not dry_run:
+        local.write_text(content, encoding="utf-8")
+        startup_dir.mkdir(parents=True, exist_ok=True)
+        target.write_text(content, encoding="utf-8")
+    log(f"{tag}✔ {local}: spúšťač (dvojklik = spusti diktat skryto hneď teraz)")
+    log(f"{tag}✔ {target}: autoštart po prihlásení do Windows")
+    return target
+
+
+def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: bool = False, log=print) -> None:
+    startup_dir = startup_dir or startup_folder()
+    tag = "[dry-run] " if dry_run else ""
+    for path in (startup_dir / VBS_NAME, app_path.parent / VBS_NAME):
+        if path.is_file():
+            if not dry_run:
+                path.unlink()
+            log(f"{tag}✔ {path}: odstránené")
 
 
 def default_claude_dir() -> Path:
@@ -201,9 +258,22 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-hook", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--uninstall", action="store_true")
+    ap.add_argument("--autostart", action="store_true", help="Windows: skrytý beh s ikonou po prihlásení")
+    ap.add_argument("--no-autostart", action="store_true", help="zruš autoštart")
     args = ap.parse_args(argv)
+    app_path = HERE / "app.py"
+    if args.autostart:
+        if sys.platform != "win32":
+            print("--autostart je zatiaľ len pre Windows (Startup priečinok).")
+            return 1
+        install_autostart(args.python, app_path, dry_run=args.dry_run)
+        return 0
+    if args.no_autostart:
+        remove_autostart(app_path, dry_run=args.dry_run)
+        return 0
     if args.uninstall:
         uninstall(Path(args.claude_dir), dry_run=args.dry_run)
+        remove_autostart(app_path, dry_run=args.dry_run)
     else:
         install(Path(args.claude_dir), with_hook=not args.no_hook, python_exe=args.python, dry_run=args.dry_run)
     return 0

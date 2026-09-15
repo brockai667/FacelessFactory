@@ -52,7 +52,7 @@ def prepare_cuda_dll_dirs() -> list[str]:
 
 
 class Backend(Protocol):
-    def transcribe(self, audio, language: str) -> str: ...
+    def transcribe(self, audio, language: str, context: str | None = None) -> str: ...
 
 
 def _auto_device_and_compute(device: str, compute_type: str) -> tuple[str, str]:
@@ -104,28 +104,31 @@ class FasterWhisperBackend:
                 raise
         log.info("model pripravený (%s/%s)", self.device, self.compute_type)
 
-    def _run(self, audio, language: str) -> tuple[list[str], object]:
+    def _run(self, audio, language: str, context: str | None = None) -> tuple[list[str], object]:
+        prompt = self.initial_prompt or ""
+        if context:
+            prompt = (prompt + " " + context).strip()[-600:]   # koniec predchádzajúceho kúsku = nadväznosť
         segments, info = self._model.transcribe(
             audio,
             language=language or None,
             beam_size=self.beam_size,
             vad_filter=self.vad_filter,
-            initial_prompt=self.initial_prompt,
+            initial_prompt=prompt or None,
             condition_on_previous_text=False,
         )
         # generátor je lenivý – chyby CUDA vyskočia až tu
         parts = [seg.text.strip() for seg in segments if seg.text and seg.text.strip()]
         return parts, info
 
-    def transcribe(self, audio, language: str = "sk") -> str:
+    def transcribe(self, audio, language: str = "sk", context: str | None = None) -> str:
         self.load()
         try:
-            parts, info = self._run(audio, language)
+            parts, info = self._run(audio, language, context)
         except RuntimeError as exc:
             if self.device == "cuda" and _looks_like_missing_cuda(exc):
                 self._fallback_to_cpu(exc)
                 self.load()
-                parts, info = self._run(audio, language)
+                parts, info = self._run(audio, language, context)
             else:
                 raise
         text = " ".join(parts).strip()
@@ -158,7 +161,7 @@ class OpenAIWhisperBackend:
             wf.writeframes(pcm)
         return buf.getvalue()
 
-    def transcribe(self, audio, language: str = "sk") -> str:
+    def transcribe(self, audio, language: str = "sk", context: str | None = None) -> str:
         import requests
         if isinstance(audio, (str, os.PathLike)):
             with open(audio, "rb") as fh:

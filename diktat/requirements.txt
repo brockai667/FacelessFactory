@@ -6,3 +6,6 @@ pynput>=1.8
 pyperclip>=1.9
 # Čistenie diktátu cez Claude (voliteľné – bez kľúča sa použijú len pravidlá)
 anthropic>=1.0
+# Ikona v lište + oznámenia (režim --tray / autoštart)
+pystray>=0.19
+Pillow>=10

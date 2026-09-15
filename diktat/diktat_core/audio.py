@@ -1,4 +1,8 @@
-"""Nahrávanie z mikrofónu (sounddevice) do numpy poľa 16 kHz mono float32 – formát, ktorý Whisper očakáva."""
+"""Nahrávanie z mikrofónu (sounddevice) do numpy poľa 16 kHz mono float32 – formát, ktorý Whisper očakáva.
+
+Stream ostáva otvorený stále; nahrávanie je len príznak. Počas nahrávania sa dá priebežne odoberať
+audio po kúskoch rezaných v pauzách (take_chunk), aby sa prepis robil už počas rozprávania.
+"""
 from __future__ import annotations
 
 import logging
@@ -10,6 +14,7 @@ from typing import Callable
 log = logging.getLogger("diktat.audio")
 
 SILENCE_RMS = 0.008   # pod touto úrovňou považujeme blok za ticho
+BLOCK_SECONDS = 0.1   # veľkosť bloku z mikrofónu (1600 vzoriek pri 16 kHz)
 
 
 def rms(block) -> float:
@@ -20,11 +25,38 @@ def rms(block) -> float:
     return float(math.sqrt(float(np.mean(np.square(block, dtype="float64")))))
 
 
-class Recorder:
-    """Rekordér: start() → stop() vráti celé nahrané audio ako np.ndarray (float32, mono).
+def find_cut(rms_list: list[float], block_seconds: float, min_seconds: float, max_seconds: float,
+             silence_rms: float = SILENCE_RMS, min_silence_blocks: int = 3) -> int | None:
+    """Nájde index bloku, kde odrezať kúsok audia na prepis.
 
-    Stream z mikrofónu ostáva otvorený stále (open()), start/stop len prepínajú príznak – štart je
-    okamžitý, bez inicializácie zariadenia. Keď sa nenahráva, bloky sa zahadzujú.
+    Hľadá pauzu (≥ min_silence_blocks tichých blokov za sebou) po dosiahnutí min_seconds a vráti
+    index v strede pauzy. Ak pauza nie je a nazbieralo sa max_seconds, odreže natvrdo. Inak None.
+    """
+    n = len(rms_list)
+    if n * block_seconds < min_seconds:
+        return None
+    start = max(0, int(min_seconds / block_seconds) - min_silence_blocks)
+    run = 0
+    for i in range(start, n):
+        if rms_list[i] < silence_rms:
+            run += 1
+            if run >= min_silence_blocks:
+                end = i + 1
+                # predĺž na celú pauzu, nech rez padne do jej stredu
+                while end < n and rms_list[end] < silence_rms:
+                    end += 1
+                cut = (i + 1 - run + end) // 2
+                return max(cut, 1)
+        else:
+            run = 0
+    if n * block_seconds >= max_seconds:
+        return n
+    return None
+
+
+class Recorder:
+    """Rekordér: open() raz pri štarte, start()/stop() prepínajú nahrávanie, take_chunk() odoberá kúsky.
+
     Voliteľné automatické zastavenie po `silence_auto_stop_seconds` ticha (0 = vypnuté) –
     zavolá `on_auto_stop` z audio vlákna, volajúci má spracovanie presunúť do vlastného vlákna.
     """
@@ -36,7 +68,9 @@ class Recorder:
         self.silence_auto_stop = float(silence_auto_stop_seconds or 0)
         self.max_seconds = float(max_seconds or 0)
         self.on_auto_stop = on_auto_stop
-        self._chunks: list = []
+        self.blocksize = int(self.sample_rate * BLOCK_SECONDS)
+        self._blocks: list = []
+        self._rms: list[float] = []
         self._stream = None
         self._lock = threading.Lock()
         self._started_at = 0.0
@@ -44,6 +78,7 @@ class Recorder:
         self._heard_voice = False
         self._auto_fired = False
         self.recording = False
+        self.total_seconds = 0.0
 
     # -- callback z audio vlákna --------------------------------------------------------------
     def _callback(self, indata, frames, time_info, status):  # noqa: D401 – signatúra sounddevice
@@ -52,10 +87,12 @@ class Recorder:
         if not self.recording:
             return
         block = indata[:, 0].copy()
-        with self._lock:
-            self._chunks.append(block)
-        now = time.monotonic()
         level = rms(block)
+        with self._lock:
+            self._blocks.append(block)
+            self._rms.append(level)
+            self.total_seconds += len(block) / self.sample_rate
+        now = time.monotonic()
         if level > SILENCE_RMS:
             self._heard_voice = True
             self._last_voice_at = now
@@ -75,7 +112,7 @@ class Recorder:
         if self._stream is not None:
             return
         self._stream = sd.InputStream(
-            samplerate=self.sample_rate, channels=1, dtype="float32",
+            samplerate=self.sample_rate, channels=1, dtype="float32", blocksize=self.blocksize,
             device=self.device, callback=self._callback,
         )
         self._stream.start()
@@ -91,7 +128,8 @@ class Recorder:
 
     def start(self) -> None:
         with self._lock:
-            self._chunks = []
+            self._blocks, self._rms = [], []
+            self.total_seconds = 0.0
         self._started_at = time.monotonic()
         self._last_voice_at = self._started_at
         self._heard_voice = False
@@ -102,17 +140,33 @@ class Recorder:
         self.recording = True
         log.info("nahrávam…")
 
-    def stop(self):
-        """Ukončí nahrávanie (stream ostáva otvorený) a vráti audio (np.ndarray float32) alebo prázdne pole."""
+    def buffered_seconds(self) -> float:
+        with self._lock:
+            return len(self._blocks) * BLOCK_SECONDS
+
+    def _concat(self, blocks):
         import numpy as np
+        if not blocks:
+            return np.zeros(0, dtype="float32")
+        return np.concatenate(blocks).astype("float32")
+
+    def take_chunk(self, min_seconds: float, max_seconds: float, silence_rms: float = SILENCE_RMS):
+        """Ak sa nazbieralo dosť audia a našla sa pauza (alebo max), odoberie kúsok z bufra a vráti ho."""
+        with self._lock:
+            cut = find_cut(self._rms, BLOCK_SECONDS, min_seconds, max_seconds, silence_rms)
+            if cut is None:
+                return None
+            blocks, self._blocks = self._blocks[:cut], self._blocks[cut:]
+            self._rms = self._rms[cut:]
+        return self._concat(blocks)
+
+    def stop(self):
+        """Ukončí nahrávanie (stream ostáva otvorený) a vráti zvyšné audio v bufri."""
         self.recording = False
         with self._lock:
-            chunks = self._chunks
-            self._chunks = []
-        if not chunks:
-            return np.zeros(0, dtype="float32")
-        audio = np.concatenate(chunks).astype("float32")
-        log.info("nahrané %.1f s", len(audio) / self.sample_rate)
+            blocks, self._blocks, self._rms = self._blocks, [], []
+        audio = self._concat(blocks)
+        log.info("nahrané spolu %.1f s", self.total_seconds)
         return audio
 
     def seconds(self) -> float:
@@ -122,21 +176,6 @@ class Recorder:
 def list_devices() -> str:
     import sounddevice as sd
     return str(sd.query_devices())
-
-
-def warm_up(sample_rate: int = 16000, device=None) -> float:
-    """Inicializuje PortAudio a vstupné zariadenie (na Windows to prvýkrát trvá aj niekoľko sekúnd),
-    aby prvé stlačenie skratky začalo nahrávať okamžite. Vráti trvanie v sekundách."""
-    import sounddevice as sd
-    t0 = time.monotonic()
-    sd.query_devices()
-    stream = sd.InputStream(samplerate=int(sample_rate), channels=1, dtype="float32", device=device)
-    stream.start()
-    stream.stop()
-    stream.close()
-    took = time.monotonic() - t0
-    log.info("mikrofón pripravený (%.1f s)", took)
-    return took
 
 
 def _beep_sync(kind: str) -> None:

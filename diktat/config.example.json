@@ -10,6 +10,9 @@
     "beam_size": 5,
     "vad_filter": true,
     "initial_prompt": "Diktát pre Claude Code. Python, git, commit, pull request, branch, API, JSON, config, skript, repozitár, funkcia, test, refaktor, deploy.",
+    "chunk_seconds": 15,
+    "chunk_max_seconds": 30,
+    "chunk_silence_rms": 0.008,
     "openai_model": "whisper-1",
     "openai_api_key_env": "OPENAI_API_KEY"
   },
@@ -61,5 +64,8 @@
   "hook": {
     "llm": false
   },
-  "log_dir": "logs"
+  "log_dir": "logs",
+  "tray": {
+    "notify": true
+  }
 }

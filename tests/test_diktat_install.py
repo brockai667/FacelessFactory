@@ -116,3 +116,34 @@ class EndToEndTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AutostartTests(unittest.TestCase):
+    def test_install_and_remove_autostart_in_temp_dirs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            startup = Path(tmp) / "Startup"
+            app_dir = Path(tmp) / "diktat"
+            app_dir.mkdir()
+            app_path = app_dir / "app.py"
+            app_path.write_text("# app", encoding="utf-8")
+            logs = []
+            target = install.install_autostart("C:/py/python.exe", app_path, startup_dir=startup, log=logs.append)
+            self.assertTrue(target.is_file())
+            content = target.read_text(encoding="utf-8")
+            self.assertIn("--tray", content)
+            self.assertIn(str(app_path), content)
+            self.assertIn(", 0, False", content)          # skryté okno
+            self.assertTrue((app_dir / install.VBS_NAME).is_file())
+            install.remove_autostart(app_path, startup_dir=startup, log=logs.append)
+            self.assertFalse(target.exists())
+            self.assertFalse((app_dir / install.VBS_NAME).exists())
+
+    def test_pythonw_fallback_when_missing(self):
+        self.assertEqual(install.pythonw_for("/usr/bin/python3"), "/usr/bin/python3")
+        with tempfile.TemporaryDirectory() as tmp:
+            py = Path(tmp) / "python.exe"
+            py.write_text("", encoding="utf-8")
+            self.assertEqual(install.pythonw_for(str(py)), str(py))
+            pyw = Path(tmp) / "pythonw.exe"
+            pyw.write_text("", encoding="utf-8")
+            self.assertEqual(install.pythonw_for(str(py)), str(pyw))

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """diktat – hlasové diktovanie po slovensky do Claude Code (a hocijakého iného okna).
 
-Beh:  python app.py                 (daemon s globálnou klávesovou skratkou)
+Beh:  python app.py                 (daemon v konzole, globálna skratka)
+      python app.py --tray          (skrytý beh s ikonou v lište; na autoštart: install.py --autostart)
       python app.py --file x.wav    (prepíš + vyčisti audio súbor, vypíš)
       python app.py --text "..."    (len vyčisti text, vypíš)
       python app.py --list-devices  (zoznam mikrofónov)
+      python app.py --keys          (diagnostika: kódy stlačených klávesov)
 
-Tok: hotkey → nahrávanie → Whisper (sk) → vyčistenie (pravidlá + Claude) → vloženie do aktívneho okna.
+Tok: skratka → nahrávanie → priebežný prepis kúskov (Whisper sk) počas rozprávania → po stope
+dorobiť posledný kúsok → light vyčistenie → vloženie do aktívneho okna.
 """
 from __future__ import annotations
 
@@ -15,6 +18,7 @@ import datetime as dt
 import json
 import logging
 import os
+import queue
 import sys
 import threading
 import time
@@ -25,7 +29,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows: neškodné varovanie pri sťahovaní modelu
 
-from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject  # noqa: E402
+from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject, tray as traymod  # noqa: E402
 
 log = logging.getLogger("diktat")
 
@@ -34,10 +38,19 @@ class DiktatApp:
     def __init__(self, cfg: dict, no_paste: bool = False):
         self.cfg = cfg
         self.no_paste = no_paste
-        self.busy = threading.Lock()
+        self.busy = threading.Lock()          # záverečné spracovanie + vkladanie
         self.recorder = None
         self.stt = None
+        self.tray = traymod.NoTray()
         self.log_dir = (HERE / cfg.get("log_dir", "logs")) if cfg.get("log_dir") else None
+        # priebežný prepis
+        self._queue: queue.Queue = queue.Queue()
+        self._results: dict[int, str] = {}
+        self._seq = 0
+        self._worker = None
+        self._segmenter = None
+        self._t0 = 0.0
+        self._listener = None
 
     # -- inicializácia ---------------------------------------------------------------------------
     def prepare(self) -> None:
@@ -59,6 +72,8 @@ class DiktatApp:
             log.info("mikrofón pripravený")
         except Exception as exc:  # noqa: BLE001
             log.warning("mikrofón sa nepodarilo otvoriť vopred: %s (skús --list-devices a audio.device v configu)", exc)
+        self._worker = threading.Thread(target=self._stt_worker, daemon=True, name="stt-worker")
+        self._worker.start()
 
     # -- ovládanie ----------------------------------------------------------------------------------
     def toggle(self) -> None:
@@ -77,13 +92,20 @@ class DiktatApp:
 
     def start_recording(self) -> None:
         if self.busy.locked():
-            print("⏳ ešte spracúvam predchádzajúci diktát…", flush=True)
+            print("⏳ ešte vkladám predchádzajúci diktát…", flush=True)
             return
         from diktat_core import audio
-        print("🔴 NAHRÁVAM – hovor. (hotkey znova = stop)", flush=True)
+        print("🔴 NAHRÁVAM – hovor. (skratka znova = stop)", flush=True)
+        self.tray.set_state("rec")
         if self.cfg["audio"].get("beep"):
             audio.beep("start")
+        self._results = {}
+        self._seq = 0
+        self._t0 = time.monotonic()
         self.recorder.start()
+        if float(self.cfg["stt"].get("chunk_seconds") or 0) > 0:
+            self._segmenter = threading.Thread(target=self._segment_loop, daemon=True, name="segmenter")
+            self._segmenter.start()
 
     def _auto_stop(self) -> None:
         print("🤫 ticho / limit – zastavujem", flush=True)
@@ -93,28 +115,66 @@ class DiktatApp:
         if not self.recorder.recording:
             return
         from diktat_core import audio
-        wav = self.recorder.stop()
+        rest = self.recorder.stop()
         if self.cfg["audio"].get("beep"):
             audio.beep("stop")
-        threading.Thread(target=self._process, args=(wav,), daemon=True).start()
+        self.tray.set_state("stt")
+        if len(rest) >= self.recorder.sample_rate * 0.3:
+            self._enqueue(rest)
+        threading.Thread(target=self._finalize, daemon=True).start()
 
-    # -- spracovanie -------------------------------------------------------------------------------
-    def _process(self, wav) -> None:
-        with self.busy:
-            t0 = time.monotonic()
-            seconds = len(wav) / float(self.cfg["audio"].get("sample_rate", 16000))
-            if seconds < 0.5:
-                print("… príliš krátke, ignorujem", flush=True)
-                return
-            print(f"📝 prepisujem {seconds:.1f} s …", flush=True)
+    # -- priebežný prepis -------------------------------------------------------------------------------
+    def _segment_loop(self) -> None:
+        stt_cfg = self.cfg["stt"]
+        min_s = float(stt_cfg.get("chunk_seconds") or 15)
+        max_s = float(stt_cfg.get("chunk_max_seconds") or 30)
+        sil = float(stt_cfg.get("chunk_silence_rms") or 0.008)
+        while self.recorder.recording:
+            chunk = self.recorder.take_chunk(min_s, max_s, sil)
+            if chunk is not None and len(chunk):
+                self._enqueue(chunk)
+            time.sleep(0.25)
+
+    def _enqueue(self, audio) -> None:
+        self._seq += 1
+        self._queue.put((self._seq, audio))
+
+    def _stt_worker(self) -> None:
+        """Jedno vlákno prepisuje kúsky v poradí; beží po celý čas programu."""
+        prev_text = ""
+        while True:
+            seq, audio = self._queue.get()
             try:
-                raw = self.stt.transcribe(wav, language=self.cfg.get("language", "sk"))
+                if seq == 1:
+                    prev_text = ""
+                secs = len(audio) / float(self.cfg["audio"].get("sample_rate", 16000))
+                t = time.monotonic()
+                text = self.stt.transcribe(audio, language=self.cfg.get("language", "sk"),
+                                           context=prev_text[-300:] or None)
+                self._results[seq] = text
+                prev_text = (prev_text + " " + text).strip()
+                print(f"📝 časť {seq}: {secs:.0f} s audia → {time.monotonic() - t:.1f} s  „{text[:70]}{'…' if len(text) > 70 else ''}“",
+                      flush=True)
             except Exception as exc:  # noqa: BLE001
-                log.exception("prepis zlyhal")
-                print(f"❌ prepis zlyhal: {exc}", flush=True)
-                return
-            self._finish(raw, t0)
+                log.exception("prepis časti %d zlyhal", seq)
+                self._results[seq] = ""
+                print(f"❌ prepis časti {seq} zlyhal: {exc}", flush=True)
+            finally:
+                self._queue.task_done()
 
+    def _finalize(self) -> None:
+        with self.busy:
+            if self._seq == 0:
+                print("… príliš krátke, ignorujem", flush=True)
+                self.tray.set_state("idle")
+                return
+            print(f"⏳ dokončujem prepis ({self._seq} častí, {self.recorder.total_seconds:.0f} s audia)…", flush=True)
+            self._queue.join()
+            raw = " ".join(self._results.get(i, "") for i in range(1, self._seq + 1)).strip()
+            self._finish(raw, self._t0)
+            self.tray.set_state("idle")
+
+    # -- dokončenie -------------------------------------------------------------------------------------
     def process_text(self, raw: str) -> cleanup.CleanResult:
         return cleanup.clean(raw, self.cfg)
 
@@ -131,8 +191,8 @@ class DiktatApp:
             return
         marker = self.cfg["output"].get("marker") or ""
         final = f"{marker}{text}" if marker and not text.startswith(marker.strip()) else text
-        print(f"✅ ({result.method}, {time.monotonic() - t0:.1f} s){' → ODOSIELAM' if result.send else ''}:\n{final}\n",
-              flush=True)
+        print(f"✅ ({result.method}, {time.monotonic() - t0:.1f} s od štartu nahrávania)"
+              f"{' → ODOSIELAM' if result.send else ''}:\n{final}\n", flush=True)
         self._log(raw, result)
         if self.no_paste:
             return
@@ -140,9 +200,12 @@ class DiktatApp:
             inject.deliver(final, self.cfg["output"], send=result.send)
             if self.cfg["audio"].get("beep"):
                 audio.beep("done")
+            self.tray.notify(f"Vložené {len(final)} znakov" + (" + Enter" if result.send else ""))
         except Exception as exc:  # noqa: BLE001
             log.exception("vloženie zlyhalo")
             print(f"❌ vloženie zlyhalo: {exc}\nText je v schránke – vlož ho ručne (Ctrl+V).", flush=True)
+            self.tray.set_state("error")
+            self.tray.notify("Vloženie zlyhalo – text je v schránke, stlač Ctrl+V.")
 
     def _log(self, raw: str, result: cleanup.CleanResult) -> None:
         if not self.log_dir:
@@ -158,73 +221,98 @@ class DiktatApp:
         except Exception:  # noqa: BLE001
             log.debug("log sa nepodarilo zapísať", exc_info=True)
 
-    # -- hotkey slučka ---------------------------------------------------------------------------
-    def run(self) -> None:
-        from pynput import keyboard
-        hotkey = self.cfg.get("hotkey", "<ctrl>+<alt>+d")
+    # -- klávesnica ----------------------------------------------------------------------------------
+    def banner(self) -> None:
+        hotkey = self.cfg.get("hotkey", "numpad_decimal")
         mode = (self.cfg.get("mode") or "toggle").lower()
         clean_mode = self.cfg["cleanup"].get("mode")
         clean_desc = f"{clean_mode}/{self.cfg['cleanup'].get('model')}" if clean_mode in ("llm", "auto") else clean_mode
         stt_desc = f"{self.cfg['stt'].get('backend')}/{self.cfg['stt'].get('model')}"
         if getattr(self.stt, "device", None):
             stt_desc += f" ({self.stt.device}/{self.stt.compute_type})"
+        chunk = self.cfg["stt"].get("chunk_seconds") or 0
         print(f"🎤 diktat beží.  Skratka: {hotkey}  režim: {mode}  jazyk: {self.cfg.get('language')}"
-              f"  STT: {stt_desc}  čistenie: {clean_desc}", flush=True)
+              f"  STT: {stt_desc}  priebežný prepis: {'po ~' + str(chunk) + ' s' if chunk else 'vypnutý'}"
+              f"  čistenie: {clean_desc}", flush=True)
         print("   Klikni do okna Claude Code, stlač skratku, hovor, stlač znova. Ctrl+C ukončí.", flush=True)
         if sys.platform == "win32" and not inject.running_as_admin():
             print("   (Ak cieľové okno beží „ako správca“, Windows simulované Ctrl+V zahodí – spusti aj diktat ako správca.)",
                   flush=True)
         print(flush=True)
 
+    def start_listener(self):
+        """Spustí globálnu skratku na pozadí a vráti pynput Listener."""
+        from pynput import keyboard
+        hotkey = self.cfg.get("hotkey", "numpad_decimal")
+        mode = (self.cfg.get("mode") or "toggle").lower()
         parsed = hotkeymod.parse_hotkey(hotkey)
-        if parsed["kind"] == "vk":
-            self._run_raw_hotkey(keyboard, parsed, mode)
-            return
 
-        if mode == "hold":
+        if parsed["kind"] == "vk":
+            import platform
+
+            def on_press():
+                if mode == "hold":
+                    threading.Thread(target=self.start_recording, daemon=True).start()
+                else:
+                    self.on_hotkey()
+
+            def on_release():
+                if mode == "hold":
+                    threading.Thread(target=self.stop_and_process, daemon=True).start()
+
+            matcher = hotkeymod.RawKeyMatcher(parsed["vks"], parsed["nonext_vks"], parsed["ext_vks"],
+                                              on_press=on_press, on_release=on_release, suppress=True)
+            if platform.system() == "Windows":
+                listener = keyboard.Listener(win32_event_filter=matcher.filter)
+            else:
+                listener = keyboard.Listener(on_press=matcher.press, on_release=matcher.release)
+            matcher.listener = listener
+        elif mode == "hold":
             combo = keyboard.HotKey.parse(hotkey)
             hk = keyboard.HotKey(combo, lambda: threading.Thread(target=self.start_recording, daemon=True).start())
+            listener_ref = {}
 
             def on_press(key):
-                hk.press(listener.canonical(key))
+                hk.press(listener_ref["l"].canonical(key))
 
             def on_release(key):
-                hk.release(listener.canonical(key))
-                if self.recorder.recording and listener.canonical(key) in combo:
-                    self.stop_and_process()
+                hk.release(listener_ref["l"].canonical(key))
+                if self.recorder.recording and listener_ref["l"].canonical(key) in combo:
+                    threading.Thread(target=self.stop_and_process, daemon=True).start()
 
-            with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-                listener.join()
+            listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+            listener_ref["l"] = listener
         else:
-            with keyboard.GlobalHotKeys({hotkey: self.on_hotkey}) as listener:
-                listener.join()
+            listener = keyboard.GlobalHotKeys({hotkey: self.on_hotkey})
 
+        listener.start()
+        self._listener = listener
+        return listener
 
-    def _run_raw_hotkey(self, keyboard, parsed: dict, mode: str) -> None:
-        """Jeden kláves podľa VK kódu (napr. numpad ,/Del). Na Windows sa stlačenie pohltí."""
-        import platform
-
-        def on_press():
-            if mode == "hold":
-                threading.Thread(target=self.start_recording, daemon=True).start()
-            else:
-                self.on_hotkey()
-
-        def on_release():
-            if mode == "hold":
-                threading.Thread(target=self.stop_and_process, daemon=True).start()
-
-        matcher = hotkeymod.RawKeyMatcher(parsed["vks"], parsed["nonext_vks"], parsed["ext_vks"],
-                                          on_press=on_press, on_release=on_release, suppress=True)
-        if platform.system() == "Windows":
-            listener = keyboard.Listener(win32_event_filter=matcher.filter)
+    def run(self, use_tray: bool = False) -> None:
+        self.banner()
+        listener = self.start_listener()
+        if use_tray and traymod.available():
+            log_path = str(self.log_dir / "diktat.log") if self.log_dir else None
+            self.tray = traymod.Tray(on_quit=self.shutdown, log_path=log_path,
+                                     notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)))
+            self.tray.run()          # blokuje v hlavnom vlákne až po „Ukončiť“
         else:
-            listener = keyboard.Listener(on_press=matcher.press, on_release=matcher.release)
-        matcher.listener = listener
-        with listener:
+            if use_tray:
+                log.warning("pystray/Pillow nie sú nainštalované – bežím bez ikony (pip install -r requirements.txt)")
             listener.join()
 
+    def shutdown(self) -> None:
+        try:
+            if self.recorder is not None:
+                self.recorder.close()
+            if self._listener is not None:
+                self._listener.stop()
+        except Exception:  # noqa: BLE001
+            pass
 
+
+# -- pomocné -----------------------------------------------------------------------------------------
 def disable_console_quick_edit() -> None:
     """Windows konzola: kliknutie do okna zapne „QuickEdit“ (označovanie textu) a ZASTAVÍ výpis programu,
     kým sa označenie nezruší – daemon potom vyzerá zaseknutý. Vypneme to pre toto okno."""
@@ -284,11 +372,25 @@ def keys_probe() -> int:
     return 0
 
 
-def _setup_logging(verbose: bool) -> None:
-    logging.basicConfig(
-        level=logging.DEBUG if verbose else logging.INFO,
-        format="%(asctime)s %(name)s %(levelname)s: %(message)s", datefmt="%H:%M:%S",
-    )
+def _setup_logging(verbose: bool, log_dir: Path | None, hidden: bool) -> None:
+    """Konzola: logy na stderr. Skrytý beh (pythonw / --tray): všetko do logs/diktat.log."""
+    handlers = []
+    fmt = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s", datefmt="%H:%M:%S")
+    if hidden or sys.stdout is None or sys.stderr is None:
+        log_dir = log_dir or (HERE / "logs")
+        log_dir.mkdir(parents=True, exist_ok=True)
+        fh = logging.FileHandler(log_dir / "diktat.log", encoding="utf-8")
+        fh.setFormatter(fmt)
+        handlers.append(fh)
+        # print() → tiež do súboru (pod pythonw je sys.stdout None)
+        stream = open(log_dir / "diktat.log", "a", encoding="utf-8", buffering=1)
+        sys.stdout = stream
+        sys.stderr = stream
+    else:
+        sh = logging.StreamHandler()
+        sh.setFormatter(fmt)
+        handlers.append(sh)
+    logging.basicConfig(level=logging.DEBUG if verbose else logging.INFO, handlers=handlers, force=True)
     logging.getLogger("faster_whisper").setLevel(logging.WARNING)
     logging.getLogger("httpx").setLevel(logging.WARNING)
 
@@ -301,12 +403,14 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-paste", action="store_true", help="nevkladaj do okna, len vypíš")
     ap.add_argument("--list-devices", action="store_true", help="vypíš audio zariadenia")
     ap.add_argument("--keys", action="store_true", help="diagnostika: vypíš kódy stlačených klávesov (Esc = koniec)")
+    ap.add_argument("--tray", action="store_true", help="beh na pozadí s ikonou v lište, log do logs/diktat.log")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
 
-    _setup_logging(args.verbose)
-    disable_console_quick_edit()
     cfg = cfgmod.load_config(args.config)
+    log_dir = (HERE / cfg.get("log_dir", "logs")) if cfg.get("log_dir") else None
+    _setup_logging(args.verbose, log_dir, hidden=args.tray)
+    disable_console_quick_edit()
     log.info("config: %s", cfg.get("_path") or "(len defaulty)")
 
     if args.list_devices:
@@ -331,12 +435,11 @@ def main(argv: list[str] | None = None) -> int:
 
     app.prepare()
     try:
-        app.run()
+        app.run(use_tray=args.tray)
     except KeyboardInterrupt:
         print("\n👋 koniec")
     finally:
-        if app.recorder is not None:
-            app.recorder.close()
+        app.shutdown()
     return 0
 
 

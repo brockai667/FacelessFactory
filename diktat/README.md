@@ -18,7 +18,9 @@ angličtinu. Navyše nerieši „premýšľanie nahlas“ – prepis ide 1:1 do 
                                                                        │
      ┌─────────────────────────────────────────────────────────────────┘
      ▼
- 1. Whisper (faster-whisper large-v3-turbo, jazyk sk, lokálne, offline, zadarmo)
+ 1. Whisper (faster-whisper large-v3-turbo, jazyk sk, lokálne, offline, zadarmo) – beží UŽ POČAS
+                rozprávania: audio sa v pauzách reže na kúsky (~15 s) a prepisuje v pozadí, po stope
+                sa dorobí len posledný kúsok (aj pri polhodinovom diktáte čakáš pár sekúnd)
  2. light     : vyhodí len „hmm/ehm“, opakované slová, opraví interpunkciu, slovník náhrad
                 (pajton → Python). Opravy typu „škrtni to“, „to je blbosť“, „odznova“ NECHÁ v texte.
  3. „pošli to“ na konci → po vložení stlačí Enter
@@ -74,9 +76,17 @@ Accessibility (pynput). Na Linuxe pynput vyžaduje X11/XWayland.
 
 ## Použitie
 
-```bat
-run_diktat.bat           :: alebo: python app.py
+Dva spôsoby behu:
+
+```powershell
+.\run_diktat.bat                       # v konzole (vidíš, čo sa deje) – na ladenie
+.\.venv\Scripts\python.exe install.py --autostart   # skrytý beh s ikonou v lište + autoštart po prihlásení
 ```
+
+Po `--autostart` vznikne `diktat_tray.vbs` v priečinku diktat (dvojklik = spusti hneď teraz, bez okna)
+a jeho kópia v priečinku „Po spustení“ Windows, takže po každom prihlásení už diktat beží. Pri hodinách
+je ikona: **sivá** = pripravený, **červená** = nahráva, **žltá** = prepisuje, fialová = chyba.
+Pravý klik → „Otvoriť log“ / „Ukončiť diktat“. Výpis ide do `logs/diktat.log`. Zrušenie: `install.py --no-autostart`.
 
 1. Klikni do okna Claude Code (kurzor v prompte).
 2. **numpad „,/Del“** (pri pravom Enteri) → 🔴 nahráva. Hovor normálne, rob pauzy, premýšľaj nahlas.
@@ -120,6 +130,9 @@ slovníka náhrad.
 | `stt.device` / `compute_type` | `auto` | `auto` vyberie GPU, ak je NVIDIA karta; keď chýbajú CUDA knižnice, sám sa prepne na CPU/int8. Natvrdo: `cpu` alebo `cuda` + `float16` |
 | `stt.backend` | `faster-whisper` | `openai` = Whisper API ako záloha pre slabý počítač (`OPENAI_API_KEY`) |
 | `stt.initial_prompt` | tech slovník | slová, ktoré má Whisper „očakávať“ – dopĺňaj názvy projektov, knižníc |
+| `stt.chunk_seconds` | `15` | priebežný prepis: po ~15 s hľadá pauzu a odreže kúsok na prepis v pozadí; `0` = prepis až po stope |
+| `stt.chunk_max_seconds` | `30` | ak pauza nepríde, odreže natvrdo |
+| `tray.notify` | `true` | bublinové oznámenie „Vložené…“ v režime s ikonou |
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
 | `cleanup.mode` | `light` | `light` (zadarmo: výplne + interpunkcia, opravy nechá session) · `rules` (offline vykoná príkazy) · `llm` (Claude API, platené) · `none` (surový text) · `auto` (llm ak je kľúč, inak rules) |
 | `cleanup.model` | `claude-opus-5` | len pre režim `llm`; `effort: low`; alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |
@@ -199,20 +212,21 @@ diktat/
 ├── diktat_core/
 │   ├── cleanup.py         pravidlá + Claude (Anthropic SDK), detekcia „pošli to“ a značky 🎤
 │   ├── stt.py             faster-whisper (lokálne) / OpenAI Whisper API (záloha)
-│   ├── audio.py           nahrávanie (sounddevice), auto-stop pri tichu, pípanie
+│   ├── audio.py           nahrávanie (sounddevice), rezanie v pauzách pre priebežný prepis, pípanie
 │   ├── inject.py          schránka + Ctrl+V / písanie po znakoch / výpis
 │   └── config.py          config.json + defaulty
 ├── hook/diktat_hook.py    UserPromptSubmit hook (additionalContext pre prompty so značkou)
 ├── claude/
 │   ├── CLAUDE.diktat.md   blok do ~/.claude/CLAUDE.md
 │   └── skills/diktat/     globálny skill /diktat
-├── setup_windows.bat · run_diktat.bat
+├── diktat_core/tray.py    ikona v lište (pystray), stavy + oznámenia
+├── setup_windows.bat · run_diktat.bat · diktat_tray.vbs (vytvorí install.py --autostart)
 ├── requirements.txt
 └── requirements-gpu.txt   voliteľné CUDA knižnice pre NVIDIA GPU
 ```
 
 ## Čo ďalej (nápady, zatiaľ nerobené)
 
-- Overlay okno s priebežným prepisom namiesto konzoly.
+- Overlay okno s priebežným prepisom (text sa objavuje počas rozprávania).
 - Vlastný slovník názvov z aktuálneho repa (názvy súborov/funkcií) automaticky do `initial_prompt`.
 - Diktovanie z mobilu (hlasová poznámka → `app.py --file`), prípadne cez Claude Code Remote.
