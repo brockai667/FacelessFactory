@@ -423,6 +423,18 @@ class DiktatApp:
 _instance_mutex = None
 
 
+def alert(message: str, title: str = "diktat") -> None:
+    """Chybové okno Windows – jediný spôsob, ako sa ozvať, keď beží skryto (pythonw --tray)."""
+    log.error("%s: %s", title, message)
+    if sys.platform != "win32":
+        return
+    try:
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(None, message[:1800], title, 0x10 | 0x1000 | 0x40000)  # ICONERROR|SYSTEMMODAL|TOPMOST
+    except Exception:  # noqa: BLE001
+        pass
+
+
 def single_instance(log_dir: Path | None) -> bool:
     """Zabezpečí, že beží len jeden daemon (Windows mutex) a zapíše PID do logs/diktat.pid (pre update_diktat.bat)."""
     global _instance_mutex
@@ -556,8 +568,12 @@ def main(argv: list[str] | None = None) -> int:
     app = DiktatApp(cfg, no_paste=args.no_paste or bool(args.text) or bool(args.file))
 
     if args.text is None and not args.file and not single_instance(log_dir):
-        print("diktat už beží (ikona pri hodinách). Druhú inštanciu nespúšťam.", flush=True)
-        log.warning("diktat už beží – končím")
+        msg = ("diktat už beží (ikona pri hodinách, možno pod šípkou ^). Druhú inštanciu nespúšťam.\n\n"
+               "Ak ikonu nevidíš, ukonči starý beh: Správca úloh → pythonw.exe → Ukončiť úlohu, "
+               "alebo dvojklik na update_diktat.bat (ukončí starý a spustí nový).")
+        print(msg, flush=True)
+        if args.tray:
+            alert(msg, "diktat už beží")
         return 0
 
     if args.text is not None:
@@ -572,17 +588,25 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.calibrate:
-        app.cfg["stt"]["model"] = app.cfg["stt"].get("model")   # model netreba, ale prepare() ho načíta – ok
         app.prepare()
         app.calibrate()
         app.shutdown()
         return 0
 
-    app.prepare()
     try:
+        app.prepare()
         app.run(use_tray=args.tray)
     except KeyboardInterrupt:
         print("\n👋 koniec")
+    except Exception as exc:  # noqa: BLE001 – skrytý beh nesmie zomrieť potichu
+        import traceback
+        tb = traceback.format_exc()
+        log.error("diktat spadol:\n%s", tb)
+        if args.tray:
+            alert(f"diktat spadol pri štarte/behu:\n\n{type(exc).__name__}: {exc}\n\n{tb[-900:]}\n\n"
+                  f"Celý log: {(log_dir or HERE / 'logs') / 'diktat.log'}", "diktat – chyba")
+        else:
+            raise
     finally:
         app.shutdown()
     return 0
