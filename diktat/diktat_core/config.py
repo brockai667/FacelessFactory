@@ -55,7 +55,8 @@ DEFAULTS: dict = {
         "llm": False,
     },
     "tray": {
-        "notify": True,               # bublinové oznámenie po vložení textu (režim --tray)
+        "notify": True,               # oznámenia Windows (režim --tray)
+        "notify_start_stop": True,    # aj pri štarte a konci nahrávania (nie len po vložení)
     },
     "overlay": {
         "enabled": True,              # prúžok navrchu obrazovky so stavom (nahrávam / prepisujem / vložené)

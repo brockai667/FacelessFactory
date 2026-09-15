@@ -178,11 +178,19 @@ def list_devices() -> str:
     return str(sd.query_devices())
 
 
+_BEEPS = {
+    "start": [(660, 90), (880, 120)],            # stúpajúce = začínam počúvať
+    "stop": [(880, 90), (660, 120)],             # klesajúce = skončil som, prepisujem
+    "done": [(880, 80), (1040, 80), (1320, 120)],  # trojtón = vložené
+    "error": [(300, 250)],
+}
+
+
 def _beep_sync(kind: str) -> None:
     try:
         import winsound
-        freq = {"start": 880, "stop": 660, "done": 1040, "error": 300}.get(kind, 700)
-        winsound.Beep(freq, 120)
+        for freq, ms in _BEEPS.get(kind, [(700, 120)]):
+            winsound.Beep(freq, ms)
     except Exception:  # noqa: BLE001 – zvuk je len kozmetika
         print("\a", end="", flush=True)
 

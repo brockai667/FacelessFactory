@@ -136,7 +136,8 @@ slovníka náhrad.
 | `stt.initial_prompt` | tech slovník | slová, ktoré má Whisper „očakávať“ – dopĺňaj názvy projektov, knižníc |
 | `stt.chunk_seconds` | `15` | priebežný prepis: po ~15 s hľadá pauzu a odreže kúsok na prepis v pozadí; `0` = prepis až po stope |
 | `stt.chunk_max_seconds` | `30` | ak pauza nepríde, odreže natvrdo |
-| `tray.notify` | `true` | bublinové oznámenie „Vložené…“ v režime s ikonou |
+| `tray.notify` | `true` | oznámenia Windows v režime s ikonou |
+| `tray.notify_start_stop` | `true` | oznámenie aj pri štarte („Nahrávam“) a konci („prepisujem“), nie len po vložení |
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
 | `cleanup.mode` | `light` | `light` (zadarmo: výplne + interpunkcia, opravy nechá session) · `rules` (offline vykoná príkazy) · `llm` (Claude API, platené) · `none` (surový text) · `auto` (llm ak je kľúč, inak rules) |
 | `cleanup.model` | `claude-opus-5` | len pre režim `llm`; `effort: low`; alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |

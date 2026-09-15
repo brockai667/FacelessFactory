@@ -112,6 +112,8 @@ class DiktatApp:
         print("🔴 NAHRÁVAM – hovor. (skratka znova = stop)", flush=True)
         self.tray.set_state("rec")
         self.overlay.recording("🔴 NAHRÁVAM – hovor, skratka = stop")
+        if self.cfg.get("tray", {}).get("notify_start_stop", True):
+            self.tray.notify("🔴 Nahrávam – hovor. Skratka znova = stop.")
         if self.cfg["audio"].get("beep"):
             audio.beep("start")
         self._results = {}
@@ -135,6 +137,8 @@ class DiktatApp:
             audio.beep("stop")
         self.tray.set_state("stt")
         self.overlay.show("📝 prepisujem…", "stt")
+        if self.cfg.get("tray", {}).get("notify_start_stop", True):
+            self.tray.notify(f"⏹ Nahrávanie skončilo ({self.recorder.total_seconds:.0f} s) – prepisujem…")
         if len(rest) >= self.recorder.sample_rate * 0.3:
             self._enqueue(rest)
         threading.Thread(target=self._finalize, daemon=True).start()

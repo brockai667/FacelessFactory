@@ -72,7 +72,8 @@
   },
   "log_dir": "logs",
   "tray": {
-    "notify": true
+    "notify": true,
+    "notify_start_stop": true
   },
   "overlay": {
     "enabled": true,
