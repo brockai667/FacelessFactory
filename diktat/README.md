@@ -86,7 +86,9 @@ Dva spôsoby behu:
 Po `--autostart` vznikne `diktat_tray.vbs` v priečinku diktat (dvojklik = spusti hneď teraz, bez okna)
 a jeho kópia v priečinku „Po spustení“ Windows, takže po každom prihlásení už diktat beží. Pri hodinách
 je ikona: **sivá** = pripravený, **červená** = nahráva, **žltá** = prepisuje, fialová = chyba.
-Pravý klik → „Otvoriť log“ / „Ukončiť diktat“. Výpis ide do `logs/diktat.log`. Zrušenie: `install.py --no-autostart`.
+Pravý klik → „Otvoriť log“ / „Aktualizovať a reštartovať“ (git pull + závislosti + nový štart, bez PowerShellu)
+/ „Ukončiť diktat“. To isté spraví dvojklik na `update_diktat.bat`. Výpis ide do `logs/diktat.log`.
+Zrušenie autoštartu: `install.py --no-autostart`.
 
 1. Klikni do okna Claude Code (kurzor v prompte).
 2. **numpad „,/Del“** (pri pravom Enteri) → 🔴 nahráva. Hovor normálne, rob pauzy, premýšľaj nahlas.
@@ -104,7 +106,7 @@ aj offline pravidlá):
 | *odznova* / *ešte raz od začiatku* | zahodí všetko predtým, platí len to, čo nasleduje |
 | *to je blbosť* / *toto vymaž* / *nie, teda…* / *vlastne…* | rozumie Claude podľa kontextu (posledná verzia platí) |
 | *nový odsek* / *nový riadok* | zalomenie |
-| *pošli to* / *odošli* (na konci) | po vložení stlačí Enter |
+| *pošli to* / *odošli* / *poslať* / *enter* (na konci, aj s „prosím“) | po vložení stlačí Enter |
 
 Predvolený režim `light` tieto príkazy nevykonáva (aby sa omylom nič nezmazalo) – nechá ich v texte
 a vyhodnotí ich session. Režim `rules` ich vykonáva offline po vetách podľa interpunkcie z Whisperu.

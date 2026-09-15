@@ -36,8 +36,10 @@ def _image(color):
 
 
 class Tray:
-    def __init__(self, on_quit: Callable[[], None], log_path: str | None = None, notify_enabled: bool = True):
+    def __init__(self, on_quit: Callable[[], None], log_path: str | None = None, notify_enabled: bool = True,
+                 on_update: Callable[[], None] | None = None):
         self.on_quit = on_quit
+        self.on_update = on_update
         self.log_path = log_path
         self.notify_enabled = notify_enabled
         self.state = "idle"
@@ -62,9 +64,14 @@ class Tray:
             finally:
                 icon.stop()
 
+        def update_(icon, item):
+            if self.on_update:
+                self.on_update()
+
         menu = pystray.Menu(
             pystray.MenuItem(lambda item: TITLES.get(self.state, "diktat"), None, enabled=False),
             pystray.MenuItem("Otvoriť log", open_log, enabled=bool(self.log_path)),
+            pystray.MenuItem("Aktualizovať a reštartovať", update_, enabled=bool(self.on_update)),
             pystray.MenuItem("Ukončiť diktat", quit_),
         )
         self._icon = pystray.Icon("diktat", self._images["idle"], TITLES["idle"], menu)

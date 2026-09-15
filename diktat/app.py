@@ -295,12 +295,24 @@ class DiktatApp:
         if use_tray and traymod.available():
             log_path = str(self.log_dir / "diktat.log") if self.log_dir else None
             self.tray = traymod.Tray(on_quit=self.shutdown, log_path=log_path,
-                                     notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)))
+                                     notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)),
+                                     on_update=self.update_and_restart if sys.platform == "win32" else None)
             self.tray.run()          # blokuje v hlavnom vlákne až po „Ukončiť“
         else:
             if use_tray:
                 log.warning("pystray/Pillow nie sú nainštalované – bežím bez ikony (pip install -r requirements.txt)")
             listener.join()
+
+    def update_and_restart(self) -> None:
+        """Spustí update_diktat.bat (git pull + pip + nový štart cez diktat_tray.vbs) a tento proces ukončí."""
+        import subprocess
+        bat = HERE / "update_diktat.bat"
+        if not bat.is_file():
+            self.tray.notify("Chýba update_diktat.bat")
+            return
+        self.tray.notify("Aktualizujem… diktat sa o chvíľu spustí znova.")
+        subprocess.Popen(["cmd", "/c", "start", "", str(bat)], cwd=str(HERE))   # noqa: S603 – vlastný skript
+        threading.Timer(1.0, lambda: (self.shutdown(), self.tray.stop(), os._exit(0))).start()
 
     def shutdown(self) -> None:
         try:

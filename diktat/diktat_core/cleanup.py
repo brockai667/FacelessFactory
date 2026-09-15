@@ -175,7 +175,7 @@ def detect_send(text: str, keywords: list[str] | None) -> tuple[str, bool]:
     """Ak text končí kľúčovým slovom ('pošli to'), odstráni ho a vráti send=True."""
     if not keywords:
         return text, False
-    stripped = text.rstrip()
+    stripped = re.sub(r"[\s,.!…]*\bprosím\s*[.!…]*$", "", text.rstrip(), flags=re.IGNORECASE)   # „pošli to prosím“
     for kw in sorted(keywords, key=len, reverse=True):
         pattern = r"[\s,;:-]*" + re.escape(kw) + r"[\s.!…]*$"
         m = re.search(pattern, stripped, flags=re.IGNORECASE | re.UNICODE)

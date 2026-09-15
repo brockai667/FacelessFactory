@@ -55,9 +55,15 @@
     "send_keywords": [
       "pošli to",
       "odošli to",
-      "odošli",
+      "poslať to",
+      "odoslať to",
       "pošli",
-      "enter"
+      "odošli",
+      "poslať",
+      "odoslať",
+      "odoslanie",
+      "enter",
+      "send"
     ],
     "restore_clipboard": false
   },

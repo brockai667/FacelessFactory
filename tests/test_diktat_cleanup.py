@@ -74,6 +74,12 @@ class SendAndMarkerTests(unittest.TestCase):
         self.assertFalse(send)
         self.assertEqual(text, "Pošli to Petrovi a potom oprav testy.")
 
+    def test_detect_send_with_prosim_and_synonyms(self):
+        kws = cfgmod.DEFAULTS["output"]["send_keywords"]
+        self.assertEqual(cleanup.detect_send("Oprav testy, pošli to prosím.", kws), ("Oprav testy", True))
+        self.assertEqual(cleanup.detect_send("Oprav testy. Odoslať.", kws), ("Oprav testy.", True))
+        self.assertEqual(cleanup.detect_send("Oprav testy a hotovo.", kws), ("Oprav testy a hotovo.", False))
+
     def test_detect_send_keyword_alone_is_not_send(self):
         text, send = cleanup.detect_send("pošli to", self.KW)
         self.assertFalse(send)
