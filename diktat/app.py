@@ -475,7 +475,7 @@ class DiktatApp:
         if not bat.is_file():
             self.tray.notify("Chýba update_diktat.bat")
             return
-        self.tray.notify("Aktualizujem… diktat sa o chvíľu spustí znova.")
+        self.tray.notify("Aktualizujem… diktat sa o chvíľu spustí znova (najneskôr do minúty).")
         subprocess.Popen(["cmd", "/c", "start", "", str(bat)], cwd=str(HERE))   # noqa: S603 – vlastný skript
         threading.Timer(1.0, lambda: (self.shutdown(), self.tray.stop(), os._exit(0))).start()
 

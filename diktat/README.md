@@ -130,12 +130,14 @@ Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.
 
 - keď ich všetky zatvoríš (aj cez Správcu úloh), diktat sa po `follow.exit_after_seconds` (60 s) sám vypne
   a uvoľní pamäť – prúžok ukáže „💤 diktat sa vypína“;
-- po prihlásení do Windows beží namiesto diktatu len **strážca** (`watch.py`, pár MB, nula CPU), ktorý každých
-  5 s pozrie, či niektorý zo sledovaných programov beží, a vtedy diktat spustí. Zapneš Claude → do pár sekúnd
-  štartuje diktat (pol minúty načítava model).
+- žiadny proces nečaká na pozadí: úloha Plánovača úloh Windows **`diktat-watch`** raz za minútu spustí
+  `diktat_watch.vbs` (kontrola procesov, zlomok sekundy, skončí). Ak beží niektorý zo sledovaných programov
+  a diktat nie, spustí ho. Zapneš Claude → najneskôr do minúty štartuje diktat (pol minúty načítava model).
+  Ten istý mechanizmus vráti diktat aj po aktualizácii.
 
-Prázdny zoznam = diktat beží stále ako doteraz. Nastavuje sa `install.py --autostart` (nahrádza starý priamy
-štart), ručne: dvojklik `diktat_watch.vbs` (strážca) alebo `diktat_tray.vbs` (diktat hneď).
+Prázdny zoznam = diktat sa spúšťa priamo pri prihlásení a beží stále. Nastavuje `install.py --autostart`
+(volá ho aj `update_diktat.bat`); okamžitý štart ručne: dvojklik `diktat_tray.vbs`. Úlohu vidíš v Plánovači
+úloh (taskschd.msc), zrušenie: `install.py --no-autostart`.
 
 ## Len môj hlas (kolegovia, hudba v pozadí)
 
@@ -187,7 +189,8 @@ sa vždy použijú pravidlá, diktovanie nikdy nespadne.)
 
 ## GPU (NVIDIA) – voliteľné, ale 5–10× rýchlejší prepis
 
-faster-whisper na GPU potrebuje CUDA 12 + cuDNN 9. Netreba inštalovať CUDA Toolkit, stačia pip balíky:
+faster-whisper na GPU potrebuje CUDA 12 + cuDNN 9. Netreba inštalovať CUDA Toolkit, stačia pip balíky,
+ktoré inštaluje `update_diktat.bat` (jednorazovo ~700 MB); ručne:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-gpu.txt
@@ -248,7 +251,7 @@ Prvý test na Windows (5 minút):
 diktat/
 ├── app.py                 daemon: hotkey → nahrávanie → STT → čistenie → vloženie
 ├── install.py             globálna inštalácia do ~/.claude (CLAUDE.md, skill, hook, settings.json), autoštart
-├── watch.py               strážca: spustí diktat, keď beží Claude/prehliadač
+├── diktat_watch.vbs       generuje install.py: kontrola „beží Claude?“ pre úlohu Plánovača
 ├── config.example.json    → skopíruj na config.json (ten je v .gitignore)
 ├── diktat_core/
 │   ├── cleanup.py         pravidlá + Claude (Anthropic SDK), detekcia „pošli to“ a značky 🎤

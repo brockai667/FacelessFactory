@@ -129,21 +129,37 @@ class AutostartTests(unittest.TestCase):
             logs = []
             (startup / install.VBS_NAME).parent.mkdir(parents=True, exist_ok=True)
             (startup / install.VBS_NAME).write_text("old", encoding="utf-8")   # staršia inštalácia
-            target = install.install_autostart("C:/py/python.exe", app_path, startup_dir=startup, log=logs.append)
-            self.assertEqual(target.name, install.WATCH_VBS_NAME)
-            self.assertTrue(target.is_file())
+            target = install.install_autostart("C:/py/python.exe", app_path, follow=["Claude.exe", "opera.exe"],
+                                               startup_dir=startup, log=logs.append, register=False)
+            self.assertEqual(target, app_dir / install.WATCH_VBS_NAME)
             content = target.read_text(encoding="utf-8")
-            self.assertIn("watch.py", content)
-            self.assertNotIn("--tray", content)
+            self.assertIn('"claude.exe", "opera.exe"', content)
+            self.assertIn('"diktat\\app.py"', content)
+            self.assertIn("--tray", content)
+            self.assertIn(str(app_path), content)
             self.assertIn(", 0, False", content)          # skryté okno
             self.assertFalse((startup / install.VBS_NAME).exists(), "priamy štart diktatu zo Startup sa má odstrániť")
             local = (app_dir / install.VBS_NAME).read_text(encoding="utf-8")
             self.assertIn("--tray", local)
-            self.assertIn(str(app_path), local)
-            self.assertTrue((app_dir / install.WATCH_VBS_NAME).is_file())
+            xml = install.task_xml(target)
+            self.assertIn("PT1M", xml)
+            self.assertIn("<DisallowStartIfOnBatteries>false", xml)
+            self.assertIn(str(target), xml)
             install.remove_autostart(app_path, startup_dir=startup, log=logs.append)
             self.assertFalse(target.exists())
             self.assertFalse((app_dir / install.VBS_NAME).exists())
+
+    def test_empty_follow_installs_direct_startup_launcher(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            startup = Path(tmp) / "Startup"
+            app_dir = Path(tmp) / "diktat"
+            app_dir.mkdir()
+            app_path = app_dir / "app.py"
+            app_path.write_text("# app", encoding="utf-8")
+            target = install.install_autostart("C:/py/python.exe", app_path, follow=[], startup_dir=startup,
+                                               log=lambda *_: None, register=False)
+            self.assertEqual(target, startup / install.VBS_NAME)
+            self.assertIn("--tray", target.read_text(encoding="utf-8"))
             self.assertFalse((app_dir / install.WATCH_VBS_NAME).exists())
 
     def test_pythonw_fallback_when_missing(self):

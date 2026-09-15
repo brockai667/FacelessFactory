@@ -34,6 +34,7 @@ HOOK_FILE = "diktat_hook.py"
 
 VBS_NAME = "diktat_tray.vbs"
 WATCH_VBS_NAME = "diktat_watch.vbs"
+TASK_NAME = "diktat-watch"
 
 
 def startup_folder() -> Path:
@@ -62,28 +63,143 @@ def vbs_launcher(python_exe: str, script_path: Path, args: str = "--tray") -> st
     )
 
 
-def install_autostart(python_exe: str, app_path: Path, startup_dir: Path | None = None,
-                      dry_run: bool = False, log=print) -> Path:
-    """diktat_tray.vbs (ručné spustenie dvojklikom) + diktat_watch.vbs v Startup priečinku:
-    strážca spustí diktat, keď beží Claude/prehliadač (follow.processes), a diktat sa sám vypne, keď nebežia."""
+def watch_vbs(python_exe: str, app_path: Path, follow: list[str]) -> str:
+    """Jednorazová kontrola (spúšťa ju Plánovač úloh raz za minútu, trvá zlomok sekundy, nič nezostáva bežať):
+    ak beží niektorý zo sledovaných programov a diktat nie, spustí diktat skryto."""
+    py = pythonw_for(python_exe)
+    names = ", ".join(f'"{p.strip().lower()}"' for p in follow if p.strip()) or '""'
+    return (
+        "' diktat strážca – generuje install.py --autostart, spúšťa Plánovač úloh (úloha diktat-watch) raz za minútu\r\n"
+        f"names = Array({names})\r\n"
+        'Set wmi = GetObject("winmgmts:\\\\.\\root\\cimv2")\r\n'
+        'Set procs = wmi.ExecQuery("SELECT Name, CommandLine, ProcessId FROM Win32_Process")\r\n'
+        "claudeRunning = False : diktatRunning = False : pidRunning = \"\"\r\n"
+        "Set fso = CreateObject(\"Scripting.FileSystemObject\")\r\n"
+        f'pidFile = "{app_path.parent / "logs" / "diktat.pid"}"\r\n'
+        "If fso.FileExists(pidFile) Then\r\n"
+        "  On Error Resume Next\r\n"
+        "  pidRunning = Trim(fso.OpenTextFile(pidFile, 1).ReadAll)\r\n"
+        "  On Error GoTo 0\r\n"
+        "End If\r\n"
+        "For Each p In procs\r\n"
+        "  n = LCase(p.Name & \"\")\r\n"
+        "  For Each w In names\r\n"
+        "    If w <> \"\" And n = w Then claudeRunning = True\r\n"
+        "  Next\r\n"
+        '  If InStr(LCase(p.CommandLine & ""), "diktat\\app.py") > 0 Then diktatRunning = True\r\n'
+        "  If pidRunning <> \"\" And CStr(p.ProcessId) = pidRunning And InStr(LCase(p.Name & \"\"), \"python\") > 0 Then diktatRunning = True\r\n"
+        "Next\r\n"
+        "If claudeRunning And Not diktatRunning Then\r\n"
+        '  Set sh = CreateObject("WScript.Shell")\r\n'
+        f'  sh.CurrentDirectory = "{app_path.parent}"\r\n'
+        f'  sh.Run """{py}"" ""{app_path}"" --tray", 0, False\r\n'
+        "End If\r\n"
+    )
+
+
+def task_xml(watch_vbs_path: Path) -> str:
+    """Úloha Plánovača: od prihlásenia (a hneď od registrácie) každú minútu spusti kontrolu; aj na batérii; skrytá."""
+    action = f'<Command>wscript.exe</Command><Arguments>"{watch_vbs_path}"</Arguments>'
+    rep = "<Repetition><Interval>PT1M</Interval><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>"
+    return f"""<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo><Description>diktat: spusti diktat, keď beží Claude/prehliadač (kontrola raz za minútu)</Description></RegistrationInfo>
+  <Triggers>
+    <LogonTrigger><Enabled>true</Enabled>{rep}</LogonTrigger>
+    <RegistrationTrigger><Enabled>true</Enabled>{rep}</RegistrationTrigger>
+  </Triggers>
+  <Principals><Principal id="Author"><LogonType>InteractiveToken</LogonType><RunLevel>LeastPrivilege</RunLevel></Principal></Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <StartWhenAvailable>true</StartWhenAvailable>
+    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+    <IdleSettings><StopOnIdleEnd>false</StopOnIdleEnd><RestartOnIdle>false</RestartOnIdle></IdleSettings>
+    <AllowStartOnDemand>true</AllowStartOnDemand>
+    <Enabled>true</Enabled>
+    <Hidden>true</Hidden>
+    <RunOnlyIfIdle>false</RunOnlyIfIdle>
+    <WakeToRun>false</WakeToRun>
+    <ExecutionTimeLimit>PT1M</ExecutionTimeLimit>
+    <Priority>7</Priority>
+  </Settings>
+  <Actions Context="Author"><Exec>{action}</Exec></Actions>
+</Task>
+"""
+
+
+def register_task(watch_vbs_path: Path, log=print) -> bool:
+    """Zaregistruje úlohu diktat-watch cez schtasks (bez práv správcu, pre aktuálneho používateľa)."""
+    import subprocess
+    import tempfile
+    xml_path = Path(tempfile.gettempdir()) / "diktat-watch.xml"
+    xml_path.write_text(task_xml(watch_vbs_path), encoding="utf-16")
+    try:
+        res = subprocess.run(["schtasks", "/create", "/tn", TASK_NAME, "/xml", str(xml_path), "/f"],
+                             capture_output=True, text=True, timeout=60)
+    except Exception as exc:  # noqa: BLE001
+        log(f"✖ schtasks zlyhal: {exc}")
+        return False
+    if res.returncode != 0:
+        log(f"✖ schtasks: {(res.stderr or res.stdout).strip()[:300]}")
+        return False
+    return True
+
+
+def unregister_task(log=print) -> None:
+    import subprocess
+    try:
+        subprocess.run(["schtasks", "/delete", "/tn", TASK_NAME, "/f"], capture_output=True, text=True, timeout=60)
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None = None,
+                      startup_dir: Path | None = None, dry_run: bool = False, log=print,
+                      register: bool | None = None) -> Path:
+    """diktat_tray.vbs (ručné spustenie) + diktat_watch.vbs + úloha Plánovača „diktat-watch“ (raz za minútu):
+    ak beží Claude/prehliadač (follow.processes) a diktat nie, spustí ho. Žiadny proces nezostáva bežať.
+    Prázdny follow = diktat sa spustí pri prihlásení priamo (Startup priečinok)."""
     startup_dir = startup_dir or startup_folder()
     tag = "[dry-run] " if dry_run else ""
+    if follow is None:
+        import json as _json
+        cfg_path = app_path.parent / "config.json"
+        src = cfg_path if cfg_path.is_file() else app_path.parent / "config.example.json"
+        try:
+            follow = _json.loads(src.read_text(encoding="utf-8")).get("follow", {}).get("processes") or []
+        except Exception:  # noqa: BLE001
+            follow = []
     local = app_path.parent / VBS_NAME
     watch_local = app_path.parent / WATCH_VBS_NAME
-    target = startup_dir / WATCH_VBS_NAME
     if not dry_run:
         local.write_text(vbs_launcher(python_exe, app_path, "--tray"), encoding="utf-8")
-        watch_content = vbs_launcher(python_exe, app_path.parent / "watch.py", "")
-        watch_local.write_text(watch_content, encoding="utf-8")
         startup_dir.mkdir(parents=True, exist_ok=True)
-        target.write_text(watch_content, encoding="utf-8")
-        old = startup_dir / VBS_NAME              # staršia inštalácia spúšťala diktat priamo
-        if old.is_file():
-            old.unlink()
+        for stale in (startup_dir / VBS_NAME, startup_dir / WATCH_VBS_NAME):   # staršie inštalácie
+            if stale.is_file():
+                stale.unlink()
     log(f"{tag}✔ {local}: spúšťač diktatu (dvojklik = spusti hneď teraz)")
-    log(f"{tag}✔ {watch_local}: strážca (dvojklik = spusti strážcu hneď teraz)")
-    log(f"{tag}✔ {target}: autoštart strážcu po prihlásení do Windows")
-    return target
+    if not follow:
+        target = startup_dir / VBS_NAME
+        if not dry_run:
+            target.write_text(vbs_launcher(python_exe, app_path, "--tray"), encoding="utf-8")
+            unregister_task(log)
+        log(f"{tag}✔ {target}: autoštart diktatu po prihlásení (follow je prázdny)")
+        return target
+    if not dry_run:
+        watch_local.write_text(watch_vbs(python_exe, app_path, follow), encoding="utf-8")
+    log(f"{tag}✔ {watch_local}: kontrola „beží Claude?“ (sleduje: {', '.join(follow)})")
+    if register is None:
+        register = sys.platform == "win32"
+    if register and not dry_run:
+        ok = register_task(watch_local, log)
+        log(f"✔ Plánovač úloh: úloha {TASK_NAME} raz za minútu" if ok
+            else f"✖ úlohu {TASK_NAME} sa nepodarilo vytvoriť – diktat spúšťaj dvojklikom na {VBS_NAME}")
+    else:
+        log(f"{tag}✔ Plánovač úloh: úloha {TASK_NAME} raz za minútu")
+    return watch_local
 
 
 def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: bool = False, log=print) -> None:
@@ -95,6 +211,9 @@ def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: b
             if not dry_run:
                 path.unlink()
             log(f"{tag}✔ {path}: odstránené")
+    if not dry_run and sys.platform == "win32":
+        unregister_task(log)
+        log(f"✔ Plánovač úloh: úloha {TASK_NAME} odstránená")
 
 
 def default_claude_dir() -> Path:

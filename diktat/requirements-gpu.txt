@@ -1,5 +1,6 @@
-# Voliteľné: NVIDIA GPU pre faster-whisper na Windows (CUDA 12 + cuDNN 9 cez pip, bez inštalácie CUDA Toolkitu).
-# Inštalácia:  .\.venv\Scripts\python.exe -m pip install -r requirements-gpu.txt
-# diktat si tieto DLL priečinky sám pridá na PATH (stt.prepare_cuda_dll_dirs).
+# NVIDIA GPU pre faster-whisper (CUDA 12 + cuDNN 9 cez pip, bez inštalácie CUDA Toolkitu).
+# Inštaluje ich update_diktat.bat; diktat si DLL priečinky sám pridá na PATH (stt.prepare_cuda_dll_dirs).
+# Bez NVIDIA karty sa nepoužijú (diktat ostane na CPU).
+nvidia-cuda-runtime-cu12
 nvidia-cublas-cu12
 nvidia-cudnn-cu12>=9
