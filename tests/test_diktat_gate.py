@@ -24,6 +24,13 @@ class GateKeepTests(unittest.TestCase):
         self.assertFalse(audio.gate_keep(0.001, 0.001, 0.02, 0.5, 0.4))
 
 
+class GatedRatioTests(unittest.TestCase):
+    def test_ratio(self):
+        self.assertEqual(audio.gated_ratio(0, 0), 0.0)
+        self.assertEqual(audio.gated_ratio(3, 1), 0.75)
+        self.assertEqual(audio.gated_ratio(0, 5), 0.0)
+
+
 class SuggestGateTests(unittest.TestCase):
     def test_clear_separation(self):
         speech = [0.001] * 10 + [0.04] * 30      # reč s pauzami

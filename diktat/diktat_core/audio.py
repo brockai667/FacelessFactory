@@ -107,6 +107,8 @@ class Recorder:
         self._last_loud_at = 0.0
         self.levels_probe: list[float] | None = None   # kalibrácia: zbieraj surové úrovne
         self.last_level = 0.0                          # posledná nameraná úroveň (ukazovateľ v prúžku)
+        self.gated_blocks = 0                          # štatistika za nahrávanie: koľko blokov brána vymazala
+        self.kept_blocks = 0
         self.silence_auto_stop = float(silence_auto_stop_seconds or 0)
         self.max_seconds = float(max_seconds or 0)
         self.on_auto_stop = on_auto_stop
@@ -142,9 +144,11 @@ class Recorder:
             pblock, plevel = self._pending
             if gate_keep(plevel, level, self.gate_rms, now - self._last_loud_at, self.gate_hangover):
                 to_push.append((pblock, plevel))
+                self.kept_blocks += 1
             else:
                 import numpy as np
                 to_push.append((np.zeros_like(pblock), 0.0))
+                self.gated_blocks += 1
         self._pending = (block, level)
         with self._lock:
             for b, lv in to_push:
@@ -190,6 +194,7 @@ class Recorder:
             self.total_seconds = 0.0
         self._pending = None
         self._last_loud_at = 0.0
+        self.gated_blocks = self.kept_blocks = 0
         self._started_at = time.monotonic()
         self._last_voice_at = self._started_at
         self._heard_voice = False
@@ -265,3 +270,8 @@ def _beep_sync(kind: str) -> None:
 def beep(kind: str = "start") -> None:
     """Krátke pípnutie (Windows: winsound; inde terminálový zvonček). Nezdržuje – beží vo vlákne."""
     threading.Thread(target=_beep_sync, args=(kind,), daemon=True).start()
+
+
+def gated_ratio(gated: int, kept: int) -> float:
+    total = gated + kept
+    return (gated / total) if total else 0.0

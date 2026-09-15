@@ -52,6 +52,7 @@ class DiktatApp:
         self._segmenter = None
         self._t0 = 0.0
         self._listener = None
+        self._gate_note = ""
 
     # -- inicializácia ---------------------------------------------------------------------------
     def prepare(self, with_overlay: bool = True) -> None:
@@ -142,6 +143,14 @@ class DiktatApp:
         self.overlay.show("📝 prepisujem…", "stt")
         if self.cfg.get("tray", {}).get("notify_start_stop", True):
             self.tray.notify(f"⏹ Nahrávanie skončilo ({self.recorder.total_seconds:.0f} s) – prepisujem…")
+        if self.recorder.gate_rms:
+            ratio = audio.gated_ratio(self.recorder.gated_blocks, self.recorder.kept_blocks)
+            self._gate_note = f"brána vymazala {ratio:.0%} nahrávky"
+            print("📐 " + self._gate_note, flush=True)
+            if ratio >= 0.5:
+                self._gate_note += " – ak to bol tvoj hlas, daj Brána → Miernejšia"
+        else:
+            self._gate_note = ""
         if len(rest) >= self.recorder.sample_rate * 0.3:
             self._enqueue(rest)
         threading.Thread(target=self._finalize, daemon=True).start()
@@ -232,7 +241,9 @@ class DiktatApp:
                 audio.beep("done")
             msg = f"✅ vložené {len(final)} znakov" + (" + Enter" if result.send else "")
             self.tray.notify(msg)
-            self.overlay.show(msg, "ok", timeout=3)
+            if self._gate_note:
+                msg += "   📐 " + self._gate_note
+            self.overlay.show(msg, "ok", timeout=6 if "Miernejšia" in msg else 3)
         except Exception as exc:  # noqa: BLE001
             log.exception("vloženie zlyhalo")
             print(f"❌ vloženie zlyhalo: {exc}\nText je v schránke – vlož ho ručne (Ctrl+V).", flush=True)
