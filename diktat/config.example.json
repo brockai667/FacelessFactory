@@ -1,5 +1,5 @@
 {
-  "hotkey": "<ctrl>+<alt>+d",
+  "hotkey": "numpad_decimal",
   "mode": "toggle",
   "language": "sk",
   "stt": {

@@ -25,7 +25,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows: neškodné varovanie pri sťahovaní modelu
 
-from diktat_core import cleanup, config as cfgmod, inject  # noqa: E402
+from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject  # noqa: E402
 
 log = logging.getLogger("diktat")
 
@@ -167,6 +167,11 @@ class DiktatApp:
               f"  STT: {stt_desc}  čistenie: {clean_desc}", flush=True)
         print("   Klikni do okna Claude Code, stlač skratku, hovor, stlač znova. Ctrl+C ukončí.\n", flush=True)
 
+        parsed = hotkeymod.parse_hotkey(hotkey)
+        if parsed["kind"] == "vk":
+            self._run_raw_hotkey(keyboard, parsed, mode)
+            return
+
         if mode == "hold":
             combo = keyboard.HotKey.parse(hotkey)
             hk = keyboard.HotKey(combo, lambda: threading.Thread(target=self.start_recording, daemon=True).start())
@@ -184,6 +189,31 @@ class DiktatApp:
         else:
             with keyboard.GlobalHotKeys({hotkey: self.on_hotkey}) as listener:
                 listener.join()
+
+
+    def _run_raw_hotkey(self, keyboard, parsed: dict, mode: str) -> None:
+        """Jeden kláves podľa VK kódu (napr. numpad ,/Del). Na Windows sa stlačenie pohltí."""
+        import platform
+
+        def on_press():
+            if mode == "hold":
+                threading.Thread(target=self.start_recording, daemon=True).start()
+            else:
+                self.on_hotkey()
+
+        def on_release():
+            if mode == "hold":
+                threading.Thread(target=self.stop_and_process, daemon=True).start()
+
+        matcher = hotkeymod.RawKeyMatcher(parsed["vks"], parsed["nonext_vks"], parsed["ext_vks"],
+                                          on_press=on_press, on_release=on_release, suppress=True)
+        if platform.system() == "Windows":
+            listener = keyboard.Listener(win32_event_filter=matcher.filter)
+        else:
+            listener = keyboard.Listener(on_press=matcher.press, on_release=matcher.release)
+        matcher.listener = listener
+        with listener:
+            listener.join()
 
 
 def _setup_logging(verbose: bool) -> None:

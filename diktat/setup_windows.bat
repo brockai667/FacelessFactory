@@ -10,5 +10,5 @@ python -m pip install -r requirements.txt || (echo Chyba pri instalacii zavislos
 if not exist config.json copy config.example.json config.json >nul
 python install.py
 echo.
-echo Hotovo. Spusti run_diktat.bat, klikni do okna Claude Code a stlac Ctrl+Alt+D.
+echo Hotovo. Spusti run_diktat.bat, klikni do okna Claude Code a stlac numpad ,/Del (pri pravom Enteri).
 pause

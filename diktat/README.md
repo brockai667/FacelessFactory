@@ -79,8 +79,8 @@ run_diktat.bat           :: alebo: python app.py
 ```
 
 1. Klikni do okna Claude Code (kurzor v prompte).
-2. **Ctrl+Alt+D** → 🔴 nahráva. Hovor normálne, rob pauzy, premýšľaj nahlas.
-3. **Ctrl+Alt+D** → stop. O pár sekúnd sa v prompte objaví `🎤 vyčistený text`.
+2. **numpad „,/Del“** (pri pravom Enteri) → 🔴 nahráva. Hovor normálne, rob pauzy, premýšľaj nahlas.
+3. **numpad „,/Del“** znova → stop. O pár sekúnd sa v prompte objaví `🎤 vyčistený text`.
 4. Skontroluj, uprav, **Enter**. (Alebo na konci diktátu povedz *„pošli to“* – Enter sa stlačí sám.)
 
 Ako diktovať: premýšľaj nahlas, pomýľ sa, oprav sa. Session tomu rozumie vďaka pravidlám v
@@ -114,7 +114,7 @@ slovníka náhrad.
 
 | Kľúč | Default | Poznámka |
 |---|---|---|
-| `hotkey` | `<ctrl>+<alt>+d` | formát pynput; `mode: "hold"` = drž kláves, `toggle` = stlač/stlač |
+| `hotkey` | `numpad_decimal` | numpad kláves „,/Del“ pri pravom Enteri (funguje s NumLock aj bez, stlačenie sa pohltí, nič nenapíše). Iné: `vk:NNN` (surový VK kód) alebo pynput reťazec `<f9>`, `<ctrl>+<shift>+<f9>`. Pozor: Ctrl+Alt+písmeno je na SK klávesnici AltGr a píše znak. `mode: "hold"` = drž kláves, `toggle` = stlač/stlač |
 | `language` | `sk` | jazyk pre Whisper |
 | `stt.model` | `large-v3-turbo` | najlepšia kvalita SK: `large-v3` (pomalšie, ideálne GPU); rýchle: `medium` |
 | `stt.device` / `compute_type` | `auto` | `auto` vyberie GPU, ak je NVIDIA karta; keď chýbajú CUDA knižnice, sám sa prepne na CPU/int8. Natvrdo: `cpu` alebo `cuda` + `float16` |
@@ -149,7 +149,7 @@ prepne sa na CPU/int8 a pokračuje (v konzole uvidíš varovanie). Ak GPU nechce
 
 - **Nič sa nevloží** – text je vždy aj v schránke, stlač Ctrl+V ručne. Skontroluj, či bol kurzor
   v okne Claude Code; niektoré terminály chcú `ctrl+shift+v` (viď `output.paste_shortcut`).
-- **Skratka nereaguje** – iná aplikácia ju má obsadenú; zmeň `hotkey` (napr. `<ctrl>+<alt>+m`).
+- **Skratka nereaguje** – iná aplikácia ju má obsadenú alebo klávesnica nemá numpad; zmeň `hotkey` (napr. `<f9>`).
   Ak beží Claude Code s `/voice`, vypni ho (`/voice off`), nech si nekonkurujú.
 - **Zlá kvalita prepisu** – hovor bližšie k mikrofónu, skús `stt.model: "large-v3"`, doplň
   `initial_prompt` o slová, ktoré Whisper komolí, a pridaj náhrady do `cleanup.replacements`.

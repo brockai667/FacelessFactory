@@ -9,7 +9,7 @@ from pathlib import Path
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 
 DEFAULTS: dict = {
-    "hotkey": "<ctrl>+<alt>+d",
+    "hotkey": "numpad_decimal",  # numpad ,/Del pri pravom Enteri; alebo pynput reťazec "<f9>", "<ctrl>+<alt>+d"
     "mode": "toggle",            # toggle | hold
     "language": "sk",
     "stt": {
