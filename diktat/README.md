@@ -124,6 +124,20 @@ python app.py --list-devices
 Každý diktát sa loguje do `logs/RRRR-MM-DD.jsonl` (surový aj vyčistený text) – hodí sa na ladenie
 slovníka náhrad.
 
+## Hlas naspäť: Claude ti povie, čo spravil („Diktat hlas“)
+
+Opačný smer diktovania. Stránka **Diktat hlas** (https://claude.ai/artifact/JMFcBx818yHi1kpJcNaA7h) číta nahlas krátke zhrnutia,
+ktoré každá Claude Code session zapíše na konci odpovede do zdieľanej schránky stránky (`ArtifactData`,
+kolekcia `hlas`). Pravidlo pre sessions je v bloku `Hlasové zhrnutie` v `~/.claude/CLAUDE.md` (nainštaluje
+`install.py`, obnovuje `update_diktat.bat`). Hlas dostane len výsledok („A hotové, B malo problém, mám dve
+riešenia“), plný text ostáva v Claude na čítanie; na požiadanie („prečítaj mi to“) session pošle viac.
+
+Použitie: otvor stránku prihlásený v Claude, klikni **Zapnúť hlas** (prehliadač bez kliknutia nehovorí),
+vyber hlas, nechaj kartu otvorenú. Najlepšie slovenské hlasy (Lukáš, Viktória) má **Microsoft Edge**
+zadarmo; v Chrome/Opere treba slovenský hlas doinštalovať vo Windows (Nastavenia → Čas a jazyk → Reč →
+Pridať hlasy). Na stránke je história posledných správ, „Prehrať“ a „Prečítať celé“ (dlhšia verzia, ak ju
+session poslala), rýchlosť a hlasitosť. Stránka si drží posledných 40 správ, staršie maže.
+
 ## Beží len s Claude (hranie, výkon)
 
 Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.exe`, `opera.exe`, `chrome.exe`):

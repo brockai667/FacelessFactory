@@ -1,0 +1,239 @@
+<title>Diktat hlas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F4F6F8; --card: #FFFFFF; --text: #16202A; --muted: #5F6E7B; --border: #D9E0E6;
+    --accent: #0B7A75; --accent-ink: #FFFFFF; --accent-soft: #E1F2F0; --warn: #A15C00; --warn-soft: #FFF1DC;
+    --ok: #1F7A3A; --ok-soft: #E3F4E8; --live: #C62828;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif; --mono: "IBM Plex Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F1418; --card: #171E24; --text: #E6EBEF; --muted: #97A4AF; --border: #2A3540;
+      --accent: #3EC9C2; --accent-ink: #0B1A19; --accent-soft: #14302E; --warn: #F0B35B; --warn-soft: #2E2410;
+      --ok: #6BD28A; --ok-soft: #10301B; --live: #FF6B6B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F1418; --card: #171E24; --text: #E6EBEF; --muted: #97A4AF; --border: #2A3540;
+    --accent: #3EC9C2; --accent-ink: #0B1A19; --accent-soft: #14302E; --warn: #F0B35B; --warn-soft: #2E2410;
+    --ok: #6BD28A; --ok-soft: #10301B; --live: #FF6B6B;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.5;
+         padding-block: 20px; padding-inline: 16px; }
+  .wrap { max-width: 760px; margin: 0 auto; display: grid; gap: 16px; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .pill { font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--border);
+          color: var(--muted); background: var(--card); display: inline-flex; align-items: center; gap: 6px; }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .pill.ok { color: var(--ok); background: var(--ok-soft); border-color: transparent; } .pill.ok .dot { background: var(--ok); }
+  .pill.warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; } .pill.warn .dot { background: var(--warn); }
+  .pill.live .dot { background: var(--live); animation: blink 1s infinite; }
+  @keyframes blink { 50% { opacity: 0.2; } }
+  @media (prefers-reduced-motion: reduce) { .pill.live .dot { animation: none; } }
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .gate { display: grid; gap: 10px; justify-items: start; }
+  .gate p { margin: 0; color: var(--muted); }
+  button { font: inherit; font-weight: 500; border-radius: 8px; border: 1px solid var(--border); background: var(--card);
+           color: var(--text); padding: 8px 14px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-size: 16px; padding: 12px 22px; }
+  button.small { padding: 4px 10px; font-size: 13px; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 18px; align-items: end; }
+  label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  select, input[type=range] { width: 100%; font: inherit; color: var(--text); }
+  select { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 7px 8px; text-transform: none; letter-spacing: 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .toggle { display: inline-flex; align-items: center; gap: 8px; text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--text); }
+  .toggle input { width: 18px; height: 18px; }
+  .msgs { display: grid; gap: 10px; }
+  .msg { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; }
+  .msg.speaking { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .text { font-size: 17px; line-height: 1.45; }
+  .detail { color: var(--muted); font-size: 14px; white-space: pre-wrap; }
+  .empty { color: var(--muted); text-align: center; padding: 28px 12px; }
+  .hint { font-size: 13px; color: var(--muted); }
+  code { font-family: var(--mono); font-size: 12px; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Diktat hlas</h1>
+    <span class="pill" id="conn"><span class="dot"></span><span id="connText">pripájam…</span></span>
+    <span class="pill" id="voiceState"><span class="dot"></span><span id="voiceStateText">hlas vypnutý</span></span>
+  </header>
+
+  <section class="panel gate" id="gate">
+    <p>Prehliadač pustí hlas až po kliknutí. Klikni raz a nechaj túto stránku otvorenú, čítam všetko, čo Claude pošle.</p>
+    <button class="primary" id="enableBtn" type="button">🔊 Zapnúť hlas</button>
+  </section>
+
+  <section class="panel">
+    <div class="controls">
+      <label>Hlas
+        <select id="voice"></select>
+      </label>
+      <label>Rýchlosť <span id="rateVal">1.0</span>
+        <input id="rate" type="range" min="0.6" max="1.6" step="0.05" value="1.0">
+      </label>
+      <label>Hlasitosť <span id="volVal">100 %</span>
+        <input id="vol" type="range" min="0" max="1" step="0.05" value="1">
+      </label>
+      <div class="row">
+        <label class="toggle"><input id="auto" type="checkbox" checked> Čítať nové správy automaticky</label>
+      </div>
+      <div class="row">
+        <button id="testBtn" type="button" class="small">Skúšobná veta</button>
+        <button id="stopBtn" type="button" class="small">⏹ Stop</button>
+      </div>
+    </div>
+    <p class="hint" id="voiceHint">Najlepšie slovenské hlasy (Lukáš, Viktória) má Microsoft Edge. V Chrome a Opere treba slovenský hlas doinštalovať vo Windows: Nastavenia → Čas a jazyk → Reč → Pridať hlasy → Slovenčina.</p>
+  </section>
+
+  <section class="msgs" id="msgs">
+    <div class="empty" id="empty">Zatiaľ nič. Keď Claude dokončí odpoveď, objaví sa tu krátke zhrnutie a prečíta sa.</div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const state = { voices: [], voiceName: null, rate: 1.0, vol: 1.0, auto: true, enabled: false, lastSeen: null, items: [], speakingId: null, seen: new Set() };
+  const LS = "diktat-hlas";
+  try { Object.assign(state, JSON.parse(localStorage.getItem(LS) || "{}")); } catch (e) {}
+  state.enabled = false; state.items = []; state.seen = new Set(); state.speakingId = null;
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify({ voiceName: state.voiceName, rate: state.rate, vol: state.vol, auto: state.auto, lastSeen: state.lastSeen })); } catch (e) {} };
+
+  // --- hlasy ---------------------------------------------------------------------------------
+  const voiceSel = $("voice");
+  function loadVoices() {
+    const all = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+    if (!all.length) return;
+    const sk = all.filter(v => (v.lang || "").toLowerCase().startsWith("sk"));
+    const cs = all.filter(v => (v.lang || "").toLowerCase().startsWith("cs"));
+    const rest = all.filter(v => !sk.includes(v) && !cs.includes(v));
+    state.voices = [...sk, ...cs, ...rest];
+    voiceSel.innerHTML = "";
+    const groups = [["Slovenčina", sk], ["Čeština", cs], ["Ostatné", rest]];
+    for (const [name, list] of groups) {
+      if (!list.length) continue;
+      const og = document.createElement("optgroup"); og.label = name;
+      for (const v of list) { const o = document.createElement("option"); o.value = v.name; o.textContent = `${v.name} (${v.lang})`; og.appendChild(o); }
+      voiceSel.appendChild(og);
+    }
+    if (!state.voiceName || !all.some(v => v.name === state.voiceName)) state.voiceName = (sk[0] || cs[0] || all[0]).name;
+    voiceSel.value = state.voiceName;
+    $("voiceHint").hidden = sk.length > 0;
+  }
+  if (window.speechSynthesis) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+  voiceSel.addEventListener("change", () => { state.voiceName = voiceSel.value; save(); });
+  $("rate").value = state.rate; $("rateVal").textContent = Number(state.rate).toFixed(2).replace(/0$/, "");
+  $("rate").addEventListener("input", (e) => { state.rate = Number(e.target.value); $("rateVal").textContent = state.rate.toFixed(2).replace(/0$/, ""); save(); });
+  $("vol").value = state.vol; $("volVal").textContent = Math.round(state.vol * 100) + " %";
+  $("vol").addEventListener("input", (e) => { state.vol = Number(e.target.value); $("volVal").textContent = Math.round(state.vol * 100) + " %"; save(); });
+  $("auto").checked = state.auto;
+  $("auto").addEventListener("change", (e) => { state.auto = e.target.checked; save(); });
+
+  function setVoiceState(text, cls) { const p = $("voiceState"); p.className = "pill " + (cls || ""); $("voiceStateText").textContent = text; }
+  function setConn(text, cls) { const p = $("conn"); p.className = "pill " + (cls || ""); $("connText").textContent = text; }
+
+  const queue = [];
+  function speak(text, id) {
+    if (!window.speechSynthesis || !state.enabled || !text) return;
+    const u = new SpeechSynthesisUtterance(text);
+    const v = state.voices.find(x => x.name === state.voiceName); if (v) u.voice = v;
+    u.lang = (v && v.lang) || "sk-SK"; u.rate = state.rate; u.volume = state.vol;
+    u.onstart = () => { state.speakingId = id || null; render(); setVoiceState("hovorím…", "live"); };
+    u.onend = u.onerror = () => { state.speakingId = null; render(); setVoiceState("hlas zapnutý", "ok"); };
+    speechSynthesis.speak(u);
+  }
+  $("enableBtn").addEventListener("click", () => {
+    state.enabled = true; $("gate").hidden = true; setVoiceState("hlas zapnutý", "ok");
+    speak("Hlas je zapnutý. Budem čítať, čo Claude pošle.");
+    // správy, ktoré prišli pred kliknutím a ešte neboli prečítané
+    for (const it of queue.splice(0)) speak(it.text, it.id);
+  });
+  $("testBtn").addEventListener("click", () => { if (!state.enabled) { $("enableBtn").click(); return; } speak("Toto je skúšobná veta. A je hotové, B malo problém, mám dve riešenia."); });
+  $("stopBtn").addEventListener("click", () => { if (window.speechSynthesis) speechSynthesis.cancel(); queue.length = 0; state.speakingId = null; render(); if (state.enabled) setVoiceState("hlas zapnutý", "ok"); });
+
+  // --- správy --------------------------------------------------------------------------------
+  const fmt = (ts) => { try { const d = new Date(ts); return isNaN(d) ? String(ts) : d.toLocaleString("sk-SK", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "numeric" }); } catch (e) { return String(ts); } };
+  function render() {
+    const box = $("msgs"); box.innerHTML = "";
+    if (!state.items.length) { const e = document.createElement("div"); e.className = "empty"; e.textContent = "Zatiaľ nič. Keď Claude dokončí odpoveď, objaví sa tu krátke zhrnutie a prečíta sa."; box.appendChild(e); return; }
+    for (const it of state.items) {
+      const el = document.createElement("article"); el.className = "msg" + (state.speakingId === it.id ? " speaking" : "");
+      const meta = document.createElement("div"); meta.className = "meta";
+      meta.innerHTML = `<span>${fmt(it.ts)}</span>` + (it.session ? `<span>${escapeHtml(String(it.session))}</span>` : "");
+      const text = document.createElement("div"); text.className = "text"; text.textContent = it.text || "";
+      const row = document.createElement("div"); row.className = "row";
+      const play = document.createElement("button"); play.type = "button"; play.className = "small"; play.textContent = "▶ Prehrať";
+      play.addEventListener("click", () => { if (!state.enabled) { $("enableBtn").click(); } speechSynthesis.cancel(); speak(it.text, it.id); });
+      row.appendChild(play);
+      if (it.detail) {
+        const full = document.createElement("button"); full.type = "button"; full.className = "small"; full.textContent = "▶ Prečítať celé";
+        full.addEventListener("click", () => { if (!state.enabled) { $("enableBtn").click(); } speechSynthesis.cancel(); speak(it.detail, it.id); });
+        row.appendChild(full);
+        const det = document.createElement("details"); const sum = document.createElement("summary"); sum.textContent = "Dlhšia verzia";
+        const dd = document.createElement("div"); dd.className = "detail"; dd.textContent = it.detail; det.appendChild(sum); det.appendChild(dd);
+        el.append(meta, text, row, det);
+      } else {
+        el.append(meta, text, row);
+      }
+      box.appendChild(el);
+    }
+  }
+  function escapeHtml(s) { return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+  render();
+
+  function onNew(it) {
+    if (state.seen.has(it.id)) return;
+    state.seen.add(it.id);
+    const isNew = !state.lastSeen || (it.ts && it.ts > state.lastSeen);
+    if (it.ts && (!state.lastSeen || it.ts > state.lastSeen)) { state.lastSeen = it.ts; save(); }
+    if (!isNew || !state.auto) return;
+    if (state.enabled) speak(it.text, it.id); else queue.push(it);
+  }
+
+  async function connect() {
+    if (!window.claude || typeof window.claude.use !== "function") { setConn("otvor v Claude (claude.ai), nie ako samostatný súbor", "warn"); return; }
+    const db = await window.claude.use("db");
+    if (!db) { setConn("bez prístupu k správam – otvor stránku prihlásený v Claude", "warn"); return; }
+    setConn("pripojené", "ok");
+    let first = true;
+    db.collection("hlas").orderBy("ts", "desc").limit(30).onSnapshot((snap) => {
+      const docs = snap.docs.filter(d => d.exists).map(d => ({ id: d.id, ...(d.data() || {}) }));
+      state.items = docs;
+      if (first) {
+        // pri prvom načítaní neprečítaj starú históriu – iba to, čo prišlo od poslednej návštevy (max 3)
+        first = false;
+        const fresh = docs.filter(d => state.lastSeen && d.ts > state.lastSeen).slice(0, 3).reverse();
+        for (const d of docs) state.seen.add(d.id);
+        if (docs.length && (!state.lastSeen || docs[0].ts > state.lastSeen)) { state.lastSeen = docs[0].ts; save(); }
+        for (const d of fresh) { if (state.auto) { if (state.enabled) speak(d.text, d.id); else queue.push(d); } }
+      } else {
+        const added = snap.docChanges().filter(c => c.type === "added").map(c => ({ id: c.doc.id, ...(c.doc.data() || {}) }));
+        added.sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
+        for (const d of added) onNew(d);
+      }
+      render();
+      prune(db, snap).catch(() => {});
+    }, (err) => { setConn("spojenie zlyhalo (" + (err && err.code || "?") + ") – obnov stránku", "warn"); });
+  }
+  let pruning = false;
+  async function prune(db, snap) {
+    // história sa drží krátka: nad 40 správ sa najstaršie zmažú (limit databázy je 5000)
+    if (pruning || snap.size < 30) return;
+    pruning = true;
+    try {
+      const all = await db.collection("hlas").orderBy("ts", "desc").limit(200).get();
+      const old = all.docs.slice(40);
+      for (const d of old) { try { await db.doc("hlas/" + d.id).delete(); } catch (e) {} }
+    } finally { pruning = false; }
+  }
+  connect();
+})();
+</script>

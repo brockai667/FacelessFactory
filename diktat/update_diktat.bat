@@ -37,7 +37,8 @@ if exist logs\diktat.pid (
 )
 powershell -NoProfile -Command "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*diktat*app.py*' -or $_.CommandLine -like '*diktat*watch.py*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }" >> %LOG% 2>&1
 timeout /t 2 >nul
-echo [5/5] Planovac uloh + start...
+echo [5/5] Nastavenie Claude (CLAUDE.md, skill, hook), Planovac uloh + start...
+.venv\Scripts\python.exe install.py >> %LOG% 2>&1
 .venv\Scripts\python.exe install.py --autostart >> %LOG% 2>&1
 echo    install kod: %errorlevel% >> %LOG%
 if not exist diktat_tray.vbs (
