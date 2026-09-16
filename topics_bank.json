@@ -15543,5 +15543,269 @@
     ],
     "place": "",
     "country": ""
+  },
+  {
+    "title": "Nose Secrets That Defy Expectation",
+    "thumb": "NOSE POWER",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "The human nose can detect a single molecule in a room the size of a stadium",
+        "hook_top": "STADIUMSIZED SMELL",
+        "query": "human nose odor detection limit",
+        "query2": "olfactory sensitivity human nose",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "SMELLS ARE MEMORY TRIGGERS",
+        "label_on": "memory",
+        "text": "Smell is the only sense directly linked to the brain’s memory center, the hippocampus",
+        "query": "olfaction hippocampus connection",
+        "query2": "smell memory brain region",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "NOSTRIL AIRFLOW SWITCH",
+        "label_on": "switch",
+        "text": "Each nostril alternates dominance every 2–6 seconds in a cycle called nasal cycle",
+        "query": "nasal cycle alternation nostril",
+        "query2": "nostril airflow switching",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "NOSTRIL FILTER EFFICIENCY",
+        "label_on": "filter",
+        "text": "Nasal hairs and mucus trap over 90 % of airborne particles larger than 10 µm",
+        "query": "nasal hairs filter airborne particles",
+        "query2": "mucus particle capture efficiency",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow for facts that sound fake but aren't.",
+        "query": "follow button animation",
+        "query2": "subscribe call to action",
+        "role": "cta"
+      }
+    ],
+    "description": "Your nose does far more than just breathe – it’s a high‑tech detector, a memory shortcut, and a built‑in air filter. Discover the hidden powers of this tiny organ. Follow for more mind‑blowing body secrets.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#bodyfacts",
+      "#nose",
+      "#mindblown",
+      "#didyouknow"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Mysterious Mechanics of Coffee Foam",
+    "thumb": "FOAM SCIENCE",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "A perfect latte art crown forms in under three seconds after pouring",
+        "hook_top": "3SECOND LATTE ART",
+        "query": "latte art formation time",
+        "query2": "coffee foam creation seconds",
+        "role": "hook"
+      },
+      {
+        "type": "count",
+        "num": 3,
+        "label": "MICRO‑BUBBLE STABILITY",
+        "label_on": "bubbles",
+        "text": "Proteins from coffee beans and milk create a skin that traps micro‑bubbles, stabilizing the foam",
+        "query": "coffee protein foam stability",
+        "query2": "milk protein microbubble coffee",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 2,
+        "label": "CARBON DIOXIDE RELEASE",
+        "label_on": "CO₂",
+        "text": "During brewing, hot water extracts dissolved CO₂, which expands rapidly when the liquid cools, forming bubbles",
+        "query": "coffee brewing CO2 release",
+        "query2": "carbon dioxide coffee extraction",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "count",
+        "num": 1,
+        "label": "SURFACE TENSION GRADIENT",
+        "label_on": "tension",
+        "text": "A temperature gradient between hot espresso and cooler milk creates Marangoni flow that spreads the foam evenly",
+        "query": "Marangoni flow latte art",
+        "query2": "surface tension coffee foam",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow if you love learning something new.",
+        "query": "follow button animation",
+        "query2": "subscribe call to action",
+        "role": "cta"
+      }
+    ],
+    "description": "The silky crown on your morning coffee isn’t magic – it’s physics, chemistry, and a dash of temperature tricks. Discover the micro‑bubbles, CO₂ burst, and surface‑tension dance behind that perfect foam. Follow for more everyday science wonders.",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#coffee",
+      "#foam",
+      "#mindblown",
+      "#everydayfacts"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Head Heat Loss Myth",
+    "thumb": "HEAD HEAT",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "What if your scalp loses more heat than any other part?",
+        "hook_top": "HEAD HEAT LOST",
+        "query": "human head heat loss",
+        "query2": "body heat dissipation",
+        "role": "hook"
+      },
+      {
+        "type": "myth",
+        "text": "People often believe that most of your body heat escapes through your head.",
+        "label": "Heat leaves through head",
+        "query": "common heat loss myth head",
+        "query2": "body heat myth",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "truth",
+        "text": "Scientific tests show heat loss depends on exposed surface area; a uncovered arm loses as much as a head.",
+        "label": "Heat loss equals exposed area",
+        "query": "study heat loss body surface",
+        "query2": "thermoregulation research",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "callout",
+        "text": "Cover up any exposed skin to stay warm, not just the head.",
+        "label": "Cover all skin",
+        "sub": "Heat loss is about area, not just the head",
+        "label_on": "heat",
+        "query": "warm clothing heat loss",
+        "query2": "stay warm tips",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Follow so you never run out of fun facts.",
+        "query": "science myth busting channel",
+        "query2": "follow science facts",
+        "role": "cta"
+      }
+    ],
+    "description": "The old claim that your head is the main heat‑leak is wrong. Learn the real science behind body temperature regulation. Follow for more mind‑blowing facts!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#science",
+      "#mythbusted",
+      "#bodyfacts",
+      "#heatloss",
+      "#learn"
+    ],
+    "place": "",
+    "country": ""
+  },
+  {
+    "title": "Blinking Secrets of Hummingbirds",
+    "thumb": "FAST HOVER BLINK",
+    "scenes": [
+      {
+        "type": "hook",
+        "text": "Hummingbirds can blink in just 3 seconds",
+        "hook_top": "BLINK IN 3 SECONDS",
+        "query": "hummingbird blink speed",
+        "query2": "hummingbird eye closure duration",
+        "role": "hook"
+      },
+      {
+        "type": "fact",
+        "text": "Their wings beat about 70 times per second, keeping them airborne while their eyes stay open.",
+        "chips": [
+          {
+            "t": "70 HZ WINGS",
+            "on": "wings",
+            "style": "accent"
+          }
+        ],
+        "query": "hummingbird wing beat frequency",
+        "query2": "hummingbird wing beats per second",
+        "role": "fact"
+      },
+      {
+        "type": "fact",
+        "text": "A hummingbird’s heart can pump up to 1,260 beats per minute, delivering oxygen quickly to muscles.",
+        "chips": [
+          {
+            "t": "1,260 BPM HEART",
+            "on": "heart",
+            "style": "accent"
+          }
+        ],
+        "query": "hummingbird heart rate",
+        "query2": "hummingbird beats per minute",
+        "role": "fact"
+      },
+      {
+        "type": "reveal",
+        "text": "The brief blink actually protects their tiny eyes from the vortex created by their own wingbeats.",
+        "reveal_top": "PROTECTS FROM VORTEX",
+        "query": "hummingbird eye vortex protection",
+        "query2": "why hummingbirds blink while flying",
+        "role": "fact",
+        "chips": []
+      },
+      {
+        "type": "cta",
+        "text": "Hit follow for your daily dose of wow.",
+        "query": "follow call to action",
+        "query2": "subscribe prompt",
+        "role": "cta"
+      }
+    ],
+    "description": "Discover why hummingbirds pause their vision for a split second while hovering at lightning speed. The hidden reason will astonish you. Follow for more!",
+    "hashtags": [
+      "#shorts",
+      "#fyp",
+      "#hummingbird",
+      "#naturefacts",
+      "#science",
+      "#birdseye",
+      "#mindblown"
+    ],
+    "place": "",
+    "country": ""
   }
 ]
