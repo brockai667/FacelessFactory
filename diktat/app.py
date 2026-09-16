@@ -387,7 +387,8 @@ class DiktatApp:
                                      notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)),
                                      on_update=self.update_and_restart if sys.platform == "win32" else None,
                                      on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start(),
-                                     on_gate=self.adjust_gate, gate_text=self.gate_text)
+                                     on_gate=self.adjust_gate, gate_text=self.gate_text,
+                                     on_diag=self.run_diag)
             self.tray.state = "starting"
 
             def boot():
@@ -466,6 +467,13 @@ class DiktatApp:
         finally:
             self.tray.set_state("idle")
             self.busy.release()
+
+    def run_diag(self) -> None:
+        def work():
+            diagnose(self.cfg, self.log_dir)
+            self.overlay.show("🩺 diagnostika je v schránke – vlož do Claude (Ctrl+V)", "ok", timeout=6)
+            self.tray.notify("Diagnostika skopírovaná do schránky – vlož do Claude cez Ctrl+V.")
+        threading.Thread(target=work, daemon=True).start()
 
     def gate_text(self) -> str:
         g = self.recorder.gate_rms if self.recorder else 0
@@ -585,6 +593,82 @@ def disable_console_quick_edit() -> None:
         pass
 
 
+def diagnose(cfg: dict, log_dir: Path | None) -> str:
+    """Zozbiera stav (verzia, config, súbory, úloha Plánovača, procesy, konce logov) do textu, uloží ho
+    do logs/diagnostika.txt a skopíruje do schránky – používateľ ho vloží do Claude cez Ctrl+V."""
+    import datetime as _dt
+    import subprocess
+    lines: list[str] = []
+    add = lines.append
+    add(f"=== diktat diagnostika {_dt.datetime.now():%Y-%m-%d %H:%M:%S} ===")
+    try:
+        rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=str(HERE), capture_output=True, text=True,
+                             timeout=10).stdout.strip()
+    except Exception:  # noqa: BLE001
+        rev = "?"
+    add(f"verzia: {rev}  python: {sys.version.split()[0]}  exe: {sys.executable}")
+    add(f"config: {cfg.get('_path')}  hotkey={cfg.get('hotkey')}  gate={cfg['audio'].get('gate_rms')}  "
+        f"follow={cfg.get('follow', {}).get('processes')}  exit_after={cfg.get('follow', {}).get('exit_after_seconds')}")
+    for name in ("diktat_tray.vbs", "diktat_watch.vbs", "config.json", "logs/diktat.pid", "logs/install.log",
+                 "logs/update.log", "logs/diktat.log"):
+        path = HERE / name
+        add(f"súbor {name}: {'existuje' if path.exists() else 'CHÝBA'}"
+            + (f" ({_dt.datetime.fromtimestamp(path.stat().st_mtime):%H:%M:%S}, {path.stat().st_size} B)" if path.exists() else ""))
+    if sys.platform == "win32":
+        try:
+            res = subprocess.run(["schtasks", "/query", "/tn", "diktat-watch", "/v", "/fo", "list"],
+                                 capture_output=True, text=True, timeout=30, errors="replace")
+            if res.returncode == 0:
+                keep = ("TaskName", "Status", "Last Run Time", "Last Result", "Next Run Time", "Task To Run",
+                        "Scheduled Task State", "Názov úlohy", "Stav", "Čas posledného spustenia",
+                        "Posledný výsledok", "Ďalšie spustenie", "Úloha na spustenie")
+                add("úloha diktat-watch:")
+                for ln in res.stdout.splitlines():
+                    if any(k.lower() in ln.lower() for k in keep):
+                        add("   " + ln.strip())
+            else:
+                add(f"úloha diktat-watch: NEEXISTUJE ({(res.stderr or res.stdout).strip()[:120]})")
+        except Exception as exc:  # noqa: BLE001
+            add(f"úloha diktat-watch: schtasks zlyhal: {exc}")
+        try:
+            names = procs.running_process_names()
+            follow = cfg.get("follow", {}).get("processes") or []
+            seen = sorted(n for n in names if n in {f.lower() for f in follow})
+            add(f"procesov spolu: {len(names)}; sledované bežia: {', '.join(seen) or 'žiadny'}; diktat mutex: {procs.diktat_running()}")
+        except Exception as exc:  # noqa: BLE001
+            add(f"procesy: chyba {exc}")
+        watch = HERE / "diktat_watch.vbs"
+        if watch.is_file():
+            try:
+                res = subprocess.run(["cscript", "//nologo", str(watch)], capture_output=True, text=True, timeout=60,
+                                     errors="replace", cwd=str(HERE))
+                add(f"test diktat_watch.vbs: kód {res.returncode} {(res.stdout + res.stderr).strip()[:200]}")
+            except Exception as exc:  # noqa: BLE001
+                add(f"test diktat_watch.vbs: {exc}")
+    for name in ("install.log", "update.log", "diktat.log"):
+        path = (log_dir or HERE / "logs") / name
+        if path.is_file():
+            try:
+                tail = path.read_text(encoding="utf-8", errors="replace").splitlines()[-12:]
+            except Exception:  # noqa: BLE001
+                tail = ["(nedá sa prečítať)"]
+            add(f"--- {name} (koniec) ---")
+            lines.extend("   " + ln for ln in tail)
+    report = "\n".join(lines)
+    try:
+        out = (log_dir or HERE / "logs")
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "diagnostika.txt").write_text(report, encoding="utf-8")
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        import pyperclip
+        pyperclip.copy(report)
+    except Exception:  # noqa: BLE001
+        pass
+    return report
+
+
 def keys_probe() -> int:
     """Diagnostika: vypíše VK kód (+ extended príznak) každého stlačeného klávesu. Esc ukončí."""
     from pynput import keyboard
@@ -661,6 +745,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--tray", action="store_true", help="beh na pozadí s ikonou v lište, log do logs/diktat.log")
     ap.add_argument("--calibrate", action="store_true",
                     help="zmeraj reč vs. ruch a nastav hlasitostnú bránu (len tvoj hlas z pracovnej vzdialenosti)")
+    ap.add_argument("--diag", action="store_true", help="diagnostika do logs/diagnostika.txt + schránky")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
 
@@ -676,6 +761,11 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.keys:
         return keys_probe()
+    if args.diag:
+        report = diagnose(cfg, log_dir)
+        print(report)
+        print("\n(Skopírované do schránky – vlož do Claude cez Ctrl+V. Uložené aj v logs/diagnostika.txt.)")
+        return 0
 
     app = DiktatApp(cfg, no_paste=args.no_paste or bool(args.text) or bool(args.file))
 

@@ -39,7 +39,9 @@ def _image(color):
 class Tray:
     def __init__(self, on_quit: Callable[[], None], log_path: str | None = None, notify_enabled: bool = True,
                  on_update: Callable[[], None] | None = None, on_calibrate: Callable[[], None] | None = None,
-                 on_gate: Callable[[str], None] | None = None, gate_text: Callable[[], str] | None = None):
+                 on_gate: Callable[[str], None] | None = None, gate_text: Callable[[], str] | None = None,
+                 on_diag: Callable[[], None] | None = None):
+        self.on_diag = on_diag
         self.on_quit = on_quit
         self.on_update = on_update
         self.on_calibrate = on_calibrate
@@ -92,6 +94,7 @@ class Tray:
             pystray.MenuItem("Kalibrovať mikrofón (len môj hlas)", calibrate_, enabled=bool(self.on_calibrate)),
             pystray.MenuItem("Brána (len môj hlas)", gate_menu),
             pystray.MenuItem("Otvoriť log", open_log, enabled=bool(self.log_path)),
+            pystray.MenuItem("Diagnostika (do schránky)", lambda icon, item: self.on_diag(), enabled=bool(self.on_diag)),
             pystray.MenuItem("Aktualizovať a reštartovať", update_, enabled=bool(self.on_update)),
             pystray.MenuItem("Ukončiť diktat", quit_),
         )
