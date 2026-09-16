@@ -50,6 +50,58 @@ def running_process_names() -> set[str]:
     return names
 
 
+def _exe_name_of_pid(pid: int, cache: dict) -> str | None:
+    if pid in cache:
+        return cache[pid]
+    name = None
+    try:
+        import ctypes
+        from ctypes import wintypes
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.OpenProcess(0x1000, False, pid)         # PROCESS_QUERY_LIMITED_INFORMATION
+        if handle:
+            try:
+                size = wintypes.DWORD(1024)
+                buf = ctypes.create_unicode_buffer(1024)
+                if kernel32.QueryFullProcessImageNameW(handle, 0, buf, ctypes.byref(size)):
+                    name = buf.value.rsplit("\\", 1)[-1].lower()
+            finally:
+                kernel32.CloseHandle(handle)
+    except Exception:  # noqa: BLE001
+        name = None
+    cache[pid] = name
+    return name
+
+
+def process_names_with_windows() -> set[str]:
+    """Názvy procesov, ktoré majú VIDITEĽNÉ okno s titulkom (Windows). Chrome na pozadí či Claude v lište
+    okno nemajú → nepočítajú sa. Inde: prázdna množina."""
+    names: set[str] = set()
+    if sys.platform != "win32":
+        return names
+    import ctypes
+    from ctypes import wintypes
+    user32 = ctypes.windll.user32
+    cache: dict = {}
+    proto = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
+
+    def cb(hwnd, _lparam):
+        try:
+            if not user32.IsWindowVisible(hwnd) or user32.GetWindowTextLengthW(hwnd) == 0:
+                return True
+            pid = wintypes.DWORD()
+            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+            name = _exe_name_of_pid(pid.value, cache)
+            if name:
+                names.add(name)
+        except Exception:  # noqa: BLE001
+            pass
+        return True
+
+    user32.EnumWindows(proto(cb), 0)
+    return names
+
+
 def any_running(follow: list[str], names: set[str] | None = None) -> bool:
     """Beží aspoň jeden zo sledovaných procesov? Porovnáva sa bez ohľadu na veľkosť písmen, aj bez .exe."""
     if not follow:

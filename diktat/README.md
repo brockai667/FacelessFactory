@@ -128,11 +128,11 @@ slovníka náhrad.
 
 Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.exe`, `opera.exe`, `chrome.exe`):
 
-- keď ich všetky zatvoríš (aj cez Správcu úloh), diktat sa po `follow.exit_after_seconds` (60 s) sám vypne
-  a uvoľní pamäť – prúžok ukáže „💤 diktat sa vypína“;
+- keď nemá žiadny z nich **otvorené okno** (Chrome na pozadí či Claude schovaný v lište sa nerátajú), diktat sa
+  po `follow.exit_after_seconds` (60 s) sám vypne a uvoľní pamäť – prúžok ukáže „💤 diktat sa vypína“;
 - žiadny proces nečaká na pozadí: úloha Plánovača úloh Windows **`diktat-watch`** raz za minútu spustí
-  `diktat_watch.vbs` (kontrola procesov, zlomok sekundy, skončí). Ak beží niektorý zo sledovaných programov
-  a diktat nie, spustí ho. Zapneš Claude → najneskôr do minúty štartuje diktat (pol minúty načítava model).
+  `diktat_watch.vbs` (kontrola okien cez PowerShell, ~1 s, skončí). Ak má niektorý zo sledovaných programov
+  otvorené okno a diktat nebeží, spustí ho. Zapneš Claude → najneskôr do minúty štartuje diktat (pol minúty načítava model).
   Ten istý mechanizmus vráti diktat aj po aktualizácii.
 
 Prázdny zoznam = diktat sa spúšťa priamo pri prihlásení a beží stále. Nastavuje `install.py --autostart`

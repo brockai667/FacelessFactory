@@ -99,36 +99,39 @@ class DiktatApp:
             threading.Thread(target=self._follow_loop, args=(follow,), daemon=True, name="follow").start()
 
     def _follow_loop(self, follow: list[str]) -> None:
-        """Keď žiadny zo sledovaných programov (Claude, prehliadač…) nebeží dlhšie ako exit_after_seconds,
-        diktat sa vypne. Strážca (watch.py) ho spustí znova, keď sa objavia."""
+        """Keď nie je otvorené žiadne OKNO sledovaných programov (Claude, prehliadač…) dlhšie ako
+        exit_after_seconds, diktat sa vypne. Procesy na pozadí (Chrome bez okna, Claude v lište) sa nerátajú.
+        Úloha diktat-watch ho spustí znova, keď sa okno objaví."""
         limit = float(self.cfg.get("follow", {}).get("exit_after_seconds") or 60)
         missing_since = None
-        first = True
+        last_seen: set[str] | None = None
         while True:
             time.sleep(5)
             try:
-                names = procs.running_process_names()
-                if first:
-                    seen = sorted(n for n in names if any(f.lower() in (n, n + ".exe") or n == f.lower() for f in follow))
-                    log.info("follow: procesov %d, sledované bežia: %s", len(names), ", ".join(seen) or "žiadny")
-                    first = False
-                if len(names) < 20:
+                all_names = procs.running_process_names()
+                if len(all_names) < 20:
                     # Windows má vždy desiatky procesov – takto malý zoznam = zlyhanie enumerácie → nevypínať sa
-                    log.warning("follow: podozrivý zoznam procesov (%d), vypínanie preskakujem", len(names))
+                    log.warning("follow: podozrivý zoznam procesov (%d), vypínanie preskakujem", len(all_names))
                     missing_since = None
                     continue
-                if procs.any_running(follow, names):
+                windows = procs.process_names_with_windows()
+                wanted = {f.lower() for f in follow} | {f.lower()[:-4] for f in follow if f.lower().endswith(".exe")}
+                seen = sorted(n for n in windows if n in wanted or n + ".exe" in wanted)
+                if set(seen) != last_seen:
+                    log.info("follow: otvorené okná sledovaných programov: %s", ", ".join(seen) or "žiadne")
+                    last_seen = set(seen)
+                if seen:
                     missing_since = None
                     continue
                 if missing_since is None:
                     missing_since = time.monotonic()
-                    log.info("sledované programy nebežia (%s) – vypnem sa o %.0f s", ", ".join(follow), limit)
+                    log.info("žiadne okno Claude/prehliadača – vypnem sa o %.0f s", limit)
                     continue
                 if time.monotonic() - missing_since < limit:
                     continue
                 if self.recorder is not None and (self.recorder.recording or self.busy.locked()):
                     continue                     # dokonči diktát, vypni sa až potom
-                log.info("Claude/prehliadač zatvorený – diktat sa vypína (spustí sa znova so strážcom)")
+                log.info("Claude/prehliadač zatvorený – diktat sa vypína (úloha diktat-watch ho spustí znova)")
                 self.tray.notify("Claude zatvorený – diktat sa vypína. Spustí sa sám, keď Claude zapneš.")
                 self.overlay.show("💤 diktat sa vypína (Claude zatvorený) – zapne sa sám s Claude", "info", timeout=4)
                 time.sleep(1.5)
@@ -634,7 +637,10 @@ def diagnose(cfg: dict, log_dir: Path | None) -> str:
             names = procs.running_process_names()
             follow = cfg.get("follow", {}).get("processes") or []
             seen = sorted(n for n in names if n in {f.lower() for f in follow})
-            add(f"procesov spolu: {len(names)}; sledované bežia: {', '.join(seen) or 'žiadny'}; diktat mutex: {procs.diktat_running()}")
+            add(f"procesov spolu: {len(names)}; sledované procesy: {', '.join(seen) or 'žiadny'}; diktat mutex: {procs.diktat_running()}")
+            wins = procs.process_names_with_windows()
+            seen_w = sorted(n for n in wins if n in {f.lower() for f in follow})
+            add(f"okná sledovaných programov: {', '.join(seen_w) or 'žiadne'} (spolu procesov s oknom: {len(wins)})")
         except Exception as exc:  # noqa: BLE001
             add(f"procesy: chyba {exc}")
         watch = HERE / "diktat_watch.vbs"

@@ -19,5 +19,11 @@ class AnyRunningTests(unittest.TestCase):
         self.assertTrue(any(n.startswith("python") for n in names), names)
 
 
+class WindowsTests(unittest.TestCase):
+    def test_process_names_with_windows_is_safe_everywhere(self):
+        names = procs.process_names_with_windows()
+        self.assertIsInstance(names, set)
+
+
 if __name__ == "__main__":
     unittest.main()

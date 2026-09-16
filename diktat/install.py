@@ -79,16 +79,26 @@ def vbs_launcher(python_exe: str, script_path: Path, args: str = "--tray") -> st
 
 
 def watch_vbs(python_exe: str, app_path: Path, follow: list[str]) -> str:
-    """Jednorazová kontrola (spúšťa ju Plánovač úloh raz za minútu, trvá zlomok sekundy, nič nezostáva bežať):
-    ak beží niektorý zo sledovaných programov a diktat nie, spustí diktat skryto."""
+    """Jednorazová kontrola (spúšťa ju Plánovač úloh raz za minútu, trvá ~1 s, nič nezostáva bežať):
+    ak má niektorý zo sledovaných programov OTVORENÉ OKNO (nie len proces na pozadí) a diktat nebeží,
+    spustí diktat skryto. Okná zisťuje PowerShell (MainWindowHandle), spustený bez okna cez sh.Run(…, 0)."""
     py = pythonw_for(python_exe)
-    names = ", ".join(f'"{p.strip().lower()}"' for p in follow if p.strip()) or '""'
+    ps_names = ",".join(f"'{p.strip().lower()[:-4] if p.strip().lower().endswith('.exe') else p.strip().lower()}'"
+                        for p in follow if p.strip()) or "'claude'"
+    ps = ("$n=@(" + ps_names + "); exit [int](((Get-Process -Name $n -ErrorAction SilentlyContinue | "
+          "Where-Object { $_.MainWindowHandle -ne 0 }) | Measure-Object).Count -gt 0)")
+    ps_vbs = ps.replace('"', '""')
     return (
         "' diktat strážca – generuje install.py --autostart, spúšťa Plánovač úloh (úloha diktat-watch) raz za minútu\r\n"
-        f"names = Array({names})\r\n"
+        'Set sh = CreateObject("WScript.Shell")\r\n'
+        "' 1) má Claude/prehliadač otvorené okno? (procesy na pozadí sa nerátajú)\r\n"
+        f'code = sh.Run("powershell -NoProfile -NonInteractive -Command ""{ps_vbs}""", 0, True)\r\n'
+        "claudeRunning = (code = 1)\r\n"
+        "If Not claudeRunning Then WScript.Quit 0\r\n"
+        "' 2) beží už diktat? (podľa príkazového riadku alebo PID súboru)\r\n"
         'Set wmi = GetObject("winmgmts:\\\\.\\root\\cimv2")\r\n'
         'Set procs = wmi.ExecQuery("SELECT Name, CommandLine, ProcessId FROM Win32_Process")\r\n'
-        "claudeRunning = False : diktatRunning = False : pidRunning = \"\"\r\n"
+        "diktatRunning = False : pidRunning = \"\"\r\n"
         "Set fso = CreateObject(\"Scripting.FileSystemObject\")\r\n"
         f'pidFile = "{app_path.parent / "logs" / "diktat.pid"}"\r\n'
         "If fso.FileExists(pidFile) Then\r\n"
@@ -97,32 +107,14 @@ def watch_vbs(python_exe: str, app_path: Path, follow: list[str]) -> str:
         "  On Error GoTo 0\r\n"
         "End If\r\n"
         "For Each p In procs\r\n"
-        "  n = LCase(p.Name & \"\")\r\n"
-        "  For Each w In names\r\n"
-        "    If w <> \"\" And n = w Then claudeRunning = True\r\n"
-        "  Next\r\n"
         '  If InStr(LCase(p.CommandLine & ""), "diktat\\app.py") > 0 Then diktatRunning = True\r\n'
         "  If pidRunning <> \"\" And CStr(p.ProcessId) = pidRunning And InStr(LCase(p.Name & \"\"), \"python\") > 0 Then diktatRunning = True\r\n"
         "Next\r\n"
-        "If claudeRunning And Not diktatRunning Then\r\n"
-        '  Set sh = CreateObject("WScript.Shell")\r\n'
+        "If Not diktatRunning Then\r\n"
         f'  sh.CurrentDirectory = "{app_path.parent}"\r\n'
         f'  sh.Run """{py}"" ""{app_path}"" --tray", 0, False\r\n'
         "End If\r\n"
     )
-
-
-def current_user() -> str:
-    """DOMÉNA\\používateľ (z `whoami`), potrebné pre spúšťač „pri prihlásení“ bez práv správcu."""
-    import subprocess
-    try:
-        out = subprocess.run(["whoami"], capture_output=True, text=True, timeout=10, errors="replace").stdout.strip()
-        if out:
-            return out
-    except Exception:  # noqa: BLE001
-        pass
-    import getpass
-    return getpass.getuser()
 
 
 def task_xml(watch_vbs_path: Path, user: str | None = None) -> str:
