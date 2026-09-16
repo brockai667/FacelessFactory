@@ -152,6 +152,21 @@ slovenčinu len Lukáš a Viktória; prirodzenejšie slovenské hlasy majú plat
 
 Kľúč sa ukladá do `config.json` (je v `.gitignore`), alebo do env `ELEVENLABS_API_KEY` / `GOOGLE_TTS_API_KEY`.
 
+**Slovenské hlasy, ktoré sme našli (stav 09/2026):**
+
+- **Google Chirp 3 HD** – najnovšia generácia Google hlasov, slovenčina `sk-SK` má mužský *Achird* a ženský
+  *Achernar* (názvy `sk-SK-Chirp3-HD-Achird`, `sk-SK-Chirp3-HD-Achernar`); `hlas_ukazky.bat --engine google`
+  ich ponúka ako prvé. Prvý milión znakov mesačne zadarmo (krátke zhrnutia sa doň zmestia), potom 30 $/mil.
+- **ElevenLabs** (model v3 / `eleven_multilingual_v2`) – slovenčina podporovaná, najprirodzenejšie, ale platené
+  (skúšobný kredit stačí na vyskúšanie).
+- **Microsoft edge-tts** – po slovensky bez prízvuku len Lukáš a Viktória; viacjazyčné hlasy (Vivienne, Ava,
+  Andrew, Brian…) znejú prirodzene, ale s cudzím prízvukom.
+- **Higgs Audio V3 TTS** (github.com/boson-ai, open weights, 102 jazykov vrátane slovenčiny) – jediný lokálny
+  kandidát s peknou slovenčinou; potrebuje ~10 GB VRAM (prakticky 16 GB) a licencia je len na nekomerčné
+  použitie. Zatiaľ nie je v diktate zabudovaný.
+- **Cartesia Sonic 3** – slovenčina podporovaná, len platené API. **RHVoice** – slovenčina zadarmo, ale staršia
+  technológia (robotickejší ako Lukáš).
+
 **Bez MCP** číta stránka hlasom prehliadača: v Edge sú neurónové slovenské hlasy zadarmo, v Chrome/Opere
 a v okne Claude je len základný „Microsoft Filip“ z Windows. Klikni **Zapnúť hlas** (prehliadač bez
 kliknutia nehovorí). Na stránke je história posledných správ, „Prehrať“ a „Prečítať celé“ (dlhšia verzia,
