@@ -57,6 +57,7 @@
   .empty { color: var(--muted); text-align: center; padding: 28px 12px; }
   .hint { font-size: 13px; color: var(--muted); }
   code { font-family: var(--mono); font-size: 12px; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+  .warnbox { color: var(--warn); background: var(--warn-soft); border-radius: 8px; padding: 8px 10px; margin-top: 10px; }
 </style>
 
 <div class="wrap">
@@ -91,6 +92,7 @@
       </div>
     </div>
     <p class="hint" id="voiceHint">Najlepšie slovenské hlasy (Lukáš, Viktória) má Microsoft Edge. V Chrome a Opere treba slovenský hlas doinštalovať vo Windows: Nastavenia → Čas a jazyk → Reč → Pridať hlasy → Slovenčina.</p>
+    <p class="hint warnbox" id="edgeHint" hidden><strong>Slabý hlas.</strong> <span id="edgeHintText">Pre prirodzený slovenský hlas otvor túto stránku v Microsoft Edge.</span></p>
   </section>
 
   <section class="msgs" id="msgs">
@@ -112,10 +114,15 @@
   function loadVoices() {
     const all = window.speechSynthesis ? speechSynthesis.getVoices() : [];
     if (!all.length) return;
-    const sk = all.filter(v => (v.lang || "").toLowerCase().startsWith("sk"));
-    const cs = all.filter(v => (v.lang || "").toLowerCase().startsWith("cs"));
+    const natural = (v) => /natural|online|neural/i.test(v.name);            // Edge: „Microsoft Lukas Online (Natural)“
+    const byQuality = (a, b) => (natural(b) - natural(a)) || a.name.localeCompare(b.name);
+    const sk = all.filter(v => (v.lang || "").toLowerCase().startsWith("sk")).sort(byQuality);
+    const cs = all.filter(v => (v.lang || "").toLowerCase().startsWith("cs")).sort(byQuality);
     const rest = all.filter(v => !sk.includes(v) && !cs.includes(v));
     state.voices = [...sk, ...cs, ...rest];
+    const hasNatural = sk.some(natural);
+    $("edgeHint").hidden = hasNatural;
+    if (!hasNatural && sk.length) $("edgeHintText").textContent = "Máš len základný hlas z Windows („" + sk[0].name + "“). Pre prirodzený slovenský hlas (Lukáš, Viktória) otvor túto stránku v Microsoft Edge.";
     voiceSel.innerHTML = "";
     const groups = [["Slovenčina", sk], ["Čeština", cs], ["Ostatné", rest]];
     for (const [name, list] of groups) {
@@ -124,7 +131,10 @@
       for (const v of list) { const o = document.createElement("option"); o.value = v.name; o.textContent = `${v.name} (${v.lang})`; og.appendChild(o); }
       voiceSel.appendChild(og);
     }
-    if (!state.voiceName || !all.some(v => v.name === state.voiceName)) state.voiceName = (sk[0] || cs[0] || all[0]).name;
+    const remembered = all.find(v => v.name === state.voiceName);
+    if (!remembered || (!natural(remembered) && hasNatural && (remembered.lang || "").toLowerCase().startsWith("sk"))) {
+      state.voiceName = (sk[0] || cs[0] || all[0]).name;        // uprednostni neurónový hlas pred Filipom
+    }
     voiceSel.value = state.voiceName;
     $("voiceHint").hidden = sk.length > 0;
   }
