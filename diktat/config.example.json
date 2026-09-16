@@ -97,7 +97,13 @@
     "exit_after_seconds": 60
   },
   "hlas": {
+    "engine": "edge",
     "voice": "sk-SK-LukasNeural",
+    "elevenlabs_api_key": "",
+    "elevenlabs_voice": "",
+    "elevenlabs_model": "eleven_multilingual_v2",
+    "google_api_key": "",
+    "google_voice": "sk-SK-Wavenet-A",
     "rate": "+0%",
     "volume": "+0%"
   }

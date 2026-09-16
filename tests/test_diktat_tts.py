@@ -1,4 +1,5 @@
 """Pomocné funkcie hlasu (bez siete, bez zvuku)."""
+import os
 import unittest
 
 from diktat.hlas import tts
@@ -21,6 +22,29 @@ class VoiceHelpersTests(unittest.TestCase):
         names = [v["ShortName"] for v in tts.candidate_voices(voices)]
         self.assertEqual(names, ["sk-SK-LukasNeural", "sk-SK-ViktoriaNeural", "cs-CZ-VlastaNeural",
                                  "en-US-AvaMultilingualNeural"])
+
+    def test_engine_settings(self):
+        self.assertEqual(tts.engine_settings({})["engine"], "edge")
+        self.assertEqual(tts.engine_settings({"engine": "google"})["voice"], "sk-SK-Wavenet-A")
+        os.environ["ELEVENLABS_API_KEY"] = "k1"
+        try:
+            es = tts.engine_settings({"engine": "elevenlabs", "elevenlabs_voice": "v1"})
+        finally:
+            del os.environ["ELEVENLABS_API_KEY"]
+        self.assertEqual((es["engine"], es["voice"], es["api_key"], es["model"]), ("elevenlabs", "v1", "k1", "eleven_multilingual_v2"))
+        self.assertEqual(tts.engine_settings({"engine": "elevenlabs", "elevenlabs_api_key": "cfg"})["api_key"], "cfg")
+
+    def test_missing_key_raises(self):
+        with self.assertRaises(RuntimeError):
+            tts.synthesize("x", "v", engine="elevenlabs", api_key="")
+        with self.assertRaises(RuntimeError):
+            tts.synthesize("x", "v", engine="google", api_key=None)
+
+    def test_rate_to_float(self):
+        self.assertEqual(tts._rate_to_float("+0%"), 1.0)
+        self.assertAlmostEqual(tts._rate_to_float("+10%"), 1.1)
+        self.assertAlmostEqual(tts._rate_to_float("-20%"), 0.8)
+        self.assertEqual(tts._rate_to_float("x"), 1.0)
 
 
 if __name__ == "__main__":

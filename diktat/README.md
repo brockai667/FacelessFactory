@@ -141,7 +141,16 @@ nemá prístup – tam číta hlas prehliadača). Pri prvom čítaní sa Claude 
 „diktat“ – povoľ.
 
 **Výber hlasu:** dvojklik `hlas_ukazky.bat` – každý hlas sa predstaví, napíšeš číslo, uloží sa do
-`config.json` (`hlas.voice`). Rýchlosť: `hlas.rate` (napr. `+10%`).
+`config.json` (sekcia `hlas`). Rýchlosť: `hlas.rate` (napr. `+10%`). Zadarmo (Microsoft edge-tts) sú pre
+slovenčinu len Lukáš a Viktória; prirodzenejšie slovenské hlasy majú platené služby, obe sú podporované:
+
+| Engine | Ako | Cena |
+|---|---|---|
+| `edge` | predvolené, bez kľúča | zadarmo |
+| `elevenlabs` | `hlas_ukazky.bat --engine elevenlabs --key TVOJ_KLUC` (kľúč z elevenlabs.com → Profile → API keys) | skúšobne ~10 min reči/mesiac, potom od 5 $/mes |
+| `google` | `hlas_ukazky.bat --engine google --key TVOJ_KLUC` (Google Cloud → Text-to-Speech API → API key) | 1 mil. znakov/mesiac zadarmo |
+
+Kľúč sa ukladá do `config.json` (je v `.gitignore`), alebo do env `ELEVENLABS_API_KEY` / `GOOGLE_TTS_API_KEY`.
 
 **Bez MCP** číta stránka hlasom prehliadača: v Edge sú neurónové slovenské hlasy zadarmo, v Chrome/Opere
 a v okne Claude je len základný „Microsoft Filip“ z Windows. Klikni **Zapnúť hlas** (prehliadač bez

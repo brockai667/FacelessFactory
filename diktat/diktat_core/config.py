@@ -70,7 +70,13 @@ DEFAULTS: dict = {
         "exit_after_seconds": 60,     # po zatvorení všetkých sa diktat vypne (uvoľní pamäť, napr. na hranie)
     },
     "hlas": {
-        "voice": "sk-SK-LukasNeural",   # edge-tts hlas pre čítanie zhrnutí (vyber cez hlas_ukazky.bat)
+        "engine": "edge",               # edge (Microsoft, zadarmo) | elevenlabs | google – vyber cez hlas_ukazky.bat
+        "voice": "sk-SK-LukasNeural",   # edge-tts hlas
+        "elevenlabs_api_key": "",       # alebo env ELEVENLABS_API_KEY
+        "elevenlabs_voice": "",         # voice_id z hlas_ukazky.bat --engine elevenlabs
+        "elevenlabs_model": "eleven_multilingual_v2",
+        "google_api_key": "",           # alebo env GOOGLE_TTS_API_KEY
+        "google_voice": "sk-SK-Wavenet-A",
         "rate": "+0%",
         "volume": "+0%",
     },

@@ -39,9 +39,9 @@ def _worker() -> None:
         text = _queue.get()
         try:
             cfg = cfgmod.load_config().get("hlas", {})
-            voice = cfg.get("voice") or tts.DEFAULT_VOICE
-            log.info("hovorím (%s): %s", voice, text[:120])
-            tts.speak(text, voice, rate=cfg.get("rate", "+0%"), volume=cfg.get("volume", "+0%"))
+            es = tts.engine_settings(cfg)
+            log.info("hovorím (%s/%s): %s", es["engine"], es["voice"], text[:120])
+            tts.speak_cfg(text, cfg)
         except Exception:  # noqa: BLE001
             log.exception("prehratie zlyhalo")
         finally:
@@ -85,8 +85,9 @@ def stop() -> str:
 
 @_tool(title="Aktuálny hlas", readOnlyHint=True, destructiveHint=False)
 def voice() -> str:
-    """Vráti názov aktuálne nastaveného hlasu (hlas.voice v config.json)."""
-    return cfgmod.load_config().get("hlas", {}).get("voice") or tts.DEFAULT_VOICE
+    """Vráti engine a názov aktuálne nastaveného hlasu (sekcia hlas v config.json)."""
+    es = tts.engine_settings(cfgmod.load_config().get("hlas", {}))
+    return f"{es['engine']}:{es['voice']}"
 
 
 if __name__ == "__main__":
