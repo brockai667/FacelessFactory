@@ -141,10 +141,11 @@ class AutostartTests(unittest.TestCase):
             self.assertFalse((startup / install.VBS_NAME).exists(), "priamy štart diktatu zo Startup sa má odstrániť")
             local = (app_dir / install.VBS_NAME).read_text(encoding="utf-8")
             self.assertIn("--tray", local)
-            xml = install.task_xml(target)
+            xml = install.task_xml(target, user="PC\\damia")
             self.assertIn("PT1M", xml)
             self.assertIn("<DisallowStartIfOnBatteries>false", xml)
             self.assertIn(str(target), xml)
+            self.assertEqual(xml.count("<UserId>PC\\damia</UserId>"), 2)   # logon trigger + principal
             install.remove_autostart(app_path, startup_dir=startup, log=logs.append)
             self.assertFalse(target.exists())
             self.assertFalse((app_dir / install.VBS_NAME).exists())

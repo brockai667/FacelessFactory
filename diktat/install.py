@@ -112,18 +112,33 @@ def watch_vbs(python_exe: str, app_path: Path, follow: list[str]) -> str:
     )
 
 
-def task_xml(watch_vbs_path: Path) -> str:
-    """Úloha Plánovača: od prihlásenia (a hneď od registrácie) každú minútu spusti kontrolu; aj na batérii; skrytá."""
+def current_user() -> str:
+    """DOMÉNA\\používateľ (z `whoami`), potrebné pre spúšťač „pri prihlásení“ bez práv správcu."""
+    import subprocess
+    try:
+        out = subprocess.run(["whoami"], capture_output=True, text=True, timeout=10, errors="replace").stdout.strip()
+        if out:
+            return out
+    except Exception:  # noqa: BLE001
+        pass
+    import getpass
+    return getpass.getuser()
+
+
+def task_xml(watch_vbs_path: Path, user: str | None = None) -> str:
+    """Úloha Plánovača: od prihlásenia TOHTO používateľa (a hneď od registrácie) každú minútu spusti kontrolu;
+    aj na batérii; skrytá. Spúšťač pri prihlásení bez UserId by vyžadoval správcu (Access is denied)."""
+    user = user or current_user()
     action = f'<Command>wscript.exe</Command><Arguments>"{watch_vbs_path}"</Arguments>'
     rep = "<Repetition><Interval>PT1M</Interval><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>"
     return f"""<?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo><Description>diktat: spusti diktat, keď beží Claude/prehliadač (kontrola raz za minútu)</Description></RegistrationInfo>
   <Triggers>
-    <LogonTrigger><Enabled>true</Enabled>{rep}</LogonTrigger>
+    <LogonTrigger><Enabled>true</Enabled><UserId>{user}</UserId>{rep}</LogonTrigger>
     <RegistrationTrigger><Enabled>true</Enabled>{rep}</RegistrationTrigger>
   </Triggers>
-  <Principals><Principal id="Author"><LogonType>InteractiveToken</LogonType><RunLevel>LeastPrivilege</RunLevel></Principal></Principals>
+  <Principals><Principal id="Author"><UserId>{user}</UserId><LogonType>InteractiveToken</LogonType><RunLevel>LeastPrivilege</RunLevel></Principal></Principals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
     <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
@@ -145,29 +160,72 @@ def task_xml(watch_vbs_path: Path) -> str:
 """
 
 
-def register_task(watch_vbs_path: Path, log=safe_print) -> bool:
-    """Zaregistruje úlohu diktat-watch cez schtasks (bez práv správcu, pre aktuálneho používateľa)."""
+def _run(cmd: list[str], timeout: int = 90):
     import subprocess
+    return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, errors="replace")
+
+
+def register_task(watch_vbs_path: Path, log=safe_print) -> bool:
+    """Zaregistruje úlohu diktat-watch bez práv správcu. Tri spôsoby za sebou, prvý úspešný vyhráva:
+    1. schtasks /xml s výslovne uvedeným používateľom,
+    2. PowerShell Register-ScheduledTask (logon + každú minútu, aj na batérii),
+    3. schtasks /sc minute /mo 1 (najjednoduchšia minútová úloha)."""
     import tempfile
-    xml_path = Path(tempfile.gettempdir()) / "diktat-watch.xml"
-    xml_path.write_text(task_xml(watch_vbs_path), encoding="utf-16")
+    user = current_user()
+    # 1. XML
     try:
-        res = subprocess.run(["schtasks", "/create", "/tn", TASK_NAME, "/xml", str(xml_path), "/f"],
-                             capture_output=True, text=True, timeout=60, errors="replace")
+        xml_path = Path(tempfile.gettempdir()) / "diktat-watch.xml"
+        xml_path.write_text(task_xml(watch_vbs_path, user), encoding="utf-16")
+        res = _run(["schtasks", "/create", "/tn", TASK_NAME, "/xml", str(xml_path), "/f"])
+        if res.returncode == 0:
+            log(f"schtasks /xml ({user}): {(res.stdout or '').strip()[:160]}")
+            return True
+        log(f"✖ schtasks /xml (kód {res.returncode}): {(res.stderr or res.stdout).strip()[:200]}")
     except Exception as exc:  # noqa: BLE001
-        log(f"✖ schtasks zlyhal: {exc}")
+        log(f"✖ schtasks /xml zlyhal: {exc}")
+    # 2. PowerShell
+    ps = (
+        "$ErrorActionPreference='Stop';"
+        f"$a = New-ScheduledTaskAction -Execute 'wscript.exe' -Argument '\"{watch_vbs_path}\"';"
+        "$rep = (New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 1)).Repetition;"
+        f"$t1 = New-ScheduledTaskTrigger -AtLogOn -User '{user}'; $t1.Repetition = $rep;"
+        "$t2 = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1);"
+        "$s = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -MultipleInstances IgnoreNew "
+        "-ExecutionTimeLimit (New-TimeSpan -Minutes 1) -Hidden -StartWhenAvailable;"
+        f"Register-ScheduledTask -TaskName '{TASK_NAME}' -Action $a -Trigger $t1,$t2 -Settings $s -Force | Out-Null;"
+        "'OK'"
+    )
+    try:
+        res = _run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", ps])
+        if res.returncode == 0 and "OK" in (res.stdout or ""):
+            log("PowerShell Register-ScheduledTask: OK")
+            return True
+        log(f"✖ PowerShell Register-ScheduledTask (kód {res.returncode}): {(res.stderr or res.stdout).strip()[:300]}")
+    except Exception as exc:  # noqa: BLE001
+        log(f"✖ PowerShell zlyhal: {exc}")
+    # 3. jednoduchá minútová úloha
+    try:
+        res = _run(["schtasks", "/create", "/sc", "minute", "/mo", "1", "/tn", TASK_NAME,
+                    "/tr", f'wscript.exe "{watch_vbs_path}"', "/f"])
+        if res.returncode == 0:
+            log(f"schtasks /sc minute: {(res.stdout or '').strip()[:160]} (pozor: na batérii môže byť pozastavená)")
+            return True
+        log(f"✖ schtasks /sc minute (kód {res.returncode}): {(res.stderr or res.stdout).strip()[:200]}")
+    except Exception as exc:  # noqa: BLE001
+        log(f"✖ schtasks /sc minute zlyhal: {exc}")
+    return False
+
+
+def task_exists() -> bool:
+    try:
+        return _run(["schtasks", "/query", "/tn", TASK_NAME], timeout=30).returncode == 0
+    except Exception:  # noqa: BLE001
         return False
-    if res.returncode != 0:
-        log(f"✖ schtasks (kód {res.returncode}): {(res.stderr or res.stdout).strip()[:300]}")
-        return False
-    log(f"schtasks: {(res.stdout or '').strip()[:200]}")
-    return True
 
 
 def unregister_task(log=safe_print) -> None:
-    import subprocess
     try:
-        subprocess.run(["schtasks", "/delete", "/tn", TASK_NAME, "/f"], capture_output=True, text=True, timeout=60)
+        _run(["schtasks", "/delete", "/tn", TASK_NAME, "/f"], timeout=60)
     except Exception:  # noqa: BLE001
         pass
 
@@ -211,6 +269,9 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
         register = sys.platform == "win32"
     if register and not dry_run:
         ok = register_task(watch_local, log)
+        if ok and not task_exists():
+            log("✖ úloha sa po registrácii nenašla (schtasks /query)")
+            ok = False
         log(f"✔ Plánovač úloh: úloha {TASK_NAME} raz za minútu" if ok
             else f"✖ úlohu {TASK_NAME} sa nepodarilo vytvoriť – diktat spúšťaj dvojklikom na {VBS_NAME}")
     else:
