@@ -132,11 +132,21 @@ kolekcia `hlas`). Pravidlo pre sessions je v bloku `Hlasové zhrnutie` v `~/.cla
 `install.py`, obnovuje `update_diktat.bat`). Hlas dostane len výsledok („A hotové, B malo problém, mám dve
 riešenia“), plný text ostáva v Claude na čítanie; na požiadanie („prečítaj mi to“) session pošle viac.
 
-Použitie: otvor stránku prihlásený v Claude, klikni **Zapnúť hlas** (prehliadač bez kliknutia nehovorí),
-vyber hlas, nechaj kartu otvorenú. Najlepšie slovenské hlasy (Lukáš, Viktória) má **Microsoft Edge**
-zadarmo; v Chrome/Opere treba slovenský hlas doinštalovať vo Windows (Nastavenia → Čas a jazyk → Reč →
-Pridať hlasy). Na stránke je história posledných správ, „Prehrať“ a „Prečítať celé“ (dlhšia verzia, ak ju
-session poslala), rýchlosť a hlasitosť. Stránka si drží posledných 40 správ, staršie maže.
+**Hlas z počítača (odporúčané).** Kvalitné slovenské hlasy sú tie z FacelessFactory pipeline – Microsoft
+neurónové hlasy cez `edge-tts` (Lukáš, Viktória, plus viacjazyčné, ktoré po slovensky tiež hovoria), zadarmo,
+bez inštalácie Edge. Stránka ich používa cez lokálny MCP server `hlas/mcp_server.py` (nástroj `speak`),
+ktorý `update_diktat.bat` zaregistruje do Claude desktop (`install.py --mcp`; potom **reštartuj Claude**).
+Funguje, keď je stránka otvorená **v aplikácii Claude** (v prehliadači Claude k lokálnym MCP serverom
+nemá prístup – tam číta hlas prehliadača). Pri prvom čítaní sa Claude spýta, či stránka smie použiť
+„diktat“ – povoľ.
+
+**Výber hlasu:** dvojklik `hlas_ukazky.bat` – každý hlas sa predstaví, napíšeš číslo, uloží sa do
+`config.json` (`hlas.voice`). Rýchlosť: `hlas.rate` (napr. `+10%`).
+
+**Bez MCP** číta stránka hlasom prehliadača: v Edge sú neurónové slovenské hlasy zadarmo, v Chrome/Opere
+a v okne Claude je len základný „Microsoft Filip“ z Windows. Klikni **Zapnúť hlas** (prehliadač bez
+kliknutia nehovorí). Na stránke je história posledných správ, „Prehrať“ a „Prečítať celé“ (dlhšia verzia,
+ak ju session poslala), rýchlosť a hlasitosť; drží posledných 40 správ.
 
 ## Beží len s Claude (hranie, výkon)
 
@@ -280,6 +290,8 @@ diktat/
 │   └── skills/diktat/     globálny skill /diktat
 ├── diktat_core/tray.py    ikona v lište (pystray), stavy + oznámenia
 ├── diktat_core/overlay.py prúžok so stavom navrchu obrazovky (tkinter, bez fokusu)
+├── hlas/                  Diktat hlas: stránka (diktat-hlas.html), tts.py (edge-tts), ukazky.py, mcp_server.py
+├── hlas_ukazky.bat        výber hlasu (každý sa predstaví)
 ├── setup_windows.bat · run_diktat.bat · diktat_tray.vbs (vytvorí install.py --autostart)
 ├── requirements.txt
 └── requirements-gpu.txt   voliteľné CUDA knižnice pre NVIDIA GPU

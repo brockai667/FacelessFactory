@@ -95,5 +95,10 @@
       "chrome.exe"
     ],
     "exit_after_seconds": 60
+  },
+  "hlas": {
+    "voice": "sk-SK-LukasNeural",
+    "rate": "+0%",
+    "volume": "+0%"
   }
 }

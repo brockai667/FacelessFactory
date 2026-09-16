@@ -65,6 +65,7 @@
     <h1>Diktat hlas</h1>
     <span class="pill" id="conn"><span class="dot"></span><span id="connText">pripájam…</span></span>
     <span class="pill" id="voiceState"><span class="dot"></span><span id="voiceStateText">hlas vypnutý</span></span>
+    <span class="pill" id="engine"><span class="dot"></span><span id="engineText">zdroj hlasu: zisťujem…</span></span>
   </header>
 
   <section class="panel gate" id="gate">
@@ -87,12 +88,16 @@
         <label class="toggle"><input id="auto" type="checkbox" checked> Čítať nové správy automaticky</label>
       </div>
       <div class="row">
+        <label class="toggle"><input id="local" type="checkbox" checked> Hlas z počítača (diktat, Lukáš/Viktória)</label>
+      </div>
+      <div class="row">
         <button id="testBtn" type="button" class="small">Skúšobná veta</button>
         <button id="stopBtn" type="button" class="small">⏹ Stop</button>
       </div>
     </div>
     <p class="hint" id="voiceHint">Najlepšie slovenské hlasy (Lukáš, Viktória) má Microsoft Edge. V Chrome a Opere treba slovenský hlas doinštalovať vo Windows: Nastavenia → Čas a jazyk → Reč → Pridať hlasy → Slovenčina.</p>
     <p class="hint warnbox" id="edgeHint" hidden><strong>Slabý hlas.</strong> <span id="edgeHintText">Pre prirodzený slovenský hlas otvor túto stránku v Microsoft Edge.</span></p>
+    <p class="hint warnbox" id="localHint" hidden><strong>Hlas z počítača nie je dostupný.</strong> <span id="localHintText">Otvor túto stránku v aplikácii Claude (nie v prehliadači) a nechaj bežať diktat s MCP serverom (update_diktat.bat ho zaregistruje, potom reštartuj Claude). Zatiaľ číta hlas prehliadača.</span></p>
   </section>
 
   <section class="msgs" id="msgs">
@@ -103,11 +108,11 @@
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const state = { voices: [], voiceName: null, rate: 1.0, vol: 1.0, auto: true, enabled: false, lastSeen: null, items: [], speakingId: null, seen: new Set() };
+  const state = { voices: [], voiceName: null, rate: 1.0, vol: 1.0, auto: true, local: true, enabled: false, lastSeen: null, items: [], speakingId: null, seen: new Set(), mcp: null, localOk: false, localVoice: "" };
   const LS = "diktat-hlas";
   try { Object.assign(state, JSON.parse(localStorage.getItem(LS) || "{}")); } catch (e) {}
   state.enabled = false; state.items = []; state.seen = new Set(); state.speakingId = null;
-  const save = () => { try { localStorage.setItem(LS, JSON.stringify({ voiceName: state.voiceName, rate: state.rate, vol: state.vol, auto: state.auto, lastSeen: state.lastSeen })); } catch (e) {} };
+  const save = () => { try { localStorage.setItem(LS, JSON.stringify({ voiceName: state.voiceName, rate: state.rate, vol: state.vol, auto: state.auto, local: state.local, lastSeen: state.lastSeen })); } catch (e) {} };
 
   // --- hlasy ---------------------------------------------------------------------------------
   const voiceSel = $("voice");
@@ -146,12 +151,44 @@
   $("vol").addEventListener("input", (e) => { state.vol = Number(e.target.value); $("volVal").textContent = Math.round(state.vol * 100) + " %"; save(); });
   $("auto").checked = state.auto;
   $("auto").addEventListener("change", (e) => { state.auto = e.target.checked; save(); });
+  $("local").checked = state.local;
+  $("local").addEventListener("change", (e) => { state.local = e.target.checked; save(); setEngine(); });
+
+  function setEngine(text, cls) {
+    const p = $("engine");
+    if (text) { p.className = "pill " + (cls || ""); $("engineText").textContent = text; return; }
+    if (state.mcp && state.localOk && state.local) { p.className = "pill ok"; $("engineText").textContent = "zdroj hlasu: počítač (" + (state.localVoice || "diktat") + ")"; }
+    else { p.className = "pill"; $("engineText").textContent = "zdroj hlasu: prehliadač"; }
+  }
+  const useLocal = () => !!(state.mcp && state.localOk && state.local);
 
   function setVoiceState(text, cls) { const p = $("voiceState"); p.className = "pill " + (cls || ""); $("voiceStateText").textContent = text; }
   function setConn(text, cls) { const p = $("conn"); p.className = "pill " + (cls || ""); $("connText").textContent = text; }
 
   const queue = [];
   function speak(text, id) {
+    if (!text) return;
+    if (useLocal()) { speakLocal(text, id); return; }
+    speakBrowser(text, id);
+  }
+  async function speakLocal(text, id) {
+    state.speakingId = id || null; render(); setVoiceState("hovorím (počítač)…", "live");
+    try {
+      await state.mcp.callTool("host:diktat", "speak", { text: String(text) }, { cache: false });
+      // server sa vráti hneď a číta na pozadí – odhad trvania podľa dĺžky textu
+      setTimeout(() => { if (state.speakingId === (id || null)) { state.speakingId = null; render(); setVoiceState("hlas zapnutý", "ok"); } }, Math.min(60000, 1500 + text.length * 70));
+    } catch (err) {
+      const code = err && err.code;
+      state.localOk = false; setEngine();
+      $("localHint").hidden = false;
+      if (code === "server_not_connected") $("localHintText").textContent = "Claude aplikácia nevidí MCP server diktat. Spusti update_diktat.bat (zaregistruje ho) a reštartuj Claude. Zatiaľ číta hlas prehliadača.";
+      else if (code === "not_in_manifest" || code === "cancelled") $("localHintText").textContent = "Povolenie pre hlas z počítača bolo odmietnuté. Obnov stránku a pri otázke povoľ „diktat“. Zatiaľ číta hlas prehliadača.";
+      else $("localHintText").textContent = "Hlas z počítača zlyhal (" + (code || "?") + "). Zatiaľ číta hlas prehliadača.";
+      state.speakingId = null; render();
+      speakBrowser(text, id);
+    }
+  }
+  function speakBrowser(text, id) {
     if (!window.speechSynthesis || !state.enabled || !text) return;
     const u = new SpeechSynthesisUtterance(text);
     const v = state.voices.find(x => x.name === state.voiceName); if (v) u.voice = v;
@@ -167,7 +204,11 @@
     for (const it of queue.splice(0)) speak(it.text, it.id);
   });
   $("testBtn").addEventListener("click", () => { if (!state.enabled) { $("enableBtn").click(); return; } speak("Toto je skúšobná veta. A je hotové, B malo problém, mám dve riešenia."); });
-  $("stopBtn").addEventListener("click", () => { if (window.speechSynthesis) speechSynthesis.cancel(); queue.length = 0; state.speakingId = null; render(); if (state.enabled) setVoiceState("hlas zapnutý", "ok"); });
+  $("stopBtn").addEventListener("click", () => {
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    if (state.mcp && state.localOk) state.mcp.callTool("host:diktat", "stop", {}, { cache: false }).catch(() => {});
+    queue.length = 0; state.speakingId = null; render(); if (state.enabled) setVoiceState("hlas zapnutý", "ok");
+  });
 
   // --- správy --------------------------------------------------------------------------------
   const fmt = (ts) => { try { const d = new Date(ts); return isNaN(d) ? String(ts) : d.toLocaleString("sk-SK", { hour: "2-digit", minute: "2-digit", day: "numeric", month: "numeric" }); } catch (e) { return String(ts); } };
@@ -208,8 +249,28 @@
     if (state.enabled) speak(it.text, it.id); else queue.push(it);
   }
 
+  async function detectLocal() {
+    try {
+      const mcp = await window.claude.use("mcp");
+      state.mcp = mcp;
+      if (!mcp) { state.localOk = false; setEngine(); $("localHint").hidden = false; return; }
+      let listed = null;
+      try { listed = await mcp.listTools("host:diktat"); } catch (e) { listed = null; }
+      const srv = listed && listed.servers && listed.servers.find(x => x.server === "host:diktat");
+      state.localOk = !!(srv && srv.tools && srv.tools.length);
+      if (state.localOk) {
+        try { const r = await mcp.callTool("host:diktat", "voice", {}, { cache: false }); state.localVoice = String(r.payload || "").replace(/^.*-/, "").replace(/Neural$/, ""); } catch (e) {}
+        $("localHint").hidden = true;
+        // lokálny hlas nepotrebuje kliknutie v prehliadači – front sa dá prehrať hneď
+        if (!state.enabled) { state.enabled = true; $("gate").hidden = true; setVoiceState("hlas zapnutý", "ok"); for (const it of queue.splice(0)) speak(it.text, it.id); }
+      } else { $("localHint").hidden = false; }
+    } catch (e) { state.localOk = false; $("localHint").hidden = false; }
+    setEngine();
+  }
+
   async function connect() {
-    if (!window.claude || typeof window.claude.use !== "function") { setConn("otvor v Claude (claude.ai), nie ako samostatný súbor", "warn"); return; }
+    if (!window.claude || typeof window.claude.use !== "function") { setConn("otvor v Claude (claude.ai), nie ako samostatný súbor", "warn"); setEngine("zdroj hlasu: prehliadač"); return; }
+    detectLocal();
     const db = await window.claude.use("db");
     if (!db) { setConn("bez prístupu k správam – otvor stránku prihlásený v Claude", "warn"); return; }
     setConn("pripojené", "ok");

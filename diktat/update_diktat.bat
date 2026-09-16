@@ -40,6 +40,7 @@ timeout /t 2 >nul
 echo [5/5] Nastavenie Claude (CLAUDE.md, skill, hook), Planovac uloh + start...
 .venv\Scripts\python.exe install.py >> %LOG% 2>&1
 .venv\Scripts\python.exe install.py --autostart >> %LOG% 2>&1
+.venv\Scripts\python.exe install.py --mcp >> %LOG% 2>&1
 echo    install kod: %errorlevel% >> %LOG%
 if not exist diktat_tray.vbs (
   echo Chyba: chyba diktat_tray.vbs - pozri logs\update.log

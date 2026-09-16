@@ -9,3 +9,6 @@ anthropic>=1.0
 # Ikona v lište + oznámenia (režim --tray / autoštart)
 pystray>=0.19
 Pillow>=10
+# Hlas naspäť (Diktat hlas): neurónové hlasy Microsoft (edge-tts) + lokálny MCP server pre Claude desktop
+edge-tts>=7
+mcp>=1.8

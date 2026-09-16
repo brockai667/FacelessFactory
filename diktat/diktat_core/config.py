@@ -69,6 +69,11 @@ DEFAULTS: dict = {
         "processes": ["claude.exe", "opera.exe", "chrome.exe"],
         "exit_after_seconds": 60,     # po zatvorení všetkých sa diktat vypne (uvoľní pamäť, napr. na hranie)
     },
+    "hlas": {
+        "voice": "sk-SK-LukasNeural",   # edge-tts hlas pre čítanie zhrnutí (vyber cez hlas_ukazky.bat)
+        "rate": "+0%",
+        "volume": "+0%",
+    },
     "overlay": {
         "enabled": True,              # prúžok navrchu obrazovky so stavom (nahrávam / prepisujem / vložené)
         "alpha": 0.92,

@@ -285,6 +285,51 @@ def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: b
         log(f"✔ Plánovač úloh: úloha {TASK_NAME} odstránená")
 
 
+def claude_desktop_config_path() -> Path:
+    import os
+    appdata = os.environ.get("APPDATA") or str(Path.home() / "AppData" / "Roaming")
+    return Path(appdata) / "Claude" / "claude_desktop_config.json"
+
+
+def install_mcp(python_exe: str, server_path: Path, config_path: Path | None = None, dry_run: bool = False,
+                log=safe_print) -> Path:
+    """Zaregistruje lokálny MCP server „diktat“ (hlas/mcp_server.py) do Claude desktop
+    (%APPDATA%\\Claude\\claude_desktop_config.json → mcpServers.diktat). Idempotentné; ostatné servery nechá."""
+    config_path = config_path or claude_desktop_config_path()
+    data: dict = {}
+    if config_path.is_file():
+        text = config_path.read_text(encoding="utf-8")
+        data = json.loads(text) if text.strip() else {}
+    servers = data.setdefault("mcpServers", {})
+    entry = {"command": str(Path(python_exe)), "args": [str(server_path)]}
+    changed = servers.get("diktat") != entry
+    servers["diktat"] = entry
+    tag = "[dry-run] " if dry_run else ""
+    if changed and not dry_run:
+        if config_path.is_file():
+            shutil.copy2(config_path, config_path.with_name(f"claude_desktop_config.json.bak-{dt.datetime.now():%Y%m%d%H%M%S}"))
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        config_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    log(f"{tag}✔ {config_path}: MCP server diktat {'zaregistrovaný' if changed else 'už zaregistrovaný'} "
+        f"({entry['command']} {server_path.name}) – Claude desktop treba reštartovať")
+    return config_path
+
+
+def remove_mcp(config_path: Path | None = None, dry_run: bool = False, log=safe_print) -> None:
+    config_path = config_path or claude_desktop_config_path()
+    if not config_path.is_file():
+        return
+    data = json.loads(config_path.read_text(encoding="utf-8") or "{}")
+    servers = data.get("mcpServers") or {}
+    if "diktat" in servers:
+        servers.pop("diktat")
+        if not servers:
+            data.pop("mcpServers", None)
+        if not dry_run:
+            config_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        log(f"{'[dry-run] ' if dry_run else ''}✔ {config_path}: MCP server diktat odstránený")
+
+
 def default_claude_dir() -> Path:
     env = os.environ.get("CLAUDE_CONFIG_DIR")
     return Path(env) if env else Path.home() / ".claude"
@@ -458,8 +503,16 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--uninstall", action="store_true")
     ap.add_argument("--autostart", action="store_true", help="Windows: skrytý beh s ikonou po prihlásení")
     ap.add_argument("--no-autostart", action="store_true", help="zruš autoštart")
+    ap.add_argument("--mcp", action="store_true", help="zaregistruj lokálny MCP server diktat (hlas) do Claude desktop")
+    ap.add_argument("--no-mcp", action="store_true", help="odstráň MCP server diktat z Claude desktop")
     args = ap.parse_args(argv)
     app_path = HERE / "app.py"
+    if args.mcp:
+        install_mcp(args.python, HERE / "hlas" / "mcp_server.py", dry_run=args.dry_run)
+        return 0
+    if args.no_mcp:
+        remove_mcp(dry_run=args.dry_run)
+        return 0
     if args.autostart:
         if sys.platform != "win32":
             print("--autostart je zatiaľ len pre Windows (Startup priečinok).")
@@ -472,6 +525,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.uninstall:
         uninstall(Path(args.claude_dir), dry_run=args.dry_run)
         remove_autostart(app_path, dry_run=args.dry_run)
+        remove_mcp(dry_run=args.dry_run)
     else:
         install(Path(args.claude_dir), with_hook=not args.no_hook, python_exe=args.python, dry_run=args.dry_run)
     return 0

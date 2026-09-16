@@ -114,6 +114,33 @@ class EndToEndTests(unittest.TestCase):
             self.assertEqual((claude_dir / "settings.json").read_text(encoding="utf-8"), "{not json")
 
 
+class McpRegistrationTests(unittest.TestCase):
+    def test_install_and_remove_mcp_merges_existing_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg = Path(tmp) / "Claude" / "claude_desktop_config.json"
+            cfg.parent.mkdir()
+            cfg.write_text(json.dumps({"mcpServers": {"other": {"command": "x"}}, "theme": "dark"}), encoding="utf-8")
+            install.install_mcp("C:/py/python.exe", Path("C:/d/hlas/mcp_server.py"), config_path=cfg, log=lambda *_: None)
+            data = json.loads(cfg.read_text(encoding="utf-8"))
+            self.assertEqual(data["theme"], "dark")
+            self.assertEqual(data["mcpServers"]["other"], {"command": "x"})
+            self.assertEqual(data["mcpServers"]["diktat"]["args"], [str(Path("C:/d/hlas/mcp_server.py"))])
+            self.assertTrue(list(cfg.parent.glob("claude_desktop_config.json.bak-*")))
+            install.install_mcp("C:/py/python.exe", Path("C:/d/hlas/mcp_server.py"), config_path=cfg, log=lambda *_: None)
+            self.assertEqual(len(list(cfg.parent.glob("claude_desktop_config.json.bak-*"))), 1, "bez zmeny bez zálohy")
+            install.remove_mcp(config_path=cfg, log=lambda *_: None)
+            data = json.loads(cfg.read_text(encoding="utf-8"))
+            self.assertNotIn("diktat", data["mcpServers"])
+            self.assertIn("other", data["mcpServers"])
+
+    def test_install_mcp_creates_config_when_missing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg = Path(tmp) / "Claude" / "claude_desktop_config.json"
+            install.install_mcp("/usr/bin/python3", Path("/d/hlas/mcp_server.py"), config_path=cfg, log=lambda *_: None)
+            data = json.loads(cfg.read_text(encoding="utf-8"))
+            self.assertEqual(list(data["mcpServers"]), ["diktat"])
+
+
 if __name__ == "__main__":
     unittest.main()
 
