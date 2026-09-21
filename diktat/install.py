@@ -78,6 +78,60 @@ def vbs_launcher(python_exe: str, script_path: Path, args: str = "--tray") -> st
     )
 
 
+SHORTCUT_NAME = "Diktat.lnk"
+
+
+def shortcut_vbs(launcher_vbs: Path) -> str:
+    """VBScript, ktorý položí na Pracovnú plochu odkaz „Diktat“ na diktat_tray.vbs (SpecialFolders pozná aj plochu
+    presunutú do OneDrive)."""
+    return (
+        'Set sh = CreateObject("WScript.Shell")\r\n'
+        f'Set lnk = sh.CreateShortcut(sh.SpecialFolders("Desktop") & "\\{SHORTCUT_NAME}")\r\n'
+        'lnk.TargetPath = "wscript.exe"\r\n'
+        f'lnk.Arguments = """{launcher_vbs}"""\r\n'
+        f'lnk.WorkingDirectory = "{launcher_vbs.parent}"\r\n'
+        'lnk.Description = "Diktat - spustit diktovanie do Claude"\r\n'
+        'lnk.IconLocation = "%SystemRoot%\\System32\\shell32.dll,168"\r\n'
+        'lnk.Save\r\n'
+    )
+
+
+def desktop_shortcut(launcher_vbs: Path, log=safe_print) -> bool:
+    """Vytvorí odkaz Diktat na ploche (len Windows). Chyba nie je fatálna."""
+    if sys.platform != "win32":
+        return False
+    import subprocess
+    tmp = launcher_vbs.parent / "logs" / "diktat_shortcut.vbs"
+    try:
+        tmp.parent.mkdir(parents=True, exist_ok=True)
+        tmp.write_text(shortcut_vbs(launcher_vbs), encoding="utf-8")
+        res = subprocess.run(["cscript", "//nologo", str(tmp)], capture_output=True, text=True, timeout=30, errors="replace")
+        if res.returncode != 0:
+            log(f"✖ odkaz na ploche sa nepodarilo vytvoriť: {(res.stderr or res.stdout).strip()[:160]}")
+            return False
+        log("✔ Pracovná plocha: odkaz „Diktat“ (dvojklik = spusti diktat hneď)")
+        return True
+    except Exception as exc:  # noqa: BLE001
+        log(f"✖ odkaz na ploche sa nepodarilo vytvoriť: {exc}")
+        return False
+    finally:
+        try:
+            tmp.unlink(missing_ok=True)
+        except OSError:
+            pass
+
+
+def remove_desktop_shortcut(log=safe_print) -> None:
+    for base in (Path.home() / "Desktop", Path.home() / "OneDrive" / "Desktop"):
+        lnk = base / SHORTCUT_NAME
+        if lnk.is_file():
+            try:
+                lnk.unlink()
+                log(f"✔ odstránený odkaz {lnk}")
+            except OSError as exc:
+                log(f"✖ {lnk}: {exc}")
+
+
 def watch_vbs(python_exe: str, app_path: Path, follow: list[str]) -> str:
     """Jednorazová kontrola (spúšťa ju Plánovač úloh raz za minútu, trvá ~1 s, nič nezostáva bežať):
     ak má niektorý zo sledovaných programov OTVORENÉ OKNO (nie len proces na pozadí) a diktat nebeží,
@@ -247,6 +301,8 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
             if stale.is_file():
                 stale.unlink()
     log(f"{tag}✔ {local}: spúšťač diktatu (dvojklik = spusti hneď teraz)")
+    if not dry_run:
+        desktop_shortcut(local, log)
     if not follow:
         target = startup_dir / VBS_NAME
         if not dry_run:
@@ -273,6 +329,8 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
 
 def remove_autostart(app_path: Path, startup_dir: Path | None = None, dry_run: bool = False, log=safe_print) -> None:
     startup_dir = startup_dir or startup_folder()
+    if not dry_run:
+        remove_desktop_shortcut(log)
     tag = "[dry-run] " if dry_run else ""
     for path in (startup_dir / VBS_NAME, startup_dir / WATCH_VBS_NAME,
                  app_path.parent / VBS_NAME, app_path.parent / WATCH_VBS_NAME):
