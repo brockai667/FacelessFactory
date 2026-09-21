@@ -22,11 +22,44 @@ def _http_json(url: str, method: str = "GET", headers: dict | None = None, body:
     import json as _json
     import urllib.request
     data = _json.dumps(body).encode("utf-8") if body is not None else None
+    import urllib.error
     req = urllib.request.Request(url, data=data, method=method, headers={"Content-Type": "application/json", **(headers or {})})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        raw = resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read()
+    except urllib.error.HTTPError as exc:
+        try:
+            detail = exc.read().decode("utf-8", "replace")
+        except Exception:  # noqa: BLE001
+            detail = ""
+        raise RuntimeError(http_error_text(url, exc.code, detail)) from None
     ctype = resp.headers.get("Content-Type", "")
     return _json.loads(raw.decode("utf-8")) if "json" in ctype else raw
+
+
+def http_error_text(url: str, status: int, body: str) -> str:
+    """Chybu z API preloží na vetu, ktorá hovorí, čo treba spraviť (najmä Google: kľúč, API, účtovanie)."""
+    low = (body or "").lower()
+    msg = ""
+    try:
+        import json as _json
+        err = _json.loads(body or "{}").get("error") or {}
+        msg = err.get("message") or (err if isinstance(err, str) else "") or ""
+    except Exception:  # noqa: BLE001
+        msg = (body or "").strip()[:160]
+    hint = ""
+    if "googleapis.com" in url:
+        if "api key not valid" in low or "api_key_invalid" in low:
+            hint = "Google: kľúč nesedí – skopíruj ho znova z Google Cloud → APIs & Services → Credentials."
+        elif "has not been used" in low or "is disabled" in low or "service_disabled" in low:
+            hint = "Google: v projekte nie je zapnuté Cloud Text-to-Speech API – zapni ho (Enable) a skús o minútu."
+        elif "billing" in low:
+            hint = "Google: projekt nemá zapnuté účtovanie (Billing) – bez neho API nejde ani v bezplatnom limite."
+        elif status in (401, 403):
+            hint = "Google: prístup odmietnutý – skontroluj kľúč, zapnuté API a účtovanie projektu."
+    elif "elevenlabs.io" in url and status in (401, 403):
+        hint = "ElevenLabs: kľúč nesedí alebo nemá oprávnenie (Profile → API keys)."
+    return f"HTTP {status}: {msg or 'bez detailu'}" + (f" → {hint}" if hint else "")
 
 
 def _synth_edge(text: str, voice: str, rate: str, volume: str, out: Path) -> Path:

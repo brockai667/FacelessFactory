@@ -49,3 +49,41 @@ class VoiceHelpersTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class HttpErrorTextTests(unittest.TestCase):
+    def test_google_api_disabled_hint(self):
+        body = '{"error": {"code": 403, "message": "Cloud Text-to-Speech API has not been used in project 1 before or it is disabled."}}'
+        txt = tts.http_error_text("https://texttospeech.googleapis.com/v1/voices?key=x", 403, body)
+        self.assertIn("HTTP 403", txt)
+        self.assertIn("nie je zapnuté", txt)
+
+    def test_google_bad_key_hint(self):
+        body = '{"error": {"code": 400, "message": "API key not valid. Please pass a valid API key."}}'
+        txt = tts.http_error_text("https://texttospeech.googleapis.com/v1/voices?key=x", 400, body)
+        self.assertIn("kľúč nesedí", txt)
+
+    def test_google_billing_hint(self):
+        body = '{"error": {"code": 403, "message": "This API method requires billing to be enabled."}}'
+        txt = tts.http_error_text("https://texttospeech.googleapis.com/v1/text:synthesize?key=x", 403, body)
+        self.assertIn("účtovanie", txt)
+
+    def test_non_json_body(self):
+        txt = tts.http_error_text("https://api.elevenlabs.io/v1/voices", 401, "Unauthorized")
+        self.assertEqual(txt, "HTTP 401: Unauthorized → ElevenLabs: kľúč nesedí alebo nemá oprávnenie (Profile → API keys).")
+
+
+class SamplerPromptsTests(unittest.TestCase):
+    def test_ask_engine_number_and_default(self):
+        from diktat.hlas import ukazky
+        self.assertEqual(ukazky.ask_engine("edge", input_fn=lambda _p: "2"), "google")
+        self.assertEqual(ukazky.ask_engine("edge", input_fn=lambda _p: ""), "edge")
+        self.assertEqual(ukazky.ask_engine("google", input_fn=lambda _p: "x"), "google")
+
+    def test_ask_key_strips_and_handles_abort(self):
+        from diktat.hlas import ukazky
+        self.assertEqual(ukazky.ask_key("google", input_fn=lambda _p: "  AIzaTEST  "), "AIzaTEST")
+
+        def abort(_p):
+            raise EOFError
+        self.assertEqual(ukazky.ask_key("google", input_fn=abort), "")

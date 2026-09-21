@@ -140,17 +140,42 @@ Funguje, keď je stránka otvorená **v aplikácii Claude** (v prehliadači Clau
 nemá prístup – tam číta hlas prehliadača). Pri prvom čítaní sa Claude spýta, či stránka smie použiť
 „diktat“ – povoľ.
 
-**Výber hlasu:** dvojklik `hlas_ukazky.bat` – každý hlas sa predstaví, napíšeš číslo, uloží sa do
-`config.json` (sekcia `hlas`). Rýchlosť: `hlas.rate` (napr. `+10%`). Zadarmo (Microsoft edge-tts) sú pre
-slovenčinu len Lukáš a Viktória; prirodzenejšie slovenské hlasy majú platené služby, obe sú podporované:
+**Výber hlasu:** dvojklik `hlas_ukazky.bat` – spýta sa, ktoré hlasy chceš (1 Microsoft, 2 Google, 3 ElevenLabs),
+pri Google/ElevenLabs si prvýkrát vypýta API kľúč (vložíš Ctrl+V), každý hlas sa predstaví, napíšeš číslo a uloží
+sa do `config.json` (sekcia `hlas`). Rýchlosť: `hlas.rate` (napr. `+10%`). Zadarmo bez kľúča (Microsoft edge-tts)
+sú pre slovenčinu len Lukáš a Viktória; prirodzenejšie slovenské hlasy majú tieto služby:
 
 | Engine | Ako | Cena |
 |---|---|---|
 | `edge` | predvolené, bez kľúča | zadarmo |
-| `elevenlabs` | `hlas_ukazky.bat --engine elevenlabs --key TVOJ_KLUC` (kľúč z elevenlabs.com → Profile → API keys) | skúšobne ~10 min reči/mesiac, potom od 5 $/mes |
-| `google` | `hlas_ukazky.bat --engine google --key TVOJ_KLUC` (Google Cloud → Text-to-Speech API → API key) | 1 mil. znakov/mesiac zadarmo |
+| `google` | voľba 2, kľúč podľa návodu nižšie (alebo `hlas_ukazky.bat --engine google --key TVOJ_KLUC`) | 1 mil. znakov/mesiac zadarmo, potom 30 $/mil. |
+| `elevenlabs` | voľba 3, kľúč z elevenlabs.com → Profile → API keys (alebo `--engine elevenlabs --key …`) | skúšobne ~10 min reči/mesiac, potom od 5 $/mes |
 
 Kľúč sa ukladá do `config.json` (je v `.gitignore`), alebo do env `ELEVENLABS_API_KEY` / `GOOGLE_TTS_API_KEY`.
+
+**Google kľúč krok za krokom** (raz, asi 10 minút; Google chce aj pri bezplatnom limite priradenú platobnú
+kartu, krátke zhrnutia sa do limitu 1 mil. znakov mesačne zmestia mnohonásobne):
+
+1. Otvor [console.cloud.google.com](https://console.cloud.google.com) a prihlás sa Google účtom. Prvýkrát odsúhlas
+   podmienky (Terms of Service → **Agree and continue**).
+2. Ak sa ponúkne bezplatná skúška (**Start free** / **Activate**, 300 $ kreditu), zober ju: vyplní sa krajina,
+   typ účtu (Individual) a karta. Kartu Google overí, ale neúčtuje, kým sám nezapneš platený účet. Ak sa neponúkne,
+   účtovanie zapneš cez ☰ menu → **Billing** → **Link a billing account** / **Create billing account**.
+3. Projekt: hore vľavo vedľa loga je výber projektu; ak tam nič nie je, klikni naň → **New project** → názov
+   napr. `diktat` → **Create** a vyber ho.
+4. Zapni API: otvor [console.cloud.google.com/apis/library/texttospeech.googleapis.com](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com)
+   (alebo ☰ → **APIs & Services** → **Library**, hľadaj „Cloud Text-to-Speech API“) → **Enable**. Ak pýta
+   účtovanie, dokonči krok 2.
+5. Kľúč: [console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials)
+   (☰ → **APIs & Services** → **Credentials**) → **+ Create credentials** → **API key**. Zobrazí sa kľúč
+   začínajúci `AIza…` → **Copy**.
+6. Odporúčané obmedzenie (aby kľúč nešiel použiť na nič iné): v zozname klikni na nový kľúč → **API restrictions**
+   → **Restrict key** → zaškrtni **Cloud Text-to-Speech API** → **Save**.
+7. Na PC dvojklik `hlas_ukazky.bat` → voľba **2** → vlož kľúč (Ctrl+V) → Enter. Predstavia sa Achird a Achernar,
+   napíš číslo. Kľúč ostane v `config.json` (nejde do gitu), už ho nebudeš zadávať.
+
+Ak niečo zlyhá, sampler vypíše, čo chýba (kľúč nesedí / API nezapnuté / účtovanie). Nové API po zapnutí
+niekedy nabehne až o minútu.
 
 **Slovenské hlasy, ktoré sme našli (stav 09/2026):**
 

@@ -2,7 +2,7 @@
 """Ukážky hlasov: každý hlas sa predstaví, ty si vyberieš číslom. Výber sa uloží do config.json (sekcia hlas)
 a používa ho stránka Diktat hlas cez mcp_server.py.
 
-  python hlas/ukazky.py                       # engine z configu (default edge = Microsoft, zadarmo)
+  python hlas/ukazky.py                       # bez parametrov sa spýta na engine a (ak treba) na kľúč
   python hlas/ukazky.py --engine elevenlabs   # ElevenLabs (kľúč: hlas.elevenlabs_api_key alebo ELEVENLABS_API_KEY)
   python hlas/ukazky.py --engine google       # Google Cloud TTS (kľúč: hlas.google_api_key alebo GOOGLE_TTS_API_KEY)
   python hlas/ukazky.py --only sk             # edge: len slovenské; --list len vypíše; --max 8 obmedzí počet
@@ -24,6 +24,39 @@ from hlas import tts  # noqa: E402
 INTRO_M = "Ahoj, ja som {name}. Takto by som ti čítal, čo Claude spravil. A je hotové. B malo problém, mám dve riešenia, sú v texte."
 INTRO_F = "Ahoj, ja som {name}. Takto by som ti čítala, čo Claude spravil. A je hotové. B malo problém, mám dve riešenia, sú v texte."
 KEY_FIELD = {"elevenlabs": "elevenlabs_voice", "google": "google_voice", "edge": "voice"}
+API_KEY_FIELD = {"elevenlabs": "elevenlabs_api_key", "google": "google_api_key"}
+ENGINE_MENU = (
+    ("edge", "Microsoft – zadarmo, bez kľúča (Lukáš, Viktória, Vivienne…)"),
+    ("google", "Google Chirp 3 HD – slovenské Achird a Achernar, bezplatný kľúč"),
+    ("elevenlabs", "ElevenLabs – najprirodzenejšie, platené, kľúč"),
+)
+
+
+def ask_engine(default: str, input_fn=input) -> str:
+    """Ponuka enginov (1–3). Enter = aktuálny; nepoznaný vstup = aktuálny."""
+    print("Ktoré hlasy chceš vyskúšať?")
+    for i, (key, desc) in enumerate(ENGINE_MENU, 1):
+        print(f"  {i}. {desc}{'   ← aktuálny' if key == default else ''}")
+    try:
+        choice = input_fn(f"Číslo (Enter = {default}): ").strip()
+    except (EOFError, KeyboardInterrupt):
+        choice = ""
+    if choice.isdigit() and 1 <= int(choice) <= len(ENGINE_MENU):
+        return ENGINE_MENU[int(choice) - 1][0]
+    return default
+
+
+def ask_key(engine: str, input_fn=input) -> str:
+    """Vypýta API kľúč (vloží sa cez Ctrl+V / pravý klik). Prázdny vstup = bez kľúča."""
+    where = {"google": "Google Cloud → APIs & Services → Credentials (kľúč začína na AIza…)",
+             "elevenlabs": "elevenlabs.io → Profile → API keys"}.get(engine, "")
+    print(f"\nChýba API kľúč pre {engine}. Kde ho vziať: {where}\n"
+          "Návod krok za krokom je v diktat/README.md (sekcia Google kľúč).")
+    try:
+        return input_fn("Vlož kľúč a stlač Enter (prázdne = späť): ").strip()
+    except (EOFError, KeyboardInterrupt):
+        return ""
+
 
 
 def main(argv=None) -> int:
@@ -38,17 +71,22 @@ def main(argv=None) -> int:
 
     cfg = cfgmod.load_config()
     hlas_cfg = dict(cfg.get("hlas", {}))
+    interactive = sys.stdin.isatty() and not args.list
     engine = (args.engine or hlas_cfg.get("engine") or "edge").lower()
-    if args.key:
-        field = {"elevenlabs": "elevenlabs_api_key", "google": "google_api_key"}.get(engine)
-        if field:
-            cfgmod.save_value(cfg, f"hlas.{field}", args.key)
-            hlas_cfg[field] = args.key
-            print(f"✔ kľúč uložený do config.json ({field})")
+    if not args.engine and interactive:
+        engine = ask_engine(engine)
+    key = args.key
+    field = API_KEY_FIELD.get(engine)
+    if field and not key and interactive and not (hlas_cfg.get(field) or tts.engine_settings({**hlas_cfg, "engine": engine})["api_key"]):
+        key = ask_key(engine)
+    if key and field:
+        cfgmod.save_value(cfg, f"hlas.{field}", key)
+        hlas_cfg[field] = key
+        print(f"✔ kľúč uložený do config.json ({field})")
     es = tts.engine_settings({**hlas_cfg, "engine": engine})
     rate = args.rate or hlas_cfg.get("rate", "+0%")
     if engine != "edge" and not es["api_key"]:
-        print(f"Chýba API kľúč pre {engine}. Spusti: hlas_ukazky.bat --engine {engine} --key TVOJ_KLUC")
+        print(f"Chýba API kľúč pre {engine}. Spusti hlas_ukazky.bat znova a vlož ho, alebo: hlas_ukazky.bat --engine {engine} --key TVOJ_KLUC")
         return 1
 
     print(f"Načítavam hlasy ({engine})…", flush=True)
