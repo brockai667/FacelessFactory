@@ -230,7 +230,8 @@ Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.
   Ten istý mechanizmus vráti diktat aj po aktualizácii.
 
 Prázdny zoznam = diktat sa spúšťa priamo pri prihlásení a beží stále. Nastavuje `install.py --autostart`
-(volá ho aj `update_diktat.bat`); okamžitý štart ručne: dvojklik `diktat_tray.vbs`. Úlohu vidíš v Plánovači
+(volá ho aj `update_diktat.bat`); okamžitý štart ručne: dvojklik na odkaz **Diktat** na ploche (vytvorí ho
+inštalácia) alebo na `diktat_tray.vbs` v priečinku `diktat`. Úlohu vidíš v Plánovači
 úloh (taskschd.msc), zrušenie: `install.py --no-autostart`.
 
 ## Len môj hlas (kolegovia, hudba v pozadí)

@@ -1,5 +1,6 @@
 """Testy inštalátora diktat/install.py – všetko v dočasnom ~/.claude, nikdy sa nedotkne reálneho."""
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -200,3 +201,20 @@ class AutostartTests(unittest.TestCase):
             pyw = Path(tmp) / "pythonw.exe"
             pyw.write_text("", encoding="utf-8")
             self.assertEqual(install.pythonw_for(str(py)), str(pyw))
+
+
+class DesktopShortcutTests(unittest.TestCase):
+    def test_shortcut_vbs_points_to_launcher(self):
+        vbs = install.shortcut_vbs(Path("C:/Users/x/FacelessFactory/diktat/diktat_tray.vbs"))
+        self.assertIn('SpecialFolders("Desktop")', vbs)
+        self.assertIn("Diktat.lnk", vbs)
+        self.assertIn('lnk.TargetPath = "wscript.exe"', vbs)
+        self.assertIn("diktat_tray.vbs", vbs)
+        self.assertIn("lnk.Save", vbs)
+
+    def test_desktop_shortcut_noop_off_windows(self):
+        if sys.platform == "win32":
+            self.skipTest("Windows")
+        logs = []
+        self.assertFalse(install.desktop_shortcut(Path("/tmp/diktat_tray.vbs"), log=logs.append))
+        self.assertEqual(logs, [])
