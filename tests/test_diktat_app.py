@@ -98,5 +98,31 @@ class StreamingFlowTests(unittest.TestCase):
         self.assertEqual(app.stt.calls, [])
 
 
+class GpuInfoTest(unittest.TestCase):
+    """gpu_info: nvidia-smi výstup → čitateľný riadok; bez ovládača → dôvod namiesto výnimky."""
+
+    def test_parses_nvidia_smi(self):
+        import subprocess
+        from unittest import mock
+
+        class Res:
+            returncode = 0
+            stdout = "NVIDIA GeForce RTX 4070, 12282 MiB\n"
+            stderr = ""
+
+        with mock.patch.object(subprocess, "run", lambda *a, **k: Res()):
+            self.assertEqual(diktat_app.gpu_info(), "NVIDIA GeForce RTX 4070, 12 GB pamäte")
+
+    def test_without_driver(self):
+        import subprocess
+        from unittest import mock
+
+        def boom(*a, **k):
+            raise FileNotFoundError("nvidia-smi")
+
+        with mock.patch.object(subprocess, "run", boom):
+            self.assertIn("nvidia-smi", diktat_app.gpu_info())
+
+
 if __name__ == "__main__":
     unittest.main()

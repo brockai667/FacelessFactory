@@ -596,6 +596,33 @@ def disable_console_quick_edit() -> None:
         pass
 
 
+def gpu_info() -> str:
+    """Názov a pamäť NVIDIA grafiky cez nvidia-smi (je súčasťou ovládača); inak stručný dôvod."""
+    import subprocess
+    try:
+        res = subprocess.run(["nvidia-smi", "--query-gpu=name,memory.total", "--format=csv,noheader"],
+                             capture_output=True, text=True, timeout=15, errors="replace")
+    except FileNotFoundError:
+        return "nvidia-smi nenájdené (bez NVIDIA ovládača)"
+    except Exception as exc:  # noqa: BLE001
+        return f"nvidia-smi zlyhal: {exc}"
+    if res.returncode != 0:
+        return f"nvidia-smi zlyhal: {(res.stderr or res.stdout).strip()[:120]}"
+    cards = []
+    for ln in res.stdout.splitlines():
+        if not ln.strip():
+            continue
+        name, _, mem = ln.rpartition(",")
+        mem = mem.strip()
+        try:
+            gb = int(mem.split()[0]) / 1024
+            mem = f"{gb:.0f} GB pamäte"
+        except (ValueError, IndexError):
+            pass
+        cards.append(f"{name.strip()}, {mem}")
+    return "; ".join(cards) or "nvidia-smi nevrátil žiadnu kartu"
+
+
 def diagnose(cfg: dict, log_dir: Path | None) -> str:
     """Zozbiera stav (verzia, config, súbory, úloha Plánovača, procesy, konce logov) do textu, uloží ho
     do logs/diagnostika.txt a skopíruje do schránky – používateľ ho vloží do Claude cez Ctrl+V."""
@@ -610,6 +637,7 @@ def diagnose(cfg: dict, log_dir: Path | None) -> str:
     except Exception:  # noqa: BLE001
         rev = "?"
     add(f"verzia: {rev}  python: {sys.version.split()[0]}  exe: {sys.executable}")
+    add(f"grafika: {gpu_info()}")
     add(f"config: {cfg.get('_path')}  hotkey={cfg.get('hotkey')}  gate={cfg['audio'].get('gate_rms')}  "
         f"follow={cfg.get('follow', {}).get('processes')}  exit_after={cfg.get('follow', {}).get('exit_after_seconds')}")
     for name in ("diktat_tray.vbs", "diktat_watch.vbs", "config.json", "logs/diktat.pid", "logs/install.log",
