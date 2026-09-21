@@ -15,7 +15,9 @@ DEFAULT_VOICE = "sk-SK-LukasNeural"
 _play_lock = threading.Lock()
 
 
-ENGINES = ("edge", "elevenlabs", "google")
+ENGINES = ("edge", "cartesia", "elevenlabs", "google")
+CARTESIA_API = "https://api.cartesia.ai"
+CARTESIA_VERSION = "2026-08-14"
 
 
 def _http_json(url: str, method: str = "GET", headers: dict | None = None, body: dict | None = None, timeout: int = 60):
@@ -59,6 +61,12 @@ def http_error_text(url: str, status: int, body: str) -> str:
             hint = "Google: prístup odmietnutý – skontroluj kľúč, zapnuté API a účtovanie projektu."
     elif "elevenlabs.io" in url and status in (401, 403):
         hint = "ElevenLabs: kľúč nesedí alebo nemá oprávnenie (Profile → API keys)."
+    elif "elevenlabs.io" in url and (status == 402 or "quota" in low):
+        hint = "ElevenLabs: minutý mesačný limit znakov – číta záložný hlas, limit sa obnoví ďalší mesiac."
+    elif "cartesia.ai" in url and status in (401, 403):
+        hint = "Cartesia: kľúč nesedí – skopíruj ho znova z play.cartesia.ai → API Keys."
+    elif "cartesia.ai" in url and (status in (402, 429) or "credit" in low or "quota" in low):
+        hint = "Cartesia: minutý mesačný limit (20 000 znakov) alebo priveľa požiadaviek – číta záložný hlas."
     return f"HTTP {status}: {msg or 'bez detailu'}" + (f" → {hint}" if hint else "")
 
 
@@ -96,6 +104,81 @@ def _synth_google(text: str, voice_name: str, api_key: str, speaking_rate: float
     return out
 
 
+def _synth_cartesia(text: str, voice_id: str, api_key: str, model: str, speed: float, volume: float, out: Path) -> Path:
+    """Cartesia Sonic 3 (REST /tts/bytes → MP3). Slovenčina = language "sk"; každý hlas vie hovoriť každým jazykom,
+    prirodzene bez prízvuku znejú tie s rodným sk-SK."""
+    import urllib.request
+    import urllib.error
+    body = {
+        "model_id": model or "sonic-3",
+        "transcript": text,
+        "voice": {"id": voice_id},
+        "language": "sk",
+        "output_format": {"container": "mp3", "bit_rate": 128000, "sample_rate": 44100},
+        "generation_config": {"speed": max(0.6, min(1.5, speed)), "volume": max(0.5, min(2.0, volume))},
+    }
+    req = urllib.request.Request(f"{CARTESIA_API}/tts/bytes", data=__import__("json").dumps(body).encode("utf-8"),
+                                 method="POST", headers=_cartesia_headers(api_key))
+    try:
+        with urllib.request.urlopen(req, timeout=120) as resp:
+            out.write_bytes(resp.read())
+    except urllib.error.HTTPError as exc:
+        try:
+            detail = exc.read().decode("utf-8", "replace")
+        except Exception:  # noqa: BLE001
+            detail = ""
+        raise RuntimeError(http_error_text(f"{CARTESIA_API}/tts/bytes", exc.code, detail)) from None
+    return out
+
+
+def _cartesia_headers(api_key: str) -> dict:
+    return {"Authorization": f"Bearer {api_key}", "Cartesia-Version": CARTESIA_VERSION,
+            "Content-Type": "application/json"}
+
+
+def rank_cartesia_voices(voices: list[dict]) -> list[dict]:
+    """Zoradí hlasy Cartesie: rodné slovenské (locale sk-*, is_native) → language sk → s pripojeným sk locale →
+    ostatné (hovoria po slovensky, ale s prízvukom). Vráti [{id, name, gender, lang, note}]."""
+    def sk_rank(v: dict) -> int:
+        locales = v.get("locales") or []
+        if any(str(l.get("locale", "")).lower().startswith("sk") and l.get("is_native") for l in locales):
+            return 0
+        if str(v.get("language", "")).lower() == "sk":
+            return 1
+        if any(str(l.get("locale", "")).lower().startswith("sk") for l in locales):
+            return 2
+        return 3
+    out = []
+    for v in voices:
+        r = sk_rank(v)
+        native = next((l.get("locale") for l in (v.get("locales") or []) if l.get("is_native")), None) or v.get("language", "")
+        note = (v.get("tagline") or v.get("description") or "").strip()
+        if r == 3:
+            note = ("s prízvukom; " + note).strip("; ")
+        out.append({"id": v.get("id", ""), "name": v.get("name") or v.get("id", ""),
+                    "gender": str(v.get("gender") or "").title(), "lang": str(native or ""), "note": note[:60],
+                    "_rank": r})
+    out.sort(key=lambda v: (v["_rank"], v["name"].lower()))
+    for v in out:
+        v.pop("_rank", None)
+    return out
+
+
+def _list_cartesia_voices(api_key: str, max_pages: int = 20) -> list[dict]:
+    """Stiahne celý katalóg hlasov (po 100) a vráti ho zoradený cez rank_cartesia_voices."""
+    raw: list[dict] = []
+    after = None
+    for _ in range(max_pages):
+        url = f"{CARTESIA_API}/voices?limit=100" + (f"&starting_after={after}" if after else "")
+        page = _http_json(url, headers=_cartesia_headers(api_key))
+        data = page.get("data", []) if isinstance(page, dict) else []
+        raw.extend(data)
+        if not data or not (page.get("has_more") if isinstance(page, dict) else False):
+            break
+        after = data[-1].get("id")
+    return rank_cartesia_voices(raw)
+
+
 def _rate_to_float(rate: str) -> float:
     try:
         return max(0.25, min(4.0, 1.0 + float(str(rate).replace("%", "").replace("+", "")) / 100.0))
@@ -117,6 +200,12 @@ def synthesize(text: str, voice: str = DEFAULT_VOICE, rate: str = "+0%", volume:
         if not api_key:
             raise RuntimeError("Google TTS: chýba API kľúč (hlas.google_api_key alebo GOOGLE_TTS_API_KEY)")
         return _synth_google(text, voice, api_key, _rate_to_float(rate), out)
+    if engine == "cartesia":
+        if not api_key:
+            raise RuntimeError("Cartesia: chýba API kľúč (hlas.cartesia_api_key alebo CARTESIA_API_KEY)")
+        if not voice:
+            raise RuntimeError("Cartesia: nie je vybraný hlas – spusti hlas_ukazky.bat")
+        return _synth_cartesia(text, voice, api_key, model or "sonic-3", _rate_to_float(rate), _rate_to_float(volume), out)
     return _synth_edge(text, voice, rate, volume, out)
 
 
@@ -130,7 +219,25 @@ def engine_settings(hlas_cfg: dict) -> dict:
     if engine == "google":
         return {"engine": engine, "voice": hlas_cfg.get("google_voice") or "sk-SK-Wavenet-A", "model": None,
                 "api_key": hlas_cfg.get("google_api_key") or os.environ.get("GOOGLE_TTS_API_KEY", "")}
+    if engine == "cartesia":
+        return {"engine": engine, "voice": hlas_cfg.get("cartesia_voice") or "", "model": hlas_cfg.get("cartesia_model") or "sonic-3",
+                "api_key": hlas_cfg.get("cartesia_api_key") or os.environ.get("CARTESIA_API_KEY", "")}
     return {"engine": "edge", "voice": hlas_cfg.get("voice") or DEFAULT_VOICE, "model": None, "api_key": None}
+
+
+def fallback_settings(hlas_cfg: dict) -> dict | None:
+    """Záložný engine (hlas.fallback_engine, predvolene edge = Microsoft, bez limitu), keď hlavný zlyhá
+    (minutý mesačný limit, výpadok služby). Prázdny reťazec = bez zálohy. Vráti None, ak je rovnaký ako hlavný."""
+    fb = hlas_cfg.get("fallback_engine", "edge")
+    if fb is None or str(fb).strip() == "":
+        return None
+    fb = str(fb).lower()
+    if fb == (hlas_cfg.get("engine") or "edge").lower():
+        return None
+    fb_cfg = {**hlas_cfg, "engine": fb}
+    if fb == "edge" and hlas_cfg.get("fallback_voice"):
+        fb_cfg["voice"] = hlas_cfg["fallback_voice"]
+    return engine_settings(fb_cfg)
 
 
 def list_engine_voices(engine: str, api_key: str | None = None) -> list[dict]:
@@ -144,6 +251,8 @@ def list_engine_voices(engine: str, api_key: str | None = None) -> list[dict]:
             out.append({"id": v["voice_id"], "name": v.get("name", v["voice_id"]), "gender": labels.get("gender", ""),
                         "lang": labels.get("language", "") or labels.get("accent", ""), "note": labels.get("description", "") or labels.get("use_case", "")})
         return out
+    if engine == "cartesia":
+        return _list_cartesia_voices(api_key or "")
     if engine == "google":
         data = _http_json(f"https://texttospeech.googleapis.com/v1/voices?languageCode=sk-SK&key={api_key or ''}")
         out = []
@@ -205,11 +314,22 @@ def speak(text: str, voice: str = DEFAULT_VOICE, rate: str = "+0%", volume: str 
     play_file(path)
 
 
-def speak_cfg(text: str, hlas_cfg: dict) -> None:
-    """speak() podľa sekcie hlas v configu (engine, hlas, kľúč, rýchlosť)."""
+def speak_cfg(text: str, hlas_cfg: dict, speak_fn=None) -> str:
+    """speak() podľa sekcie hlas v configu (engine, hlas, kľúč, rýchlosť). Keď hlavný engine zlyhá (minutý limit,
+    výpadok), prehovorí záložný (fallback_settings). Vráti názov enginu, ktorý nakoniec hovoril."""
+    do_speak = speak_fn or speak
     es = engine_settings(hlas_cfg)
-    speak(text, es["voice"], rate=hlas_cfg.get("rate", "+0%"), volume=hlas_cfg.get("volume", "+0%"),
-          engine=es["engine"], api_key=es["api_key"], model=es["model"])
+    rate, volume = hlas_cfg.get("rate", "+0%"), hlas_cfg.get("volume", "+0%")
+    try:
+        do_speak(text, es["voice"], rate=rate, volume=volume, engine=es["engine"], api_key=es["api_key"], model=es["model"])
+        return es["engine"]
+    except Exception as exc:  # noqa: BLE001
+        fb = fallback_settings(hlas_cfg)
+        if fb is None:
+            raise
+        log.warning("%s zlyhal (%s) – hovorí záložný %s/%s", es["engine"], str(exc)[:160], fb["engine"], fb["voice"])
+        do_speak(text, fb["voice"], rate=rate, volume=volume, engine=fb["engine"], api_key=fb["api_key"], model=fb["model"])
+        return fb["engine"]
 
 
 async def list_voices_async() -> list[dict]:

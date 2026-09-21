@@ -41,7 +41,9 @@ def _worker() -> None:
             cfg = cfgmod.load_config().get("hlas", {})
             es = tts.engine_settings(cfg)
             log.info("hovorím (%s/%s): %s", es["engine"], es["voice"], text[:120])
-            tts.speak_cfg(text, cfg)
+            used = tts.speak_cfg(text, cfg)
+            if used != es["engine"]:
+                log.info("hovoril záložný engine %s", used)
         except Exception:  # noqa: BLE001
             log.exception("prehratie zlyhalo")
         finally:

@@ -3,6 +3,7 @@
 a používa ho stránka Diktat hlas cez mcp_server.py.
 
   python hlas/ukazky.py                       # bez parametrov sa spýta na engine a (ak treba) na kľúč
+  python hlas/ukazky.py --engine cartesia     # Cartesia Sonic 3 (kľúč: hlas.cartesia_api_key alebo CARTESIA_API_KEY)
   python hlas/ukazky.py --engine elevenlabs   # ElevenLabs (kľúč: hlas.elevenlabs_api_key alebo ELEVENLABS_API_KEY)
   python hlas/ukazky.py --engine google       # Google Cloud TTS (kľúč: hlas.google_api_key alebo GOOGLE_TTS_API_KEY)
   python hlas/ukazky.py --only sk             # edge: len slovenské; --list len vypíše; --max 8 obmedzí počet
@@ -23,12 +24,13 @@ from hlas import tts  # noqa: E402
 
 INTRO_M = "Ahoj, ja som {name}. Takto by som ti čítal, čo Claude spravil. A je hotové. B malo problém, mám dve riešenia, sú v texte."
 INTRO_F = "Ahoj, ja som {name}. Takto by som ti čítala, čo Claude spravil. A je hotové. B malo problém, mám dve riešenia, sú v texte."
-KEY_FIELD = {"elevenlabs": "elevenlabs_voice", "google": "google_voice", "edge": "voice"}
-API_KEY_FIELD = {"elevenlabs": "elevenlabs_api_key", "google": "google_api_key"}
+KEY_FIELD = {"elevenlabs": "elevenlabs_voice", "google": "google_voice", "cartesia": "cartesia_voice", "edge": "voice"}
+API_KEY_FIELD = {"elevenlabs": "elevenlabs_api_key", "google": "google_api_key", "cartesia": "cartesia_api_key"}
 ENGINE_MENU = (
-    ("edge", "Microsoft – zadarmo, bez kľúča (Lukáš, Viktória, Vivienne…)"),
-    ("google", "Google Chirp 3 HD – slovenské Achird a Achernar, bezplatný kľúč"),
-    ("elevenlabs", "ElevenLabs – najprirodzenejšie, platené, kľúč"),
+    ("edge", "Microsoft – zadarmo, bez kľúča a účtu (Lukáš, Viktória, Vivienne…)"),
+    ("cartesia", "Cartesia Sonic 3 – slovenčina, zadarmo 20 000 znakov/mesiac, kľúč len na e-mail (bez karty)"),
+    ("elevenlabs", "ElevenLabs – najprirodzenejšie, zadarmo 10 000 znakov/mesiac, kľúč len na e-mail (bez karty)"),
+    ("google", "Google Chirp 3 HD – slovenské Achird a Achernar, zadarmo, ale Google chce kartu"),
 )
 
 
@@ -49,9 +51,10 @@ def ask_engine(default: str, input_fn=input) -> str:
 def ask_key(engine: str, input_fn=input) -> str:
     """Vypýta API kľúč (vloží sa cez Ctrl+V / pravý klik). Prázdny vstup = bez kľúča."""
     where = {"google": "Google Cloud → APIs & Services → Credentials (kľúč začína na AIza…)",
-             "elevenlabs": "elevenlabs.io → Profile → API keys"}.get(engine, "")
+             "elevenlabs": "elevenlabs.io → registrácia e-mailom → vľavo dole profil → API Keys → Create (sk_…)",
+             "cartesia": "play.cartesia.ai → registrácia e-mailom → vľavo API Keys → Create API Key (sk_car_…)"}.get(engine, "")
     print(f"\nChýba API kľúč pre {engine}. Kde ho vziať: {where}\n"
-          "Návod krok za krokom je v diktat/README.md (sekcia Google kľúč).")
+          "Návod krok za krokom je v diktat/README.md (sekcia Hlas bez karty).")
     try:
         return input_fn("Vlož kľúč a stlač Enter (prázdne = späť): ").strip()
     except (EOFError, KeyboardInterrupt):
@@ -61,7 +64,7 @@ def ask_key(engine: str, input_fn=input) -> str:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--engine", choices=list(tts.ENGINES), help="edge (Microsoft, zadarmo) | elevenlabs | google")
+    ap.add_argument("--engine", choices=list(tts.ENGINES), help="edge (Microsoft, zadarmo) | cartesia | elevenlabs | google")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--only", choices=["sk", "cs", "multi"], help="edge: len časť hlasov")
     ap.add_argument("--max", type=int, default=12, help="najviac toľko ukážok (default 12)")

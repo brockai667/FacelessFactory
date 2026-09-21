@@ -1,6 +1,7 @@
 """Pomocné funkcie hlasu (bez siete, bez zvuku)."""
 import os
 import unittest
+import unittest.mock
 
 from diktat.hlas import tts
 
@@ -76,7 +77,8 @@ class HttpErrorTextTests(unittest.TestCase):
 class SamplerPromptsTests(unittest.TestCase):
     def test_ask_engine_number_and_default(self):
         from diktat.hlas import ukazky
-        self.assertEqual(ukazky.ask_engine("edge", input_fn=lambda _p: "2"), "google")
+        self.assertEqual(ukazky.ask_engine("edge", input_fn=lambda _p: "2"), "cartesia")
+        self.assertEqual(ukazky.ask_engine("edge", input_fn=lambda _p: "4"), "google")
         self.assertEqual(ukazky.ask_engine("edge", input_fn=lambda _p: ""), "edge")
         self.assertEqual(ukazky.ask_engine("google", input_fn=lambda _p: "x"), "google")
 
@@ -87,3 +89,64 @@ class SamplerPromptsTests(unittest.TestCase):
         def abort(_p):
             raise EOFError
         self.assertEqual(ukazky.ask_key("google", input_fn=abort), "")
+
+
+class CartesiaTests(unittest.TestCase):
+    def test_rank_native_slovak_first(self):
+        raw = [
+            {"id": "a", "name": "Zoe", "language": "en", "locales": [{"locale": "en-US", "is_native": True}], "gender": "feminine", "tagline": "Warm"},
+            {"id": "b", "name": "Marek", "language": "sk", "locales": [{"locale": "sk-SK", "is_native": True}], "gender": "masculine"},
+            {"id": "c", "name": "Lena", "language": "de", "locales": [{"locale": "de-DE", "is_native": True}, {"locale": "sk-SK", "is_native": False}]},
+            {"id": "d", "name": "Adam", "language": "sk", "locales": []},
+        ]
+        ranked = tts.rank_cartesia_voices(raw)
+        self.assertEqual([v["id"] for v in ranked], ["b", "d", "c", "a"])
+        self.assertEqual(ranked[0]["lang"], "sk-SK")
+        self.assertEqual(ranked[0]["gender"], "Masculine")
+        self.assertTrue(ranked[-1]["note"].startswith("s prízvukom"))
+        self.assertNotIn("_rank", ranked[0])
+
+    def test_engine_settings_cartesia_and_env(self):
+        with unittest.mock.patch.dict(os.environ, {"CARTESIA_API_KEY": "sk_car_env"}):
+            es = tts.engine_settings({"engine": "cartesia", "cartesia_voice": "v1"})
+        self.assertEqual(es, {"engine": "cartesia", "voice": "v1", "model": "sonic-3", "api_key": "sk_car_env"})
+
+    def test_cartesia_error_hints(self):
+        txt = tts.http_error_text("https://api.cartesia.ai/tts/bytes", 402, '{"error": "insufficient credits"}')
+        self.assertIn("minutý mesačný limit", txt)
+        txt = tts.http_error_text("https://api.cartesia.ai/voices", 401, "")
+        self.assertIn("kľúč nesedí", txt)
+
+    def test_synthesize_cartesia_requires_key_and_voice(self):
+        with self.assertRaises(RuntimeError):
+            tts.synthesize("ahoj", "", engine="cartesia", api_key="")
+        with self.assertRaises(RuntimeError):
+            tts.synthesize("ahoj", "", engine="cartesia", api_key="k")
+
+
+class FallbackTests(unittest.TestCase):
+    def test_fallback_settings_default_edge(self):
+        fb = tts.fallback_settings({"engine": "cartesia", "voice": "sk-SK-LukasNeural", "fallback_voice": "fr-FR-VivienneMultilingualNeural"})
+        self.assertEqual(fb["engine"], "edge")
+        self.assertEqual(fb["voice"], "fr-FR-VivienneMultilingualNeural")
+        self.assertIsNone(tts.fallback_settings({"engine": "edge"}))
+        self.assertIsNone(tts.fallback_settings({"engine": "cartesia", "fallback_engine": ""}))
+
+    def test_speak_cfg_uses_fallback_when_primary_fails(self):
+        calls = []
+
+        def fake_speak(text, voice, rate, volume, engine, api_key, model):
+            calls.append(engine)
+            if engine == "cartesia":
+                raise RuntimeError("HTTP 402: credits")
+
+        cfg = {"engine": "cartesia", "cartesia_api_key": "k", "cartesia_voice": "v", "voice": "sk-SK-ViktoriaNeural"}
+        used = tts.speak_cfg("ahoj", cfg, speak_fn=fake_speak)
+        self.assertEqual(used, "edge")
+        self.assertEqual(calls, ["cartesia", "edge"])
+
+    def test_speak_cfg_raises_without_fallback(self):
+        def fake_speak(*a, **k):
+            raise RuntimeError("boom")
+        with self.assertRaises(RuntimeError):
+            tts.speak_cfg("ahoj", {"engine": "cartesia", "cartesia_api_key": "k", "cartesia_voice": "v", "fallback_engine": ""}, speak_fn=fake_speak)

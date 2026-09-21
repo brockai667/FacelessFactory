@@ -140,16 +140,35 @@ Funguje, keď je stránka otvorená **v aplikácii Claude** (v prehliadači Clau
 nemá prístup – tam číta hlas prehliadača). Pri prvom čítaní sa Claude spýta, či stránka smie použiť
 „diktat“ – povoľ.
 
-**Výber hlasu:** dvojklik `hlas_ukazky.bat` – spýta sa, ktoré hlasy chceš (1 Microsoft, 2 Google, 3 ElevenLabs),
-pri Google/ElevenLabs si prvýkrát vypýta API kľúč (vložíš Ctrl+V), každý hlas sa predstaví, napíšeš číslo a uloží
-sa do `config.json` (sekcia `hlas`). Rýchlosť: `hlas.rate` (napr. `+10%`). Zadarmo bez kľúča (Microsoft edge-tts)
-sú pre slovenčinu len Lukáš a Viktória; prirodzenejšie slovenské hlasy majú tieto služby:
+**Výber hlasu:** dvojklik `hlas_ukazky.bat` – spýta sa, ktoré hlasy chceš (1 Microsoft, 2 Cartesia, 3 ElevenLabs,
+4 Google), pri službách s kľúčom si ho prvýkrát vypýta (vložíš Ctrl+V), každý hlas sa predstaví, napíšeš číslo a
+uloží sa do `config.json` (sekcia `hlas`). Rýchlosť: `hlas.rate` (napr. `+10%`). Zadarmo bez kľúča (Microsoft
+edge-tts) sú pre slovenčinu len Lukáš a Viktória; prirodzenejšie slovenské hlasy majú tieto služby:
 
-| Engine | Ako | Cena |
-|---|---|---|
-| `edge` | predvolené, bez kľúča | zadarmo |
-| `google` | voľba 2, kľúč podľa návodu nižšie (alebo `hlas_ukazky.bat --engine google --key TVOJ_KLUC`) | 1 mil. znakov/mesiac zadarmo, potom 30 $/mil. |
-| `elevenlabs` | voľba 3, kľúč z elevenlabs.com → Profile → API keys (alebo `--engine elevenlabs --key …`) | skúšobne ~10 min reči/mesiac, potom od 5 $/mes |
+| Engine | Ako | Cena | Karta? |
+|---|---|---|---|
+| `edge` | predvolené, bez kľúča a účtu | zadarmo, bez limitu | nie |
+| `cartesia` | voľba 2, kľúč z play.cartesia.ai (registrácia e-mailom → API Keys) | 20 000 znakov/mesiac zadarmo, potom od 5 $/mes | nie |
+| `elevenlabs` | voľba 3, kľúč z elevenlabs.io (registrácia e-mailom → profil → API Keys) | 10 000 znakov/mesiac zadarmo, potom od 5 $/mes | nie |
+| `google` | voľba 4, kľúč podľa návodu nižšie | 1 mil. znakov/mesiac zadarmo, potom 30 $/mil. | **áno** (aj pre bezplatný limit) |
+
+**Záložný hlas:** keď hlavný engine zlyhá (minutý mesačný limit, výpadok služby, zlý kľúč), zhrnutie prečíta
+`hlas.fallback_engine` (predvolene `edge`, teda Microsoft; hlas `hlas.fallback_voice`, prázdne = `hlas.voice`).
+Nič sa nestratí, len to chvíľu hovorí iný hlas; `logs/hlas.log` napíše prečo. `""` = bez zálohy.
+
+**Hlas bez karty (Cartesia alebo ElevenLabs), krok za krokom:**
+
+1. Cartesia: otvor [play.cartesia.ai](https://play.cartesia.ai) → **Sign up** (Google účet alebo e-mail a heslo).
+   ElevenLabs: [elevenlabs.io](https://elevenlabs.io) → **Sign up** rovnako. Kartu nepýtajú, bezplatný plán je trvalý.
+2. Cartesia: v ľavom menu **API Keys** → **Create API Key** (názov `diktat`) → skopíruj kľúč (začína `sk_car_`).
+   ElevenLabs: vľavo dole klikni na svoje meno/profil → **API Keys** → **Create API Key** → skopíruj (začína `sk_`).
+   Kľúč sa ukáže len raz; ak ho stratíš, vytvor nový.
+3. Na PC dvojklik `hlas_ukazky.bat` → voľba **2** (Cartesia) alebo **3** (ElevenLabs) → vlož kľúč (Ctrl+V) → Enter.
+   Hlasy sa predstavia (rodné slovenské prvé, ostatné hovoria po slovensky s prízvukom), napíš číslo. Kľúč ostane
+   v `config.json` (nejde do gitu).
+
+Mesačný limit: jedno zhrnutie má ~200 znakov, Cartesia = ~100 zhrnutí/mesiac, ElevenLabs = ~50. Keď sa minie,
+číta záložný Microsoft hlas a od nového mesiaca zas ten vybraný. Bezplatné plány sú len na osobné použitie.
 
 Kľúč sa ukladá do `config.json` (je v `.gitignore`), alebo do env `ELEVENLABS_API_KEY` / `GOOGLE_TTS_API_KEY`.
 
@@ -182,15 +201,17 @@ niekedy nabehne až o minútu.
 - **Google Chirp 3 HD** – najnovšia generácia Google hlasov, slovenčina `sk-SK` má mužský *Achird* a ženský
   *Achernar* (názvy `sk-SK-Chirp3-HD-Achird`, `sk-SK-Chirp3-HD-Achernar`); `hlas_ukazky.bat --engine google`
   ich ponúka ako prvé. Prvý milión znakov mesačne zadarmo (krátke zhrnutia sa doň zmestia), potom 30 $/mil.
-- **ElevenLabs** (model v3 / `eleven_multilingual_v2`) – slovenčina podporovaná, najprirodzenejšie, ale platené
-  (skúšobný kredit stačí na vyskúšanie).
+- **Cartesia Sonic 3** – slovenčina podporovaná (kód `sk`), každý hlas z katalógu vie hovoriť po slovensky; bezplatný
+  plán 20 000 znakov/mesiac bez karty. Zabudované (`cartesia`).
+- **ElevenLabs** (model v3 / `eleven_multilingual_v2`) – slovenčina podporovaná, najprirodzenejšie; bezplatný plán
+  10 000 znakov/mesiac bez karty, ďalej platené. Zabudované (`elevenlabs`).
 - **Microsoft edge-tts** – po slovensky bez prízvuku len Lukáš a Viktória; viacjazyčné hlasy (Vivienne, Ava,
   Andrew, Brian…) znejú prirodzene, ale s cudzím prízvukom.
 - **Higgs Audio V3 TTS** (github.com/boson-ai, open weights, 102 jazykov vrátane slovenčiny) – jediný lokálny
   kandidát s peknou slovenčinou; potrebuje ~10 GB VRAM (prakticky 16 GB) a licencia je len na nekomerčné
   použitie. Zatiaľ nie je v diktate zabudovaný.
-- **Cartesia Sonic 3** – slovenčina podporovaná, len platené API. **RHVoice** – slovenčina zadarmo, ale staršia
-  technológia (robotickejší ako Lukáš).
+- **RHVoice** – slovenčina zadarmo, ale staršia technológia (robotickejší ako Lukáš). **Gemini TTS** (Google AI
+  Studio, bez karty) slovenčinu v zozname 24 jazykov nemá.
 
 **Bez MCP** číta stránka hlasom prehliadača: v Edge sú neurónové slovenské hlasy zadarmo, v Chrome/Opere
 a v okne Claude je len základný „Microsoft Filip“ z Windows. Klikni **Zapnúť hlas** (prehliadač bez
