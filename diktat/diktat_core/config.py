@@ -25,6 +25,9 @@ DEFAULTS: dict = {
         "chunk_silence_rms": 0.008,    # čo je „ticho“ pri hľadaní pauzy
         "min_avg_logprob": -1.5,       # úseky, kde si Whisper vôbec nie je istý (útržky, nezmysly), sa zahodia
         "max_no_speech_prob": 0.85,    # úseky, kde Whisper tipuje „nebola reč“, sa zahodia
+        "use_context": False,          # posielať predchádzajúcu vetu modelu? True = v tichu ju rád zopakuje
+        "drop_hallucinations": True,   # zahodiť vymyslené vety z titulkov („Ďakujem za pozornosť“) a opakovania
+        "hallucination_silence_seconds": 0.0,   # >0 = Whisper sám preskočí reč vymyslenú v dlhšom tichu (pomalšie)
         "openai_model": "whisper-1",
         "openai_api_key_env": "OPENAI_API_KEY",
     },

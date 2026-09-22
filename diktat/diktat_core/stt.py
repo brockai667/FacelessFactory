@@ -8,7 +8,9 @@ from __future__ import annotations
 import logging
 import os
 import platform
+import re
 import site
+import unicodedata
 from pathlib import Path
 from typing import Protocol
 
@@ -78,14 +80,63 @@ def segment_ok(avg_logprob: float, no_speech_prob: float, min_avg_logprob: float
     return True
 
 
+def _norm(text: str) -> str:
+    """Na porovnávanie: malé písmená, bez diakritiky, bez interpunkcie a zátvoriek."""
+    t = unicodedata.normalize("NFKD", (text or "").lower())
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    return " ".join(re.sub(r"[^a-z0-9 ]+", " ", t).split())
+
+
+# Vety, ktoré si Whisper vymýšľa v tichu (naučil sa ich z titulkov k videám). Sem patria len také,
+# ktoré pri diktovaní do Claude nikto reálne nepovie.
+HALLUCINATION_EXACT = (
+    "dakujem za pozornost", "dakujem vam za pozornost", "dakujem za sledovanie",
+    "dakujeme za sledovanie", "dekuji za pozornost", "dekujeme za sledovani",
+    "prihlaste sa na odber", "nezabudnite sa prihlasit na odber",
+    "pokracovanie nabuduce", "uvidime sa nabuduce", "koniec videa",
+    "hudba", "music", "smiech", "potlesk", "applause", "laughter", "silence", "ticho",
+)
+# Útržky, ktoré stačí nájsť kdekoľvek v texte – kredity z titulkov.
+HALLUCINATION_MARKS = (
+    "amara", "titulky vytvoril", "titulky pre", "preklad a titulky", "subtitles by",
+    "subtitled by", "transcribed by", "slovenske titulky", "ceske titulky",
+)
+
+
+def _units(text: str) -> list[str]:
+    return [u for u in (_norm(p) for p in re.split(r"[.!?…]+", text or "")) if u]
+
+
+def is_hallucination(text: str, prev: str = "") -> bool:
+    """True, keď úsek vyzerá ako vymyslený: známa fráza z titulkov, doslovné zopakovanie už prepísaného
+    textu, alebo tá istá veta niekoľkokrát za sebou."""
+    norm = _norm(text)
+    if not norm:
+        return True
+    if norm in HALLUCINATION_EXACT:
+        return True
+    if any(m in norm for m in HALLUCINATION_MARKS):
+        return True
+    prev_norm = _norm(prev)
+    if len(norm) >= 10 and prev_norm.endswith(norm):
+        return True
+    units = _units(text)
+    return len(units) >= 3 and len(set(units)) == 1
+
+
 class FasterWhisperBackend:
     """Lokálny prepis cez faster-whisper (CTranslate2). Model sa stiahne pri prvom spustení."""
 
     def __init__(self, model: str = "large-v3-turbo", device: str = "auto", compute_type: str = "auto",
                  beam_size: int = 5, vad_filter: bool = True, initial_prompt: str = "",
-                 min_avg_logprob: float = -1.0, max_no_speech_prob: float = 0.7):
+                 min_avg_logprob: float = -1.0, max_no_speech_prob: float = 0.7,
+                 use_context: bool = False, drop_hallucinations: bool = True,
+                 hallucination_silence_seconds: float = 0.0):
         self.min_avg_logprob = float(min_avg_logprob)       # úseky s nižšou istotou = útržky/nezmysly → zahodiť
         self.max_no_speech_prob = float(max_no_speech_prob)
+        self.use_context = bool(use_context)                # posielať predchádzajúci text modelu? (v tichu ho opakuje)
+        self.drop_hallucinations = bool(drop_hallucinations)
+        self.hallucination_silence_seconds = float(hallucination_silence_seconds or 0.0)
         self.model_name = model
         self.device, self.compute_type = _auto_device_and_compute(device, compute_type)
         self.beam_size = int(beam_size)
@@ -123,18 +174,27 @@ class FasterWhisperBackend:
 
     def _run(self, audio, language: str, context: str | None = None) -> tuple[list[str], object]:
         prompt = self.initial_prompt or ""
-        if context:
+        if context and self.use_context:
             prompt = (prompt + " " + context).strip()[-600:]   # koniec predchádzajúceho kúsku = nadväznosť
-        segments, info = self._model.transcribe(
-            audio,
+        kwargs = dict(
             language=language or None,
             beam_size=self.beam_size,
             vad_filter=self.vad_filter,
             initial_prompt=prompt or None,
             condition_on_previous_text=False,
         )
+        if self.hallucination_silence_seconds > 0:
+            kwargs["word_timestamps"] = True
+            kwargs["hallucination_silence_threshold"] = self.hallucination_silence_seconds
+        try:
+            segments, info = self._model.transcribe(audio, **kwargs)
+        except TypeError:   # staršia verzia faster-whisper tieto parametre nepozná
+            for k in ("word_timestamps", "hallucination_silence_threshold"):
+                kwargs.pop(k, None)
+            segments, info = self._model.transcribe(audio, **kwargs)
         # generátor je lenivý – chyby CUDA vyskočia až tu
         parts = []
+        seen = context or ""
         for seg in segments:
             text = (seg.text or "").strip()
             if not text:
@@ -144,7 +204,11 @@ class FasterWhisperBackend:
                 log.info("zahodený úsek (istota %.2f, ticho %.2f): „%s“",
                          getattr(seg, "avg_logprob", 0.0), getattr(seg, "no_speech_prob", 0.0), text[:60])
                 continue
+            if self.drop_hallucinations and is_hallucination(text, seen):
+                log.info("zahodený vymyslený úsek: „%s“", text[:60])
+                continue
             parts.append(text)
+            seen = (seen + " " + text).strip()[-600:]
         return parts, info
 
     def transcribe(self, audio, language: str = "sk", context: str | None = None) -> str:
@@ -222,6 +286,9 @@ def make_backend(cfg: dict) -> Backend:
             initial_prompt=stt.get("initial_prompt", ""),
             min_avg_logprob=stt.get("min_avg_logprob", -1.0),
             max_no_speech_prob=stt.get("max_no_speech_prob", 0.7),
+            use_context=stt.get("use_context", False),
+            drop_hallucinations=stt.get("drop_hallucinations", True),
+            hallucination_silence_seconds=stt.get("hallucination_silence_seconds", 0.0),
         )
     if backend == "openai":
         return OpenAIWhisperBackend(

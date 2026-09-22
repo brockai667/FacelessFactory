@@ -271,6 +271,9 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `audio.gate_hangover_seconds` | `0.4` | dozvuk po hlasnom bloku, aby sa neodrezali konce slov |
 | `stt.min_avg_logprob` | `-1.0` | úseky, kde si Whisper nie je istý (útržky pozadia → nezmysly), sa zahodia; vyššie = prísnejšie |
 | `stt.max_no_speech_prob` | `0.7` | úseky, kde Whisper tipuje „nebola reč“, sa zahodia |
+| `stt.use_context` | `false` | `true` = modelu sa pošle predchádzajúca veta (lepšia nadväznosť, ale v tichu ju rád zopakuje) |
+| `stt.drop_hallucinations` | `true` | zahodí vety vymyslené z titulkov („Ďakujem za pozornosť“, „Titulky vytvoril…“) a doslovné opakovania |
+| `stt.hallucination_silence_seconds` | `0` | `2` = Whisper sám preskočí text vymyslený v dlhšom tichu (presnejšie, ale pomalšie) |
 | `cleanup.mode` | `light` | `light` (zadarmo: výplne + interpunkcia, opravy nechá session) · `rules` (offline vykoná príkazy) · `llm` (Claude API, platené) · `none` (surový text) · `auto` (llm ak je kľúč, inak rules) |
 | `cleanup.model` | `claude-opus-5` | len pre režim `llm`; `effort: low`; alternatívy `claude-sonnet-5`, `claude-haiku-4-5` |
 | `cleanup.replacements` | slovník | fonetické → správne (`"pajton": "Python"`), rozširuj podľa logov |
@@ -308,6 +311,11 @@ prepne sa na CPU/int8 a pokračuje (v konzole uvidíš varovanie). Ak GPU nechce
   štarte vypína, ale iné terminály (ConEmu, staré cmd) ho môžu mať vlastný.
 - **Skratka nereaguje** – iná aplikácia ju má obsadenú alebo klávesnica nemá numpad; zmeň `hotkey` (napr. `<f9>`).
   Ak beží Claude Code s `/voice`, vypni ho (`/voice off`), nech si nekonkurujú.
+- **Píše vety, ktoré som nepovedal** – Whisper si v tichu vymýšľa text naučený z titulkov („Ďakujem za
+  pozornosť“, „Titulky vytvoril…“) alebo zopakuje predchádzajúcu vetu. diktat takéto úseky zahadzuje
+  (`stt.drop_hallucinations`) a modelu už neposiela predchádzajúci text (`stt.use_context: false`).
+  V logu je riadok `zahodený vymyslený úsek`. Ak to pretrváva, skús `stt.hallucination_silence_seconds: 2`
+  a zapni hlasitostnú bránu (`diagnostika.bat` → Kalibrovať), nech do prepisu nejde šum z tichých pasáží.
 - **Zlá kvalita prepisu** – hovor bližšie k mikrofónu, skús `stt.model: "large-v3"`, doplň
   `initial_prompt` o slová, ktoré Whisper komolí, a pridaj náhrady do `cleanup.replacements`.
 - **Pomalé** – CPU + turbo je hranica; zapni GPU (sekcia vyššie) alebo `stt.backend: "openai"`.

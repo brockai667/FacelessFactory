@@ -71,5 +71,81 @@ class CudaFallbackTests(unittest.TestCase):
             self.assertEqual(stt.prepare_cuda_dll_dirs(), [])
 
 
+
+
+class _RecordingModel:
+    """Vracia vopred dané texty segmentov a zapamätá si, s čím bol zavolaný."""
+
+    def __init__(self, texts, reject_new_kwargs=False):
+        self.texts = texts
+        self.kwargs = None
+        self.calls = 0
+        self.reject_new_kwargs = reject_new_kwargs
+
+    def transcribe(self, audio, **kwargs):
+        self.calls += 1
+        if self.reject_new_kwargs and "word_timestamps" in kwargs:
+            raise TypeError("transcribe() got an unexpected keyword argument 'word_timestamps'")
+        self.kwargs = kwargs
+        return (_Seg(t) for t in self.texts), types.SimpleNamespace(language="sk")
+
+
+def _backend(model, **kw):
+    backend = stt.FasterWhisperBackend(model="x", device="cpu", compute_type="int8", **kw)
+    backend._model = model
+    backend.load = lambda: None
+    return backend
+
+
+class HallucinationTests(unittest.TestCase):
+    def test_subtitle_phrases_are_hallucinations(self):
+        for text in ("Ďakujem za pozornosť.", "Titulky vytvoril Janko", "[Hudba]",
+                     "Subtitles by the Amara.org community", "  "):
+            self.assertTrue(stt.is_hallucination(text), text)
+
+    def test_real_speech_is_kept(self):
+        for text in ("Ďakujem, to je všetko.", "Sprav mi funkciu na prepis.",
+                     "Hudba hrá v pozadí, ale to je jedno."):
+            self.assertFalse(stt.is_hallucination(text), text)
+
+    def test_repeat_of_already_transcribed_text(self):
+        prev = "Sprav mi funkciu na prepis textu."
+        self.assertTrue(stt.is_hallucination("funkciu na prepis textu.", prev))
+        self.assertFalse(stt.is_hallucination("A potom to ulož.", prev))
+
+    def test_same_sentence_over_and_over(self):
+        self.assertTrue(stt.is_hallucination("Dobre. Dobre. Dobre."))
+        self.assertFalse(stt.is_hallucination("Dobre. Idem na to. Dobre."))
+
+
+class RunFilterTests(unittest.TestCase):
+    def test_invented_and_repeated_segments_are_dropped(self):
+        model = _RecordingModel([" Sprav mi funkciu.", " Ďakujem za pozornosť.",
+                                 " Sprav mi funkciu.", " Titulky vytvoril Mirek"])
+        self.assertEqual(_backend(model).transcribe(b"a", language="sk"), "Sprav mi funkciu.")
+
+    def test_filter_can_be_turned_off(self):
+        model = _RecordingModel([" Ahoj.", " Ďakujem za pozornosť."])
+        text = _backend(model, drop_hallucinations=False).transcribe(b"a", language="sk")
+        self.assertEqual(text, "Ahoj. Ďakujem za pozornosť.")
+
+    def test_previous_text_is_not_sent_to_the_model_by_default(self):
+        model = _RecordingModel([" Ahoj."])
+        _backend(model).transcribe(b"a", language="sk", context="predchádzajúca veta")
+        self.assertIsNone(model.kwargs["initial_prompt"])
+
+    def test_context_is_sent_when_enabled(self):
+        model = _RecordingModel([" Ahoj."])
+        _backend(model, use_context=True).transcribe(b"a", language="sk", context="predchádzajúca veta")
+        self.assertIn("predchádzajúca veta", model.kwargs["initial_prompt"])
+
+    def test_old_faster_whisper_without_hallucination_parameters(self):
+        model = _RecordingModel([" Ahoj."], reject_new_kwargs=True)
+        text = _backend(model, hallucination_silence_seconds=2).transcribe(b"a", language="sk")
+        self.assertEqual(text, "Ahoj.")
+        self.assertEqual(model.calls, 2)
+        self.assertNotIn("word_timestamps", model.kwargs)
+
+
 if __name__ == "__main__":
     unittest.main()
