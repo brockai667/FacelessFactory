@@ -40,7 +40,7 @@ STATE_LOOK = {
     "working": ("●", "pracuje", "#4a9eff"),
     "asking": ("●", "pýta sa ťa", "#ffb300"),
     "done": ("●", "hotovo", "#3ddc84"),
-    "ready": ("○", "čaká", "#8a8a8a"),
+    "ready": ("○", "čaká na zadanie", "#8a8a8a"),
 }
 STATE_ORDER = {"asking": 0, "done": 1, "working": 2, "ready": 3}
 
@@ -67,16 +67,67 @@ def project_name(cwd: str | None, fallback: str = "") -> str:
     return fallback or "session"
 
 
+SYSTEM_PREFIXES = ("<", "[Artifact comment", "[Request interrupted", "Caveat:", "This session is being continued")
+
+
+def is_system_text(text: str) -> bool:
+    """Prompty, ktoré nenapísal človek: obálky harnessu (<task-notification>, <wake…>, <system-reminder>),
+    hlásenia o prerušení a pokračovaní. Takýto text nesmie byť názvom session."""
+    t = " ".join(str(text or "").split())
+    if not t:
+        return True
+    return t.startswith(SYSTEM_PREFIXES)
+
+
+def title_from_transcript(path: str | Path | None, max_lines: int = 300, max_bytes: int = 2_000_000) -> str:
+    """Názov starej session vyčíta z jej prepisu (prvá ľudská správa). Formát prepisu je vnútorná vec
+    Claude Code a môže sa zmeniť – preto len best-effort: čokoľvek nečakané = prázdny názov."""
+    if not path:
+        return ""
+    try:
+        read = 0
+        with open(path, "r", encoding="utf-8", errors="replace") as fh:
+            for i, line in enumerate(fh):
+                read += len(line)
+                if i >= max_lines or read > max_bytes:
+                    break
+                line = line.strip()
+                if not line.startswith("{"):
+                    continue
+                try:
+                    obj = json.loads(line)
+                except ValueError:
+                    continue
+                if not isinstance(obj, dict) or obj.get("type") != "user" or obj.get("isMeta"):
+                    continue
+                content = (obj.get("message") or {}).get("content")
+                if isinstance(content, list):
+                    text = " ".join(c.get("text", "") for c in content
+                                    if isinstance(c, dict) and c.get("type") == "text")
+                elif isinstance(content, str):
+                    text = content
+                else:
+                    continue
+                if not is_system_text(text):
+                    return clean_title(text)
+    except OSError:
+        return ""
+    return ""
+
+
+def shorten(text: str, limit: int = 28) -> str:
+    """Skráti text na dĺžku, ktorá sa zmestí do panela (číslovanie duplicít sa pridáva až za to)."""
+    t = " ".join(str(text or "").split())
+    return t[:limit].rstrip(" ,.;:") + "…" if len(t) > limit else t
+
+
 def clean_title(text: str, limit: int = 28) -> str:
-    """Z prvého promptu spraví názov, ktorý používateľ pozná zo zoznamu chatov v Claude."""
+    """Z prvej ľudskej správy spraví názov, ktorý používateľ pozná zo zoznamu chatov v Claude."""
     t = " ".join(str(text or "").split())
     for marker in ("🎤", "[diktát]", "[diktat]", "[d]"):
         if t.startswith(marker):
             t = t[len(marker):].lstrip()
-    t = t.lstrip("/#>-• ").strip()
-    if len(t) > limit:
-        t = t[:limit].rstrip(" ,.;:") + "…"
-    return t
+    return shorten(t.lstrip("/#>-• ").strip(), limit)
 
 
 def record(event: str, payload: dict, directory: Path | None = None, now: float | None = None,
@@ -108,9 +159,16 @@ def record(event: str, payload: dict, directory: Path | None = None, now: float 
             "since": now if old.get("state") != state else old.get("since", now),
             "updated": now,
         }
-        title = old.get("title") or clean_title(payload.get("prompt") or payload.get("user_input") or "")
+        title = old.get("title") or ""
+        if title and is_system_text(title):
+            title = ""                 # zlý názov z predchádzajúcej verzie (napr. <task-notification>) – prepíš
+        if not title:                  # názov = prvá ĽUDSKÁ správa session (tak ju poznáš zo zoznamu chatov)
+            prompt = payload.get("prompt") or payload.get("user_input") or ""
+            title = "" if is_system_text(prompt) else clean_title(prompt)
+        if not title:
+            title = title_from_transcript(payload.get("transcript_path"))
         if title:
-            entry["title"] = title     # prvý prompt = to, ako sa session volá v zozname chatov
+            entry["title"] = title
         if event == "Notification" and payload.get("message"):
             entry["note"] = str(payload["message"])[:80]
         if extra:
@@ -155,7 +213,7 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
             continue     # ukážkové session sa samé vytratia, nech ich nikto nepovažuje za skutočné
         entry["age"] = age
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
-        entry["label"] = entry.get("title") or entry.get("name") or "session"
+        entry["label"] = shorten(entry.get("title") or entry.get("name") or "session")
         out.append(entry)
     out.sort(key=lambda e: (STATE_ORDER.get(e["state"], 9), -float(e.get("updated") or 0)))
     number_duplicates(out)
@@ -262,7 +320,7 @@ def row_for(entry: dict, show_time: bool = False) -> tuple[str, str, str]:
     """(ikona, text, farba) pre jeden riadok panela: „● epizodar · pracuje“.
     S show_time=True pribudne, ako dlho už je session v tomto stave."""
     icon, word, color = STATE_LOOK.get(entry.get("state", ""), STATE_LOOK["ready"])
-    name = str(entry.get("label") or entry.get("title") or entry.get("name") or "session")[:30]
+    name = str(entry.get("label") or entry.get("title") or entry.get("name") or "session")
     text = f"{name} · {word}"
     if show_time:
         text = f"{text} {human_time(entry.get('elapsed', 0))}"

@@ -284,6 +284,69 @@ class TitleTests(unittest.TestCase):
         self.assertEqual(sessions.clean_title(""), "")
 
 
+class SystemPromptTests(unittest.TestCase):
+    """Obálky harnessu (<task-notification> a spol.) sa nesmú stať názvom session."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+
+    def _transcript(self, *messages):
+        path = self.out / "t.jsonl"
+        path.write_text("\n".join(json.dumps(m) for m in messages), encoding="utf-8")
+        return str(path)
+
+    def test_system_text_is_recognised(self):
+        for text in ("<task-notification>\n<task-id>x</task-id>", "<system-reminder>x</system-reminder>",
+                     "[Request interrupted by user]", "Caveat: The messages below…", "   "):
+            self.assertTrue(sessions.is_system_text(text), text)
+        self.assertFalse(sessions.is_system_text("sprav mi rozvrh < 5 minút"))
+
+    def test_title_falls_back_to_the_transcript(self):
+        transcript = self._transcript(
+            {"type": "summary", "summary": "nieco"},
+            {"type": "user", "isMeta": True, "message": {"role": "user", "content": "Caveat: blah"}},
+            {"type": "user", "message": {"role": "user", "content": "<task-notification>x"}},
+            {"type": "user", "message": {"role": "user", "content": [{"type": "text", "text": "🎤 Rozvrh sync workflow"}]}},
+        )
+        sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "C:/u/Dokumenty",
+                                             "prompt": "<task-notification>x", "transcript_path": transcript},
+                        self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Rozvrh sync workflow")
+
+    def test_session_without_a_prompt_gets_its_name_from_the_transcript(self):
+        transcript = self._transcript({"type": "user", "message": {"role": "user", "content": "Odosielanie emailov"}})
+        sessions.record("Stop", {"session_id": "b", "cwd": "C:/u/cities", "transcript_path": transcript},
+                        self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Odosielanie emailov")
+
+    def test_broken_or_missing_transcript_falls_back_to_the_folder(self):
+        self.assertEqual(sessions.title_from_transcript(None), "")
+        self.assertEqual(sessions.title_from_transcript(self.out / "niet.jsonl"), "")
+        bad = self.out / "bad.jsonl"
+        bad.write_text("toto nie je json\n{\"type\": \"user\"}\n", encoding="utf-8")
+        self.assertEqual(sessions.title_from_transcript(bad), "")
+        sessions.record("Stop", {"session_id": "c", "cwd": "C:/u/cities", "transcript_path": str(bad)},
+                        self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "cities")
+
+    def test_bad_title_from_an_older_version_is_replaced(self):
+        base = {"session_id": "a", "cwd": "C:/u/Dokumenty"}
+        sessions.record("UserPromptSubmit", base, self.out, 1000,
+                        extra={"title": "<task-notification> <task-id…"})
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "<task-notification> <task-id…")
+        sessions.record("UserPromptSubmit", {**base, "prompt": "Rozvrh sync workflow"}, self.out, 1002)
+        self.assertEqual(sessions.read_states(self.out, now=1003)[0]["label"], "Rozvrh sync workflow")
+
+    def test_long_label_is_shortened_before_numbering(self):
+        long_text = "Toto je velmi dlhy nazov chatu ktory sa nezmesti"
+        for sid in ("a", "b"):
+            sessions.record("UserPromptSubmit", {"session_id": sid, "cwd": "C:/u/x", "prompt": long_text},
+                            self.out, 1000)
+        labels = sorted(e["label"] for e in sessions.read_states(self.out, now=1001))
+        self.assertTrue(labels[0].endswith("…"), labels)
+        self.assertTrue(labels[1].endswith("… (2)"), labels)
+
+
 class PanelDragTests(unittest.TestCase):
     def test_dropped_position_wins_over_the_window(self):
         p = panelmod.Panel({"x": 300, "y": 500})
