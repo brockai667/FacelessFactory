@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import unittest.mock
 from pathlib import Path
 
 from diktat.diktat_core import panel as panelmod, procs, sessions
@@ -423,6 +424,50 @@ class HookEncodingTests(unittest.TestCase):
         entry = json.loads((out / "s.json").read_text(encoding="utf-8"))
         self.assertEqual(entry["name"], "projekt")
         self.assertEqual(entry["title"], "Zatiaľ to nedávaj, ďakujem")
+
+
+class TitleFinderTests(unittest.TestCase):
+    """Hľadač názvov: nájde súbor, v ktorom je text z bočného zoznamu Claude."""
+
+    def test_reports_the_file_that_contains_the_title(self):
+        home = Path(tempfile.mkdtemp())
+        claude = home / ".claude" / "projects" / "p"
+        claude.mkdir(parents=True)
+        (claude / "a.jsonl").write_text('{"type":"summary","summary":"Rozvrh sync workflow"}', encoding="utf-8")
+        (claude / "b.jsonl").write_text('{"type":"user"}', encoding="utf-8")
+        with unittest.mock.patch.object(Path, "home", staticmethod(lambda: home)):
+            out = "\n".join(diktat_app.find_title("Rozvrh sync workflow"))
+        self.assertIn("NÁJDENÉ", out)
+        self.assertIn("a.jsonl", out)
+        self.assertNotIn("b.jsonl", out)
+
+    def test_says_when_nothing_matches(self):
+        home = Path(tempfile.mkdtemp())
+        (home / ".claude").mkdir(parents=True)
+        with unittest.mock.patch.object(Path, "home", staticmethod(lambda: home)):
+            out = "\n".join(diktat_app.find_title("čosi čo tam nie je"))
+        self.assertIn("nenašlo", out)
+
+    def test_without_a_name_it_shows_the_layout(self):
+        home = Path(tempfile.mkdtemp())
+        (home / ".claude" / "projects").mkdir(parents=True)
+        with unittest.mock.patch.object(Path, "home", staticmethod(lambda: home)):
+            out = "\n".join(diktat_app.find_title(""))
+        self.assertIn("Zadaj názov chatu", out)
+        self.assertIn("projects/", out)
+
+
+class SummaryTailTests(unittest.TestCase):
+    def test_summary_added_later_is_found_at_the_end(self):
+        out = Path(tempfile.mkdtemp())
+        sessions._TITLE_CACHE.clear()
+        path = out / "t.jsonl"
+        path.write_text("\n".join([
+            json.dumps({"type": "user", "message": {"role": "user", "content": "prvy prompt o rozvrhu"}}),
+            json.dumps({"type": "assistant", "message": {"role": "assistant", "content": "…"}}),
+            json.dumps({"type": "summary", "summary": "Rozvrh sync workflow"}),
+        ]), encoding="utf-8")
+        self.assertEqual(sessions.title_from_transcript(path), "Rozvrh sync workflow")
 
 
 class PanelDragTests(unittest.TestCase):

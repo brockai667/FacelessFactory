@@ -125,7 +125,35 @@ def title_from_transcript(path: str | Path | None, max_lines: int = 400, max_byt
                     first_human = clean_title(text)
     except OSError:
         return ""
+    tail = _summary_from_tail(key)
+    if tail:
+        return _remember(key, tail)
     return _remember(key, first_human) if first_human else ""
+
+
+def _summary_from_tail(path: str, tail_bytes: int = 262_144) -> str:
+    """Súhrn (názov chatu) pribúda do prepisu aj neskôr – pozri sa aj na koniec súboru."""
+    try:
+        with open(path, "rb") as fh:
+            fh.seek(0, 2)
+            size = fh.tell()
+            fh.seek(max(0, size - tail_bytes))
+            chunk = fh.read().decode("utf-8", "replace")
+    except OSError:
+        return ""
+    found = ""
+    for line in chunk.splitlines():
+        line = line.strip()
+        if not line.startswith("{") or '"summary"' not in line:
+            continue
+        try:
+            obj = json.loads(line)
+        except ValueError:
+            continue
+        summary = obj.get("summary") if isinstance(obj, dict) else None
+        if isinstance(summary, str) and summary.strip():
+            found = clean_title(summary)
+    return found
 
 
 def _remember(key: str, title: str) -> str:

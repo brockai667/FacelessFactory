@@ -674,6 +674,66 @@ def hooks_status(claude_dir: Path | None = None) -> str:
     return "hooky: " + ", ".join(parts)
 
 
+def find_title(needle: str, limit_mb: int = 300) -> list[str]:
+    """Nájde, v ktorých súboroch Claude drží názov chatu (ten, čo vidíš v bočnom zozname).
+    Prehľadá dátové priečinky Claude na tomto počítači a vypíše súbory, kde sa text vyskytuje."""
+    import os as _os
+    needle = (needle or "").strip()
+    targets = [Path.home() / ".claude", Path(_os.environ.get("APPDATA", "")) / "Claude",
+               Path(_os.environ.get("LOCALAPPDATA", "")) / "Claude",
+               Path(_os.environ.get("LOCALAPPDATA", "")) / "AnthropicClaude"]
+    if not needle:
+        return ["Zadaj názov chatu, ktorý vidíš v zozname Claude, napr.:",
+                '   najdi_nazvy.bat "Odosielanie emailov"', "", "Dátové priečinky Claude na tomto počítači:",
+                *_claude_layout(targets)]
+    patterns = [needle.encode("utf-8"), needle.encode("utf-16-le", "replace")]
+    lines = [f"Hľadám „{needle}“ …"]
+    hits = 0
+    for root in targets:
+        if not root.is_dir():
+            lines.append(f"- {root}: neexistuje")
+            continue
+        lines.append(f"- {root}: prehľadávam")
+        for path in root.rglob("*"):
+            try:
+                if not path.is_file() or path.stat().st_size > limit_mb * 1024 * 1024:
+                    continue
+                blob = path.read_bytes()
+            except OSError:
+                continue
+            for pat in patterns:
+                if pat and pat in blob:
+                    hits += 1
+                    rel = str(path).replace(str(Path.home()), "~")
+                    lines.append(f"   NÁJDENÉ: {rel}  ({path.stat().st_size // 1024} kB)")
+                    break
+            if hits > 40:
+                lines.append("   (ďalšie výsledky vynechané)")
+                return lines
+    if not hits:
+        lines.append("Nikde sa nenašlo – skontroluj, či si názov opísal presne (aj diakritiku).")
+    return lines
+
+
+def _claude_layout(roots: list[Path], max_entries: int = 40) -> list[str]:
+    """Len názvy súborov a priečinkov (bez obsahu) – podľa toho vidno, kde má Claude čo uložené."""
+    lines = []
+    for root in roots:
+        if not root.is_dir():
+            lines.append(f"- {root}: neexistuje")
+            continue
+        lines.append(f"- {root}:")
+        try:
+            for i, item in enumerate(sorted(root.iterdir())):
+                if i >= max_entries:
+                    lines.append("     …")
+                    break
+                lines.append(f"     {item.name}{'/' if item.is_dir() else ''}")
+        except OSError as exc:
+            lines.append(f"     (nedá sa prečítať: {exc})")
+    return lines
+
+
 def panel_check(cfg: dict) -> list[str]:
     """Krátka kontrola panela v ľudskej reči: beží diktat, je panel zapnutý, čo hlásia sessions."""
     lines = ["=== kontrola panela ==="]
@@ -905,6 +965,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--diag", action="store_true", help="diagnostika do logs/diagnostika.txt + schránky")
     ap.add_argument("--panel-demo", nargs="?", const="on", choices=["on", "off"],
                     help="ukážkové session v paneli (on = zapíš, off = zmaž)")
+    ap.add_argument("--find-title", nargs="?", const="", metavar="NÁZOV",
+                    help="nájde, v ktorých súboroch Claude drží názov chatu zo zoznamu")
     ap.add_argument("--panel-check", action="store_true",
                     help="kontrola panela: beží diktat, sú hooky, čo hlásia sessions")
     ap.add_argument("--restart-check", action="store_true",
@@ -932,6 +994,10 @@ def main(argv: list[str] | None = None) -> int:
             paths = sessionsmod.demo(directory)
             print(f"Ukážkové session zapísané ({len(paths)}) – pozri pravý horný roh okna Claude.")
             print("Zmazať: panel_ukazka.bat off")
+        return 0
+    if args.find_title is not None:
+        for line in find_title(args.find_title):
+            print(line)
         return 0
     if args.panel_check:
         for line in panel_check(cfg):

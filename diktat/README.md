@@ -268,6 +268,11 @@ vyzerá), `2` ich zmaže, `3` spustí kontrolu panela – vypíše, či diktat b
 Keď nič nehlási stav, panel ukáže sivý riadok „žiadna session nehlási stav“ – je to dôkaz, že beží.
 Úplne ho schováš cez `panel.hide_when_empty: true`.
 
+**Panel ukazuje iný názov, než mám v zozname chatov?** Claude si názov chatu generuje sám a diktat ho vie
+prečítať len zo súhrnu v prepise session. Kým súhrn nevznikol, je v paneli prvá ľudská správa. Kde presne
+má Claude názvy uložené, zistí `najdi_nazvy.bat "presný názov zo zoznamu"` – vypíše súbory, v ktorých sa
+ten text nachádza (bez parametra vypíše, čo má Claude na počítači za dátové priečinky).
+
 **Poznám tie názvy?** Riadok ukazuje prvý prompt danej session. Sessions bežiace v cloude
 (claude.ai/code) hooky nespúšťajú, takže chat, ktorý máš otvorený vo webe, v paneli nebude – aj keď sa
 podobne volá ako niektorý lokálny priečinok.
