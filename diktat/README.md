@@ -261,10 +261,18 @@ nájde, v ktorom súbore ten text je – to sa hodí, keby si aplikácia formát
 **Ako rýchlo to o stave vie.** Panel číta stavy **raz za sekundu**. Samotný stav mení hook a ten príde
 hneď pri troch veciach: odoslal si prompt („pracuje“), Claude si pýta povolenie („pýta sa ťa“), ťah sa
 skončil („hotovo“). Medzi tým žiadny hook nepríde – ani keď nástroj povolíš, ani keď session zobudí
-systém (dokončená úloha na pozadí). Vtedy sa panel riadi tým, že **prepis session rastie** (počas práce
-pribúda každé 2–3 sekundy): kým rástol za posledných `panel.working_window_seconds` sekúnd (predvolene
-25), riadok hlási „pracuje“. Stav „pýta sa ťa“ sa takto preklopí až po 4 sekundách ticha od otázky, aby
-nezmizol omylom – kým čakáš na povolenie, do prepisu sa aj tak nič nepíše.
+systém (dokončená úloha na pozadí).
+
+Vtedy rozhoduje **prepis session**: keď sa doň písalo **neskôr**, než hook zapísal stav, session zjavne
+pokračuje. Pri normálnom konci ťahu príde posledný zápis a „hotovo“ v tej istej sekunde, takže sa nič
+nepreklopí; preklopí sa až zápis 10 sekúnd po ňom (pri „pýta sa ťa“ 4 sekundy – kým čakáš na povolenie,
+do prepisu sa aj tak nepíše). „Pracuje“ potom platí `panel.working_window_seconds` (predvolene **30 min**)
+od posledného zápisu: dlhý nástroj – render, build, testy – beží aj štvrť hodiny a do prepisu za ten čas
+nenapíše nič, takže kratšie okno by riadok zbytočne zhodilo na „hotovo“.
+
+**Koľko to stojí.** Panel je pár MB pamäte a rádovo 1–2 % jedného jadra (pamäť diktatu drží model
+Whisper, nie panel). Dýchanie bodky sa dá vypnúť – `panel.pulse: false` – a panel sa potom prebudí len
+raz za sekundu. Presunutý panel (`panel.x`/`panel.y`) navyše okno Claude vôbec nehľadá.
 
 **Panel je plávajúci:** chyť ho myšou a presuň, kam chceš – poloha sa uloží do `config.json`
 (`panel.x`, `panel.y`) a panel tam ostane aj po reštarte. **Dvojklik naň** ho vráti pod tlačidlá okna

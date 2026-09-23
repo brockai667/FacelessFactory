@@ -413,9 +413,15 @@ class TranscriptActivityTests(unittest.TestCase):
         entry = sessions.refresh_from_transcript(self._entry(), now=1105)
         self.assertEqual(entry["state"], "working")
 
-    def test_quiet_transcript_stays_done(self):
+    def test_a_long_tool_call_still_counts_as_work(self):
+        """Render alebo build beží aj 15 minút a do prepisu za ten čas nenapíše nič – riadok nesmie
+        spadnúť na „hotovo“, keď sa do prepisu písalo dávno po tom hlásení."""
         os.utime(self.path, (1100, 1100))
-        self.assertEqual(sessions.refresh_from_transcript(self._entry(), now=1300)["state"], "done")
+        self.assertEqual(sessions.refresh_from_transcript(self._entry(), now=1100 + 900)["state"], "working")
+
+    def test_a_transcript_quiet_for_half_an_hour_is_done(self):
+        os.utime(self.path, (1100, 1100))
+        self.assertEqual(sessions.refresh_from_transcript(self._entry(), now=1100 + 2000)["state"], "done")
 
     def test_write_at_the_moment_of_stop_is_not_work(self):
         os.utime(self.path, (1001, 1001))
@@ -451,16 +457,17 @@ class TranscriptActivityTests(unittest.TestCase):
         path = self.out / "a.jsonl"
         path.write_text("x", encoding="utf-8")
         sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path)}, self.out, 1000)
-        os.utime(path, (1010, 1010))
-        self.assertEqual(sessions.read_states(self.out, now=1012)[0]["state"], "working")
-        self.assertEqual(sessions.read_states(self.out, now=1100)[0]["state"], "done")
+        os.utime(path, (1020, 1020))
+        self.assertEqual(sessions.read_states(self.out, now=1022)[0]["state"], "working")
+        late = sessions.read_states(self.out, now=1020 + 2000, stale_minutes=9999, done_keep_minutes=9999)
+        self.assertEqual(late[0]["state"], "done")
 
     def test_the_window_can_be_shortened(self):
         path = self.out / "a.jsonl"
         path.write_text("x", encoding="utf-8")
         sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path)}, self.out, 1000)
         os.utime(path, (1010, 1010))
-        self.assertEqual(sessions.read_states(self.out, now=1020, working_window_seconds=5)[0]["state"], "done")
+        self.assertEqual(sessions.read_states(self.out, now=1040, working_window_seconds=5)[0]["state"], "done")
 
 class HookEncodingTests(unittest.TestCase):
     """Windows by stdin dekódoval kódovaním konzoly – slovenčina a 🎤 sa rozsypú na „ZatiaÄľ“."""

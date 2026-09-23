@@ -47,8 +47,13 @@ STATE_LOOK = {
 }
 STATE_ORDER = {"asking": 0, "done": 1, "working": 2, "ready": 3}
 
-WORKING_WINDOW_SECONDS = 25.0     # ako dlho po poslednom zápise do prepisu ešte hlásiť „pracuje“
-LIFT_AFTER_SECONDS = {"asking": 4.0}   # „pýta sa ťa“ je najdôležitejší stav, ten preklápame opatrnejšie
+# Dlhý nástroj (render, build, test) beží aj 15 minút a do prepisu za ten čas nenapíše nič – preto sa
+# „pracuje“ drží dlho po poslednom zápise. Že session naozaj pokračuje, poznať po tom, že sa do prepisu
+# písalo ZRETEĽNE neskôr, než hook zapísal stav: keď ťah normálne skončí, posledný zápis a „hotovo“
+# prídu v tej istej sekunde.
+WORKING_WINDOW_SECONDS = 1800.0        # 30 min od posledného zápisu; potom už „pracuje“ neveríme
+LIFT_AFTER_SECONDS = {"asking": 4.0}   # „pýta sa ťa“ zmizne skôr – kým čakáš na povolenie, nepíše sa nič
+LIFT_AFTER_DEFAULT = 10.0              # „hotovo“ preklopíme, až keď sa písalo 10 s po ňom
 
 
 def default_dir() -> Path:
@@ -538,8 +543,8 @@ def number_duplicates(entries: list[dict]) -> list[dict]:
 def refresh_from_transcript(entry: dict, now: float, idle_seconds: float = WORKING_WINDOW_SECONDS) -> dict:
     """Hooky hlásia len odoslanie promptu, otázku na povolenie a koniec ťahu. Keď session zobudí systém
     (dokončená úloha na pozadí) alebo keď jej práve povolíš nástroj, žiadny hook nepríde a v paneli by
-    ostalo staré „hotovo“ či „pýta sa ťa“. Prepis session pritom počas práce rastie každých pár sekúnd –
-    keď rastie, je zjavne v práci."""
+    ostalo staré „hotovo“ či „pýta sa ťa“. Že session pokračuje, poznať po tom, že sa do jej prepisu
+    písalo neskôr, než hook zapísal stav – vtedy „pracuje“ platí až do ďalšieho hlásenia hooku."""
     path = entry.get("transcript")
     state = entry.get("state")
     if not path or entry.get("demo") or state not in ("done", "ready", "asking"):
@@ -548,7 +553,7 @@ def refresh_from_transcript(entry: dict, now: float, idle_seconds: float = WORKI
         mtime = os.path.getmtime(path)
     except OSError:
         return entry
-    delay = LIFT_AFTER_SECONDS.get(state, 2.0)
+    delay = LIFT_AFTER_SECONDS.get(state, LIFT_AFTER_DEFAULT)
     if mtime > float(entry.get("updated") or 0) + delay and now - mtime < idle_seconds:
         entry["state"] = "working"
         entry["since"] = mtime

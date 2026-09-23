@@ -53,7 +53,8 @@ class Panel:
         self.empty_text = str(cfg.get("empty_text", "žiadna session nehlási stav"))
         self.refresh_seconds = float(cfg.get("refresh_seconds", 1.0))
         self.rect_seconds = float(cfg.get("rect_seconds", 1.0))      # ako často sa pozrieť, kde je okno Claude
-        self.animate_ms = max(60, int(cfg.get("animate_ms", 160)))
+        self.animate_ms = max(60, int(cfg.get("animate_ms", 200)))
+        self.pulse = bool(cfg.get("pulse", True))     # dýchanie bodky vypni, keď chceš panel úplne zadarmo
         self.show_time = bool(cfg.get("show_time", False))
         self.done_keep_minutes = float(cfg.get("done_keep_minutes", 30))
         self.working_window_seconds = float(cfg.get("working_window_seconds", sessions.WORKING_WINDOW_SECONDS))
@@ -199,7 +200,9 @@ class Panel:
 
             def place(states):
                 empty = not states and self.hide_when_empty
-                pos = None if empty else self.position(self._rect_fn(), view["width"], root.winfo_screenwidth())
+                dropped = self.x is not None and self.y is not None
+                rect = None if dropped else self._rect_fn()     # presunutý panel okno Claude nehľadá
+                pos = None if empty else self.position(rect, view["width"], root.winfo_screenwidth())
                 if pos is None:
                     if view["visible"]:
                         root.withdraw()
@@ -234,7 +237,8 @@ class Panel:
                         view["keys"] = keys
                         view["last_rect"] = 0.0       # nová šírka → zarovnaj hneď
                     view["states"] = states
-                pulsing = any(PULSE.get(st, (0.0, 0.0))[1] > 0 for _dot, _c, st in view["dots"])
+                pulsing = (self.pulse and view["visible"]
+                           and any(PULSE.get(st, (0.0, 0.0))[1] > 0 for _dot, _c, st in view["dots"]))
                 if pulsing:
                     animate(now)
                 if now - view["last_rect"] >= self.rect_seconds:
