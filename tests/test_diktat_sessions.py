@@ -217,6 +217,22 @@ class DemoIsRecognisableTests(unittest.TestCase):
         self.assertEqual(sessions.read_states(out, now=1000 + 20 * 60, demo_keep_minutes=15), [])
 
 
+class DuplicateNamesTests(unittest.TestCase):
+    def test_second_session_in_the_same_folder_gets_a_number(self):
+        out = Path(tempfile.mkdtemp())
+        sessions.record("UserPromptSubmit", {"session_id": "x1", "cwd": "C:/u/Dokumenty"}, out, 1000)
+        sessions.record("UserPromptSubmit", {"session_id": "x2", "cwd": "C:/u/Dokumenty"}, out, 1001)
+        sessions.record("UserPromptSubmit", {"session_id": "y", "cwd": "C:/u/nemecko"}, out, 1002)
+        names = [e["name"] for e in sessions.read_states(out, now=1003)]
+        self.assertEqual(sorted(names), ["Dokumenty", "Dokumenty (2)", "nemecko"])
+
+    def test_demo_rows_are_not_numbered_and_read_cleanly(self):
+        out = Path(tempfile.mkdtemp())
+        sessions.demo(out, now=1000)
+        texts = [sessions.row_for(e)[1] for e in sessions.read_states(out, now=1001)]
+        self.assertEqual(sorted(texts), ["ukážka · hotovo", "ukážka · pracuje", "ukážka · pýta sa ťa"])
+
+
 class DiagnosticsTests(unittest.TestCase):
     def test_hooks_status_reports_missing_and_registered(self):
         claude = Path(tempfile.mkdtemp())

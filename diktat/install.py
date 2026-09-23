@@ -174,6 +174,19 @@ def watch_vbs(python_exe: str, app_path: Path, follow: list[str]) -> str:
     )
 
 
+def current_user() -> str:
+    """DOMÉNA\\používateľ (z `whoami`), potrebné pre spúšťač „pri prihlásení“ bez práv správcu."""
+    import subprocess
+    try:
+        out = subprocess.run(["whoami"], capture_output=True, text=True, timeout=10, errors="replace").stdout.strip()
+        if out:
+            return out.splitlines()[0].strip()
+    except Exception:  # noqa: BLE001
+        pass
+    import getpass
+    return getpass.getuser()
+
+
 def task_xml(watch_vbs_path: Path, user: str | None = None) -> str:
     """Úloha Plánovača: od prihlásenia TOHTO používateľa (a hneď od registrácie) každú minútu spusti kontrolu;
     aj na batérii; skrytá. Spúšťač pri prihlásení bez UserId by vyžadoval správcu (Access is denied)."""

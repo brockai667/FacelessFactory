@@ -203,6 +203,24 @@ class AutostartTests(unittest.TestCase):
             self.assertEqual(install.pythonw_for(str(py)), str(pyw))
 
 
+class ScheduledTaskTests(unittest.TestCase):
+    """register_task() volá current_user(); keď tá funkcia chýba, autoštart spadne na NameError."""
+
+    def test_current_user_is_defined_and_usable(self):
+        user = install.current_user()
+        self.assertTrue(user)
+        self.assertNotIn("\n", user)
+
+    def test_task_xml_contains_the_user_and_the_script(self):
+        xml = install.task_xml(Path("C:/x/diktat_watch.vbs"), user="PC\\damia")
+        self.assertIn("<UserId>PC\\damia</UserId>", xml)
+        self.assertIn("diktat_watch.vbs", xml)
+        self.assertIn("PT1M", xml)
+
+    def test_task_xml_falls_back_to_the_current_user(self):
+        self.assertIn("<UserId>", install.task_xml(Path("C:/x/diktat_watch.vbs")))
+
+
 class DesktopShortcutTests(unittest.TestCase):
     def test_shortcut_vbs_points_to_launcher(self):
         vbs = install.shortcut_vbs(Path("C:/Users/x/FacelessFactory/diktat/diktat_tray.vbs"))

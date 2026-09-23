@@ -142,7 +142,22 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
         out.append(entry)
     out.sort(key=lambda e: (STATE_ORDER.get(e["state"], 9), -float(e.get("updated") or 0)))
+    number_duplicates(out)
     return out[: max(1, int(max_rows))]
+
+
+def number_duplicates(entries: list[dict]) -> list[dict]:
+    """Dve sessions v tom istom priečinku (napr. dvakrát „Dokumenty“) by boli na nerozoznanie –
+    druhá a ďalšie dostanú poradové číslo: „Dokumenty (2)“."""
+    seen: dict[str, int] = {}
+    for entry in entries:
+        if entry.get("demo"):
+            continue          # ukážkové riadky sa rozlíšia stavom, číslovať ich netreba
+        name = str(entry.get("name") or "session")
+        seen[name] = seen.get(name, 0) + 1
+        if seen[name] > 1:
+            entry["name"] = f"{name} ({seen[name]})"
+    return entries
 
 
 def prune(directory: Path | None = None, now: float | None = None, stale_minutes: float = 240) -> int:
@@ -176,9 +191,9 @@ def demo(directory: Path | None = None, now: float | None = None) -> list[Path]:
     now = _time.time() if now is None else now
     written = []
     for sid, name, event, payload in (
-        (DEMO_IDS[0], "ukážka · pracuje", "UserPromptSubmit", {}),
-        (DEMO_IDS[1], "ukážka · pýta sa", "Notification", {"notification_type": "permission_prompt"}),
-        (DEMO_IDS[2], "ukážka · hotovo", "Stop", {}),
+        (DEMO_IDS[0], "ukážka", "UserPromptSubmit", {}),
+        (DEMO_IDS[1], "ukážka", "Notification", {"notification_type": "permission_prompt"}),
+        (DEMO_IDS[2], "ukážka", "Stop", {}),
     ):
         path = record(event, {"session_id": sid, "cwd": f"C:/ukazka/{sid}", **payload}, directory, now,
                       extra={"name": name, "demo": True})
