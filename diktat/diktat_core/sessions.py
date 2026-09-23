@@ -67,7 +67,8 @@ def project_name(cwd: str | None, fallback: str = "") -> str:
     return fallback or "session"
 
 
-def record(event: str, payload: dict, directory: Path | None = None, now: float | None = None) -> Path | None:
+def record(event: str, payload: dict, directory: Path | None = None, now: float | None = None,
+           extra: dict | None = None) -> Path | None:
     """Zapíše (alebo pri SessionEnd zmaže) stav jednej session. Vráti cestu k súboru, alebo None.
     Nikdy nevyhadzuje výnimku – hook nesmie zdržať ani zhodiť Claude."""
     directory = Path(directory or default_dir())
@@ -97,6 +98,8 @@ def record(event: str, payload: dict, directory: Path | None = None, now: float 
         }
         if event == "Notification" and payload.get("message"):
             entry["note"] = str(payload["message"])[:80]
+        if extra:
+            entry.update(extra)
         directory.mkdir(parents=True, exist_ok=True)
         tmp = path.with_suffix(".tmp")
         tmp.write_text(json.dumps(entry, ensure_ascii=False), encoding="utf-8")
@@ -115,7 +118,7 @@ def _read_one(path: Path) -> dict | None:
 
 
 def read_states(directory: Path | None = None, now: float | None = None, done_keep_minutes: float = 30,
-                stale_minutes: float = 240, max_rows: int = 6) -> list[dict]:
+                stale_minutes: float = 240, max_rows: int = 6, demo_keep_minutes: float = 15) -> list[dict]:
     """Načíta stavy, zahodí staré a zoradí: najprv tie, čo čakajú na teba, potom hotové, potom pracujúce."""
     directory = Path(directory or default_dir())
     now = time.time() if now is None else now
@@ -133,6 +136,8 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
             continue
         if entry.get("state") in ("done", "ready") and age > done_keep_minutes * 60:
             continue
+        if entry.get("demo") and age > demo_keep_minutes * 60:
+            continue     # ukážkové session sa samé vytratia, nech ich nikto nepovažuje za skutočné
         entry["age"] = age
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
         out.append(entry)
@@ -170,12 +175,13 @@ def demo(directory: Path | None = None, now: float | None = None) -> list[Path]:
     import time as _time
     now = _time.time() if now is None else now
     written = []
-    for sid, cwd, event, payload in (
-        (DEMO_IDS[0], "C:/ukazka/epizodar", "UserPromptSubmit", {}),
-        (DEMO_IDS[1], "C:/ukazka/curio engine", "Notification", {"notification_type": "permission_prompt"}),
-        (DEMO_IDS[2], "C:/ukazka/redesign", "Stop", {}),
+    for sid, name, event, payload in (
+        (DEMO_IDS[0], "ukážka · pracuje", "UserPromptSubmit", {}),
+        (DEMO_IDS[1], "ukážka · pýta sa", "Notification", {"notification_type": "permission_prompt"}),
+        (DEMO_IDS[2], "ukážka · hotovo", "Stop", {}),
     ):
-        path = record(event, {"session_id": sid, "cwd": cwd, **payload}, directory, now)
+        path = record(event, {"session_id": sid, "cwd": f"C:/ukazka/{sid}", **payload}, directory, now,
+                      extra={"name": name, "demo": True})
         if path:
             written.append(path)
     return written

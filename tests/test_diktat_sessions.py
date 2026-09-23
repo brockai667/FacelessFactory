@@ -7,8 +7,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from diktat.diktat_core import panel as panelmod, sessions
+from diktat.diktat_core import panel as panelmod, procs, sessions
 from diktat import install
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "diktat"))
+import app as diktat_app  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent / "diktat"
 
@@ -159,6 +162,80 @@ class PulseTests(unittest.TestCase):
         self.assertGreater(panelmod.PULSE["working"][1], 0)
         self.assertGreater(panelmod.PULSE["asking"][1], 0)
         self.assertEqual(panelmod.PULSE["done"], (0.0, 0.0))
+
+
+class WindowTrackerTests(unittest.TestCase):
+    """Panel nesmie prechádzať všetky okná pri každom mihnutí – to bolo to sekanie."""
+
+    def setUp(self):
+        self.scans = 0
+
+        def find():
+            self.scans += 1
+            return ("hwnd-1", (0, 0, 800, 600))
+
+        self.rects = {"hwnd-1": (0, 0, 800, 600)}
+        self.tracker = procs.WindowTracker(["claude.exe"], rescan_seconds=3.0, find=find,
+                                           rect_of=lambda h: self.rects.get(h))
+
+    def test_window_is_looked_up_once_and_then_reused(self):
+        self.assertEqual(self.tracker.rect(now=0), (0, 0, 800, 600))
+        for i in range(20):
+            self.tracker.rect(now=i * 0.16)
+        self.assertEqual(self.scans, 1)
+
+    def test_moved_window_is_followed_without_a_new_scan(self):
+        self.tracker.rect(now=0)
+        self.rects["hwnd-1"] = (100, 40, 900, 640)
+        self.assertEqual(self.tracker.rect(now=1), (100, 40, 900, 640))
+        self.assertEqual(self.scans, 1)
+
+    def test_closed_window_rescans_at_most_every_few_seconds(self):
+        self.tracker.rect(now=0)
+        self.rects.clear()                       # okno zmizlo
+        self.assertIsNone(self.tracker.rect(now=1))
+        self.assertIsNone(self.tracker.rect(now=2))
+        self.assertEqual(self.scans, 1)          # ešte neuplynulo rescan_seconds
+        self.rects["hwnd-1"] = (0, 0, 800, 600)
+        self.assertEqual(self.tracker.rect(now=5), (0, 0, 800, 600))
+        self.assertEqual(self.scans, 2)
+
+
+class DemoIsRecognisableTests(unittest.TestCase):
+    def test_demo_rows_say_they_are_a_demo(self):
+        out = Path(tempfile.mkdtemp())
+        sessions.demo(out, now=1000)
+        states = sessions.read_states(out, now=1000)
+        for entry in states:
+            self.assertTrue(entry.get("demo"))
+            self.assertIn("ukážka", sessions.row_for(entry)[1])
+
+    def test_demo_disappears_on_its_own(self):
+        out = Path(tempfile.mkdtemp())
+        sessions.demo(out, now=1000)
+        self.assertEqual(len(sessions.read_states(out, now=1000 + 10 * 60)), 3)
+        self.assertEqual(sessions.read_states(out, now=1000 + 20 * 60, demo_keep_minutes=15), [])
+
+
+class DiagnosticsTests(unittest.TestCase):
+    def test_hooks_status_reports_missing_and_registered(self):
+        claude = Path(tempfile.mkdtemp())
+        self.assertIn("CHÝBA", diktat_app.hooks_status(claude))
+        settings = {"hooks": {"Stop": [{"hooks": [{"type": "command", "command": "py",
+                                                   "args": ["/h/diktat_session.py"]}]}]}}
+        (claude / "settings.json").write_text(json.dumps(settings), encoding="utf-8")
+        line = diktat_app.hooks_status(claude)
+        self.assertIn("Stop=áno", line)
+        self.assertIn("SessionStart=NIE", line)
+
+    def test_panel_status_lists_sessions_and_marks_the_demo(self):
+        out = Path(tempfile.mkdtemp())
+        sessions.demo(out)
+        sessions.record("UserPromptSubmit", {"session_id": "real", "cwd": "/x/nemecko"}, out)
+        lines = diktat_app.panel_status({"panel": {"enabled": True, "state_dir": str(out)}})
+        self.assertIn(str(out), lines[0])
+        self.assertTrue(any("nemecko: working" in ln for ln in lines))
+        self.assertEqual(sum("[UKÁŽKA]" in ln for ln in lines), 3)
 
 
 class SessionHookInstallTests(unittest.TestCase):

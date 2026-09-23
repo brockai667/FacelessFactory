@@ -251,7 +251,13 @@ Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions be�
 (claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
 
 **Vyskúšať bez čakania:** dvojklik `panel_ukazka.bat` zapíše tri ukážkové session (pracuje / pýta sa ťa /
-hotovo), nech vidíš, ako panel vyzerá. Zmazanie: `panel_ukazka.bat off`.
+hotovo), nech vidíš, ako panel vyzerá. V paneli sa volajú „ukážka · …“, aby sa nepomýlili so skutočnými,
+a samy zmiznú do 15 minút. Zmazanie hneď: `panel_ukazka.bat off`.
+
+**Nesedia stavy alebo chýbajú sessions?** Spusti `diagnostika.bat` – vypíše, čo je v priečinku so stavmi
+(vrátane toho, čo je ukážka) a či sú hooky zaregistrované v `settings.json` (riadok `hooky:`). Ak je pri
+udalosti `NIE`, spusti `update_diktat.bat`. Ak sú všetky `áno` a session tam aj tak nie je, tá session
+vznikla ešte pred inštaláciou hookov – stačí ju reštartovať (v Claude ju zavri a otvor znova).
 
 **Pred reštartom Claude** sa hodí vedieť, či niečo nebeží: v ikone v lište je položka **„Môžem reštartovať
 Claude?“** – odpovie oznámením („Počkaj, pracuje: epizodar“ / „Môžeš reštartovať…“). To isté z príkazu:
@@ -310,7 +316,8 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `panel.max_rows` | `8` | koľko sessions naraz |
 | `panel.font_size` | `11` | veľkosť písma panela |
 | `panel.show_time` | `false` | `true` = aj ako dlho je session v tomto stave |
-| `panel.animate_ms` | `120` | ako často dýchne bodka (vyššie = pokojnejšie, `0` sa nedá, minimum 40) |
+| `panel.animate_ms` | `160` | ako často dýchne bodka (vyššie = pokojnejšie a menej CPU, minimum 60) |
+| `panel.rect_seconds` | `1.0` | ako často sa panel pozrie, kde je okno Claude |
 | `panel.done_keep_minutes` | `30` | ako dlho ostane dokončená session v zozname |
 | `tray.notify` | `true` | oznámenia Windows v režime s ikonou |
 | `tray.notify_start_stop` | `true` | oznámenie aj pri štarte („Nahrávam“) a konci („prepisujem“), nie len po vložení |

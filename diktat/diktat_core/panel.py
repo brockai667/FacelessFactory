@@ -13,6 +13,7 @@ import logging
 import math
 import sys
 import threading
+import time
 
 from . import procs, sessions
 
@@ -50,13 +51,15 @@ class Panel:
         self.alpha = float(cfg.get("alpha", 0.95))
         self.hide_when_empty = bool(cfg.get("hide_when_empty", True))
         self.refresh_seconds = float(cfg.get("refresh_seconds", 1.0))
-        self.animate_ms = max(40, int(cfg.get("animate_ms", 120)))
+        self.rect_seconds = float(cfg.get("rect_seconds", 1.0))      # ako často sa pozrieť, kde je okno Claude
+        self.animate_ms = max(60, int(cfg.get("animate_ms", 160)))
         self.show_time = bool(cfg.get("show_time", False))
         self.done_keep_minutes = float(cfg.get("done_keep_minutes", 30))
         self.stale_minutes = float(cfg.get("stale_minutes", 240))
         self.state_dir = cfg.get("state_dir") or None
         self._read_fn = read_fn or self._read_states
-        self._rect_fn = rect_fn or (lambda: procs.window_rect(self.processes))
+        self._tracker = procs.WindowTracker(self.processes, rescan_seconds=float(cfg.get("rescan_seconds", 3.0)))
+        self._rect_fn = rect_fn or self._tracker.rect
         self._thread: threading.Thread | None = None
         self._stop = threading.Event()
 
@@ -119,7 +122,8 @@ class Panel:
             root.update_idletasks()
             _no_activate(root)
 
-            view = {"keys": None, "dots": [], "visible": False, "width": 0, "pos": None, "ticks": 0}
+            view = {"keys": None, "dots": [], "visible": False, "width": 0, "pos": None, "ticks": 0,
+                    "t0": time.monotonic(), "last_read": 0.0, "last_rect": 0.0, "states": []}
 
             def rebuild(states):
                 for child in frame.winfo_children():
@@ -140,8 +144,8 @@ class Panel:
                 root.update_idletasks()
                 view["width"] = max(root.winfo_reqwidth(), 170)
 
-            def animate():
-                secs = view["ticks"] * self.animate_ms / 1000.0
+            def animate(now: float):
+                secs = now - view["t0"]
                 for dot, color, state in view["dots"]:
                     period, depth = PULSE.get(state, (0.0, 0.0))
                     if period <= 0:
@@ -168,13 +172,15 @@ class Panel:
                     root.lift()
                     view["visible"] = True
 
-            every = max(1, int(round(self.refresh_seconds * 1000 / self.animate_ms)))
-
             def tick():
+                """Tri veci, každá vlastným tempom: čítanie stavov (1 s), poloha okna (1 s) a dýchanie bodky.
+                Keď nič nepracuje, panel len driemka – žiadne prekresľovanie ani hľadanie okna."""
                 if self._stop.is_set():
                     root.destroy()
                     return
-                if view["ticks"] % every == 0:
+                now = time.monotonic()
+                if now - view["last_read"] >= self.refresh_seconds:
+                    view["last_read"] = now
                     try:
                         states = self._read_fn()
                     except Exception as exc:  # noqa: BLE001
@@ -184,11 +190,16 @@ class Panel:
                     if keys != view["keys"]:
                         rebuild(states)
                         view["keys"] = keys
+                        view["last_rect"] = 0.0       # nová šírka → zarovnaj hneď
                     view["states"] = states
-                animate()
-                place(view.get("states") or [])
+                pulsing = any(PULSE.get(st, (0.0, 0.0))[1] > 0 for _dot, _c, st in view["dots"])
+                if pulsing:
+                    animate(now)
+                if now - view["last_rect"] >= self.rect_seconds:
+                    view["last_rect"] = now
+                    place(view.get("states") or [])
                 view["ticks"] += 1
-                root.after(self.animate_ms, tick)
+                root.after(self.animate_ms if pulsing else int(self.refresh_seconds * 1000), tick)
 
             root.after(0, tick)
             root.mainloop()

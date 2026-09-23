@@ -644,6 +644,43 @@ def disable_console_quick_edit() -> None:
         pass
 
 
+SESSION_HOOK_EVENTS = ("UserPromptSubmit", "SessionStart", "Notification", "Stop", "SessionEnd")
+
+
+def hooks_status(claude_dir: Path | None = None) -> str:
+    """Sú hooky diktatu zaregistrované v ~/.claude/settings.json? (bez nich panel nevie, čo sessions robia)"""
+    path = Path(claude_dir or (Path.home() / ".claude")) / "settings.json"
+    if not path.is_file():
+        return f"hooky: settings.json CHÝBA ({path})"
+    try:
+        hooks = (json.loads(path.read_text(encoding="utf-8")) or {}).get("hooks") or {}
+    except (OSError, ValueError) as exc:
+        return f"hooky: settings.json sa nedá prečítať ({exc})"
+    parts = []
+    for event in SESSION_HOOK_EVENTS:
+        blob = json.dumps(hooks.get(event) or [], ensure_ascii=False)
+        parts.append(f"{event}={'áno' if 'diktat' in blob else 'NIE'}")
+    return "hooky: " + ", ".join(parts)
+
+
+def panel_status(cfg: dict) -> list[str]:
+    """Čo je práve v priečinku so stavmi sessions – podľa toho vidno, či sessions hlásia stav."""
+    pcfg = cfg.get("panel", {}) or {}
+    lines = []
+    try:
+        directory = Path(pcfg.get("state_dir") or sessionsmod.default_dir())
+        files = sorted(directory.glob("*.json")) if directory.is_dir() else []
+        lines.append(f"panel: {'zapnutý' if pcfg.get('enabled', True) else 'vypnutý'}; "
+                     f"stavy sessions: {directory} ({len(files)} súborov)")
+        for entry in sessionsmod.read_states(directory, max_rows=20):
+            mark = "  [UKÁŽKA]" if entry.get("demo") else ""
+            lines.append(f"   {entry.get('name')}: {entry.get('state')} "
+                         f"(pred {int(entry.get('age', 0))} s){mark}")
+    except Exception as exc:  # noqa: BLE001
+        lines.append(f"panel: stav sa nepodarilo prečítať ({exc})")
+    return lines
+
+
 def gpu_info() -> str:
     """Názov a pamäť NVIDIA grafiky cez nvidia-smi (je súčasťou ovládača); inak stručný dôvod."""
     import subprocess
@@ -686,6 +723,9 @@ def diagnose(cfg: dict, log_dir: Path | None) -> str:
         rev = "?"
     add(f"verzia: {rev}  python: {sys.version.split()[0]}  exe: {sys.executable}")
     add(f"grafika: {gpu_info()}")
+    for line in panel_status(cfg):
+        add(line)
+    add(hooks_status())
     add(f"config: {cfg.get('_path')}  hotkey={cfg.get('hotkey')}  gate={cfg['audio'].get('gate_rms')}  "
         f"follow={cfg.get('follow', {}).get('processes')}  exit_after={cfg.get('follow', {}).get('exit_after_seconds')}")
     for name in ("diktat_tray.vbs", "diktat_watch.vbs", "config.json", "logs/diktat.pid", "logs/install.log",

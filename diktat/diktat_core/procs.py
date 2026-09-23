@@ -102,19 +102,73 @@ def process_names_with_windows() -> set[str]:
     return names
 
 
-def window_rect(names: list[str]) -> tuple[int, int, int, int] | None:
-    """Obdĺžnik (left, top, right, bottom) najväčšieho viditeľného okna niektorého z procesov
-    (napr. claude.exe). Minimalizované okná sa nerátajú. Mimo Windows / bez okna: None."""
-    if sys.platform != "win32":
-        return None
-    wanted = {n.lower() for n in names if n} | {n.lower().removesuffix(".exe") for n in names if n}
-    if not wanted:
+def window_rect_of(hwnd) -> tuple[int, int, int, int] | None:
+    """Rozmery známeho okna (lacné – bez prechádzania všetkých okien). None = okno zmizlo/je schované."""
+    if sys.platform != "win32" or not hwnd:
         return None
     import ctypes
     from ctypes import wintypes
     user32 = ctypes.windll.user32
+    try:
+        if not user32.IsWindow(hwnd) or not user32.IsWindowVisible(hwnd) or user32.IsIconic(hwnd):
+            return None
+        rect = wintypes.RECT()
+        if not user32.GetWindowRect(hwnd, ctypes.byref(rect)):
+            return None
+        if rect.right <= rect.left or rect.bottom <= rect.top:
+            return None
+        return (rect.left, rect.top, rect.right, rect.bottom)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+class WindowTracker:
+    """Pamätá si okno (napr. Claude) a vracia jeho rozmery. Všetky okná prechádza len vtedy, keď okno
+    nepozná – teda pri štarte a keď zmizne, najviac raz za `rescan_seconds`. Vďaka tomu panel nežerie CPU."""
+
+    def __init__(self, names: list[str], rescan_seconds: float = 3.0, find=None, rect_of=None):
+        self.names = list(names or [])
+        self.rescan_seconds = float(rescan_seconds)
+        self._find = find or (lambda: find_window(self.names))
+        self._rect_of = rect_of or window_rect_of
+        self._hwnd = None
+        self._last_scan = float("-inf")
+        self.scans = 0
+
+    def rect(self, now: float | None = None) -> tuple[int, int, int, int] | None:
+        import time as _time
+        now = _time.monotonic() if now is None else now
+        if self._hwnd is not None:
+            rect = self._rect_of(self._hwnd)
+            if rect is not None:
+                return rect
+            self._hwnd = None
+        if now - self._last_scan < self.rescan_seconds:
+            return None
+        self._last_scan = now
+        self.scans += 1
+        self._hwnd, rect = self._find()
+        return rect
+
+
+def window_rect(names: list[str]) -> tuple[int, int, int, int] | None:
+    """Obdĺžnik najväčšieho viditeľného okna niektorého z procesov (napr. claude.exe)."""
+    return find_window(names)[1]
+
+
+def find_window(names: list[str]) -> tuple[object | None, tuple[int, int, int, int] | None]:
+    """(hwnd, obdĺžnik) najväčšieho viditeľného okna niektorého z procesov. Minimalizované okná sa
+    nerátajú. Mimo Windows / bez okna: (None, None)."""
+    if sys.platform != "win32":
+        return None, None
+    wanted = {n.lower() for n in names if n} | {n.lower().removesuffix(".exe") for n in names if n}
+    if not wanted:
+        return None, None
+    import ctypes
+    from ctypes import wintypes
+    user32 = ctypes.windll.user32
     cache: dict = {}
-    best: tuple[int, tuple[int, int, int, int]] | None = None
+    best: tuple[int, object, tuple[int, int, int, int]] | None = None
     proto = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
 
     def cb(hwnd, _lparam):
@@ -136,13 +190,13 @@ def window_rect(names: list[str]) -> tuple[int, int, int, int] | None:
             if w <= 0 or h <= 0:
                 return True
             if best is None or w * h > best[0]:
-                best = (w * h, (rect.left, rect.top, rect.right, rect.bottom))
+                best = (w * h, hwnd, (rect.left, rect.top, rect.right, rect.bottom))
         except Exception:  # noqa: BLE001
             pass
         return True
 
     user32.EnumWindows(proto(cb), 0)
-    return best[1] if best else None
+    return (best[1], best[2]) if best else (None, None)
 
 
 def any_running(follow: list[str], names: set[str] | None = None) -> bool:
