@@ -303,7 +303,6 @@ class SystemPromptTests(unittest.TestCase):
 
     def test_title_falls_back_to_the_transcript(self):
         transcript = self._transcript(
-            {"type": "summary", "summary": "nieco"},
             {"type": "user", "isMeta": True, "message": {"role": "user", "content": "Caveat: blah"}},
             {"type": "user", "message": {"role": "user", "content": "<task-notification>x"}},
             {"type": "user", "message": {"role": "user", "content": [{"type": "text", "text": "🎤 Rozvrh sync workflow"}]}},
@@ -329,11 +328,11 @@ class SystemPromptTests(unittest.TestCase):
                         self.out, 1000)
         self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "cities")
 
-    def test_bad_title_from_an_older_version_is_replaced(self):
+    def test_bad_title_from_an_older_version_is_never_shown(self):
         base = {"session_id": "a", "cwd": "C:/u/Dokumenty"}
         sessions.record("UserPromptSubmit", base, self.out, 1000,
                         extra={"title": "<task-notification> <task-id…"})
-        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "<task-notification> <task-id…")
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Dokumenty")
         sessions.record("UserPromptSubmit", {**base, "prompt": "Rozvrh sync workflow"}, self.out, 1002)
         self.assertEqual(sessions.read_states(self.out, now=1003)[0]["label"], "Rozvrh sync workflow")
 
@@ -345,6 +344,85 @@ class SystemPromptTests(unittest.TestCase):
         labels = sorted(e["label"] for e in sessions.read_states(self.out, now=1001))
         self.assertTrue(labels[0].endswith("…"), labels)
         self.assertTrue(labels[1].endswith("… (2)"), labels)
+
+
+class TranscriptTitleTests(unittest.TestCase):
+    """Názov má sedieť so zoznamom chatov: najprv súhrn od Claude, až potom prvá ľudská správa."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+        sessions._TITLE_CACHE.clear()
+
+    def _transcript(self, name, lines):
+        path = self.out / f"{name}.jsonl"
+        path.write_text("\n".join(json.dumps(x) for x in lines), encoding="utf-8")
+        return str(path)
+
+    def test_summary_wins_over_the_first_message(self):
+        path = self._transcript("a", [{"type": "summary", "summary": "Rozvrh sync workflow"},
+                                      {"type": "user", "message": {"role": "user", "content": "nejaky prvy prompt"}}])
+        self.assertEqual(sessions.title_from_transcript(path), "Rozvrh sync workflow")
+
+    def test_first_human_message_when_there_is_no_summary(self):
+        path = self._transcript("b", [{"type": "user", "message": {"role": "user", "content": "<task-notification>x"}},
+                                      {"type": "user", "message": {"role": "user", "content": "Odosielanie emailov"}}])
+        self.assertEqual(sessions.title_from_transcript(path), "Odosielanie emailov")
+
+    def test_stored_system_title_is_replaced_when_reading(self):
+        path = self._transcript("c", [{"type": "summary", "summary": "Curio engine"}])
+        sessions.record("Stop", {"session_id": "c", "cwd": "C:/u/Dokumenty", "transcript_path": path},
+                        self.out, 1000, extra={"title": "<task-notification> <task-id…"})
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Curio engine")
+
+
+class TranscriptActivityTests(unittest.TestCase):
+    """Session zobudenú systémom nepozná žiadny „nový prompt“ – poznať ju podľa rastúceho prepisu."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+        sessions._TITLE_CACHE.clear()
+        self.path = self.out / "t.jsonl"
+        self.path.write_text(json.dumps({"type": "summary", "summary": "Rozvrh sync"}), encoding="utf-8")
+
+    def _entry(self, state="done", updated=1000.0):
+        return {"state": state, "updated": updated, "since": updated, "transcript": str(self.path)}
+
+    def test_growing_transcript_means_the_session_works(self):
+        os.utime(self.path, (1100, 1100))
+        entry = sessions.refresh_from_transcript(self._entry(), now=1105)
+        self.assertEqual(entry["state"], "working")
+
+    def test_quiet_transcript_stays_done(self):
+        os.utime(self.path, (1100, 1100))
+        self.assertEqual(sessions.refresh_from_transcript(self._entry(), now=1300)["state"], "done")
+
+    def test_write_at_the_moment_of_stop_is_not_work(self):
+        os.utime(self.path, (1001, 1001))
+        self.assertEqual(sessions.refresh_from_transcript(self._entry(updated=1000), now=1005)["state"], "done")
+
+    def test_working_state_is_left_alone(self):
+        os.utime(self.path, (1100, 1100))
+        self.assertEqual(sessions.refresh_from_transcript(self._entry("working"), now=1105)["state"], "working")
+
+    def test_missing_transcript_changes_nothing(self):
+        entry = {"state": "done", "updated": 1000, "transcript": str(self.out / "niet.jsonl")}
+        self.assertEqual(sessions.refresh_from_transcript(entry, now=1005)["state"], "done")
+
+
+class HookEncodingTests(unittest.TestCase):
+    """Windows by stdin dekódoval kódovaním konzoly – slovenčina a 🎤 sa rozsypú na „ZatiaÄľ“."""
+
+    def test_slovak_and_emoji_survive_the_hook(self):
+        out = Path(tempfile.mkdtemp())
+        env = {**os.environ, "DIKTAT_SESSION_DIR": str(out)}
+        payload = json.dumps({"hook_event_name": "Stop", "session_id": "s", "cwd": "/x/projekt",
+                              "prompt": "🎤 Zatiaľ to nedávaj, ďakujem"}, ensure_ascii=False)
+        res = subprocess.run([sys.executable, str(ROOT / "hook" / "diktat_session.py")],
+                             input=payload.encode("utf-8"), capture_output=True, timeout=60, env=env)
+        self.assertEqual(res.returncode, 0, res.stderr)
+        entry = json.loads((out / "s.json").read_text(encoding="utf-8"))
+        self.assertEqual(entry["name"], "projekt")
+        self.assertEqual(entry["title"], "Zatiaľ to nedávaj, ďakujem")
 
 
 class PanelDragTests(unittest.TestCase):

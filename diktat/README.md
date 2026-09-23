@@ -239,10 +239,13 @@ zapneš ho `panel.show_time: true`.
 - 🟢 **hotovo** – dohovorila, čaká na teba (zmizne po `panel.done_keep_minutes`, predvolene 30 min).
 
 Zoradené je to podľa toho, čo potrebuje teba: najprv „pýta sa ťa“, potom „hotovo“, potom „pracuje“.
-Názov riadku je **prvá ľudská správa session** – teda to, ako sa chat volá v zozname chatov. Systémové
-správy (`<task-notification>`, `<system-reminder>`, hlásenia o prerušení) sa za názov nepovažujú; keď
-session taký prompt dostane ako prvý, názov sa dočíta z jej prepisu (`transcript_path`). Až keď sa nedá
-zistiť nič, je tam názov priečinka. Dve session s rovnakým názvom dostanú číslo: „Dokumenty (2)“.
+Názov riadku je ten, ktorý session má v zozname chatov: berie sa zo **súhrnu v prepise session**
+(`transcript_path`), a keď ho ešte nemá, z prvej ľudskej správy. Systémové správy (`<task-notification>`,
+`<system-reminder>`, hlásenia o prerušení) sa za názov nikdy nepovažujú. Až keď sa nedá zistiť nič, je tam
+názov priečinka. Dve session s rovnakým názvom dostanú číslo: „Dokumenty (2)“.
+
+Stav „pracuje“ nevzniká len z promptu: keď session zobudí systém (dokončená úloha na pozadí, odpoveď
+z GitHubu), žiadny prompt nepríde, ale **prepis session rastie** – panel to berie ako prácu.
 
 **Panel je plávajúci:** chyť ho myšou a presuň, kam chceš – poloha sa uloží do `config.json`
 (`panel.x`, `panel.y`) a panel tam ostane aj po reštarte. **Dvojklik naň** ho vráti pod tlačidlá okna

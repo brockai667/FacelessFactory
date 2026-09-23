@@ -79,14 +79,22 @@ def is_system_text(text: str) -> bool:
     return t.startswith(SYSTEM_PREFIXES)
 
 
-def title_from_transcript(path: str | Path | None, max_lines: int = 300, max_bytes: int = 2_000_000) -> str:
-    """Názov starej session vyčíta z jej prepisu (prvá ľudská správa). Formát prepisu je vnútorná vec
-    Claude Code a môže sa zmeniť – preto len best-effort: čokoľvek nečakané = prázdny názov."""
+_TITLE_CACHE: dict[str, str] = {}
+
+
+def title_from_transcript(path: str | Path | None, max_lines: int = 400, max_bytes: int = 3_000_000) -> str:
+    """Názov session z jej prepisu: najprv súhrn, ktorý si robí Claude (to je presne ten názov, čo vidíš
+    v zozname chatov), inak prvá ľudská správa. Formát prepisu je vnútorná vec Claude Code a môže sa
+    zmeniť – preto len best-effort: čokoľvek nečakané = prázdny názov."""
     if not path:
         return ""
+    key = str(path)
+    if key in _TITLE_CACHE:
+        return _TITLE_CACHE[key]
+    first_human = ""
     try:
         read = 0
-        with open(path, "r", encoding="utf-8", errors="replace") as fh:
+        with open(key, "r", encoding="utf-8", errors="replace") as fh:
             for i, line in enumerate(fh):
                 read += len(line)
                 if i >= max_lines or read > max_bytes:
@@ -98,7 +106,12 @@ def title_from_transcript(path: str | Path | None, max_lines: int = 300, max_byt
                     obj = json.loads(line)
                 except ValueError:
                     continue
-                if not isinstance(obj, dict) or obj.get("type") != "user" or obj.get("isMeta"):
+                if not isinstance(obj, dict):
+                    continue
+                summary = obj.get("summary") if obj.get("type") == "summary" else None
+                if isinstance(summary, str) and summary.strip():
+                    return _remember(key, clean_title(summary))
+                if obj.get("type") != "user" or obj.get("isMeta") or first_human:
                     continue
                 content = (obj.get("message") or {}).get("content")
                 if isinstance(content, list):
@@ -109,10 +122,17 @@ def title_from_transcript(path: str | Path | None, max_lines: int = 300, max_byt
                 else:
                     continue
                 if not is_system_text(text):
-                    return clean_title(text)
+                    first_human = clean_title(text)
     except OSError:
         return ""
-    return ""
+    return _remember(key, first_human) if first_human else ""
+
+
+def _remember(key: str, title: str) -> str:
+    if len(_TITLE_CACHE) > 200:
+        _TITLE_CACHE.clear()
+    _TITLE_CACHE[key] = title
+    return title
 
 
 def shorten(text: str, limit: int = 28) -> str:
@@ -153,6 +173,7 @@ def record(event: str, payload: dict, directory: Path | None = None, now: float 
         old = _read_one(path) or {}
         entry = {
             "session": session_id,
+            "transcript": str(payload.get("transcript_path") or old.get("transcript") or ""),
             "name": project_name(cwd, old.get("name", "")),
             "cwd": str(cwd),
             "state": state,
@@ -211,9 +232,14 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
             continue
         if entry.get("demo") and age > demo_keep_minutes * 60:
             continue     # ukážkové session sa samé vytratia, nech ich nikto nepovažuje za skutočné
+        refresh_from_transcript(entry, now)
+        age = now - float(entry.get("updated") or 0)
         entry["age"] = age
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
-        entry["label"] = shorten(entry.get("title") or entry.get("name") or "session")
+        title = entry.get("title") or ""
+        if not title or is_system_text(title):
+            title = title_from_transcript(entry.get("transcript"))
+        entry["label"] = shorten(title or entry.get("name") or "session")
         out.append(entry)
     out.sort(key=lambda e: (STATE_ORDER.get(e["state"], 9), -float(e.get("updated") or 0)))
     number_duplicates(out)
@@ -232,6 +258,23 @@ def number_duplicates(entries: list[dict]) -> list[dict]:
         if seen[label] > 1:
             entry["label"] = f"{label} ({seen[label]})"
     return entries
+
+
+def refresh_from_transcript(entry: dict, now: float, idle_seconds: float = 25.0) -> dict:
+    """Session, ktorú zobudil systém (napr. dokončená úloha na pozadí), nepošle „nový prompt“, takže by
+    v paneli ostala ako „hotovo“. Keď jej prepis práve rastie, je zjavne v práci – ukáž „pracuje“."""
+    path = entry.get("transcript")
+    if not path or entry.get("demo") or entry.get("state") not in ("done", "ready"):
+        return entry
+    try:
+        mtime = os.path.getmtime(path)
+    except OSError:
+        return entry
+    if mtime > float(entry.get("updated") or 0) + 2 and now - mtime < idle_seconds:
+        entry["state"] = "working"
+        entry["since"] = mtime
+        entry["updated"] = mtime
+    return entry
 
 
 def prune(directory: Path | None = None, now: float | None = None, stale_minutes: float = 240) -> int:

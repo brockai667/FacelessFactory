@@ -59,8 +59,8 @@ def build_context(prompt: str, cfg: dict, use_llm: bool) -> str | None:
 
 
 def main() -> int:
-    try:
-        data = json.load(sys.stdin)
+    try:    # stdin čítame ako bajty a dekódujeme UTF-8; inak by Windows použil kódovanie konzoly
+        data = json.loads(sys.stdin.buffer.read().decode("utf-8", "replace"))
     except Exception:  # noqa: BLE001
         return 0
     if not isinstance(data, dict):
