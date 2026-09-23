@@ -56,6 +56,7 @@ class Panel:
         self.animate_ms = max(60, int(cfg.get("animate_ms", 160)))
         self.show_time = bool(cfg.get("show_time", False))
         self.done_keep_minutes = float(cfg.get("done_keep_minutes", 30))
+        self.working_window_seconds = float(cfg.get("working_window_seconds", sessions.WORKING_WINDOW_SECONDS))
         self.stale_minutes = float(cfg.get("stale_minutes", 240))
         self.state_dir = cfg.get("state_dir") or None
         self.x = cfg.get("x")          # keď si panel presunieš myšou, drží sa tu (a nie okna Claude)
@@ -90,7 +91,8 @@ class Panel:
     # -- dáta -----------------------------------------------------------------------------------------
     def _read_states(self) -> list[dict]:
         return sessions.read_states(self.state_dir, done_keep_minutes=self.done_keep_minutes,
-                                    stale_minutes=self.stale_minutes, max_rows=self.max_rows)
+                                    stale_minutes=self.stale_minutes, max_rows=self.max_rows,
+                                    working_window_seconds=self.working_window_seconds)
 
     def position(self, rect, width: int, screen_width: int) -> tuple[int, int] | None:
         """Ľavý horný roh panela: kde si ho pustil myšou, inak pod tlačidlami okna Claude vpravo.

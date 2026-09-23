@@ -258,8 +258,13 @@ Session spustená z príkazového riadka, o ktorej aplikácia nevie, sa neskrýv
 `najdi_nazvy.bat` bez parametra vypíše, ktoré názvy načítal; s parametrom (`najdi_nazvy.bat "Curio engine"`)
 nájde, v ktorom súbore ten text je – to sa hodí, keby si aplikácia formát prerobila.
 
-Stav „pracuje“ nevzniká len z promptu: keď session zobudí systém (dokončená úloha na pozadí, odpoveď
-z GitHubu), žiadny prompt nepríde, ale **prepis session rastie** – panel to berie ako prácu.
+**Ako rýchlo to o stave vie.** Panel číta stavy **raz za sekundu**. Samotný stav mení hook a ten príde
+hneď pri troch veciach: odoslal si prompt („pracuje“), Claude si pýta povolenie („pýta sa ťa“), ťah sa
+skončil („hotovo“). Medzi tým žiadny hook nepríde – ani keď nástroj povolíš, ani keď session zobudí
+systém (dokončená úloha na pozadí). Vtedy sa panel riadi tým, že **prepis session rastie** (počas práce
+pribúda každé 2–3 sekundy): kým rástol za posledných `panel.working_window_seconds` sekúnd (predvolene
+25), riadok hlási „pracuje“. Stav „pýta sa ťa“ sa takto preklopí až po 4 sekundách ticha od otázky, aby
+nezmizol omylom – kým čakáš na povolenie, do prepisu sa aj tak nič nepíše.
 
 **Panel je plávajúci:** chyť ho myšou a presuň, kam chceš – poloha sa uloží do `config.json`
 (`panel.x`, `panel.y`) a panel tam ostane aj po reštarte. **Dvojklik naň** ho vráti pod tlačidlá okna

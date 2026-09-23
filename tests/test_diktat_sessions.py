@@ -429,6 +429,38 @@ class TranscriptActivityTests(unittest.TestCase):
         entry = {"state": "done", "updated": 1000, "transcript": str(self.out / "niet.jsonl")}
         self.assertEqual(sessions.refresh_from_transcript(entry, now=1005)["state"], "done")
 
+    def test_asking_becomes_working_once_the_transcript_grows_again(self):
+        """Keď povolíš nástroj, žiadny hook nepríde – ale prepis zase rastie, takže session pracuje."""
+        path = self.out / "a.jsonl"
+        path.write_text("x", encoding="utf-8")
+        sessions.record("Notification", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path),
+                                         "notification_type": "permission_prompt"}, self.out, 1000)
+        os.utime(path, (1010, 1010))          # povolil si nástroj, Claude píše ďalej
+        self.assertEqual(sessions.read_states(self.out, now=1012)[0]["state"], "working")
+
+    def test_asking_stays_while_nothing_is_written(self):
+        """„pýta sa ťa“ nesmie zmiznúť samo – to je stav, ktorý používateľ nesmie prehliadnuť."""
+        path = self.out / "a.jsonl"
+        path.write_text("x", encoding="utf-8")
+        os.utime(path, (1002, 1002))          # zápis tesne pred otázkou sa nesmie rátať
+        sessions.record("Notification", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path),
+                                         "notification_type": "permission_prompt"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1030)[0]["state"], "asking")
+
+    def test_the_working_window_closes_again(self):
+        path = self.out / "a.jsonl"
+        path.write_text("x", encoding="utf-8")
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path)}, self.out, 1000)
+        os.utime(path, (1010, 1010))
+        self.assertEqual(sessions.read_states(self.out, now=1012)[0]["state"], "working")
+        self.assertEqual(sessions.read_states(self.out, now=1100)[0]["state"], "done")
+
+    def test_the_window_can_be_shortened(self):
+        path = self.out / "a.jsonl"
+        path.write_text("x", encoding="utf-8")
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path)}, self.out, 1000)
+        os.utime(path, (1010, 1010))
+        self.assertEqual(sessions.read_states(self.out, now=1020, working_window_seconds=5)[0]["state"], "done")
 
 class HookEncodingTests(unittest.TestCase):
     """Windows by stdin dekódoval kódovaním konzoly – slovenčina a 🎤 sa rozsypú na „ZatiaÄľ“."""

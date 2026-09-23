@@ -47,6 +47,9 @@ STATE_LOOK = {
 }
 STATE_ORDER = {"asking": 0, "done": 1, "working": 2, "ready": 3}
 
+WORKING_WINDOW_SECONDS = 25.0     # ako dlho po poslednom zápise do prepisu ešte hlásiť „pracuje“
+LIFT_AFTER_SECONDS = {"asking": 4.0}   # „pýta sa ťa“ je najdôležitejší stav, ten preklápame opatrnejšie
+
 
 def default_dir() -> Path:
     """Priečinok so stavmi. Prepíše ho premenná DIKTAT_SESSION_DIR (používa ju aj hook)."""
@@ -470,7 +473,8 @@ def _read_one(path: Path) -> dict | None:
 
 
 def read_states(directory: Path | None = None, now: float | None = None, done_keep_minutes: float = 30,
-                stale_minutes: float = 240, max_rows: int = 6, demo_keep_minutes: float = 15) -> list[dict]:
+                stale_minutes: float = 240, max_rows: int = 6, demo_keep_minutes: float = 15,
+                working_window_seconds: float = WORKING_WINDOW_SECONDS) -> list[dict]:
     """Načíta stavy, zahodí staré a zoradí: najprv tie, čo čakajú na teba, potom hotové, potom pracujúce."""
     directory = Path(directory or default_dir())
     now = time.time() if now is None else now
@@ -494,7 +498,7 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
             continue
         if entry.get("demo") and age > demo_keep_minutes * 60:
             continue     # ukážkové session sa samé vytratia, nech ich nikto nepovažuje za skutočné
-        refresh_from_transcript(entry, now)
+        refresh_from_transcript(entry, now, working_window_seconds)
         age = now - float(entry.get("updated") or 0)
         entry["age"] = age
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
@@ -522,17 +526,21 @@ def number_duplicates(entries: list[dict]) -> list[dict]:
     return entries
 
 
-def refresh_from_transcript(entry: dict, now: float, idle_seconds: float = 25.0) -> dict:
-    """Session, ktorú zobudil systém (napr. dokončená úloha na pozadí), nepošle „nový prompt“, takže by
-    v paneli ostala ako „hotovo“. Keď jej prepis práve rastie, je zjavne v práci – ukáž „pracuje“."""
+def refresh_from_transcript(entry: dict, now: float, idle_seconds: float = WORKING_WINDOW_SECONDS) -> dict:
+    """Hooky hlásia len odoslanie promptu, otázku na povolenie a koniec ťahu. Keď session zobudí systém
+    (dokončená úloha na pozadí) alebo keď jej práve povolíš nástroj, žiadny hook nepríde a v paneli by
+    ostalo staré „hotovo“ či „pýta sa ťa“. Prepis session pritom počas práce rastie každých pár sekúnd –
+    keď rastie, je zjavne v práci."""
     path = entry.get("transcript")
-    if not path or entry.get("demo") or entry.get("state") not in ("done", "ready"):
+    state = entry.get("state")
+    if not path or entry.get("demo") or state not in ("done", "ready", "asking"):
         return entry
     try:
         mtime = os.path.getmtime(path)
     except OSError:
         return entry
-    if mtime > float(entry.get("updated") or 0) + 2 and now - mtime < idle_seconds:
+    delay = LIFT_AFTER_SECONDS.get(state, 2.0)
+    if mtime > float(entry.get("updated") or 0) + delay and now - mtime < idle_seconds:
         entry["state"] = "working"
         entry["since"] = mtime
         entry["updated"] = mtime

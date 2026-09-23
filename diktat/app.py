@@ -659,8 +659,16 @@ def disable_console_quick_edit() -> None:
 SESSION_HOOK_EVENTS = ("UserPromptSubmit", "SessionStart", "Notification", "Stop", "SessionEnd")
 
 
+# Ktorý súbor hlási stav pri ktorej udalosti. „pracuje“ hlási diktovací hook (diktat_hook.py), lebo na
+# UserPromptSubmit smie byť len jeden záznam diktatu; zvyšok hlási diktat_session.py.
+SESSION_HOOK_SCRIPTS = {"UserPromptSubmit": "diktat_hook.py", "SessionStart": "diktat_session.py",
+                        "Notification": "diktat_session.py", "Stop": "diktat_session.py",
+                        "SessionEnd": "diktat_session.py"}
+
+
 def hooks_status(claude_dir: Path | None = None) -> str:
-    """Sú hooky diktatu zaregistrované v ~/.claude/settings.json? (bez nich panel nevie, čo sessions robia)"""
+    """Sú hooky diktatu zaregistrované v ~/.claude/settings.json? (bez nich panel nevie, čo sessions robia)
+    Nestačí, že tam „diktat“ je – pri každej udalosti musí byť ten súbor, ktorý stav naozaj hlási."""
     path = Path(claude_dir or (Path.home() / ".claude")) / "settings.json"
     if not path.is_file():
         return f"hooky: settings.json CHÝBA ({path})"
@@ -671,7 +679,8 @@ def hooks_status(claude_dir: Path | None = None) -> str:
     parts = []
     for event in SESSION_HOOK_EVENTS:
         blob = json.dumps(hooks.get(event) or [], ensure_ascii=False)
-        parts.append(f"{event}={'áno' if 'diktat' in blob else 'NIE'}")
+        want = SESSION_HOOK_SCRIPTS.get(event, "diktat")
+        parts.append(f"{event}={'áno' if want in blob else 'NIE (' + want + ' chýba)'}")
     return "hooky: " + ", ".join(parts)
 
 
