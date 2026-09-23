@@ -90,12 +90,21 @@ class ReadStatesTests(unittest.TestCase):
     def test_max_rows(self):
         self.assertEqual(len(sessions.read_states(self.dir, now=1100, max_rows=2)), 2)
 
-    def test_row_text(self):
+    def test_row_text_has_no_clock_by_default(self):
         states = sessions.read_states(self.dir, now=1000 + 90)
         icon, text, color = sessions.row_for(states[0])
         self.assertEqual(icon, "●")
-        self.assertEqual(text, "curio · pýta sa ťa 1 min")
+        self.assertEqual(text, "curio · pýta sa ťa")
         self.assertEqual(color, "#ffb300")
+
+    def test_row_text_with_time_when_asked(self):
+        states = sessions.read_states(self.dir, now=1000 + 90)
+        self.assertEqual(sessions.row_for(states[0], show_time=True)[1], "curio · pýta sa ťa 1 min")
+
+    def test_row_key_ignores_the_clock(self):
+        a = sessions.read_states(self.dir, now=1000 + 90)
+        b = sessions.read_states(self.dir, now=1000 + 200)
+        self.assertEqual([sessions.row_key(e) for e in a], [sessions.row_key(e) for e in b])
 
     def test_missing_directory_is_empty_not_an_error(self):
         self.assertEqual(sessions.read_states(self.dir / "niet", now=1100), [])
@@ -124,6 +133,32 @@ class PanelPositionTests(unittest.TestCase):
     def test_never_starts_left_of_the_window(self):
         p = panelmod.Panel({"margin_right": 12})
         self.assertEqual(p.position((0, 0, 100, 600), 300, 1920)[0], 0)
+
+
+class PulseTests(unittest.TestCase):
+    def test_no_pulse_without_depth(self):
+        self.assertEqual(panelmod.pulse_color("#4a9eff", 0.3, 0.0), "#4a9eff")
+
+    def test_pulse_darkens_and_returns(self):
+        bright = panelmod.pulse_color("#4a9eff", 0.0, 0.5)
+        dark = panelmod.pulse_color("#4a9eff", 0.5, 0.5)
+        back = panelmod.pulse_color("#4a9eff", 1.0, 0.5)
+        self.assertEqual(bright, "#4a9eff")
+        self.assertEqual(back, bright)
+        self.assertLess(int(dark[5:7], 16), int(bright[5:7], 16))
+
+    def test_stays_a_valid_colour(self):
+        for phase in (0.0, 0.25, 0.5, 0.75, 1.0, 1.25):
+            value = panelmod.pulse_color("#ffb300", phase, 0.7)
+            self.assertRegex(value, r"^#[0-9a-f]{6}$")
+
+    def test_rubbish_colour_is_returned_as_is(self):
+        self.assertEqual(panelmod.pulse_color("zelena", 0.2, 0.5), "zelena")
+
+    def test_only_active_states_pulse(self):
+        self.assertGreater(panelmod.PULSE["working"][1], 0)
+        self.assertGreater(panelmod.PULSE["asking"][1], 0)
+        self.assertEqual(panelmod.PULSE["done"], (0.0, 0.0))
 
 
 class SessionHookInstallTests(unittest.TestCase):

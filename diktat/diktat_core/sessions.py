@@ -221,8 +221,17 @@ def restart_summary(states: list[dict]) -> tuple[bool, str]:
     return True, "Môžeš reštartovať, žiadna session nebeží."
 
 
-def row_for(entry: dict) -> tuple[str, str, str]:
-    """(ikona, text, farba) pre jeden riadok panela: „● epizodar · pracuje 1:20“."""
+def row_for(entry: dict, show_time: bool = False) -> tuple[str, str, str]:
+    """(ikona, text, farba) pre jeden riadok panela: „● epizodar · pracuje“.
+    S show_time=True pribudne, ako dlho už je session v tomto stave."""
     icon, word, color = STATE_LOOK.get(entry.get("state", ""), STATE_LOOK["ready"])
     name = str(entry.get("name") or "session")[:18]
-    return icon, f"{name} · {word} {human_time(entry.get('elapsed', 0))}", color
+    text = f"{name} · {word}"
+    if show_time:
+        text = f"{text} {human_time(entry.get('elapsed', 0))}"
+    return icon, text, color
+
+
+def row_key(entry: dict) -> tuple:
+    """Čo musí zostať rovnaké, aby sa panel nemusel prekresľovať (čas sa mení stále – ten tu nie je)."""
+    return (entry.get("session"), entry.get("state"), entry.get("name"))

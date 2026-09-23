@@ -94,9 +94,11 @@ DEFAULTS: dict = {
         "processes": ["claude.exe"],  # podľa okna ktorého programu sa panel umiestni
         "offset_y": 44,               # koľko pixelov pod horným okrajom okna (pod krížikom a zmenšením)
         "margin_right": 12,
-        "max_rows": 6,                # najviac toľko sessions naraz
-        "font_size": 9,
-        "alpha": 0.9,
+        "max_rows": 8,                # najviac toľko sessions naraz
+        "font_size": 11,
+        "alpha": 0.95,
+        "show_time": False,           # True = aj to, ako dlho už je session v tomto stave
+        "animate_ms": 120,            # ako často dýchne bodka pri „pracuje“ / „pýta sa ťa“
         "hide_when_empty": True,      # žiadna session = panel nevidno
         "refresh_seconds": 1.0,
         "done_keep_minutes": 30,      # dokončená session zmizne z panela po pol hodine

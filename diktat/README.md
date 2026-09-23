@@ -225,10 +225,14 @@ sessions na tomto počítači:
 
 ```
 Claude session
-● curio engine · pýta sa ťa 0:20
-● redesign · hotovo 3 min
-● epizodar · pracuje 1:40
+● curio engine · pýta sa ťa
+● redesign · hotovo
+● epizodar · pracuje
 ```
+
+Bodka pri „pracuje“ a „pýta sa ťa“ jemne dýcha (oranžová rýchlejšie), hotové svietia stálou zelenou.
+Text sa prekresľuje len pri skutočnej zmene, takže panel nebliká. Čas v stave sa nezobrazuje;
+zapneš ho `panel.show_time: true`.
 
 - 🔵 **pracuje** – session dostala prompt a pracuje;
 - 🟠 **pýta sa ťa** – čaká na povolenie nástroja alebo na tvoju odpoveď;
@@ -303,7 +307,10 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `panel.enabled` | `true` | panel so stavom sessions v pravom hornom rohu okna Claude |
 | `panel.offset_y` / `margin_right` | `44` / `12` | posun pod tlačidlami okna; ak ti prekáža, zväčši `offset_y` |
 | `panel.follow_window` | `true` | `false` = panel drží pravý horný roh obrazovky aj bez okna Claude |
-| `panel.max_rows` | `6` | koľko sessions naraz |
+| `panel.max_rows` | `8` | koľko sessions naraz |
+| `panel.font_size` | `11` | veľkosť písma panela |
+| `panel.show_time` | `false` | `true` = aj ako dlho je session v tomto stave |
+| `panel.animate_ms` | `120` | ako často dýchne bodka (vyššie = pokojnejšie, `0` sa nedá, minimum 40) |
 | `panel.done_keep_minutes` | `30` | ako dlho ostane dokončená session v zozname |
 | `tray.notify` | `true` | oznámenia Windows v režime s ikonou |
 | `tray.notify_start_stop` | `true` | oznámenie aj pri štarte („Nahrávam“) a konci („prepisujem“), nie len po vložení |
