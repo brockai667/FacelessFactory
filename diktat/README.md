@@ -239,8 +239,13 @@ zapneš ho `panel.show_time: true`.
 - 🟢 **hotovo** – dohovorila, čaká na teba (zmizne po `panel.done_keep_minutes`, predvolene 30 min).
 
 Zoradené je to podľa toho, čo potrebuje teba: najprv „pýta sa ťa“, potom „hotovo“, potom „pracuje“.
-Meno je názov priečinka projektu. Panel sa drží okna Claude; keď Claude nie je vidieť, schová sa.
-Zapnúť/vypnúť sa dá v ikone v lište („Panel session“), stav sa uloží do `config.json`.
+Názov riadku je **prvý prompt session** (teda to, ako sa chat volá v zozname); kým session žiadny prompt
+nedostala, je tam názov priečinka. Dve session s rovnakým názvom dostanú číslo: „Dokumenty (2)“.
+
+**Panel je plávajúci:** chyť ho myšou a presuň, kam chceš – poloha sa uloží do `config.json`
+(`panel.x`, `panel.y`) a panel tam ostane aj po reštarte. **Dvojklik naň** ho vráti pod tlačidlá okna
+Claude. Kým je „zavesený“ na okne Claude, schová sa, keď Claude nie je vidieť; presunutý panel je vidno
+vždy. Zapnúť/vypnúť sa dá v ikone v lište („Panel session“).
 
 **Ako to vie.** Každá session hlási stav cez hooky Claude Code (`SessionStart`, `UserPromptSubmit`,
 `Notification`, `Stop`, `SessionEnd`), ktoré registruje `install.py`. Hook zapíše jeden malý JSON súbor do
@@ -257,6 +262,10 @@ vyzerá), `2` ich zmaže, `3` spustí kontrolu panela – vypíše, či diktat b
 
 Keď nič nehlási stav, panel ukáže sivý riadok „žiadna session nehlási stav“ – je to dôkaz, že beží.
 Úplne ho schováš cez `panel.hide_when_empty: true`.
+
+**Poznám tie názvy?** Riadok ukazuje prvý prompt danej session. Sessions bežiace v cloude
+(claude.ai/code) hooky nespúšťajú, takže chat, ktorý máš otvorený vo webe, v paneli nebude – aj keď sa
+podobne volá ako niektorý lokálny priečinok.
 
 **Nesedia stavy alebo chýbajú sessions?** Spusti `diagnostika.bat` – vypíše, čo je v priečinku so stavmi
 (vrátane toho, čo je ukážka) a či sú hooky zaregistrované v `settings.json` (riadok `hooky:`). Ak je pri
@@ -317,6 +326,7 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `panel.enabled` | `true` | panel so stavom sessions v pravom hornom rohu okna Claude |
 | `panel.offset_y` / `margin_right` | `44` / `12` | posun pod tlačidlami okna; ak ti prekáža, zväčši `offset_y` |
 | `panel.follow_window` | `true` | `false` = panel drží pravý horný roh obrazovky aj bez okna Claude |
+| `panel.x` / `panel.y` | `null` | kam si panel presunul myšou; dvojklik naň ich zmaže (späť k oknu Claude) |
 | `panel.max_rows` | `8` | koľko sessions naraz |
 | `panel.hide_when_empty` | `false` | `true` = keď nič nehlási stav, panel nie je vidno vôbec |
 | `panel.font_size` | `11` | veľkosť písma panela |

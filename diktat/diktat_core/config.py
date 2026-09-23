@@ -104,6 +104,8 @@ DEFAULTS: dict = {
         "done_keep_minutes": 30,      # dokončená session zmizne z panela po pol hodine
         "stale_minutes": 240,         # session, ktorá sa 4 h neozvala (reštart PC), sa zahodí
         "state_dir": None,            # None = ~/.claude/diktat/sessions
+        "x": None,                    # kam si panel presunul myšou (dvojklik naň = späť k oknu Claude)
+        "y": None,
     },
     "overlay": {
         "enabled": True,              # prúžok navrchu obrazovky so stavom (nahrávam / prepisujem / vložené)

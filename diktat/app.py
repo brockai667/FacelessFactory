@@ -529,11 +529,22 @@ class DiktatApp:
             return
         try:
             sessionsmod.prune(cfg.get("state_dir"), stale_minutes=cfg.get("stale_minutes", 240))
-            self.panel = panelmod.Panel(cfg)
+            self.panel = panelmod.Panel(cfg, on_move=self.panel_moved)
             self.panel.start()
         except Exception as exc:  # noqa: BLE001
             log.warning("panel sa nepodarilo spustiť: %s", exc)
             self.panel = panelmod.NoPanel()
+
+    def panel_moved(self, x, y) -> None:
+        """Panel si používateľ presunul myšou (alebo dvojklikom vrátil k oknu) – zapamätaj do config.json."""
+        pcfg = self.cfg.setdefault("panel", {})
+        pcfg["x"], pcfg["y"] = x, y
+        try:
+            cfgmod.save_value(self.cfg, "panel.x", x)
+            cfgmod.save_value(self.cfg, "panel.y", y)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("polohu panela sa nepodarilo uložiť: %s", exc)
+        log.info("panel presunutý na %s", "okno Claude" if x is None else f"{x},{y}")
 
     def panel_enabled(self) -> bool:
         return bool(self.cfg.get("panel", {}).get("enabled", True))

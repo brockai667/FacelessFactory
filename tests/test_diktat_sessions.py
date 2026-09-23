@@ -223,8 +223,8 @@ class DuplicateNamesTests(unittest.TestCase):
         sessions.record("UserPromptSubmit", {"session_id": "x1", "cwd": "C:/u/Dokumenty"}, out, 1000)
         sessions.record("UserPromptSubmit", {"session_id": "x2", "cwd": "C:/u/Dokumenty"}, out, 1001)
         sessions.record("UserPromptSubmit", {"session_id": "y", "cwd": "C:/u/nemecko"}, out, 1002)
-        names = [e["name"] for e in sessions.read_states(out, now=1003)]
-        self.assertEqual(sorted(names), ["Dokumenty", "Dokumenty (2)", "nemecko"])
+        labels = [e["label"] for e in sessions.read_states(out, now=1003)]
+        self.assertEqual(sorted(labels), ["Dokumenty", "Dokumenty (2)", "nemecko"])
 
     def test_demo_rows_are_not_numbered_and_read_cleanly(self):
         out = Path(tempfile.mkdtemp())
@@ -252,6 +252,47 @@ class DiagnosticsTests(unittest.TestCase):
         self.assertIn(str(out), lines[0])
         self.assertTrue(any("nemecko: working" in ln for ln in lines))
         self.assertEqual(sum("[UKÁŽKA]" in ln for ln in lines), 3)
+
+
+class TitleTests(unittest.TestCase):
+    """Panel má ukazovať to, ako sa chat volá, nie názov priečinka."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+
+    def test_first_prompt_becomes_the_label(self):
+        sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "C:/u/Dokumenty",
+                                             "prompt": "🎤 Nemecko výmenný pobyt, sprav plán"}, self.out, 1000)
+        entry = sessions.read_states(self.out, now=1001)[0]
+        self.assertEqual(entry["label"], "Nemecko výmenný pobyt, sprav…")
+        self.assertEqual(entry["name"], "Dokumenty")
+
+    def test_the_first_prompt_wins_over_later_ones(self):
+        base = {"session_id": "a", "cwd": "C:/u/x"}
+        sessions.record("UserPromptSubmit", {**base, "prompt": "prvá vec"}, self.out, 1000)
+        sessions.record("UserPromptSubmit", {**base, "prompt": "druhá vec"}, self.out, 1001)
+        self.assertEqual(sessions.read_states(self.out, now=1002)[0]["label"], "prvá vec")
+
+    def test_folder_is_used_when_no_prompt_was_seen(self):
+        sessions.record("SessionStart", {"session_id": "a", "cwd": "C:/u/nemecko"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "nemecko")
+
+    def test_clean_title_strips_markers_and_shortens(self):
+        self.assertEqual(sessions.clean_title("🎤  ahoj   svet "), "ahoj svet")
+        self.assertEqual(sessions.clean_title("[diktát] oprav mi to"), "oprav mi to")
+        self.assertTrue(sessions.clean_title("a" * 60).endswith("…"))
+        self.assertEqual(sessions.clean_title(""), "")
+
+
+class PanelDragTests(unittest.TestCase):
+    def test_dropped_position_wins_over_the_window(self):
+        p = panelmod.Panel({"x": 300, "y": 500})
+        self.assertEqual(p.position((100, 50, 900, 700), 200, 1920), (300, 500))
+        self.assertEqual(p.position(None, 200, 1920), (300, 500))
+
+    def test_without_a_dropped_position_it_follows_the_window(self):
+        p = panelmod.Panel({"offset_y": 44, "margin_right": 12})
+        self.assertEqual(p.position((100, 50, 900, 700), 200, 1920), (688, 94))
 
 
 class PanelCheckTests(unittest.TestCase):

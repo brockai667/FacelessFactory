@@ -39,7 +39,7 @@ def pulse_color(color: str, phase: float, depth: float) -> str:
 
 
 class Panel:
-    def __init__(self, cfg: dict | None = None, read_fn=None, rect_fn=None):
+    def __init__(self, cfg: dict | None = None, read_fn=None, rect_fn=None, on_move=None):
         cfg = dict(cfg or {})
         self.enabled = bool(cfg.get("enabled", True))
         self.follow_window = bool(cfg.get("follow_window", True))
@@ -58,6 +58,9 @@ class Panel:
         self.done_keep_minutes = float(cfg.get("done_keep_minutes", 30))
         self.stale_minutes = float(cfg.get("stale_minutes", 240))
         self.state_dir = cfg.get("state_dir") or None
+        self.x = cfg.get("x")          # keď si panel presunieš myšou, drží sa tu (a nie okna Claude)
+        self.y = cfg.get("y")
+        self.on_move = on_move
         self._read_fn = read_fn or self._read_states
         self._tracker = procs.WindowTracker(self.processes, rescan_seconds=float(cfg.get("rescan_seconds", 3.0)))
         self._rect_fn = rect_fn or self._tracker.rect
@@ -90,8 +93,10 @@ class Panel:
                                     stale_minutes=self.stale_minutes, max_rows=self.max_rows)
 
     def position(self, rect, width: int, screen_width: int) -> tuple[int, int] | None:
-        """Ľavý horný roh panela: pod tlačidlami okna Claude vpravo. Bez okna → pravý horný roh obrazovky
-        (alebo None, keď sa má panel schovať)."""
+        """Ľavý horný roh panela: kde si ho pustil myšou, inak pod tlačidlami okna Claude vpravo.
+        Bez okna → pravý horný roh obrazovky (alebo None, keď sa má panel schovať)."""
+        if self.x is not None and self.y is not None:
+            return int(self.x), int(self.y)
         if rect is None:
             if self.follow_window:
                 return None
@@ -125,6 +130,35 @@ class Panel:
 
             view = {"keys": None, "dots": [], "visible": False, "width": 0, "pos": None, "ticks": 0,
                     "t0": time.monotonic(), "last_read": 0.0, "last_rect": 0.0, "states": []}
+            drag = {"dx": 0, "dy": 0, "moved": False}
+
+            def on_press(event):
+                drag.update(dx=event.x_root - root.winfo_x(), dy=event.y_root - root.winfo_y(), moved=False)
+
+            def on_motion(event):
+                x, y = event.x_root - drag["dx"], event.y_root - drag["dy"]
+                self.x, self.y = x, y
+                view["pos"] = (x, y)
+                drag["moved"] = True
+                root.geometry(f"+{x}+{y}")
+
+            def on_release(_event):
+                if drag["moved"] and self.on_move:
+                    self.on_move(self.x, self.y)
+
+            def on_double(_event):
+                """Dvojklik = vráť panel pod tlačidlá okna Claude."""
+                self.x = self.y = None
+                view["pos"] = None
+                view["last_rect"] = 0.0
+                if self.on_move:
+                    self.on_move(None, None)
+
+            root.configure(cursor="fleur")
+            root.bind("<Button-1>", on_press)
+            root.bind("<B1-Motion>", on_motion)
+            root.bind("<ButtonRelease-1>", on_release)
+            root.bind("<Double-Button-1>", on_double)
 
             def rebuild(states):
                 for child in frame.winfo_children():

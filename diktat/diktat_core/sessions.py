@@ -67,6 +67,18 @@ def project_name(cwd: str | None, fallback: str = "") -> str:
     return fallback or "session"
 
 
+def clean_title(text: str, limit: int = 28) -> str:
+    """Z prvého promptu spraví názov, ktorý používateľ pozná zo zoznamu chatov v Claude."""
+    t = " ".join(str(text or "").split())
+    for marker in ("🎤", "[diktát]", "[diktat]", "[d]"):
+        if t.startswith(marker):
+            t = t[len(marker):].lstrip()
+    t = t.lstrip("/#>-• ").strip()
+    if len(t) > limit:
+        t = t[:limit].rstrip(" ,.;:") + "…"
+    return t
+
+
 def record(event: str, payload: dict, directory: Path | None = None, now: float | None = None,
            extra: dict | None = None) -> Path | None:
     """Zapíše (alebo pri SessionEnd zmaže) stav jednej session. Vráti cestu k súboru, alebo None.
@@ -96,6 +108,9 @@ def record(event: str, payload: dict, directory: Path | None = None, now: float 
             "since": now if old.get("state") != state else old.get("since", now),
             "updated": now,
         }
+        title = old.get("title") or clean_title(payload.get("prompt") or payload.get("user_input") or "")
+        if title:
+            entry["title"] = title     # prvý prompt = to, ako sa session volá v zozname chatov
         if event == "Notification" and payload.get("message"):
             entry["note"] = str(payload["message"])[:80]
         if extra:
@@ -140,6 +155,7 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
             continue     # ukážkové session sa samé vytratia, nech ich nikto nepovažuje za skutočné
         entry["age"] = age
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
+        entry["label"] = entry.get("title") or entry.get("name") or "session"
         out.append(entry)
     out.sort(key=lambda e: (STATE_ORDER.get(e["state"], 9), -float(e.get("updated") or 0)))
     number_duplicates(out)
@@ -153,10 +169,10 @@ def number_duplicates(entries: list[dict]) -> list[dict]:
     for entry in entries:
         if entry.get("demo"):
             continue          # ukážkové riadky sa rozlíšia stavom, číslovať ich netreba
-        name = str(entry.get("name") or "session")
-        seen[name] = seen.get(name, 0) + 1
-        if seen[name] > 1:
-            entry["name"] = f"{name} ({seen[name]})"
+        label = str(entry.get("label") or entry.get("name") or "session")
+        seen[label] = seen.get(label, 0) + 1
+        if seen[label] > 1:
+            entry["label"] = f"{label} ({seen[label]})"
     return entries
 
 
@@ -246,7 +262,7 @@ def row_for(entry: dict, show_time: bool = False) -> tuple[str, str, str]:
     """(ikona, text, farba) pre jeden riadok panela: „● epizodar · pracuje“.
     S show_time=True pribudne, ako dlho už je session v tomto stave."""
     icon, word, color = STATE_LOOK.get(entry.get("state", ""), STATE_LOOK["ready"])
-    name = str(entry.get("name") or "session")[:18]
+    name = str(entry.get("label") or entry.get("title") or entry.get("name") or "session")[:30]
     text = f"{name} · {word}"
     if show_time:
         text = f"{text} {human_time(entry.get('elapsed', 0))}"
@@ -255,4 +271,4 @@ def row_for(entry: dict, show_time: bool = False) -> tuple[str, str, str]:
 
 def row_key(entry: dict) -> tuple:
     """Čo musí zostať rovnaké, aby sa panel nemusel prekresľovať (čas sa mení stále – ten tu nie je)."""
-    return (entry.get("session"), entry.get("state"), entry.get("name"))
+    return (entry.get("session"), entry.get("state"), entry.get("label") or entry.get("name"))
