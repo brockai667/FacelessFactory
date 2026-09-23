@@ -279,6 +279,10 @@ vždy. Zapnúť/vypnúť sa dá v ikone v lište („Panel session“).
 Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions bežiace v cloude
 (claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
 
+Priečinok aplikácie sa hľadá cez `%APPDATA%` aj cez domovský priečinok – daemon spúšťa Plánovač úloh
+a v jeho prostredí `%APPDATA%` nemusí byť. Do logu sa pri štarte zapíše, koľko názvov sa načítalo; keď
+tam je „priečinok aplikácie sa nenašiel“, riadok rovno vypíše, ktoré cesty skúšal.
+
 Formát súborov aplikácie je jej vnútorná vec a môže sa zmeniť. Preto sa číta len začiatok každého súboru,
 všetko je v `try/except` a keď sa čokoľvek nečaká, názov sa ticho doberie z prepisu – panel kvôli tomu
 nikdy nespadne ani nezmizne.

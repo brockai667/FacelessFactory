@@ -190,10 +190,7 @@ def app_session_dirs() -> list[Path]:
     if env:
         candidates = [Path(p) for p in env.split(os.pathsep) if p.strip()]
     else:
-        roots = [Path(p) / "Claude" for p in (os.environ.get("APPDATA"), os.environ.get("LOCALAPPDATA")) if p]
-        roots += [Path.home() / "Library" / "Application Support" / "Claude",   # macOS
-                  Path.home() / ".config" / "Claude"]                           # Linux
-        candidates = [root / APP_TITLE_DIR for root in roots]
+        candidates = [root / APP_TITLE_DIR for root in app_roots()]
     out: list[Path] = []
     for path in candidates:
         try:
@@ -202,6 +199,18 @@ def app_session_dirs() -> list[Path]:
         except OSError:
             pass
     return out
+
+
+def app_roots() -> list[Path]:
+    """Kde môže byť dátový priečinok aplikácie Claude. APPDATA tu neberieme ako isté: daemon sa spúšťa
+    cez wscript/Plánovač úloh a tam tá premenná nemusí byť – preto aj cesta poskladaná z domovského
+    priečinka."""
+    home = Path.home()
+    roots = [Path(p) / "Claude" for p in (os.environ.get("APPDATA"), os.environ.get("LOCALAPPDATA")) if p]
+    roots += [home / "AppData" / "Roaming" / "Claude", home / "AppData" / "Local" / "Claude",  # Windows
+              home / "Library" / "Application Support" / "Claude",                             # macOS
+              home / ".config" / "Claude"]                                                     # Linux
+    return roots
 
 
 def forget_app_titles() -> None:

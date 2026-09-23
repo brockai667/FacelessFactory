@@ -689,8 +689,9 @@ def app_titles_status() -> str:
     try:
         dirs = sessionsmod.app_session_dirs()
         if not dirs:
-            return ("názvy chatov: priečinok aplikácie sa nenašiel – panel bude názvy brať z prepisu session "
-                    "(spusti najdi_nazvy.bat \"nejaký názov zo zoznamu\")")
+            tried = ", ".join(str(r).replace(str(Path.home()), "~") for r in sessionsmod.app_roots())
+            return ("názvy chatov: priečinok aplikácie sa nenašiel, panel ich vezme z prepisu session; "
+                    f"skúšal som: {tried}")
         titles = sessionsmod.app_titles()
         where = ", ".join(str(d).replace(str(Path.home()), "~") for d in dirs)
         return f"názvy chatov: {len(titles)} z aplikácie ({where})"
