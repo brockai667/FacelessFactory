@@ -65,7 +65,12 @@ def main() -> int:
         return 0
     if not isinstance(data, dict):
         return 0
-    prompt = data.get("prompt") or ""
+    try:    # pre panel so stavom sessions: od tejto chvíle session pracuje
+        from diktat_core import sessions
+        sessions.record("UserPromptSubmit", data)
+    except Exception:  # noqa: BLE001
+        pass
+    prompt = data.get("prompt") or data.get("user_input") or ""
     if not prompt.strip():
         return 0
     try:

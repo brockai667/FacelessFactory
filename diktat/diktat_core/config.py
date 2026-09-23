@@ -88,6 +88,21 @@ DEFAULTS: dict = {
         "rate": "+0%",
         "volume": "+0%",
     },
+    "panel": {
+        "enabled": True,              # panel v pravom hornom rohu okna Claude: ktoré sessions bežia a čo robia
+        "follow_window": True,        # drž sa okna Claude (False = pravý horný roh obrazovky)
+        "processes": ["claude.exe"],  # podľa okna ktorého programu sa panel umiestni
+        "offset_y": 44,               # koľko pixelov pod horným okrajom okna (pod krížikom a zmenšením)
+        "margin_right": 12,
+        "max_rows": 6,                # najviac toľko sessions naraz
+        "font_size": 9,
+        "alpha": 0.9,
+        "hide_when_empty": True,      # žiadna session = panel nevidno
+        "refresh_seconds": 1.0,
+        "done_keep_minutes": 30,      # dokončená session zmizne z panela po pol hodine
+        "stale_minutes": 240,         # session, ktorá sa 4 h neozvala (reštart PC), sa zahodí
+        "state_dir": None,            # None = ~/.claude/diktat/sessions
+    },
     "overlay": {
         "enabled": True,              # prúžok navrchu obrazovky so stavom (nahrávam / prepisujem / vložené)
         "alpha": 0.92,

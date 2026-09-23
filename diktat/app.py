@@ -29,7 +29,8 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows: neškodné varovanie pri sťahovaní modelu
 
-from diktat_core import cleanup, config as cfgmod, hotkey as hotkeymod, inject, overlay as overlaymod, procs, tray as traymod  # noqa: E402
+from diktat_core import (cleanup, config as cfgmod, hotkey as hotkeymod, inject, overlay as overlaymod,  # noqa: E402
+                         panel as panelmod, procs, sessions as sessionsmod, tray as traymod)
 
 log = logging.getLogger("diktat")
 
@@ -43,6 +44,7 @@ class DiktatApp:
         self.stt = None
         self.tray = traymod.NoTray()
         self.overlay = overlaymod.NoOverlay()
+        self.panel = panelmod.NoPanel()
         self.log_dir = (HERE / cfg.get("log_dir", "logs")) if cfg.get("log_dir") else None
         # priebežný prepis
         self._queue: queue.Queue = queue.Queue()
@@ -94,6 +96,7 @@ class DiktatApp:
         self._worker.start()
         self.overlay.level_fn = lambda: (self.recorder.last_level, self.recorder.gate_rms)
         self.overlay.show(f"✅ diktat pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
+        self.start_panel()
         follow = [p for p in (self.cfg.get("follow", {}).get("processes") or []) if p]
         if follow and sys.platform == "win32":
             threading.Thread(target=self._follow_loop, args=(follow,), daemon=True, name="follow").start()
@@ -391,7 +394,8 @@ class DiktatApp:
                                      on_update=self.update_and_restart if sys.platform == "win32" else None,
                                      on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start(),
                                      on_gate=self.adjust_gate, gate_text=self.gate_text,
-                                     on_diag=self.run_diag)
+                                     on_diag=self.run_diag,
+                                     on_panel=self.toggle_panel, panel_on=self.panel_enabled)
             self.tray.state = "starting"
 
             def boot():
@@ -517,7 +521,41 @@ class DiktatApp:
         subprocess.Popen(["cmd", "/c", "start", "", str(bat)], cwd=str(HERE))   # noqa: S603 – vlastný skript
         threading.Timer(1.0, lambda: (self.shutdown(), self.tray.stop(), os._exit(0))).start()
 
+    def start_panel(self) -> None:
+        """Panel so stavom Claude Code sessions (pravý horný roh okna Claude)."""
+        cfg = self.cfg.get("panel", {})
+        if not cfg.get("enabled", True):
+            return
+        try:
+            sessionsmod.prune(cfg.get("state_dir"), stale_minutes=cfg.get("stale_minutes", 240))
+            self.panel = panelmod.Panel(cfg)
+            self.panel.start()
+        except Exception as exc:  # noqa: BLE001
+            log.warning("panel sa nepodarilo spustiť: %s", exc)
+            self.panel = panelmod.NoPanel()
+
+    def panel_enabled(self) -> bool:
+        return bool(self.cfg.get("panel", {}).get("enabled", True))
+
+    def toggle_panel(self) -> None:
+        """Ikona v lište: zapni/vypni panel a zapamätaj si to v config.json."""
+        on = not self.panel_enabled()
+        self.cfg.setdefault("panel", {})["enabled"] = on
+        try:
+            cfgmod.save_value(self.cfg, "panel.enabled", on)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("panel.enabled sa nepodarilo uložiť: %s", exc)
+        if on and isinstance(self.panel, panelmod.NoPanel):
+            self.start_panel()
+        else:
+            self.panel.set_enabled(on)
+        self.tray.notify("Panel session zapnutý" if on else "Panel session vypnutý")
+
     def shutdown(self) -> None:
+        try:
+            self.panel.stop()
+        except Exception:  # noqa: BLE001
+            pass
         try:
             if self.recorder is not None:
                 self.recorder.close()

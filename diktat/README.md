@@ -218,6 +218,34 @@ a v okne Claude je len základný „Microsoft Filip“ z Windows. Klikni **Zapn
 kliknutia nehovorí). Na stránke je história posledných správ, „Prehrať“ a „Prečítať celé“ (dlhšia verzia,
 ak ju session poslala), rýchlosť a hlasitosť; drží posledných 40 správ.
 
+## Panel: ktoré sessions bežia a čo robia
+
+V pravom hornom rohu okna Claude (pod krížikom a zmenšením) je malý panel so zoznamom Claude Code
+sessions na tomto počítači:
+
+```
+Claude session
+● curio engine · pýta sa ťa 0:20
+● redesign · hotovo 3 min
+● epizodar · pracuje 1:40
+```
+
+- 🔵 **pracuje** – session dostala prompt a pracuje;
+- 🟠 **pýta sa ťa** – čaká na povolenie nástroja alebo na tvoju odpoveď;
+- 🟢 **hotovo** – dohovorila, čaká na teba (zmizne po `panel.done_keep_minutes`, predvolene 30 min).
+
+Zoradené je to podľa toho, čo potrebuje teba: najprv „pýta sa ťa“, potom „hotovo“, potom „pracuje“.
+Meno je názov priečinka projektu. Panel sa drží okna Claude; keď Claude nie je vidieť, schová sa.
+Zapnúť/vypnúť sa dá v ikone v lište („Panel session“), stav sa uloží do `config.json`.
+
+**Ako to vie.** Každá session hlási stav cez hooky Claude Code (`SessionStart`, `UserPromptSubmit`,
+`Notification`, `Stop`, `SessionEnd`), ktoré registruje `install.py`. Hook zapíše jeden malý JSON súbor do
+`~/.claude/diktat/sessions/` a skončí; panel ten priečinok číta raz za sekundu. Žiadny server, žiadne
+čítanie histórie konverzácií. Po inštalácii **reštartuj Claude**, nové sessions hooky načítajú samy.
+
+Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions bežiace v cloude
+(claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
+
 ## Beží len s Claude (hranie, výkon)
 
 Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.exe`, `opera.exe`, `chrome.exe`):
@@ -264,6 +292,11 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `stt.initial_prompt` | tech slovník | slová, ktoré má Whisper „očakávať“ – dopĺňaj názvy projektov, knižníc |
 | `stt.chunk_seconds` | `15` | priebežný prepis: po ~15 s hľadá pauzu a odreže kúsok na prepis v pozadí; `0` = prepis až po stope |
 | `stt.chunk_max_seconds` | `30` | ak pauza nepríde, odreže natvrdo |
+| `panel.enabled` | `true` | panel so stavom sessions v pravom hornom rohu okna Claude |
+| `panel.offset_y` / `margin_right` | `44` / `12` | posun pod tlačidlami okna; ak ti prekáža, zväčši `offset_y` |
+| `panel.follow_window` | `true` | `false` = panel drží pravý horný roh obrazovky aj bez okna Claude |
+| `panel.max_rows` | `6` | koľko sessions naraz |
+| `panel.done_keep_minutes` | `30` | ako dlho ostane dokončená session v zozname |
 | `tray.notify` | `true` | oznámenia Windows v režime s ikonou |
 | `tray.notify_start_stop` | `true` | oznámenie aj pri štarte („Nahrávam“) a konci („prepisujem“), nie len po vložení |
 | `audio.silence_auto_stop_seconds` | `0` | napr. `4` = po 4 s ticha zastaví samo (pri premýšľaní nahlas nechaj 0) |
@@ -311,6 +344,9 @@ prepne sa na CPU/int8 a pokračuje (v konzole uvidíš varovanie). Ak GPU nechce
   štarte vypína, ale iné terminály (ConEmu, staré cmd) ho môžu mať vlastný.
 - **Skratka nereaguje** – iná aplikácia ju má obsadenú alebo klávesnica nemá numpad; zmeň `hotkey` (napr. `<f9>`).
   Ak beží Claude Code s `/voice`, vypni ho (`/voice off`), nech si nekonkurujú.
+- **Panel so sessions nič neukazuje** – hooky sa načítajú až v novej session, reštartuj Claude. Skontroluj
+  `python install.py --dry-run` a priečinok `~/.claude/diktat/sessions` (má pribudnúť súbor na session).
+  Panel sa tiež schová, keď okno Claude nie je viditeľné (`panel.follow_window`).
 - **Píše vety, ktoré som nepovedal** – Whisper si v tichu vymýšľa text naučený z titulkov („Ďakujem za
   pozornosť“, „Titulky vytvoril…“) alebo zopakuje predchádzajúcu vetu. diktat takéto úseky zahadzuje
   (`stt.drop_hallucinations`) a modelu už neposiela predchádzajúci text (`stt.use_context: false`).

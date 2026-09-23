@@ -102,6 +102,49 @@ def process_names_with_windows() -> set[str]:
     return names
 
 
+def window_rect(names: list[str]) -> tuple[int, int, int, int] | None:
+    """Obdĺžnik (left, top, right, bottom) najväčšieho viditeľného okna niektorého z procesov
+    (napr. claude.exe). Minimalizované okná sa nerátajú. Mimo Windows / bez okna: None."""
+    if sys.platform != "win32":
+        return None
+    wanted = {n.lower() for n in names if n} | {n.lower().removesuffix(".exe") for n in names if n}
+    if not wanted:
+        return None
+    import ctypes
+    from ctypes import wintypes
+    user32 = ctypes.windll.user32
+    cache: dict = {}
+    best: tuple[int, tuple[int, int, int, int]] | None = None
+    proto = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
+
+    def cb(hwnd, _lparam):
+        nonlocal best
+        try:
+            if not user32.IsWindowVisible(hwnd) or user32.IsIconic(hwnd):
+                return True
+            if user32.GetWindowTextLengthW(hwnd) == 0:
+                return True
+            pid = wintypes.DWORD()
+            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+            name = (_exe_name_of_pid(pid.value, cache) or "").lower()
+            if name not in wanted and name.removesuffix(".exe") not in wanted:
+                return True
+            rect = wintypes.RECT()
+            if not user32.GetWindowRect(hwnd, ctypes.byref(rect)):
+                return True
+            w, h = rect.right - rect.left, rect.bottom - rect.top
+            if w <= 0 or h <= 0:
+                return True
+            if best is None or w * h > best[0]:
+                best = (w * h, (rect.left, rect.top, rect.right, rect.bottom))
+        except Exception:  # noqa: BLE001
+            pass
+        return True
+
+    user32.EnumWindows(proto(cb), 0)
+    return best[1] if best else None
+
+
 def any_running(follow: list[str], names: set[str] | None = None) -> bool:
     """Beží aspoň jeden zo sledovaných procesov? Porovnáva sa bez ohľadu na veľkosť písmen, aj bez .exe."""
     if not follow:

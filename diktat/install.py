@@ -30,6 +30,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BEGIN, END = "<!-- diktat:begin -->", "<!-- diktat:end -->"
 HOOK_FILE = "diktat_hook.py"
+SESSION_HOOK_FILE = "diktat_session.py"
+# Hooky, ktorými sessions hlásia panelu, čo robia. UserPromptSubmit („pracuje“) hlási diktat_hook.py.
+SESSION_EVENTS = ("SessionStart", "Notification", "Stop", "SessionEnd")
 
 
 VBS_NAME = "diktat_tray.vbs"
@@ -414,10 +417,10 @@ def remove_from_claude_md(existing: str) -> str:
 
 
 # --- 4. settings.json -------------------------------------------------------------------------------
-def _is_diktat_entry(entry: dict) -> bool:
+def _is_diktat_entry(entry: dict, names: tuple[str, ...] = (HOOK_FILE, SESSION_HOOK_FILE)) -> bool:
     for h in entry.get("hooks", []) or []:
         blob = " ".join([str(h.get("command", ""))] + [str(a) for a in (h.get("args") or [])])
-        if HOOK_FILE in blob:
+        if any(n in blob for n in names):
             return True
     return False
 
@@ -426,26 +429,42 @@ def hook_entry(python_exe: str, hook_path: str, timeout: int = 25) -> dict:
     return {"hooks": [{"type": "command", "command": python_exe, "args": [hook_path], "timeout": timeout}]}
 
 
-def add_hook(settings: dict, python_exe: str, hook_path: str) -> dict:
+def add_event_hook(settings: dict, event: str, python_exe: str, hook_path: str, timeout: int = 25) -> dict:
+    """Zaregistruje hook pre jednu udalosť (idempotentne – staré diktat záznamy sa nahradia).
+    Matcher nevypĺňame: pri týchto udalostiach je nepovinný a prázdny znamená „vždy“."""
     hooks = settings.setdefault("hooks", {})
-    entries = hooks.get("UserPromptSubmit")
+    entries = hooks.get(event)
     if not isinstance(entries, list):
         entries = []
     entries = [e for e in entries if not (isinstance(e, dict) and _is_diktat_entry(e))]
-    entries.append(hook_entry(python_exe, hook_path))
-    hooks["UserPromptSubmit"] = entries
+    entries.append(hook_entry(python_exe, hook_path, timeout))
+    hooks[event] = entries
+    return settings
+
+
+def add_hook(settings: dict, python_exe: str, hook_path: str) -> dict:
+    return add_event_hook(settings, "UserPromptSubmit", python_exe, hook_path)
+
+
+def add_session_hooks(settings: dict, python_exe: str, hook_path: str, events=SESSION_EVENTS) -> dict:
+    """SessionStart / Notification / Stop / SessionEnd → panel vie, ktorá session čo robí."""
+    for event in events:
+        add_event_hook(settings, event, python_exe, hook_path, timeout=5)
     return settings
 
 
 def remove_hook(settings: dict) -> dict:
+    """Odstráni všetky záznamy diktatu zo všetkých udalostí."""
     hooks = settings.get("hooks") or {}
-    entries = hooks.get("UserPromptSubmit")
-    if isinstance(entries, list):
+    for event in list(hooks.keys()):
+        entries = hooks.get(event)
+        if not isinstance(entries, list):
+            continue
         entries = [e for e in entries if not (isinstance(e, dict) and _is_diktat_entry(e))]
         if entries:
-            hooks["UserPromptSubmit"] = entries
+            hooks[event] = entries
         else:
-            hooks.pop("UserPromptSubmit", None)
+            hooks.pop(event, None)
     if not hooks:
         settings.pop("hooks", None)
     return settings
@@ -504,6 +523,7 @@ def install(claude_dir: Path, with_hook: bool = True, python_exe: str | None = N
         if not dry_run:
             hook_dir.mkdir(parents=True, exist_ok=True)
             shutil.copy2(HERE / "hook" / HOOK_FILE, hook_dir / HOOK_FILE)
+            shutil.copy2(HERE / "hook" / SESSION_HOOK_FILE, hook_dir / SESSION_HOOK_FILE)
             core_dst = hook_dir / "diktat_core"
             if core_dst.exists():
                 shutil.rmtree(core_dst)
@@ -515,8 +535,10 @@ def install(claude_dir: Path, with_hook: bool = True, python_exe: str | None = N
         settings_path = claude_dir / "settings.json"
         settings = _load_settings(settings_path)
         add_hook(settings, Path(python_exe).as_posix(), (hook_dir / HOOK_FILE).as_posix())
+        add_session_hooks(settings, Path(python_exe).as_posix(), (hook_dir / SESSION_HOOK_FILE).as_posix())
         _write_settings(settings_path, settings, dry_run)
         log(f"{tag}✔ {settings_path}: UserPromptSubmit hook zaregistrovaný ({Path(python_exe).as_posix()})")
+        log(f"{tag}✔ {settings_path}: stav sessions pre panel ({', '.join(SESSION_EVENTS)})")
     else:
         log(f"{tag}- hook preskočený (--no-hook)")
 
