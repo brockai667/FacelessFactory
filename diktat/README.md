@@ -250,9 +250,13 @@ Zapnúť/vypnúť sa dá v ikone v lište („Panel session“), stav sa uloží
 Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions bežiace v cloude
 (claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
 
-**Vyskúšať bez čakania:** dvojklik `panel_ukazka.bat` zapíše tri ukážkové session (pracuje / pýta sa ťa /
-hotovo), nech vidíš, ako panel vyzerá. V paneli sa volajú „ukážka · …“, aby sa nepomýlili so skutočnými,
-a samy zmiznú do 15 minút. Zmazanie hneď: `panel_ukazka.bat off`.
+**Dvojklik `panel_ukazka.bat`** ponúkne tri možnosti: `1` zapne ukážkové session (nech vidíš, ako panel
+vyzerá), `2` ich zmaže, `3` spustí kontrolu panela – vypíše, či diktat beží, či sú hooky zaregistrované a
+čo sessions práve hlásia, plus vetu, čo s tým. Ukážkové riadky sa volajú „ukážka · …“ a samy zmiznú do
+15 minút.
+
+Keď nič nehlási stav, panel ukáže sivý riadok „žiadna session nehlási stav“ – je to dôkaz, že beží.
+Úplne ho schováš cez `panel.hide_when_empty: true`.
 
 **Nesedia stavy alebo chýbajú sessions?** Spusti `diagnostika.bat` – vypíše, čo je v priečinku so stavmi
 (vrátane toho, čo je ukážka) a či sú hooky zaregistrované v `settings.json` (riadok `hooky:`). Ak je pri
@@ -314,6 +318,7 @@ mikrofónu (Zvuk → Nahrávanie → Mikrofón → Vlastnosti). Rovnako hlasné 
 | `panel.offset_y` / `margin_right` | `44` / `12` | posun pod tlačidlami okna; ak ti prekáža, zväčši `offset_y` |
 | `panel.follow_window` | `true` | `false` = panel drží pravý horný roh obrazovky aj bez okna Claude |
 | `panel.max_rows` | `8` | koľko sessions naraz |
+| `panel.hide_when_empty` | `false` | `true` = keď nič nehlási stav, panel nie je vidno vôbec |
 | `panel.font_size` | `11` | veľkosť písma panela |
 | `panel.show_time` | `false` | `true` = aj ako dlho je session v tomto stave |
 | `panel.animate_ms` | `160` | ako často dýchne bodka (vyššie = pokojnejšie a menej CPU, minimum 60) |

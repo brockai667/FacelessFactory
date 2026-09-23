@@ -254,6 +254,40 @@ class DiagnosticsTests(unittest.TestCase):
         self.assertEqual(sum("[UKÁŽKA]" in ln for ln in lines), 3)
 
 
+class PanelCheckTests(unittest.TestCase):
+    """Kontrola panela musí povedať ľudskou rečou, prečo panel nič neukazuje."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+        self.cfg = {"panel": {"enabled": True, "state_dir": str(self.out)}}
+        self._running = diktat_app.procs.diktat_running
+
+    def tearDown(self):
+        diktat_app.procs.diktat_running = self._running
+
+    def _check(self, running):
+        diktat_app.procs.diktat_running = lambda: running
+        return "\n".join(diktat_app.panel_check(self.cfg))
+
+    def test_says_when_diktat_is_not_running(self):
+        text = self._check(False)
+        self.assertIn("diktat beží: NIE", text)
+        self.assertIn("Diktat na ploche", text)
+
+    def test_says_when_no_session_reports_yet(self):
+        text = self._check(True)
+        self.assertIn("žiadna session zatiaľ nehlási stav", text)
+
+    def test_demo_alone_does_not_count_as_a_real_session(self):
+        sessions.demo(self.out)
+        self.assertIn("žiadna session zatiaľ nehlási stav", self._check(True))
+
+    def test_reports_real_sessions(self):
+        sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "/x/nemecko"}, self.out)
+        text = self._check(True)
+        self.assertIn("panel má čo ukazovať (1 session)", text)
+
+
 class SessionHookInstallTests(unittest.TestCase):
     def test_all_events_registered_and_removed(self):
         settings = {"hooks": {"PreToolUse": [{"hooks": [{"type": "command", "command": "cudzie.py"}]}]}}

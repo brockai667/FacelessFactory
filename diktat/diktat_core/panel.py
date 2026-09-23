@@ -49,7 +49,8 @@ class Panel:
         self.max_rows = int(cfg.get("max_rows", 8))
         self.font_size = int(cfg.get("font_size", 11))
         self.alpha = float(cfg.get("alpha", 0.95))
-        self.hide_when_empty = bool(cfg.get("hide_when_empty", True))
+        self.hide_when_empty = bool(cfg.get("hide_when_empty", False))
+        self.empty_text = str(cfg.get("empty_text", "žiadna session nehlási stav"))
         self.refresh_seconds = float(cfg.get("refresh_seconds", 1.0))
         self.rect_seconds = float(cfg.get("rect_seconds", 1.0))      # ako často sa pozrieť, kde je okno Claude
         self.animate_ms = max(60, int(cfg.get("animate_ms", 160)))
@@ -132,6 +133,11 @@ class Panel:
                 if states:
                     tk.Label(frame, text="Claude session", font=("Segoe UI", self.font_size - 2),
                              fg=DIM, bg=BG, anchor="w").pack(fill="x", pady=(0, 6))
+                if not states:
+                    tk.Label(frame, text="Claude session", font=("Segoe UI", self.font_size - 2),
+                             fg=DIM, bg=BG, anchor="w").pack(fill="x", pady=(0, 4))
+                    tk.Label(frame, text=self.empty_text, font=("Segoe UI", self.font_size - 1),
+                             fg=DIM, bg=BG, anchor="w").pack(fill="x")
                 for entry in states:
                     icon, text, color = sessions.row_for(entry, self.show_time)
                     line = tk.Frame(frame, bg=BG)

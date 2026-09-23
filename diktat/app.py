@@ -663,6 +663,30 @@ def hooks_status(claude_dir: Path | None = None) -> str:
     return "hooky: " + ", ".join(parts)
 
 
+def panel_check(cfg: dict) -> list[str]:
+    """Krátka kontrola panela v ľudskej reči: beží diktat, je panel zapnutý, čo hlásia sessions."""
+    lines = ["=== kontrola panela ==="]
+    running = procs.diktat_running()
+    lines.append(f"diktat beží: {'áno' if running else 'NIE – spusti odkaz Diktat na ploche'}")
+    lines.extend(panel_status(cfg))
+    lines.append(hooks_status())
+    states = []
+    try:
+        pcfg = cfg.get("panel", {}) or {}
+        states = sessionsmod.read_states(pcfg.get("state_dir"), max_rows=50)
+    except Exception:  # noqa: BLE001
+        pass
+    real = [e for e in states if not e.get("demo")]
+    if not running:
+        lines.append("→ Panel nevidno preto, že diktat nebeží. Spusti ho odkazom Diktat na ploche.")
+    elif real:
+        lines.append(f"→ Všetko v poriadku, panel má čo ukazovať ({len(real)} session).")
+    else:
+        lines.append("→ diktat beží, ale žiadna session zatiaľ nehlási stav. Session hlási stav až vtedy, "
+                     "keď sa spustila po inštalácii hookov – zavri a otvor projekt v Claude a napíš mu čokoľvek.")
+    return lines
+
+
 def panel_status(cfg: dict) -> list[str]:
     """Čo je práve v priečinku so stavmi sessions – podľa toho vidno, či sessions hlásia stav."""
     pcfg = cfg.get("panel", {}) or {}
@@ -870,6 +894,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--diag", action="store_true", help="diagnostika do logs/diagnostika.txt + schránky")
     ap.add_argument("--panel-demo", nargs="?", const="on", choices=["on", "off"],
                     help="ukážkové session v paneli (on = zapíš, off = zmaž)")
+    ap.add_argument("--panel-check", action="store_true",
+                    help="kontrola panela: beží diktat, sú hooky, čo hlásia sessions")
     ap.add_argument("--restart-check", action="store_true",
                     help="dá sa teraz reštartovať Claude? (vypíše, ktorá session ešte pracuje)")
     ap.add_argument("-v", "--verbose", action="store_true")
@@ -895,6 +921,10 @@ def main(argv: list[str] | None = None) -> int:
             paths = sessionsmod.demo(directory)
             print(f"Ukážkové session zapísané ({len(paths)}) – pozri pravý horný roh okna Claude.")
             print("Zmazať: panel_ukazka.bat off")
+        return 0
+    if args.panel_check:
+        for line in panel_check(cfg):
+            print(line)
         return 0
     if args.restart_check:
         cfgp = cfg.get("panel", {}) or {}
