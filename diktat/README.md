@@ -246,6 +246,14 @@ Zapnúť/vypnúť sa dá v ikone v lište („Panel session“), stav sa uloží
 Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions bežiace v cloude
 (claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
 
+**Vyskúšať bez čakania:** dvojklik `panel_ukazka.bat` zapíše tri ukážkové session (pracuje / pýta sa ťa /
+hotovo), nech vidíš, ako panel vyzerá. Zmazanie: `panel_ukazka.bat off`.
+
+**Pred reštartom Claude** sa hodí vedieť, či niečo nebeží: v ikone v lište je položka **„Môžem reštartovať
+Claude?“** – odpovie oznámením („Počkaj, pracuje: epizodar“ / „Môžeš reštartovať…“). To isté z príkazu:
+`app.py --restart-check` (návratový kód 0 = môžeš, 1 = ešte sa pracuje). Reštart aplikácie sessions
+nezmaže, po zapnutí sa obnovia aj s históriou; preruší len ťah, ktorý práve beží.
+
 ## Beží len s Claude (hranie, výkon)
 
 Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.exe`, `opera.exe`, `chrome.exe`):

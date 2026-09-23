@@ -159,5 +159,57 @@ class HookScriptTests(unittest.TestCase):
         self.assertEqual(res.returncode, 0)
 
 
+
+
+class RestartSummaryTests(unittest.TestCase):
+    def test_working_session_blocks_the_restart(self):
+        ok, text = sessions.restart_summary([{"state": "working", "name": "epizodar"},
+                                             {"state": "done", "name": "redesign"}])
+        self.assertFalse(ok)
+        self.assertIn("epizodar", text)
+
+    def test_only_waiting_sessions_allow_the_restart(self):
+        ok, text = sessions.restart_summary([{"state": "asking", "name": "curio"}])
+        self.assertTrue(ok)
+        self.assertIn("curio", text)
+
+    def test_nothing_running(self):
+        ok, text = sessions.restart_summary([])
+        self.assertTrue(ok)
+        self.assertIn("žiadna session", text)
+
+
+class DemoTests(unittest.TestCase):
+    def test_demo_writes_three_states_and_clears_them(self):
+        out = Path(tempfile.mkdtemp())
+        paths = sessions.demo(out, now=1000)
+        self.assertEqual(len(paths), 3)
+        states = sessions.read_states(out, now=1000)
+        self.assertEqual([e["state"] for e in states], ["asking", "done", "working"])
+        self.assertEqual(sessions.demo_clear(out), 3)
+        self.assertEqual(sessions.read_states(out, now=1000), [])
+
+    def test_demo_cli_writes_and_removes(self):
+        out = Path(tempfile.mkdtemp())
+        env = {**os.environ, "DIKTAT_SESSION_DIR": str(out), "PYTHONIOENCODING": "utf-8"}
+        run = lambda *a: subprocess.run([sys.executable, str(ROOT / "app.py"), *a], capture_output=True,  # noqa: E731
+                                        text=True, env=env, timeout=120, cwd=str(ROOT))
+        res = run("--panel-demo")
+        self.assertEqual(res.returncode, 0, res.stderr)
+        self.assertEqual(len(list(out.glob("*.json"))), 3)
+        res = run("--panel-demo", "off")
+        self.assertEqual(res.returncode, 0, res.stderr)
+        self.assertEqual(list(out.glob("*.json")), [])
+
+    def test_restart_check_cli_reports_busy_sessions(self):
+        out = Path(tempfile.mkdtemp())
+        env = {**os.environ, "DIKTAT_SESSION_DIR": str(out), "PYTHONIOENCODING": "utf-8"}
+        sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "/x/epizodar"}, out)
+        res = subprocess.run([sys.executable, str(ROOT / "app.py"), "--restart-check"], capture_output=True,
+                             text=True, env=env, timeout=120, cwd=str(ROOT))
+        self.assertEqual(res.returncode, 1)
+        self.assertIn("epizodar", res.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()

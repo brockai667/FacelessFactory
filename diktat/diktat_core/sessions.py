@@ -161,6 +161,41 @@ def prune(directory: Path | None = None, now: float | None = None, stale_minutes
     return removed
 
 
+DEMO_IDS = ("demo-pracuje", "demo-pyta", "demo-hotovo")
+
+
+def demo(directory: Path | None = None, now: float | None = None) -> list[Path]:
+    """Zapíše tri ukážkové session, nech je vidno, ako panel vyzerá, aj bez čakania na skutočné.
+    Zmaže ich demo_clear()."""
+    import time as _time
+    now = _time.time() if now is None else now
+    written = []
+    for sid, cwd, event, payload in (
+        (DEMO_IDS[0], "C:/ukazka/epizodar", "UserPromptSubmit", {}),
+        (DEMO_IDS[1], "C:/ukazka/curio engine", "Notification", {"notification_type": "permission_prompt"}),
+        (DEMO_IDS[2], "C:/ukazka/redesign", "Stop", {}),
+    ):
+        path = record(event, {"session_id": sid, "cwd": cwd, **payload}, directory, now)
+        if path:
+            written.append(path)
+    return written
+
+
+def demo_clear(directory: Path | None = None) -> int:
+    """Zmaže ukážkové session."""
+    directory = Path(directory or default_dir())
+    removed = 0
+    for sid in DEMO_IDS:
+        path = directory / f"{_safe_id(sid)}.json"
+        try:
+            if path.is_file():
+                path.unlink()
+                removed += 1
+        except OSError:
+            pass
+    return removed
+
+
 def human_time(seconds: float) -> str:
     """0:07, 3 min, 2 h – krátko, nech sa to zmestí do rohu."""
     seconds = max(0, int(seconds))
@@ -169,6 +204,21 @@ def human_time(seconds: float) -> str:
     if seconds < 3600:
         return f"{seconds // 60} min"
     return f"{seconds // 3600} h"
+
+
+def restart_summary(states: list[dict]) -> tuple[bool, str]:
+    """Dá sa teraz reštartovať Claude? (bezpečné?, veta pre používateľa)
+    Pracujúca session = reštart jej preruší rozrobený ťah; hotové a čakajúce sa po reštarte len obnovia."""
+    working = [e for e in states if e.get("state") == "working"]
+    asking = [e for e in states if e.get("state") == "asking"]
+    names = lambda items: ", ".join(str(e.get("name") or "session") for e in items)   # noqa: E731
+    if working:
+        return False, f"Počkaj, pracuje: {names(working)}. Reštart by im prerušil rozrobené."
+    if asking:
+        return True, f"Môžeš reštartovať. Pozor, čaká na tvoju odpoveď: {names(asking)}."
+    if states:
+        return True, f"Môžeš reštartovať, nič nepracuje ({len(states)} session sa po reštarte obnoví)."
+    return True, "Môžeš reštartovať, žiadna session nebeží."
 
 
 def row_for(entry: dict) -> tuple[str, str, str]:

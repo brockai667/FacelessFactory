@@ -41,7 +41,9 @@ class Tray:
                  on_update: Callable[[], None] | None = None, on_calibrate: Callable[[], None] | None = None,
                  on_gate: Callable[[str], None] | None = None, gate_text: Callable[[], str] | None = None,
                  on_diag: Callable[[], None] | None = None, on_panel: Callable[[], None] | None = None,
-                 panel_on: Callable[[], bool] | None = None):
+                 panel_on: Callable[[], bool] | None = None,
+                 on_restart_check: Callable[[], str] | None = None):
+        self.on_restart_check = on_restart_check
         self.on_diag = on_diag
         self.on_panel = on_panel
         self.panel_on = panel_on
@@ -99,6 +101,8 @@ class Tray:
             pystray.MenuItem("Panel session (vpravo hore)", lambda icon, item: self.on_panel(),
                              checked=(lambda item: bool(self.panel_on())) if self.panel_on else None,
                              enabled=bool(self.on_panel)),
+            pystray.MenuItem("Môžem reštartovať Claude?", lambda icon, item: self.on_restart_check(),
+                             enabled=bool(self.on_restart_check)),
             pystray.MenuItem("Otvoriť log", open_log, enabled=bool(self.log_path)),
             pystray.MenuItem("Diagnostika (do schránky)", lambda icon, item: self.on_diag(), enabled=bool(self.on_diag)),
             pystray.MenuItem("Aktualizovať a reštartovať", update_, enabled=bool(self.on_update)),

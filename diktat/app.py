@@ -395,7 +395,8 @@ class DiktatApp:
                                      on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start(),
                                      on_gate=self.adjust_gate, gate_text=self.gate_text,
                                      on_diag=self.run_diag,
-                                     on_panel=self.toggle_panel, panel_on=self.panel_enabled)
+                                     on_panel=self.toggle_panel, panel_on=self.panel_enabled,
+                                     on_restart_check=self.restart_check)
             self.tray.state = "starting"
 
             def boot():
@@ -550,6 +551,15 @@ class DiktatApp:
         else:
             self.panel.set_enabled(on)
         self.tray.notify("Panel session zapnutý" if on else "Panel session vypnutý")
+
+    def restart_check(self) -> str:
+        """Ikona v lište: môžem teraz reštartovať Claude? Odpoveď pošle ako oznámenie Windows."""
+        cfgp = self.cfg.get("panel", {}) or {}
+        states = sessionsmod.read_states(cfgp.get("state_dir"), done_keep_minutes=cfgp.get("done_keep_minutes", 30),
+                                         stale_minutes=cfgp.get("stale_minutes", 240), max_rows=99)
+        _ok, text = sessionsmod.restart_summary(states)
+        self.tray.notify(text, "diktat – reštart Claude")
+        return text
 
     def shutdown(self) -> None:
         try:
@@ -818,6 +828,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--calibrate", action="store_true",
                     help="zmeraj reč vs. ruch a nastav hlasitostnú bránu (len tvoj hlas z pracovnej vzdialenosti)")
     ap.add_argument("--diag", action="store_true", help="diagnostika do logs/diagnostika.txt + schránky")
+    ap.add_argument("--panel-demo", nargs="?", const="on", choices=["on", "off"],
+                    help="ukážkové session v paneli (on = zapíš, off = zmaž)")
+    ap.add_argument("--restart-check", action="store_true",
+                    help="dá sa teraz reštartovať Claude? (vypíše, ktorá session ešte pracuje)")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args(argv)
 
@@ -833,6 +847,22 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.keys:
         return keys_probe()
+    if args.panel_demo:
+        directory = (cfg.get("panel", {}) or {}).get("state_dir")
+        if args.panel_demo == "off":
+            print(f"Ukážkové session zmazané ({sessionsmod.demo_clear(directory)}).")
+        else:
+            paths = sessionsmod.demo(directory)
+            print(f"Ukážkové session zapísané ({len(paths)}) – pozri pravý horný roh okna Claude.")
+            print("Zmazať: panel_ukazka.bat off")
+        return 0
+    if args.restart_check:
+        cfgp = cfg.get("panel", {}) or {}
+        states = sessionsmod.read_states(cfgp.get("state_dir"), done_keep_minutes=cfgp.get("done_keep_minutes", 30),
+                                         stale_minutes=cfgp.get("stale_minutes", 240), max_rows=99)
+        ok, text = sessionsmod.restart_summary(states)
+        print(text)
+        return 0 if ok else 1
     if args.diag:
         report = diagnose(cfg, log_dir)
         print(report)
