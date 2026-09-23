@@ -6,6 +6,9 @@ Každá session zapisuje svoj stav cez hooky do malých JSON súborov (jeden na 
     {"session": "<id>", "name": "FacelessFactory", "state": "working", "since": 1694..., "cwd": "C:/..."}
 
 Panel (diktat) tento priečinok číta raz za sekundu. Žiadny server, žiadne pripojenie – len súbory.
+
+Názov riadka berieme v tomto poradí: názov chatu z bočného zoznamu aplikácie Claude (`app_title`),
+uložený názov, súhrn z prepisu session, prvá ľudská správa, názov priečinka projektu.
 """
 from __future__ import annotations
 
@@ -162,14 +165,210 @@ def _remember(key: str, title: str) -> str:
     _TITLE_CACHE[key] = title
     return title
 
+# ── Názvy chatov z aplikácie Claude ──────────────────────────────────────────────────────────────
+# Aplikácia si každý chat z bočného zoznamu drží vo vlastnom malom JSON súbore
+# (%APPDATA%\Claude\claude-code-sessions\…\local_<id>.json). Zaujímajú nás z neho dve políčka:
+# "cliSessionId" (to isté id, aké hlásia hooky) a "title" (názov, čo vidíš v zozname – aj ten,
+# ktorý si prepísal ručne). Formát je vnútorná vec Claude, takže všetko je best-effort:
+# keď sa čokoľvek nečakane zmení, názov sa doberie postaru z prepisu.
 
-def shorten(text: str, limit: int = 28) -> str:
+APP_TITLE_DIR = "claude-code-sessions"
+APP_TITLE_DEPTH = 4                    # layout je <priečinok>/<id>/<id>/local_<id>.json – hlbšie netreba
+
+_APP_CACHE: dict[str, tuple[float, int, str, str]] = {}   # súbor → (čas zmeny, veľkosť, id session, názov)
+_APP_TITLES: dict[str, str] = {}                          # id session → názov chatu
+_APP_SCANNED_AT = 0.0
+
+
+def app_session_dirs() -> list[Path]:
+    """Priečinky, kde má aplikácia Claude názvy chatov. Prepíše ich DIKTAT_APP_SESSION_DIR."""
+    env = os.environ.get("DIKTAT_APP_SESSION_DIR")
+    if env:
+        candidates = [Path(p) for p in env.split(os.pathsep) if p.strip()]
+    else:
+        roots = [Path(p) / "Claude" for p in (os.environ.get("APPDATA"), os.environ.get("LOCALAPPDATA")) if p]
+        roots += [Path.home() / "Library" / "Application Support" / "Claude",   # macOS
+                  Path.home() / ".config" / "Claude"]                           # Linux
+        candidates = [root / APP_TITLE_DIR for root in roots]
+    out: list[Path] = []
+    for path in candidates:
+        try:
+            if path.is_dir() and path not in out:
+                out.append(path)
+        except OSError:
+            pass
+    return out
+
+
+def forget_app_titles() -> None:
+    """Zahodí zapamätané názvy (po zmene priečinka, v testoch)."""
+    global _APP_SCANNED_AT
+    _APP_CACHE.clear()
+    _APP_TITLES.clear()
+    _APP_SCANNED_AT = 0.0
+
+
+def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384) -> dict[str, str]:
+    """{id session: názov chatu} podľa bočného zoznamu v aplikácii Claude.
+    Panel sa pýta raz za sekundu, preto: hotový zoznam platí `ttl` sekúnd, číta sa len začiatok
+    súboru a súbory, ktoré sa odvtedy nezmenili, sa preskočia."""
+    global _APP_SCANNED_AT
+    now = time.time()
+    if _APP_SCANNED_AT and now - _APP_SCANNED_AT < ttl:
+        return _APP_TITLES
+    _APP_SCANNED_AT = now
+    files: list[tuple[float, int, str]] = []
+    for directory in app_session_dirs():
+        files.extend(_json_files(directory))
+    files.sort(key=lambda item: item[0])          # najnovšie nakoniec: pri rovnakom id vyhrá čerstvejší súbor
+    fresh: dict[str, tuple[float, int, str, str]] = {}
+    found: dict[str, str] = {}
+    for mtime, size, path in files[-max(1, int(max_files)):]:
+        known = _APP_CACHE.get(path)
+        if known and known[0] == mtime and known[1] == size:
+            session_id, title = known[2], known[3]
+        else:
+            session_id, title = _app_title_of(path, head_bytes)
+        fresh[path] = (mtime, size, session_id, title)
+        if session_id and title:
+            found[session_id] = title
+    _APP_CACHE.clear()
+    _APP_CACHE.update(fresh)
+    _APP_TITLES.clear()
+    _APP_TITLES.update(found)
+    return _APP_TITLES
+
+
+def app_title(session_id: str | None) -> str:
+    """Názov chatu tak, ako ho vidíš v bočnom zozname aplikácie Claude.
+    Keď ho nenájdeme (cloudová session, iná verzia aplikácie), vráti prázdno – názov sa doberie inak."""
+    sid = str(session_id or "").strip()
+    if not sid:
+        return ""
+    try:
+        return app_titles().get(sid, "")
+    except Exception:  # noqa: BLE001
+        return ""      # panel nesmie spadnúť na tom, že aplikácia si prerobila svoje súbory
+
+
+def _json_files(directory: Path, depth: int = APP_TITLE_DEPTH) -> list[tuple[float, int, str]]:
+    """Súbory .json v priečinku aplikácie: (čas zmeny, veľkosť, cesta). Cez os.scandir, lebo ten na Windows
+    dostane čas aj veľkosť rovno z výpisu priečinka – prejsť to raz za pár sekúnd je potom lacné."""
+    out: list[tuple[float, int, str]] = []
+    stack = [(str(directory), 0)]
+    while stack:
+        current, level = stack.pop()
+        try:
+            with os.scandir(current) as entries:
+                for entry in entries:
+                    try:
+                        if entry.is_dir():
+                            if level < depth:
+                                stack.append((entry.path, level + 1))
+                            continue
+                        if not entry.name.endswith(".json"):
+                            continue
+                        st = entry.stat()
+                    except OSError:
+                        continue
+                    out.append((st.st_mtime, st.st_size, entry.path))
+        except OSError:
+            continue
+    return out
+
+
+def _app_title_of(path: Path | str, head_bytes: int = 16_384) -> tuple[str, str]:
+    """Z jedného súboru aplikácie vytiahne (id session, názov chatu)."""
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(head_bytes)
+    except OSError:
+        return "", ""
+    fields = _top_level_fields(head.decode("utf-8", "replace"), ("cliSessionId", "title"))
+    session_id = " ".join(str(fields.get("cliSessionId") or "").split())
+    title = " ".join(str(fields.get("title") or "").split())
+    return session_id, ("" if is_system_text(title) else title)
+
+
+def _top_level_fields(text: str, wanted: tuple[str, ...]) -> dict[str, str]:
+    """Hodnoty vrchných kľúčov z JSON textu, aj keď je useknutý na začiatku súboru.
+    Do vnorených objektov schválne nelezie: „title“ je v tom súbore aj v popisoch nástrojov."""
+    out: dict[str, str] = {}
+    i, n, depth, key = 0, len(text), 0, None
+    while i < n and len(out) < len(wanted):
+        ch = text[i]
+        if ch == '"' and depth == 1:
+            value, i = _json_string(text, i)
+            if value is None:
+                break
+            if key is None:
+                key = value
+            else:
+                if key in wanted:
+                    out[key] = value
+                key = None
+        elif ch in "{[":
+            if depth == 0:
+                depth, i = 1, i + 1
+            else:
+                i, key = _skip_nested(text, i), None     # hodnota, ktorá nás nezaujíma
+        elif ch in "}]":
+            break                                        # koniec vrchného objektu
+        elif ch in ",:" or ch.isspace():
+            i += 1
+        else:
+            while i < n and text[i] not in ",}":         # číslo, true/false/null – hodnotu nepotrebujeme
+                i += 1
+            key = None
+    return out
+
+
+def _json_string(text: str, i: int) -> tuple[str | None, int]:
+    """Prečíta reťazec, ktorý sa začína úvodzovkou na indexe `i`. Vráti (hodnota, index za ním);
+    pri useknutom texte (None, koniec)."""
+    n, j = len(text), i + 1
+    while j < n:
+        if text[j] == "\\":
+            j += 2
+            continue
+        if text[j] == '"':
+            try:
+                return json.loads(text[i:j + 1]), j + 1
+            except ValueError:
+                return "", j + 1
+        j += 1
+    return None, n
+
+
+def _skip_nested(text: str, i: int) -> int:
+    """Index za koncom vnoreného objektu alebo poľa, ktoré sa začína na `i`."""
+    depth, n = 0, len(text)
+    while i < n:
+        ch = text[i]
+        if ch == '"':
+            _, i = _json_string(text, i)
+            continue
+        if ch in "{[":
+            depth += 1
+        elif ch in "}]":
+            depth -= 1
+            if depth <= 0:
+                return i + 1
+        i += 1
+    return n
+
+
+
+LABEL_CHARS = 34          # koľko písmen názvu ukázať; panel sa šírkou prispôsobí najdlhšiemu riadku
+
+
+def shorten(text: str, limit: int = LABEL_CHARS) -> str:
     """Skráti text na dĺžku, ktorá sa zmestí do panela (číslovanie duplicít sa pridáva až za to)."""
     t = " ".join(str(text or "").split())
     return t[:limit].rstrip(" ,.;:") + "…" if len(t) > limit else t
 
 
-def clean_title(text: str, limit: int = 28) -> str:
+def clean_title(text: str, limit: int = LABEL_CHARS) -> str:
     """Z prvej ľudskej správy spraví názov, ktorý používateľ pozná zo zoznamu chatov v Claude."""
     t = " ".join(str(text or "").split())
     for marker in ("🎤", "[diktát]", "[diktat]", "[d]"):
@@ -264,7 +463,7 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
         age = now - float(entry.get("updated") or 0)
         entry["age"] = age
         entry["elapsed"] = now - float(entry.get("since") or entry.get("updated") or now)
-        title = entry.get("title") or ""
+        title = app_title(entry.get("session")) or entry.get("title") or ""
         if not title or is_system_text(title):
             title = title_from_transcript(entry.get("transcript"))
         entry["label"] = shorten(title or entry.get("name") or "session")

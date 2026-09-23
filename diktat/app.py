@@ -674,6 +674,20 @@ def hooks_status(claude_dir: Path | None = None) -> str:
     return "hooky: " + ", ".join(parts)
 
 
+def app_titles_status() -> str:
+    """Vidí diktat názvy chatov tak, ako ich ukazuje bočný zoznam v aplikácii Claude?"""
+    try:
+        dirs = sessionsmod.app_session_dirs()
+        if not dirs:
+            return ("názvy chatov: priečinok aplikácie sa nenašiel – panel bude názvy brať z prepisu session "
+                    "(spusti najdi_nazvy.bat \"nejaký názov zo zoznamu\")")
+        titles = sessionsmod.app_titles()
+        where = ", ".join(str(d).replace(str(Path.home()), "~") for d in dirs)
+        return f"názvy chatov: {len(titles)} z aplikácie ({where})"
+    except Exception as exc:  # noqa: BLE001
+        return f"názvy chatov: nedajú sa prečítať ({exc})"
+
+
 def find_title(needle: str, limit_mb: int = 300) -> list[str]:
     """Nájde, v ktorých súboroch Claude drží názov chatu (ten, čo vidíš v bočnom zozname).
     Prehľadá dátové priečinky Claude na tomto počítači a vypíše súbory, kde sa text vyskytuje."""
@@ -683,7 +697,10 @@ def find_title(needle: str, limit_mb: int = 300) -> list[str]:
                Path(_os.environ.get("LOCALAPPDATA", "")) / "Claude",
                Path(_os.environ.get("LOCALAPPDATA", "")) / "AnthropicClaude"]
     if not needle:
-        return ["Zadaj názov chatu, ktorý vidíš v zozname Claude, napr.:",
+        known = [f"   {sid}  →  {title}" for sid, title in list(sessionsmod.app_titles().items())[-15:]]
+        return ["Názvy chatov berie panel odtiaľto:", "   " + app_titles_status(), "",
+                *(["Pár načítaných názvov (id session → názov):", *known, ""] if known else []),
+                "Keď by nejaký názov chýbal, daj ho ako parameter a nájdem, v ktorom súbore je:",
                 '   najdi_nazvy.bat "Odosielanie emailov"', "", "Dátové priečinky Claude na tomto počítači:",
                 *_claude_layout(targets)]
     patterns = [needle.encode("utf-8"), needle.encode("utf-16-le", "replace")]
@@ -741,6 +758,7 @@ def panel_check(cfg: dict) -> list[str]:
     lines.append(f"diktat beží: {'áno' if running else 'NIE – spusti odkaz Diktat na ploche'}")
     lines.extend(panel_status(cfg))
     lines.append(hooks_status())
+    lines.append(app_titles_status())
     states = []
     try:
         pcfg = cfg.get("panel", {}) or {}
@@ -769,8 +787,8 @@ def panel_status(cfg: dict) -> list[str]:
                      f"stavy sessions: {directory} ({len(files)} súborov)")
         for entry in sessionsmod.read_states(directory, max_rows=20):
             mark = "  [UKÁŽKA]" if entry.get("demo") else ""
-            lines.append(f"   {entry.get('name')}: {entry.get('state')} "
-                         f"(pred {int(entry.get('age', 0))} s){mark}")
+            lines.append(f"   {entry.get('label') or entry.get('name')}: {entry.get('state')} "
+                         f"(pred {int(entry.get('age', 0))} s, priečinok {entry.get('name')}){mark}")
     except Exception as exc:  # noqa: BLE001
         lines.append(f"panel: stav sa nepodarilo prečítať ({exc})")
     return lines
@@ -821,6 +839,7 @@ def diagnose(cfg: dict, log_dir: Path | None) -> str:
     for line in panel_status(cfg):
         add(line)
     add(hooks_status())
+    add(app_titles_status())
     add(f"config: {cfg.get('_path')}  hotkey={cfg.get('hotkey')}  gate={cfg['audio'].get('gate_rms')}  "
         f"follow={cfg.get('follow', {}).get('processes')}  exit_after={cfg.get('follow', {}).get('exit_after_seconds')}")
     for name in ("diktat_tray.vbs", "diktat_watch.vbs", "config.json", "logs/diktat.pid", "logs/install.log",
@@ -951,7 +970,18 @@ def _setup_logging(verbose: bool, log_dir: Path | None, hidden: bool) -> None:
     logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
+def _printable_console() -> None:
+    """Konzola so starým kódovaním (cp1250) nevie vypísať „→“ ani „–“ a program na tom spadne.
+    Diagnostika musí dobehnúť vždy – radšej jeden otáznik navyše ako spadnutý výpis."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError, OSError):
+            pass
+
+
 def main(argv: list[str] | None = None) -> int:
+    _printable_console()
     ap = argparse.ArgumentParser(description="diktat – slovenské diktovanie do Claude Code")
     ap.add_argument("--config", help="cesta ku config.json (default: diktat/config.json)")
     ap.add_argument("--file", help="prepíš audio súbor (wav/mp3/m4a…) namiesto mikrofónu")

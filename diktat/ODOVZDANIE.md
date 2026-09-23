@@ -28,32 +28,30 @@ prúžok so stavom, ikona v lište, automatický štart cez úlohu Plánovača `
   Stav hlásia hooky Claude Code (`SessionStart`, `UserPromptSubmit`, `Notification`, `Stop`, `SessionEnd`)
   do `~/.claude/diktat/sessions/<session_id>.json`; panel ten priečinok číta raz za sekundu.
 
-## Otvorená úloha (toto rieš)
+## Vyriešené: panel ukazuje názvy z bočného zoznamu chatov
 
-**Panel ukazuje iné názvy, než aké má používateľ v bočnom zozname chatov v aplikácii Claude.**
-V zozname má napr. „Odisielanie emailov“, „HD Mark marketing pre Helen Doron“, „Rozvrh sync workflow“,
-„Curio engine“, „Diktovací systém s podporou…“. Panel ukazuje prvú ľudskú správu session, napr.
-„viem si prepojit firemny gma…“. Používateľ chce **presne tie názvy zo zoznamu**.
+Aplikácia Claude si každý chat drží vo vlastnom súbore:
 
-Čo už vieme:
+    %APPDATA%\Claude\claude-code-sessions\<id>\<id>\local_<id>.json
 
-- Názov chatu si generuje Claude sám; v prepise session (`~/.claude/projects/<slug>/<uuid>.jsonl`) býva
-  ako riadok `{"type":"summary","summary":"…"}`, ale **nie vždy** – vtedy padáme na prvú ľudskú správu.
-- `sessions.title_from_transcript()` už hľadá súhrn na začiatku aj na konci prepisu a systémové obálky
-  (`<task-notification>`, `<system-reminder>`, „Caveat:“) ignoruje (`is_system_text`).
-- **Nezistené:** kde presne má názvy uložené aplikácia Claude. Na to je pripravený hľadač:
-  `najdi_nazvy.bat "Odisielanie emailov"` (alebo `python app.py --find-title "…"`). Prehľadá
-  `~/.claude`, `%APPDATA%\Claude`, `%LOCALAPPDATA%\Claude`, `%LOCALAPPDATA%\AnthropicClaude`
-  a vypíše súbory, v ktorých sa text nachádza. Bez parametra vypíše, aké dátové priečinky Claude má.
+Zaujímajú nás z neho dve políčka: **`cliSessionId`** (to isté id, aké hlásia hooky) a **`title`**
+(názov z bočného zoznamu – vrátane toho, ktorý si používateľ prepísal ručne; `titleSource` je
+`auto` / `user` / `tool`). Pozor, `"title"` je v tom súbore aj v popisoch nástrojov MCP, takže sa
+smie brať len ten **vrchný** – na to je `_top_level_fields()`, ktorý do vnorených objektov nelezie.
 
-Postup, ktorý sa ponúka:
+V `diktat_core/sessions.py` to robí `app_titles()` / `app_title()`:
+číta len prvých 16 kB každého súboru (majú ~300 kB), prechádza cez `os.scandir` (9 ms, `rglob` bol
+150 ms), hotový zoznam platí 4 s a nezmenené súbory preskakuje. Poradie názvov v `read_states()`:
+**zoznam v aplikácii → uložený názov → súhrn z prepisu → prvá ľudská správa → názov priečinka.**
+Všetko v `try/except`; keby si aplikácia formát prerobila, názov sa ticho doberie postaru.
 
-1. Spusti hľadač na 2–3 názvy zo zoznamu (rôzne projekty).
-2. Podľa nálezu doplň nový zdroj názvov do `diktat_core/sessions.py` (napr. čítanie JSON/LevelDB/SQLite),
-   s pamäťou (`_TITLE_CACHE`) a vždy s bezpečným pádom späť na súhrn → prvú správu → názov priečinka.
-   Formát je vnútorná vec Claude, takže všetko v `try/except` a bez tvrdých predpokladov.
-3. Testy pridaj do `tests/test_diktat_sessions.py` (beží `pytest tests/test_diktat_*.py`).
-4. Over naživo: `panel_ukazka.bat` → voľba 3 (kontrola panela), `diagnostika.bat`.
+Priečinok sa dá prepísať cez `DIKTAT_APP_SESSION_DIR` (používajú to testy).
+Kontrola: `panel_ukazka.bat` → voľba 3 a `diagnostika.bat` majú riadok „názvy chatov: N z aplikácie“,
+`najdi_nazvy.bat` bez parametra vypíše načítané dvojice id → názov.
+
+Pri tom sa ešte zmenilo: názvy sa skracujú na 34 písmen namiesto 28 (`LABEL_CHARS`, panel sa šírkou
+prispôsobí), a výpisy do konzoly už nespadnú na písmene, ktoré staré kódovanie nepozná
+(`_printable_console()` v `app.py`).
 
 ## Ďalšie veci, ktoré používateľ spomenul
 

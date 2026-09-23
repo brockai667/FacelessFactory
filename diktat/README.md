@@ -239,10 +239,20 @@ zapneš ho `panel.show_time: true`.
 - 🟢 **hotovo** – dohovorila, čaká na teba (zmizne po `panel.done_keep_minutes`, predvolene 30 min).
 
 Zoradené je to podľa toho, čo potrebuje teba: najprv „pýta sa ťa“, potom „hotovo“, potom „pracuje“.
-Názov riadku je ten, ktorý session má v zozname chatov: berie sa zo **súhrnu v prepise session**
-(`transcript_path`), a keď ho ešte nemá, z prvej ľudskej správy. Systémové správy (`<task-notification>`,
-`<system-reminder>`, hlásenia o prerušení) sa za názov nikdy nepovažujú. Až keď sa nedá zistiť nič, je tam
-názov priečinka. Dve session s rovnakým názvom dostanú číslo: „Dokumenty (2)“.
+
+**Názov riadku je presne ten, ktorý vidíš v bočnom zozname chatov v aplikácii Claude** – aj ten, ktorý si
+si premenoval ručne. Aplikácia si každý chat drží vo vlastnom malom súbore
+(`%APPDATA%\Claude\claude-code-sessions\…\local_<id>.json`); panel z neho číta dve políčka: `cliSessionId`
+(to isté id, aké hlásia hooky) a `title`. Keď sa chat v zozname premenuje, panel to do pár sekúnd prevezme.
+
+Keď názov v aplikácii nie je (napr. celkom nová session), berie sa postupne: **súhrn z prepisu session**
+(`transcript_path`) → **prvá ľudská správa** → názov priečinka. Systémové správy (`<task-notification>`,
+`<system-reminder>`, hlásenia o prerušení) sa za názov nikdy nepovažujú. Dve session s rovnakým názvom
+dostanú číslo: „Dokumenty (2)“. Dlhé názvy sa skrátia na 34 písmen (`LABEL_CHARS` v `sessions.py`).
+
+Či panel názvy z aplikácie vidí, povie `panel_ukazka.bat` → voľba 3 (riadok „názvy chatov: … z aplikácie“).
+`najdi_nazvy.bat` bez parametra vypíše, ktoré názvy načítal; s parametrom (`najdi_nazvy.bat "Curio engine"`)
+nájde, v ktorom súbore ten text je – to sa hodí, keby si aplikácia formát prerobila.
 
 Stav „pracuje“ nevzniká len z promptu: keď session zobudí systém (dokončená úloha na pozadí, odpoveď
 z GitHubu), žiadny prompt nepríde, ale **prepis session rastie** – panel to berie ako prácu.
@@ -259,6 +269,10 @@ vždy. Zapnúť/vypnúť sa dá v ikone v lište („Panel session“).
 
 Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions bežiace v cloude
 (claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
+
+Formát súborov aplikácie je jej vnútorná vec a môže sa zmeniť. Preto sa číta len začiatok každého súboru,
+všetko je v `try/except` a keď sa čokoľvek nečaká, názov sa ticho doberie z prepisu – panel kvôli tomu
+nikdy nespadne ani nezmizne.
 
 **Dvojklik `panel_ukazka.bat`** ponúkne tri možnosti: `1` zapne ukážkové session (nech vidíš, ako panel
 vyzerá), `2` ich zmaže, `3` spustí kontrolu panela – vypíše, či diktat beží, či sú hooky zaregistrované a

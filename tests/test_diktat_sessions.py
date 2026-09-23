@@ -15,6 +15,26 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "diktat"))
 import app as diktat_app  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent / "diktat"
+EMPTY_APP_DIR = ""          # prázdny priečinok „názvov chatov“, nech testy nezávisia od tohto počítača
+
+
+def setUpModule():
+    """Panel berie názvy z priečinka aplikácie Claude – v testoch ho nasmerujeme na prázdny."""
+    global EMPTY_APP_DIR
+    EMPTY_APP_DIR = tempfile.mkdtemp()
+    os.environ["DIKTAT_APP_SESSION_DIR"] = EMPTY_APP_DIR
+    forget_titles()
+
+
+def tearDownModule():
+    os.environ.pop("DIKTAT_APP_SESSION_DIR", None)
+    forget_titles()
+
+
+def forget_titles():
+    """diktat/app.py si diktat_core importuje pod inou cestou, takže kópie modulu sú dve – a kešu má každá vlastnú."""
+    sessions.forget_app_titles()
+    diktat_app.sessionsmod.forget_app_titles()
 
 
 class RecordTests(unittest.TestCase):
@@ -265,7 +285,7 @@ class TitleTests(unittest.TestCase):
         sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "C:/u/Dokumenty",
                                              "prompt": "🎤 Nemecko výmenný pobyt, sprav plán"}, self.out, 1000)
         entry = sessions.read_states(self.out, now=1001)[0]
-        self.assertEqual(entry["label"], "Nemecko výmenný pobyt, sprav…")
+        self.assertEqual(entry["label"], "Nemecko výmenný pobyt, sprav plán")
         self.assertEqual(entry["name"], "Dokumenty")
 
     def test_the_first_prompt_wins_over_later_ones(self):
@@ -426,6 +446,116 @@ class HookEncodingTests(unittest.TestCase):
         self.assertEqual(entry["title"], "Zatiaľ to nedávaj, ďakujem")
 
 
+class AppTitleTests(unittest.TestCase):
+    """Názov riadka má byť presne ten, čo je v bočnom zozname aplikácie Claude."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+        self.app = Path(tempfile.mkdtemp()) / "1a618a54" / "887fad3f"
+        self.app.mkdir(parents=True)
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(self.app.parent.parent)
+        forget_titles()
+        sessions._TITLE_CACHE.clear()
+
+    def tearDown(self):
+        os.environ["DIKTAT_APP_SESSION_DIR"] = EMPTY_APP_DIR
+        forget_titles()
+
+    def _chat(self, session_id, title, **extra):
+        """Súbor, aký si aplikácia Claude píše pre jeden chat z bočného zoznamu."""
+        data = {"sessionId": f"local_{session_id}", "cliSessionId": session_id,
+                "cwd": "C:/Users/x/Helen Doron App", "lastActivityAt": 1790184246991,
+                "isArchived": False, "title": title, **extra}
+        path = self.app / f"local_{session_id}.json"
+        path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        return path
+
+    def test_title_comes_from_the_app_list(self):
+        self._chat("a", "Odisielanie emailov")
+        self.assertEqual(sessions.app_title("a"), "Odisielanie emailov")
+
+    def test_panel_row_uses_it_instead_of_the_folder_name(self):
+        self._chat("a", "Rozvrh sync workflow")
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/cool-aryabhata-c87495"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Rozvrh sync workflow")
+
+    def test_it_beats_the_first_message_and_the_transcript(self):
+        """Prvá správa aj súhrn z prepisu sú len náhrada – zoznam v aplikácii má prednosť."""
+        self._chat("a", "Curio engine")
+        transcript = self.out / "a.jsonl"
+        transcript.write_text(json.dumps({"type": "summary", "summary": "nieco uplne ine"}), encoding="utf-8")
+        sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "C:/u/Dokumenty", "prompt": "viem si prepojit firemny gmail",
+                                             "transcript_path": str(transcript)}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Curio engine")
+
+    def test_renaming_a_chat_renames_the_row(self):
+        self._chat("a", "Stary nazov")
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/Dokumenty"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "Stary nazov")
+        self._chat("a", "Novy nazov")
+        forget_titles()
+        self.assertEqual(sessions.read_states(self.out, now=1002)[0]["label"], "Novy nazov")
+
+    def test_unknown_session_falls_back_to_the_old_way(self):
+        """Cloudová session (alebo iná verzia aplikácie) v zozname nie je – názov sa doberie postaru."""
+        self._chat("a", "Odisielanie emailov")
+        sessions.record("Stop", {"session_id": "b", "cwd": "C:/u/epizodar"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "epizodar")
+
+    def test_newer_file_wins_when_two_hold_the_same_session(self):
+        first = self._chat("a", "Stary nazov")
+        os.utime(first, (1000, 1000))
+        second = self.app / "local_kopia.json"
+        second.write_text(json.dumps({"cliSessionId": "a", "title": "Novy nazov"}), encoding="utf-8")
+        os.utime(second, (2000, 2000))
+        self.assertEqual(sessions.app_title("a"), "Novy nazov")
+
+    def test_a_title_from_a_tool_description_is_not_mistaken_for_the_chat_name(self):
+        """V tom istom súbore je „title“ aj v popisoch nástrojov MCP – brať sa smie len ten vrchný."""
+        self._chat("a", "Curio engine", remoteMcpServersConfig=[{"tools": [{"title": "Odoslať e-mail"}]}])
+        self.assertEqual(sessions.app_title("a"), "Curio engine")
+
+    def test_broken_files_are_ignored(self):
+        (self.app / "local_zly.json").write_text("{toto nie je json", encoding="utf-8")
+        (self.app / "local_polovicny.json").write_text('{"cliSessionId":"c","title":"nedopis', encoding="utf-8")
+        self._chat("a", "Curio engine")
+        self.assertEqual(sessions.app_title("a"), "Curio engine")
+        self.assertEqual(sessions.app_title("c"), "")
+
+    def test_missing_folder_is_not_an_error(self):
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(self.out / "nieco-co-neexistuje")
+        forget_titles()
+        self.assertEqual(sessions.app_title("a"), "")
+        self.assertEqual(sessions.app_titles(), {})
+
+    def test_only_the_head_of_a_big_file_is_read(self):
+        """Súbory majú stovky kB a panel sa pýta raz za sekundu – čítať sa smie len ich začiatok."""
+        path = self._chat("a", "Curio engine", padding="x" * 400_000)
+        self.assertGreater(path.stat().st_size, 400_000)
+        self.assertEqual(sessions.app_title("a"), "Curio engine")
+        self.assertEqual(sessions._app_title_of(path, head_bytes=40), ("", ""))   # useknuté = radšej nič
+
+
+class AppTitleStatusTests(unittest.TestCase):
+    """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""
+
+    def tearDown(self):
+        os.environ["DIKTAT_APP_SESSION_DIR"] = EMPTY_APP_DIR
+        forget_titles()
+
+    def test_says_how_many_titles_it_sees(self):
+        app = Path(tempfile.mkdtemp())
+        (app / "local_a.json").write_text(json.dumps({"cliSessionId": "a", "title": "Curio engine"}), encoding="utf-8")
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(app)
+        forget_titles()
+        self.assertIn("1 z aplikácie", diktat_app.app_titles_status())
+
+    def test_says_when_the_folder_is_missing(self):
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(Path(tempfile.mkdtemp()) / "niet")
+        forget_titles()
+        self.assertIn("nenašiel", diktat_app.app_titles_status())
+
+
 class TitleFinderTests(unittest.TestCase):
     """Hľadač názvov: nájde súbor, v ktorom je text z bočného zoznamu Claude."""
 
@@ -453,7 +583,7 @@ class TitleFinderTests(unittest.TestCase):
         (home / ".claude" / "projects").mkdir(parents=True)
         with unittest.mock.patch.object(Path, "home", staticmethod(lambda: home)):
             out = "\n".join(diktat_app.find_title(""))
-        self.assertIn("Zadaj názov chatu", out)
+        self.assertIn("Názvy chatov berie panel odtiaľto", out)
         self.assertIn("projects/", out)
 
 
