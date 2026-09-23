@@ -175,8 +175,9 @@ def _remember(key: str, title: str) -> str:
 APP_TITLE_DIR = "claude-code-sessions"
 APP_TITLE_DEPTH = 4                    # layout je <priečinok>/<id>/<id>/local_<id>.json – hlbšie netreba
 
-_APP_CACHE: dict[str, tuple[float, int, str, str]] = {}   # súbor → (čas zmeny, veľkosť, id session, názov)
+_APP_CACHE: dict[str, tuple[float, int, str, str, bool]] = {}   # súbor → (čas, veľkosť, id, názov, archivovaný)
 _APP_TITLES: dict[str, str] = {}                          # id session → názov chatu
+_APP_ARCHIVED: set[str] = set()                           # id session, ktoré už v bočnom zozname nie sú
 _APP_SCANNED_AT = 0.0
 
 
@@ -205,6 +206,7 @@ def forget_app_titles() -> None:
     global _APP_SCANNED_AT
     _APP_CACHE.clear()
     _APP_TITLES.clear()
+    _APP_ARCHIVED.clear()
     _APP_SCANNED_AT = 0.0
 
 
@@ -221,21 +223,29 @@ def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384)
     for directory in app_session_dirs():
         files.extend(_json_files(directory))
     files.sort(key=lambda item: item[0])          # najnovšie nakoniec: pri rovnakom id vyhrá čerstvejší súbor
-    fresh: dict[str, tuple[float, int, str, str]] = {}
+    fresh: dict[str, tuple[float, int, str, str, bool]] = {}
     found: dict[str, str] = {}
+    gone: set[str] = set()
     for mtime, size, path in files[-max(1, int(max_files)):]:
         known = _APP_CACHE.get(path)
         if known and known[0] == mtime and known[1] == size:
-            session_id, title = known[2], known[3]
+            session_id, title, archived = known[2], known[3], known[4]
         else:
-            session_id, title = _app_title_of(path, head_bytes)
-        fresh[path] = (mtime, size, session_id, title)
-        if session_id and title:
+            session_id, title, archived = _app_title_of(path, head_bytes)
+        fresh[path] = (mtime, size, session_id, title, archived)
+        if not session_id:
+            continue
+        gone.discard(session_id)
+        if archived:
+            gone.add(session_id)
+        if title:
             found[session_id] = title
     _APP_CACHE.clear()
     _APP_CACHE.update(fresh)
     _APP_TITLES.clear()
     _APP_TITLES.update(found)
+    _APP_ARCHIVED.clear()
+    _APP_ARCHIVED.update(gone)
     return _APP_TITLES
 
 
@@ -277,23 +287,36 @@ def _json_files(directory: Path, depth: int = APP_TITLE_DEPTH) -> list[tuple[flo
     return out
 
 
-def _app_title_of(path: Path | str, head_bytes: int = 16_384) -> tuple[str, str]:
-    """Z jedného súboru aplikácie vytiahne (id session, názov chatu)."""
+def app_archived(session_id: str | None) -> bool:
+    """Je chat v aplikácii archivovaný? Len vtedy True – keď o ňom aplikácia nevie (napr. session z
+    príkazového riadka), vráti False a riadok v paneli ostane."""
+    sid = str(session_id or "").strip()
+    if not sid:
+        return False
+    try:
+        app_titles()
+        return sid in _APP_ARCHIVED
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def _app_title_of(path: Path | str, head_bytes: int = 16_384) -> tuple[str, str, bool]:
+    """Z jedného súboru aplikácie vytiahne (id session, názov chatu, je archivovaný?)."""
     try:
         with open(path, "rb") as fh:
             head = fh.read(head_bytes)
     except OSError:
-        return "", ""
-    fields = _top_level_fields(head.decode("utf-8", "replace"), ("cliSessionId", "title"))
+        return "", "", False
+    fields = _top_level_fields(head.decode("utf-8", "replace"), ("cliSessionId", "title", "isArchived"))
     session_id = " ".join(str(fields.get("cliSessionId") or "").split())
     title = " ".join(str(fields.get("title") or "").split())
-    return session_id, ("" if is_system_text(title) else title)
+    return session_id, ("" if is_system_text(title) else title), fields.get("isArchived") is True
 
 
-def _top_level_fields(text: str, wanted: tuple[str, ...]) -> dict[str, str]:
+def _top_level_fields(text: str, wanted: tuple[str, ...]) -> dict[str, object]:
     """Hodnoty vrchných kľúčov z JSON textu, aj keď je useknutý na začiatku súboru.
     Do vnorených objektov schválne nelezie: „title“ je v tom súbore aj v popisoch nástrojov."""
-    out: dict[str, str] = {}
+    out: dict[str, object] = {}
     i, n, depth, key = 0, len(text), 0, None
     while i < n and len(out) < len(wanted):
         ch = text[i]
@@ -317,8 +340,14 @@ def _top_level_fields(text: str, wanted: tuple[str, ...]) -> dict[str, str]:
         elif ch in ",:" or ch.isspace():
             i += 1
         else:
-            while i < n and text[i] not in ",}":         # číslo, true/false/null – hodnotu nepotrebujeme
+            start = i
+            while i < n and text[i] not in ",}":         # číslo, true/false/null
                 i += 1
+            if key in wanted and i < n:                  # useknutý koniec hlavičky neberieme
+                try:
+                    out[key] = json.loads(text[start:i].strip())
+                except ValueError:
+                    pass
             key = None
     return out
 
@@ -391,6 +420,8 @@ def record(event: str, payload: dict, directory: Path | None = None, now: float 
         if not state:
             return None      # prihlásenie, limity a pod. stav session nemenia
     session_id = str(payload.get("session_id") or "").strip()
+    if not session_id:
+        return None      # bez id sa nedá povedať, ktorej session to patrí – radšej žiadny riadok ako cudzí
     path = directory / f"{_safe_id(session_id)}.json"
     try:
         if state == "ended":
@@ -452,6 +483,10 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
         entry = _read_one(f)
         if not entry or entry.get("state") not in STATE_LOOK:
             continue
+        if not entry.get("demo") and not str(entry.get("session") or "").strip():
+            continue                      # zvyšok po staršej verzii: stav bez id session
+        if app_archived(entry.get("session")):
+            continue                      # chat, ktorý si v aplikácii archivoval – v bočnom zozname už nie je
         age = now - float(entry.get("updated") or 0)
         if age > stale_minutes * 60:
             continue

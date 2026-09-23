@@ -531,6 +531,7 @@ class DiktatApp:
             sessionsmod.prune(cfg.get("state_dir"), stale_minutes=cfg.get("stale_minutes", 240))
             self.panel = panelmod.Panel(cfg, on_move=self.panel_moved)
             self.panel.start()
+            log.info(app_titles_status())   # v logu hneď vidno, či beží verzia, ktorá názvy z aplikácie vie
         except Exception as exc:  # noqa: BLE001
             log.warning("panel sa nepodarilo spustiť: %s", exc)
             self.panel = panelmod.NoPanel()

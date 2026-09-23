@@ -250,6 +250,10 @@ Keď názov v aplikácii nie je (napr. celkom nová session), berie sa postupne:
 `<system-reminder>`, hlásenia o prerušení) sa za názov nikdy nepovažujú. Dve session s rovnakým názvom
 dostanú číslo: „Dokumenty (2)“. Dlhé názvy sa skrátia na 34 písmen (`LABEL_CHARS` v `sessions.py`).
 
+V paneli je len to, čo máš v bočnom zozname: **chat, ktorý si archivoval, sa skryje** a stav bez id
+session (občas taký hook príde – bol by z toho jeden cudzí riadok „session“) sa nezapíše vôbec.
+Session spustená z príkazového riadka, o ktorej aplikácia nevie, sa neskrýva.
+
 Či panel názvy z aplikácie vidí, povie `panel_ukazka.bat` → voľba 3 (riadok „názvy chatov: … z aplikácie“).
 `najdi_nazvy.bat` bez parametra vypíše, ktoré názvy načítal; s parametrom (`najdi_nazvy.bat "Curio engine"`)
 nájde, v ktorom súbore ten text je – to sa hodí, keby si aplikácia formát prerobila.

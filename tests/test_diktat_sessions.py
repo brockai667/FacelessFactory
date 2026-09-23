@@ -533,8 +533,37 @@ class AppTitleTests(unittest.TestCase):
         path = self._chat("a", "Curio engine", padding="x" * 400_000)
         self.assertGreater(path.stat().st_size, 400_000)
         self.assertEqual(sessions.app_title("a"), "Curio engine")
-        self.assertEqual(sessions._app_title_of(path, head_bytes=40), ("", ""))   # useknuté = radšej nič
+        self.assertEqual(sessions._app_title_of(path, head_bytes=40), ("", "", False))   # useknuté = radšej nič
 
+    def test_a_hook_without_a_session_id_writes_nothing(self):
+        """Taký stav by sa zlial do jedného cudzieho riadka „neznama“ – radšej žiadny."""
+        self.assertIsNone(sessions.record("UserPromptSubmit", {"cwd": "C:/u/x", "prompt": "hmm oprav testy"},
+                                          self.out, 1000))
+        self.assertEqual(list(self.out.glob("*.json")), [])
+
+    def test_a_row_left_over_without_an_id_is_not_shown(self):
+        (self.out / "neznama.json").write_text(json.dumps(
+            {"session": "", "name": "session", "state": "working", "since": 1000, "updated": 1000,
+             "title": "hmm oprav testy. Ignoruj posledný…"}), encoding="utf-8")
+        self.assertEqual(sessions.read_states(self.out, now=1001), [])
+
+    def test_an_archived_chat_is_not_shown(self):
+        """Archivovaný chat v bočnom zozname nie je, takže ani v paneli byť nemá."""
+        self._chat("a", "Curio engine", isArchived=True)
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/Dokumenty"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1001), [])
+
+    def test_a_session_the_app_does_not_know_is_kept(self):
+        """Session z príkazového riadka aplikácia nepozná – tá sa skryť nesmie."""
+        self._chat("a", "Curio engine")
+        sessions.record("Stop", {"session_id": "z", "cwd": "C:/u/epizodar"}, self.out, 1000)
+        self.assertFalse(sessions.app_archived("z"))
+        self.assertEqual(sessions.read_states(self.out, now=1001)[0]["label"], "epizodar")
+
+    def test_top_level_reader_handles_true_false_and_numbers(self):
+        text = '{"cliSessionId":"a","lastActivityAt":1790184246991,"isArchived":true,"title":"Curio engine"}'
+        fields = sessions._top_level_fields(text, ("cliSessionId", "isArchived", "title"))
+        self.assertEqual(fields, {"cliSessionId": "a", "isArchived": True, "title": "Curio engine"})
 
 class AppTitleStatusTests(unittest.TestCase):
     """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""
