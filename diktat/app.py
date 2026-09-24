@@ -169,7 +169,7 @@ class DiktatApp:
         print("🔴 NAHRÁVAM – hovor. (skratka znova = stop)", flush=True)
         self.tray.set_state("rec")
         self.overlay.recording("NAHRÁVAM – hovor, skratka = stop")
-        if self.cfg.get("tray", {}).get("notify_start_stop", True):
+        if self.cfg.get("tray", {}).get("notify_start_stop", False):
             self.tray.notify("🔴 Nahrávam – hovor. Skratka znova = stop.")
         if self.cfg["audio"].get("beep"):
             audio.beep("start")
@@ -194,7 +194,7 @@ class DiktatApp:
             audio.beep("stop")
         self.tray.set_state("stt")
         self.overlay.show("prepisujem…", "stt")
-        if self.cfg.get("tray", {}).get("notify_start_stop", True):
+        if self.cfg.get("tray", {}).get("notify_start_stop", False):
             self.tray.notify(f"⏹ Nahrávanie skončilo ({self.recorder.total_seconds:.0f} s) – prepisujem…")
         if getattr(self.recorder, "gate_rms", 0):
             ratio = audio.gated_ratio(getattr(self.recorder, "gated_blocks", 0), getattr(self.recorder, "kept_blocks", 0))
@@ -392,7 +392,9 @@ class DiktatApp:
         if use_tray and traymod.available():
             log_path = str(self.log_dir / "diktat.log") if self.log_dir else None
             self.tray = traymod.Tray(on_quit=self.shutdown, log_path=log_path,
-                                     notify_enabled=bool(self.cfg.get("tray", {}).get("notify", True)),
+                                     # Windows oznámenia sú vypnuté: prúžok aj panel to ukážu priamo,
+                             # bublina navyše len prekrýva obrazovku (tray.notify: true ich vráti).
+                             notify_enabled=bool(self.cfg.get("tray", {}).get("notify", False)),
                                      on_update=self.update_and_restart if sys.platform == "win32" else None,
                                      on_calibrate=lambda: threading.Thread(target=self.calibrate, daemon=True).start(),
                                      on_gate=self.adjust_gate, gate_text=self.gate_text,

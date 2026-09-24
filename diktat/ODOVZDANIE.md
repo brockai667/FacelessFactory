@@ -19,9 +19,6 @@ nevidí – a práve preto sa zasekla posledná úloha. Prečítaj si to celé a
 prúžok so stavom, ikona v lište, automatický štart cez úlohu Plánovača `diktat-watch`, aktualizácia cez
 `update_diktat.bat`). Ďalej:
 
-- **Hlas naspäť** (`diktat/hlas/`): stránka „Diktat hlas“ + MCP server `hlas/mcp_server.py`, enginy
-  `edge` (zadarmo), `cartesia`, `elevenlabs`, `google`, záložný hlas pri minutom limite. Používateľ zatiaľ
-  hlasy odložil („necháme tak“) – nevracaj sa k tomu, kým to sám nespomenie.
 - **Panel so stavom sessions** (`diktat/diktat_core/panel.py` + `sessions.py` + `hook/diktat_session.py`):
   plávajúce okienko v rohu okna Claude, riadky „názov · pracuje / pýta sa ťa / hotovo“, dá sa ťahať myšou
   (poloha v `config.json` → `panel.x`, `panel.y`, dvojklik = späť k oknu Claude).
