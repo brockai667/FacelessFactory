@@ -218,6 +218,26 @@ a v okne Claude je len základný „Microsoft Filip“ z Windows. Klikni **Zapn
 kliknutia nehovorí). Na stránke je história posledných správ, „Prehrať“ a „Prečítať celé“ (dlhšia verzia,
 ak ju session poslala), rýchlosť a hlasitosť; drží posledných 40 správ.
 
+## Ako to vyzerá
+
+Prúžok diktovania, panel so sessions aj ikona v lište boli tri rôzne vzhľady – päť nesúvisiacich farieb,
+ostré obdĺžniky a emoji. Teraz je z toho jeden systém, celý v [`diktat_core/look.py`](diktat_core/look.py):
+
+- **tmavý povrch so zaoblenými rohmi a jemným rámikom.** Rohy tkinter nevie, takže sa okno oreže
+  oblasťou (`SetWindowRgn`). Rámik nahradil priesvitnosť – text pod panelom už cezeň nepresvitá.
+- **jedna farba na jeden význam**, rovnaká všade: 🔵 modrá = pracuje / načítavam model,
+  🟠 oranžová = pýta sa ťa / prepisujem, 🟢 zelená = hotovo / vložené, 🔴 červená = nahrávam,
+  ⚪ sivá = čaká.
+- **žiadne emoji.** Stav nesie farebná bodka; obrázok v texte ho len zdvojoval a každý systém ho
+  kreslí inak. Jediná výnimka je **chyba** – tá prefarbí celý povrch, nedá sa prehliadnuť a nepletie
+  sa s nahrávaním.
+- **hlasitosť sa kreslí**, nie píše: zelený prúžok, kým si nad prahom brány, sivý pod ním
+  (predtým to boli znaky `▮▯`, ktoré každé písmo kreslí inak).
+- **prúžok stojí dole v strede** obrazovky. Hore prekrýval karty prehliadača; späť hore ho dáš
+  `overlay.position: "top"` v `config.json`.
+- **ikona v lište** je tmavý zaoblený štvorec s mikrofónom vo farbe stavu; pri nahrávaní má červenú
+  bodku, pri chybe je namiesto mikrofónu výkričník.
+
 ## Panel: ktoré sessions bežia a čo robia
 
 V pravom hornom rohu okna Claude (pod krížikom a zmenšením) je malý panel so zoznamom Claude Code

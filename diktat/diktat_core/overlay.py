@@ -1,7 +1,9 @@
-"""Malý prúžok navrchu obrazovky so stavom diktovania (tkinter, vlastné vlákno, nikdy neberie fokus).
+"""Prúžok so stavom diktovania (tkinter, vlastné vlákno, nikdy neberie fokus).
 
-Stavy: „štartujem…“, „🔴 NAHRÁVAM 0:12“, „📝 prepisujem… časť 2 hotová“, „✅ vložené 239 znakov“, chyby.
-Bez tkinteru / bez displeja sa všetko tvári ako no-op.
+Vyzerá rovnako ako panel so sessions – tmavý povrch so zaoblenými rohmi (`look.py`), stav nesie farebná
+bodka: modrá „načítavam model“, červená „NAHRÁVAM“ s časom a hlasitosťou, oranžová „prepisujem“, zelená
+„vložené“. Chyba ako jediná prefarbí celý povrch. Stojí dole v strede obrazovky, nie hore – tam prekrýval
+karty prehliadača. Bez tkinteru / bez displeja sa všetko tvári ako no-op.
 """
 from __future__ import annotations
 
@@ -13,15 +15,24 @@ import time
 
 log = logging.getLogger("diktat.overlay")
 
-COLORS = {"info": "#2b2b2b", "ready": "#1f6f3f", "rec": "#b00020", "stt": "#a86b00", "ok": "#1f6f3f", "error": "#6a1b9a"}
+from . import look
+
+# Stav nesie farebná bodka, nie farba celého prúžku – jediná výnimka je chyba, tá prefarbí povrch.
+KIND_COLOR = {"info": look.BLUE, "starting": look.BLUE, "ready": look.GREY, "rec": look.RED,
+              "stt": look.AMBER, "ok": look.GREEN, "error": look.RED}
+METER_W = 74          # šírka nakresleného ukazovateľa hlasitosti
+METER_FULL = 0.12     # hlasitosť, pri ktorej je plný
 
 
 class Overlay:
-    def __init__(self, enabled: bool = True, alpha: float = 0.92, font_size: int = 12, top_margin: int = 10):
+    def __init__(self, enabled: bool = True, alpha: float = 0.97, font_size: int = 12, top_margin: int = 10,
+                 position: str = "bottom", bottom_margin: int = 56):
         self.enabled = bool(enabled)
         self.alpha = alpha
         self.font_size = font_size
         self.top_margin = top_margin
+        self.bottom_margin = bottom_margin
+        self.position = position       # „bottom“ = dole v strede; hore prúžok prekrýval karty prehliadača
         self._q: queue.Queue = queue.Queue()
         self._thread = None
         self._rec_started: float | None = None
@@ -40,8 +51,8 @@ class Overlay:
         if self.enabled:
             self._q.put(("show", text, kind, timeout))
 
-    def recording(self, text: str = "🔴 NAHRÁVAM") -> None:
-        """Zobrazí červený prúžok s bežiacim časom až do hide()/show()."""
+    def recording(self, text: str = "NAHRÁVAM") -> None:
+        """Nahrávanie: červená dýchajúca bodka, bežiaci čas a hlasitosť – až do hide()/show()."""
         self._rec_started = time.monotonic()
         self.show(text, "rec")
 
@@ -67,30 +78,60 @@ class Overlay:
                 root.attributes("-alpha", self.alpha)
             except Exception:  # noqa: BLE001
                 pass
-            root.configure(bg=COLORS["info"])
-            label = tk.Label(root, text="", font=("Segoe UI", self.font_size, "bold"), fg="white",
-                             bg=COLORS["info"], padx=16, pady=8)
-            label.pack(fill="both", expand=True)
+            frame = look.surface(tk, root, padx=16, pady=9)
+            row = tk.Frame(frame, bg=look.BG)
+            row.pack()
+            dot = tk.Label(row, text="●", font=(look.FONT, self.font_size + 1), fg=look.GREY, bg=look.BG)
+            dot.pack(side="left", padx=(0, 9))
+            label = tk.Label(row, text="", font=(look.FONT, self.font_size), fg=look.FG, bg=look.BG)
+            label.pack(side="left")
+            meter = tk.Canvas(row, width=METER_W, height=9, bg=look.BG, highlightthickness=0, bd=0)
+            clock = tk.Label(row, text="", font=(look.FONT, self.font_size, "bold"), fg=look.FG, bg=look.BG)
             root.withdraw()
             root.update_idletasks()
-            _no_activate(root)
-            state = {"hide_after": None, "base_text": "", "kind": "info", "visible": False}
+            look.no_activate(root)
+            state = {"hide_after": None, "text": "", "kind": "info", "visible": False, "t0": time.monotonic()}
 
             def place():
                 root.update_idletasks()
-                w = root.winfo_reqwidth()
+                w, h = root.winfo_reqwidth(), root.winfo_reqheight()
                 x = max(0, (root.winfo_screenwidth() - w) // 2)
-                root.geometry(f"+{x}+{self.top_margin}")
+                y = (root.winfo_screenheight() - h - self.bottom_margin if self.position == "bottom"
+                     else self.top_margin)
+                root.geometry(f"{w}x{h}+{x}+{max(0, y)}")     # aj veľkosť, nech ju oblasť rohov oreže správne
+                look.round_corners(root, size=(w, h))
+
+            def paint_meter(level: float, gate: float):
+                """Hlasitosť ako nakreslený prúžok. Časť nad prahom je zelená (ide do prepisu),
+                pod prahom sivá (vymaže sa) – nie textové ▮▯, ktoré každé písmo kreslí inak."""
+                meter.delete("all")
+                full = max(1e-6, METER_FULL)
+                filled = int(min(1.0, level / full) * METER_W)
+                meter.create_rectangle(0, 3, METER_W, 6, fill=look.BORDER, outline="")
+                if filled > 0:
+                    live = gate <= 0 or level >= gate
+                    meter.create_rectangle(0, 2, filled, 7, fill=look.GREEN if live else look.DIM, outline="")
 
             def do_show(text, kind, timeout):
-                state.update(base_text=text, kind=kind)
-                bg = COLORS.get(kind, COLORS["info"])
-                root.configure(bg=bg)
-                label.configure(text=text, bg=bg)
+                text = _strip_icon(text)
+                error = kind == "error"
+                bg = look.ERROR_BG if error else look.BG
+                state.update(text=text, kind=kind, t0=time.monotonic())
+                for widget in (frame, row, dot, label, clock, meter):
+                    widget.configure(bg=bg)
+                dot.configure(fg=look.FG if error else KIND_COLOR.get(kind, look.GREY))
+                dot.configure(text="!" if error else "●")
+                label.configure(text=text, fg=look.FG)
+                if kind == "rec":
+                    clock.pack(side="left", padx=(10, 0))
+                    meter.pack(side="left", padx=(10, 0))
+                else:
+                    clock.pack_forget()
+                    meter.pack_forget()
                 place()
                 if not state["visible"]:
                     root.deiconify()
-                    _no_activate(root)
+                    look.no_activate(root)
                     state["visible"] = True
                 root.lift()
                 if state["hide_after"] is not None:
@@ -114,18 +155,21 @@ class Overlay:
                             do_hide()
                 except queue.Empty:
                     pass
-                if state["visible"] and state["kind"] == "rec" and self._rec_started is not None:
-                    secs = int(time.monotonic() - self._rec_started)
-                    meter = ""
-                    if self.level_fn is not None:
-                        try:
-                            level, gate = self.level_fn()
-                            meter = "  " + level_bar(level, gate)
-                        except Exception:  # noqa: BLE001
-                            meter = ""
-                    label.configure(text=f"{state['base_text']}  {secs // 60}:{secs % 60:02d}{meter}")
-                    place()
-                root.after(150, poll)
+                if state["visible"]:
+                    period, depth = look.PULSE.get(state["kind"], (0.0, 0.0))
+                    if depth > 0 and state["kind"] != "error":
+                        base = KIND_COLOR.get(state["kind"], look.GREY)
+                        dot.configure(fg=look.pulse_color(base, (time.monotonic() - state["t0"]) / period, depth))
+                    if state["kind"] == "rec" and self._rec_started is not None:
+                        secs = int(time.monotonic() - self._rec_started)
+                        clock.configure(text=f"{secs // 60}:{secs % 60:02d}")
+                        if self.level_fn is not None:
+                            try:
+                                paint_meter(*self.level_fn())
+                            except Exception:  # noqa: BLE001
+                                pass
+                        place()
+                root.after(120, poll)
 
             root.after(0, poll)
             self._ready.set()
@@ -134,6 +178,15 @@ class Overlay:
             log.warning("overlay skončil: %s", exc)
             self.enabled = False
             self._ready.set()
+
+
+def _strip_icon(text: str) -> str:
+    """Zahodí obrázok na začiatku textu. Stav nesie farebná bodka – emoji by ho len zdvojovalo a každý
+    systém ho kreslí inak. Volajúci ich teda môže písať, aj keď sa nezobrazia."""
+    t = str(text or "").lstrip()
+    while t and (ord(t[0]) > 0x2000 or t[0] in "!?"):
+        t = t[1:].lstrip(" –-")
+    return t or str(text or "").strip()
 
 
 def level_bar(level: float, gate: float = 0.0, width: int = 10, full: float = 0.12) -> str:

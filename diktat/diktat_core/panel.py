@@ -1,6 +1,7 @@
 """Malý panel v pravom hornom rohu okna Claude: ktoré Claude Code sessions bežia a čo robia.
 
-Riadky: „● epizodar · pracuje“ (modrá = pracuje, oranžová = pýta sa ťa, zelená = hotovo).
+Riadky: „● Curio engine · pracuje“ (modrá = pracuje, oranžová = pýta sa ťa, zelená = hotovo).
+Vzhľad (farby, rámik, zaoblené rohy) je spoločný s prúžkom diktovania – je v `look.py`.
 Bodka pri aktívnych stavoch jemne dýcha; text sa prekresľuje len vtedy, keď sa naozaj zmení
 zoznam sessions, takže nič nebliká.
 
@@ -15,27 +16,17 @@ import sys
 import threading
 import time
 
-from . import procs, sessions
+from . import look, procs, sessions
 
 log = logging.getLogger("diktat.panel")
 
-BG = "#141414"
-FG = "#e0e0e0"
-DIM = "#8a8a8a"
-# stav → (perióda dýchania v sekundách, hĺbka stmavnutia 0–1). 0 = bodka svieti stále rovnako.
-PULSE = {"working": (1.6, 0.55), "asking": (0.9, 0.7), "done": (0.0, 0.0), "ready": (0.0, 0.0)}
+BG, FG, DIM = look.BG, look.FG, look.DIM      # panel a prúžok majú rovnaký povrch (look.py)
+PULSE = look.PULSE
 
 
 def pulse_color(color: str, phase: float, depth: float) -> str:
-    """Farba bodky v danej fáze dýchania (0–1). depth 0 = bez zmeny."""
-    if depth <= 0:
-        return color
-    try:
-        r, g, b = (int(color[i:i + 2], 16) for i in (1, 3, 5))
-    except (ValueError, IndexError):
-        return color
-    f = 1.0 - depth * (0.5 - 0.5 * math.cos(2 * math.pi * (phase % 1.0)))
-    return "#" + "".join(f"{max(0, min(255, int(round(c * f)))):02x}" for c in (r, g, b))
+    """Farba dýchajúcej bodky – spoločná s prúžkom, býva v look.py."""
+    return look.pulse_color(color, phase, depth) if depth > 0 else color
 
 
 class Panel:
@@ -48,7 +39,7 @@ class Panel:
         self.margin_right = int(cfg.get("margin_right", 12))
         self.max_rows = int(cfg.get("max_rows", 8))
         self.font_size = int(cfg.get("font_size", 11))
-        self.alpha = float(cfg.get("alpha", 0.95))
+        self.alpha = float(cfg.get("alpha", 0.97))   # takmer nepriehľadný: text pod panelom nemá presvitať
         self.hide_when_empty = bool(cfg.get("hide_when_empty", False))
         self.empty_text = str(cfg.get("empty_text", "žiadna session nehlási stav"))
         self.refresh_seconds = float(cfg.get("refresh_seconds", 1.0))
@@ -124,12 +115,10 @@ class Panel:
                 root.attributes("-alpha", self.alpha)
             except Exception:  # noqa: BLE001
                 pass
-            root.configure(bg=BG)
-            frame = tk.Frame(root, bg=BG, padx=14, pady=10)
-            frame.pack(fill="both", expand=True)
+            frame = look.surface(tk, root, padx=15, pady=11)
             root.withdraw()
             root.update_idletasks()
-            _no_activate(root)
+            look.no_activate(root)
 
             view = {"keys": None, "dots": [], "visible": False, "width": 0, "pos": None, "ticks": 0,
                     "t0": time.monotonic(), "last_read": 0.0, "last_rect": 0.0, "states": []}
@@ -219,7 +208,8 @@ class Panel:
                         widget.bind("<ButtonRelease-1>", open_chat)
                     view["dots"].append((dot, color, entry.get("state", "")))
                 root.update_idletasks()
-                view["width"] = max(root.winfo_reqwidth(), 170)
+                view["width"] = max(root.winfo_reqwidth(), 190)
+                look.round_corners(root, size=(view["width"], root.winfo_reqheight()))
 
             def animate(now: float):
                 secs = now - view["t0"]
@@ -247,8 +237,9 @@ class Panel:
                     view["pos"] = pos
                 if not view["visible"]:
                     root.deiconify()
-                    _no_activate(root)
+                    look.no_activate(root)
                     root.lift()
+                    look.round_corners(root, size=(view["width"], root.winfo_reqheight()))
                     view["visible"] = True
 
             def tick():
@@ -290,17 +281,9 @@ class Panel:
 
 
 def _no_activate(root) -> None:
-    """Windows: panel nikdy nedostane fokus a nie je v paneli úloh."""
-    if sys.platform != "win32":
-        return
-    try:
-        import ctypes
-        user32 = ctypes.windll.user32
-        hwnd = user32.GetAncestor(root.winfo_id(), 2)      # GA_ROOT
-        style = user32.GetWindowLongW(hwnd, -20)           # GWL_EXSTYLE
-        user32.SetWindowLongW(hwnd, -20, style | 0x08000000 | 0x00000080)   # NOACTIVATE | TOOLWINDOW
-    except Exception:  # noqa: BLE001
-        pass
+    """Okno nikdy neberie fokus – spoločné s prúžkom, býva v look.py."""
+    look.no_activate(root)
+
 
 
 class NoPanel:

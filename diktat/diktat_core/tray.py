@@ -9,10 +9,17 @@ from __future__ import annotations
 import logging
 from typing import Callable
 
+from . import look
+
 log = logging.getLogger("diktat.tray")
 
-COLORS = {"starting": (40, 120, 220), "idle": (140, 140, 140), "rec": (220, 40, 40), "stt": (240, 190, 0),
-          "error": (160, 60, 200)}
+def _rgb(hex_color: str) -> tuple[int, int, int]:
+    return tuple(int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
+
+
+# Tie isté farby ako prúžok a panel (look.py): modrá = načítavam, červená = nahrávam, oranžová = prepisujem.
+COLORS = {"starting": _rgb(look.BLUE), "idle": _rgb(look.GREY), "rec": _rgb(look.RED),
+          "stt": _rgb(look.AMBER), "error": _rgb(look.RED)}
 TITLES = {"starting": "diktat – štartujem (načítavam model)…", "idle": "diktat – pripravený (stlač skratku)",
           "rec": "diktat – NAHRÁVAM", "stt": "diktat – prepisujem…", "error": "diktat – chyba (pozri log)"}
 
@@ -26,13 +33,24 @@ def available() -> bool:
     return True
 
 
-def _image(color):
+def _image(color, state: str = "idle"):
+    """Ikona: tmavý zaoblený štvorec (ako povrch panela) a v ňom mikrofón vo farbe stavu.
+    Na svetlej aj tmavej lište je rovnako čitateľná a farbu vidno aj kútikom oka."""
     from PIL import Image, ImageDraw
     img = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    d.ellipse((6, 6, 58, 58), fill=color + (255,), outline=(255, 255, 255, 200), width=3)
-    d.rounded_rectangle((26, 16, 38, 38), radius=6, fill=(255, 255, 255, 230))   # mikrofón
-    d.rectangle((30, 40, 34, 48), fill=(255, 255, 255, 230))
+    d.rounded_rectangle((2, 2, 62, 62), radius=16, fill=_rgb(look.BG) + (255,),
+                        outline=_rgb(look.BORDER) + (255,), width=2)
+    if state == "error":                        # chyba: výkričník, nech sa nepletie s nahrávaním
+        d.rounded_rectangle((28, 14, 36, 40), radius=4, fill=color + (255,))
+        d.ellipse((28, 45, 36, 53), fill=color + (255,))
+        return img
+    d.rounded_rectangle((25, 15, 39, 37), radius=7, fill=color + (255,))          # telo mikrofónu
+    d.arc((19, 24, 45, 46), start=0, end=180, fill=color + (255,), width=4)       # oblúk držiaka
+    d.rectangle((31, 44, 33, 50), fill=color + (255,))                            # stojan
+    d.rectangle((25, 50, 39, 52), fill=color + (255,))
+    if state == "rec":                                                            # nahrávam: bodka navrchu
+        d.ellipse((44, 6, 58, 20), fill=color + (255,), outline=_rgb(look.BG) + (255,), width=2)
     return img
 
 
@@ -62,7 +80,7 @@ class Tray:
 
     def _build(self):
         import pystray
-        self._images = {k: _image(v) for k, v in COLORS.items()}
+        self._images = {k: _image(v, k) for k, v in COLORS.items()}
 
         def open_log(icon, item):
             if self.log_path:

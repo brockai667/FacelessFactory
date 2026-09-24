@@ -85,8 +85,10 @@
   },
   "overlay": {
     "enabled": true,
-    "alpha": 0.92,
-    "font_size": 12
+    "alpha": 0.97,
+    "font_size": 12,
+    "position": "bottom",
+    "bottom_margin": 56
   },
   "follow": {
     "processes": [

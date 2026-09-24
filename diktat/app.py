@@ -61,9 +61,11 @@ class DiktatApp:
         from diktat_core import audio, stt
         ov = self.cfg.get("overlay", {})
         if with_overlay and ov.get("enabled", True):
-            self.overlay = overlaymod.Overlay(alpha=ov.get("alpha", 0.92), font_size=ov.get("font_size", 12))
+            self.overlay = overlaymod.Overlay(alpha=ov.get("alpha", 0.97), font_size=ov.get("font_size", 12),
+                                              position=ov.get("position", "bottom"),
+                                              bottom_margin=ov.get("bottom_margin", 56))
             self.overlay.start()
-        self.overlay.show("⏳ diktat štartuje – načítavam model…", "info")
+        self.overlay.show("načítavam model…", "starting")
         a = self.cfg["audio"]
         self.recorder = audio.Recorder(
             sample_rate=a.get("sample_rate", 16000),
@@ -91,11 +93,11 @@ class DiktatApp:
             log.info("mikrofón pripravený")
         except Exception as exc:  # noqa: BLE001
             log.warning("mikrofón sa nepodarilo otvoriť vopred: %s (skús --list-devices a audio.device v configu)", exc)
-            self.overlay.show(f"❌ mikrofón: {exc}", "error", timeout=8)
+            self.overlay.show(f"mikrofón: {exc}", "error", timeout=8)
         self._worker = threading.Thread(target=self._stt_worker, daemon=True, name="stt-worker")
         self._worker.start()
         self.overlay.level_fn = lambda: (self.recorder.last_level, self.recorder.gate_rms)
-        self.overlay.show(f"✅ diktat pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
+        self.overlay.show(f"pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
         self.start_panel()
         follow = [p for p in (self.cfg.get("follow", {}).get("processes") or []) if p]
         if follow and sys.platform == "win32":
@@ -136,7 +138,7 @@ class DiktatApp:
                     continue                     # dokonči diktát, vypni sa až potom
                 log.info("Claude/prehliadač zatvorený – diktat sa vypína (úloha diktat-watch ho spustí znova)")
                 self.tray.notify("Claude zatvorený – diktat sa vypína. Spustí sa sám, keď Claude zapneš.")
-                self.overlay.show("💤 diktat sa vypína (Claude zatvorený) – zapne sa sám s Claude", "info", timeout=4)
+                self.overlay.show("vypínam sa (Claude zatvorený) – zapnem sa s ním", "info", timeout=4)
                 time.sleep(1.5)
                 self.shutdown()
                 self.tray.stop()
@@ -166,7 +168,7 @@ class DiktatApp:
         from diktat_core import audio
         print("🔴 NAHRÁVAM – hovor. (skratka znova = stop)", flush=True)
         self.tray.set_state("rec")
-        self.overlay.recording("🔴 NAHRÁVAM – hovor, skratka = stop")
+        self.overlay.recording("NAHRÁVAM – hovor, skratka = stop")
         if self.cfg.get("tray", {}).get("notify_start_stop", True):
             self.tray.notify("🔴 Nahrávam – hovor. Skratka znova = stop.")
         if self.cfg["audio"].get("beep"):
@@ -191,7 +193,7 @@ class DiktatApp:
         if self.cfg["audio"].get("beep"):
             audio.beep("stop")
         self.tray.set_state("stt")
-        self.overlay.show("📝 prepisujem…", "stt")
+        self.overlay.show("prepisujem…", "stt")
         if self.cfg.get("tray", {}).get("notify_start_stop", True):
             self.tray.notify(f"⏹ Nahrávanie skončilo ({self.recorder.total_seconds:.0f} s) – prepisujem…")
         if getattr(self.recorder, "gate_rms", 0):
@@ -239,9 +241,9 @@ class DiktatApp:
                 print(f"📝 časť {seq}: {secs:.0f} s audia → {time.monotonic() - t:.1f} s  „{text[:70]}{'…' if len(text) > 70 else ''}“",
                       flush=True)
                 if self.recorder.recording:
-                    self.overlay.recording(f"🔴 NAHRÁVAM – prepísaná časť {seq}")
+                    self.overlay.recording(f"NAHRÁVAM – prepísaná časť {seq}")
                 else:
-                    self.overlay.show(f"📝 prepisujem… časť {seq} hotová", "stt")
+                    self.overlay.show(f"prepisujem… časť {seq} hotová", "stt")
             except Exception as exc:  # noqa: BLE001
                 log.exception("prepis časti %d zlyhal", seq)
                 self._results[seq] = ""
@@ -297,10 +299,10 @@ class DiktatApp:
             self.overlay.show(msg, "ok", timeout=6 if "Miernejšia" in msg else 3)
         except Exception as exc:  # noqa: BLE001
             log.exception("vloženie zlyhalo")
-            print(f"❌ vloženie zlyhalo: {exc}\nText je v schránke – vlož ho ručne (Ctrl+V).", flush=True)
+            print(f"vloženie zlyhalo: {exc}\nText je v schránke – vlož ho ručne (Ctrl+V).", flush=True)
             self.tray.set_state("error")
             self.tray.notify("Vloženie zlyhalo – text je v schránke, stlač Ctrl+V.")
-            self.overlay.show("❌ vloženie zlyhalo – text je v schránke, stlač Ctrl+V", "error", timeout=8)
+            self.overlay.show("vloženie zlyhalo – text je v schránke, stlač Ctrl+V", "error", timeout=8)
 
     def _log(self, raw: str, result: cleanup.CleanResult) -> None:
         if not self.log_dir:
@@ -465,8 +467,8 @@ class DiktatApp:
             if not res["ok"]:
                 msg = (f"{summary}: pozadie je skoro také hlasné ako ty, brána by sekala tvoje slová – nechávam ju "
                        f"VYPNUTÚ. Ak ju chceš skúsiť aj tak, menu ikony → Brána → Prísnejšia.")
-                print("📐 " + msg, flush=True)
-                self.overlay.show("📐 " + msg, "stt", timeout=10)
+                print(msg, flush=True)
+                self.overlay.show(msg, "stt", timeout=10)
                 self.tray.notify(msg)
             else:
                 msg = f"✅ kalibrácia hotová – {summary} → brána {res['gate']:.4f}"
@@ -480,7 +482,7 @@ class DiktatApp:
     def run_diag(self) -> None:
         def work():
             diagnose(self.cfg, self.log_dir)
-            self.overlay.show("🩺 diagnostika je v schránke – vlož do Claude (Ctrl+V)", "ok", timeout=6)
+            self.overlay.show("diagnostika je v schránke – vlož do Claude (Ctrl+V)", "ok", timeout=6)
             self.tray.notify("Diagnostika skopírovaná do schránky – vlož do Claude cez Ctrl+V.")
         threading.Thread(target=work, daemon=True).start()
 
@@ -508,8 +510,8 @@ class DiktatApp:
         except Exception as exc:  # noqa: BLE001
             log.warning("brána: uloženie zlyhalo: %s", exc)
         msg = f"Brána: {new:.4f}" if new else "Brána vypnutá – prepisuje sa všetko"
-        print("📐 " + msg, flush=True)
-        self.overlay.show("📐 " + msg, "info", timeout=3)
+        print(msg, flush=True)
+        self.overlay.show(msg, "info", timeout=3)
         self.tray.notify(msg)
 
     def update_and_restart(self) -> None:
