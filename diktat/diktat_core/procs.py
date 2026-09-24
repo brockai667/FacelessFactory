@@ -126,11 +126,12 @@ class WindowTracker:
     """Pamätá si okno (napr. Claude) a vracia jeho rozmery. Všetky okná prechádza len vtedy, keď okno
     nepozná – teda pri štarte a keď zmizne, najviac raz za `rescan_seconds`. Vďaka tomu panel nežerie CPU."""
 
-    def __init__(self, names: list[str], rescan_seconds: float = 3.0, find=None, rect_of=None):
+    def __init__(self, names: list[str], rescan_seconds: float = 3.0, find=None, rect_of=None, focus_of=None):
         self.names = list(names or [])
         self.rescan_seconds = float(rescan_seconds)
         self._find = find or (lambda: find_window(self.names))
         self._rect_of = rect_of or window_rect_of
+        self._focus_of = focus_of or focus_window
         self._hwnd = None
         self._last_scan = float("-inf")
         self.scans = 0
@@ -149,6 +150,40 @@ class WindowTracker:
         self.scans += 1
         self._hwnd, rect = self._find()
         return rect
+
+    def focus(self) -> bool:
+        """Prenesie sledované okno (Claude) dopredu. Keď ho ešte nepoznáme, najprv ho nájde."""
+        if self._hwnd is None:
+            self._last_scan = float("-inf")      # teraz ho potrebujeme hneď, obmedzenie rescanu neplatí
+            self.rect()
+        return self._focus_of(self._hwnd) if self._hwnd is not None else False
+
+
+def focus_window(hwnd) -> bool:
+    """Prepne sa na okno. Windows nedovolí hocikomu „ukradnúť“ zameranie – okno by len blikalo v lište –
+    preto sa na chvíľu pripojíme k vláknu toho okna aj toho, ktoré je práve vpredu."""
+    if sys.platform != "win32" or hwnd is None:
+        return False
+    try:
+        import ctypes
+        user32, kernel32 = ctypes.windll.user32, ctypes.windll.kernel32
+        if user32.IsIconic(hwnd):
+            user32.ShowWindow(hwnd, 9)                       # SW_RESTORE
+        front = user32.GetForegroundWindow()
+        if front == hwnd:
+            return True
+        mine = kernel32.GetCurrentThreadId()
+        others = {user32.GetWindowThreadProcessId(hwnd, None),
+                  user32.GetWindowThreadProcessId(front, None) if front else 0} - {0, mine}
+        attached = [t for t in others if user32.AttachThreadInput(mine, t, True)]
+        try:
+            user32.BringWindowToTop(hwnd)
+            return bool(user32.SetForegroundWindow(hwnd))
+        finally:
+            for t in attached:
+                user32.AttachThreadInput(mine, t, False)
+    except Exception:  # noqa: BLE001 – panel nesmie spadnúť na tom, že sa okno nedalo prepnúť
+        return False
 
 
 def window_rect(names: list[str]) -> tuple[int, int, int, int] | None:

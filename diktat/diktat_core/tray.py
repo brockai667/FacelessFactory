@@ -42,7 +42,9 @@ class Tray:
                  on_gate: Callable[[str], None] | None = None, gate_text: Callable[[], str] | None = None,
                  on_diag: Callable[[], None] | None = None, on_panel: Callable[[], None] | None = None,
                  panel_on: Callable[[], bool] | None = None,
-                 on_restart_check: Callable[[], str] | None = None):
+                 on_restart_check: Callable[[], str] | None = None,
+                 on_show_rows: Callable[[], str] | None = None):
+        self.on_show_rows = on_show_rows
         self.on_restart_check = on_restart_check
         self.on_diag = on_diag
         self.on_panel = on_panel
@@ -101,6 +103,8 @@ class Tray:
             pystray.MenuItem("Panel session (vpravo hore)", lambda icon, item: self.on_panel(),
                              checked=(lambda item: bool(self.panel_on())) if self.panel_on else None,
                              enabled=bool(self.on_panel)),
+            pystray.MenuItem("Ukáž zavreté riadky panela", lambda icon, item: self.on_show_rows(),
+                             enabled=bool(self.on_show_rows)),
             pystray.MenuItem("Môžem reštartovať Claude?", lambda icon, item: self.on_restart_check(),
                              enabled=bool(self.on_restart_check)),
             pystray.MenuItem("Otvoriť log", open_log, enabled=bool(self.log_path)),

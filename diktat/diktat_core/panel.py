@@ -149,6 +149,26 @@ class Panel:
                 if drag["moved"] and self.on_move:
                     self.on_move(self.x, self.y)
 
+            def make_close(entry):
+                """Krížik: riadok je vybavený, schovaj ho. Vráti sa, keď tá session hlási niečo nové."""
+                def handler(_event):
+                    if drag["moved"]:
+                        return None                  # panel sa práve ťahal, to nebol klik
+                    sessions.hide_row(entry.get("session"), entry.get("reported"), self.state_dir)
+                    view["last_read"] = 0.0          # prekresli hneď, nech to nečaká na ďalšie čítanie
+                    return "break"
+                return handler
+
+            def on_row_click(_event):
+                """Klik na názov: prepni sa na okno Claude (konkrétny chat v ňom vybrať nevieme)."""
+                if drag["moved"]:
+                    return None
+                try:
+                    self._tracker.focus()
+                except Exception as exc:  # noqa: BLE001
+                    log.debug("panel: okno Claude sa nepodarilo prepnúť (%s)", exc)
+                return "break"
+
             def on_double(_event):
                 """Dvojklik = vráť panel pod tlačidlá okna Claude."""
                 self.x = self.y = None
@@ -181,8 +201,17 @@ class Panel:
                     line.pack(fill="x", pady=3)
                     dot = tk.Label(line, text=icon, font=("Segoe UI", self.font_size + 2), fg=color, bg=BG)
                     dot.pack(side="left")
-                    tk.Label(line, text="  " + text, font=("Segoe UI", self.font_size), fg=FG, bg=BG,
-                             anchor="w").pack(side="left")
+                    close = tk.Label(line, text="✕", font=("Segoe UI", self.font_size - 1), fg=DIM, bg=BG,
+                                     cursor="hand2")
+                    close.pack(side="right", padx=(10, 0))     # vpravo; zosvetlie sa, keď naň prídeš myšou
+                    name = tk.Label(line, text="  " + text, font=("Segoe UI", self.font_size), fg=FG, bg=BG,
+                                    anchor="w", cursor="hand2")
+                    name.pack(side="left")
+                    close.bind("<Enter>", lambda _e, w=close: w.configure(fg=FG))
+                    close.bind("<Leave>", lambda _e, w=close: w.configure(fg=DIM))
+                    close.bind("<ButtonRelease-1>", make_close(entry))
+                    for widget in (dot, name):
+                        widget.bind("<ButtonRelease-1>", on_row_click)
                     view["dots"].append((dot, color, entry.get("state", "")))
                 root.update_idletasks()
                 view["width"] = max(root.winfo_reqwidth(), 170)

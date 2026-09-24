@@ -486,6 +486,53 @@ def _read_one(path: Path) -> dict | None:
     return data if isinstance(data, dict) else None
 
 
+# ── Zavreté riadky ───────────────────────────────────────────────────────────────────────────────
+# Keď je session vybavená, klikneš na krížik a riadok zmizne. Vráti sa, až keď tá session hlási niečo
+# nové (nový prompt, otázka na povolenie, koniec ťahu). Píše sem len panel – hooky na tento súbor
+# nesiahajú, takže si nemajú čo prepísať.
+HIDDEN_FILE = "_zavrete.json"
+
+
+def hidden_rows(directory: Path | None = None) -> dict[str, float]:
+    """{id session: po ktoré hlásenie je riadok zavretý}."""
+    path = Path(directory or default_dir()) / HIDDEN_FILE
+    data = _read_one(path) or {}
+    return {str(k): float(v) for k, v in data.items() if isinstance(v, (int, float))}
+
+
+def hide_row(session_id: str | None, reported: float | None, directory: Path | None = None) -> bool:
+    """Zavrie riadok jednej session. Vráti, či sa to podarilo zapísať."""
+    sid = str(session_id or "").strip()
+    if not sid:
+        return False
+    directory = Path(directory or default_dir())
+    rows = hidden_rows(directory)
+    rows[sid] = float(reported or time.time())
+    live = {_safe_id(s) for s in rows}
+    try:
+        for f in directory.glob("*.json"):       # zabudni na session, ktoré už neexistujú
+            live.discard(f.stem)
+        rows = {s: v for s, v in rows.items() if _safe_id(s) not in live}
+        path = directory / HIDDEN_FILE
+        tmp = path.with_suffix(".tmp")
+        tmp.write_text(json.dumps(rows, ensure_ascii=False), encoding="utf-8")
+        tmp.replace(path)
+        return True
+    except OSError:
+        return False
+
+
+def show_all_rows(directory: Path | None = None) -> int:
+    """Znova ukáže všetky zavreté riadky. Vráti, koľko ich bolo."""
+    directory = Path(directory or default_dir())
+    rows = hidden_rows(directory)
+    try:
+        (directory / HIDDEN_FILE).unlink(missing_ok=True)
+    except OSError:
+        return 0
+    return len(rows)
+
+
 def read_states(directory: Path | None = None, now: float | None = None, done_keep_minutes: float = 30,
                 stale_minutes: float = 240, max_rows: int = 6, demo_keep_minutes: float = 15,
                 working_window_seconds: float = WORKING_WINDOW_SECONDS) -> list[dict]:
@@ -494,13 +541,17 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
     now = time.time() if now is None else now
     out: list[dict] = []
     try:
-        files = sorted(directory.glob("*.json"))
+        files = sorted(f for f in directory.glob("*.json") if not f.name.startswith("_"))
     except OSError:
         return out
+    hidden = hidden_rows(directory)
     for f in files:
         entry = _read_one(f)
         if not entry or entry.get("state") not in STATE_LOOK:
             continue
+        entry["reported"] = float(entry.get("updated") or 0)      # čas hlásenia hooku, pred dopočítaním
+        if hidden.get(str(entry.get("session") or "")) is not None                 and hidden[str(entry.get("session"))] >= entry["reported"]:
+            continue                      # zavretý riadok – vráti sa, až keď session hlási niečo nové
         if not entry.get("demo") and not str(entry.get("session") or "").strip():
             continue                      # zvyšok po staršej verzii: stav bez id session
         if app_archived(entry.get("session")):

@@ -274,6 +274,15 @@ nenapíše nič, takže kratšie okno by riadok zbytočne zhodilo na „hotovo�
 Whisper, nie panel). Dýchanie bodky sa dá vypnúť – `panel.pulse: false` – a panel sa potom prebudí len
 raz za sekundu. Presunutý panel (`panel.x`/`panel.y`) navyše okno Claude vôbec nehľadá.
 
+**Krížik = riadok je vybavený.** Vpravo v každom riadku je ✕. Klikneš naň a riadok zmizne – aj keď
+tá session ešte pracuje. Vráti sa, až keď tá session **hlásí niečo nové**: pošleš jej prompt, spýta sa
+na povolenie alebo dokončí ťah. Zavreté riadky sú v `~/.claude/diktat/sessions/_zavrete.json` (píše doň
+len panel) a všetky naraz ich vrátiš cez ikonu v lište → **„Ukáž zavreté riadky panela“**.
+
+**Klik na názov prepne na okno Claude.** Konkrétny chat v ňom vybrať nevieme: aplikácia drží všetky
+chaty v jedinom okne s titulkom „Claude“ a žiadny odkaz na jednotlivý chat neponúka. Klik teda okno
+vytiahne dopredu, prepnúť sa na ten chat musíš v ňom.
+
 **Panel je plávajúci:** chyť ho myšou a presuň, kam chceš – poloha sa uloží do `config.json`
 (`panel.x`, `panel.y`) a panel tam ostane aj po reštarte. **Dvojklik naň** ho vráti pod tlačidlá okna
 Claude. Kým je „zavesený“ na okne Claude, schová sa, keď Claude nie je vidieť; presunutý panel je vidno

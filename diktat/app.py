@@ -396,7 +396,7 @@ class DiktatApp:
                                      on_gate=self.adjust_gate, gate_text=self.gate_text,
                                      on_diag=self.run_diag,
                                      on_panel=self.toggle_panel, panel_on=self.panel_enabled,
-                                     on_restart_check=self.restart_check)
+                                     on_show_rows=self.show_rows, on_restart_check=self.restart_check)
             self.tray.state = "starting"
 
             def boot():
@@ -563,6 +563,13 @@ class DiktatApp:
         else:
             self.panel.set_enabled(on)
         self.tray.notify("Panel session zapnutý" if on else "Panel session vypnutý")
+
+    def show_rows(self) -> str:
+        """Ikona v lište: vráť do panela riadky, ktoré si na ňom pozatváral krížikom."""
+        count = sessionsmod.show_all_rows((self.cfg.get("panel", {}) or {}).get("state_dir"))
+        text = f"Vrátil som {count} zavretých riadkov." if count else "Žiadny riadok nie je zavretý."
+        self.tray.notify(text, "diktat – panel session")
+        return text
 
     def restart_check(self) -> str:
         """Ikona v lište: môžem teraz reštartovať Claude? Odpoveď pošle ako oznámenie Windows."""
@@ -770,6 +777,12 @@ def panel_check(cfg: dict) -> list[str]:
     lines.extend(panel_status(cfg))
     lines.append(hooks_status())
     lines.append(app_titles_status())
+    try:
+        closed = sessionsmod.hidden_rows((cfg.get("panel", {}) or {}).get("state_dir"))
+        if closed:
+            lines.append(f"zavreté riadky: {len(closed)} (ikona v lište → „Ukáž zavreté riadky panela“)")
+    except Exception:  # noqa: BLE001
+        pass
     states = []
     try:
         pcfg = cfg.get("panel", {}) or {}

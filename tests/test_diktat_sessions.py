@@ -668,6 +668,83 @@ class SummaryTailTests(unittest.TestCase):
         self.assertEqual(sessions.title_from_transcript(path), "Rozvrh sync workflow")
 
 
+class HiddenRowTests(unittest.TestCase):
+    """Krížik na riadku: session je vybavená, nech ju panel neukazuje – kým sa zase neozve."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+
+    def _stop(self, session="a", now=1000.0):
+        sessions.record("Stop", {"session_id": session, "cwd": "C:/u/epizodar"}, self.out, now)
+
+    def test_a_closed_row_disappears(self):
+        self._stop()
+        entry = sessions.read_states(self.out, now=1001)[0]
+        sessions.hide_row(entry["session"], entry["reported"], self.out)
+        self.assertEqual(sessions.read_states(self.out, now=1002), [])
+
+    def test_it_comes_back_when_the_session_reports_again(self):
+        self._stop()
+        sessions.hide_row("a", 1000.0, self.out)
+        self.assertEqual(sessions.read_states(self.out, now=1002), [])
+        sessions.record("UserPromptSubmit", {"session_id": "a", "cwd": "C:/u/epizodar"}, self.out, 1100)
+        self.assertEqual(sessions.read_states(self.out, now=1101)[0]["state"], "working")
+
+    def test_closing_one_row_leaves_the_others(self):
+        self._stop("a")
+        self._stop("b")
+        sessions.hide_row("a", 1000.0, self.out)
+        rows = sessions.read_states(self.out, now=1001)
+        self.assertEqual([r["session"] for r in rows], ["b"])
+
+    def test_a_long_tool_call_does_not_bring_a_closed_row_back(self):
+        """Zavrieť sa dá aj session, ktorej ešte rastie prepis – nesmie sa hneď vrátiť."""
+        path = self.out / "t.jsonl"
+        path.write_text("x", encoding="utf-8")
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/x", "transcript_path": str(path)}, self.out, 1000)
+        os.utime(path, (1020, 1020))
+        self.assertEqual(sessions.read_states(self.out, now=1022)[0]["state"], "working")
+        sessions.hide_row("a", 1000.0, self.out)
+        self.assertEqual(sessions.read_states(self.out, now=1030), [])
+
+    def test_show_all_rows_brings_them_back(self):
+        self._stop()
+        sessions.hide_row("a", 1000.0, self.out)
+        self.assertEqual(sessions.show_all_rows(self.out), 1)
+        self.assertEqual(len(sessions.read_states(self.out, now=1001)), 1)
+
+    def test_closing_without_an_id_does_nothing(self):
+        self.assertFalse(sessions.hide_row("", 1000.0, self.out))
+        self.assertFalse(sessions.hide_row(None, 1000.0, self.out))
+
+    def test_the_helper_file_is_never_a_row(self):
+        self._stop()
+        sessions.hide_row("b", 1.0, self.out)
+        self.assertTrue((self.out / sessions.HIDDEN_FILE).is_file())
+        self.assertEqual(len(sessions.read_states(self.out, now=1001)), 1)
+
+
+class WindowFocusTests(unittest.TestCase):
+    """Klik na riadok prepne na okno Claude."""
+
+    def test_it_focuses_the_window_it_already_knows(self):
+        calls = []
+        t = procs.WindowTracker(["claude.exe"], find=lambda: (7, (0, 0, 10, 10)),
+                                rect_of=lambda h: (0, 0, 10, 10), focus_of=lambda h: calls.append(h) or True)
+        t.rect(now=0)
+        self.assertTrue(t.focus())
+        self.assertEqual(calls, [7])
+
+    def test_it_looks_for_the_window_when_it_does_not_know_one(self):
+        t = procs.WindowTracker(["claude.exe"], find=lambda: (9, None), rect_of=lambda h: None,
+                                focus_of=lambda h: h == 9)
+        self.assertTrue(t.focus())
+
+    def test_no_window_means_no_crash(self):
+        t = procs.WindowTracker(["claude.exe"], find=lambda: (None, None), rect_of=lambda h: None,
+                                focus_of=lambda h: True)
+        self.assertFalse(t.focus())
+
 class PanelDragTests(unittest.TestCase):
     def test_dropped_position_wins_over_the_window(self):
         p = panelmod.Panel({"x": 300, "y": 500})
