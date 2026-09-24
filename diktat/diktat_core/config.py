@@ -72,22 +72,6 @@ DEFAULTS: dict = {
         "processes": ["claude.exe", "opera.exe", "chrome.exe"],
         "exit_after_seconds": 60,     # po zatvorení všetkých sa diktat vypne (uvoľní pamäť, napr. na hranie)
     },
-    "hlas": {
-        "engine": "edge",               # edge (Microsoft, zadarmo) | cartesia | elevenlabs | google – vyber cez hlas_ukazky.bat
-        "voice": "sk-SK-LukasNeural",   # edge-tts hlas
-        "fallback_engine": "edge",      # keď hlavný engine zlyhá (minutý limit), číta tento; "" = žiadna záloha
-        "fallback_voice": "",           # edge hlas pre zálohu (prázdne = "voice")
-        "cartesia_api_key": "",         # alebo env CARTESIA_API_KEY (play.cartesia.ai → API Keys, bez karty)
-        "cartesia_voice": "",           # id hlasu z hlas_ukazky.bat (voľba Cartesia)
-        "cartesia_model": "sonic-3",
-        "elevenlabs_api_key": "",       # alebo env ELEVENLABS_API_KEY
-        "elevenlabs_voice": "",         # voice_id z hlas_ukazky.bat --engine elevenlabs
-        "elevenlabs_model": "eleven_multilingual_v2",
-        "google_api_key": "",           # alebo env GOOGLE_TTS_API_KEY
-        "google_voice": "sk-SK-Wavenet-A",
-        "rate": "+0%",
-        "volume": "+0%",
-    },
     "panel": {
         "enabled": True,              # panel v pravom hornom rohu okna Claude: ktoré sessions bežia a čo robia
         "follow_window": True,        # drž sa okna Claude (False = pravý horný roh obrazovky)
