@@ -236,7 +236,8 @@ zapneš ho `panel.show_time: true`.
 
 - 🔵 **pracuje** – session dostala prompt a pracuje;
 - 🟠 **pýta sa ťa** – čaká na povolenie nástroja alebo na tvoju odpoveď;
-- 🟢 **hotovo** – dohovorila, čaká na teba (zmizne po `panel.done_keep_minutes`, predvolene 30 min).
+- 🟢 **hotovo** – dohovorila, čaká na teba. **Sama nezmizne**: ostane, kým ju nezavrieš krížikom.
+  (Keby si predsa chcel, aby po čase zmizla, nastav `panel.done_keep_minutes` na počet minút.)
 
 Zoradené je to podľa toho, čo potrebuje teba: najprv „pýta sa ťa“, potom „hotovo“, potom „pracuje“.
 
@@ -273,6 +274,9 @@ nenapíše nič, takže kratšie okno by riadok zbytočne zhodilo na „hotovo�
 **Koľko to stojí.** Panel je pár MB pamäte a rádovo 1–2 % jedného jadra (pamäť diktatu drží model
 Whisper, nie panel). Dýchanie bodky sa dá vypnúť – `panel.pulse: false` – a panel sa potom prebudí len
 raz za sekundu. Presunutý panel (`panel.x`/`panel.y`) navyše okno Claude vôbec nehľadá.
+
+Keď sa hotových nazbiera viac, než sa zmestí (`panel.max_rows`, predvolene 8), **prednosť majú tie
+živé** – „pýta sa ťa“ a „pracuje“ sa z panela nikdy nevytlačia, skrátia sa hotové.
 
 **Krížik = riadok je vybavený.** Vpravo v každom riadku je ✕. Klikneš naň a riadok zmizne – aj keď
 tá session ešte pracuje. Vráti sa, až keď tá session **hlásí niečo nové**: pošleš jej prompt, spýta sa
@@ -342,6 +346,14 @@ Diktat sa drží sledovaných programov (`follow.processes`, predvolene `claude.
   `diktat_watch.vbs` (kontrola okien cez PowerShell, ~1 s, skončí). Ak má niektorý zo sledovaných programov
   otvorené okno a diktat nebeží, spustí ho. Zapneš Claude → najneskôr do minúty štartuje diktat (pol minúty načítava model).
   Ten istý mechanizmus vráti diktat aj po aktualizácii.
+
+**Dve nezávislé poistky**, lebo úloha Plánovača sa raz sama stratila a diktat sa po zapnutí počítača
+nespustil:
+
+1. `diktat_tray.vbs` je aj v priečinku **Po spustení** (Startup), takže diktat nabehne pri prihlásení aj
+   bez Plánovača. Keď nemáš otvorený žiadny sledovaný program, do minúty sa sám vypne, takže neprekáža.
+2. Diktat si pri každom štarte overí, či úloha `diktat-watch` existuje, a **keď chýba, vytvorí ju znova**
+   (v logu: „úloha diktat-watch chýbala, obnovil som ju“).
 
 Prázdny zoznam = diktat sa spúšťa priamo pri prihlásení a beží stále. Nastavuje `install.py --autostart`
 (volá ho aj `update_diktat.bat`); okamžitý štart ručne: dvojklik na odkaz **Diktat** na ploche (vytvorí ho

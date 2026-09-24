@@ -1,5 +1,6 @@
 """Overlay bez displeja / bez tkinteru sa musí ticho vypnúť (žiadna výnimka, žiadne zablokovanie)."""
 import unittest
+import unittest.mock
 
 from diktat.diktat_core import overlay
 
@@ -15,15 +16,12 @@ class OverlayTests(unittest.TestCase):
 
     def test_start_without_display_disables_itself(self):
         import os
-        env = os.environ.pop("DISPLAY", None)
-        try:
+        import tkinter
+        with unittest.mock.patch.object(tkinter, "Tk", side_effect=RuntimeError("bez displeja")):
             ov = overlay.Overlay(enabled=True)
-            ov.start()            # v CI/kontajneri nie je displej → warning a enabled=False
+            ov.start()            # bez displeja (CI, kontajner, vzdialená plocha) → warning a enabled=False
             ov.show("x")
             ov.hide()
-        finally:
-            if env is not None:
-                os.environ["DISPLAY"] = env
         self.assertFalse(ov.enabled)
 
 

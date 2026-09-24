@@ -8,3 +8,7 @@ assets/broll/
 bin/
 __pycache__/
 *.pyc
+
+# generuje install.py pri inštalácii
+diktat/diktat_tray.vbs
+diktat/diktat_watch.vbs

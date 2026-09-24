@@ -413,6 +413,7 @@ class DiktatApp:
                           f"Log: {log_path}", "diktat – chyba")
 
             threading.Thread(target=boot, daemon=True, name="boot").start()
+            threading.Thread(target=self.check_autostart, daemon=True, name="autostart").start()
             self.tray.run()          # blokuje v hlavnom vlákne až po „Ukončiť“
             return
         if use_tray:
@@ -563,6 +564,19 @@ class DiktatApp:
         else:
             self.panel.set_enabled(on)
         self.tray.notify("Panel session zapnutý" if on else "Panel session vypnutý")
+
+    def check_autostart(self) -> str:
+        """Beží na pozadí pri štarte: je úloha Plánovača, ktorá diktat spúšťa, ešte na mieste?"""
+        try:
+            from diktat import install as installmod
+        except ImportError:
+            try:
+                import install as installmod
+            except ImportError as exc:
+                return f"Plánovač úloh: kontrola sa nedá spustiť ({exc})"
+        text = installmod.repair_task(HERE / "app.py")
+        log.info(text)
+        return text
 
     def show_rows(self) -> str:
         """Ikona v lište: vráť do panela riadky, ktoré si na ňom pozatváral krížikom."""

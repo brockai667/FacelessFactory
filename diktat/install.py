@@ -62,12 +62,14 @@ def startup_folder() -> Path:
 
 
 def pythonw_for(python_exe: str) -> str:
+    """python.exe → pythonw.exe (beh bez konzolového okna). Keď pythonw niet, vráti cestu tak, ako prišla
+    – prepisovať v nej lomítka by nemalo zmysel a na inom systéme by z nej spravilo nezmysel."""
     p = Path(python_exe)
     if p.name.lower() == "python.exe":
         cand = p.with_name("pythonw.exe")
         if cand.is_file():
             return str(cand)
-    return str(p)
+    return python_exe
 
 
 def vbs_launcher(python_exe: str, script_path: Path, args: str = "--tray") -> str:
@@ -285,6 +287,24 @@ def task_exists() -> bool:
         return False
 
 
+def repair_task(app_path: Path | None = None, log=safe_print) -> str:
+    """Existuje úloha Plánovača? Keď nie, vytvor ju znova. Vráti vetu do logu.
+    Raz sa nám stratila a diktat sa po zapnutí počítača nespustil – toto to zahojí samo."""
+    if sys.platform != "win32":
+        return "Plánovač úloh: nie Windows, preskakujem"
+    try:
+        if task_exists():
+            return f"Plánovač úloh: úloha {TASK_NAME} je na mieste"
+        watch = Path(app_path or (HERE / "app.py")).parent / WATCH_VBS_NAME
+        if not watch.is_file():
+            return f"Plánovač úloh: úloha {TASK_NAME} CHÝBA a {WATCH_VBS_NAME} tiež – spusti update_diktat.bat"
+        ok = register_task(watch, log=lambda *_: None) and task_exists()
+        return (f"Plánovač úloh: úloha {TASK_NAME} chýbala, obnovil som ju" if ok
+                else f"Plánovač úloh: úloha {TASK_NAME} CHÝBA a nedá sa vytvoriť – spusti update_diktat.bat")
+    except Exception as exc:  # noqa: BLE001 – štart diktatu to nesmie zhodiť
+        return f"Plánovač úloh: kontrola zlyhala ({exc})"
+
+
 def unregister_task(log=safe_print) -> None:
     try:
         _run(["schtasks", "/delete", "/tn", TASK_NAME, "/f"], timeout=60)
@@ -313,9 +333,9 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
     if not dry_run:
         local.write_text(vbs_launcher(python_exe, app_path, "--tray"), encoding="utf-8")
         startup_dir.mkdir(parents=True, exist_ok=True)
-        for stale in (startup_dir / VBS_NAME, startup_dir / WATCH_VBS_NAME):   # staršie inštalácie
-            if stale.is_file():
-                stale.unlink()
+        stale = startup_dir / WATCH_VBS_NAME            # zo starších inštalácií; kontrolu robí Plánovač
+        if stale.is_file():
+            stale.unlink()
     log(f"{tag}✔ {local}: spúšťač diktatu (dvojklik = spusti hneď teraz)")
     if not dry_run:
         desktop_shortcut(local, log)
@@ -328,7 +348,12 @@ def install_autostart(python_exe: str, app_path: Path, follow: list[str] | None 
         return target
     if not dry_run:
         watch_local.write_text(watch_vbs(python_exe, app_path, follow), encoding="utf-8")
+        # Poistka: úloha Plánovača sa raz sama stratila a diktat sa po zapnutí počítača nespustil.
+        # Tento spúšťač beží pri prihlásení nezávisle od Plánovača; keď nie je otvorený žiadny sledovaný
+        # program, diktat sa do minúty sám ukončí (follow.exit_after_seconds), takže nič neprekáža.
+        (startup_dir / VBS_NAME).write_text(vbs_launcher(python_exe, app_path, "--tray"), encoding="utf-8")
     log(f"{tag}✔ {watch_local}: kontrola „beží Claude?“ (sleduje: {', '.join(follow)})")
+    log(f"{tag}✔ {startup_dir / VBS_NAME}: záložný štart po prihlásení (keby vypadol Plánovač)")
     if register is None:
         register = sys.platform == "win32"
     if register and not dry_run:

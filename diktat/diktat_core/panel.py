@@ -56,7 +56,7 @@ class Panel:
         self.animate_ms = max(60, int(cfg.get("animate_ms", 200)))
         self.pulse = bool(cfg.get("pulse", True))     # dýchanie bodky vypni, keď chceš panel úplne zadarmo
         self.show_time = bool(cfg.get("show_time", False))
-        self.done_keep_minutes = float(cfg.get("done_keep_minutes", 30))
+        self.done_keep_minutes = float(cfg.get("done_keep_minutes", 0))   # 0 = kým riadok nezavrieš krížikom
         self.working_window_seconds = float(cfg.get("working_window_seconds", sessions.WORKING_WINDOW_SECONDS))
         self.stale_minutes = float(cfg.get("stale_minutes", 240))
         self.state_dir = cfg.get("state_dir") or None

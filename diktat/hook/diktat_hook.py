@@ -84,8 +84,16 @@ def main() -> int:
     if not context:
         return 0
     out = {"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": context[:9500]}}
-    sys.stdout.write(json.dumps(out, ensure_ascii=False))
-    sys.stdout.flush()
+    # Claude Code číta výstup hooku ako UTF-8. sys.stdout by pod Windows použil kódovanie konzoly
+    # (cp1250) a slovenčina by prišla rozsypaná – preto píšeme bajty priamo.
+    blob = json.dumps(out, ensure_ascii=False)
+    stream = getattr(sys.stdout, "buffer", None)
+    if stream is not None:
+        stream.write(blob.encode("utf-8"))
+        stream.flush()
+    else:
+        sys.stdout.write(blob)
+        sys.stdout.flush()
     return 0
 
 

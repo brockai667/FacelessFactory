@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+import unittest.mock
 from pathlib import Path
 
 from diktat import install
@@ -167,7 +168,7 @@ class AutostartTests(unittest.TestCase):
             self.assertIn("--tray", content)
             self.assertIn(str(app_path), content)
             self.assertIn(", 0, False", content)          # skryté okno
-            self.assertFalse((startup / install.VBS_NAME).exists(), "priamy štart diktatu zo Startup sa má odstrániť")
+            self.assertTrue((startup / install.VBS_NAME).exists(), "poistka pre prípad, že vypadne Plánovač")
             local = (app_dir / install.VBS_NAME).read_text(encoding="utf-8")
             self.assertIn("--tray", local)
             xml = install.task_xml(target, user="PC\\damia")
@@ -236,3 +237,78 @@ class DesktopShortcutTests(unittest.TestCase):
         logs = []
         self.assertFalse(install.desktop_shortcut(Path("/tmp/diktat_tray.vbs"), log=logs.append))
         self.assertEqual(logs, [])
+
+
+class AutostartFallbackTests(unittest.TestCase):
+    """Úloha Plánovača sa raz sama stratila – musí byť ešte druhá, nezávislá cesta."""
+
+    def _install(self, tmp, follow=("claude.exe",)):
+        startup = Path(tmp) / "Startup"
+        app_dir = Path(tmp) / "diktat"
+        app_dir.mkdir()
+        app_path = app_dir / "app.py"
+        app_path.write_text("# app", encoding="utf-8")
+        install.install_autostart("C:/py/python.exe", app_path, follow=list(follow), startup_dir=startup,
+                                  log=lambda *_: None, register=False)
+        return startup, app_dir
+
+    def test_a_launcher_stays_in_the_startup_folder(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            startup, _ = self._install(tmp)
+            target = startup / install.VBS_NAME
+            self.assertTrue(target.is_file())
+            self.assertIn("--tray", target.read_text(encoding="utf-8"))
+
+    def test_the_old_watch_launcher_is_cleaned_out_of_startup(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            startup = Path(tmp) / "Startup"
+            startup.mkdir(parents=True)
+            (startup / install.WATCH_VBS_NAME).write_text("staré", encoding="utf-8")
+            app_dir = Path(tmp) / "diktat"
+            app_dir.mkdir()
+            app_path = app_dir / "app.py"
+            app_path.write_text("# app", encoding="utf-8")
+            install.install_autostart("C:/py/python.exe", app_path, follow=["claude.exe"], startup_dir=startup,
+                                      log=lambda *_: None, register=False)
+            self.assertFalse((startup / install.WATCH_VBS_NAME).exists())
+
+    def test_removing_autostart_takes_the_fallback_with_it(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            startup, app_dir = self._install(tmp)
+            install.remove_autostart(app_dir / "app.py", startup_dir=startup, log=lambda *_: None)
+            self.assertFalse((startup / install.VBS_NAME).exists())
+
+
+class RepairTaskTests(unittest.TestCase):
+    """Keď úloha Plánovača zmizne, diktat si ju pri štarte obnoví sám."""
+
+    def test_it_leaves_an_existing_task_alone(self):
+        with unittest.mock.patch.object(install.sys, "platform", "win32"), \
+             unittest.mock.patch.object(install, "task_exists", return_value=True), \
+             unittest.mock.patch.object(install, "register_task") as reg:
+            self.assertIn("je na mieste", install.repair_task())
+            reg.assert_not_called()
+
+    def test_it_creates_a_missing_task(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            app_path = Path(tmp) / "app.py"
+            app_path.write_text("# app", encoding="utf-8")
+            (Path(tmp) / install.WATCH_VBS_NAME).write_text("' watch", encoding="utf-8")
+            with unittest.mock.patch.object(install.sys, "platform", "win32"), \
+                 unittest.mock.patch.object(install, "task_exists", side_effect=[False, True]), \
+                 unittest.mock.patch.object(install, "register_task", return_value=True) as reg:
+                self.assertIn("obnovil som ju", install.repair_task(app_path))
+                reg.assert_called_once()
+
+    def test_it_says_so_when_it_cannot(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            app_path = Path(tmp) / "app.py"
+            app_path.write_text("# app", encoding="utf-8")
+            with unittest.mock.patch.object(install.sys, "platform", "win32"), \
+                 unittest.mock.patch.object(install, "task_exists", return_value=False):
+                self.assertIn("update_diktat.bat", install.repair_task(app_path))
+
+    def test_a_broken_check_never_raises(self):
+        with unittest.mock.patch.object(install.sys, "platform", "win32"), \
+             unittest.mock.patch.object(install, "task_exists", side_effect=OSError("boom")):
+            self.assertIn("zlyhala", install.repair_task())

@@ -559,7 +559,7 @@ def show_all_rows(directory: Path | None = None) -> int:
     return len(rows)
 
 
-def read_states(directory: Path | None = None, now: float | None = None, done_keep_minutes: float = 30,
+def read_states(directory: Path | None = None, now: float | None = None, done_keep_minutes: float = 0,
                 stale_minutes: float = 240, max_rows: int = 6, demo_keep_minutes: float = 15,
                 working_window_seconds: float = WORKING_WINDOW_SECONDS) -> list[dict]:
     """Načíta stavy, zahodí staré a zoradí: najprv tie, čo čakajú na teba, potom hotové, potom pracujúce."""
@@ -585,8 +585,8 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
         age = now - float(entry.get("updated") or 0)
         if age > stale_minutes * 60:
             continue
-        if entry.get("state") in ("done", "ready") and age > done_keep_minutes * 60:
-            continue
+        if done_keep_minutes and entry.get("state") in ("done", "ready") and age > done_keep_minutes * 60:
+            continue     # 0 = hotové riadky nemiznú samy, čakajú, kým ich zavrieš krížikom
         if entry.get("demo") and age > demo_keep_minutes * 60:
             continue     # ukážkové session sa samé vytratia, nech ich nikto nepovažuje za skutočné
         refresh_from_transcript(entry, now, working_window_seconds)
@@ -599,8 +599,21 @@ def read_states(directory: Path | None = None, now: float | None = None, done_ke
         entry["label"] = shorten(title or entry.get("name") or "session")
         out.append(entry)
     out.sort(key=lambda e: (STATE_ORDER.get(e["state"], 9), -float(e.get("updated") or 0)))
+    out = trim_rows(out, max_rows)
     number_duplicates(out)
-    return out[: max(1, int(max_rows))]
+    return out
+
+
+def trim_rows(entries: list[dict], max_rows: int) -> list[dict]:
+    """Skráti zoznam na to, čo sa zmestí. Keďže hotové riadky čakajú, kým ich zavrieš, mohli by časom
+    vytlačiť tie živé – preto sa najprv vojdú „pýta sa ťa“ a „pracuje“ a až zvyšok miesta dostanú hotové."""
+    limit = max(1, int(max_rows))
+    if len(entries) <= limit:
+        return entries
+    live = [i for i, e in enumerate(entries) if e.get("state") in ("asking", "working")]
+    rest = [i for i, e in enumerate(entries) if e.get("state") not in ("asking", "working")]
+    keep = sorted(live[:limit] + rest[: max(0, limit - len(live))])
+    return [entries[i] for i in keep]
 
 
 def number_duplicates(entries: list[dict]) -> list[dict]:

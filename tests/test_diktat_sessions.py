@@ -683,6 +683,43 @@ class SummaryTailTests(unittest.TestCase):
         self.assertEqual(sessions.title_from_transcript(path), "Rozvrh sync workflow")
 
 
+class DoneRowsWaitTests(unittest.TestCase):
+    """Hotový riadok nemá zmiznúť sám – čaká, kým ho zavrieš krížikom."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+
+    def test_a_done_row_is_still_there_hours_later(self):
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/epizodar"}, self.out, 1000)
+        rows = sessions.read_states(self.out, now=1000 + 3 * 3600, stale_minutes=9999)
+        self.assertEqual(rows[0]["state"], "done")
+
+    def test_it_can_still_be_set_to_expire(self):
+        sessions.record("Stop", {"session_id": "a", "cwd": "C:/u/epizodar"}, self.out, 1000)
+        self.assertEqual(sessions.read_states(self.out, now=1000 + 3600, done_keep_minutes=30), [])
+
+    def test_live_rows_are_never_pushed_out_by_done_ones(self):
+        """Keď sa hotové hromadia, nesmú vytlačiť session, ktorá pracuje alebo sa pýta."""
+        for i in range(6):
+            sessions.record("Stop", {"session_id": f"h{i}", "cwd": f"C:/u/h{i}"}, self.out, 1000 + i)
+        sessions.record("UserPromptSubmit", {"session_id": "prac", "cwd": "C:/u/prac"}, self.out, 1100)
+        sessions.record("Notification", {"session_id": "pyta", "cwd": "C:/u/pyta",
+                                         "notification_type": "permission_prompt"}, self.out, 1101)
+        rows = sessions.read_states(self.out, now=1102, max_rows=4)
+        states = [r["state"] for r in rows]
+        self.assertEqual(len(rows), 4)
+        self.assertIn("asking", states)
+        self.assertIn("working", states)
+
+    def test_trimming_keeps_the_order_it_was_given(self):
+        entries = [{"state": "asking"}, {"state": "done"}, {"state": "working"}, {"state": "done"}]
+        self.assertEqual(sessions.trim_rows(entries, 3),
+                         [{"state": "asking"}, {"state": "done"}, {"state": "working"}])
+
+    def test_trimming_does_nothing_when_everything_fits(self):
+        entries = [{"state": "done"}, {"state": "done"}]
+        self.assertEqual(sessions.trim_rows(entries, 8), entries)
+
 class HiddenRowTests(unittest.TestCase):
     """Krížik na riadku: session je vybavená, nech ju panel neukazuje – kým sa zase neozve."""
 
