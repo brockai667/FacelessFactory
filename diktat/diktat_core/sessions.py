@@ -183,9 +183,14 @@ def _remember(key: str, title: str) -> str:
 APP_TITLE_DIR = "claude-code-sessions"
 APP_TITLE_DEPTH = 4                    # layout je <priečinok>/<id>/<id>/local_<id>.json – hlbšie netreba
 
-_APP_CACHE: dict[str, tuple[float, int, str, str, bool]] = {}   # súbor → (čas, veľkosť, id, názov, archivovaný)
+# Odkaz, ktorým aplikácia otvorí presne jeden chat (dostali sme ho z nej samej; keby ho prerobila,
+# klik na riadok len prenesie okno Claude dopredu).
+APP_LINK = "claude://claude.ai/epitaxy/{}"
+
+_APP_CACHE: dict[str, tuple[float, int, dict]] = {}       # súbor → (čas zmeny, veľkosť, čo sme z neho prečítali)
 _APP_TITLES: dict[str, str] = {}                          # id session → názov chatu
 _APP_ARCHIVED: set[str] = set()                           # id session, ktoré už v bočnom zozname nie sú
+_APP_LINKS: dict[str, str] = {}                           # id session → odkaz na ten chat
 _APP_SCANNED_AT = 0.0
 
 
@@ -224,6 +229,7 @@ def forget_app_titles() -> None:
     _APP_CACHE.clear()
     _APP_TITLES.clear()
     _APP_ARCHIVED.clear()
+    _APP_LINKS.clear()
     _APP_SCANNED_AT = 0.0
 
 
@@ -240,29 +246,32 @@ def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384)
     for directory in app_session_dirs():
         files.extend(_json_files(directory))
     files.sort(key=lambda item: item[0])          # najnovšie nakoniec: pri rovnakom id vyhrá čerstvejší súbor
-    fresh: dict[str, tuple[float, int, str, str, bool]] = {}
+    fresh: dict[str, tuple[float, int, dict]] = {}
     found: dict[str, str] = {}
+    links: dict[str, str] = {}
     gone: set[str] = set()
     for mtime, size, path in files[-max(1, int(max_files)):]:
         known = _APP_CACHE.get(path)
-        if known and known[0] == mtime and known[1] == size:
-            session_id, title, archived = known[2], known[3], known[4]
-        else:
-            session_id, title, archived = _app_title_of(path, head_bytes)
-        fresh[path] = (mtime, size, session_id, title, archived)
-        if not session_id:
+        chat = known[2] if known and known[0] == mtime and known[1] == size else _app_chat_of(path, head_bytes)
+        fresh[path] = (mtime, size, chat)
+        sid = chat.get("cli") or ""
+        if not sid:
             continue
-        gone.discard(session_id)
-        if archived:
-            gone.add(session_id)
-        if title:
-            found[session_id] = title
+        gone.discard(sid)
+        if chat.get("archived"):
+            gone.add(sid)
+        if chat.get("title"):
+            found[sid] = chat["title"]
+        if chat.get("app"):
+            links[sid] = APP_LINK.format(chat["app"])
     _APP_CACHE.clear()
     _APP_CACHE.update(fresh)
     _APP_TITLES.clear()
     _APP_TITLES.update(found)
     _APP_ARCHIVED.clear()
     _APP_ARCHIVED.update(gone)
+    _APP_LINKS.clear()
+    _APP_LINKS.update(links)
     return _APP_TITLES
 
 
@@ -317,17 +326,34 @@ def app_archived(session_id: str | None) -> bool:
         return False
 
 
-def _app_title_of(path: Path | str, head_bytes: int = 16_384) -> tuple[str, str, bool]:
-    """Z jedného súboru aplikácie vytiahne (id session, názov chatu, je archivovaný?)."""
+def app_link(session_id: str | None) -> str:
+    """Odkaz, ktorým aplikácia otvorí presne tento chat. Prázdno, keď ho nepoznáme."""
+    sid = str(session_id or "").strip()
+    if not sid:
+        return ""
+    try:
+        app_titles()
+        return _APP_LINKS.get(sid, "")
+    except Exception:  # noqa: BLE001
+        return ""
+
+
+def _app_chat_of(path: Path | str, head_bytes: int = 16_384) -> dict:
+    """Čo potrebujeme z jedného súboru aplikácie: id session z hookov, názov chatu, či je archivovaný
+    a vlastné id chatu (to je v odkaze, ktorým sa dá otvoriť)."""
+    empty = {"cli": "", "title": "", "archived": False, "app": ""}
     try:
         with open(path, "rb") as fh:
             head = fh.read(head_bytes)
     except OSError:
-        return "", "", False
-    fields = _top_level_fields(head.decode("utf-8", "replace"), ("cliSessionId", "title", "isArchived"))
-    session_id = " ".join(str(fields.get("cliSessionId") or "").split())
+        return empty
+    fields = _top_level_fields(head.decode("utf-8", "replace"),
+                               ("cliSessionId", "title", "isArchived", "sessionId"))
     title = " ".join(str(fields.get("title") or "").split())
-    return session_id, ("" if is_system_text(title) else title), fields.get("isArchived") is True
+    return {"cli": " ".join(str(fields.get("cliSessionId") or "").split()),
+            "title": "" if is_system_text(title) else title,
+            "archived": fields.get("isArchived") is True,
+            "app": " ".join(str(fields.get("sessionId") or "").split())}
 
 
 def _top_level_fields(text: str, wanted: tuple[str, ...]) -> dict[str, object]:

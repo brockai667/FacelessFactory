@@ -279,9 +279,10 @@ tá session ešte pracuje. Vráti sa, až keď tá session **hlásí niečo nov�
 na povolenie alebo dokončí ťah. Zavreté riadky sú v `~/.claude/diktat/sessions/_zavrete.json` (píše doň
 len panel) a všetky naraz ich vrátiš cez ikonu v lište → **„Ukáž zavreté riadky panela“**.
 
-**Klik na názov prepne na okno Claude.** Konkrétny chat v ňom vybrať nevieme: aplikácia drží všetky
-chaty v jedinom okne s titulkom „Claude“ a žiadny odkaz na jednotlivý chat neponúka. Klik teda okno
-vytiahne dopredu, prepnúť sa na ten chat musíš v ňom.
+**Klik na názov otvorí presne ten chat.** Aplikácia má na každý chat vlastný odkaz
+(`claude://claude.ai/epitaxy/local_<id>`, to `local_<id>` je `sessionId` z jej súboru) a panel ho len
+otvorí – žiadne posielanie klávesov, takže sa nedá stať, že by text spadol do rozpísaného promptu.
+Keby aplikácia formát odkazu niekedy prerobila, klik aspoň prenesie okno Claude dopredu.
 
 **Panel je plávajúci:** chyť ho myšou a presuň, kam chceš – poloha sa uloží do `config.json`
 (`panel.x`, `panel.y`) a panel tam ostane aj po reštarte. **Dvojklik naň** ho vráti pod tlačidlá okna

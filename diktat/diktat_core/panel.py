@@ -159,15 +159,19 @@ class Panel:
                     return "break"
                 return handler
 
-            def on_row_click(_event):
-                """Klik na názov: prepni sa na okno Claude (konkrétny chat v ňom vybrať nevieme)."""
-                if drag["moved"]:
-                    return None
-                try:
-                    self._tracker.focus()
-                except Exception as exc:  # noqa: BLE001
-                    log.debug("panel: okno Claude sa nepodarilo prepnúť (%s)", exc)
-                return "break"
+            def make_open(entry):
+                """Klik na názov: otvor presne ten chat. Aplikácia na to má vlastný odkaz; keby ho
+                niekedy prerobila, aspoň prenesieme okno Claude dopredu."""
+                def handler(_event):
+                    if drag["moved"]:
+                        return None
+                    try:
+                        if not procs.open_url(sessions.app_link(entry.get("session"))):
+                            self._tracker.focus()
+                    except Exception as exc:  # noqa: BLE001
+                        log.debug("panel: chat sa nepodarilo otvoriť (%s)", exc)
+                    return "break"
+                return handler
 
             def on_double(_event):
                 """Dvojklik = vráť panel pod tlačidlá okna Claude."""
@@ -210,8 +214,9 @@ class Panel:
                     close.bind("<Enter>", lambda _e, w=close: w.configure(fg=FG))
                     close.bind("<Leave>", lambda _e, w=close: w.configure(fg=DIM))
                     close.bind("<ButtonRelease-1>", make_close(entry))
+                    open_chat = make_open(entry)
                     for widget in (dot, name):
-                        widget.bind("<ButtonRelease-1>", on_row_click)
+                        widget.bind("<ButtonRelease-1>", open_chat)
                     view["dots"].append((dot, color, entry.get("state", "")))
                 root.update_idletasks()
                 view["width"] = max(root.winfo_reqwidth(), 170)

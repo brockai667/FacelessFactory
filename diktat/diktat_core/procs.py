@@ -159,6 +159,21 @@ class WindowTracker:
         return self._focus_of(self._hwnd) if self._hwnd is not None else False
 
 
+def open_url(url: str) -> bool:
+    """Otvorí odkaz tým, čo je naň v systéme zaregistrované (claude:// → aplikácia Claude)."""
+    if not url:
+        return False
+    try:
+        if sys.platform == "win32":
+            os.startfile(url)                                    # noqa: S606 – ShellExecute, neblokuje
+        else:
+            import subprocess
+            subprocess.Popen(["xdg-open", url], start_new_session=True)
+        return True
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def focus_window(hwnd) -> bool:
     """Prepne sa na okno. Windows nedovolí hocikomu „ukradnúť“ zameranie – okno by len blikalo v lište –
     preto sa na chvíľu pripojíme k vláknu toho okna aj toho, ktoré je práve vpredu."""

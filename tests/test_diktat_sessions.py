@@ -572,7 +572,7 @@ class AppTitleTests(unittest.TestCase):
         path = self._chat("a", "Curio engine", padding="x" * 400_000)
         self.assertGreater(path.stat().st_size, 400_000)
         self.assertEqual(sessions.app_title("a"), "Curio engine")
-        self.assertEqual(sessions._app_title_of(path, head_bytes=40), ("", "", False))   # useknuté = radšej nič
+        self.assertEqual(sessions._app_chat_of(path, head_bytes=40)["title"], "")   # useknuté = radšej nič
 
     def test_a_hook_without_a_session_id_writes_nothing(self):
         """Taký stav by sa zlial do jedného cudzieho riadka „neznama“ – radšej žiadny."""
@@ -603,6 +603,21 @@ class AppTitleTests(unittest.TestCase):
         text = '{"cliSessionId":"a","lastActivityAt":1790184246991,"isArchived":true,"title":"Curio engine"}'
         fields = sessions._top_level_fields(text, ("cliSessionId", "isArchived", "title"))
         self.assertEqual(fields, {"cliSessionId": "a", "isArchived": True, "title": "Curio engine"})
+    def test_a_row_knows_the_link_to_its_chat(self):
+        self._chat("a", "Curio engine")
+        self.assertEqual(sessions.app_link("a"), sessions.APP_LINK.format("local_a"))
+
+    def test_an_unknown_session_has_no_link(self):
+        self._chat("a", "Curio engine")
+        self.assertEqual(sessions.app_link("z"), "")
+        self.assertEqual(sessions.app_link(""), "")
+
+    def test_a_file_without_its_own_id_gives_no_link(self):
+        (self.app / "local_bez.json").write_text(
+            json.dumps({"cliSessionId": "b", "title": "Bez id"}), encoding="utf-8")
+        self.assertEqual(sessions.app_title("b"), "Bez id")
+        self.assertEqual(sessions.app_link("b"), "")
+
 
 class AppTitleStatusTests(unittest.TestCase):
     """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""
