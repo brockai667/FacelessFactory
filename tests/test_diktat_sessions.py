@@ -661,6 +661,25 @@ class AppTitlesRecoverTests(unittest.TestCase):
         sessions.app_titles()
         self._chat("b", "Pribudlo hneď potom")
         self.assertNotIn("b", sessions.app_titles(), "do ttl sa nemá hľadať znova")
+    def test_a_broken_scan_throws_everything_away_and_retries(self):
+        """Keď čítanie zlyhá, zapamätané údaje sú podozrivé – panel sa nesmie na nich zaseknúť."""
+        self._chat("a", "Curio engine")
+        self.assertEqual(sessions.app_titles(), {"a": "Curio engine"})
+        sessions._APP_SCANNED_AT = 0.0          # inak by do ttl vrátil zapamätané a k čítaniu by nedošlo
+        with unittest.mock.patch.object(sessions, "_scan_app_titles", side_effect=RuntimeError("rozbité")):
+            self.assertEqual(sessions.app_titles(), {})
+            self.assertEqual(sessions._APP_SCANNED_AT, 0.0)
+            self.assertEqual(sessions._APP_CACHE, {})
+        self.assertEqual(sessions.app_titles(), {"a": "Curio engine"})   # hneď ďalšie volanie, bez čakania
+
+    def test_the_panel_never_sees_the_exception(self):
+        self._chat("a", "Curio engine")
+        sessions._APP_SCANNED_AT = 0.0
+        with unittest.mock.patch.object(sessions, "_scan_app_titles", side_effect=RuntimeError("rozbité")):
+            self.assertEqual(sessions.app_title("a"), "")
+            self.assertFalse(sessions.app_archived("a"))
+            self.assertEqual(sessions.app_link("a"), "")
+
 
 class AppTitleStatusTests(unittest.TestCase):
     """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""

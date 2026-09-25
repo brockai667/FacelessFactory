@@ -246,6 +246,24 @@ def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384)
     if _APP_SCANNED_AT and 0 <= age < ttl:        # `0 <=` kvôli posunu hodín: keď skočia dozadu, radšej hľadaj znova
         return _APP_TITLES
     _APP_SCANNED_AT = now
+    try:
+        return _scan_app_titles(max_files, head_bytes)
+    except Exception as exc:  # noqa: BLE001
+        # Nech je príčina v čomkoľvek (aj v tom, že si aplikácia prerobila svoje súbory), zapamätané
+        # údaje sú odteraz podozrivé: zahoď všetko a nabudúce začni od nuly. Bez toho by panel ostal
+        # pri náhradných názvoch až do reštartu diktatu.
+        _APP_CACHE.clear()
+        _APP_TITLES.clear()
+        _APP_ARCHIVED.clear()
+        _APP_LINKS.clear()
+        _APP_SCANNED_AT = 0.0
+        _note_app_titles(False, exc)
+        return _APP_TITLES
+
+
+def _scan_app_titles(max_files: int, head_bytes: int) -> dict[str, str]:
+    """Jeden prechod priečinkom aplikácie. Volá sa len z app_titles(), ktorý rieši pamäť a chyby."""
+    global _APP_SCANNED_AT
     dirs = app_session_dirs()
     if not dirs:
         # Diktat sa spúšťa aj pár sekúnd po prebudení počítača, keď priečinok ešte nemusí byť vidno.
@@ -290,14 +308,18 @@ def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384)
 _APP_LAST_OK: bool | None = None
 
 
-def _note_app_titles(ok: bool) -> None:
-    """Do logu sa zapíše len zmena: nájdené → nenájdené a späť. Inak by panel písal riadok každú sekundu."""
+def _note_app_titles(ok: bool, why: BaseException | None = None) -> None:
+    """Do logu sa zapíše len zmena: nájdené → nenájdené a späť. Inak by panel písal riadok každú sekundu.
+    Keď za tým bola výnimka, zapíše sa aj s výpisom – inak by sa o nej nikto nedozvedel."""
     global _APP_LAST_OK
     if ok == _APP_LAST_OK:
         return
     _APP_LAST_OK = ok
     if ok:
         log.info("názvy chatov z aplikácie: %d, panel ich už ukazuje", len(_APP_TITLES))
+    elif why is not None:
+        log.warning("názvy chatov z aplikácie: čítanie zlyhalo (%s: %s) – panel zatiaľ berie názvy "
+                    "z prepisu session, skúšam odznova", type(why).__name__, why, exc_info=why)
     else:
         log.warning("názvy chatov z aplikácie sa nedajú načítať – panel zatiaľ berie názvy z prepisu "
                     "session; skúšam ďalej (hľadám v: %s)",
@@ -313,8 +335,7 @@ def app_title(session_id: str | None) -> str:
     try:
         return app_titles().get(sid, "")
     except Exception as exc:  # noqa: BLE001 – panel nesmie spadnúť na tom, že aplikácia prerobila svoje súbory
-        _note_app_titles(False)
-        log.debug("názov chatu sa nedá zistiť: %s", exc)
+        _note_app_titles(False, exc)
         return ""
 
 
@@ -366,7 +387,7 @@ def app_link(session_id: str | None) -> str:
         app_titles()
         return _APP_LINKS.get(sid, "")
     except Exception as exc:  # noqa: BLE001
-        log.debug("odkaz na chat sa nedá zistiť: %s", exc)
+        _note_app_titles(False, exc)
         return ""
 
 
