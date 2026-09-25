@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 import unittest.mock
 from pathlib import Path
@@ -618,6 +619,48 @@ class AppTitleTests(unittest.TestCase):
         self.assertEqual(sessions.app_title("b"), "Bez id")
         self.assertEqual(sessions.app_link("b"), "")
 
+
+class AppTitlesRecoverTests(unittest.TestCase):
+    """Diktat sa spúšťa aj pár sekúnd po prebudení počítača. Keď vtedy priečinok aplikácie ešte nevidno,
+    panel sa z toho musí spamätať sám – nie až po reštarte."""
+
+    def setUp(self):
+        self.out = Path(tempfile.mkdtemp())
+        self.app = self.out / "sessions"
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(self.app)
+        forget_titles()
+
+    def tearDown(self):
+        os.environ["DIKTAT_APP_SESSION_DIR"] = EMPTY_APP_DIR
+        forget_titles()
+
+    def _chat(self, session_id, title):
+        self.app.mkdir(parents=True, exist_ok=True)
+        (self.app / f"local_{session_id}.json").write_text(
+            json.dumps({"sessionId": f"local_{session_id}", "cliSessionId": session_id, "title": title}),
+            encoding="utf-8")
+
+    def test_a_folder_that_shows_up_later_is_picked_up(self):
+        self.assertEqual(sessions.app_titles(), {})          # priečinok ešte nie je
+        self._chat("a", "Curio engine")
+        self.assertEqual(sessions.app_titles(), {"a": "Curio engine"})   # bez čakania na ttl
+
+    def test_a_missing_folder_is_not_remembered_as_an_answer(self):
+        sessions.app_titles()
+        self.assertEqual(sessions._APP_SCANNED_AT, 0.0, "prázdny výsledok sa nesmie zapamätať")
+
+    def test_a_clock_jump_backwards_does_not_freeze_it(self):
+        self._chat("a", "Curio engine")
+        sessions.app_titles()
+        sessions._APP_SCANNED_AT = time.time() + 3600        # hodiny skočili dozadu o hodinu
+        self._chat("b", "Nový chat")
+        self.assertIn("b", sessions.app_titles())
+
+    def test_a_working_folder_is_still_cached(self):
+        self._chat("a", "Curio engine")
+        sessions.app_titles()
+        self._chat("b", "Pribudlo hneď potom")
+        self.assertNotIn("b", sessions.app_titles(), "do ttl sa nemá hľadať znova")
 
 class AppTitleStatusTests(unittest.TestCase):
     """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""

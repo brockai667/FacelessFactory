@@ -13,9 +13,12 @@ uložený názov, súhrn z prepisu session, prvá ľudská správa, názov prie�
 from __future__ import annotations
 
 import json
+import logging
 import os
 import time
 from pathlib import Path
+
+log = logging.getLogger("diktat.sessions")
 
 # Hook → stav. Názvy udalostí sú tie, ktoré posiela Claude Code (hook_event_name).
 EVENT_STATE = {
@@ -239,11 +242,19 @@ def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384)
     súboru a súbory, ktoré sa odvtedy nezmenili, sa preskočia."""
     global _APP_SCANNED_AT
     now = time.time()
-    if _APP_SCANNED_AT and now - _APP_SCANNED_AT < ttl:
+    age = now - _APP_SCANNED_AT
+    if _APP_SCANNED_AT and 0 <= age < ttl:        # `0 <=` kvôli posunu hodín: keď skočia dozadu, radšej hľadaj znova
         return _APP_TITLES
     _APP_SCANNED_AT = now
+    dirs = app_session_dirs()
+    if not dirs:
+        # Diktat sa spúšťa aj pár sekúnd po prebudení počítača, keď priečinok ešte nemusí byť vidno.
+        # Taký výsledok sa nesmie zapamätať – inak by panel ostal pri náhradných názvoch až do reštartu.
+        _APP_SCANNED_AT = 0.0
+        _note_app_titles(False)
+        return _APP_TITLES
     files: list[tuple[float, int, str]] = []
-    for directory in app_session_dirs():
+    for directory in dirs:
         files.extend(_json_files(directory))
     files.sort(key=lambda item: item[0])          # najnovšie nakoniec: pri rovnakom id vyhrá čerstvejší súbor
     fresh: dict[str, tuple[float, int, dict]] = {}
@@ -272,7 +283,25 @@ def app_titles(ttl: float = 4.0, max_files: int = 600, head_bytes: int = 16_384)
     _APP_ARCHIVED.update(gone)
     _APP_LINKS.clear()
     _APP_LINKS.update(links)
+    _note_app_titles(bool(found))
     return _APP_TITLES
+
+
+_APP_LAST_OK: bool | None = None
+
+
+def _note_app_titles(ok: bool) -> None:
+    """Do logu sa zapíše len zmena: nájdené → nenájdené a späť. Inak by panel písal riadok každú sekundu."""
+    global _APP_LAST_OK
+    if ok == _APP_LAST_OK:
+        return
+    _APP_LAST_OK = ok
+    if ok:
+        log.info("názvy chatov z aplikácie: %d, panel ich už ukazuje", len(_APP_TITLES))
+    else:
+        log.warning("názvy chatov z aplikácie sa nedajú načítať – panel zatiaľ berie názvy z prepisu "
+                    "session; skúšam ďalej (hľadám v: %s)",
+                    ", ".join(str(r / APP_TITLE_DIR) for r in app_roots()))
 
 
 def app_title(session_id: str | None) -> str:
@@ -283,8 +312,10 @@ def app_title(session_id: str | None) -> str:
         return ""
     try:
         return app_titles().get(sid, "")
-    except Exception:  # noqa: BLE001
-        return ""      # panel nesmie spadnúť na tom, že aplikácia si prerobila svoje súbory
+    except Exception as exc:  # noqa: BLE001 – panel nesmie spadnúť na tom, že aplikácia prerobila svoje súbory
+        _note_app_titles(False)
+        log.debug("názov chatu sa nedá zistiť: %s", exc)
+        return ""
 
 
 def _json_files(directory: Path, depth: int = APP_TITLE_DEPTH) -> list[tuple[float, int, str]]:
@@ -334,7 +365,8 @@ def app_link(session_id: str | None) -> str:
     try:
         app_titles()
         return _APP_LINKS.get(sid, "")
-    except Exception:  # noqa: BLE001
+    except Exception as exc:  # noqa: BLE001
+        log.debug("odkaz na chat sa nedá zistiť: %s", exc)
         return ""
 
 

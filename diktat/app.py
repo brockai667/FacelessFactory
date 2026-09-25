@@ -714,11 +714,11 @@ def app_titles_status() -> str:
     try:
         dirs = sessionsmod.app_session_dirs()
         if not dirs:
-            tried = ", ".join(str(r).replace(str(Path.home()), "~") for r in sessionsmod.app_roots())
+            tried = ", ".join(str(r / sessionsmod.APP_TITLE_DIR) for r in sessionsmod.app_roots())
             return ("názvy chatov: priečinok aplikácie sa nenašiel, panel ich vezme z prepisu session; "
                     f"skúšal som: {tried}")
         titles = sessionsmod.app_titles()
-        where = ", ".join(str(d).replace(str(Path.home()), "~") for d in dirs)
+        where = ", ".join(str(d) for d in dirs)
         return f"názvy chatov: {len(titles)} z aplikácie ({where})"
     except Exception as exc:  # noqa: BLE001
         return f"názvy chatov: nedajú sa prečítať ({exc})"
