@@ -108,11 +108,16 @@ class DiktatApp:
         exit_after_seconds, diktat sa vypne. Procesy na pozadí (Chrome bez okna, Claude v lište) sa nerátajú.
         Úloha diktat-watch ho spustí znova, keď sa okno objaví."""
         limit = float(self.cfg.get("follow", {}).get("exit_after_seconds") or 60)
+        names_limit = float(self.cfg.get("panel", {}).get("restart_after_seconds") or 180)
         missing_since = None
         last_seen: set[str] | None = None
+        restarted_for_names = False
         while True:
             time.sleep(5)
             try:
+                if not restarted_for_names and names_limit > 0 and self.panel_names_stuck(names_limit):
+                    restarted_for_names = True      # len raz za beh, nech z toho nie je kolotoč
+                    continue
                 all_names = procs.running_process_names()
                 if len(all_names) < 20:
                     # Windows má vždy desiatky procesov – takto malý zoznam = zlyhanie enumerácie → nevypínať sa
@@ -568,6 +573,24 @@ class DiktatApp:
         else:
             self.panel.set_enabled(on)
         self.tray.notify("Panel session zapnutý" if on else "Panel session vypnutý")
+
+    def panel_names_stuck(self, limit: float) -> bool:
+        """Po zapnutí počítača sa občas stane, že diktat priečinok s názvami chatov nenájde a už sa
+        k nim nedostane, hoci ktorýkoľvek nový proces ich prečíta bez problémov – príčinu sa nepodarilo
+        nájsť. Keď to trvá dlhšie ako `limit`, diktat sa radšej vypne; úloha diktat-watch ho do minúty
+        spustí znova a po novom štarte názvy naskočia. Vráti True, keď sa vypína."""
+        stuck = sessionsmod.app_titles_failing_for()
+        if stuck < limit:
+            return False
+        if self.recorder is not None and (self.recorder.recording or self.busy.locked()):
+            return False                         # nikdy neprerušiť rozrobený diktát
+        log.warning("názvy chatov sa nedajú načítať už %.0f s – reštartujem sa, aby panel ukazoval "
+                    "názvy chatov namiesto prvých správ (úloha diktat-watch ma spustí znova)", stuck)
+        self.overlay.show("obnovujem sa – o chvíľu som späť", "info", timeout=4)
+        time.sleep(1.5)
+        self.shutdown()
+        self.tray.stop()
+        os._exit(0)
 
     def check_autostart(self) -> str:
         """Beží na pozadí pri štarte: je úloha Plánovača, ktorá diktat spúšťa, ešte na mieste?"""

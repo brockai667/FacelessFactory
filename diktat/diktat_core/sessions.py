@@ -194,6 +194,7 @@ _APP_CACHE: dict[str, tuple[float, int, dict]] = {}       # súbor → (čas zme
 _APP_TITLES: dict[str, str] = {}                          # id session → názov chatu
 _APP_ARCHIVED: set[str] = set()                           # id session, ktoré už v bočnom zozname nie sú
 _APP_LINKS: dict[str, str] = {}                           # id session → odkaz na ten chat
+_APP_TRIED: list[str] = []                                # posledný pokus o nájdenie priečinka, cesta po ceste
 _APP_SCANNED_AT = 0.0
 
 
@@ -205,12 +206,20 @@ def app_session_dirs() -> list[Path]:
     else:
         candidates = [root / APP_TITLE_DIR for root in app_roots()]
     out: list[Path] = []
+    _APP_TRIED.clear()
     for path in candidates:
         try:
-            if path.is_dir() and path not in out:
-                out.append(path)
-        except OSError:
-            pass
+            if path.is_dir():
+                if path not in out:
+                    out.append(path)
+                _APP_TRIED.append(f"{path}: je")
+                continue
+            os.stat(path)                       # neexistuje, alebo existuje a nie je to priečinok?
+            _APP_TRIED.append(f"{path}: nie je priečinok")
+        except OSError as exc:
+            _APP_TRIED.append(f"{path}: {type(exc).__name__} {getattr(exc, 'winerror', exc.errno)} {exc.strerror}")
+        except Exception as exc:  # noqa: BLE001
+            _APP_TRIED.append(f"{path}: {type(exc).__name__}: {exc}")
     return out
 
 
@@ -306,12 +315,21 @@ def _scan_app_titles(max_files: int, head_bytes: int) -> dict[str, str]:
 
 
 _APP_LAST_OK: bool | None = None
+_APP_BAD_SINCE = 0.0          # odkedy sa názvy nedajú načítať (0 = všetko v poriadku)
+
+
+def app_titles_failing_for(now: float | None = None) -> float:
+    """Koľko sekúnd už sa názvy chatov nedajú načítať. 0 = v poriadku."""
+    if not _APP_BAD_SINCE:
+        return 0.0
+    return max(0.0, (time.time() if now is None else now) - _APP_BAD_SINCE)
 
 
 def _note_app_titles(ok: bool, why: BaseException | None = None) -> None:
     """Do logu sa zapíše len zmena: nájdené → nenájdené a späť. Inak by panel písal riadok každú sekundu.
     Keď za tým bola výnimka, zapíše sa aj s výpisom – inak by sa o nej nikto nedozvedel."""
-    global _APP_LAST_OK
+    global _APP_LAST_OK, _APP_BAD_SINCE
+    _APP_BAD_SINCE = 0.0 if ok else (_APP_BAD_SINCE or time.time())
     if ok == _APP_LAST_OK:
         return
     _APP_LAST_OK = ok
@@ -322,8 +340,7 @@ def _note_app_titles(ok: bool, why: BaseException | None = None) -> None:
                     "z prepisu session, skúšam odznova", type(why).__name__, why, exc_info=why)
     else:
         log.warning("názvy chatov z aplikácie sa nedajú načítať – panel zatiaľ berie názvy z prepisu "
-                    "session; skúšam ďalej (hľadám v: %s)",
-                    ", ".join(str(r / APP_TITLE_DIR) for r in app_roots()))
+                    "session; skúšam ďalej. Čo som skúsil:\n    %s", "\n    ".join(_APP_TRIED) or "(nič)")
 
 
 def app_title(session_id: str | None) -> str:

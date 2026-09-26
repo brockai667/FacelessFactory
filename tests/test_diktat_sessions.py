@@ -680,6 +680,23 @@ class AppTitlesRecoverTests(unittest.TestCase):
             self.assertFalse(sessions.app_archived("a"))
             self.assertEqual(sessions.app_link("a"), "")
 
+    def test_it_knows_how_long_the_names_have_been_missing(self):
+        self._chat("a", "Curio engine")
+        sessions.app_titles()
+        self.assertEqual(sessions.app_titles_failing_for(), 0.0)
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(self.out / "niet")
+        sessions._APP_SCANNED_AT = 0.0
+        sessions.app_titles()
+        self.assertGreater(sessions.app_titles_failing_for(sessions._APP_BAD_SINCE + 42), 41)
+
+    def test_it_says_why_each_folder_failed(self):
+        os.environ["DIKTAT_APP_SESSION_DIR"] = str(self.out / "niet")
+        sessions.forget_app_titles()
+        sessions.app_titles()
+        self.assertEqual(len(sessions._APP_TRIED), 1)
+        self.assertIn("niet", sessions._APP_TRIED[0])
+        self.assertIn("FileNotFoundError", sessions._APP_TRIED[0])
+
 
 class AppTitleStatusTests(unittest.TestCase):
     """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""
