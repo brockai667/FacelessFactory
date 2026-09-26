@@ -60,13 +60,25 @@ napíš, čo presne zlyhalo, a navrhni, čo s tým.
    .venv\Scripts\python.exe install.py
    ```
 
-3. **Zapni automatické spúšťanie:**
+3. **Rýchly prepis na grafickej karte.** Spusti `nvidia-smi`. Keď vypíše kartu, patria k nej aj CUDA
+   knižnice — `setup_windows.bat` ich v takom prípade nainštaluje sám, takže tento krok už len over.
+   Keby chýbali, dointaluj ich ručne; prepis je s nimi **5–10× rýchlejší** (minúta reči 2–4 s namiesto
+   15–40 s), jednorazovo sa stiahne ~700 MB:
+
+   ```
+   .venv\Scripts\python.exe -m pip install -r requirements-gpu.txt
+   ```
+
+   Bez NVIDIA karty tento krok preskoč, diktat pobeží na procesore. CUDA Toolkit inštalovať netreba,
+   stačia tieto pip balíky; diktat si ich nájde sám.
+
+4. **Zapni automatické spúšťanie:**
 
    ```
    .venv\Scripts\python.exe install.py --autostart
    ```
 
-4. **Over, že je všetko na mieste:**
+5. **Over, že je všetko na mieste:**
 
    ```
    .venv\Scripts\python.exe app.py --diag
@@ -75,14 +87,14 @@ napíš, čo presne zlyhalo, a navrhni, čo s tým.
    V rozsiahlom výpise musia byť tieto riadky v poriadku:
    - `hooky: UserPromptSubmit=áno, SessionStart=áno, Notification=áno, Stop=áno, SessionEnd=áno`
    - `úloha diktat-watch` existuje
-   - `grafika:` — keď tam je NVIDIA, prepis pôjde na GPU
+   - `grafika:` — keď je tam názov karty, prepis pôjde po GPU; keď „nvidia-smi nenájdené", ide po procesore
 
-5. **Spusti diktat:** dvojklik na odkaz **Diktat** na ploche (inštalácia ho vytvorí), alebo
+6. **Spusti diktat:** dvojklik na odkaz **Diktat** na ploche (inštalácia ho vytvorí), alebo
    `run_diktat.bat`. Prvý štart trvá dlhšie — sťahuje sa model (~1,5 GB).
 
-6. **Povedz používateľovi, že má reštartovať Claude Code**, inak nové hooky nenačíta.
+7. **Povedz používateľovi, že má reštartovať Claude Code**, inak nové hooky nenačíta.
 
-7. **Skúška:** nech klikne do okna Claude Code, stlačí na numerickej klávesnici **`,` / `Del`**
+8. **Skúška:** nech klikne do okna Claude Code, stlačí na numerickej klávesnici **`,` / `Del`**
    (pri pravom Enteri), povie vetu a stlačí skratku znova. Text sa vloží do promptu.
 
 ---

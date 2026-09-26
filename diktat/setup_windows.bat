@@ -7,6 +7,14 @@ if not exist .venv (
 call .venv\Scripts\activate.bat
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt || (echo Chyba pri instalacii zavislosti. & exit /b 1)
+rem NVIDIA karta? Potom aj CUDA kniznice - prepis je s nimi 5-10x rychlejsi (jednorazovo ~700 MB).
+where nvidia-smi >nul 2>&1
+if %errorlevel%==0 (
+  echo Nasiel som NVIDIA grafiku - instalujem CUDA kniznice pre rychly prepis...
+  python -m pip install -q -r requirements-gpu.txt || echo Varovanie: CUDA kniznice sa nepodarilo nainstalovat, prepis pobezi na procesore.
+) else (
+  echo NVIDIA grafika sa nenasla - prepis pobezi na procesore ^(minuta reci cca 15-40 s^).
+)
 if not exist config.json copy config.example.json config.json >nul
 python install.py
 echo.
