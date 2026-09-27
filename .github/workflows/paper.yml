@@ -59,7 +59,7 @@ jobs:
           cd paper
           N="${{ github.event.inputs.count || '1' }}"
           for i in $(seq 1 "$N"); do python engine/factory.py --out ../output || exit 1; done
-          ls -la ../output
+          ls -la ../output 2>/dev/null || true
 
       - name: Artefakt na kontrolu (video + QC hárok)
         uses: actions/upload-artifact@v4
