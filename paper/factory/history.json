@@ -167,20 +167,5 @@
   "slug": "what-daily-walking-does",
   "topic": "What happens if you walk ten thousand steps every day?",
   "env": "field"
- },
- {
-  "format": "timeline",
-  "chrome": "stamp",
-  "trans": "circle",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "bun",
-  "skin": "tan",
-  "palette": "p0",
-  "cta": "COMMENT BELOW",
-  "species": "bear",
-  "slug": "what-going-without-food-does",
-  "topic": "What happens if you stop eating for three days?",
-  "env": "room"
  }
 ]
