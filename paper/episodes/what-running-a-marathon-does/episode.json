@@ -1,0 +1,166 @@
+{
+ "title": "What running a marathon does",
+ "hook": [
+  "RUNNING A",
+  "MARATHON?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#d9483b",
+ "kit": {
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "How your heart, energy stores and muscles react as marathon miles add up.\n#marathon #running #science #fitness\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Echoes of Time.mp3",
+  "at": 4.0,
+  "vol": 0.94,
+  "credit": "Music: \"Echoes of Time\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you run a marathon?",
+  "b1": "Five miles in, your heart rate climbs and breathing quickens.",
+  "b2": "By mile thirteen, your heart pumps harder to hold pace.",
+  "b3": "Around mile twenty, stored glycogen runs low, and you hit the wall.",
+  "b4": "By mile twenty-four, heavy sweat can leave you dehydrated.",
+  "b5": "At the finish, sore muscles remind you of every mile.",
+  "end": "Would you ever run a full marathon?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "heartbeat.wav",
+   "b5:muscles",
+   -0.02,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b5:muscles",
+   0.28,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b5:muscles",
+   0.58,
+   0.45
+  ],
+  [
+   "sparkle.wav",
+   "end:run",
+   0.1,
+   0.5
+  ]
+ ]
+}

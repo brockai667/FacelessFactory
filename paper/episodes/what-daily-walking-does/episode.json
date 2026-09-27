@@ -1,0 +1,153 @@
+{
+ "title": "What daily walking does",
+ "hook": [
+  "TEN THOUSAND",
+  "STEPS A DAY?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#d9483b",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "How a daily walk can help your heart, mood, sleep and calories burned.\n#walking #steps #health #fitness\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Hyperfun.mp3",
+  "at": 0.0,
+  "vol": 1.35,
+  "credit": "Music: \"Hyperfun\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you walk ten thousand steps?",
+  "b1": "Just two thousand steps outside can already lift your mood a little.",
+  "b2": "By five thousand steps, your heart gets a light workout.",
+  "b3": "Around seven thousand steps in, sleep quality often starts to improve too.",
+  "b4": "Ten thousand steps can burn solid calories, though benefits can level off.",
+  "end": "How many steps did you take today?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.45,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.25,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "end",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.25,
+   0.25
+  ],
+  [
+   "sparkle.wav",
+   "end:steps",
+   0.1,
+   0.5
+  ]
+ ]
+}

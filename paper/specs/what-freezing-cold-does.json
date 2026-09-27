@@ -1,0 +1,178 @@
+{
+ "topic": "What happens if you stay out in the freezing cold?",
+ "slug": "what-freezing-cold-does",
+ "title": "What freezing cold does",
+ "hook": "What happens if you stay out in freezing cold?",
+ "banner": [
+  "FREEZING COLD",
+  "OUTSIDE?"
+ ],
+ "format": "gauge",
+ "env": "field",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "37°C",
+   "line": "In freezing air, your body starts shivering to make heat.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "at": "freezing",
+       "arg": "cold"
+      },
+      {
+       "r": "shiver",
+       "at": "shivering",
+       "arg": 1.4
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "36°C",
+   "line": "Blood vessels in your skin narrow, so your fingers go numb.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "narrow",
+       "arg": "worried"
+      },
+      {
+       "r": "face",
+       "at": "numb",
+       "arg": "pain"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "35°C",
+   "line": "Below thirty-five degrees, doctors call it hypothermia.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "big": "35°C",
+     "small": "HYPOTHERMIA",
+     "icon": "snow",
+     "bg": "#ece6f6"
+    }
+   ]
+  },
+  {
+   "label": "33°C",
+   "line": "Around thirty-three degrees, you get clumsy and confused.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "confused"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "32°C",
+   "line": "Near thirty-two degrees, shivering can stop, and your heart slows down.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "So, how do you stay warm when it's freezing?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "warm"
+   },
+   {
+    "r": "wave",
+    "at": "freezing"
+   }
+  ]
+ },
+ "description": "Stage by stage, how your body fights to stay warm as the cold sets in.",
+ "tags": [
+  "#cold",
+  "#hypothermia",
+  "#science",
+  "#body"
+ ],
+ "facts": [
+  {
+   "claim": "Shivering makes heat; skin blood vessels narrow in the cold, fingers can go numb.",
+   "source": "Mayo Clinic / NIH"
+  },
+  {
+   "claim": "Hypothermia = core body temperature below 35°C (95°F).",
+   "source": "CDC / Mayo Clinic"
+  },
+  {
+   "claim": "Mild-to-moderate hypothermia: clumsiness, confusion; around 32°C shivering may stop, heart rate and breathing slow.",
+   "source": "Mayo Clinic / Merck Manual"
+  }
+ ],
+ "queue_file": "005-cold.json",
+ "accent": "#7a5fa0",
+ "kit": {
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "outfit": "tshirt",
+  "hairStyle": "bald",
+  "hair": "#c98b3a",
+  "skin": "dark",
+  "suit": "#8e7cc3",
+  "suitDark": "#6d5ca6",
+  "pants": "#3b3552",
+  "pantsDark": "#2a2640",
+  "patch": "#f6c343",
+  "glasses": true,
+  "lashes": true,
+  "capColor": "#7a5fa0"
+ },
+ "loop": "blink",
+ "music_i": 5,
+ "direction": {
+  "format": "gauge",
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "bald",
+  "skin": "dark",
+  "palette": "p1"
+ }
+}

@@ -1,0 +1,91 @@
+# Papierová fabrika (MindBlownDaily): paper/ = FactoryAnim/paper-factory (engine, lib, assets, factory/queue).
+# Fáza A (test): ručné spustenie, publish=no -> video sa len vyrenderuje a uloží ako artefakt na kontrolu.
+# Fáza B (ostrá prevádzka): odkomentovať schedule -> 1 video denne, publikovanie cez push_to_buffer.py (YT + IG + TikTok).
+name: Paper factory (MindBlown)
+
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "Koľko videí vyrobiť"
+        default: "1"
+      publish:
+        description: "Publikovať cez Buffer? (yes/no)"
+        default: "no"
+  # schedule:                        # fáza B: 05:20 UTC = 07:20 Bratislava, video ide do slotu 11:00 (BUFFER_SLOT_HOURS)
+  #   - cron: "20 5 * * *"
+
+permissions:
+  contents: write                    # stav fabriky (fronta -> done, history.json), pushed.json, release s videom
+
+concurrency:
+  group: daily                       # nikdy súbežne so starým denným behom (spoločný stav v repozitári)
+  cancel-in-progress: false
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: FFmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Python závislosti
+        run: pip install -q -r paper/requirements.txt
+
+      - name: HyperFrames + prehliadač (cache npx)
+        run: npx -y hyperframes@0.8.78 --version
+
+      - name: Render z fronty scenárov
+        env:
+          HF_CLI: npx -y hyperframes@0.8.78
+          PYTHONIOENCODING: utf-8
+        run: |
+          cd paper
+          N="${{ github.event.inputs.count || '1' }}"
+          for i in $(seq 1 "$N"); do python engine/factory.py --out ../output || exit 1; done
+          ls -la ../output
+
+      - name: Artefakt na kontrolu (video + QC hárok)
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-videos
+          path: |
+            output/paper-*.mp4
+            output/paper-*.txt
+            paper/out/*_qc.jpg
+          if-no-files-found: error
+
+      - name: Publikovanie (Buffer -> YouTube, Instagram, TikTok)
+        if: github.event.inputs.publish == 'yes' || github.event_name == 'schedule'
+        env:
+          BUFFER_TOKEN: ${{ secrets.BUFFER_TOKEN }}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUFFER_SLOT_HOURS: "11"      # 1 video denne o 11:00 Bratislava (09:00 UTC = najlepšie okno siete 08-12 UTC)
+          PYTHONIOENCODING: utf-8
+        run: |
+          cp config.example.json config.json
+          python push_to_buffer.py "${{ github.event.inputs.count || '1' }}"
+
+      - name: Uloženie stavu
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -f config.json
+          git add -A paper/factory pushed.json 2>/dev/null || true
+          git commit -m "paper: stav $(date -u +%F)" || echo "bez zmien"
+          for i in 1 2 3 4; do git pull --rebase -q && git push && break || sleep 15; done

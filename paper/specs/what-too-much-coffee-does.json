@@ -1,0 +1,215 @@
+{
+ "topic": "What happens if you drink ten cups of coffee a day?",
+ "title": "What too much coffee does",
+ "hook": "What happens if you drink ten cups of coffee?",
+ "banner": [
+  "TEN COFFEES",
+  "IN ONE DAY?"
+ ],
+ "format": "gauge",
+ "env": "room",
+ "outfit": "hoodie",
+ "mood_music": "playful",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "1 CUP",
+   "line": "One cup. Caffeine blocks the chemical that makes you sleepy.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "caffeine"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "chemical",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "sleepy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 CUPS",
+   "line": "Four cups is about the most experts call safe in a day.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "400 MG",
+     "small": "DAILY LIMIT",
+     "icon": "cup",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#f7ecd6"
+    }
+   ]
+  },
+  {
+   "label": "6 CUPS",
+   "line": "Six cups. Your heart speeds up, and your hands start to shake.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "heart"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "from": "hands",
+     "do": [
+      {
+       "r": "shiver",
+       "arg": 1.4,
+       "at": "shake"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "hands"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "8 CUPS",
+   "line": "Eight cups. Your stomach burns, and you start to feel anxious.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "burns"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "anxious"
+      },
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "anxious"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "10 CUPS",
+   "line": "Ten cups. Even when you're exhausted, you can't fall asleep.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "ten"
+      },
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "exhausted"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "asleep"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "How many cups did you have today?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "cups"
+   },
+   {
+    "r": "wave",
+    "at": "today"
+   }
+  ]
+ },
+ "description": "What happens to your brain, heart and sleep as the coffee cups add up.",
+ "tags": [
+  "#coffee",
+  "#caffeine",
+  "#science",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "Caffeine blocks adenosine receptors (adenosine builds sleep pressure).",
+   "source": "NIH / Sleep Foundation"
+  },
+  {
+   "claim": "Up to 400 mg caffeine a day (about 4 cups of brewed coffee) is generally safe for healthy adults.",
+   "source": "FDA"
+  },
+  {
+   "claim": "High intake can cause fast heartbeat, tremor/jitters, upset stomach, anxiety and insomnia.",
+   "source": "FDA, Mayo Clinic"
+  }
+ ],
+ "queue_file": "001-coffee.json",
+ "slug": "what-too-much-coffee-does",
+ "accent": "#c7851f",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "outfit": "hoodie",
+  "hairStyle": "spiky",
+  "hair": "#4a3226",
+  "skin": "light",
+  "suit": "#f2a93b",
+  "suitDark": "#d48a22",
+  "pants": "#4a3a5a",
+  "pantsDark": "#362a44",
+  "patch": "#f28b82",
+  "glasses": true,
+  "lashes": true,
+  "capColor": "#c7851f"
+ },
+ "music_i": 1,
+ "direction": {
+  "format": "gauge",
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "spiky",
+  "skin": "light",
+  "palette": "p4"
+ },
+ "music": "hyperfun"
+}

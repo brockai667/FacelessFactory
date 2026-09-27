@@ -1,0 +1,8 @@
+# build a vystupy (v CI sa vytvoria znova)
+episodes/*/build/
+out/
+__pycache__/
+*.pyc
+.env
+# lokalne pokusy
+episodes/_kit_*/

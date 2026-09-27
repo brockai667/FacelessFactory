@@ -1,0 +1,192 @@
+{
+ "topic": "What happens if you never go outside?",
+ "slug": "what-staying-inside-does",
+ "title": "What staying inside does",
+ "hook": "What happens if you never go outside?",
+ "banner": [
+  "WHAT IF YOU",
+  "STAY INSIDE?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "outfit": "pajamas",
+ "mood_music": "calm",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "1 DAY",
+   "line": "After a day indoors, you miss sunlight, the main signal for your body clock.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "miss",
+       "arg": "worried"
+      },
+      {
+       "r": "look",
+       "at": "sunlight",
+       "arg": "left"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 WEEK",
+   "line": "After a week, your skin makes no new vitamin D without sunlight.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "big": "0",
+     "small": "NEW VITAMIN D",
+     "icon": "sun",
+     "bg": "#dfeaf5"
+    }
+   ]
+  },
+  {
+   "label": "2 WEEKS",
+   "line": "By two weeks, your sleep can start drifting later and later.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "at": "sleep",
+       "arg": "night"
+      },
+      {
+       "r": "yawn",
+       "at": "later"
+      }
+     ]
+    }
+   ],
+   "scene": "bed"
+  },
+  {
+   "label": "1 MONTH",
+   "line": "After a month, your vitamin D can drop, and you may feel tired.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "drop",
+       "arg": "tired"
+      },
+      {
+       "r": "slump",
+       "at": "tired"
+      }
+     ]
+    }
+   ],
+   "scene": "couch"
+  },
+  {
+   "label": "2 MONTHS",
+   "line": "After two months, less daylight can drag your mood down.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "mood"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "So, how much time outside did you get today?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "time"
+   },
+   {
+    "r": "wave",
+    "at": "today"
+   }
+  ]
+ },
+ "description": "A realistic look at what months without sunlight can do to sleep, vitamin D and mood.",
+ "tags": [
+  "#indoors",
+  "#vitamind",
+  "#science",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "Light is the main signal that sets the body's internal (circadian) clock.",
+   "source": "NIH / NIGMS"
+  },
+  {
+   "claim": "Skin makes vitamin D from UVB sunlight; window glass blocks UVB, so indoor light makes none.",
+   "source": "NIH Office of Dietary Supplements"
+  },
+  {
+   "claim": "Without daylight the body clock tends to drift later, delaying sleep.",
+   "source": "NIH / Current Biology (Wright et al. 2013)"
+  },
+  {
+   "claim": "Vitamin D levels fall over weeks to months without sun or diet; low levels are linked to fatigue.",
+   "source": "NIH Office of Dietary Supplements"
+  },
+  {
+   "claim": "Less daylight is linked to lower mood (e.g. seasonal pattern).",
+   "source": "NIH / NIMH"
+  }
+ ],
+ "queue_file": "003-outside.json",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "outfit": "pajamas",
+  "hairStyle": "curly",
+  "hair": "#4a3226",
+  "skin": "brown",
+  "suit": "#3f73b8",
+  "suitDark": "#2f5a93",
+  "pants": "#34466a",
+  "pantsDark": "#26344f",
+  "patch": "#ffffff",
+  "glasses": true,
+  "lashes": false,
+  "capColor": "#2a74b3"
+ },
+ "loop": "kit",
+ "music_i": 3,
+ "direction": {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "curly",
+  "skin": "brown",
+  "palette": "p0"
+ },
+ "scene": "couch"
+}

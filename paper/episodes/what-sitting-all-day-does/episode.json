@@ -1,0 +1,178 @@
+{
+ "title": "What sitting all day does",
+ "hook": [
+  "WHAT IF YOU",
+  "SIT ALL DAY?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#d9483b",
+ "kit": {
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Counting down what a whole day glued to a chair does to your body.\n#sitting #deskjob #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Lightless Dawn.mp3",
+  "at": 8.0,
+  "vol": 2.53,
+  "credit": "Music: \"Lightless Dawn\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you sit all day?",
+  "b1": "Sitting for hours makes your muscles stiff and your back ache.",
+  "b2": "The longer you sit, the slower blood flows through your legs.",
+  "b3": "Your hip muscles can tighten and shorten from sitting too long.",
+  "b4": "Sitting most of the day is linked to a higher risk of heart disease.",
+  "b5": "On average, adults spend about six and a half hours a day sitting.",
+  "end": "So, how many hours did you sit today?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b2",
+   -0.3,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.7
+  ],
+  [
+   "wobble.wav",
+   "b3:shorten",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b4",
+   -0.3,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b5",
+   -0.3,
+   0.7
+  ],
+  [
+   "paper.wav",
+   "end",
+   -0.3,
+   0.7
+  ],
+  [
+   "sparkle.wav",
+   "end:sit",
+   0.1,
+   0.5
+  ]
+ ]
+}

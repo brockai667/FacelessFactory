@@ -1,0 +1,152 @@
+{
+ "title": "What too little sleep does",
+ "hook": [
+  "ONLY FOUR HOURS",
+  "OF SLEEP?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#c7851f",
+ "kit": {
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "How losing sleep night after night affects focus, hunger, immunity and mood.\n#sleep #health #science #focus\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Cut and Run.mp3",
+  "at": 0.0,
+  "vol": 0.23,
+  "credit": "Music: \"Cut and Run\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you only sleep four hours?",
+  "b1": "After one night of just four hours, your focus and reaction time drop.",
+  "b2": "By the third short night, hunger hormones rise, and cravings grow stronger.",
+  "b3": "After a week like this, your immune system weakens too.",
+  "b4": "After two full weeks, mood drops, and small things feel much harder.",
+  "end": "How many hours did you sleep last night?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "swell.wav",
+   "b1:after",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.25,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "swell.wav",
+   "b3:after",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "end:sleep",
+   0.1,
+   0.5
+  ]
+ ]
+}

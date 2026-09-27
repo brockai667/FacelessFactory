@@ -1,0 +1,184 @@
+{
+ "topic": "What happens if you go to Mars?",
+ "slug": "what-a-trip-to-mars-does",
+ "title": "What a trip to Mars does",
+ "hook": "What happens if you go to Mars?",
+ "banner": [
+  "WHAT IF YOU",
+  "GO TO MARS?"
+ ],
+ "format": "countdown",
+ "env": "space",
+ "outfit": "suit",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "The trip to Mars alone can take seven to nine months.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "trip"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "months"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Deep space radiation levels are far higher than on Earth.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "space"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "radiation",
+     "big": "HIGH",
+     "small": "RADIATION",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "In microgravity, your muscles and bones can quickly weaken.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thin_arms",
+       "at": "muscles"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "from": "bones",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "weaken"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "On Mars, gravity is only about thirty-eight percent of Earth's.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "gravity",
+       "arg": "excited"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "percent",
+     "big": "38%",
+     "small": "MARS GRAVITY",
+     "icon": "down",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Its thin air is mostly carbon dioxide, and you can't breathe it.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "breathe"
+      },
+      {
+       "r": "puff",
+       "at": "air"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you want to go to Mars?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "go"
+   },
+   {
+    "r": "wave",
+    "at": "mars"
+   }
+  ]
+ },
+ "description": "Five things your body and ship go through on the way to Mars.",
+ "tags": [
+  "#mars",
+  "#space",
+  "#science",
+  "#nasa"
+ ],
+ "facts": [
+  {
+   "claim": "A one-way trip to Mars takes about seven to nine months with current technology.",
+   "source": "NASA"
+  },
+  {
+   "claim": "Astronauts traveling to Mars would be exposed to much higher radiation levels than on Earth.",
+   "source": "NASA"
+  },
+  {
+   "claim": "In microgravity, muscles and bones can weaken and lose density over time.",
+   "source": "NASA / NIH"
+  },
+  {
+   "claim": "Mars' surface gravity is about 38% of Earth's gravity.",
+   "source": "NASA"
+  },
+  {
+   "claim": "Mars' atmosphere is thin and made mostly of carbon dioxide, and is not breathable.",
+   "source": "NASA"
+  }
+ ]
+}

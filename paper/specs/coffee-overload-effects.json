@@ -1,0 +1,176 @@
+{
+ "title": "Coffee Overload Effects",
+ "hook": "What happens if you drink ten cups daily?",
+ "banner": [
+  "WHAT HAPPENS",
+  "TEN CUPS?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "DAY 1",
+   "line": "Day one. Ten cups of coffee boost your heart, it beats faster quickly.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "boost"
+      },
+      {
+       "r": "sweat",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 2",
+   "line": "Day two. Your blood gets thicker, noticeably, circulation may slow a bit.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "thicker"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "WEEK 1",
+   "line": "Week one. Caffeine keeps you alert, but you may feel jittery slightly.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "alert"
+      },
+      {
+       "r": "shiver",
+       "arg": "2",
+       "at": "jittery"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "MONTH 1",
+   "line": "Month one. Your stomach acid rises, causing your still heart to beat faster.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "MONTH 3",
+   "line": "Month three. Habitual high caffeine can raise blood pressure, about a few moderately points.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "pressure"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "What would you trade for that buzz?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "buzz"
+   }
+  ]
+ },
+ "description": "A timeline of what ten cups of coffee a day can do to your body.",
+ "tags": [
+  "#coffee",
+  "#caffeine",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "Ten cups of coffee can increase heart rate",
+   "source": "NIH, Caffeine and Heart"
+  },
+  {
+   "claim": "High caffeine intake can cause mild dehydration, making blood slightly thicker",
+   "source": "Mayo Clinic, Caffeine and Dehydration"
+  },
+  {
+   "claim": "Caffeine improves alertness but can cause jitteriness",
+   "source": "Mayo Clinic, Caffeine Effects"
+  },
+  {
+   "claim": "Caffeine stimulates stomach acid production, which can increase heart palpitations",
+   "source": "American Gastroenterological Association, Caffeine and Stomach Acid"
+  },
+  {
+   "claim": "Regular high caffeine consumption may raise blood pressure by a few mmHg",
+   "source": "American Heart Association, Caffeine and Blood Pressure"
+  }
+ ],
+ "slug": "coffee-overload-effects",
+ "accent": "#c7851f",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "hero": {
+  "outfit": "tshirt",
+  "hairStyle": "cap",
+  "hair": "#c98b3a",
+  "skin": "brown",
+  "suit": "#f2a93b",
+  "suitDark": "#d48a22",
+  "pants": "#4a3a5a",
+  "pantsDark": "#362a44",
+  "patch": "#ffffff",
+  "glasses": false,
+  "lashes": false,
+  "capColor": "#c7851f"
+ },
+ "loop": "blink",
+ "music_i": 0,
+ "topic": "What happens if you drink ten cups of coffee a day?",
+ "direction": {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "cap",
+  "skin": "brown",
+  "palette": "p4"
+ }
+}

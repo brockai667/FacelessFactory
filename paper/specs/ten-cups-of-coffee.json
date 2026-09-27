@@ -1,0 +1,217 @@
+{
+ "title": "Ten Cups of Coffee",
+ "hook": "What if you drink ten coffees a day?",
+ "banner": "WHAT IF YOU SIP\nTEN COFFEES?",
+ "format": "timeline",
+ "env": "room",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "MINUTE 10",
+   "line": "Minute ten. Your pulse spikes, and you feel jittery.",
+   "idea": "Close-up of heart beating fast, character trembling.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "spikes"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "you",
+       "arg": "shiver",
+       "at": "jittery"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "HOUR 2",
+   "line": "Hour two. Your stomach releases extra acid, causing mild upset.",
+   "idea": "Stomach shown bubbling, character holding belly.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "you",
+       "arg": "pain",
+       "at": "upset"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 1",
+   "line": "Day one. Blood pressure rises, and your heart works harder.",
+   "idea": "Arm with blood pressure cuff inflating, heart pumping.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "harder"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "rises"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 3",
+   "line": "Day three. Cortisol climbs, and you may feel anxious.",
+   "idea": "Brain with rising cortisol graph, character sweating.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "climbs"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "you",
+       "arg": "worried",
+       "at": "anxious"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "WEEK 1",
+   "line": "Week one. Sleep cycles shift, and you struggle to rest.",
+   "idea": "Bedroom scene, character tossing, clock showing night.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "do": [
+      {
+       "a": "big",
+       "at": "7 DAYS"
+      },
+      {
+       "a": "icon",
+       "at": "clock"
+      }
+     ],
+     "bg": "#e1f1e8"
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "you",
+       "arg": "yawn",
+       "at": "rest"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 5",
+   "line": "Day five. Your teeth may feel more sensitive from acid.",
+   "idea": "Close-up of teeth with acid droplets, character wincing.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "you",
+       "arg": "pain",
+       "at": "acid"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how ten cups of coffee a day can affect your body.",
+ "tags": [
+  "#Coffee",
+  "#Caffeine",
+  "#Health",
+  "#Science"
+ ],
+ "facts": [
+  {
+   "claim": "Caffeine can increase heart rate and cause jitteriness.",
+   "source": "NIH – National Institute on Drug Abuse"
+  }
+ ],
+ "end": {
+  "line": "Would you still sip ten?",
+  "do": [
+   {
+    "r": "you",
+    "arg": "worried",
+    "at": "ten"
+   }
+  ]
+ },
+ "slug": "ten-cups-of-coffee",
+ "accent": "#2f8f6a",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "outfit": "tshirt",
+  "hairStyle": "bald",
+  "hair": "#6b6b6b",
+  "skin": "brown",
+  "suit": "#3fa37c",
+  "suitDark": "#2f7f60",
+  "pants": "#2f3e46",
+  "pantsDark": "#222d33",
+  "patch": "#ffffff",
+  "glasses": false,
+  "lashes": false,
+  "capColor": "#2f8f6a"
+ },
+ "loop": "kit",
+ "music_i": 0,
+ "topic": "What happens if you drink ten cups of coffee a day?",
+ "direction": {
+  "format": "timeline",
+  "chrome": "bubble",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "bald",
+  "skin": "brown",
+  "palette": "p3"
+ }
+}

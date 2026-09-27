@@ -1,0 +1,36 @@
+{
+  "title": "What space does to the body",
+  "hook": ["WHAT IF YOU LIVE", "IN SPACE?"],
+  "voice": "en-US-AndrewNeural", "rate": "+0%", "gap": 0.5, "tail": 1.4,
+  "bg": "#dfe6ee", "accent": "#2a74b3",
+  "libs": ["core.js", "fx.js", "env_space.js", "env_field.js", "char_biped.js", "panels_space.js"],
+  "description": "AI-free animation made with code. Not medical advice.\n#space #astronaut #body #science",
+  "music": {"file": "C:\\Users\\damia\\ScienceFactory\\assets\\music\\Space Jazz.mp3", "at": 0.0, "vol": 0.5,
+            "credit": "Music: \"Space Jazz\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"},
+  "lines": {
+    "hook": "What happens if you live in space?",
+    "d1": "Day one. Fluids drift up to your head, so your face puffs up and your legs get skinny.",
+    "d2": "Day two. Your inner ear can't tell which way is down, so you feel sick.",
+    "w2": "Week two. Your spine stretches out, and you grow up to two inches taller.",
+    "m1": "Month one. Your bones get weaker, losing about one percent every month.",
+    "m3": "Month three. Your muscles shrink, so you have to work out two hours a day.",
+    "m6": "Month six. The back of your eyes can flatten, and your vision gets blurry.",
+    "end": "Back on Earth, you can barely stand. Would you still go?"
+  },
+  "sfx": [
+    ["tick.wav", "d1", 0.02, 0.9], ["tick.wav", "d2", 0.02, 0.9], ["tick.wav", "w2", 0.02, 0.9], ["tick.wav", "m1", 0.02, 0.9],
+    ["tick.wav", "m3", 0.02, 0.9], ["tick.wav", "m6", 0.02, 0.9], ["tick.wav", "end", 0.08, 0.9],
+    ["sub_hit.wav", "d1", 0, 0.5], ["sub_hit.wav", "d2", 0, 0.5], ["sub_hit.wav", "w2", 0, 0.5], ["sub_hit.wav", "m1", 0, 0.5],
+    ["sub_hit.wav", "m3", 0, 0.5], ["sub_hit.wav", "m6", 0, 0.5], ["sub_hit.wav", "end", 0.05, 0.5],
+    ["paper.wav", "d1", 0.02, 0.55], ["paper.wav", "w2", 0.02, 0.55], ["paper.wav", "m3", 0.02, 0.55], ["paper.wav", "end", 0.08, 0.55],
+    ["beep.wav", "d1", 0.1, 0.5], ["beep.wav", "m3", 0.05, 0.5], ["beep.wav", "m3:two", -0.05, 0.55],
+    ["fill.wav", "d1:drift", -0.35, 0.45], ["pop.wav", "d1:puffs", 0, 0.7], ["pop.wav", "d1:skinny", 0, 0.7],
+    ["whoosh.wav", "d2", -0.27, 0.35], ["wobble.wav", "d2:which", -0.1, 0.5], ["whoosh.wav", "d2:so", -0.3, 0.35], ["wobble.wav", "d2:sick", -0.1, 0.55],
+    ["whoosh.wav", "w2", -0.27, 0.35], ["swell.wav", "w2:stretches", -0.1, 0.3], ["pop.wav", "w2:two#1", 0, 0.7], ["sparkle.wav", "w2:inches", 0, 0.45],
+    ["whoosh.wav", "m1", -0.4, 0.35], ["paper.wav", "m1:weaker", 0, 0.55], ["pop.wav", "m1:percent", -0.1, 0.7],
+    ["whoosh.wav", "m3", -0.27, 0.35], ["pop.wav", "m3:shrink", 0, 0.6], ["thud.wav", "m3:so", -0.08, 0.6],
+    ["whoosh.wav", "m6", -0.27, 0.35], ["swell.wav", "m6:flatten", -0.1, 0.3], ["wobble.wav", "m6:blurry", -0.25, 0.45],
+    ["whoosh.wav", "end", -0.5, 0.45], ["thud.wav", "end", 0.1, 0.6], ["wobble.wav", "end:barely", 0, 0.5], ["thud.wav", "end:stand", 0.02, 0.5],
+    ["sparkle.wav", "end:go", 0, 0.5], ["rumble.wav", "end:go", 0.25, 0.6]
+  ]
+}
