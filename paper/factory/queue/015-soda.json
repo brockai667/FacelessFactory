@@ -1,0 +1,184 @@
+{
+ "topic": "What happens if you drink only soda?",
+ "slug": "what-drinking-only-soda-does",
+ "title": "What drinking only soda does",
+ "hook": "What happens if you drink only soda?",
+ "banner": [
+  "NOTHING BUT",
+  "SODA?"
+ ],
+ "format": "gauge",
+ "env": "room",
+ "scene": "desk",
+ "outfit": "hoodie",
+ "mood_music": "playful",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "1 CAN",
+   "line": "One can of cola packs about ten teaspoons of sugar.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "can"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "about",
+     "big": "10 TSP",
+     "small": "SUGAR PER CAN",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 CANS",
+   "line": "Two cans spike your blood sugar, and your body pumps out insulin.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "spike"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "from": "sugar",
+     "do": [
+      {
+       "a": "flow",
+       "at": "insulin"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 CANS",
+   "line": "Three cans bathe your teeth in sugar and acid, wearing down enamel.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "teeth"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "enamel"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 CANS",
+   "line": "Four cans add over five hundred calories, and weight can creep up.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "calories"
+      },
+      {
+       "r": "bigger",
+       "at": "weight"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "6 CANS",
+   "scene": "bed",
+   "line": "Six cans by bedtime, and the caffeine can keep you wide awake.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "bedtime"
+      },
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "caffeine"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "awake"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "How many cans do you drink a week?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "cans"
+   },
+   {
+    "r": "wave",
+    "at": "week"
+   }
+  ]
+ },
+ "description": "Can by can: what a day of nothing but soda does to your blood sugar, teeth, weight and sleep.",
+ "tags": [
+  "#soda",
+  "#sugar",
+  "#science",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "A 12-ounce can of regular cola contains about 39 g of sugar, roughly 10 teaspoons.",
+   "source": "CDC (Rethink Your Drink) / Harvard T.H. Chan School of Public Health"
+  },
+  {
+   "claim": "Sugary drinks raise blood glucose quickly, and the pancreas releases insulin in response.",
+   "source": "NIH (NIDDK)"
+  },
+  {
+   "claim": "Sugar and acids in soft drinks can erode tooth enamel and lead to cavities.",
+   "source": "American Dental Association / CDC"
+  },
+  {
+   "claim": "A 12-ounce regular cola has about 140 to 150 calories; frequent sugary drinks are linked to weight gain.",
+   "source": "CDC / USDA FoodData Central"
+  },
+  {
+   "claim": "A 12-ounce cola has about 30 to 40 mg of caffeine (six cans ~ two cups of coffee); caffeine late in the day can disrupt sleep.",
+   "source": "Mayo Clinic (caffeine content chart) / Sleep Foundation"
+  }
+ ]
+}

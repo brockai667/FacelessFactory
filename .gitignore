@@ -8,3 +8,9 @@ assets/broll/
 bin/
 __pycache__/
 *.pyc
+
+# papierova fabrika
+paper/out/
+paper/episodes/*/build/
+paper/**/__pycache__/
+paper/episodes/*/vo_cache.json

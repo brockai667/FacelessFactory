@@ -1,0 +1,180 @@
+{
+ "topic": "What happens if you lie in the sun?",
+ "slug": "what-lying-in-the-sun-does",
+ "title": "What lying in the sun does",
+ "hook": "What happens if you lie in the sun?",
+ "banner": [
+  "LYING OUT IN",
+  "THE SUN?"
+ ],
+ "format": "timeline",
+ "env": "field",
+ "scene": "meadow",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "10 MINUTES",
+   "line": "Within minutes, sunlight on your skin starts making vitamin D.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "sunlight"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "making",
+     "big": "VITAMIN D",
+     "small": "MADE IN YOUR SKIN",
+     "icon": "sun",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "15 MINUTES",
+   "line": "After fifteen minutes, UV rays can start damaging unprotected skin.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "hot",
+       "at": "rays"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "damaging"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 HOURS",
+   "line": "Three hours in, your skin can turn red, hot and sore.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "steam",
+       "at": "hot"
+      },
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "sore"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 DAYS",
+   "line": "By day three, a tan appears, but it only works like SPF three.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "tan"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "only",
+     "big": "SPF 3",
+     "small": "TAN PROTECTION",
+     "icon": "sun",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "10 YEARS",
+   "line": "Ten years of sunbathing can show up as wrinkles and dark spots.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "wrinkles"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "spots"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Do you tan, or do you burn?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "tan"
+   },
+   {
+    "r": "wave",
+    "at": "burn"
+   }
+  ]
+ },
+ "description": "From vitamin D to sunburn, tans and wrinkles: what lying in the sun does to your skin.",
+ "tags": [
+  "#sun",
+  "#skin",
+  "#sunburn",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "UVB light on bare skin turns 7-dehydrocholesterol into vitamin D3; about 5-30 minutes of sun a few times a week is often cited as enough.",
+   "source": "NIH Office of Dietary Supplements (Vitamin D fact sheet)"
+  },
+  {
+   "claim": "Unprotected skin can be damaged by the sun's UV rays in as little as 15 minutes.",
+   "source": "CDC (Sun Safety)"
+  },
+  {
+   "claim": "Sunburn signs (red, painful skin that is hot to the touch) usually appear within a few hours of too much sun.",
+   "source": "Mayo Clinic (Sunburn: symptoms)"
+  },
+  {
+   "claim": "Delayed tanning becomes visible about 2-3 days (48-72 h) after UV exposure; the extra melanin is a sign of damage and gives only about SPF 2 to 4.",
+   "source": "FDA (The Risks of Tanning) / PMC review on skin pigmentation (PMC8218595)"
+  },
+  {
+   "claim": "Repeated UV exposure causes photoaging (wrinkles, dark or age spots) and is considered the main cause of visible skin aging.",
+   "source": "American Academy of Dermatology / PMC review on UV photoaging (PMC12018068)"
+  }
+ ]
+}

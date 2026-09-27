@@ -1,0 +1,161 @@
+{
+ "topic": "What happens if you stop eating for three days?",
+ "slug": "what-going-without-food-does",
+ "title": "What going without food does",
+ "hook": "What happens if you stop eating for three days?",
+ "banner": [
+  "NO FOOD FOR",
+  "THREE DAYS?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "scene": "desk",
+ "outfit": "suit",
+ "mood_music": "wonder",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "12 HOURS",
+   "line": "After twelve hours, your stomach can growl, and hunger comes in waves.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "growl"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "hunger"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "24 HOURS",
+   "line": "A day in, your stored sugar runs low, so your body burns fat.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "low"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "so",
+     "big": "FAT",
+     "small": "NEW MAIN FUEL",
+     "icon": "flame",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 DAYS",
+   "scene": "couch",
+   "line": "By day two, you may feel tired, cranky, and a little dizzy.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "tired"
+      },
+      {
+       "r": "face",
+       "arg": "angry",
+       "at": "cranky"
+      },
+      {
+       "r": "face",
+       "arg": "dizzy",
+       "at": "dizzy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 DAYS",
+   "line": "By day three, ketones supply about a third of your brain's energy.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "ketones"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "third",
+     "big": "1/3",
+     "small": "BRAIN ENERGY",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "What's the longest you've gone without food?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "longest"
+   },
+   {
+    "r": "wave",
+    "at": "food"
+   }
+  ]
+ },
+ "description": "Hour by hour: how your body switches from sugar to fat and ketones when you stop eating.",
+ "tags": [
+  "#fasting",
+  "#metabolism",
+  "#science",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "The hunger hormone ghrelin rises around usual mealtimes and then falls, so hunger comes and goes in waves; an empty stomach can growl.",
+   "source": "NIH / PubMed (Natalucci et al., Eur J Endocrinol 2005)"
+  },
+  {
+   "claim": "Liver glycogen (stored sugar) is largely used up within about a day of fasting, and the body shifts to burning fat.",
+   "source": "NIH StatPearls: Physiology, Fasting / Berg, Biochemistry"
+  },
+  {
+   "claim": "Fatigue, irritability, headache and lightheadedness are commonly reported during short fasts.",
+   "source": "NIH / PubMed (medically supervised fasting reviews)"
+  },
+  {
+   "claim": "After about three days of fasting, ketone bodies meet roughly a third of the brain's energy needs.",
+   "source": "Berg, Biochemistry, ch. 30 (NCBI Bookshelf)"
+  }
+ ]
+}

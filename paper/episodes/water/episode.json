@@ -1,0 +1,34 @@
+{
+  "title": "What happens if you stop drinking water?",
+  "hook": ["WHAT IF YOU STOP", "DRINKING WATER?"],
+  "voice": "en-US-AndrewNeural", "rate": "+0%", "gap": 0.5,
+  "bg": "#e8a18c", "accent": "#2a74b3",
+  "description": "AI-free animation made with code. Not medical advice.\n#health #body #water #science",
+  "music": {"file": "C:\\Users\\damia\\MysteryFactory\\assets\\music\\Lightless Dawn.mp3", "at": 8.0, "vol": 1.4,
+            "credit": "Music: \"Lightless Dawn\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"},
+  "lines": {
+    "hook": "What happens if you stop drinking water?",
+    "d1": "Day one. Your mouth dries out, and your head starts pounding.",
+    "d2": "Day two. Your kidneys slow down to save every last drop.",
+    "d2b": "Your blood gets thicker, so your heart has to beat faster.",
+    "d3": "Day three. You stop sweating, and your body starts to overheat.",
+    "d4": "Day four. Your brain starts to shrink.",
+    "d4b": "And you begin to see things that aren't there.",
+    "d5": "Day five. Your kidneys start to fail, and toxins build up in your blood.",
+    "d6": "Day six. Your organs start shutting down. Most people never make it this far.",
+    "end": "Your body is about sixty percent water. So when did you last drink a glass?"
+  },
+  "sfx": [
+    ["heartbeat.wav", "d1:pounding", -0.02, 0.45], ["heartbeat.wav", "d1:pounding", 0.28, 0.45], ["heartbeat.wav", "d1:pounding", 0.58, 0.45],
+    ["heartbeat.wav", "d2b", 0.08, 0.55], ["heartbeat.wav", "d2b", 0.58, 0.55], ["heartbeat.wav", "d2b", 1.08, 0.55], ["heartbeat.wav", "d2b", 1.58, 0.55],
+    ["heartbeat.wav", "d2b", 2.08, 0.55], ["heartbeat.wav", "d2b", 2.58, 0.55], ["heartbeat.wav", "d2b", 3.08, 0.55], ["heartbeat.wav", "d2b", 3.58, 0.55],
+    ["tick.wav", "d1", 0.02, 0.9], ["tick.wav", "d2", 0.02, 0.9], ["tick.wav", "d3", 0.02, 0.9], ["tick.wav", "d4", 0.02, 0.9], ["tick.wav", "d5", 0.02, 0.9], ["tick.wav", "d6", 0.02, 0.9],
+    ["sub_hit.wav", "d1", 0, 0.5], ["sub_hit.wav", "d2", 0, 0.5], ["sub_hit.wav", "d3", 0, 0.5], ["sub_hit.wav", "d4", 0, 0.5], ["sub_hit.wav", "d5", 0, 0.5], ["sub_hit.wav", "d6", 0, 0.5],
+    ["whoosh.wav", "d2", -0.27, 0.35], ["whoosh.wav", "d2b", -0.4, 0.35], ["whoosh.wav", "d2b:heart", -0.27, 0.35], ["whoosh.wav", "d3", -0.27, 0.35],
+    ["whoosh.wav", "d4", -0.27, 0.35], ["whoosh.wav", "d4b", -0.27, 0.35], ["whoosh.wav", "d5", -0.27, 0.35], ["whoosh.wav", "d5:toxins", -0.45, 0.35],
+    ["whoosh.wav", "d6", -0.27, 0.35], ["whoosh.wav", "end", -0.15, 0.35],
+    ["paper.wav", "d1", 0.02, 0.6], ["paper.wav", "d3", 0.02, 0.6], ["paper.wav", "d6", 0.02, 0.6], ["paper.wav", "end:so", 0.05, 0.6],
+    ["swell.wav", "d4b", 0, 0.35], ["sparkle.wav", "d4b:there", -0.02, 0.5], ["sub_hit.wav", "d5:fail", 0, 0.3],
+    ["pour.wav", "end", 0.6, 0.6], ["fill.wav", "end", 1.15, 0.55], ["sparkle.wav", "end:sixty", 0, 0.45]
+  ]
+}

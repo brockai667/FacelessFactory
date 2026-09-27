@@ -1,0 +1,199 @@
+{
+ "title": "Never Step Outside",
+ "hook": "WHAT IF YOU\nNEVER GO OUT",
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 1.4,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_space.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "A quick look at how staying indoors harms body systems.\n#IndoorLife #HealthFacts #ScienceShort\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\ScienceFactory\\assets\\music\\Inspired.mp3",
+  "at": 0.0,
+  "vol": 0.23,
+  "credit": "Music: \"Inspired\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What if you never step outside ever?",
+  "b1": "Your skin turns pale, missing the sun's warm, golden daily hue.",
+  "b2": "Your internal clock drifts, making you feel sleepy at midnight every night.",
+  "b3": "Vitamin D plummets, so bone cells begin to soften and weaken.",
+  "b4": "Serotonin drops, and your mood flattens, feeling as flat as a pancake.",
+  "b5": "Your immune cells shrink noticeably, leaving you vulnerable to everyday colds.",
+  "end": "So, would you ever stay indoors forever?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "wobble.wav",
+   "b1:pale",
+   0,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "swell.wav",
+   "b2:midnight",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.4
+  ],
+  [
+   "paper.wav",
+   "b3:weaken",
+   0,
+   0.55
+  ],
+  [
+   "pop.wav",
+   "b3:weaken",
+   1.0,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.4
+  ],
+  [
+   "swell.wav",
+   "b4:flattens",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b5",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.3,
+   0.4
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.3,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:forever",
+   0.1,
+   0.5
+  ],
+  [
+   "whoosh.wav",
+   "end:forever",
+   0.12,
+   0.4
+  ]
+ ]
+}

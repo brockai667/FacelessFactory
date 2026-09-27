@@ -1,0 +1,214 @@
+{
+ "title": "What too much water does",
+ "hook": [
+  "DRINKING TOO",
+  "MUCH WATER?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Why drinking water faster than your kidneys can clear it dilutes your sodium and swells your cells.\n#water #hydration #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Cut and Run.mp3",
+  "at": 0.0,
+  "vol": 0.23,
+  "credit": "Music: \"Cut and Run\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you drink too much water?",
+  "b1": "Your kidneys can only clear about a liter of water an hour.",
+  "b2": "Drink faster than that, and the sodium in your blood gets diluted.",
+  "b3": "Water then moves into your cells, and they start to swell.",
+  "b4": "In the brain, that swelling can cause headaches and confusion.",
+  "b5": "Long-distance runners who drink too much are especially at risk.",
+  "end": "How much water do you drink a day?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "sub_hit.wav",
+   "b1:liter",
+   0.1,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.3,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b2:faster",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b3:swell",
+   0,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.35
+  ],
+  [
+   "sub_hit.wav",
+   "b4:swelling",
+   0,
+   0.25
+  ],
+  [
+   "heartbeat.wav",
+   "b4:headaches",
+   -0.02,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b4:headaches",
+   0.28,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b4:headaches",
+   0.58,
+   0.45
+  ],
+  [
+   "wobble.wav",
+   "b4:confusion",
+   0,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.45,
+   0.55
+  ],
+  [
+   "sparkle.wav",
+   "end:water",
+   0.1,
+   0.5
+  ]
+ ]
+}

@@ -1,0 +1,159 @@
+{
+ "title": "What holding breath does",
+ "hook": [
+  "HOLDING YOUR",
+  "BREATH?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#2f8f6a",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Why the urge to breathe builds so fast when you hold your breath.\n#breath #lungs #science #body\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Lightless Dawn.mp3",
+  "at": 8.0,
+  "vol": 2.53,
+  "credit": "Music: \"Lightless Dawn\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you hold your breath?",
+  "b1": "For the first ten seconds or so, holding your breath feels easy.",
+  "b2": "By thirty seconds, rising carbon dioxide creates a strong urge to breathe.",
+  "b3": "After sixty seconds, your diaphragm can start to spasm and jerk.",
+  "b4": "By about ninety seconds, most people already feel a strong urge to gasp.",
+  "end": "Did you hold your breath while watching this?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b1",
+   0.03,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b2",
+   0.03,
+   0.45
+  ],
+  [
+   "sub_hit.wav",
+   "b2:urge",
+   0,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b3",
+   0.03,
+   0.45
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.4
+  ],
+  [
+   "heartbeat.wav",
+   "b3:spasm",
+   -0.02,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b3:spasm",
+   0.28,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b3:spasm",
+   0.58,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b4",
+   0.03,
+   0.45
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.3,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:hold",
+   0.1,
+   0.5
+  ]
+ ]
+}

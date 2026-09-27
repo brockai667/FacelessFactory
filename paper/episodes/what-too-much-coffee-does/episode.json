@@ -1,0 +1,202 @@
+{
+ "title": "What too much coffee does",
+ "hook": [
+  "TEN COFFEES",
+  "IN ONE DAY?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#c7851f",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "What happens to your brain, heart and sleep as the coffee cups add up.\n#coffee #caffeine #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Hyperfun.mp3",
+  "at": 0.0,
+  "vol": 1.35,
+  "credit": "Music: \"Hyperfun\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you drink ten cups of coffee?",
+  "b1": "One cup. Caffeine blocks the chemical that makes you sleepy.",
+  "b2": "Four cups is about the most experts call safe in a day.",
+  "b3": "Six cups. Your heart speeds up, and your hands start to shake.",
+  "b4": "Eight cups. Your stomach burns, and you start to feel anxious.",
+  "b5": "Ten cups. Even when you're exhausted, you can't fall asleep.",
+  "end": "How many cups did you have today?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "sub_hit.wav",
+   "b1:sleepy",
+   0,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.3,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "wobble.wav",
+   "b3:shake",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "heartbeat.wav",
+   "b4:anxious",
+   0,
+   0.5
+  ],
+  [
+   "heartbeat.wav",
+   "b4:anxious",
+   0.45,
+   0.5
+  ],
+  [
+   "heartbeat.wav",
+   "b4:anxious",
+   0.9,
+   0.5
+  ],
+  [
+   "heartbeat.wav",
+   "b4:anxious",
+   1.35,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "swell.wav",
+   "b5:ten",
+   0,
+   0.3
+  ],
+  [
+   "pop.wav",
+   "b5:asleep",
+   0,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:cups",
+   0.1,
+   0.5
+  ]
+ ]
+}

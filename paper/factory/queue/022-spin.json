@@ -1,0 +1,191 @@
+{
+ "topic": "What happens if you spin in a chair?",
+ "slug": "what-spinning-in-a-chair-does",
+ "title": "What spinning in a chair does",
+ "hook": "What happens if you spin in a chair?",
+ "banner": [
+  "SPINNING IN",
+  "A CHAIR?"
+ ],
+ "format": "countdown",
+ "env": "room",
+ "scene": "desk",
+ "outfit": "labcoat",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Each inner ear has three fluid-filled loops that sense every turn.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "ear"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "three",
+     "big": "3 LOOPS",
+     "small": "IN EACH INNER EAR",
+     "icon": "drop",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Start spinning, and that fluid swirls, telling your brain you're turning.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "spinning"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "telling",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "brain"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Spin at a steady speed, and within about twenty seconds you barely feel it.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "smile",
+       "at": "steady"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "within",
+     "big": "20 SEC",
+     "small": "UNTIL IT FADES",
+     "icon": "clock",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Then stop, and the fluid keeps swirling, so the room seems to spin.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "swirling"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "from": "room",
+     "do": [
+      {
+       "r": "hallucinate",
+       "at": "room"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Ballet dancers train their brains to feel far less of this dizziness.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "brains"
+      },
+      {
+       "r": "thumbs_up",
+       "at": "less"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "How many spins before you get dizzy?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "spins"
+   },
+   {
+    "r": "wave",
+    "at": "dizzy"
+   }
+  ]
+ },
+ "description": "Why the room keeps turning after you stop spinning, and how ballet dancers train their brains to beat dizziness.",
+ "tags": [
+  "#dizzy",
+  "#brain",
+  "#innerear",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Each inner ear has three semicircular canals: fluid-filled loops set roughly at right angles that tell the brain when the head rotates.",
+   "source": "NIDCD (Balance Disorders)"
+  },
+  {
+   "claim": "When you start turning, the fluid lags behind the canal walls and bends the cupula over hair cells, which signal the rotation to the brain.",
+   "source": "NIDCD / Biology LibreTexts, Human Physiology 10.5 (Vestibular system)"
+  },
+  {
+   "claim": "During steady rotation the fluid catches up with the canal, so the sensation of turning fades within roughly 15-20 seconds.",
+   "source": "Biology LibreTexts, Human Physiology 10.5 / Purves, Neuroscience (vestibular system)"
+  },
+  {
+   "claim": "When the rotation stops, the fluid keeps moving briefly and bends the cupula the other way, so the surroundings seem to keep spinning.",
+   "source": "Biology LibreTexts, Human Physiology 10.5 / Purves, Neuroscience"
+  },
+  {
+   "claim": "Imperial College study (29 ballet dancers vs 20 rowers): after being spun in a chair, dancers felt less dizzy, with training-related brain differences in the cerebellum and cortex.",
+   "source": "Nigmatullina et al., Cerebral Cortex 2013 (PubMed 24072889) / Imperial College London news"
+  }
+ ]
+}

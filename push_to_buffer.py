@@ -26,7 +26,7 @@ BUFFER_API = "https://api.buffer.com"
 PUSHED = os.path.join(ROOT, "pushed.json")
 WANT_SERVICES = {"instagram", "tiktok", "youtube"}
 YT_CATEGORY = "27"  # Education
-SLOT_HOURS = [8, 15, 20]  # presne casy publikovania (Europe/Bratislava)
+SLOT_HOURS = [int(h) for h in os.environ.get("BUFFER_SLOT_HOURS", "8,15,20").split(",")]  # casy publikovania (Bratislava); env prekryje (papier: "11")
 
 
 def next_slots(n, now=None):

@@ -1,0 +1,214 @@
+{
+ "title": "What staying inside does",
+ "hook": [
+  "WHAT IF YOU",
+  "STAY INSIDE?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_stat.js",
+  "panels_body.js",
+  "recipes.js"
+ ],
+ "description": "A realistic look at what months without sunlight can do to sleep, vitamin D and mood.\n#indoors #vitamind #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Inspired.mp3",
+  "at": 0.0,
+  "vol": 0.42,
+  "credit": "Music: \"Inspired\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you never go outside?",
+  "b1": "After a day indoors, you miss sunlight, the main signal for your body clock.",
+  "b2": "After a week, your skin makes no new vitamin D without sunlight.",
+  "b3": "By two weeks, your sleep can start drifting later and later.",
+  "b4": "After a month, your vitamin D can drop, and you may feel tired.",
+  "b5": "After two months, less daylight can drag your mood down.",
+  "end": "So, how much time outside did you get today?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b1",
+   0.03,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b2",
+   0.03,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.25,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b3",
+   0.03,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.25,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.25,
+   0.25
+  ],
+  [
+   "swell.wav",
+   "b3:sleep",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b4",
+   0.03,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   -0.25,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b5",
+   0.03,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.25,
+   0.25
+  ],
+  [
+   "sub_hit.wav",
+   "b5:mood",
+   0,
+   0.25
+  ],
+  [
+   "paper.wav",
+   "end",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.25,
+   0.25
+  ],
+  [
+   "sparkle.wav",
+   "end:time",
+   0.1,
+   0.5
+  ]
+ ]
+}

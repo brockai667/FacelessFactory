@@ -1,0 +1,184 @@
+{
+ "title": "What drinking only soda does",
+ "hook": [
+  "NOTHING BUT",
+  "SODA?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_stat.js",
+  "panels_body.js",
+  "recipes.js"
+ ],
+ "description": "Can by can: what a day of nothing but soda does to your blood sugar, teeth, weight and sleep.\n#soda #sugar #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Hyperfun.mp3",
+  "at": 0.0,
+  "vol": 1.35,
+  "credit": "Music: \"Hyperfun\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you drink only soda?",
+  "b1": "One can of cola packs about ten teaspoons of sugar.",
+  "b2": "Two cans spike your blood sugar, and your body pumps out insulin.",
+  "b3": "Three cans bathe your teeth in sugar and acid, wearing down enamel.",
+  "b4": "Four cans add over five hundred calories, and weight can creep up.",
+  "b5": "Six cans by bedtime, and the caffeine can keep you wide awake.",
+  "end": "How many cans do you drink a week?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.3,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "pop.wav",
+   "b4:calories",
+   0,
+   0.4
+  ],
+  [
+   "pop.wav",
+   "b4:weight",
+   0,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b5",
+   -0.25,
+   0.55
+  ],
+  [
+   "swell.wav",
+   "b5:bedtime",
+   0,
+   0.3
+  ],
+  [
+   "pop.wav",
+   "b5:awake",
+   0,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:cans",
+   0.1,
+   0.5
+  ]
+ ]
+}

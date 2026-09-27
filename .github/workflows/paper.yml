@@ -10,10 +10,10 @@ on:
         description: "Koľko videí vyrobiť"
         default: "1"
       publish:
-        description: "Publikovať cez Buffer? (yes/no)"
+        description: "Publikovať cez Buffer? (yes/no/check = len overiť token)"
         default: "no"
-  # schedule:                        # fáza B: 05:20 UTC = 07:20 Bratislava, video ide do slotu 11:00 (BUFFER_SLOT_HOURS)
-  #   - cron: "20 5 * * *"
+  schedule:                          # ostrá prevádzka: 05:20 UTC = 07:20 Bratislava, video ide do slotu 11:00 (BUFFER_SLOT_HOURS)
+    - cron: "20 5 * * *"
 
 permissions:
   contents: write                    # stav fabriky (fronta -> done, history.json), pushed.json, release s videom
@@ -69,7 +69,14 @@ jobs:
             output/paper-*.mp4
             output/paper-*.txt
             paper/out/*_qc.jpg
-          if-no-files-found: error
+          if-no-files-found: warn
+
+      - name: Buffer – kontrola tokenu (bez publikovania)
+        if: github.event.inputs.publish == 'check'
+        env:
+          BUFFER_TOKEN: ${{ secrets.BUFFER_TOKEN }}
+          PYTHONIOENCODING: utf-8
+        run: python paper/engine/buffer_check.py
 
       - name: Publikovanie (Buffer -> YouTube, Instagram, TikTok)
         if: github.event.inputs.publish == 'yes' || github.event_name == 'schedule'

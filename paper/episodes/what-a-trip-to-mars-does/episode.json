@@ -1,0 +1,196 @@
+{
+ "title": "What a trip to Mars does",
+ "hook": [
+  "WHAT IF YOU",
+  "GO TO MARS?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#7a5fa0",
+ "kit": {
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_space.js",
+  "char_biped.js",
+  "panels_stat.js",
+  "panels_space.js",
+  "recipes.js"
+ ],
+ "description": "Five things your body and ship go through on the way to Mars.\n#mars #space #science #nasa\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Hyperfun.mp3",
+  "at": 0.0,
+  "vol": 1.35,
+  "credit": "Music: \"Hyperfun\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you go to Mars?",
+  "b1": "The trip to Mars alone can take seven to nine months.",
+  "b2": "Deep space radiation levels are far higher than on Earth.",
+  "b3": "In microgravity, your muscles and bones can quickly weaken.",
+  "b4": "On Mars, gravity is only about thirty-eight percent of Earth's.",
+  "b5": "Its thin air is mostly carbon dioxide, and you can't breathe it.",
+  "end": "Would you want to go to Mars?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "pop.wav",
+   "b1:months",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.7
+  ],
+  [
+   "pop.wav",
+   "b3:muscles",
+   0,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b3:weaken",
+   0,
+   0.55
+  ],
+  [
+   "pop.wav",
+   "b3:weaken",
+   1.0,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.45,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b4",
+   -0.3,
+   0.7
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b5",
+   -0.3,
+   0.7
+  ],
+  [
+   "pop.wav",
+   "b5:breathe",
+   0,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:go",
+   0.1,
+   0.5
+  ]
+ ]
+}

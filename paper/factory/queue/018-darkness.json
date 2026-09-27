@@ -1,0 +1,155 @@
+{
+ "topic": "What happens if you stay in a dark room?",
+ "slug": "what-total-darkness-does",
+ "title": "What total darkness does",
+ "hook": "What happens if you stay in a dark room?",
+ "banner": [
+  "IN A PITCH",
+  "DARK ROOM?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "scene": "bed",
+ "outfit": "pajamas",
+ "mood_music": "tense",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "1 MINUTE",
+   "line": "Within a minute of lights out, your pupils open wide to grab more light.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "lights"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "wide"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "10 MINUTES",
+   "line": "After ten minutes, the rod cells in your eyes take over the night shift.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "minutes"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "take",
+     "big": "RODS",
+     "small": "NIGHT VISION CELLS",
+     "icon": "eye",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "15 MINUTES",
+   "line": "After fifteen minutes in dark silence, some people see faces that aren't there.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "silence"
+      },
+      {
+       "r": "hallucinate",
+       "at": "see"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 MINUTES",
+   "line": "After about thirty minutes, your eyes can be ten thousand times more sensitive.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "eyes"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "ten",
+     "big": "10,000X",
+     "small": "MORE SENSITIVE",
+     "icon": "eye",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Could you last an hour in total darkness?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "hour"
+   },
+   {
+    "r": "wave",
+    "at": "darkness"
+   }
+  ]
+ },
+ "description": "Minute by minute: how your pupils, night-vision cells and brain react when the lights go out.",
+ "tags": [
+  "#darkness",
+  "#eyes",
+  "#brain",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "In darkness the pupils dilate within seconds and are fully open in under about a minute; the slow part of dark adaptation happens in the retina.",
+   "source": "West Texas A&M Univ. (C. Baird, Science Questions: How long does it take our eyes to fully adapt to darkness?) / Webvision"
+  },
+  {
+   "claim": "Cones reach their maximum sensitivity after about 9-10 minutes in the dark; after that the rods (night-vision cells) become the most sensitive cells (rod-cone break, roughly 7-10 min).",
+   "source": "Webvision (Kalloniatis & Luu, Light and Dark Adaptation) / Wikipedia: Adaptation (eye)"
+  },
+  {
+   "claim": "UCL study: 19 volunteers spent 15 minutes in a dark, soundproof (anechoic) room; several saw objects or faces that were not there (effect stronger in hallucination-prone people).",
+   "source": "Mason & Brady, J Nerv Ment Dis 2009 (UCL) / MedicalXpress 2009"
+  },
+  {
+   "claim": "Full dark adaptation takes about 20-30 minutes (rods up to ~30-45) and makes the eye roughly 10,000 to 1,000,000 times more sensitive than in daylight; 10,000x is the conservative low end.",
+   "source": "Webvision (NCBI Bookshelf) / Wikipedia: Adaptation (eye)"
+  }
+ ]
+}
