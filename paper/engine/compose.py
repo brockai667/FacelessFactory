@@ -76,7 +76,8 @@ RECIPES = {"face", "look", "puffy", "skinny_legs", "thin_arms", "bigger", "talle
            "zzz", "stars", "yawn", "nod", "thumbs_up", "wave", "hallucinate", "mood", "badge", "level", "organ_off", "recover", "jog", "walk"}
 RDUR = {"wave": 1.25, "yawn": 1.5, "thumbs_up": 1.7, "recover": 0.3, "hallucinate": 2.0, "nod": 0.75, "pain": 1.3, "heartbeat": 1.9,
         "mood": 1.0, "sweat": 1.2, "steam": 1.0, "puffy": 0.4, "skinny_legs": 0.45, "thin_arms": 0.5, "bigger": 0.6, "taller": 0.7, "slump": 0.9}
-ADUR = {"shiver": 1.4, "zzz": 1.4, "stars": 1.4, "jog": 2.5, "walk": 2.5}   # recepty s trvanim v arg (s) + predvolene trvanie
+ADUR = {"shiver": 1.4, "zzz": 1.4, "stars": 1.4, "jog": 2.5, "walk": 2.5}
+CTAS = ["COMMENT BELOW", "FOLLOW FOR MORE", "SAVE THIS ONE", "SHARE WITH A FRIEND"]   # vyzva na konci; spec "cta": text | false   # recepty s trvanim v arg (s) + predvolene trvanie
 FACES = {"neutral", "smile", "happy", "worried", "shocked", "tired", "sleepy", "angry", "pain", "pant", "dry", "sick", "dizzy", "excited"}
 SFX_R = {"puffy": [("pop.wav", 0, 0.7)], "skinny_legs": [("pop.wav", 0, 0.7)], "thin_arms": [("pop.wav", 0, 0.6)], "bigger": [("pop.wav", 0, 0.7)],
          "taller": [("swell.wav", -0.1, 0.3)], "pain": [("heartbeat.wav", -0.02, 0.45), ("heartbeat.wav", 0.28, 0.45), ("heartbeat.wav", 0.58, 0.45)],
@@ -350,6 +351,12 @@ class Composer:
             if anc:
                 ends.append(f"{anc[0]} + {dur + 0.05:.2f}")
         E(f'var tc = Math.min(Math.max({", ".join(ends)}), T.tot - 1.2);')
+        cta = S.get("cta", S.get("direction", {}).get("cta"))
+        if cta is None:
+            cta = CTAS[sum(map(ord, S["slug"])) % len(CTAS)]
+        if cta:
+            E(f'PF.CTA({js(str(cta).upper())}, T.end + 0.6, tc - 0.05);')
+            self.fx("pop.wav", "end", 0.6, 0.5)
         E("PF.WORLD(true, tc); R.settle(tc, T.tot);")
         if cur_scene != scene0:                       # slucka: spat do uvodnej sceny
             E(f'env.scene({js(scene0)}, tc + 0.35);')

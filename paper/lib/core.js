@@ -90,6 +90,12 @@ window.PF = (function () {
   function WORLD(on, t) { if (!on && K.pres === "card") return; tl.set("#camRot", { opacity: on ? 1 : 0 }, t); }   // pri karte svet ostava viditelny
 
   // ---------- nadpisy a prechody
+  function CTA(txt, t0, t1) {              // vyzva na konci (Comment below...): pop pod nadpisom, zmizne pred navratom slucky
+    S("#ctaTxt", { textContent: txt }, t0);
+    tl.fromTo("#cta", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "none", immediateRender: false }, t0);
+    tl.fromTo("#ctaIn", { scale: 0.5, rotation: -8, transformOrigin: "50% 50%" }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.2)", immediateRender: false }, t0);
+    tl.fromTo("#cta", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "none", immediateRender: false }, Math.max(t0 + 0.6, t1));
+  }
   function DAY(txt, t) {                     // nadpis casovej osi; vzhlad a nastup podla K.chrome
     var c = K.chrome;
     if (c === "bubble") {                    // okruhla nalepka: velke je vzdy cislo, maly je popis ("3 HOURS" -> 3 / HOURS, "DAY 1" -> DAY / 1)
@@ -179,5 +185,5 @@ window.PF = (function () {
 
   return { tl: tl, st: st, VO: VO, K: K, at: at, seg: seg, ts: ts, P: P, X: X, XY: XY, O: O, F: F, AT: AT, S: S, rnd: rnd, el: el, svg: svg,
     add: add, draw: draw, CAM: CAM, punch: punch, WORLD: WORLD, DAY: DAY, RING: RING, REVEAL: REVEAL, SLIDE: SLIDE, WIPE: WIPE,
-    HIDE: HIDE, VIG: VIG, panel: panel, sceneSet: sceneSet, loopPeriod: loopPeriod, NS: NS, panelIn: panelIn, panelOut: panelOut, panelSwap: panelSwap };
+    HIDE: HIDE, VIG: VIG, panel: panel, sceneSet: sceneSet, CTA: CTA, loopPeriod: loopPeriod, NS: NS, panelIn: panelIn, panelOut: panelOut, panelSwap: panelSwap };
 })();

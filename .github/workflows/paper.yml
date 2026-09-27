@@ -46,6 +46,11 @@ jobs:
       - name: HyperFrames + prehliadač (cache npx)
         run: npx -y hyperframes@0.8.78 --version
 
+      - name: Samotest (syntax knižníc, validátor scenárov, banka tém)
+        env:
+          PYTHONIOENCODING: utf-8
+        run: cd paper && python engine/selftest.py
+
       - name: Render z fronty scenárov
         env:
           HF_CLI: npx -y hyperframes@0.8.78

@@ -58,7 +58,8 @@ def llm_json(system, prompt, temperature=0.8, max_tokens=6000, effort="medium"):
                     print(f"   [llm] 429 {model}, cakam {wait:.0f} s")
                     time.sleep(wait)
                     continue
-                r.raise_for_status()
+                if r.status_code >= 400:
+                    raise ValueError(f"{r.status_code} {re.sub(r'\s+', ' ', r.text)[:160]}")
                 txt = r.json()["choices"][0]["message"]["content"] or ""
                 if not txt.strip():
                     raise ValueError("prazdna odpoved")

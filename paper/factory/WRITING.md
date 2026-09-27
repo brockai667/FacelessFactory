@@ -44,6 +44,15 @@ Prostredie a scénu vyber **podľa témy**, nie automaticky obývačku. Scéna s
 Príklady: Everest = `mountain` → posledný beat `summit`; Mars = `station` → beat „on Mars“ `mars`; obrazovky = `desk` celé;
 málo spánku = `bed` + `mood night`, potom `couch`.
 
+## Postava
+Réžia strieda človeka (šatník, účes, pleť) a zvieratá – tá istá postava s ušami, ňufákom a chvostom: `cat`, `dog`, `bear`
+(cca každé tretie video). Scenár môže druh určiť: `"hero": {"species": "cat", "fur": "gray"}` (fur: orange gray brown dark black white cream golden tan).
+
+## Výzva na konci (CTA)
+Automat pridá na koniec (počas záverečnej otázky) malú nálepku pod nadpis: COMMENT BELOW / FOLLOW FOR MORE / SAVE THIS ONE /
+SHARE WITH A FRIEND – strieda ju réžia bez opakovania. V spec ju možno určiť `"cta": "COMMENT BELOW"` alebo vypnúť `"cta": false`.
+Banka tém: `python engine/topics.py --top-up 40` (Groq navrhne nové „What happens if…?“ témy, `--prune` vyhodí jednotvárne).
+
 ## Slovník vizuálov
 Svet (`{"type": "world", "do": [{"r": ..., "arg"?: ..., "at": "slovo z vety"}]}`):
 `face` (neutral smile happy worried shocked tired sleepy angry pain pant dry sick dizzy excited), `puffy`, `skinny_legs`,

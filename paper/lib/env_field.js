@@ -160,23 +160,23 @@ PF.envField = function (o) {
     if (Math.abs(tx + 12 - 540) < 72 + 0.5534 * (ty - HZ) + 36) continue;
     vt += tuft(tx, ty, GRD.road[1], 0.5 + 0.5 * (ty - HZ) / 270); }
   var GR = "M-200 " + HZ + " H1280 V2300 H-200 Z", chk = "";
-  for (var ci = 0; ci < 72; ci++) chk += "M" + (108 + ci * 12) + " " + (312 + (ci % 2) * 12) + "h12v12h-12z";   // sachovnicovy pas nad transparentom
-  var pole = function (x) { return '<rect x="' + x + '" y="298" width="42" height="1820" rx="10" fill="#c2463c"/><rect x="' + (x + 9) + '" y="306" width="9" height="1800" rx="4" fill="#e57a6f" opacity="0.55"/>'; };
+  for (var ci = 0; ci < 72; ci++) chk += "M" + (108 + ci * 12) + " " + (458 + (ci % 2) * 12) + "h12v12h-12z";   // sachovnicovy pas nad transparentom
+  var pole = function (x) { return '<rect x="' + x + '" y="444" width="42" height="900" rx="10" fill="#c2463c"/><rect x="' + (x + 9) + '" y="452" width="9" height="880" rx="4" fill="#e57a6f" opacity="0.55"/>'; };
   scene("road", {
     B: sky("road") + sun(230, 600, 60) + clouds("fd_clouds_road", [[180, 300, 0.85], [760, 262, 0.6]]) +
       city(5, 1010, 1110, ["#c5d2de", "#bccad8"], null) + city(9, 1070, 1180, ["#9fb2c6", "#93a8be", "#a9bacb"], "#dde6ef") +
-      '<g fill="#6aa760">' + hedge + '<rect x="-240" y="1244" width="1560" height="300"/></g>',
+      '<g fill="#6aa760">' + hedge + '<rect x="-240" y="1244" width="1560" height="300"/></g>' +
+      '<g filter="url(#cut)">' + pole(89) + pole(949) + '</g>' +   // cielova brana v B (za postavou, malicka paralaxa): tyce po zem, transparent nad hlavou (y 458-560)
+      '<g filter="url(#cut)"><rect x="108" y="458" width="864" height="24" fill="#fbf5ea"/><path d="' + chk + '" fill="#2b2320"/>' +
+      '<rect x="108" y="482" width="864" height="80" fill="#d9483b"/><rect x="122" y="492" width="836" height="60" rx="4" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.7"/>' +
+      '<text x="546" y="543" style="font-family:Pop;font-weight:700;font-size:58px;fill:#ffffff;text-anchor:middle;letter-spacing:12px">FINISH</text></g>',
     M: '<path d="' + GR + '" fill="url(#fd_gGround_road)"/><g id="fd_snowM_road" opacity="0"><path d="' + GR + '" fill="url(#fd_gSnow)"/></g>' +
       '<path d="M' + rd(HZ, -1) + ' ' + HZ + ' L' + rd(HZ, 1) + ' ' + HZ + ' L' + rd(2300, 1) + ' 2300 L' + rd(2300, -1) + ' 2300 Z" fill="url(#fd_gRoad)"/>' +
       '<path d="' + curb(-1) + ' ' + curb(1) + '" fill="#ebe7dd"/><path d="' + dash + '" fill="#ffffff" opacity="0.92"/>' + vt +
       '<g filter="url(#cut)"><rect x="197" y="1040" width="14" height="310" rx="5" fill="#7d7f86"/>' +   // smerovnik bez textu
       '<path d="M150 998 H262 L292 1030 L262 1062 H150 Z" fill="#3f8f5c"/><path d="M204 1014 L222 1030 L204 1046" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>' +
       '<path d="M258 1076 H168 L142 1102 L168 1128 H258 Z" fill="#e9b949"/><path d="M204 1088 L188 1102 L204 1116" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>',
-    F: '<g filter="url(#dof)" opacity="0.95">' + pole(89) + pole(949) + '</g>' +   // cielova brana: tyce (rozmazane) siahaju pod okraj, transparent nad hlavou (aj pri priblizeni)
-      '<g filter="url(#cut)"><rect x="108" y="312" width="864" height="24" fill="#fbf5ea"/><path d="' + chk + '" fill="#2b2320"/>' +
-      '<rect x="108" y="336" width="864" height="92" fill="#d9483b"/><rect x="122" y="346" width="836" height="72" rx="4" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.7"/>' +
-      '<text x="546" y="405" style="font-family:Pop;font-weight:700;font-size:66px;fill:#ffffff;text-anchor:middle;letter-spacing:12px">FINISH</text></g>' +
-      '<g filter="url(#dof)" opacity="0.95">' + corners(o.treeDark) + '</g>'
+    F: '<g filter="url(#dof)" opacity="0.95">' + corners(o.treeDark) + '</g>'
   });
 
   PF.add("B", '<g id="fd_B" opacity="0">' + LAY.B + '</g>');

@@ -29,6 +29,8 @@ CHOICES = {
     "hair": ["short", "long", "bun", "spiky", "curly", "bald", "cap"],
     "skin": ["light", "tan", "brown", "dark"],
     "palette": ["p0", "p1", "p2", "p3", "p4"],
+    "cta": ["COMMENT BELOW", "FOLLOW FOR MORE", "SAVE THIS ONE", "SHARE WITH A FRIEND"],
+    "species": ["human", "cat", "dog", "bear"],   # zvierata = ta ista postava s usami/nufakom/chvostom (char_biped species)
 }
 PALETTES = {  # accent, oblecenie (suit, suitDark), nohavice, pozadie stat panelu
     "p0": ("#2a74b3", ("#3f73b8", "#2f5a93"), ("#34466a", "#26344f"), "#dfeaf5"),
@@ -93,6 +95,7 @@ World shot {"type":"world","do":[{"r":name,"arg"?:...,"at":word}]} - actions on 
   slump (exhausted) | yawn | nod (microsleep) | sweat | steam (overheating) | puff (dry breath)
   shiver (cold or jitters; arg seconds 1-2) | zzz (sleepy) | stars (dizzy) | pain (headache) | heartbeat (pounding; arg 3-6)
   jog (running in place; arg seconds 2-4) | walk (walking in place; arg seconds 2-4)
+hero (optional): {"species": "human|cat|dog|bear"} - pick an animal when the topic is about animals or for variety
   hallucinate | thumbs_up | wave | mood (arg: night|hot|cold|normal - changes the whole scene)
   badge (arg: big text like "60%", "small": 1-3 words; env room only)
 Panel shot {"type":"panel","panel":name,"do":[{"a":action,"at":word}]} - a close-up; each panel name at most once per video:
@@ -229,8 +232,11 @@ def apply_direction(S, hist, rng, d=None):
     S.setdefault("hero", {"outfit": outfit, "hairStyle": d["hair"], "hair": rng.choice(HAIR_COL), "skin": d["skin"], "suit": suit[0], "suitDark": suit[1],
                           "pants": pants[0], "pantsDark": pants[1], "patch": rng.choice(["#f6c343", "#ffffff", "#f28b82"]),
                           "glasses": rng.random() < 0.3, "lashes": d["hair"] in ("long", "bun") or rng.random() < 0.25, "capColor": acc})
+    S["hero"].setdefault("species", d["species"] if rng.random() < 0.45 else "human")   # ~1/3 videi zviera, inak clovek
+    d["species"] = S["hero"]["species"]
     S.setdefault("loop", "clouds" if S.get("env") in ("space", "field", "mountain") and rng.random() < 0.5 else rng.choice(["blink", "kit"]))
     S.setdefault("music_i", len(hist))
+    S.setdefault("cta", d.get("cta", "COMMENT BELOW"))
     for k in ("chrome", "trans", "pres", "cam"):
         d[k] = S["kit"].get(k, d[k])
     d["hair"], d["skin"] = S["hero"].get("hairStyle", d["hair"]), S["hero"].get("skin", d["skin"])

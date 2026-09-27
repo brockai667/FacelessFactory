@@ -1,0 +1,165 @@
+{
+ "title": "What going without food does",
+ "hook": [
+  "NO FOOD FOR",
+  "THREE DAYS?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_stat.js",
+  "panels_body.js",
+  "recipes.js"
+ ],
+ "description": "Hour by hour: how your body switches from sugar to fat and ketones when you stop eating.\n#fasting #metabolism #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Inspired.mp3",
+  "at": 0.0,
+  "vol": 0.42,
+  "credit": "Music: \"Inspired\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you stop eating for three days?",
+  "b1": "After twelve hours, your stomach can growl, and hunger comes in waves.",
+  "b2": "A day in, your stored sugar runs low, so your body burns fat.",
+  "b3": "By day two, you may feel tired, cranky, and a little dizzy.",
+  "b4": "By day three, ketones supply about a third of your brain's energy.",
+  "end": "What's the longest you've gone without food?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "pop.wav",
+   "b1:growl",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.25,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "wobble.wav",
+   "b3:dizzy",
+   0,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.35
+  ],
+  [
+   "sub_hit.wav",
+   "b4:ketones",
+   0,
+   0.25
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.3,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "end:longest",
+   0.1,
+   0.5
+  ]
+ ]
+}

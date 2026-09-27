@@ -89,6 +89,14 @@
   .pk-card .ptape.p1 { left: 70px; transform: rotate(-28deg); } .pk-card .ptape.p2 { right: 70px; transform: rotate(24deg); }
   .pk-card .panel.raw { background: none; } .pk-card .panel.raw .pin { transform: none; border-radius: 0; box-shadow: none; }
   .pk-card .panel.raw .ptape { display: none; }
+  /* vyzva na konci videa (CTA): mala nalepka pod nadpisom, vzhlad podla sady (dedi .dayCard) */
+  #cta { position: absolute; left: 0; right: 0; top: 300px; display: flex; justify-content: center; z-index: 7; opacity: 0; }
+  #ctaIn { position: relative; transform-origin: 50% 50%; }
+  #cta .dayCard { font-size: 38px; padding: 14px 34px 10px; letter-spacing: 0.08em; }
+  #cta .tape { width: 70px; height: 24px; top: -11px; left: 50%; margin-left: -35px; transform: rotate(-3deg); }
+  .ck-sticky #cta .dayCard { padding: 18px 30px 12px; font-size: 40px; transform: rotate(1.5deg); }
+  .ck-stamp #cta .dayCard { border-width: 5px; outline-width: 2px; outline-offset: 4px; padding: 10px 26px 6px; font-size: 34px; }
+  .ck-bubble #cta .dayCard { width: auto; height: auto; border-radius: 40px; border-width: 8px; padding: 12px 34px 8px; font-size: 34px; display: block; }
 </style></head>
 <body><div id="root" class="__KIT__" data-composition-id="main" data-start="0" data-duration="__DUR__" data-fps="30" data-width="1080" data-height="1920">
 <div id="camRot">
@@ -127,6 +135,7 @@
 <div id="vig"></div>
 <div id="hook"><div id="hookIn"><div class="tape t1"></div><div class="tape t2"></div>
   <span class="hl">__HOOK1__</span><span class="hl b">__HOOK2__</span></div></div>
+<div id="cta"><div id="ctaIn"><div class="dayCard"><div class="tape"></div><span id="ctaTxt">COMMENT BELOW</span></div></div></div>
 <div id="day"><div id="dayIn"><div class="dayCard"><div class="tape t1"></div><div class="tape t2"></div><span id="dayTxt">DAY 1</span></div></div></div>
 <!--__CAPS__-->
 <img id="grain" src="assets/img/paper.png" alt=""/>

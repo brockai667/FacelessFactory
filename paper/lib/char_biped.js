@@ -3,6 +3,7 @@
 // PF.charBiped({id, look, lift, skin, hair, suit, boots, props}) -> API (ruky, tvar, oci, hladina, organy, morfy, efekty).
 // Satnik pre vzhlad "clothed": outfit suit|tshirt|hoodie|pajamas|labcoat, hairStyle short|long|bun|spiky|curly|bald|cap,
 // glasses, lashes, skin/skinDark, blush, pants, patch (akcent), capColor. Rozmery tela su vsade rovnake -> API sa nemeni.
+// Druh (len "clothed"): species human (default) | cat | dog | bear + fur, furDark, muzzle -> PF._animal (ta ista kostra, oblecenie ostava).
 PF._wardrobe = function (o, p) {
   var SK = o.skin, SKD = o.skinDark, SH = o.suit, SHD = o.suitDark, PA = o.pants || "#34466a", PAD = o.pantsDark || "#26344f", HC = o.hair;
   var OUT = o.outfit || "suit", HS = o.hairStyle || "short";
@@ -71,10 +72,75 @@ PF._wardrobe = function (o, p) {
       '<path d="M530 826 q10 -8 20 0" fill="none"/><path d="M438 822 L 398 806 M642 822 L 682 806" fill="none" stroke-linecap="round"/></g>' : "",
     lashes: o.lashes ? '<g fill="none" stroke="#2b2320" stroke-width="5" stroke-linecap="round"><path d="M452 814 l-15 -8 M459 804 l-10 -13"/><path d="M628 814 l15 -8 M621 804 l10 -13"/></g>' : "" };
 };
+// ---------- Zvieracie varianty oblecenej postavy: o.species "cat" | "dog" | "bear" (cokolvek ine = "human" -> null, povodny vzhlad).
+// Ta ista kostra, id aj pivoty -> vsetky API a recepty funguju bez zmeny. Pokozka -> srst: o.fur (hex alebo nazov z PF._FUR,
+// default podla druhu), o.furDark a o.muzzle (inak odvodene z fur). Hlava: usi (cat spicate s ruzovym vnutrom, dog ovisnute pred
+// hlavou, bear okruhle + lica), svetly cumak s nosom, fuzy (cat); dlane = labky; chvost vo vrstve za telom a rukami, kyvanie s periodou
+// deliacou dlzku videa (prvy snimok = posledny). Uces sa nekresli (hairStyle ignorovany), okuliare a satnik ostavaju.
+PF._FUR = { orange: "#e8a15a", ginger: "#e8a15a", gray: "#9ea4aa", grey: "#9ea4aa", brown: "#b8865a", dark: "#8b5a3c", black: "#4d474a",
+  white: "#f3eee5", cream: "#ecd5ae", golden: "#e0b25e", tan: "#caa079" };
+PF._mix = function (a, b, k) {             // zmes dvoch farieb #rrggbb (k = podiel b)
+  var c = "#";
+  for (var i = 1; i < 7; i += 2) { var v = Math.round(parseInt(a.substr(i, 2), 16) * (1 - k) + parseInt(b.substr(i, 2), 16) * k); c += (v < 16 ? "0" : "") + v.toString(16); }
+  return c;
+};
+PF._animal = function (o, p) {
+  var SP = String(o.species || "human").toLowerCase().trim();
+  if (SP !== "cat" && SP !== "dog" && SP !== "bear") return null;
+  var hex = function (c) {                  // "#abc" | "#aabbcc" | nazov z PF._FUR -> "#aabbcc", inak null
+    c = PF._FUR[String(c).toLowerCase()] || String(c);
+    if (/^#[0-9a-f]{3}$/i.test(c)) c = "#" + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+    return /^#[0-9a-f]{6}$/i.test(c) ? c : null;
+  };
+  var FU = hex(o.fur) || { cat: "#e8a15a", dog: "#b8865a", bear: "#8b5a3c" }[SP];
+  var FD = hex(o.furDark) || PF._mix(FU, "#2b2320", 0.24), MZ = hex(o.muzzle) || PF._mix(FU, "#fff4e4", 0.62);
+  var mir = function (s) { return '<g transform="translate(1080 0) scale(-1 1)">' + s + '</g>'; };   // prava strana = zrkadlo lavej
+  var pa = function (d, f) { return '<path d="' + d + '"' + (f ? ' fill="' + f + '"' : "") + '/>'; };              // bez f = tvar siluety
+  var ci = function (x, y, r, f) { return '<circle cx="' + x + '" cy="' + y + '" r="' + r + '"' + (f ? ' fill="' + f + '"' : "") + '/>'; };
+  var ln = function (d, c, w, op) { return '<path d="' + d + '" fill="none" stroke="' + c + '" stroke-width="' + w + '" stroke-linecap="round"' + (op ? ' opacity="' + op + '"' : "") + '/>'; };
+  var A = { fur: FU, furDark: FD, back: "", front: "", whisk: "" }, L, S, T, E;
+  if (SP === "cat") {                        // spicate usi za hlavou, maly ruzovy nos, fuzy, dlhy chvost do otaznika
+    E = "M398 708 L406 572 Q408 540 434 556 L514 632 Z"; S = pa(E);
+    L = pa(E, FU) + pa("M414 690 L420 592 Q422 570 440 584 L500 640 Z", "#f2a3ae");
+    A.back = L + mir(L);
+    A.muzzle = '<ellipse cx="540" cy="906" rx="60" ry="38" fill="' + MZ + '"/>';
+    A.nose = pa("M525 870 Q540 862 555 870 Q549 884 540 887 Q531 884 525 870 Z", "#e8899b");
+    var lum = parseInt(FU.substr(1, 2), 16) * 0.3 + parseInt(FU.substr(3, 2), 16) * 0.59 + parseInt(FU.substr(5, 2), 16) * 0.11;
+    L = ln("M494 902 L414 888 M492 912 L408 914 M494 922 L416 940", lum < 110 ? "#f3ead8" : "#2b2320", 4, 0.8);   // tmava srst -> svetle fuzy
+    A.whisk = L + mir(L);
+    T = ["M600 1240 C 710 1280 800 1270 836 1210 C 858 1172 866 1130 892 1110", 22, "", [570, 1080, 350, 220]];
+    A.pv = [668, 1256]; A.amp = 7; A.per = 2.4;
+  } else if (SP === "dog") {                 // ovisnute usi pred hlavou (vlastny tien), velky tmavy nos, hrubsi chvost so svetlou spickou
+    E = "M470 650 C 410 626 350 660 336 724 C 322 790 330 858 358 884 C 384 906 416 888 422 852 C 428 810 426 758 448 710 C 456 690 464 670 470 650 Z"; S = pa(E);
+    L = pa(E, FD);
+    A.front = '<g filter="url(#cut)">' + L + mir(L) + '</g>';
+    A.muzzle = '<ellipse cx="540" cy="902" rx="68" ry="46" fill="' + MZ + '"/>';
+    A.nose = pa("M516 866 Q540 856 564 866 Q562 884 540 891 Q518 884 516 866 Z", "#3b2e2b") + '<ellipse cx="531" cy="866" rx="7" ry="3.5" fill="#ffffff" opacity="0.5"/>';
+    T = ["M620 1236 C 720 1266 800 1250 838 1196 C 860 1164 868 1128 862 1098", 28, ln("M864 1121 C 864 1113 863.5 1105.5 862 1098", MZ, 28), [590, 1070, 310, 220]];
+    A.pv = [676, 1250]; A.amp = 9; A.per = 1.2;
+  } else {                                   // bear: okruhle usi so svetlym vnutrom + lica za hlavou, cierny ovalny nos, kratky chvost
+    S = ci(428, 652, 46) + ci(404, 858, 38);
+    L = ci(428, 652, 46, FU) + ci(424, 648, 25, MZ) + ci(404, 858, 38, FU);
+    A.back = L + mir(L);
+    A.muzzle = '<ellipse cx="540" cy="904" rx="72" ry="48" fill="' + MZ + '"/>';
+    A.nose = '<ellipse cx="540" cy="874" rx="22" ry="14" fill="#2b2320"/><ellipse cx="532" cy="869" rx="7" ry="3.5" fill="#ffffff" opacity="0.45"/>';
+    T = null;
+    A.pv = [680, 1240]; A.amp = 6; A.per = 1.6;
+  }
+  // chvost: ciara srsti s tmavym obrysom (2 tahy); neviditelny ramik zvacsi bbox, inak by filter #cut (130 % bboxu bez tahu) orezal hrubku
+  A.tail = '<g id="' + p + 'tail"><g filter="url(#cut)">' + (T ? '<rect x="' + T[3][0] + '" y="' + T[3][1] + '" width="' + T[3][2] + '" height="' + T[3][3] + '" fill="none"/>' +
+    ln(T[0], FD, T[1] + 10) + ln(T[0], FU, T[1]) + T[2] :
+    '<rect x="646" y="1218" width="96" height="44" rx="22" transform="rotate(-18 694 1240)" fill="' + FU + '" stroke="' + FD + '" stroke-width="5"/>') + '</g></g>';   // bear: kratky obly pahyl
+  A.sil = '<circle cx="540" cy="780" r="165"/>' + S + mir(S);   // silueta hlavy s usami (prekryvy horucavy / choroby / zimy -> bez hrany cez usi)
+  A.paw = function (cx) { return ln("M" + (cx - 11) + " 1177 v12 M" + (cx + 11) + " 1177 v12", FD, 5); };   // prsty labky
+  return A;
+};
 PF.charBiped = function (o) {
   o = Object.assign({ id: "hero", look: "glass", lift: 60, skin: "#f1c9a5", skinDark: "#dca87f", hair: "#4a3226", suit: "#3f73b8",
     suitDark: "#2f5a93", boots: "#3a3f4a", patch: "#f6c343", props: [] }, o || {});
-  var p = o.id + "_", G = o.look === "glass", W = G ? null : PF._wardrobe(o, p);
+  var p = o.id + "_", G = o.look === "glass", A = G ? null : PF._animal(o, p);
+  if (A) { o.skin = A.fur; o.skinDark = A.furDark; }   // zviera: vsade, kde ide pokozka (hlava, ruky, krk, nohy, lica, viecka) -> srst
+  var W = G ? null : PF._wardrobe(o, p);
   var has = function (x) { return o.props.indexOf(x) >= 0; };
   var TORSO = "M446 905 C 404 960 376 1070 382 1175 C 388 1258 452 1292 540 1292 C 628 1292 692 1258 698 1175 C 704 1070 676 960 634 905 Z";
   var BODY = G ? "url(#gBody)" : W.TOP, LIMB = G ? "#cfe5ec" : o.suit, LIMB_ST = G ? "#ffffff" : o.suitDark;
@@ -111,15 +177,21 @@ PF.charBiped = function (o) {
     '<path d="M540 642 q-6 28 6 52"/><path d="M598 676 q16 10 26 32"/><path d="M462 736 q-10 -12 -8 -30"/></g>' +
     '<path d="M478 666 q18 -16 40 -12" fill="none" stroke="#ffe3ea" stroke-width="6" stroke-linecap="round"/>' +
     '<circle cx="540" cy="780" r="165" fill="none" stroke="#ffffff" stroke-width="7"/>' +
-    '<path d="M424 712 C 430 668 458 636 494 624" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity="0.75"/>' :
+    '<path d="M424 712 C 430 668 458 636 494 624" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity="0.75"/>' : A ?
+    '<g filter="url(#cut)">' + A.back + '<circle cx="540" cy="780" r="165" fill="' + o.skin + '"/></g>' + A.muzzle + A.front +   // zviera: usi, srst, cumak
+    '<g id="' + p + 'heatH" fill="#ff8a3c" opacity="0">' + A.sil + '</g>' + A.nose :   // horucava tonuje celu srst hlavy aj usi (bez lemu)
     '<g filter="url(#cut)">' + W.back + '<circle cx="378" cy="800" r="30" fill="' + o.skin + '"/><circle cx="702" cy="800" r="30" fill="' + o.skin + '"/>' +
     '<circle cx="540" cy="780" r="165" fill="' + o.skin + '"/></g><circle id="' + p + 'heatH" cx="540" cy="780" r="160" fill="#ff8a3c" opacity="0"/>' + W.front;
+  var ov = function (id, col) {              // prekryv choroby / zimy: clovek kruh vo tvari, zviera cela silueta hlavy s usami
+    return A ? '<g id="' + p + id + '" fill="' + col + '" opacity="0" style="mix-blend-mode:multiply">' + A.sil + '</g>' :
+      '<circle id="' + p + id + '" cx="540" cy="800" r="150" fill="' + col + '" opacity="0" style="mix-blend-mode:multiply"/>';
+  };
   var sick = (G ? "" : '<g id="' + p + 'jowls" opacity="0"><circle cx="412" cy="860" r="58" fill="' + o.skin + '"/><circle cx="668" cy="860" r="58" fill="' + o.skin + '"/>' +
       '<ellipse cx="420" cy="890" rx="26" ry="14" fill="' + BLUSH + '" opacity="0.6"/><ellipse cx="660" cy="890" rx="26" ry="14" fill="' + BLUSH + '" opacity="0.6"/></g>') +
-    '<circle id="' + p + 'sick" cx="540" cy="800" r="150" fill="#9fcf6a" opacity="0" style="mix-blend-mode:multiply"/>' +
-    '<circle id="' + p + 'tint" cx="540" cy="800" r="150" fill="#8fb8f0" opacity="0" style="mix-blend-mode:multiply"/>';
+    ov("sick", "#9fcf6a") + ov("tint", "#8fb8f0");
   var face =
     '<ellipse cx="446" cy="884" rx="22" ry="12" fill="' + BLUSH + '" opacity="0.55"/><ellipse cx="634" cy="884" rx="22" ry="12" fill="' + BLUSH + '" opacity="0.55"/>' +
+    (A ? A.whisk : "") +
     '<g id="' + p + 'eyesN"><circle cx="484" cy="832" r="36" fill="#fffdf8" stroke="#2b2320" stroke-width="4"/><circle cx="596" cy="832" r="36" fill="#fffdf8" stroke="#2b2320" stroke-width="4"/>' +
     '<g id="' + p + 'pupils"><circle cx="484" cy="832" r="16" fill="#2b2320"/><circle cx="596" cy="832" r="16" fill="#2b2320"/>' +
     '<circle cx="490" cy="826" r="5" fill="#ffffff"/><circle cx="602" cy="826" r="5" fill="#ffffff"/></g>' +
@@ -155,8 +227,10 @@ PF.charBiped = function (o) {
     '<g id="' + p + 'fan" opacity="0"><path d="M652 1168 L 586 1296 A 120 120 0 0 0 718 1296 Z" fill="#f6d36b" stroke="#ffffff" stroke-width="5"/>' +
     '<path d="M652 1168 L 612 1300 M652 1168 L 652 1306 M652 1168 L 692 1300" stroke="#e0a93b" stroke-width="4"/></g>' : "";
   var arm = function (x, id, extra, handId) {
+    var hand = '<circle ' + (handId && !A ? 'id="' + p + handId + '" ' : "") + 'cx="' + (x + 26) + '" cy="1160" r="33" fill="' + HAND + '" stroke="' + HAND_ST + '" stroke-width="6"/>';
+    if (A) hand = '<g' + (handId ? ' id="' + p + handId + '"' : "") + '>' + hand + A.paw(x + 26) + '</g>';   // labka: to iste id (thumb skryje celu)
     return '<g id="' + p + id + '">' + (W ? W.limb(x) : '<rect x="' + x + '" y="945" width="52" height="210" rx="26" fill="' + LIMB + '" stroke="' + LIMB_ST + '" stroke-width="6"/>') + extra +
-      '<circle ' + (handId ? 'id="' + p + handId + '" ' : "") + 'cx="' + (x + 26) + '" cy="1160" r="33" fill="' + HAND + '" stroke="' + HAND_ST + '" stroke-width="6"/>' +
+      hand +
       (id === "armR" ? '<g id="' + p + 'thumb" opacity="0" transform="rotate(160 652 1160)"><rect x="612" y="1128" width="80" height="70" rx="26" fill="' + HAND + '" stroke="' + HAND_ST + '" stroke-width="6"/>' +
         '<rect x="636" y="1070" width="34" height="74" rx="17" fill="' + HAND + '" stroke="' + HAND_ST + '" stroke-width="6"/></g>' : "") + '</g>';
   };
@@ -164,12 +238,17 @@ PF.charBiped = function (o) {
     '<g id="' + p + 'float"><g id="' + p + 'shadow" fill="#4a1f12" opacity="0.32" filter="url(#soft6)"><ellipse cx="486" cy="1466" rx="62" ry="10"/><ellipse cx="594" cy="1466" rx="62" ry="10"/></g>' +
     '<g id="' + p + 'legs">' + legs + '</g>' +
     '<g transform="translate(0 ' + (-o.lift) + ')"><ellipse id="' + p + 'heatGlow" cx="540" cy="1000" rx="250" ry="400" fill="url(#gOrange)" opacity="0"/>' +
-    '<g id="' + p + 'up">' + (W ? W.pre : "") + '<g filter="url(#cut)"><path d="' + TORSO + '" fill="' + BODY + '" ' + (G ? 'fill-opacity="0.85"' : 'stroke="' + W.TOPS + '" stroke-width="6"') + '/></g>' + inside +
+    '<g id="' + p + 'up">' + (A ? A.tail : "") + (W ? W.pre : "") + '<g filter="url(#cut)"><path d="' + TORSO + '" fill="' + BODY + '" ' + (G ? 'fill-opacity="0.85"' : 'stroke="' + W.TOPS + '" stroke-width="6"') + '/></g>' + inside +
     '<g id="' + p + 'head">' + headFill + sick + face + '</g>' +
     arm(402, "armL", cup, null) + arm(626, "armR", fan, "handR") + '</g></g></g>');
   // ---------- registracia
   PF.P(p + "float", 540, 1100); PF.P(p + "legs", 540, 1236); PF.P(p + "up", 540, 1292); PF.P(p + "head", 540, 780);
   PF.P(p + "legL", 494, 1242); PF.P(p + "legR", 586, 1242);
+  if (A) {                                   // chvost: kyvanie tam a spat cez cele video, perioda deli dlzku videa -> slucka bez skoku
+    PF.P(p + "tail", A.pv[0], A.pv[1], { r: -A.amp });
+    var tp = PF.loopPeriod(A.per);
+    if (PF.VO.total > 0) PF.XY(p + "tail", { r: A.amp }, 0, tp / 2, "sine.inOut", Math.round(PF.VO.total / tp) * 2 - 1);
+  }
   if (!G) PF.P(p + "jowls", 540, 860, { s: 0.6 });
   PF.P(p + "armL", 428, 955, { r: o.armL || 18 }); PF.P(p + "armR", 652, 955, { r: o.armR || -18 });
   PF.P(p + "pupils", 540, 832); PF.P(p + "browL", 481, 778); PF.P(p + "browR", 599, 778);

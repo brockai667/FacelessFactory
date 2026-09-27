@@ -120,6 +120,12 @@ LLM ich len vyberá a kotví na slová vety; nové recepty/prostredia pridáva C
   prestrih `fx.cloudWipe`; slučka sa vráti do úvodnej scény; tieň postavy podľa `stand` scény). `PF.sceneSet` v core.js,
   skupiny `<pre>_sc_<scéna>_<vrstva>`. Env `mountain` = alias field+scene mountain. Pravidlá v WRITING.md („Prostredie a scény“).
 
+- 27.9. večer (autonómne, user preč): CTA nálepka na konci (`PF.CTA`, výber v réžii `cta`, spec `cta: false` vypne), brána FINISH
+  presunutá za postavu (vrstva B, y 458–560, pod pás nadpisov), `engine/topics.py` (Groq dopĺňa banku tém, strop 3 témy na sloveso,
+  `--sync` označí spracované), `llm.py` ukazuje telo HTTP chyby (Groq 400 = odseknutý JSON pri malom max_tokens), matica súprav × scén
+  (`_mx_*` snímky), 5 nových scenárov vo fronte (013–017), zvieracie varianty postavy (`hero.species` cat/dog/bear) v práci.
+  CI: vetva `paper` vo worktree C:/Users/damia/FacelessFactory-paper (paper/ + .github/workflows/paper.yml, hudba 128k), čaká na „áno, pushni“.
+
 ## Plán na 26.9. (fáza 1, user: „túto fabriku budeme robiť už zajtra“)
 1. Knižnica `lib/` z `styles/paper-water/src/template.tpl`: core (P/X/XY/O/F/AT/S, CAM s paralaxou 3 vrstiev, DAY, REVEAL/SLIDE/WIPE/RING,
    VIG), `char_biped` (ID s prefixom, farby/materiál sklo|koža, oblečenie, doplnky, tekutina, orgány, pózy, tvár), `env_room`,

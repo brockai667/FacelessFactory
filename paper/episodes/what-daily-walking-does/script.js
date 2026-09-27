@@ -71,5 +71,6 @@ F(R.wave(at("end", "today")), at("end", "today"));
 
 // ===== SLUCKA (plynuly navrat, ziadne zakrytie)
 var tc = Math.min(Math.max(at("end", "today", 0, "e") + 0.1, at("end", "steps") + 0.35, at("end", "today") + 1.30), T.tot - 1.2);
+PF.CTA("SAVE THIS ONE", T.end + 0.6, tc - 0.05);
 PF.WORLD(true, tc); R.settle(tc, T.tot);
 env.scene("meadow", tc + 0.35);
