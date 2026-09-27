@@ -181,7 +181,7 @@ class DiktatApp:
         if self.cfg.get("tray", {}).get("notify_start_stop", False):
             self.tray.notify("🔴 Nahrávam – hovor. Skratka znova = stop.")
         if self.cfg["audio"].get("beep"):
-            audio.beep("start")
+            audio.beep("start", self.cfg["audio"].get("beep_volume"))
         self._results = {}
         self._seq = 0
         self._t0 = time.monotonic()
@@ -200,7 +200,7 @@ class DiktatApp:
         from diktat_core import audio
         rest = self.recorder.stop()
         if self.cfg["audio"].get("beep"):
-            audio.beep("stop")
+            audio.beep("stop", self.cfg["audio"].get("beep_volume"))
         self.tray.set_state("stt")
         self.overlay.show("prepisujem…", "stt")
         if self.cfg.get("tray", {}).get("notify_start_stop", False):
@@ -299,8 +299,6 @@ class DiktatApp:
             return
         try:
             inject.deliver(final, self.cfg["output"], send=result.send)
-            if self.cfg["audio"].get("beep"):
-                audio.beep("done")
             msg = f"✅ vložené {len(final)} znakov" + (" + Enter" if result.send else "")
             self.tray.notify(msg)
             if self._gate_note:

@@ -146,10 +146,12 @@ class QuietByDefaultTests(unittest.TestCase):
         self.assertFalse(cfg["tray"]["notify"])
         self.assertFalse(cfg["tray"]["notify_start_stop"])
 
-    def test_the_beep_is_off_out_of_the_box(self):
-        self.assertFalse(self._merged({})["audio"]["beep"])
+    def test_the_beep_is_on_but_quiet_out_of_the_box(self):
+        cfg = self._merged({})["audio"]
+        self.assertTrue(cfg["beep"])
+        self.assertLessEqual(cfg["beep_volume"], 0.15, "pípnutie má byť sotva počuť")
 
     def test_they_can_still_be_turned_back_on(self):
-        cfg = self._merged({"tray": {"notify": True}, "audio": {"beep": True}})
+        cfg = self._merged({"tray": {"notify": True}, "audio": {"beep": False}})
         self.assertTrue(cfg["tray"]["notify"])
-        self.assertTrue(cfg["audio"]["beep"])
+        self.assertFalse(cfg["audio"]["beep"])

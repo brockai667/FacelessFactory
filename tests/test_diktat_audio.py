@@ -1,5 +1,8 @@
 """Testy rezania audia na kúsky (čisté Python funkcie, bez numpy a mikrofónu)."""
+import sys
+import types
 import unittest
+import unittest.mock
 
 from diktat.diktat_core import audio
 
@@ -45,3 +48,44 @@ class FindCutTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BeepTests(unittest.TestCase):
+    """Pípnutie ide cez zvukový výstup (poslúcha hlasitosť Windows), nie cez winsound.Beep –
+    ten je systémový tón a je rovnako nahlas vždy."""
+
+    @classmethod
+    def setUpClass(cls):
+        # sounddevice sa v teste podstrčí cez sys.modules. patch.dict pri odchode obnoví pôvodný obsah
+        # slovníka, teda vyhodí všetko, čo sa medzitým naimportovalo – a numpy sa v jednom procese
+        # druhýkrát načítať nedá. Preto ho načítame raz tu, ešte pred prvým patchom.
+        import numpy  # noqa: F401
+        cls.numpy = numpy
+
+    def _played(self, kind, volume=None):
+        calls = []
+        fake = types.SimpleNamespace(play=lambda data, rate: calls.append((len(data), rate)),
+                                     wait=lambda: None)
+        with unittest.mock.patch.dict(sys.modules, {"sounddevice": fake}):
+            audio._beep_sync(kind, volume)
+        return calls
+
+    def test_start_and_stop_play_a_short_tone(self):
+        for kind in ("start", "stop"):
+            calls = self._played(kind)
+            self.assertEqual(len(calls), 1, kind)
+            samples, rate = calls[0]
+            self.assertLess(samples / rate, 0.12, f"{kind}: má to byť krátke pípnutie")
+
+    def test_inserting_the_text_does_not_beep(self):
+        self.assertEqual(self._played("done"), [], "tretie pípnutie v rade len otravuje")
+
+    def test_volume_zero_is_silence(self):
+        self.assertEqual(self._played("start", 0), [])
+
+    def test_a_broken_sound_card_never_raises(self):
+        def boom(*_a, **_k):
+            raise OSError("žiadny zvukový výstup")
+        fake = types.SimpleNamespace(play=boom, wait=boom)
+        with unittest.mock.patch.dict(sys.modules, {"sounddevice": fake}):
+            audio._beep_sync("start")          # nesmie vyhodiť výnimku

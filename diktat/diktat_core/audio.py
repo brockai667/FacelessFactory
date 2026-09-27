@@ -304,26 +304,43 @@ def list_devices() -> str:
     return str(sd.query_devices())
 
 
-_BEEPS = {
-    "start": [(660, 90), (880, 120)],            # stúpajúce = začínam počúvať
-    "stop": [(880, 90), (660, 120)],             # klesajúce = skončil som, prepisujem
-    "done": [(880, 80), (1040, 80), (1320, 120)],  # trojtón = vložené
-    "error": [(300, 250)],
+# (frekvencia v Hz, dĺžka v sekundách). Čo tu nie je, nepípa – napríklad vloženie textu: prúžok to
+# ukáže a tretie pípnutie v rade už len otravuje.
+BEEP_TONES = {
+    "start": (880.0, 0.055),     # krátke vyššie = počúvam
+    "stop": (620.0, 0.055),      # krátke nižšie = dosť, prepisujem
+    "error": (300.0, 0.18),
 }
+BEEP_VOLUME = 0.08               # 0–1; ide cez bežný zvukový výstup, takže poslúcha aj hlasitosť Windows
 
 
-def _beep_sync(kind: str) -> None:
+def _beep_sync(kind: str, volume: float | None = None) -> None:
+    tone = BEEP_TONES.get(kind)
+    if not tone:
+        return
+    freq, seconds = tone
+    vol = max(0.0, min(1.0, BEEP_VOLUME if volume is None else float(volume)))
+    if vol <= 0 or freq <= 0 or seconds <= 0:
+        return
     try:
-        import winsound
-        for freq, ms in _BEEPS.get(kind, [(700, 120)]):
-            winsound.Beep(freq, ms)
-    except Exception:  # noqa: BLE001 – zvuk je len kozmetika
-        print("\a", end="", flush=True)
+        import numpy as np
+        import sounddevice as sd
+        rate = 44100
+        wave = np.sin(2 * np.pi * freq * (np.arange(int(rate * seconds)) / rate))
+        edge = max(1, int(rate * 0.008))          # nábeh a dobeh, inak to na začiatku cvakne
+        ramp = np.linspace(0.0, 1.0, edge)
+        wave[:edge] *= ramp
+        wave[-edge:] *= ramp[::-1]
+        sd.play((wave * vol).astype("float32"), rate)
+        sd.wait()
+    except Exception as exc:  # noqa: BLE001 – zvuk je len kozmetika, nikdy nesmie zdržať diktovanie
+        log.debug("pípnutie sa neprehralo: %s", exc)
 
 
-def beep(kind: str = "start") -> None:
-    """Krátke pípnutie (Windows: winsound; inde terminálový zvonček). Nezdržuje – beží vo vlákne."""
-    threading.Thread(target=_beep_sync, args=(kind,), daemon=True).start()
+def beep(kind: str = "start", volume: float | None = None) -> None:
+    """Krátke tiché pípnutie cez zvukový výstup. Zámerne NIE winsound.Beep: to je systémový tón, ktorý
+    ignoruje hlasitosť Windows a je vždy rovnako nahlas. Nezdržuje – beží vo vlákne."""
+    threading.Thread(target=_beep_sync, args=(kind, volume), daemon=True).start()
 
 
 def gated_ratio(gated: int, kept: int) -> float:

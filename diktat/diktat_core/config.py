@@ -38,7 +38,8 @@ DEFAULTS: dict = {
         "max_seconds": 900,
         # winsound.Beep je systémový tón, ktorý neposlúcha hlasitosť Windows – je rovnako hlasný
         # vždy. Prúžok pri nahrávaní vidno aj tak, takže pípanie je predvolene vypnuté.
-        "beep": False,
+        "beep": True,                 # krátke tiché pípnutie pri štarte a stope nahrávania
+        "beep_volume": 0.08,          # 0–1; ide cez zvukový výstup, poslúcha hlasitosť Windows
         "gate_rms": 0,                    # hlasitostná brána: tichšie bloky (vzdialené hlasy, hudba) sa vymažú; 0 = vypnuté
         "gate_hangover_seconds": 0.4,     # dozvuk po hlasnom bloku, aby sa neodrezali konce slov
         "gate_envelope_halflife": 0.5,    # obálka hlasitosti (polčas) – drží bránu otvorenú cez tiché slabiky
