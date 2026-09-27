@@ -7,7 +7,8 @@ import requests
 
 tok = os.environ.get("BUFFER_TOKEN", "").strip()
 if not tok:
-    print("BUFFER_TOKEN chyba"); sys.exit(1)
+    print(f"BUFFER_TOKEN chyba (dlzka {len(os.environ.get('BUFFER_TOKEN', ''))} znakov) - secret je prazdny alebo chyba"); sys.exit(1)
+print(f"token: {len(tok)} znakov")
 r = requests.post("https://api.buffer.com/graphql", timeout=30, headers={"Authorization": f"Bearer {tok}"},
                   json={"query": "query { account { id organizations { id name } } }"})
 try:
