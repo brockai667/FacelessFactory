@@ -189,12 +189,20 @@ def slugify(t):
 
 
 def build_spec(topic, seed=None):
-    os.makedirs(FDIR, exist_ok=True)
+    """scenar od LLM + rezia + ulozenie do specs/ (priama vyroba jedneho videa)"""
     hist = load(HIST, [])
     rng = random.Random(seed)
     d = direct(hist, rng)
-    print(f"[rezisér] {topic}\n   volby: {d}")
-    S = llm_script(topic, d["format"])
+    S = write_spec(topic, d["format"])
+    return save(apply_direction(S, hist, rng, d))
+
+
+def write_spec(topic, fmt=None):
+    """len scenar od LLM (scenarista -> redaktor -> vizualny reziser), bez rezie a ulozenia (fronta si reziu doplni pri renderi)"""
+    os.makedirs(FDIR, exist_ok=True)
+    fmt = fmt or random.choice(CHOICES["format"])
+    print(f"[scenarista] {topic} ({fmt})")
+    S = llm_script(topic, fmt)
     ed = llm_edit(S)
     for nb in ed.get("beats", []):
         for b in S["beats"]:
@@ -216,7 +224,7 @@ def build_spec(topic, seed=None):
     S["end"] = {"line": S.pop("end_line"), "do": V.get("end_do", [])}
     S["source"] = "groq"                              # scenar od bezplatneho modelu -> pred zverejnenim skontrolovat
     S["topic"] = topic
-    return save(apply_direction(S, hist, rng, d))
+    return S
 
 
 def apply_direction(S, hist, rng, d=None):

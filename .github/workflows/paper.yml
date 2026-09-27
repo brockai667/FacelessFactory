@@ -61,6 +61,13 @@ jobs:
           for i in $(seq 1 "$N"); do python engine/factory.py --out ../output || exit 1; done
           ls -la ../output 2>/dev/null || true
 
+      - name: Doplnenie fronty (Groq zadarmo – záloha na koniec fronty, prednosť majú písané dávky)
+        if: always()
+        env:
+          GROQ_API_KEY: ${{ secrets.MODELS_TOKEN }}
+          PYTHONIOENCODING: utf-8
+        run: cd paper && (python engine/refill.py --target 10 --max 2 || echo "refill preskočený")
+
       - name: Artefakt na kontrolu (video + QC hárok)
         uses: actions/upload-artifact@v4
         with:
