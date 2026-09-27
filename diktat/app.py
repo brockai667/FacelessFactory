@@ -112,9 +112,13 @@ class DiktatApp:
         missing_since = None
         last_seen: set[str] | None = None
         restarted_for_names = False
+        next_task_check = time.monotonic() + 600
         while True:
             time.sleep(5)
             try:
+                if time.monotonic() >= next_task_check:
+                    next_task_check = time.monotonic() + 600
+                    threading.Thread(target=self.check_autostart, daemon=True).start()
                 if not restarted_for_names and names_limit > 0 and self.panel_names_stuck(names_limit):
                     restarted_for_names = True      # len raz za beh, nech z toho nie je kolotoč
                     continue
@@ -602,7 +606,7 @@ class DiktatApp:
             except ImportError as exc:
                 return f"Plánovač úloh: kontrola sa nedá spustiť ({exc})"
         text = installmod.repair_task(HERE / "app.py")
-        log.info(text)
+        log.log(logging.INFO if "je na mieste" in text else logging.WARNING, text)
         return text
 
     def show_rows(self) -> str:

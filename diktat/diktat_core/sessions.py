@@ -232,7 +232,22 @@ def app_roots() -> list[Path]:
     roots += [home / "AppData" / "Roaming" / "Claude", home / "AppData" / "Local" / "Claude",  # Windows
               home / "Library" / "Application Support" / "Claude",                             # macOS
               home / ".config" / "Claude"]                                                     # Linux
-    return roots
+    return roots + _packaged_roots(home)
+
+
+def _packaged_roots(home: Path) -> list[Path]:
+    r"""Claude je na Windows balíkovaná (MSIX) aplikácia a Windows jej zápisy do %APPDATA% presmeruje
+    do priečinka balíka. Kto beží „vnútri“ balíka (napr. terminál otvorený z Claude), vidí ich priamo
+    v %APPDATA%\Claude; kto nie – a to je aj diktat spustený Plánovačom úloh alebo z priečinka
+    Po spustení – tam nevidí nič a musí sa pozrieť sem."""
+    local = Path(os.environ.get("LOCALAPPDATA") or (home / "AppData" / "Local"))
+    out: list[Path] = []
+    try:
+        for pkg in sorted((local / "Packages").glob("*Claude*")):
+            out += [pkg / "LocalCache" / "Roaming" / "Claude", pkg / "LocalCache" / "Local" / "Claude"]
+    except OSError:
+        pass
+    return out
 
 
 def forget_app_titles() -> None:

@@ -227,9 +227,18 @@ vždy. Zapnúť/vypnúť sa dá v ikone v lište („Panel session“).
 Vidno len sessions z tohto počítača (CLI, desktop app, VS Code). Sessions bežiace v cloude
 (claude.ai/code) hooky nespúšťajú, takže v paneli nie sú.
 
-Priečinok aplikácie sa hľadá cez `%APPDATA%` aj cez domovský priečinok – daemon spúšťa Plánovač úloh
-a v jeho prostredí `%APPDATA%` nemusí byť. Do logu sa pri štarte zapíše, koľko názvov sa načítalo; keď
-tam je „priečinok aplikácie sa nenašiel“, riadok rovno vypíše, ktoré cesty skúšal.
+**Kde ten priečinok naozaj je.** Claude je na Windows **balíkovaná (MSIX) aplikácia** a Windows jej
+zápisy do `%APPDATA%` presmeruje do priečinka balíka:
+
+```
+%LOCALAPPDATA%\Packages\Claude_<id>\LocalCache\Roaming\Claude\claude-code-sessions
+```
+
+Kto beží „vnútri“ balíka (terminál otvorený z Claude), vidí tie súbory aj v `%APPDATA%\Claude` a o ničom
+nevie. Kto nie – a to je diktat spustený **Plánovačom úloh** alebo z priečinka **Po spustení** – v
+`%APPDATA%\Claude` nevidí **nič**. Preto sa hľadá na oboch miestach. Do logu sa pri štarte zapíše, koľko
+názvov sa načítalo a odkiaľ; pri neúspechu sa vypíše každá skúšaná cesta aj s chybou od Windows
+(rozdiel medzi „nenašiel sa súbor“ a „prístup zamietnutý“ je úplne iná príčina).
 
 Formát súborov aplikácie je jej vnútorná vec a môže sa zmeniť. Preto sa číta len začiatok každého súboru,
 všetko je v `try/except` a keď sa čokoľvek nečaká, názov sa ticho doberie z prepisu – panel kvôli tomu

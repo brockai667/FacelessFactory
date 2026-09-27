@@ -697,6 +697,23 @@ class AppTitlesRecoverTests(unittest.TestCase):
         self.assertIn("niet", sessions._APP_TRIED[0])
         self.assertIn("FileNotFoundError", sessions._APP_TRIED[0])
 
+    def test_it_also_looks_inside_the_msix_package(self):
+        """Claude je na Windows balíkovaná aplikácia: kto nebeží „vnútri“ balíka, nájde jej súbory
+        len v LocalCache balíka. Práve tam ich diktat spustený Plánovačom úloh hľadal márne."""
+        home = Path(tempfile.mkdtemp())
+        local = home / "AppData" / "Local"
+        cache = local / "Packages" / "Claude_abc123" / "LocalCache"
+        (cache / "Roaming" / "Claude").mkdir(parents=True)
+        with unittest.mock.patch.dict(os.environ, {"LOCALAPPDATA": str(local)}, clear=False):
+            roots = [str(r) for r in sessions._packaged_roots(home)]
+        self.assertIn(str(cache / "Roaming" / "Claude"), roots)
+        self.assertIn(str(cache / "Local" / "Claude"), roots)
+
+    def test_no_package_folder_is_not_an_error(self):
+        home = Path(tempfile.mkdtemp())
+        with unittest.mock.patch.dict(os.environ, {"LOCALAPPDATA": str(home / "niet")}, clear=False):
+            self.assertEqual(sessions._packaged_roots(home), [])
+
 
 class AppTitleStatusTests(unittest.TestCase):
     """Diagnostika musí povedať, či názvy z aplikácie vôbec vidíme."""
