@@ -66,8 +66,11 @@ DEFAULTS: dict = {
         "llm": False,
     },
     "tray": {
-        "notify": True,               # oznámenia Windows (režim --tray)
-        "notify_start_stop": True,    # aj pri štarte a konci nahrávania (nie len po vložení)
+        # Bubliny Windows sú vypnuté: prúžok aj panel ukazujú to isté priamo na obrazovke a bublina
+        # navyše len prekrýva, čo práve robíš. POZOR: toto je to miesto, kde sa to naozaj nastavuje –
+        # záložná hodnota vo volaní .get(...) v app.py sa nikdy nepoužije, lebo kľúč tu existuje vždy.
+        "notify": False,              # oznámenia Windows (režim --tray)
+        "notify_start_stop": False,   # aj pri štarte a konci nahrávania (nie len po vložení)
     },
     "follow": {
         # diktat beží len kým beží niektorý z týchto programov; strážca (watch.py) ho spustí, keď sa objavia

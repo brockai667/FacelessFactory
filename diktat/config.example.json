@@ -80,8 +80,8 @@
   },
   "log_dir": "logs",
   "tray": {
-    "notify": true,
-    "notify_start_stop": true
+    "notify": false,
+    "notify_start_stop": false
   },
   "overlay": {
     "enabled": true,

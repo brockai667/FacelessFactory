@@ -1,7 +1,9 @@
 """Test toku daemona (priebežný prepis kúskov → zloženie → vyčistenie) s falošným rekordérom a STT,
 bez mikrofónu, bez Whisperu, bez vkladania."""
 import io
+import json
 import sys
+import tempfile
 import threading
 import time
 import unittest
@@ -126,3 +128,28 @@ class GpuInfoTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class QuietByDefaultTests(unittest.TestCase):
+    """Predvolby sa čítajú zo ZLÚČENÉHO configu, nie zo súboru na disku. Kľúč v DEFAULTS existuje vždy,
+    takže záložná hodnota vo volaní .get(kľúč, False) v app.py sa nikdy nepoužije – testuje sa preto to,
+    čo aplikácia naozaj dostane."""
+
+    def _merged(self, written: dict):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "config.json"
+            path.write_text(json.dumps(written), encoding="utf-8")
+            return cfgmod.load_config(path)
+
+    def test_windows_notifications_are_off_out_of_the_box(self):
+        cfg = self._merged({})
+        self.assertFalse(cfg["tray"]["notify"])
+        self.assertFalse(cfg["tray"]["notify_start_stop"])
+
+    def test_the_beep_is_off_out_of_the_box(self):
+        self.assertFalse(self._merged({})["audio"]["beep"])
+
+    def test_they_can_still_be_turned_back_on(self):
+        cfg = self._merged({"tray": {"notify": True}, "audio": {"beep": True}})
+        self.assertTrue(cfg["tray"]["notify"])
+        self.assertTrue(cfg["audio"]["beep"])
