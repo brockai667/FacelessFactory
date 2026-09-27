@@ -126,6 +126,10 @@ LLM ich len vyberá a kotví na slová vety; nové recepty/prostredia pridáva C
   (`_mx_*` snímky), 5 nových scenárov vo fronte (013–017), zvieracie varianty postavy (`hero.species` cat/dog/bear) v práci.
   CI: vetva `paper` vo worktree C:/Users/damia/FacelessFactory-paper (paper/ + .github/workflows/paper.yml, hudba 128k), čaká na „áno, pushni“.
 
+- 27.9. neskoro večer: zvieracie postavy hotové (`hero.species` cat/dog/bear + `fur`; réžia ~1/3 zviera, WRITING.md „Postava“),
+  `engine/selftest.py` (v CI pred renderom), 5 scenárov 013–017 vyrenderovaných ostrým `factory.py --out` (zvuk OK, poistka hudby
+  zasiahla 2×), výstup vo formáte publikátora `output_test/paper-<slug>.mp4/.txt/.jpg`; druhá dávka 018–022 pre CI frontu.
+
 ## Plán na 26.9. (fáza 1, user: „túto fabriku budeme robiť už zajtra“)
 1. Knižnica `lib/` z `styles/paper-water/src/template.tpl`: core (P/X/XY/O/F/AT/S, CAM s paralaxou 3 vrstiev, DAY, REVEAL/SLIDE/WIPE/RING,
    VIG), `char_biped` (ID s prefixom, farby/materiál sklo|koža, oblečenie, doplnky, tekutina, orgány, pózy, tvár), `env_room`,
