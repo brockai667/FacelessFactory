@@ -93,4 +93,5 @@ jobs:
           rm -f config.json
           git add -A paper/factory pushed.json 2>/dev/null || true
           git commit -m "paper: stav $(date -u +%F)" || echo "bez zmien"
-          for i in 1 2 3 4; do git pull --rebase -q && git push && break || sleep 15; done
+          git status --short | head -20
+          for i in 1 2 3 4; do git pull --rebase --autostash -q && git push && break || sleep 15; done
