@@ -29,9 +29,10 @@ YT_CATEGORY = "27"  # Education
 SLOT_HOURS = [int(h) for h in os.environ.get("BUFFER_SLOT_HOURS", "8,15,20").split(",")]  # casy publikovania (Bratislava); env prekryje (papier: "11")
 
 
-def next_slots(n, now=None):
+def next_slots(n, now=None, skip=None):
     """Vrati n najblizsich buducich casov 08:00/15:00/20:00 (Bratislava) ako ISO UTC.
-    'now' je volitelny (pre testy); default = aktualny cas Europe/Bratislava."""
+    'now' je volitelny (pre testy); default = aktualny cas Europe/Bratislava.
+    'skip' = mnozina obsadenych slotov (kluce z _slot_key) - tie sa preskocia (fronta Buffera)."""
     try:
         from zoneinfo import ZoneInfo
         tz = ZoneInfo("Europe/Bratislava")
@@ -39,15 +40,46 @@ def next_slots(n, now=None):
         tz = datetime.timezone(datetime.timedelta(hours=2))
     now = now.astimezone(tz) if now is not None else datetime.datetime.now(tz)
     out, day = [], 0
-    while len(out) < n:
+    while len(out) < n and day < 90:
         for h in SLOT_HOURS:
             t = (now + datetime.timedelta(days=day)).replace(hour=h, minute=0, second=0, microsecond=0)
             if t > now:
-                out.append(t.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"))
+                iso = t.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+                if skip and _slot_key(iso) in skip:
+                    continue                       # slot uz caka vo fronte -> dalsi
+                out.append(iso)
                 if len(out) >= n:
                     break
         day += 1
     return out
+
+
+def _slot_key(iso):
+    """'2026-09-29T09:00:00.000Z' / '+00:00' -> '2026-09-29T09:00' (UTC, na minutu) pre porovnanie slotov."""
+    try:
+        t = datetime.datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=datetime.timezone.utc)
+        return t.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M")
+    except Exception:
+        return str(iso)[:16]
+
+
+def taken_slots(token):
+    """Casy (UTC, na minutu) postov, ktore uz cakaju vo fronte Buffera. Dva behy (oneskoreny cron +
+    dalsi den, alebo rucny beh) tak nikdy nedaju dve videa do toho isteho slotu. Pri chybe vrati
+    prazdnu mnozinu - planovanie pokracuje ako doteraz."""
+    try:
+        org = gql(token, "query{account{organizations{id}}}")["account"]["organizations"][0]["id"]
+        q = ('query{posts(input:{organizationId:"%s", filter:{status:[scheduled,sending]}, '
+             'sort:[{field:dueAt,direction:asc}]}){edges{node{dueAt}}}}' % org)
+        taken = {_slot_key(e["node"]["dueAt"]) for e in gql(token, q)["posts"]["edges"] if e["node"].get("dueAt")}
+        if taken:
+            print(f"  fronta Buffera: {len(taken)} obsadenych slotov (preskocia sa)")
+        return taken
+    except Exception as e:
+        print(f"  (fronta Buffera sa nedala precitat: {str(e)[:100]} -> sloty bez kontroly)")
+        return set()
 
 
 def load_cfg():
@@ -307,7 +339,7 @@ def main():
 
     # slotov je najviac zatial ako videi v 'todo' (horny odhad); slot_idx sa posunie LEN pri
     # videu, ktore sa naozaj zaraduje - zlyhany upload tak neplytva slotom pre dalsie video
-    slots = next_slots(len(todo))  # 08:00/15:00/20:00 Bratislava
+    slots = next_slots(len(todo), skip=taken_slots(token))  # sloty z BUFFER_SLOT_HOURS, obsadene vo fronte sa preskocia
     slot_idx = 0
     for vid in todo:
         done = set(pushed.get(vid, []))
