@@ -1,0 +1,137 @@
+{
+ "title": "Moon Walk Effects",
+ "hook": "What if you took a stroll on the Moon?",
+ "banner": "WHAT IF YOU WALK\nON THE MOON",
+ "format": "countdown",
+ "env": "space",
+ "scene": "moon surface",
+ "outfit": "suit",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your weight drops to one-sixth, so you bounce high like a rubber ball.",
+   "idea": "Character in a white suit leaping high, low gravity bounce, dust swirling.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jog",
+       "arg": 2,
+       "at": "bounce"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "one-sixth",
+     "big": "1/6",
+     "small": "WEIGHT DROP",
+     "icon": "up",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Blood shifts upward, puffing your face and making eyes glassy.",
+   "idea": "Close-up of character's face, cheeks swollen, eyes wide, fluid shift effect.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "ear"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your inner ear loses its up-down cue, leaving you dizzy.",
+   "idea": "Character stumbling, cartoon swirl around head, vestibular confusion.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "dizzy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your heart rate drops slightly as low gravity eases circulation.",
+   "idea": "Heart icon with slower pulse, character's chest showing slower thump.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "drops"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Cosmic radiation reaches you on the Moon, suit shielding is limited.",
+   "idea": "Radiation symbols hitting the suit, character's outline glowing.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "radiation"
+      },
+      {
+       "r": "pain",
+       "at": "radiation"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick visual guide to the physical effects of walking on the Moon.",
+ "tags": [
+  "#MoonWalk",
+  "#SpaceScience",
+  "#LowGravity"
+ ],
+ "facts": [
+  {
+   "claim": "Moon gravity is about one-sixth of Earth's gravity",
+   "source": "NASA, Moon Fact Sheet"
+  }
+ ],
+ "end": {
+  "line": "Would you take a leap on the Moon?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "leap"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you walk on the moon?",
+ "slug": "moon-walk-effects"
+}
