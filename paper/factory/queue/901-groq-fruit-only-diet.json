@@ -1,0 +1,188 @@
+{
+ "title": "Fruit Only Diet",
+ "hook": "What if you ate only fruit?",
+ "banner": "WHAT IF YOU ATE\nONLY FRUIT?",
+ "format": "timeline",
+ "env": "room",
+ "scene": "kitchen table with a bowl of mixed fruit",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "DAY 1",
+   "line": "After day one, blood sugar spikes, then you feel a crash.",
+   "idea": "Close‑up of a glowing glucose gauge jumping as the character's hand trembles.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "spikes"
+      },
+      {
+       "r": "pain",
+       "at": "crash"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "spikes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 3",
+   "line": "By day three, a sticky film forms on your teeth from sugar.",
+   "idea": "A sugary film coats the character's teeth in a mirror.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "sticky"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "teeth"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "flatten",
+       "at": "film"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 7",
+   "line": "At day seven, excess fiber causes uncomfortable gas and bloating.",
+   "idea": "Belly inflates slightly, showing a swirl of fiber.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "gas"
+      },
+      {
+       "r": "puffy",
+       "at": "bloating"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 14",
+   "line": "By day fourteen, insufficient protein triggers muscle fatigue and soreness.",
+   "idea": "Muscles appear frail with a shrinking strength bar.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "skinny_legs",
+       "at": "muscle"
+      },
+      {
+       "r": "pain",
+       "at": "soreness"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "DAY 30",
+   "line": "After a month, constant fructose builds fat in your liver.",
+   "idea": "Liver illustration fills with yellow fat spots.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "bigger",
+       "at": "fat"
+      },
+      {
+       "r": "puffy",
+       "at": "liver"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "30 DAYS",
+     "small": "FAT IN LIVER",
+     "icon": "drop",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick visual look at the physiological changes from an all‑fruit diet.",
+ "tags": [
+  "#FruitDiet",
+  "#Nutrition",
+  "#HealthFacts",
+  "#ScienceShorts"
+ ],
+ "facts": [
+  {
+   "claim": "Consuming a high‑sugar diet can cause rapid increases in blood glucose levels.",
+   "source": "NIH"
+  },
+  {
+   "claim": "Frequent exposure to sugars promotes dental plaque formation and can lead to cavities.",
+   "source": "American Dental Association"
+  },
+  {
+   "claim": "High dietary fiber intake may cause gastrointestinal bloating and gas.",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "Inadequate protein intake can result in muscle mass loss over time.",
+   "source": "Harvard T.H. Chan School of Public Health"
+  },
+  {
+   "claim": "Consistently high fructose consumption is linked to non‑alcoholic fatty liver disease.",
+   "source": "NIH"
+  }
+ ],
+ "end": {
+  "line": "Could you survive on fruit alone?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "fruit"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you eat only fruit?",
+ "slug": "fruit-only-diet"
+}
