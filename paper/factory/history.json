@@ -197,5 +197,20 @@
   "slug": "what-too-much-water-does",
   "topic": "What happens if you drink too much water?",
   "env": "field"
+ },
+ {
+  "format": "gauge",
+  "chrome": "tape",
+  "trans": "zoom",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "short",
+  "skin": "brown",
+  "palette": "p1",
+  "cta": "COMMENT BELOW",
+  "species": "human",
+  "slug": "what-drinking-only-soda-does",
+  "topic": "What happens if you drink only soda?",
+  "env": "room"
  }
 ]
