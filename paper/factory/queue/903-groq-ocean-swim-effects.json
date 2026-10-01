@@ -1,0 +1,182 @@
+{
+ "title": "Ocean Swim Effects",
+ "hook": "What happens if you swim in the ocean?",
+ "banner": "WHAT HAPPENS?\\nSWIM OCEAN?",
+ "format": "countdown",
+ "env": "field",
+ "scene": "beach",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "If you inhale seawater, you cough and panic.",
+   "idea": "Close‑up of arm in salt water; skin looks tighter and dry.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "panic"
+      },
+      {
+       "r": "puff",
+       "at": "cough"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Drinking seawater spikes sodium, leading to dehydration and dizziness.",
+   "idea": "Close‑up of eyes; tears flow and eyes appear red.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "toxins",
+       "at": "sodium"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "dizziness"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Cold water hits, your heart races in a shock response.",
+   "idea": "Chest view; heart icon pulses faster; character shivers.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "at": "Cold"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "races"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your eyes water and sting from the salty spray.",
+   "idea": "Close‑up of bloodstream; sodium ions highlighted; character’s head tilts dizzy.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "sting"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "from": "water",
+     "do": [
+      {
+       "a": "blur",
+       "at": "water"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Your skin tightens as salt draws water from cells.",
+   "idea": "Character gasps; water rushes into lungs; cartoon bubbles appear inside.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "tightens"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "from": "water",
+     "do": [
+      {
+       "a": "flow",
+       "at": "water"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at the body’s real reactions when you plunge into salty sea water.",
+ "tags": [
+  "#OceanScience",
+  "#SwimFacts",
+  "#BodyReactions"
+ ],
+ "facts": [
+  {
+   "claim": "Salt water draws water out of skin cells, making skin feel tight.",
+   "source": "American Academy of Dermatology, Salt water skin care (aad.org)"
+  },
+  {
+   "claim": "Salt in ocean water irritates eyes, causing tearing.",
+   "source": "Mayo Clinic, Eye irritation from salt water (mayoclinic.org)"
+  },
+  {
+   "claim": "Cold water immersion triggers cold shock response, raising heart rate.",
+   "source": "NIH, Cold water immersion cardiovascular response (nih.gov)"
+  },
+  {
+   "claim": "Ingesting seawater can increase blood sodium, leading to light-headedness.",
+   "source": "Mayo Clinic, Hypernatremia (mayoclinic.org)"
+  },
+  {
+   "claim": "Swallowing seawater can cause water aspiration, filling lungs and causing panic.",
+   "source": "World Health Organization, Drowning and water aspiration (who.int)"
+  }
+ ],
+ "end": {
+  "line": "Would you still dive in?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "dive"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you swim in the ocean?",
+ "slug": "ocean-swim-effects"
+}

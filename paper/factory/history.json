@@ -212,5 +212,20 @@
   "slug": "what-drinking-only-soda-does",
   "topic": "What happens if you drink only soda?",
   "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "spiky",
+  "skin": "dark",
+  "palette": "p2",
+  "cta": "SAVE THIS ONE",
+  "species": "cat",
+  "slug": "what-quitting-exercise-does",
+  "topic": "What happens if you stop exercising?",
+  "env": "field"
  }
 ]
