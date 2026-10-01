@@ -378,9 +378,9 @@ class Composer:
             "title": S["title"], "hook": S["banner"], "voice": S.get("voice", "en-US-AndrewNeural"), "rate": S.get("rate", "+0%"), "gap": 0.5,
             "tail": round(1.4 + max([0] + [RDUR.get(a["r"], 0.6) - 0.5 for a in end.get("do", [])]), 2),
             "bg": S.get("bg", "#e8a18c" if S["env"] == "room" else "#dfe6ee"), "accent": accent, "kit": kit, "libs": libs,
-            "description": (S.get("description", "") + "\n" + " ".join(S.get("tags", [])) + "\nAI-free animation made with code. Not medical advice.").strip(),
+            "description": (S.get("description", "") + "\n" + " ".join(S.get("tags", [])) + "\nNot medical advice.").strip(),
             "music": {"file": mf, "at": mat, "vol": music_vol(mf, mat),
-                      "credit": f'Music: "{mname}" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0'},
+                      "credit": music_credit(mname)},
             "lines": lines, "sfx": self.sfx}
         return E_json, "\n".join(self.js) + "\n"
 
@@ -459,6 +459,16 @@ class Composer:
 
 
 _VOL = {}
+
+
+# Kredit hudby v popise videa LEN ked ho licencia vyzaduje. Kevin MacLeod (incompetech.com) = CC BY 4.0 -> autor sa uvadzat MUSI.
+# Skladba bez tejto povinnosti (CC0 / public domain / vlastna): jej nazov (3. polozka v MUSIC) pridat do NO_CREDIT
+# -> riadok "Music: ..." sa do popisu neda.
+NO_CREDIT = set()
+
+
+def music_credit(mname):
+    return "" if mname in NO_CREDIT else f'Music: "{mname}" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0'
 
 
 def music_vol(f, at, target=-22.0):

@@ -254,7 +254,8 @@ def main():
     subprocess.run(["ffmpeg", "-nostdin", "-v", "error", "-y", "-ss", "0.4", "-i", final, "-frames:v", "1", "-q:v", "3",
                     os.path.join(FACTORY, "out", f"{name}.jpg")], check=False)
     with open(os.path.join(FACTORY, "out", f"{name}.txt"), "w", encoding="utf-8") as f:
-        f.write(E["title"] + "\n\n" + E.get("description", "") + "\n" + (mu.get("credit", "") if mu else "") + "\n")
+        credit = (mu.get("credit", "") if mu else "")
+        f.write(E["title"] + "\n\n" + E.get("description", "") + ("\n" + credit if credit else "") + "\n")
     print("FINAL", final, round(dur, 2), "s | zvuk", "OK" if ok else f"CHYBA ({nbad} paketov, {nwarn} dts)", "| QC", sheet)
 
 
