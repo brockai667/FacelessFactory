@@ -1,0 +1,208 @@
+{
+ "title": "Protein Only Diet Effects",
+ "hook": "What if you ate only protein?",
+ "banner": "ONLY PROTEIN?\nWHAT HAPPENS",
+ "format": "countdown",
+ "env": "room",
+ "scene": "kitchen table",
+ "outfit": "labcoat",
+ "mood_music": "wonder",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Blood sugar falls, causing mental fog.",
+   "idea": "Character’s eyes glaze, thought bubbles swirl.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "mental"
+      },
+      {
+       "r": "stars",
+       "at": "fog"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "Blood"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Urine calcium rises, increasing kidney stone risk.",
+   "idea": "Kidney cartoon pumps urine streams, bladder bulges.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "risk"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "kidneys",
+     "do": [
+      {
+       "a": "flow",
+       "at": "urine"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Kidneys churn extra urea, urine flow spikes.",
+   "idea": "Cracked lips and a parched skin close‑up.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "spikes"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "urea"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "extra",
+     "big": "2X",
+     "small": "UREA",
+     "icon": "drop",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Mouth dries, skin tightens, thirst hits hard.",
+   "idea": "Skeleton glows, calcium particles drift away.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "dries"
+      },
+      {
+       "r": "puff",
+       "at": "thirst"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "hits"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Gut slows, stool piles up, belly feels bloated.",
+   "idea": "Colon fills, character holds a rounded belly.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "slows"
+      },
+      {
+       "r": "puffy",
+       "at": "belly"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "feels"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how an all‑protein diet stresses your body over weeks.",
+ "tags": [
+  "#ProteinDiet",
+  "#Nutrition",
+  "#ScienceShorts"
+ ],
+ "facts": [
+  {
+   "claim": "High protein intake increases urea production, adding extra load to kidneys.",
+   "source": "NIH, National Institute of Diabetes and Digestive and Kidney Diseases"
+  },
+  {
+   "claim": "Low carbohydrate intake can cause low blood glucose and mental fog.",
+   "source": "Mayo Clinic, Low‑carb diet effects"
+  },
+  {
+   "claim": "Excess protein raises water loss, leading to dehydration.",
+   "source": "NIH, Protein intake and hydration"
+  },
+  {
+   "claim": "Acidic byproducts of protein metabolism can cause calcium loss from bones.",
+   "source": "NIH, Acid–base balance and bone health"
+  },
+  {
+   "claim": "Lack of dietary fiber leads to constipation.",
+   "source": "Mayo Clinic, Fiber importance"
+  }
+ ],
+ "end": {
+  "line": "Could you survive on protein alone?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "protein"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you eat only protein?",
+ "slug": "protein-only-diet-effects"
+}
