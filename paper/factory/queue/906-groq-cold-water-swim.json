@@ -1,0 +1,166 @@
+{
+ "title": "Cold Water Swim",
+ "hook": "What if you dive into icy water?",
+ "banner": "WHAT IF YOU DIVE\nIN ICE WATER",
+ "format": "countdown",
+ "env": "field",
+ "scene": "Lake at sunrise",
+ "outfit": "hoodie",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your cognition slows, feeling as if you're legally drunk.",
+   "idea": "Character plunges, mouth open, animated breath clouds puff out",
+   "scene": "Lake surface",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dizzy",
+       "at": "slows"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "drunk"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "You start shivering, producing heat as core temperature falls.",
+   "idea": "Close‑up of arm showing blue lines tightening around vessels",
+   "scene": "Arm close‑up",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "at": "shivering"
+      },
+      {
+       "r": "steam",
+       "at": "heat"
+      },
+      {
+       "r": "mood",
+       "arg": "cold",
+       "at": "temperature"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your heart rate spikes as adrenaline floods your system.",
+   "idea": "Cartoon heart beating fast with a speedometer needle climbing",
+   "scene": "Chest view",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "spikes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your skin vessels tighten, giving a sharp tingling feeling.",
+   "idea": "Character shivers, visible shaking and frosty breath, thermometer dropping",
+   "scene": "Full body",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "tighten"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "You gasp and hyperventilate as cold shock hits.",
+   "idea": "Brain cartoon with gears slowing, a wobble effect on the character’s eyes",
+   "scene": "Head close‑up",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "shock"
+      },
+      {
+       "r": "shiver",
+       "arg": 1,
+       "at": "cold"
+      },
+      {
+       "r": "puff",
+       "at": "gasp"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick visual guide to the body’s reaction when you plunge into cold water.",
+ "tags": "#ColdWater #Science #BodyReaction #StaySafe",
+ "facts": [
+  {
+   "claim": "Cold shock triggers involuntary gasp and hyperventilation",
+   "source": "NIH – National Institute of Environmental Health Sciences, Cold Shock Response"
+  },
+  {
+   "claim": "Cold exposure causes peripheral vasoconstriction and tingling",
+   "source": "Mayo Clinic – Cold Exposure and Vasoconstriction"
+  },
+  {
+   "claim": "Cold water immersion can increase heart rate via adrenaline surge",
+   "source": "American Heart Association – Cold Water Immersion and Cardiovascular Response"
+  },
+  {
+   "claim": "Shivering generates heat as core temperature drops",
+   "source": "World Health Organization – Thermoregulation and Shivering"
+  },
+  {
+   "claim": "Cold water immersion can impair cognitive function, similar to intoxication",
+   "source": "NIH – National Library of Medicine, Effects of Cold Water Immersion on Cognitive Performance"
+  }
+ ],
+ "end": {
+  "line": "Would you still jump in?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "jump"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you swim in cold water?",
+ "slug": "cold-water-swim"
+}
