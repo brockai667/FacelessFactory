@@ -272,5 +272,20 @@
   "slug": "what-crossing-polar-ice-does",
   "topic": "What happens if you trek across polar ice?",
   "env": "field"
+ },
+ {
+  "format": "gauge",
+  "chrome": "stamp",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "long",
+  "skin": "light",
+  "palette": "p1",
+  "cta": "FOLLOW FOR MORE",
+  "species": "human",
+  "slug": "what-afternoon-naps-do",
+  "topic": "What happens if you nap every afternoon?",
+  "env": "room"
  }
 ]

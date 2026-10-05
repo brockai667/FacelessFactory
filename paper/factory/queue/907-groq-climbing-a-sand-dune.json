@@ -1,0 +1,183 @@
+{
+ "title": "Climbing a Sand Dune",
+ "hook": "What if you climb a sand dune?",
+ "banner": "CLIMB A DUNE?\nWHAT HAPPENS",
+ "format": "timeline",
+ "env": "field",
+ "scene": "desert dune",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "10 MINUTES",
+   "line": "After ten minutes, your skin starts to glisten with sweat.",
+   "idea": "Close‑up of the character’s forehead, sweat beads forming.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "sweat",
+       "at": "sweat"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "ten",
+     "big": "10 MIN",
+     "small": "SKIN GLEAMS",
+     "icon": "drop",
+     "do": []
+    }
+   ]
+  },
+  {
+   "label": "30 MINUTES",
+   "line": "By half an hour, you feel your heart thumping faster.",
+   "idea": "Animated heart icon beating faster, pulse line on forearm.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "thumping"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 HOUR",
+   "line": "After an hour, your mouth dries and you crave water.",
+   "idea": "Character licking dry lips, a water bottle nearby.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "dries"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "hour",
+     "big": "1 HR",
+     "small": "MOUTH DRIES",
+     "icon": "drop",
+     "do": []
+    }
+   ]
+  },
+  {
+   "label": "3 HOURS",
+   "line": "By three hours, your shoulders turn pink from sunburn.",
+   "idea": "Close‑up of sun‑exposed shoulder reddening.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "sunburn"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "three",
+     "big": "3 HR",
+     "small": "SHOULDER SUNBURN",
+     "icon": "flame",
+     "do": []
+    }
+   ]
+  },
+  {
+   "label": "6 HOURS",
+   "line": "Six hours in, sand gets into your eyes, they water.",
+   "idea": "Character blinking, sand particles floating, tears streaming.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "sand"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "blur",
+       "at": "water"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A paper‑craft explorer climbs a dune while we see the real physiological changes from heat and effort.",
+ "tags": [
+  "#sanddune",
+  "#heatstress",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Sweating begins within minutes of moderate exercise in hot conditions.",
+   "source": "NIH"
+  },
+  {
+   "claim": "Heart rate increases to meet higher oxygen demand during exertion.",
+   "source": "American College of Sports Medicine"
+  },
+  {
+   "claim": "Dehydration causes dry mouth and thirst after about an hour of vigorous activity without fluid intake.",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "UV exposure can cause sunburn after 30 minutes of direct sunlight on exposed skin.",
+   "source": "WHO"
+  },
+  {
+   "claim": "Windblown sand can irritate eyes, causing tearing and discomfort.",
+   "source": "American Academy of Ophthalmology"
+  }
+ ],
+ "end": {
+  "line": "Would you keep climbing under the desert sun?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "climbing"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you climb a sand dune?",
+ "slug": "climbing-a-sand-dune"
+}
