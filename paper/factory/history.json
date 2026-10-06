@@ -287,5 +287,20 @@
   "slug": "what-afternoon-naps-do",
   "topic": "What happens if you nap every afternoon?",
   "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "bubble",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "short",
+  "skin": "tan",
+  "palette": "p4",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "cat",
+  "slug": "what-lying-in-the-sun-does",
+  "topic": "What happens if you lie in the sun?",
+  "env": "field"
  }
 ]
