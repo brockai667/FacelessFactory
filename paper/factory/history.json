@@ -302,5 +302,20 @@
   "slug": "what-lying-in-the-sun-does",
   "topic": "What happens if you lie in the sun?",
   "env": "field"
+ },
+ {
+  "format": "countdown",
+  "chrome": "sticky",
+  "trans": "tear",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "bald",
+  "skin": "dark",
+  "palette": "p3",
+  "cta": "SAVE THIS ONE",
+  "species": "dog",
+  "slug": "what-spinning-in-a-chair-does",
+  "topic": "What happens if you spin in a chair?",
+  "env": "room"
  }
 ]
