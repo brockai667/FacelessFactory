@@ -1,0 +1,163 @@
+{
+ "title": "Steep Hill Climb",
+ "hook": "What happens when you climb a steep hill?",
+ "banner": "CLIMBING A HILL\nBODY REACTS",
+ "format": "gauge",
+ "env": "field",
+ "scene": "mountain trail",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "1KM",
+   "line": "1KM: Your breathing quickens, lungs draw in more air.",
+   "idea": "Close-up of chest expanding, animated lungs inflating.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pant",
+       "at": "quickens"
+      },
+      {
+       "r": "puff",
+       "at": "air"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2KM",
+   "line": "2KM: Your heart beats faster, pumping blood to your legs.",
+   "idea": "Heart icon beating, red flow moving to leg muscles.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "faster"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "blood"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3KM",
+   "line": "3KM: Sweat beads form, cooling your skin as you push onward.",
+   "idea": "Sweat droplets on forehead, cooling breeze effect.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "sweat",
+       "at": "Sweat"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4KM",
+   "line": "4KM: Muscles burn as lactic acid builds, intensifying the strain.",
+   "idea": "Muscles glowing red, small fire icons indicating burn.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "burn"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "strain"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5KM",
+   "line": "5KM: Core temperature rises, and dehydration makes you feel light‑headed.",
+   "idea": "Heat waves around character, dizzy swirl effect.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "steam",
+       "at": "rises"
+      },
+      {
+       "r": "stars",
+       "at": "light‑headed"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A playful animation shows how the body reacts step‑by‑step while climbing a steep hill.",
+ "tags": [
+  "#fitness",
+  "#science",
+  "#climbing",
+  "#body"
+ ],
+ "facts": [
+  {
+   "claim": "Breathing rate increases during uphill walking",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "Heart rate rises to pump more blood to muscles during steep ascent",
+   "source": "American Heart Association"
+  },
+  {
+   "claim": "Sweating intensifies to regulate body temperature during exercise",
+   "source": "NIH"
+  },
+  {
+   "claim": "Lactic acid accumulates in muscles causing a burning sensation during intense effort",
+   "source": "Harvard Health Publishing"
+  },
+  {
+   "claim": "Body temperature can rise and mild light‑headedness may occur as oxygen demand increases",
+   "source": "American College of Sports Medicine"
+  }
+ ],
+ "end": {
+  "line": "Would you still keep climbing?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "climbing"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you climb a steep hill?",
+ "slug": "steep-hill-climb"
+}
