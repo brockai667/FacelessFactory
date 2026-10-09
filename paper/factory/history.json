@@ -332,5 +332,20 @@
   "slug": "moon-walk-effects",
   "topic": "What happens if you walk on the moon?",
   "env": "space"
+ },
+ {
+  "format": "timeline",
+  "chrome": "bubble",
+  "trans": "circle",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "spiky",
+  "skin": "brown",
+  "palette": "p1",
+  "cta": "COMMENT BELOW",
+  "species": "human",
+  "slug": "fruit-only-diet",
+  "topic": "What happens if you eat only fruit?",
+  "env": "room"
  }
 ]
