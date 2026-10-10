@@ -347,5 +347,20 @@
   "slug": "fruit-only-diet",
   "topic": "What happens if you eat only fruit?",
   "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "tape",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "cap",
+  "skin": "tan",
+  "palette": "p0",
+  "cta": "SAVE THIS ONE",
+  "species": "human",
+  "slug": "sleeping-in-a-coffin",
+  "topic": "What happens if you sleep in a coffin?",
+  "env": "room"
  }
 ]
