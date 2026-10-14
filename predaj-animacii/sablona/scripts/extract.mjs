@@ -113,6 +113,38 @@ const info = await dpage.evaluate(() => {
   const logoEl = cands[0] && cands[0].sc >= 4 ? cands[0].el : null;
   if (logoEl) logoEl.setAttribute("data-brand-logo", "1");
 
+  // hlavný obrázok: najväčší obrázok na prvej obrazovke
+  const imgs = [...document.querySelectorAll("img")].filter(visible).map((el) => { const r = el.getBoundingClientRect(); return { el, r, area: r.width * r.height, top: r.top + window.scrollY }; });
+  const hero = imgs.filter((x) => x.top < 1100 && x.area > 40000 && !x.el.closest("[data-brand-logo]")).sort((a, b) => b.area - a.area)[0];
+  if (hero) hero.el.setAttribute("data-brand-hero", "1");
+
+  // produkty: text s cenou → najbližší kontajner s 1 väčším obrázkom a nadpisom
+  const PRICE = /(?:€|\$|£)\s?\d{1,4}(?:[.,]\d{2})?|\d{1,4}(?:[.,]\d{2})?\s?(?:€|eur|Kč|zł)/i;
+  const products = []; const seenImg = new Set();
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode() && products.length < 4) {
+    const t = walker.currentNode.textContent.trim(); const m = t.match(PRICE);
+    if (!m || t.length > 60) continue;
+    let box = walker.currentNode.parentElement;
+    for (let i = 0; i < 7 && box; i++, box = box.parentElement) {
+      const im = [...box.querySelectorAll("img")].filter((x) => { const r = x.getBoundingClientRect(); return r.width >= 120 && r.height >= 90; });
+      if (im.length >= 1 && im.length <= 2) {
+        // nadpis s najväčším písmom, nie nálepky VERZÁLKAMI
+        const head = [...box.querySelectorAll("h2, h3, h4, h5, [class*=title i], [class*=name i], strong")]
+          .filter((h) => { const x = (h.innerText || "").trim(); return x && x !== x.toUpperCase(); })
+          .sort((a, b) => parseFloat(getComputedStyle(b).fontSize) - parseFloat(getComputedStyle(a).fontSize))[0];
+        const name = (head?.innerText || im[0].alt || "").replace(/\s+/g, " ").trim();
+        const src = im[0].currentSrc || im[0].src;
+        if (name && name.length < 60 && !seenImg.has(src)) {
+          seenImg.add(src); im[0].setAttribute("data-brand-product", String(products.length));
+          products.push({ name, price: m[0].replace(/\s+/g, " "), src });
+        }
+        break;
+      }
+    }
+  }
+  const ig = [...document.querySelectorAll("a[href*='instagram.com/']")].map((a) => a.href.match(/instagram\.com\/([A-Za-z0-9_.]+)/)?.[1]).find((h) => h && !["p", "reel", "explore"].includes(h));
+
   const title = document.title || "";
   const siteName = meta("og:site_name") || title.split(/[|–—\-:•·]/)[0].trim();
   return {
@@ -130,11 +162,31 @@ const info = await dpage.evaluate(() => {
       bgIsDark: lum(bg) < 0.45,
     },
     hasLogo: !!logoEl,
+    hero: hero ? { src: hero.el.currentSrc || hero.el.src, w: Math.round(hero.r.width), h: Math.round(hero.r.height) } : null,
+    products, instagram: ig || null,
   };
 });
 
 if (info.hasLogo) {
   await dpage.locator("[data-brand-logo]").first().screenshot({ path: path.join(dir, "logo.png"), omitBackground: true }).catch(() => (info.hasLogo = false));
+}
+async function grab(src, sel, file) {
+  const p = path.join(dir, file);
+  try {
+    const r = await dctx.request.get(src, { timeout: 20000 });
+    const ct = r.headers()["content-type"] || "";
+    if (r.ok() && /png|jpe?g|webp|avif|gif/.test(ct)) {
+      const ext = ct.includes("png") ? "png" : ct.includes("webp") ? "webp" : ct.includes("avif") ? "avif" : ct.includes("gif") ? "gif" : "jpg";
+      const f = file.replace(/\.png$/, "." + ext); fs.writeFileSync(path.join(dir, f), await r.body()); return f;
+    }
+  } catch {}
+  try { await dpage.locator(sel).first().screenshot({ path: p }); return file; } catch { return null; }
+}
+const heroFile = info.hero ? await grab(info.hero.src, "[data-brand-hero]", "hero.png") : null;
+const products = [];
+for (const [i, pr] of info.products.entries()) {
+  const f = await grab(pr.src, `[data-brand-product="${i}"]`, `product-${i}.png`);
+  if (f) products.push({ name: pr.name, price: pr.price, image: f });
 }
 const desktopH = await shoot(dpage, path.join(dir, "desktop.png"), MAX_DESKTOP);
 
@@ -184,6 +236,9 @@ const brand = {
   fontFiles,   // písma zachytené zo stránky (záloha pre ne-Google písma)
   colors: c,
   logo: info.hasLogo ? "logo.png" : null,
+  hero: heroFile,
+  products,
+  instagram: info.instagram,
   shots: { mobile: { file: "mobile.png", width: 780, height: mobileH * 2 }, desktop: { file: "desktop.png", width: 1440, height: desktopH } },
   // texty do animácií: uprav podľa klienta
   words: [],
@@ -191,4 +246,4 @@ const brand = {
 };
 fs.writeFileSync(path.join(dir, "brand.json"), JSON.stringify(brand, null, 2));
 export { slug };
-console.log(JSON.stringify({ slug, name: brand.name, fonts: brand.fonts, colors: brand.colors, logo: brand.logo, fontFaces: fontFaces.length, fontFiles: fontFiles.length, mobileH, desktopH }, null, 1));
+console.log(JSON.stringify({ slug, name: brand.name, fonts: brand.fonts, colors: brand.colors, logo: brand.logo, hero: heroFile, products, instagram: info.instagram, fontFaces: fontFaces.length, fontFiles: fontFiles.length, mobileH, desktopH }, null, 1));

@@ -134,20 +134,20 @@
   ],
   "fontFiles": [
     {
-      "url": "https://www.doughnana.com/_next/static/immutable/media/83afe278b6a6bb3c-s.p.45535valc9rzk.woff2",
-      "file": "fonts/83afe278b6a6bb3c-s.p.45535valc9rzk.woff2"
+      "url": "https://www.doughnana.com/_next/static/immutable/media/2ab350ceb580dfba-s.p.287f6eu8m3d8_.woff2",
+      "file": "fonts/2ab350ceb580dfba-s.p.287f6eu8m3d8_.woff2"
     },
     {
       "url": "https://www.doughnana.com/_next/static/immutable/media/1bffadaabf893a1e-s.p.0szrwpqb9mkwe.woff2",
       "file": "fonts/1bffadaabf893a1e-s.p.0szrwpqb9mkwe.woff2"
     },
     {
-      "url": "https://www.doughnana.com/_next/static/immutable/media/ad85ec941b4c8b5c-s.p.1k8_e77f2qnpv.woff2",
-      "file": "fonts/ad85ec941b4c8b5c-s.p.1k8_e77f2qnpv.woff2"
+      "url": "https://www.doughnana.com/_next/static/immutable/media/83afe278b6a6bb3c-s.p.45535valc9rzk.woff2",
+      "file": "fonts/83afe278b6a6bb3c-s.p.45535valc9rzk.woff2"
     },
     {
-      "url": "https://www.doughnana.com/_next/static/immutable/media/2ab350ceb580dfba-s.p.287f6eu8m3d8_.woff2",
-      "file": "fonts/2ab350ceb580dfba-s.p.287f6eu8m3d8_.woff2"
+      "url": "https://www.doughnana.com/_next/static/immutable/media/ad85ec941b4c8b5c-s.p.1k8_e77f2qnpv.woff2",
+      "file": "fonts/ad85ec941b4c8b5c-s.p.1k8_e77f2qnpv.woff2"
     }
   ],
   "colors": {
@@ -163,6 +163,20 @@
     "onAccent": "#ffffff"
   },
   "logo": "logo.png",
+  "hero": "hero.png",
+  "products": [
+    {
+      "name": "Original Doughnana",
+      "price": "€22.90",
+      "image": "product-0.png"
+    },
+    {
+      "name": "Just Nana",
+      "price": "€22.90",
+      "image": "product-1.png"
+    }
+  ],
+  "instagram": null,
   "shots": {
     "mobile": {
       "file": "mobile.png",

@@ -9,6 +9,7 @@ Doughnana overlayov.
 npm install
 node scripts/make.mjs https://klient.sk                 # ukážka pre klienta (Preview, 10 s)
 node scripts/make.mjs https://klient.sk --comps Launch  # celé launch video (~20 s)
+node scripts/make.mjs https://klient.sk --comps Showreel --lang en   # showreel (~33 s, ~6 min render)
 ```
 Výstup: `out/<slug>/*.mp4` (1080×1920, 30 fps, H.264).
 
@@ -23,6 +24,7 @@ npm run studio                                 # Remotion Studio na ladenie
 ## Kompozície
 | ID | Dĺžka | Čo |
 |---|---|---|
+| `Showreel` | ~33 s | **ukážka všetkého, čo vieme**, každá scéna má štítok (01–09): animované logo, kinetická typografia, produkt v pohybe, produkty s cenami, titulky na beat, lower third, web v mobile, web na počítači, výzva na sledovanie, záver „všetko z vášho webu“. `--lang en` pre zahraničie |
 | `Preview` | 10 s | titulok → telefón so skutočným webom → záver. **Ukážka na oslovenie.** |
 | `Launch` | ~20 s | titulok, slová na beat, telefón, počítač, záver |
 | `Title` | 3 s | farebný pás udrie, meno, logo dopadne, podtitulok |
@@ -32,6 +34,9 @@ npm run studio                                 # Remotion Studio na ladenie
 
 `--bg brand` = vo farbách značky (hotové video), `green` = chroma key, `black` = blend Screen
 (overlaye do CapCutu, návod ako pri Doughnane).
+
+Extrakcia navyše hľadá hlavný obrázok (`hero`), produkty s cenami (`products`) a Instagram
+(`instagram`). Ak niečo chýba, showreel príslušnú scénu vynechá.
 
 ## Úpravy pre klienta v brand.json
 - `name`, `tagline`, `cta`: texty v titulku a závere

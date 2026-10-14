@@ -12,6 +12,7 @@ const slug = process.argv[2];
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1].split(",") : d; };
 const comps = arg("--comps", ["Preview"]);
 const bgs = arg("--bg", ["brand"]);
+const lang = arg("--lang", ["sk"])[0];
 const brandDir = path.resolve("brands", slug);
 const brand = JSON.parse(fs.readFileSync(path.join(brandDir, "brand.json"), "utf8"));
 
@@ -22,10 +23,10 @@ const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts"), public
 const outDir = path.resolve("out", slug);
 fs.mkdirSync(outDir, { recursive: true });
 for (const id of comps) for (const bg of bgs) {
-  if (id === "Preview" && bg !== "brand") continue; // ukážka pre klienta je vždy vo farbách značky
-  const inputProps = { brand, bg };
+  if (["Preview", "Showreel"].includes(id) && bg !== "brand") continue; // ukážky pre klienta sú vždy vo farbách značky
+  const inputProps = { brand, bg, lang };
   const composition = await selectComposition({ serveUrl, id, inputProps, browserExecutable: BROWSER });
-  const outputLocation = path.join(outDir, `${id}${bg === "brand" ? "" : "_" + bg.toUpperCase()}.mp4`);
+  const outputLocation = path.join(outDir, `${id}${bg === "brand" ? "" : "_" + bg.toUpperCase()}${id === "Showreel" && lang !== "sk" ? "_" + lang.toUpperCase() : ""}.mp4`);
   const t0 = Date.now();
   await renderMedia({ composition, serveUrl, codec: "h264", outputLocation, inputProps, browserExecutable: BROWSER,
     crf: 18, concurrency: 4, chromiumOptions: { gl: "swangle" } });

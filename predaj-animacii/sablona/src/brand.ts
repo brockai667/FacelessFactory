@@ -9,11 +9,14 @@ export type Brand = {
   colors: { bg: string; text: string; heading: string; surface: string; surface2: string | null; accent: string;
     button: string | null; bgIsDark: boolean; onSurface: string; onAccent: string };
   logo: string | null;
+  hero?: string | null;
+  products?: { name: string; price: string; image: string }[];
+  instagram?: string | null;
   shots: { mobile: { file: string; width: number; height: number }; desktop: { file: string; width: number; height: number } };
   words: string[]; cta: string;
 };
 export type BgMode = "brand" | "green" | "black";
-export type Props = { brand: Brand; bg: BgMode };
+export type Props = { brand: Brand; bg: BgMode; lang?: "sk" | "en" };
 
 export const asset = (b: Brand, f: string) => staticFile(`brands/${b.slug}/${f}`);
 export const headingFont = (b: Brand) => `"${b.fonts.heading}", "${b.fonts.body}", Inter, system-ui, sans-serif`;

@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Composition, Sequence } from "remotion";
 import { Brand, Props, useBrandFonts } from "./brand";
 import { Title, Pops, Phone, Desktop, End, popsDuration } from "./scenes";
+import { Showreel, showreelLen } from "./showreel";
 import sample from "../brands-sample.json";
 
 const FPS = 30;
@@ -44,6 +45,9 @@ export const Root: React.FC = () => (
     <Composition id="Preview" component={Preview} durationInFrames={previewLen} {...common} />
     <Composition id="Launch" component={Launch} durationInFrames={launchLen(defaults.brand)} {...common}
       calculateMetadata={({ props }) => ({ durationInFrames: launchLen(props.brand) })} />
+    <Composition id="Showreel" component={(p: Props) => <Fonts brand={p.brand}><Showreel {...p} /></Fonts>}
+      durationInFrames={showreelLen(defaults.brand)} {...common}
+      calculateMetadata={({ props }) => ({ durationInFrames: showreelLen(props.brand, props.lang) })} />
     <Composition id="Title" component={one(Title, T)} durationInFrames={T} {...common} />
     <Composition id="Pops" component={({ brand, bg }: Props) => <Fonts brand={brand}><Pops brand={brand} mode={bg} /></Fonts>}
       durationInFrames={popsDuration(defaults.brand)} {...common} calculateMetadata={({ props }) => ({ durationInFrames: popsDuration(props.brand) })} />

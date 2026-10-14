@@ -22,7 +22,7 @@ export const Bg: React.FC<{ brand: Brand; mode: BgMode; children?: React.ReactNo
 };
 
 /** Skráti text na celé vety, inak na celé slová. */
-const shorten = (t: string, max: number) => {
+export const shorten = (t: string, max: number) => {
   if (t.length <= max) return t;
   const sent = t.match(/^.{20,}?[.!?](?=\s|$)/)?.[0];
   if (sent && sent.length <= max) return sent;
@@ -33,7 +33,7 @@ const exitOut = (frame: number, dur: number, len = 8) =>
   interpolate(frame, [dur - len, dur], [1, 0], clamp);
 
 /** Logo v karte (logo má často pozadie hlavičky, karta ho schová). */
-const LogoCard: React.FC<{ brand: Brand; height: number; style?: React.CSSProperties }> = ({ brand, height, style }) =>
+export const LogoCard: React.FC<{ brand: Brand; height: number; style?: React.CSSProperties }> = ({ brand, height, style }) =>
   brand.logo ? (
     <div style={{ background: brand.colors.bg, borderRadius: height * 0.35, padding: `${height * 0.28}px ${height * 0.45}px`,
       boxShadow: "0 18px 50px rgba(0,0,0,.18)", display: "inline-flex", ...style }}>
