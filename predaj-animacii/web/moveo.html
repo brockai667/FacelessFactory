@@ -1,0 +1,204 @@
+<title>MOVEO</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: hero (text | telefón s videom) → menu čísel 01–09 v mriežke → postup 1-2-3 → kontakt. */
+:root {
+  --paper: #f5f6fb;
+  --surface: #ffffff;
+  --ink: #12143a;
+  --muted: #5a5f86;
+  --line: #dde0f0;
+  --accent: #2430d9;
+  --on-accent: #ffffff;
+  --pop: #ffe14d;
+  --on-pop: #12143a;
+  --display: "Syne", "Arial Black", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0c0e2a; --surface: #15183f; --ink: #eef0ff; --muted: #a3a8d6; --line: #262a5c;
+    --accent: #7b84ff; --on-accent: #0c0e2a; --pop: #ffe14d; --on-pop: #12143a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0c0e2a; --surface: #15183f; --ink: #eef0ff; --muted: #a3a8d6; --line: #262a5c;
+  --accent: #7b84ff; --on-accent: #0c0e2a; --pop: #ffe14d; --on-pop: #12143a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { display: flex; justify-content: space-between; align-items: center; padding-block: 22px; gap: 16px; }
+.mark { font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: 0.04em; }
+.mark span { display: inline-block; color: var(--accent); animation: nudge 2.4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px) rotate(-6deg); } }
+.lang { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
+.lang button { font: 600 14px var(--body); border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; padding-block: 28px 56px; }
+.hero > div { min-width: 0; }
+.eyebrow { font: 700 13px var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; letter-spacing: -0.02em; margin: 14px 0 20px; text-wrap: balance; }
+h1 .hl { background: var(--pop); color: var(--on-pop); padding: 0 0.15em; border-radius: 10px; display: inline-block; transform: rotate(-2deg); }
+.lede { color: var(--muted); font-size: 19px; max-width: 34em; margin: 0 0 28px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { font: 700 16px var(--body); text-decoration: none; padding: 14px 22px; border-radius: 999px; border: 2px solid var(--ink); color: var(--ink); background: transparent; cursor: pointer; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+.phone { justify-self: center; width: min(320px, 100%); aspect-ratio: 9 / 19.5; max-width: 100%; background: #0b0b0f; border-radius: 46px; padding: 12px; box-shadow: 0 30px 80px rgba(18, 20, 58, 0.28), inset 0 0 0 2px #2a2a33; transform: rotate(3deg); }
+.phone video { width: 100%; height: 100%; object-fit: cover; border-radius: 36px; display: block; background: #000; }
+.sound { margin-top: 14px; text-align: center; font-size: 14px; color: var(--muted); }
+.sound button { font: 600 14px var(--body); background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+
+section { padding-block: 56px; border-top: 1px solid var(--line); }
+h2 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 32px; max-width: 40em; }
+.menu { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.menu li { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start; min-width: 0; }
+.code { grid-row: span 2; font: 800 15px var(--display); background: var(--accent); color: var(--on-accent); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.menu b { font-weight: 700; font-size: 17px; }
+.menu span.d { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.pick { margin-top: 26px; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px; background: var(--pop); color: var(--on-pop); border-radius: 18px; padding: 16px 22px; font-weight: 600; }
+.pick code { font: 800 18px var(--display); letter-spacing: 0.04em; }
+
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: s; }
+.steps li { counter-increment: s; min-width: 0; }
+.steps li::before { content: counter(s); font: 800 56px/1 var(--display); color: var(--accent); display: block; margin-bottom: 10px; }
+.steps b { display: block; font-size: 18px; margin-bottom: 4px; }
+.steps span { color: var(--muted); }
+
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 28px; min-width: 0; }
+.card.free { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.card.free p { color: inherit; opacity: 0.85; }
+.card h3 { font-family: var(--display); font-size: 24px; margin: 0 0 8px; }
+.card p { color: var(--muted); margin: 0 0 18px; }
+.mail { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.mail output { font: 700 18px var(--body); user-select: all; overflow-wrap: anywhere; }
+.copy { font: 600 14px var(--body); border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+footer { padding-block: 32px 48px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; }
+  .phone { transform: none; }
+  .menu { grid-template-columns: 1fr 1fr; }
+  .steps, .contact { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) { .menu { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .mark span { animation: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="mark">MOVE<span>O</span></div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="sk" aria-pressed="true">SK</button>
+      <button type="button" id="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow" data-sk="Animácie pre značky" data-en="Animation for brands">Animácie pre značky</div>
+      <h1 data-sk-html="Z vášho webu spravíme video, ktoré sa <span class=hl>hýbe</span>." data-en-html="We turn your website into video that <span class=hl>moves</span>.">Z vášho webu spravíme video, ktoré sa <span class="hl">hýbe</span>.</h1>
+      <p class="lede" data-sk="Animácie do reels, na web aj do reklám: logo, produkty s cenami, titulky, váš web v mobile a na počítači. Vo vašich farbách a vašom písme, bez falošného AI dizajnu." data-en="Animations for reels, your site and ads: logo, products with prices, captions, your site on a phone and a laptop. In your colors and fonts, no fake AI design.">Animácie do reels, na web aj do reklám: logo, produkty s cenami, titulky, váš web v mobile a na počítači. Vo vašich farbách a vašom písme, bez falošného AI dizajnu.</p>
+      <div class="cta">
+        <a class="btn primary" href="#menu" data-sk="Vybrať čísla" data-en="Pick the numbers">Vybrať čísla</a>
+        <a class="btn" href="#kontakt" data-sk="Konzultácia zadarmo" data-en="Free consultation">Konzultácia zadarmo</a>
+      </div>
+    </div>
+    <div>
+      <div class="phone">
+        <video id="reel" src="showreel.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+      </div>
+      <div class="sound"><button type="button" id="unmute" data-sk="Zapnúť zvuk" data-en="Turn sound on">Zapnúť zvuk</button></div>
+    </div>
+  </div>
+
+  <section id="menu">
+    <h2 data-sk="Čo vieme rozhýbať" data-en="What we can animate">Čo vieme rozhýbať</h2>
+    <p class="sub" data-sk="Každá animácia vo videu má svoje číslo. Ukážka je urobená z webu doughnana.com, vašu spravíme z vášho." data-en="Every animation in the video has its number. The demo is made from doughnana.com; yours will be made from your site.">Každá animácia vo videu má svoje číslo. Ukážka je urobená z webu doughnana.com, vašu spravíme z vášho.</p>
+    <ol class="menu">
+      <li><span class="code">01</span><b data-sk="Animované logo" data-en="Logo animation">Animované logo</b><span class="d" data-sk="Odhalenie, lesk a výbuch bodiek vo farbách značky." data-en="Reveal, shine and a burst in your brand colors.">Odhalenie, lesk a výbuch bodiek vo farbách značky.</span></li>
+      <li><span class="code">02</span><b data-sk="Kinetická typografia" data-en="Kinetic typography">Kinetická typografia</b><span class="d" data-sk="Váš slogan slovo po slove, s dôrazom na kľúčové slovo." data-en="Your tagline word by word, with the key word highlighted.">Váš slogan slovo po slove, s dôrazom na kľúčové slovo.</span></li>
+      <li><span class="code">03</span><b data-sk="Produkt v pohybe" data-en="Product in motion">Produkt v pohybe</b><span class="d" data-sk="Produkt dopadne do záberu a okolo neho sa točí nápis." data-en="Your product drops in with a spinning badge around it.">Produkt dopadne do záberu a okolo neho sa točí nápis.</span></li>
+      <li><span class="code">04</span><b data-sk="Produkty a ceny" data-en="Products &amp; prices">Produkty a ceny</b><span class="d" data-sk="Karty produktov priletia, ceny sa napočítajú." data-en="Product cards fly in and prices count up.">Karty produktov priletia, ceny sa napočítajú.</span></li>
+      <li><span class="code">05</span><b data-sk="Titulky na beat" data-en="Animated captions">Titulky na beat</b><span class="d" data-sk="Titulky ako na TikToku, zvýraznené slovo po slove." data-en="TikTok-style captions, highlighted word by word.">Titulky ako na TikToku, zvýraznené slovo po slove.</span></li>
+      <li><span class="code">06</span><b data-sk="Meno v zábere" data-en="Lower third">Meno v zábere</b><span class="d" data-sk="Lišta s menom a funkciou do videí s ľuďmi." data-en="A name and title bar for videos with people.">Lišta s menom a funkciou do videí s ľuďmi.</span></li>
+      <li><span class="code">07</span><b data-sk="Váš web v mobile" data-en="Your site on mobile">Váš web v mobile</b><span class="d" data-sk="Naklonený telefón, v ňom scrolluje vaša skutočná stránka." data-en="A tilted phone scrolling through your real site.">Naklonený telefón, v ňom scrolluje vaša skutočná stránka.</span></li>
+      <li><span class="code">08</span><b data-sk="Váš web na počítači" data-en="Your site on a laptop">Váš web na počítači</b><span class="d" data-sk="Notebook s vaším webom a kurzorom, ktorý ním prechádza." data-en="A laptop with your site and a cursor moving through it.">Notebook s vaším webom a kurzorom, ktorý ním prechádza.</span></li>
+      <li><span class="code">09</span><b data-sk="Výzva na akciu" data-en="Call to action">Výzva na akciu</b><span class="d" data-sk="Klik na vaše tlačidlo, krúžky a konfety." data-en="A click on your button, with rings and confetti.">Klik na vaše tlačidlo, krúžky a konfety.</span></li>
+    </ol>
+    <div class="pick"><span data-sk="Napíšte nám čísla, ktoré chcete, napríklad" data-en="Send us the numbers you want, for example">Napíšte nám čísla, ktoré chcete, napríklad</span> <code>01 + 04 + 07</code> <span data-sk="a pošleme cenu." data-en="and we'll send you a price.">a pošleme cenu.</span></div>
+  </section>
+
+  <section>
+    <h2 data-sk="Ako to prebieha" data-en="How it works">Ako to prebieha</h2>
+    <p class="sub" data-sk="Netreba nič natáčať ani posielať podklady. Stačí váš web." data-en="No filming and no assets needed. Your website is enough.">Netreba nič natáčať ani posielať podklady. Stačí váš web.</p>
+    <ol class="steps">
+      <li><b data-sk="Pošlete odkaz a čísla" data-en="Send your link and numbers">Pošlete odkaz a čísla</b><span data-sk="Adresu webu a animácie, ktoré chcete. Farby, písmo a logo si vezmeme sami." data-en="Your site's address and the pieces you want. We take colors, fonts and logo from it.">Adresu webu a animácie, ktoré chcete. Farby, písmo a logo si vezmeme sami.</span></li>
+      <li><b data-sk="Pošleme cenu a ukážku" data-en="We send a price and a preview">Pošleme cenu a ukážku</b><span data-sk="Krátku ukážku z vášho webu, aby ste videli, ako to bude vyzerať." data-en="A short preview from your own site, so you can see how it will look.">Krátku ukážku z vášho webu, aby ste videli, ako to bude vyzerať.</span></li>
+      <li><b data-sk="Do 48 hodín máte videá" data-en="Videos within 48 hours">Do 48 hodín máte videá</b><span data-sk="MP4 na výšku pre reels, aj na zelenom alebo čiernom pozadí do CapCutu." data-en="Vertical MP4 for reels, also on green or black for CapCut.">MP4 na výšku pre reels, aj na zelenom alebo čiernom pozadí do CapCutu.</span></li>
+    </ol>
+  </section>
+
+  <section id="kontakt">
+    <div class="contact">
+      <div class="card">
+        <h3 data-sk="Napíšte nám" data-en="Write to us">Napíšte nám</h3>
+        <p data-sk="Pošlite odkaz na váš web a čísla, ktoré sa vám páčia. Odpíšeme do 24 hodín." data-en="Send your website link and the numbers you like. We reply within 24 hours.">Pošlite odkaz na váš web a čísla, ktoré sa vám páčia. Odpíšeme do 24 hodín.</p>
+        <div class="mail"><output id="addr">brock.ia667@gmail.com</output><button type="button" class="copy" id="copy" data-sk="Kopírovať" data-en="Copy">Kopírovať</button></div>
+      </div>
+      <div class="card free">
+        <h3 data-sk="Máte vlastnú predstavu?" data-en="Have your own idea?">Máte vlastnú predstavu?</h3>
+        <p data-sk="Iný štýl, postavičky alebo celé video s vašimi zábermi. Dajme si 15 minút a zadarmo spolu prejdeme, čo potrebujete." data-en="A different style, characters or a full video with your own footage. Let's talk for 15 minutes, free, about what you need.">Iný štýl, postavičky alebo celé video s vašimi zábermi. Dajme si 15 minút a zadarmo spolu prejdeme, čo potrebujete.</p>
+        <b data-sk="Konzultácia zadarmo, stačí napísať." data-en="Free consultation, just write to us.">Konzultácia zadarmo, stačí napísať.</b>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    MOVEO · <span data-sk="Ukážka vyrobená z doughnana.com." data-en="Demo made from doughnana.com.">Ukážka vyrobená z doughnana.com.</span>
+    Music: "Hyperfun" – Kevin MacLeod (incompetech.com), CC BY 4.0
+  </footer>
+</div>
+
+<script>
+(function () {
+  var reel = document.getElementById("reel");
+  var lang = location.hash === "#en" ? "en" : "sk";
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll("[data-sk]").forEach(function (el) { el.textContent = el.getAttribute("data-" + l); });
+    document.querySelectorAll("[data-sk-html]").forEach(function (el) { el.innerHTML = el.getAttribute("data-" + l + "-html"); });
+    document.getElementById("sk").setAttribute("aria-pressed", l === "sk");
+    document.getElementById("en").setAttribute("aria-pressed", l === "en");
+    var src = l === "en" ? "showreel_en.mp4" : "showreel.mp4";
+    if (reel.getAttribute("src") !== src) { reel.setAttribute("src", src); reel.play().catch(function () {}); }
+    updateSound();
+  }
+  function updateSound() {
+    var b = document.getElementById("unmute");
+    b.textContent = reel.muted ? (lang === "en" ? "Turn sound on" : "Zapnúť zvuk") : (lang === "en" ? "Mute" : "Stlmiť zvuk");
+  }
+  document.getElementById("sk").addEventListener("click", function () { setLang("sk"); });
+  document.getElementById("en").addEventListener("click", function () { setLang("en"); });
+  document.getElementById("unmute").addEventListener("click", function () {
+    reel.muted = !reel.muted;
+    if (!reel.muted) { reel.currentTime = 0; reel.play().catch(function () {}); }
+    updateSound();
+  });
+  document.getElementById("copy").addEventListener("click", function () {
+    var btn = this, text = document.getElementById("addr").textContent;
+    var done = function () { btn.textContent = lang === "en" ? "Copied" : "Skopírované"; };
+    var fallback = function () { var r = document.createRange(); r.selectNodeContents(document.getElementById("addr")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  });
+  setLang(lang);
+})();
+</script>
