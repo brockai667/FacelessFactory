@@ -32,6 +32,9 @@ async function settle(page) {
     window.scrollTo(0, 0);
   }, MAX_MOBILE);
   await page.waitForTimeout(800);
+  // vložené iframy (video, mapy, widgety) sa pri snímaní často nenačítajú → skryť
+  await page.addStyleTag({ content: "iframe, [class*=cookie i], [id*=cookie i] { display: none !important; }" }).catch(() => {});
+  await page.waitForTimeout(300);
 }
 
 async function shoot(page, file, maxH) {

@@ -213,7 +213,7 @@ const LowerThird: React.FC<{ brand: Brand; lang: L }> = ({ brand, lang }) => {
   const line = spring({ frame: f - 6, fps, config: { damping: 14, stiffness: 160 } });
   const panel = interpolate(f, [10, 24], [0, 100], { ...clamp, easing: Easing.out(Easing.cubic) });
   const name = spring({ frame: f - 18, fps, config: { damping: 14, stiffness: 150 } });
-  const sub = `${T(lang, "Zakladateľ", "Founder")} · ${brand.domain}`;
+  const sub = `${brand.lowerSub || T(lang, "Zakladateľ", "Founder")} · ${brand.domain}`;
   const typed = Math.floor(interpolate(f, [26, 26 + sub.length * 1.2], [0, sub.length], clamp));
   return (
     <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 30%, ${c.bg} 0%, ${c.surface} 75%)`, overflow: "hidden" }}>

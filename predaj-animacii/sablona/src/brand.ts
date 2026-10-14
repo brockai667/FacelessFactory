@@ -13,6 +13,7 @@ export type Brand = {
   products?: { name: string; price: string; image: string }[];
   instagram?: string | null;
   ctaText?: string | null;
+  lowerSub?: string;
   shots: { mobile: { file: string; width: number; height: number }; desktop: { file: string; width: number; height: number } };
   words: string[]; cta: string;
 };
