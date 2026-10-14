@@ -139,7 +139,7 @@ def main():
                 c = classify(p)
                 if c:
                     leads.append(c)
-            time.sleep(4)
+            time.sleep(7)
     days = {"day": 1, "week": 7, "month": 30, "year": 365}[args.t]
     for p in fetch_hn(days):
         if p["url"] in seen:
