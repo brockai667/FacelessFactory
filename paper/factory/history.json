@@ -377,5 +377,20 @@
   "slug": "ocean-swim-effects",
   "topic": "What happens if you swim in the ocean?",
   "env": "field"
+ },
+ {
+  "format": "increasing altitude",
+  "chrome": "bubble",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "short",
+  "skin": "brown",
+  "palette": "p3",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "cat",
+  "slug": "high-altitude-whistle",
+  "topic": "What happens if you whistle at high altitude?",
+  "env": "field"
  }
 ]
