@@ -1,0 +1,33 @@
+// Vyrenderuje animácie pre značku z brands/<slug>/brand.json.
+// Použitie: node scripts/render.mjs <slug> [--comps Preview,Launch,Title,Pops,Phone,Desktop,End] [--bg brand,green,black]
+import { bundle } from "@remotion/bundler";
+import { renderMedia, selectComposition } from "@remotion/renderer";
+import fs from "node:fs";
+import path from "node:path";
+
+// v cloude Playwright headless shell, inak si Remotion stiahne vlastný (undefined)
+const CLOUD = "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
+const BROWSER = process.env.REMOTION_BROWSER || (fs.existsSync(CLOUD) ? CLOUD : undefined);
+const slug = process.argv[2];
+const arg = (n, d) => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1].split(",") : d; };
+const comps = arg("--comps", ["Preview"]);
+const bgs = arg("--bg", ["brand"]);
+const brandDir = path.resolve("brands", slug);
+const brand = JSON.parse(fs.readFileSync(path.join(brandDir, "brand.json"), "utf8"));
+
+fs.mkdirSync("public/brands", { recursive: true });
+fs.cpSync(brandDir, path.resolve("public/brands", slug), { recursive: true });
+
+const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts"), publicDir: path.resolve("public") });
+const outDir = path.resolve("out", slug);
+fs.mkdirSync(outDir, { recursive: true });
+for (const id of comps) for (const bg of bgs) {
+  if (id === "Preview" && bg !== "brand") continue; // ukážka pre klienta je vždy vo farbách značky
+  const inputProps = { brand, bg };
+  const composition = await selectComposition({ serveUrl, id, inputProps, browserExecutable: BROWSER });
+  const outputLocation = path.join(outDir, `${id}${bg === "brand" ? "" : "_" + bg.toUpperCase()}.mp4`);
+  const t0 = Date.now();
+  await renderMedia({ composition, serveUrl, codec: "h264", outputLocation, inputProps, browserExecutable: BROWSER,
+    crf: 18, concurrency: 4, chromiumOptions: { gl: "swangle" } });
+  console.log(`✓ ${path.relative(process.cwd(), outputLocation)}  (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
+}

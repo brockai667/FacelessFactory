@@ -1,0 +1,22 @@
+{
+  "name": "predaj-animacii-sablona",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "brand": "node scripts/extract.mjs",
+    "render": "node scripts/render.mjs",
+    "studio": "remotion studio src/index.ts",
+    "make": "node scripts/make.mjs"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.535",
+    "@remotion/cli": "4.0.535",
+    "@remotion/renderer": "4.0.535",
+    "@types/react": "18.3.12",
+    "playwright-core": "1.56.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.535",
+    "typescript": "5.6.3"
+  }
+}

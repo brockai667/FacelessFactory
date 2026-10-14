@@ -13,6 +13,7 @@ vo FacelessFactory (`paper/`).
 | [PRIESKUM.md](PRIESKUM.md) | Je o to záujem? Reálne inzeráty za 30 dní, kto platí a koľko, kde je konkurencia |
 | [KLIENTI.md](KLIENTI.md) | Kde brať klientov, segment po segmente, a ako sa k nim dostať |
 | [PONUKA.md](PONUKA.md) | Balíky, ceny, postup „pošli web → dostaneš video“, šablóny správ |
+| [sablona/](sablona/README.md) | **Univerzálna šablóna:** URL webu → animácie v štýle značky (Remotion), `node scripts/make.mjs <url>` |
 | `leads/scan_reddit.py` | Skener: nájde čerstvé príspevky, kde niekto hľadá animáciu/launch video |
 
 ## Skener leadov
