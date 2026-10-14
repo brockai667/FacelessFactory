@@ -33,7 +33,38 @@ SOURCES = {
     "Entrepreneur": ["explainer video", "promo video"],
     "smallbusiness": ["promo video", "animated video"],
     "shopify": ["product video", "promo video"],
+    "SideProject": ["launch video", "demo video", "promo video"],
+    "indiehackers": ["launch video", "demo video", "explainer"],
+    "ecommerce": ["product video", "video ads", "reels"],
+    "socialmedia": ["reels editor", "animated reels", "motion graphics"],
+    "marketing": ["motion graphics", "animated video", "explainer video"],
+    "Etsy": ["product video"],
+    "AppBusiness": ["app preview video", "promo video"],
+    "iOSProgramming": ["app preview video", "app store video"],
 }
+
+# Hacker News (Algolia API): komentáre a príspevky, kde niekto hľadá video
+HN_QUERIES = ["launch video", "demo video", "explainer video", "promo video", "product hunt video", "app preview video"]
+
+
+def fetch_hn(days):
+    since = int(time.time()) - days * 86400
+    out = []
+    for q in HN_QUERIES:
+        url = "https://hn.algolia.com/api/v1/search_by_date?" + urllib.parse.urlencode(
+            {"query": q, "tags": "(story,comment)", "numericFilters": f"created_at_i>{since}", "hitsPerPage": "50"})
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=25) as r:
+                hits = __import__("json").load(r)["hits"]
+        except Exception as e:
+            print(f"  ! HN '{q}': {e}"); continue
+        for h in hits:
+            text = re.sub(r"<[^>]+>", " ", html.unescape(h.get("comment_text") or h.get("story_text") or ""))
+            out.append({"sub": "HN", "date": (h.get("created_at") or "")[:10], "title": h.get("title") or h.get("story_title") or "",
+                        "author": h.get("author", ""), "url": f"https://news.ycombinator.com/item?id={h['objectID']}",
+                        "text": re.sub(r"\s+", " ", text).strip()[:400]})
+        time.sleep(1)
+    return out
 
 # signál, že ide o dopyt (nie ponuku)
 HIRING = re.compile(r"\[\s*hiring\s*\]|\bhiring\b|looking for|need (an?|some)|searching for|who can (make|do)|paid|budget|commission|\$\s?\d", re.I)
@@ -109,6 +140,14 @@ def main():
                 if c:
                     leads.append(c)
             time.sleep(4)
+    days = {"day": 1, "week": 7, "month": 30, "year": 365}[args.t]
+    for p in fetch_hn(days):
+        if p["url"] in seen:
+            continue
+        seen.add(p["url"])
+        c = classify({**p, "title": p["title"] + " " + p["text"][:120]})
+        if c:
+            leads.append({**c, "title": p["title"]})
     leads.sort(key=lambda x: x["date"], reverse=True)
     outdir = os.path.join(os.path.dirname(__file__), "out")
     os.makedirs(outdir, exist_ok=True)
