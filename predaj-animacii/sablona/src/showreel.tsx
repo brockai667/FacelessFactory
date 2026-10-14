@@ -168,73 +168,97 @@ const Products: React.FC<{ brand: Brand }> = ({ brand }) => {
   );
 };
 
-/** 5) Titulky ako na TikToku: slová po skupinách, aktuálne zvýraznené. */
+/** Ostrý „záber“: hlavný obrázok celý v strede, inak výrez desktopového webu v karte. */
+const Shot: React.FC<{ brand: Brand; scale: number; top?: number }> = ({ brand, scale, top = 240 }) => {
+  const d = brand.shots.desktop;
+  return brand.hero
+    ? <Img src={asset(brand, brand.hero)} style={{ position: "absolute", top, left: 50, width: 980, height: 980, objectFit: "contain",
+        transform: `scale(${scale})`, filter: "drop-shadow(0 30px 40px rgba(0,0,0,.25))" }} />
+    : <div style={{ position: "absolute", top: top + 120, left: 60, width: 960, height: 600, borderRadius: 28, overflow: "hidden",
+        transform: `scale(${scale})`, boxShadow: "0 30px 70px rgba(0,0,0,.3)" }}>
+        <Img src={asset(brand, d.file)} style={{ width: 960 }} />
+      </div>;
+};
+
+/** 5) Titulky ako na TikToku: slová po skupinách, aktuálne zvýraznené, záber „punchne“ na každé slovo. */
 const Captions: React.FC<{ brand: Brand }> = ({ brand }) => {
   const f = useCurrentFrame(); const c = brand.colors;
   const words = shorten(brand.tagline || brand.headline, 80).split(/\s+/).filter(Boolean);
   const { durationInFrames } = useVideoConfig();
   const per = Math.max(7, Math.min(14, Math.floor((durationInFrames - 15) / words.length))); const idx = Math.min(words.length - 1, Math.floor(f / per));
   const g0 = Math.floor(idx / 3) * 3; const group = words.slice(g0, g0 + 3);
-  const pop = interpolate(f % per, [0, 3], [1.18, 1], clamp);
-  const bgImg = brand.hero || brand.shots.mobile.file;
+  const local = f - idx * per;
+  const pop = interpolate(local, [0, 3], [1.18, 1], clamp);
+  const punch = 0.035 * Math.exp(-local / 4);
   return (
-    <AbsoluteFill style={{ background: c.surface, overflow: "hidden" }}>
-      <Img src={asset(brand, bgImg)} style={{ position: "absolute", width: "140%", left: "-20%", top: brand.hero ? 300 : 0,
-        transform: `scale(${1.05 + f * 0.002})`, filter: "blur(2px) brightness(.85)", objectFit: "cover" }} />
-      <AbsoluteFill style={{ background: "linear-gradient(transparent 40%, rgba(0,0,0,.55))" }} />
-      <div style={{ position: "absolute", bottom: 420, width: "100%", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 18, padding: "0 60px" }}>
+    <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 35%, ${c.bg} 0%, ${c.surface} 70%)`, overflow: "hidden" }}>
+      <Shot brand={brand} scale={1 + f * 0.0012 + punch} />
+      <AbsoluteFill style={{ background: "linear-gradient(transparent 62%, rgba(0,0,0,.35))" }} />
+      <div style={{ position: "absolute", bottom: 330, width: "100%", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 18, padding: "0 60px" }}>
         {group.map((w, i) => {
           const on = g0 + i === idx;
           return <span key={g0 + i} style={{ fontFamily: bodyFont(brand), fontWeight: 900, fontSize: 92, textTransform: "uppercase",
-            color: on ? c.onSurface : "#fff", background: on ? c.surface : "transparent", padding: "4px 18px", borderRadius: 16,
-            WebkitTextStroke: on ? "0" : "3px #000", transform: `scale(${on ? pop : 1})`, display: "inline-block" }}>{w}</span>;
+            color: on ? c.onAccent : "#fff", background: on ? c.accent : "transparent", padding: "4px 18px", borderRadius: 16,
+            textShadow: on ? "none" : "0 4px 0 #000, 0 -2px 0 #000, 3px 0 0 #000, -3px 0 0 #000",
+            transform: `scale(${on ? pop : 1}) rotate(${on ? -2 : 0}deg)`, display: "inline-block" }}>{w}</span>;
         })}
       </div>
     </AbsoluteFill>
   );
 };
 
-/** 6) Lower third: lišta s menom cez „video“. */
+/** 6) Lower third: ostrý záber, lišta sa vysunie, meno vyjde zdola, podtitul sa vypíše. */
 const LowerThird: React.FC<{ brand: Brand; lang: L }> = ({ brand, lang }) => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig(); const c = brand.colors;
-  const bar = spring({ frame: f - 8, fps, config: { damping: 16, stiffness: 140 } });
-  const txt = interpolate(f, [16, 28], [0, 1], clamp);
-  // pozadie ako „záber z videa“: horná časť mobilného webu, pomalý zoom
+  const line = spring({ frame: f - 6, fps, config: { damping: 14, stiffness: 160 } });
+  const panel = interpolate(f, [10, 24], [0, 100], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const name = spring({ frame: f - 18, fps, config: { damping: 14, stiffness: 150 } });
+  const sub = `${T(lang, "Zakladateľ", "Founder")} · ${brand.domain}`;
+  const typed = Math.floor(interpolate(f, [26, 26 + sub.length * 1.2], [0, sub.length], clamp));
   return (
-    <AbsoluteFill style={{ background: "#111", overflow: "hidden" }}>
-      <Img src={asset(brand, brand.shots.mobile.file)} style={{ position: "absolute", width: 1080, left: 0, top: -f * 1.5,
-        filter: "brightness(.75) blur(1px)", transform: `scale(${1.15 + f * 0.0015})`, transformOrigin: "50% 20%" }} />
-      <div style={{ position: "absolute", left: 60, bottom: 360, display: "flex", alignItems: "stretch", transform: `translateX(${(1 - bar) * -1000}px)` }}>
-        <div style={{ width: 18, background: c.surface2 || c.surface, borderRadius: 9 }} />
-        <div style={{ marginLeft: 18, background: c.accent, padding: "26px 44px", borderRadius: 20 }}>
-          <div style={{ fontFamily: headingFont(brand), fontWeight: 800, fontSize: 72, color: c.onAccent, opacity: txt }}>{brand.name}</div>
-          <div style={{ fontFamily: bodyFont(brand), fontWeight: 600, fontSize: 40, color: c.onAccent, opacity: txt * 0.85, marginTop: 6 }}>
-            {T(lang, "Zakladateľ · ", "Founder · ")}{brand.domain}</div>
+    <AbsoluteFill style={{ background: `radial-gradient(circle at 50% 30%, ${c.bg} 0%, ${c.surface} 75%)`, overflow: "hidden" }}>
+      <Shot brand={brand} scale={1.05 + f * 0.0015} top={160} />
+      <div style={{ position: "absolute", left: 60, bottom: 400, display: "flex", alignItems: "stretch" }}>
+        <div style={{ width: 16, background: c.surface2 || c.surface, borderRadius: 8, transform: `scaleY(${line})`, transformOrigin: "bottom",
+          boxShadow: "0 10px 30px rgba(0,0,0,.2)" }} />
+        <div style={{ marginLeft: 18, background: c.accent, padding: "26px 44px", borderRadius: 20, clipPath: `inset(0 ${100 - panel}% 0 0 round 20px)`,
+          boxShadow: "0 20px 50px rgba(0,0,0,.25)", overflow: "hidden" }}>
+          <div style={{ fontFamily: headingFont(brand), fontWeight: 800, fontSize: 72, color: c.onAccent, transform: `translateY(${(1 - name) * 90}px)` }}>{brand.name}</div>
+          <div style={{ fontFamily: bodyFont(brand), fontWeight: 600, fontSize: 40, color: c.onAccent, opacity: 0.88, marginTop: 6, minHeight: 50 }}>
+            {sub.slice(0, typed)}<span style={{ opacity: f % 16 < 8 && typed < sub.length ? 1 : 0 }}>|</span></div>
         </div>
       </div>
     </AbsoluteFill>
   );
 };
 
-/** 9) Výzva: kurzor klikne na tlačidlo, vyletia srdiečka. */
+/** 9) Výzva: kurzor klikne na tlačidlo zo stránky, krúžky a konfety; text sa nemení. */
 const Social: React.FC<{ brand: Brand; lang: L }> = ({ brand, lang }) => {
   const f = useCurrentFrame(); const { fps } = useVideoConfig(); const c = brand.colors;
   const btn = spring({ frame: f - 2, fps, config: { damping: 10, stiffness: 150 } });
   const cx = interpolate(f, [10, 34], [900, 600], { ...clamp, easing: Easing.inOut(Easing.cubic) });
-  const cy = interpolate(f, [10, 34], [1500, 1010], { ...clamp, easing: Easing.inOut(Easing.cubic) });
-  const press = f >= 36 && f < 42 ? 0.92 : 1; const done = f >= 40;
-  const label = brand.instagram
-    ? (done ? T(lang, "Sleduješ ✓", "Following ✓") : T(lang, `Sleduj @${brand.instagram}`, `Follow @${brand.instagram}`))
-    : (done ? T(lang, "Otvorené ✓", "Opened ✓") : T(lang, `Navštív ${brand.domain}`, `Visit ${brand.domain}`));
+  const cy = interpolate(f, [10, 34], [1500, 1000], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const CLICK = 36;
+  const press = f >= CLICK && f < CLICK + 5 ? 0.9 : 1;
+  const after = spring({ frame: f - CLICK - 4, fps, config: { damping: 8, stiffness: 200 } });
+  const label = brand.instagram ? T(lang, `Sleduj @${brand.instagram}`, `Follow @${brand.instagram}`)
+    : brand.ctaText || T(lang, `Navštív ${brand.domain}`, `Visit ${brand.domain}`);
+  const colors = [c.accent, c.surface, c.surface2 || c.surface, "#ff3b5c", c.heading];
   return (
     <Bg brand={brand} mode="brand">
       <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-        <div style={{ transform: `scale(${btn * press})`, background: done ? c.surface : c.accent, color: done ? c.onSurface : c.onAccent,
+        {[0, 6, 12].map((d) => { const t = interpolate(f - CLICK - d, [0, 24], [0, 1], clamp);
+          return <div key={d} style={{ position: "absolute", width: 200 + t * 900, height: 200 + t * 900, borderRadius: "50%",
+            border: `6px solid ${c.accent}`, opacity: t > 0 ? (1 - t) * 0.6 : 0 }} />; })}
+        <div style={{ transform: `scale(${btn * press * (1 + Math.sin(Math.min(after, 1) * Math.PI) * 0.08)})`, background: c.accent, color: c.onAccent,
           fontFamily: bodyFont(brand), fontWeight: 800, fontSize: 64, padding: "34px 64px", borderRadius: 999, boxShadow: "0 25px 60px rgba(0,0,0,.25)" }}>{label}</div>
-        {Array.from({ length: 10 }, (_, i) => {
-          const t = interpolate(f - 40 - i * 2, [0, 30], [0, 1], clamp);
-          return <div key={i} style={{ position: "absolute", left: 470 + ((i * 97) % 260), top: 900 - t * (500 + (i % 4) * 90),
-            fontSize: 70 + (i % 3) * 20, opacity: t > 0 ? 1 - t : 0, transform: `rotate(${(i % 2 ? 1 : -1) * t * 30}deg)`, color: i % 2 ? c.accent : "#ff3b5c" }}>♥</div>;
+        {Array.from({ length: 28 }, (_, i) => {
+          const t = interpolate(f - CLICK, [0, 40], [0, 1], clamp);
+          const a = (i / 28) * Math.PI * 2 + (i % 3); const v = 380 + (i % 5) * 90;
+          const x = Math.cos(a) * v * t; const y = Math.sin(a) * v * t + 500 * t * t;
+          return <div key={i} style={{ position: "absolute", width: i % 3 ? 22 : 30, height: i % 3 ? 34 : 18, borderRadius: i % 4 ? 4 : 15,
+            background: colors[i % colors.length], transform: `translate(${x}px, ${y}px) rotate(${t * 720 * (i % 2 ? 1 : -1)}deg)`,
+            opacity: t > 0 ? 1 - t * 0.8 : 0 }} />;
         })}
         <svg width={90} height={110} viewBox="0 0 24 30" style={{ position: "absolute", left: cx, top: cy, transform: `scale(${press})`,
           filter: "drop-shadow(0 6px 10px rgba(0,0,0,.35))" }}>
@@ -327,11 +351,13 @@ const scenesFor = (brand: Brand, lang: L): Scene[] => {
   if (brand.hero) s.push({ key: "hero", beats: 5, el: <HeroMotion brand={brand} />, sfx: [["thud.wav", 16, 0.5], ["sparkle.wav", 22, 0.25]] });
   if (nProd) s.push({ key: "products", beats: 6, el: <Products brand={brand} />,
     sfx: [...Array.from({ length: nProd }, (_, i) => ["pop.wav", 8 + i * 10, 0.4] as Sfx), ["sparkle.wav", 48 + nProd * 10, 0.3]] });
-  s.push({ key: "captions", beats: 6, el: <Captions brand={brand} /> });
+  s.push({ key: "captions", beats: 6, el: <Captions brand={brand} />,
+    sfx: shorten(brand.tagline || brand.headline, 80).split(/\s+/).filter(Boolean).map((_, i, a) =>
+      ["tick.wav", i * Math.max(7, Math.min(14, Math.floor((beatFrame(6) - beatFrame(0) - 15) / a.length))), 0.8] as Sfx) });
   s.push({ key: "lower", beats: 5, el: <LowerThird brand={brand} lang={lang} />, sfx: [["whoosh.wav", 6, 0.3], ["tick.wav", 18, 0.8]] });
-  s.push({ key: "phone", beats: 7, el: <Phone brand={brand} mode="brand" dur={beatFrame(7) - beatFrame(0)} />, sfx: [["whoosh.wav", 2, 0.25]] });
+  s.push({ key: "phone", beats: 7, sfx: [["whoosh.wav", 2, 0.25], ["pop.wav", 28, 0.35], ["pop.wav", 42, 0.35]], el: <Phone brand={brand} mode="brand" dur={beatFrame(7) - beatFrame(0)} extras /> });
   s.push({ key: "desktop", beats: 6, el: <Desktop brand={brand} mode="brand" dur={beatFrame(6) - beatFrame(0)} />, sfx: [["whoosh.wav", 2, 0.25]] });
-  s.push({ key: "social", beats: 5, el: <Social brand={brand} lang={lang} />, sfx: [["pop.wav", 4, 0.35], ["tick.wav", 37, 1], ["pop.wav", 40, 0.45], ["sparkle.wav", 42, 0.4]] });
+  s.push({ key: "social", beats: 5, el: <Social brand={brand} lang={lang} />, sfx: [["pop.wav", 4, 0.35], ["tick.wav", 37, 1], ["pop.wav", 38, 0.5], ["sparkle.wav", 40, 0.45]] });
   s.push({ key: "outro", beats: 5, el: <Outro brand={brand} lang={lang} />, chip: false, sfx: [["sub_hit.wav", 0, 0.45], ["sparkle.wav", 14, 0.35]] });
   s.push({ key: "menu", beats: 11, el: <Menu brand={brand} lang={lang} />, chip: false,
     sfx: [...Object.keys(NUM).map((_, i) => ["tick.wav", 8 + i * 4, 0.7] as Sfx), ["pop.wav", 50, 0.4], ["pop.wav", 62, 0.4]] });

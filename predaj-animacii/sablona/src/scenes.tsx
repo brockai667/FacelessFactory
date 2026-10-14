@@ -121,7 +121,24 @@ const DomainPill: React.FC<{ brand: Brand; frame: number; top: number }> = ({ br
 };
 
 /** 3) Telefón: naklonený iPhone, vnútri scrolluje mobilný web. */
-export const Phone: React.FC<{ brand: Brand; mode: BgMode; dur: number }> = ({ brand, mode, dur }) => {
+/** Produkt v bubline s cenou, ktorý sa vznáša vedľa zariadenia. */
+const FloatProduct: React.FC<{ brand: Brand; i: number; x: number; y: number; delay: number }> = ({ brand, i, x, y, delay }) => {
+  const frame = useCurrentFrame(); const { fps } = useVideoConfig(); const c = brand.colors;
+  const p = brand.products![i]; const s = spring({ frame: frame - delay, fps, config: { damping: 9, stiffness: 140 } });
+  const fl = Math.sin((frame + i * 20) / 12) * 14;
+  return (
+    <div style={{ position: "absolute", left: x, top: y + fl, transform: `scale(${s}) rotate(${(i ? 6 : -6) + Math.sin(frame / 18) * 3}deg)`, zIndex: 5 }}>
+      <div style={{ width: 270, height: 270, borderRadius: "50%", background: c.bg, boxShadow: "0 25px 60px rgba(0,0,0,.25)",
+        display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", border: `8px solid ${c.surface}` }}>
+        <Img src={asset(brand, p.image)} style={{ width: 250, objectFit: "contain" }} />
+      </div>
+      <div style={{ position: "absolute", bottom: -20, left: "50%", transform: "translateX(-50%)", background: c.accent, color: c.onAccent,
+        fontFamily: bodyFont(brand), fontWeight: 800, fontSize: 40, padding: "8px 24px", borderRadius: 999, whiteSpace: "nowrap" }}>{p.price}</div>
+    </div>
+  );
+};
+
+export const Phone: React.FC<{ brand: Brand; mode: BgMode; dur: number; extras?: boolean }> = ({ brand, mode, dur, extras }) => {
   const frame = useCurrentFrame(); const { fps } = useVideoConfig();
   const enter = spring({ frame, fps, config: { damping: 15, stiffness: 90 } });
   const out = exitOut(frame, dur);
@@ -138,32 +155,57 @@ export const Phone: React.FC<{ brand: Brand; mode: BgMode; dur: number }> = ({ b
           </div>
         </div>
       </AbsoluteFill>
+      {extras && (brand.products || []).slice(0, 2).map((_, i) =>
+        <FloatProduct key={i} brand={brand} i={i} x={i ? 770 : 20} y={i ? 1180 : 420} delay={28 + i * 14} />)}
       <DomainPill brand={brand} frame={frame} top={70} />
     </Bg>
   );
 };
 
-/** 4) Počítač: laptop, vnútri scrolluje desktopový web. */
+/** 4) Počítač: notebook (veko s kamerou, pánt, klávesnica, touchpad), web scrolluje, kurzor sa hýbe. */
 export const Desktop: React.FC<{ brand: Brand; mode: BgMode; dur: number }> = ({ brand, mode, dur }) => {
   const frame = useCurrentFrame(); const { fps } = useVideoConfig();
   const enter = spring({ frame, fps, config: { damping: 15, stiffness: 90 } });
   const out = exitOut(frame, dur);
-  const W = 1000, H = 625;
+  const W = 940, H = 588; // obrazovka 16:10
   const d = brand.shots.desktop;
+  const cx = interpolate(frame, [10, 45, 80, dur], [620, 380, 560, 470], { ...clamp, easing: Easing.inOut(Easing.sin) });
+  const cy = interpolate(frame, [10, 45, 80, dur], [430, 260, 330, 300], { ...clamp, easing: Easing.inOut(Easing.sin) });
+  const keys = Array.from({ length: 5 }, (_, r) => Array.from({ length: r === 4 ? 9 : 13 }, (_, k) => k));
   return (
     <Bg brand={brand} mode={mode}>
       <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", perspective: 2600, opacity: out }}>
-        <div style={{ transform: `scale(${0.6 + enter * 0.4}) rotateY(${14 - frame * 0.04}deg) rotateX(10deg)`, display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div style={{ padding: 22, background: "#151515", borderRadius: "34px 34px 10px 10px", boxShadow: "inset 0 0 0 3px #333" }}>
-            <div style={{ borderRadius: 8, overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 1480, width: 1050, height: 110, borderRadius: "50%", background: "rgba(0,0,0,.25)", filter: "blur(34px)", opacity: enter }} />
+        <div style={{ transformStyle: "preserve-3d", transform: `translateY(${(1 - enter) * 900 + 230}px) scale(${0.82 + enter * 0.13}) rotateX(${30 - enter * 8}deg) rotateY(${-16 + frame * 0.07}deg)`,
+          display: "flex", flexDirection: "column", alignItems: "center" }}>
+          {/* veko */}
+          <div style={{ padding: "30px 22px 34px", background: "#0d0d0f", borderRadius: "36px 36px 14px 14px",
+            boxShadow: "0 0 0 4px #b9b9be, 0 0 0 6px #8e8e93, inset 0 0 0 2px #222", position: "relative" }}>
+            <div style={{ position: "absolute", top: 11, left: "50%", width: 10, height: 10, marginLeft: -5, borderRadius: 5, background: "#2b2b30", boxShadow: "inset 0 0 0 2px #1a1a1d" }} />
+            <div style={{ borderRadius: 6, overflow: "hidden", position: "relative" }}>
               <Scroller src={asset(brand, d.file)} imgW={d.width} imgH={d.height} w={W} h={H} dur={dur} start={20} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(115deg, rgba(255,255,255,.14) 0%, transparent 35%)" }} />
+              <svg width={34} height={44} viewBox="0 0 24 30" style={{ position: "absolute", left: cx, top: cy, filter: "drop-shadow(0 3px 4px rgba(0,0,0,.4))" }}>
+                <path d="M2 2 L2 24 L8 18 L12 28 L16 26 L12 17 L20 17 Z" fill="#fff" stroke="#111" strokeWidth="1.6" strokeLinejoin="round" />
+              </svg>
             </div>
           </div>
-          <div style={{ width: W + 180, height: 44, background: "linear-gradient(#d9d9de,#9a9aa2)", borderRadius: "0 0 40px 40px",
-            boxShadow: "0 50px 90px rgba(0,0,0,.35)" }} />
+          {/* pánt */}
+          <div style={{ width: W + 30, height: 14, background: "linear-gradient(#2a2a2e, #6d6d72)", borderRadius: "0 0 8px 8px" }} />
+          {/* spodná časť s klávesnicou, sklopená k divákovi */}
+          <div style={{ width: W + 150, height: 520, marginTop: -2, transformOrigin: "top center", transform: "rotateX(64deg)",
+            background: "linear-gradient(#dcdce0, #c4c4c9)", borderRadius: "10px 10px 46px 46px", boxShadow: "inset 0 -10px 0 #a7a7ad",
+            display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 34, gap: 8 }}>
+            {keys.map((row, r) => (
+              <div key={r} style={{ display: "flex", gap: 8 }}>
+                {row.map((k) => <div key={k} style={{ width: r === 4 && k === 4 ? 300 : 58, height: 52, background: "#1f1f22", borderRadius: 9 }} />)}
+              </div>
+            ))}
+            <div style={{ marginTop: 22, width: 420, height: 150, borderRadius: 18, background: "linear-gradient(#cfcfd4, #bdbdc3)", boxShadow: "inset 0 0 0 2px #b0b0b6" }} />
+          </div>
         </div>
       </AbsoluteFill>
-      <DomainPill brand={brand} frame={frame} top={420} />
+      <DomainPill brand={brand} frame={frame} top={250} />
     </Bg>
   );
 };

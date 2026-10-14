@@ -10,7 +10,9 @@ fs.cpSync(path.resolve("brands", slug), path.resolve("public/brands", slug), { r
 const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts"), publicDir: path.resolve("public") });
 const inputProps = { brand, bg: "brand", lang };
 const composition = await selectComposition({ serveUrl, id, inputProps, browserExecutable: BROWSER });
-const frame = +fr < 0 ? composition.durationInFrames + +fr : +fr;
-const output = path.resolve("out", slug, `${id}-f${frame}.png`); fs.mkdirSync(path.dirname(output), { recursive: true });
-await renderStill({ composition, serveUrl, output, frame, inputProps, browserExecutable: BROWSER });
-console.log(output);
+for (const x of fr.split(",")) {   // viac snímok naraz: 100,200,-1
+  const frame = +x < 0 ? composition.durationInFrames + +x : +x;
+  const output = path.resolve("out", slug, `${id}-f${frame}.png`); fs.mkdirSync(path.dirname(output), { recursive: true });
+  await renderStill({ composition, serveUrl, output, frame, inputProps, browserExecutable: BROWSER });
+  console.log(output);
+}

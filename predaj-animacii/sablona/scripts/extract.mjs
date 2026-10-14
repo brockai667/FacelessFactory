@@ -17,7 +17,7 @@ const slug = slugArg > 0 ? process.argv[slugArg + 1] : domain.replace(/[^a-z0-9]
 const dir = path.resolve("brands", slug);
 fs.mkdirSync(path.join(dir, "fonts"), { recursive: true });
 
-const MAX_DESKTOP = 6000, MAX_MOBILE = 6500;
+const MAX_DESKTOP = 6000, MAX_MOBILE = 5400; // mobil v 3× (max 16 384 px výšky screenshotu)
 
 async function settle(page) {
   await page.waitForLoadState("networkidle", { timeout: 15000 }).catch(() => {});
@@ -162,6 +162,11 @@ const info = await dpage.evaluate(() => {
       bgIsDark: lum(bg) < 0.45,
     },
     hasLogo: !!logoEl,
+    // hlavné tlačidlo: plné pozadie, krátky text, najväčšie na prvej obrazovke
+    ctaText: ([...document.querySelectorAll("a, button")].filter(visible).map((el) => {
+      const r = el.getBoundingClientRect(); const c = parse(getComputedStyle(el).backgroundColor); const t = (el.innerText || "").replace(/\s+/g, " ").trim();
+      return { t, ok: c && c.a > 0.5 && hex(c) !== hex(bg) && t.length >= 3 && t.length <= 28 && r.top + window.scrollY < 1100, area: r.width * r.height };
+    }).filter((x) => x.ok).sort((a, b) => b.area - a.area)[0]?.t) || "",
     hero: hero ? { src: hero.el.currentSrc || hero.el.src, w: Math.round(hero.r.width), h: Math.round(hero.r.height) } : null,
     products, instagram: ig || null,
   };
@@ -191,7 +196,7 @@ for (const [i, pr] of info.products.entries()) {
 const desktopH = await shoot(dpage, path.join(dir, "desktop.png"), MAX_DESKTOP);
 
 // ---------- mobil ----------
-const mctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, locale: "sk-SK",
+const mctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true, locale: "sk-SK",
   userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1" });
 const mpage = await mctx.newPage();
 await mpage.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
@@ -239,7 +244,8 @@ const brand = {
   hero: heroFile,
   products,
   instagram: info.instagram,
-  shots: { mobile: { file: "mobile.png", width: 780, height: mobileH * 2 }, desktop: { file: "desktop.png", width: 1440, height: desktopH } },
+  ctaText: info.ctaText || null,
+  shots: { mobile: { file: "mobile.png", width: 1170, height: mobileH * 3 }, desktop: { file: "desktop.png", width: 1440, height: desktopH } },
   // texty do animácií: uprav podľa klienta
   words: [],
   cta: domain,
