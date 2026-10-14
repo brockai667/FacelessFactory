@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Img, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig, Easing } from "remotion";
+import { AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig, Easing } from "remotion";
 import { Brand, Props, asset, headingFont, bodyFont } from "./brand";
 import { Bg, LogoCard, Phone, Desktop, shorten } from "./scenes";
 
@@ -310,42 +310,67 @@ const Menu: React.FC<{ brand: Brand; lang: L }> = ({ brand, lang }) => {
   );
 };
 
-type Scene = { key: string; len: number; el: React.ReactNode; chip?: boolean };
+/** Hudba: „Hyperfun“ (Kevin MacLeod, CC BY 4.0), ~99,4 BPM, prvý beat v 0,255 s. Strihy padajú na beaty. */
+const MUSIC = { file: "audio/hyperfun.mp3", bpm: 99.4, offset: 0.255, credit: 'Music: "Hyperfun" – Kevin MacLeod (incompetech.com), CC BY 4.0' };
+const FPS = 30;
+const beatFrame = (b: number) => Math.round(FPS * (MUSIC.offset + (b * 60) / MUSIC.bpm));
+
+type Sfx = [file: string, frame: number, volume: number];
+type Scene = { key: string; beats: number; el: React.ReactNode; chip?: boolean; sfx?: Sfx[] };
 const scenesFor = (brand: Brand, lang: L): Scene[] => {
+  const words = (brand.headline || brand.tagline || brand.name).split(/\s+/).filter(Boolean).slice(0, 9);
+  const nProd = Math.min(3, brand.products?.length || 0);
   const s: Scene[] = [
-    { key: "logo", len: 75, el: <LogoReveal brand={brand} /> },
-    { key: "kinetic", len: 100, el: <Kinetic brand={brand} /> },
+    { key: "logo", beats: 4, el: <LogoReveal brand={brand} />, sfx: [["sub_hit.wav", 6, 0.5], ["pop.wav", 8, 0.35], ["sparkle.wav", 30, 0.45]] },
+    { key: "kinetic", beats: 6, el: <Kinetic brand={brand} />, sfx: words.map((_, i) => ["tick.wav", 5 + i * 5, 0.9] as Sfx) },
   ];
-  if (brand.hero) s.push({ key: "hero", len: 90, el: <HeroMotion brand={brand} /> });
-  if (brand.products?.length) s.push({ key: "products", len: 110, el: <Products brand={brand} /> });
-  s.push({ key: "captions", len: 105, el: <Captions brand={brand} /> });
-  s.push({ key: "lower", len: 85, el: <LowerThird brand={brand} lang={lang} /> });
-  s.push({ key: "phone", len: 125, el: <Phone brand={brand} mode="brand" dur={125} /> });
-  s.push({ key: "desktop", len: 105, el: <Desktop brand={brand} mode="brand" dur={105} /> });
-  s.push({ key: "social", len: 90, el: <Social brand={brand} lang={lang} /> });
-  s.push({ key: "outro", len: 90, el: <Outro brand={brand} lang={lang} />, chip: false });
-  s.push({ key: "menu", len: 180, el: <Menu brand={brand} lang={lang} />, chip: false });
+  if (brand.hero) s.push({ key: "hero", beats: 5, el: <HeroMotion brand={brand} />, sfx: [["thud.wav", 16, 0.5], ["sparkle.wav", 22, 0.25]] });
+  if (nProd) s.push({ key: "products", beats: 6, el: <Products brand={brand} />,
+    sfx: [...Array.from({ length: nProd }, (_, i) => ["pop.wav", 8 + i * 10, 0.4] as Sfx), ["sparkle.wav", 48 + nProd * 10, 0.3]] });
+  s.push({ key: "captions", beats: 6, el: <Captions brand={brand} /> });
+  s.push({ key: "lower", beats: 5, el: <LowerThird brand={brand} lang={lang} />, sfx: [["whoosh.wav", 6, 0.3], ["tick.wav", 18, 0.8]] });
+  s.push({ key: "phone", beats: 7, el: <Phone brand={brand} mode="brand" dur={beatFrame(7) - beatFrame(0)} />, sfx: [["whoosh.wav", 2, 0.25]] });
+  s.push({ key: "desktop", beats: 6, el: <Desktop brand={brand} mode="brand" dur={beatFrame(6) - beatFrame(0)} />, sfx: [["whoosh.wav", 2, 0.25]] });
+  s.push({ key: "social", beats: 5, el: <Social brand={brand} lang={lang} />, sfx: [["pop.wav", 4, 0.35], ["tick.wav", 37, 1], ["pop.wav", 40, 0.45], ["sparkle.wav", 42, 0.4]] });
+  s.push({ key: "outro", beats: 5, el: <Outro brand={brand} lang={lang} />, chip: false, sfx: [["sub_hit.wav", 0, 0.45], ["sparkle.wav", 14, 0.35]] });
+  s.push({ key: "menu", beats: 11, el: <Menu brand={brand} lang={lang} />, chip: false,
+    sfx: [...Object.keys(NUM).map((_, i) => ["tick.wav", 8 + i * 4, 0.7] as Sfx), ["pop.wav", 50, 0.4], ["pop.wav", 62, 0.4]] });
   return s;
 };
-export const showreelLen = (b: Brand, lang: L = "sk") => scenesFor(b, lang).reduce((a, x) => a + x.len, 0);
+/** začiatky scén v snímkach (na beatoch); posledný prvok = dĺžka videa */
+const timeline = (sc: Scene[]) => { const t = [0]; let b = 0; for (const x of sc) { b += x.beats; t.push(beatFrame(b)); } return t; };
+export const showreelLen = (b: Brand, lang: L = "sk") => { const t = timeline(scenesFor(b, lang)); return t[t.length - 1] + 20; };
 
 export const Showreel: React.FC<Props> = ({ brand, lang = "sk" }) => {
   const scenes = scenesFor(brand, lang);
-  let t = 0;
+  const t = timeline(scenes); const total = t[t.length - 1] + 20;
   return (
     <AbsoluteFill>
+      <Audio src={staticFile(MUSIC.file)} volume={(f) => 0.55 * interpolate(f, [0, 8, total - 50, total], [0, 1, 1, 0], clamp)} />
       {scenes.map((sc, i) => {
-        const from = t; t += sc.len; const num = sc.chip === false ? 0 : NUM[sc.key] || 0;
+        const from = t[i]; const len = (i === scenes.length - 1 ? total : t[i + 1]) - from;
+        const num = sc.chip === false ? 0 : NUM[sc.key] || 0;
         return (
           <React.Fragment key={sc.key}>
-            <Sequence from={from} durationInFrames={sc.len}>
+            <Sequence from={from} durationInFrames={len}>
               {sc.el}
               {num > 0 && LABELS[sc.key] && <Chip brand={brand} n={num} text={LABELS[sc.key][lang === "en" ? 1 : 0]} />}
+              {num > 0 && <Sequence from={6}><Audio src={staticFile("audio/pop.wav")} volume={0.25} /></Sequence>}
+              {(sc.sfx || []).map(([file, fr, vol], j) => (
+                <Sequence key={j} from={fr}><Audio src={staticFile(`audio/${file}`)} volume={vol} /></Sequence>
+              ))}
             </Sequence>
-            {i > 0 && <Sequence from={from - 8} durationInFrames={20}><Wipe brand={brand} /></Sequence>}
+            {i > 0 && <Sequence from={from - 8} durationInFrames={20}>
+              <Wipe brand={brand} />
+              <Audio src={staticFile("audio/whoosh.wav")} volume={0.4} />
+            </Sequence>}
           </React.Fragment>
         );
       })}
+      <Sequence from={t[scenes.length - 1]}>
+        <div style={{ position: "absolute", bottom: 40, width: "100%", textAlign: "center", fontFamily: bodyFont(brand), fontSize: 22,
+          color: brand.colors.text, opacity: 0.6 }}>{MUSIC.credit}</div>
+      </Sequence>
     </AbsoluteFill>
   );
 };

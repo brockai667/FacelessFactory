@@ -35,6 +35,10 @@ npm run studio                                 # Remotion Studio na ladenie
 `--bg brand` = vo farbách značky (hotové video), `green` = chroma key, `black` = blend Screen
 (overlaye do CapCutu, návod ako pri Doughnane).
 
+Showreel má hudbu „Hyperfun“ (Kevin MacLeod, CC BY 4.0, kredit je vo videu) a zvukové efekty
+(whoosh pri prechodoch, pop pri štítkoch, tick pri slovách). Strihy padajú na beat (~99 BPM) a
+hlasitosť sa normalizuje na −14 LUFS.
+
 Extrakcia navyše hľadá hlavný obrázok (`hero`), produkty s cenami (`products`) a Instagram
 (`instagram`). Ak niečo chýba, showreel príslušnú scénu vynechá.
 
