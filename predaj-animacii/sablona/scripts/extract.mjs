@@ -218,6 +218,8 @@ if (c.surface && contrast(c.surface, c.bg) < 1.3) c.surface = c.accent;
 c.surface = c.surface || c.accent;
 c.onSurface = lumHex(c.surface) > 0.6 ? c.heading : "#ffffff";
 c.onAccent = lumHex(c.accent) > 0.6 ? "#111111" : "#ffffff";
+// text na páse: farba nadpisu, ak je čitateľná, inak čierna/biela podľa kontrastu
+c.onSurface = contrast(c.heading, c.surface) >= 3 ? c.heading : (contrast("#111111", c.surface) >= contrast("#ffffff", c.surface) ? "#111111" : "#ffffff");
 
 // Google Fonts stiahni lokálne (render potom nepotrebuje internet)
 const fontFaces = [];
