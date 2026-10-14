@@ -208,6 +208,13 @@ await browser.close();
 const lumHex = (h) => { const n = parseInt(h.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; };
 const c = info.colors;
 c.accent = c.accent || c.button || c.heading;
+// kontrast (WCAG): farby, ktoré splývajú s pozadím, nahradiť
+const rl = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; })
+  .reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0); };
+const contrast = (a, b) => { const [x, y] = [rl(a), rl(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+if (contrast(c.heading, c.bg) < 3) c.heading = contrast(c.text, c.bg) >= 3 ? c.text : (c.bgIsDark ? "#ffffff" : "#111111");
+if (contrast(c.accent, c.bg) < 1.6) c.accent = c.bgIsDark ? "#ffffff" : "#111111";
+if (c.surface && contrast(c.surface, c.bg) < 1.3) c.surface = c.accent;
 c.surface = c.surface || c.accent;
 c.onSurface = lumHex(c.surface) > 0.6 ? c.heading : "#ffffff";
 c.onAccent = lumHex(c.accent) > 0.6 ? "#111111" : "#ffffff";
