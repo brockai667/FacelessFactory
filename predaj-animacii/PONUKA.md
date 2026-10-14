@@ -17,6 +17,32 @@
 
 Doplnky: expres 24 h +50 %, ďalší jazyk +$30, ďalší formát (1:1, 16:9) +$20.
 
+## Cenník podľa čísel zo showreelu
+Klient si pozrie showreel (alebo jeho verziu z vlastného webu) a napíše čísla, napr. „01 + 04 + 07“.
+Čísla sú pevné: rovnaké vo videu, v menu na konci aj tu. Ceny sú návrh na začiatok, nízko kvôli
+prvým referenciám. Každá položka = hotový klip v štýle značky (farby, písmo, logo), vo farbách
+značky aj na zelenej/čiernej do CapCutu, 1 kolo úprav.
+
+| # | Položka | SK/CZ | Global |
+|---|---|---|---|
+| 01 | Animované logo (odhalenie, lesk, výbuch bodiek) | 25 € | $29 |
+| 02 | Kinetická typografia (slogan slovo po slove) | 15 € | $19 |
+| 03 | Produkt v pohybe (produkt dopadne, točiaci sa nápis) | 25 € | $29 |
+| 04 | Produkty a ceny (karty, ceny sa napočítajú) | 30 € | $35 |
+| 05 | Titulky na beat (TikTok štýl, do 60 s videa) | 20 € | $25 |
+| 06 | Meno v zábere / lower third | 15 € | $19 |
+| 07 | Web v mobile (naklonený telefón, stránka scrolluje) | 20 € | $25 |
+| 08 | Web na počítači | 20 € | $25 |
+| 09 | Výzva na sledovanie (tlačidlo, kurzor, srdiečka) | 15 € | $19 |
+
+**Kombinácie:** ľubovoľné 3 = **49 €** ($59), všetkých 9 = **99 €** ($119), hotové video zostrihané
+z vybraných čísel +30 € ($35).
+
+**Vlastná predstava** (iný štýl, postavičky, celé video s ich zábermi): **osobná konzultácia
+zadarmo** (15–20 min, hovor alebo správy). Na nej zistíme, čo chce, a pošleme individuálnu cenu.
+Na konzultácii sa pýtať: na čo video bude (IG, web, súťaž, reklama), termín, vlastné zábery,
+vzor, ktorý sa mu páči, rozpočet.
+
 ## Čo potrebujeme od klienta
 1. URL webu/appky (farby, písmo, logo vytiahneme sami) alebo podklady značky.
 2. Texty alebo čísla, ktoré chce ukázať (alebo ich navrhneme my).

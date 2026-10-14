@@ -13,10 +13,12 @@ const LABELS: Record<string, [string, string]> = {
   products: ["Produkty a ceny", "Products & prices"],
   captions: ["Titulky na beat", "Animated captions"],
   lower: ["Meno v zábere", "Lower third"],
-  phone: ["Váš web v mobile", "Your site on mobile"],
-  desktop: ["Váš web na počítači", "Your site on desktop"],
+  phone: ["Tvoj web v mobile", "Your site on mobile"],
+  desktop: ["Tvoj web na počítači", "Your site on desktop"],
   social: ["Výzva na sledovanie", "Social call-to-action"],
 };
+/** Pevné čísla služieb: rovnaké vo videu, v menu aj v cenníku (PONUKA.md). */
+export const NUM: Record<string, number> = { logo: 1, kinetic: 2, hero: 3, products: 4, captions: 5, lower: 6, phone: 7, desktop: 8, social: 9 };
 const T = (l: L, sk: string, en: string) => (l === "en" ? en : sk);
 
 /** Štítok v rohu: čo práve ukazujeme. */
@@ -262,6 +264,52 @@ const Outro: React.FC<{ brand: Brand; lang: L }> = ({ brand, lang }) => {
   );
 };
 
+/** 11) Menu: všetky čísla na jednom mieste + výzva a konzultácia. */
+const Menu: React.FC<{ brand: Brand; lang: L }> = ({ brand, lang }) => {
+  const f = useCurrentFrame(); const { fps } = useVideoConfig(); const c = brand.colors;
+  const head = spring({ frame: f, fps, config: { damping: 14, stiffness: 140 } });
+  const keys = Object.keys(NUM);
+  const cta = (d: number) => spring({ frame: f - d, fps, config: { damping: 13, stiffness: 130 } });
+  const box = (d: number, bg: string, fg: string, big: string, small: string) => {
+    const s = cta(d);
+    return (
+      <div style={{ background: bg, color: fg, borderRadius: 36, padding: "30px 44px", transform: `scale(${s})`, opacity: s,
+        boxShadow: "0 20px 50px rgba(0,0,0,.18)" }}>
+        <div style={{ fontFamily: headingFont(brand), fontWeight: 800, fontSize: 52, lineHeight: 1.1 }}>{big}</div>
+        <div style={{ fontFamily: bodyFont(brand), fontWeight: 600, fontSize: 36, marginTop: 10, opacity: 0.9 }}>{small}</div>
+      </div>
+    );
+  };
+  return (
+    <Bg brand={brand} mode="brand">
+      <AbsoluteFill style={{ padding: "150px 70px 0", flexDirection: "column" }}>
+        <div style={{ fontFamily: headingFont(brand), fontWeight: 800, fontSize: 78, lineHeight: 1.05, color: c.heading,
+          transform: `translateY(${(1 - head) * -200}px)`, opacity: head }}>
+          {T(lang, "Čo chceš pre svoju značku?", "What do you want for your brand?")}</div>
+        <div style={{ marginTop: 50, display: "flex", flexDirection: "column", gap: 16 }}>
+          {keys.map((k, i) => {
+            const s = spring({ frame: f - 8 - i * 4, fps, config: { damping: 15, stiffness: 170 } });
+            return (
+              <div key={k} style={{ display: "flex", alignItems: "center", gap: 26, transform: `translateX(${(1 - s) * -900}px)` }}>
+                <div style={{ background: c.accent, color: c.onAccent, fontFamily: bodyFont(brand), fontWeight: 800, fontSize: 36,
+                  width: 76, height: 76, borderRadius: 38, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  {String(NUM[k]).padStart(2, "0")}</div>
+                <div style={{ fontFamily: bodyFont(brand), fontWeight: 700, fontSize: 44, color: c.text }}>{LABELS[k][lang === "en" ? 1 : 0]}</div>
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ position: "absolute", left: 70, right: 70, bottom: 120, display: "flex", flexDirection: "column", gap: 26 }}>
+          {box(50, c.accent, c.onAccent, T(lang, "Napíš nám čísla, ktoré chceš", "Reply with the numbers you want"),
+            T(lang, "napr. 01 + 04 + 07 → pošleme cenu", "e.g. 01 + 04 + 07 → we send you a price"))}
+          {box(62, c.surface, c.onSurface, T(lang, "Máš vlastnú predstavu?", "Have your own idea?"),
+            T(lang, "Osobná konzultácia zadarmo", "Free personal consultation"))}
+        </div>
+      </AbsoluteFill>
+    </Bg>
+  );
+};
+
 type Scene = { key: string; len: number; el: React.ReactNode; chip?: boolean };
 const scenesFor = (brand: Brand, lang: L): Scene[] => {
   const s: Scene[] = [
@@ -275,18 +323,19 @@ const scenesFor = (brand: Brand, lang: L): Scene[] => {
   s.push({ key: "phone", len: 125, el: <Phone brand={brand} mode="brand" dur={125} /> });
   s.push({ key: "desktop", len: 105, el: <Desktop brand={brand} mode="brand" dur={105} /> });
   s.push({ key: "social", len: 90, el: <Social brand={brand} lang={lang} /> });
-  s.push({ key: "outro", len: 105, el: <Outro brand={brand} lang={lang} />, chip: false });
+  s.push({ key: "outro", len: 90, el: <Outro brand={brand} lang={lang} />, chip: false });
+  s.push({ key: "menu", len: 180, el: <Menu brand={brand} lang={lang} />, chip: false });
   return s;
 };
 export const showreelLen = (b: Brand, lang: L = "sk") => scenesFor(b, lang).reduce((a, x) => a + x.len, 0);
 
 export const Showreel: React.FC<Props> = ({ brand, lang = "sk" }) => {
   const scenes = scenesFor(brand, lang);
-  let t = 0; let n = 0;
+  let t = 0;
   return (
     <AbsoluteFill>
       {scenes.map((sc, i) => {
-        const from = t; t += sc.len; const num = sc.chip === false ? 0 : ++n;
+        const from = t; t += sc.len; const num = sc.chip === false ? 0 : NUM[sc.key] || 0;
         return (
           <React.Fragment key={sc.key}>
             <Sequence from={from} durationInFrames={sc.len}>
