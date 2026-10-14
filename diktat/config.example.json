@@ -16,7 +16,8 @@
     "min_avg_logprob": -1.5,
     "max_no_speech_prob": 0.85,
     "openai_model": "whisper-1",
-    "openai_api_key_env": "OPENAI_API_KEY"
+    "openai_api_key_env": "OPENAI_API_KEY",
+    "unload_after_seconds": 1800
   },
   "audio": {
     "sample_rate": 16000,

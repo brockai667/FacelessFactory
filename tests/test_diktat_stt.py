@@ -1,6 +1,9 @@
 """Testy STT vrstvy bez reálneho modelu: automatický prechod cuda → cpu pri chýbajúcich CUDA knižniciach."""
+import threading
+import time
 import types
 import unittest
+import unittest.mock
 
 from diktat.diktat_core import stt
 
@@ -145,6 +148,94 @@ class RunFilterTests(unittest.TestCase):
         self.assertEqual(text, "Ahoj.")
         self.assertEqual(model.calls, 2)
         self.assertNotIn("word_timestamps", model.kwargs)
+
+
+class OneLoadAtATimeTests(unittest.TestCase):
+    """Model chcú dve vlákna naraz: pri štarte nahrávania ho načítava vlákno na pozadí a prepis prvého
+    kúska si ho vyžiada tiež. Keď sa načítal dvakrát, dva modely si na grafickej karte prekážali a z 9
+    sekúnd bolo 60."""
+
+    def _backend_with_slow_build(self, builds, delay=0.3):
+        backend = stt.FasterWhisperBackend(device="cpu", compute_type="int8")
+
+        def slow_build():
+            builds.append(1)
+            time.sleep(delay)
+            return object()
+
+        backend._build = slow_build
+        return backend
+
+    def test_parallel_load_builds_the_model_once(self):
+        builds = []
+        backend = self._backend_with_slow_build(builds)
+        threads = [threading.Thread(target=backend.load) for _ in range(4)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        self.assertEqual(len(builds), 1)
+        self.assertTrue(backend.loaded)
+
+    def test_load_after_unload_builds_again(self):
+        builds = []
+        backend = self._backend_with_slow_build(builds, delay=0)
+        backend.load()
+        self.assertTrue(backend.unload())
+        backend.load()
+        self.assertEqual(len(builds), 2)
+
+
+class CacheFirstTests(unittest.TestCase):
+    """Bez `local_files_only` sa faster-whisper pri každom načítaní pýta Hugging Face na novšiu verziu."""
+
+    def _patched_whisper(self, fail_offline: bool):
+        calls = []
+
+        class _Model:
+            def __init__(self, name, **kw):
+                calls.append(kw.get("local_files_only", False))
+                if fail_offline and kw.get("local_files_only"):
+                    raise OSError("nie je v cache")
+
+        module = types.ModuleType("faster_whisper")
+        module.WhisperModel = _Model
+        return module, calls
+
+    def _build_with(self, module):
+        with unittest.mock.patch.dict("sys.modules", {"faster_whisper": module}):
+            backend = stt.FasterWhisperBackend(device="cpu", compute_type="int8")
+            backend.load()
+        return backend
+
+    def test_cached_model_is_loaded_without_asking_the_network(self):
+        module, calls = self._patched_whisper(fail_offline=False)
+        self.assertTrue(self._build_with(module).loaded)
+        self.assertEqual(calls, [True])
+
+    def test_missing_model_is_downloaded(self):
+        module, calls = self._patched_whisper(fail_offline=True)
+        self.assertTrue(self._build_with(module).loaded)
+        self.assertEqual(calls, [True, False])
+
+    def test_cuda_error_still_falls_back_to_cpu(self):
+        """Chýbajúce CUDA knižnice nesmie `_build` spliesť so „nie je v cache“ – inak sa model sťahuje
+        namiesto toho, aby sa prepol na procesor."""
+        tried = []
+
+        class _Model:
+            def __init__(self, name, **kw):
+                tried.append((kw.get("device"), kw.get("local_files_only", False)))
+                if kw.get("device") == "cuda":
+                    raise RuntimeError("Library cublas64_12.dll is not found or cannot be loaded")
+
+        module = types.ModuleType("faster_whisper")
+        module.WhisperModel = _Model
+        with unittest.mock.patch.dict("sys.modules", {"faster_whisper": module}):
+            backend = stt.FasterWhisperBackend(device="cuda", compute_type="float16")
+            backend.load()
+        self.assertEqual(backend.device, "cpu")
+        self.assertEqual(tried, [("cuda", True), ("cpu", True)])
 
 
 if __name__ == "__main__":

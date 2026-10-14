@@ -55,6 +55,7 @@ class DiktatApp:
         self._t0 = 0.0
         self._listener = None
         self._gate_note = ""
+        self._unload_timer: threading.Timer | None = None   # po nečinnosti uvoľní Whisper model z RAM
 
     # -- inicializácia ---------------------------------------------------------------------------
     def prepare(self, with_overlay: bool = True) -> None:
@@ -98,6 +99,7 @@ class DiktatApp:
         self._worker.start()
         self.overlay.level_fn = lambda: (self.recorder.last_level, self.recorder.gate_rms)
         self.overlay.show(f"pripravený – stlač {self.cfg.get('hotkey', 'skratku')}", "ready", timeout=4)
+        self._schedule_unload()
         self.start_panel()
         follow = [p for p in (self.cfg.get("follow", {}).get("processes") or []) if p]
         if follow and sys.platform == "win32":
@@ -185,6 +187,10 @@ class DiktatApp:
         self._results = {}
         self._seq = 0
         self._t0 = time.monotonic()
+        self._cancel_unload()
+        if not getattr(self.stt, "loaded", True):
+            # model bol po nečinnosti uvoľnený → načítaj ho na pozadí, kým používateľ hovorí
+            threading.Thread(target=self._preload_model, daemon=True, name="stt-preload").start()
         self.recorder.start()
         if float(self.cfg["stt"].get("chunk_seconds") or 0) > 0:
             self._segmenter = threading.Thread(target=self._segment_loop, daemon=True, name="segmenter")
@@ -266,12 +272,47 @@ class DiktatApp:
                 print("… príliš krátke, ignorujem", flush=True)
                 self.tray.set_state("idle")
                 self.overlay.show("… príliš krátke, ignorujem", "info", timeout=2)
+                self._schedule_unload()
                 return
             print(f"⏳ dokončujem prepis ({self._seq} častí, {self.recorder.total_seconds:.0f} s audia)…", flush=True)
             self._queue.join()
             raw = " ".join(self._results.get(i, "") for i in range(1, self._seq + 1)).strip()
             self._finish(raw, self._t0)
             self.tray.set_state("idle")
+        self._schedule_unload()
+
+    # -- uvoľnenie modelu po nečinnosti ------------------------------------------------------------------
+    def _unload_seconds(self) -> float:
+        return float(self.cfg["stt"].get("unload_after_seconds", 1800) or 0)
+
+    def _cancel_unload(self) -> None:
+        if self._unload_timer is not None:
+            self._unload_timer.cancel()
+            self._unload_timer = None
+
+    def _schedule_unload(self) -> None:
+        self._cancel_unload()
+        secs = self._unload_seconds()
+        if secs <= 0 or not hasattr(self.stt, "unload"):
+            return
+        self._unload_timer = threading.Timer(secs, self._unload_model)
+        self._unload_timer.daemon = True
+        self._unload_timer.start()
+
+    def _unload_model(self) -> None:
+        if self.recorder.recording or self.busy.locked() or self._queue.unfinished_tasks > 0:
+            self._schedule_unload()
+            return
+        if self.stt.unload():
+            print("💤 model uvoľnený z RAM (nečinnosť) – pri ďalšom diktáte sa načíta znova", flush=True)
+
+    def _preload_model(self) -> None:
+        try:
+            t = time.monotonic()
+            self.stt.load()
+            print(f"📦 model načítaný za {time.monotonic() - t:.1f} s", flush=True)
+        except Exception as exc:  # noqa: BLE001
+            log.warning("predbežné načítanie modelu zlyhalo: %s", exc)
 
     # -- dokončenie -------------------------------------------------------------------------------------
     def process_text(self, raw: str) -> cleanup.CleanResult:

@@ -10,6 +10,7 @@ import os
 import platform
 import re
 import site
+import threading
 import unicodedata
 from pathlib import Path
 from typing import Protocol
@@ -143,6 +144,7 @@ class FasterWhisperBackend:
         self.vad_filter = bool(vad_filter)
         self.initial_prompt = initial_prompt or None
         self._model = None
+        self._load_lock = threading.RLock()
 
     def _fallback_to_cpu(self, exc: BaseException) -> None:
         log.warning("CUDA knižnice chýbajú (%s). Prepínam na CPU/int8 – pomalšie, ale funguje. "
@@ -150,22 +152,57 @@ class FasterWhisperBackend:
         self.device, self.compute_type = "cpu", "int8"
         self._model = None
 
+    def _build(self):
+        """Postaví model – najprv z lokálnej cache. Bez `local_files_only` sa faster-whisper pri každom
+        načítaní pýta Hugging Face, či nie je novšia verzia; keď je internet pomalý alebo žiadny, čaká sa
+        na to zbytočne."""
+        from faster_whisper import WhisperModel
+        where = dict(device=self.device, compute_type=self.compute_type)
+        try:
+            return WhisperModel(self.model_name, local_files_only=True, **where)
+        except RuntimeError:
+            raise                                    # napr. chýbajúce CUDA knižnice – to rieši load()
+        except Exception as exc:                     # noqa: BLE001 – v cache ešte nie je, stiahni ho
+            log.info("model nie je v cache (%s), sťahujem…", type(exc).__name__)
+            return WhisperModel(self.model_name, **where)
+
     def load(self) -> None:
+        """Načíta model, ale len raz. Zámok je tu preto, že model chcú dve vlákna naraz: pri štarte
+        nahrávania ho načítava vlákno na pozadí a priebežný prepis prvého kúska si ho vyžiada tiež.
+        Samotná kontrola `_model is not None` na to nestačí – kým sa prvý načítava, je stále None, takže
+        sa začal načítavať druhýkrát a dva súbežné modely si na grafickej karte tak prekážali, že z 9
+        sekúnd bolo 60."""
         if self._model is not None:
             return
-        if self.device == "cuda":
-            prepare_cuda_dll_dirs()
-        from faster_whisper import WhisperModel
-        log.info("načítavam Whisper model %s (%s/%s)…", self.model_name, self.device, self.compute_type)
-        try:
-            self._model = WhisperModel(self.model_name, device=self.device, compute_type=self.compute_type)
-        except RuntimeError as exc:
-            if self.device == "cuda" and _looks_like_missing_cuda(exc):
-                self._fallback_to_cpu(exc)
-                self._model = WhisperModel(self.model_name, device=self.device, compute_type=self.compute_type)
-            else:
-                raise
-        log.info("model pripravený (%s/%s)", self.device, self.compute_type)
+        with self._load_lock:
+            if self._model is not None:              # načítalo ho druhé vlákno, kým sme čakali na zámok
+                return
+            if self.device == "cuda":
+                prepare_cuda_dll_dirs()
+            log.info("načítavam Whisper model %s (%s/%s)…", self.model_name, self.device, self.compute_type)
+            try:
+                self._model = self._build()
+            except RuntimeError as exc:
+                if self.device == "cuda" and _looks_like_missing_cuda(exc):
+                    self._fallback_to_cpu(exc)
+                    self._model = self._build()
+                else:
+                    raise
+            log.info("model pripravený (%s/%s)", self.device, self.compute_type)
+
+    def unload(self) -> bool:
+        """Uvoľní model z RAM (1,5–3,5 GB). Ďalší transcribe() ho načíta znova."""
+        if self._model is None:
+            return False
+        self._model = None
+        import gc
+        gc.collect()
+        log.info("model uvoľnený z pamäte (nečinnosť)")
+        return True
+
+    @property
+    def loaded(self) -> bool:
+        return self._model is not None
 
     def warm_up(self, language: str = "sk") -> None:
         """Krátky prepis ticha: ak chýbajú CUDA knižnice, prepne sa na CPU už teraz, nie pri prvom diktáte."""

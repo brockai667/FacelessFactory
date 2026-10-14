@@ -30,6 +30,10 @@ DEFAULTS: dict = {
         "hallucination_silence_seconds": 0.0,   # >0 = Whisper sám preskočí reč vymyslenú v dlhšom tichu (pomalšie)
         "openai_model": "whisper-1",
         "openai_api_key_env": "OPENAI_API_KEY",
+        # Po tomto čase bez diktovania sa model uvoľní z pamäte. Načítať ho znova trvá ~10 s, takže krátke
+        # okno znamená, že skoro každý diktát po pauze na to čaká. Pamäť aj tak uvoľní to, že sa diktat po
+        # zatvorení Clauda a prehliadača celý vypne (follow.exit_after_seconds).
+        "unload_after_seconds": 1800,
     },
     "audio": {
         "sample_rate": 16000,
