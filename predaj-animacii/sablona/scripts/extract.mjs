@@ -31,9 +31,31 @@ async function settle(page) {
     for (let y = 0; y < Math.min(document.body.scrollHeight, max); y += 500) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 120)); }
     window.scrollTo(0, 0);
   }, MAX_MOBILE);
+  // lazy obrázky: načítať hneď a počkať (max 6 s), kým sú všetky stiahnuté
+  await page.evaluate(async () => {
+    document.querySelectorAll("img[loading=lazy]").forEach((i) => (i.loading = "eager"));
+    document.querySelectorAll("img[data-src]").forEach((i) => { if (!i.src || i.src.startsWith("data:")) i.src = i.dataset.src; });
+    const t0 = Date.now();
+    while (Date.now() - t0 < 6000 && [...document.images].some((i) => !i.complete)) await new Promise((r) => setTimeout(r, 200));
+  }).catch(() => {});
   await page.waitForTimeout(800);
   // vložené iframy (video, mapy, widgety) sa pri snímaní často nenačítajú → skryť
-  await page.addStyleTag({ content: "iframe, [class*=cookie i], [id*=cookie i] { display: none !important; }" }).catch(() => {});
+  await page.keyboard.press("Escape").catch(() => {});
+  await page.addStyleTag({ content: "iframe { display: none !important; } html, body { overflow: auto !important; }" }).catch(() => {});
+  // cookie lišty: len plávajúce prvky (fixed/sticky) s textom o cookies, nikdy html/body
+  await page.evaluate(() => {
+    for (const el of document.querySelectorAll("body *")) {
+      const s = getComputedStyle(el);
+      if (s.position !== "fixed" && s.position !== "sticky") continue;
+      const t = el.innerText || ""; const r = el.getBoundingClientRect();
+      const isHeader = r.top < 10 && r.height < 160 && el.matches("header, nav, [class*=header i], [class*=nav i]");
+      if (isHeader) continue;
+      const popup = /cookie|súhlas|consent|gdpr|newsletter|prihlás|subscribe|zľav|discount|doprava zadarmo/i.test(t) || el.querySelector("input[type=email]");
+      const backdrop = r.width >= innerWidth * 0.9 && r.height >= innerHeight * 0.9 && t.trim().length < 3;
+      const chat = r.width < 120 && r.height < 120 && r.bottom > innerHeight - 160; // chat bubliny v rohu
+      if ((popup && t.length < 2000) || backdrop || chat) el.style.setProperty("display", "none", "important");
+    }
+  }).catch(() => {});
   await page.waitForTimeout(300);
 }
 
