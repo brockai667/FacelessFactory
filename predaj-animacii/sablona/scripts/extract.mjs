@@ -42,6 +42,18 @@ async function settle(page) {
   // vložené iframy (video, mapy, widgety) sa pri snímaní často nenačítajú → skryť
   await page.keyboard.press("Escape").catch(() => {});
   await page.addStyleTag({ content: "iframe { display: none !important; } html, body { overflow: auto !important; }" }).catch(() => {});
+  // nenačítané mapy a widgety s chybou („Ojoj! Niečo sa pokazilo“, Google Maps) → skryť celý blok
+  await page.evaluate(() => {
+    const bad = /niečo sa pokazilo|something went wrong|can't load google maps|nepodarilo sa načítať mapy|for development purposes only/i;
+    document.querySelectorAll(".gm-err-container, .gm-style, [class*=google-map i], [id*=map i], [class*=map-container i]").forEach((el) => {
+      const box = el.closest("section, .elementor-widget, [class*=map i]") || el; box.style.setProperty("display", "none", "important");
+    });
+    for (const el of document.querySelectorAll("body div, body section")) {
+      if (el.children.length < 30 && bad.test(el.innerText || "") && (el.innerText || "").length < 400) {
+        const r = el.getBoundingClientRect(); if (r.height > 60) el.style.setProperty("display", "none", "important");
+      }
+    }
+  }).catch(() => {});
   // cookie lišty: len plávajúce prvky (fixed/sticky) s textom o cookies, nikdy html/body
   await page.evaluate(() => {
     for (const el of document.querySelectorAll("body *")) {
