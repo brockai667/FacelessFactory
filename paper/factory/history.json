@@ -392,5 +392,20 @@
   "slug": "high-altitude-whistle",
   "topic": "What happens if you whistle at high altitude?",
   "env": "field"
+ },
+ {
+  "format": "countdown",
+  "chrome": "tape",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "long",
+  "skin": "tan",
+  "palette": "p2",
+  "cta": "SAVE THIS ONE",
+  "species": "dog",
+  "slug": "protein-only-diet-effects",
+  "topic": "What happens if you eat only protein?",
+  "env": "room"
  }
 ]

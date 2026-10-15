@@ -1,0 +1,173 @@
+{
+ "title": "Deep Sea Pressure",
+ "hook": "What happens if you dive to the bottom?",
+ "banner": "DIVE TO\nTHE BOTTOM",
+ "format": "gauge",
+ "env": "field",
+ "scene": "ocean_depth",
+ "outfit": "wetsuit",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "1 KM",
+   "line": "At one kilometer, pressure is a hundred atmospheres, crushing air pockets.",
+   "idea": "Character squeezes eyes shut; small 'pop' graphic appears near ears.",
+   "scene": "ocean_shallow",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "crushing"
+      },
+      {
+       "r": "pain",
+       "at": "crushing"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "air"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 KM",
+   "line": "At two kilometers, gas volumes shrink to under one percent.",
+   "idea": "Character’s chest visibly flattens; ribcage lines tighten.",
+   "scene": "ocean_mid",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "shrink"
+      },
+      {
+       "r": "slump",
+       "at": "shrink"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "flatten",
+       "at": "percent"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 KM",
+   "line": "At three kilometers, nitrogen narcosis makes you feel disoriented.",
+   "idea": "Tiny bubbles form in a close-up of a vein; character looks dizzy.",
+   "scene": "ocean_deep",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "disoriented"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "disoriented"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "narcosis"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 KM",
+   "line": "At four kilometers, the pressure would be fatal without a suit.",
+   "idea": "Character’s outline shortens and widens slightly; pressure waves ripple outward.",
+   "scene": "ocean_deep",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "fatal"
+      },
+      {
+       "r": "slump",
+       "at": "fatal"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "pressure"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A cartoon diver experiences escalating physical changes as they descend to four kilometers in the ocean.",
+ "tags": [
+  "#OceanFacts",
+  "#ScienceShorts",
+  "#DeepSea",
+  "#Pressure"
+ ],
+ "facts": [
+  {
+   "claim": "At 100 meters (approx 0.1 km) pressure is 10 atmospheres; at 1 km it is 100 atmospheres.",
+   "source": "NOAA Ocean Exploration"
+  },
+  {
+   "claim": "Lungs compress significantly with depth due to Boyle's Law.",
+   "source": "Physics textbooks"
+  },
+  {
+   "claim": "Nitrogen narcosis and decompression sickness (bubbles) occur at depth.",
+   "source": "Mayo Clinic"
+  }
+ ],
+ "end": {
+  "line": "Could you survive the deep?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "survive"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you dive to the ocean floor?",
+ "slug": "deep-sea-pressure"
+}
