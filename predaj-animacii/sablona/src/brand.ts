@@ -18,7 +18,7 @@ export type Brand = {
   words: string[]; cta: string;
 };
 export type BgMode = "brand" | "green" | "black";
-export type Props = { brand: Brand; bg: BgMode; lang?: "sk" | "en" };
+export type Props = { brand: Brand; bg: BgMode; lang?: "sk" | "en"; client?: boolean };
 
 export const asset = (b: Brand, f: string) => staticFile(`brands/${b.slug}/${f}`);
 export const headingFont = (b: Brand) => `"${b.fonts.heading}", "${b.fonts.body}", Inter, system-ui, sans-serif`;

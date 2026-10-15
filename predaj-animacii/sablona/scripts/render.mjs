@@ -34,7 +34,7 @@ const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts"), public
 const outDir = path.resolve("out", slug);
 fs.mkdirSync(outDir, { recursive: true });
 for (const id of comps) for (const bg of bgs) {
-  if (["Preview", "Showreel"].includes(id) && bg !== "brand") continue; // ukážky pre klienta sú vždy vo farbách značky
+  if (["Preview", "Showreel", "Reel"].includes(id) && bg !== "brand") continue; // ukážky pre klienta sú vždy vo farbách značky
   const inputProps = { brand, bg, lang };
   const composition = await selectComposition({ serveUrl, id, inputProps, browserExecutable: BROWSER });
   const outputLocation = path.join(outDir, `${id}${bg === "brand" ? "" : "_" + bg.toUpperCase()}${id === "Showreel" && lang !== "sk" ? "_" + lang.toUpperCase() : ""}.mp4`);

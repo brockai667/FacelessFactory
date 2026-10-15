@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig, Easing } from "remotion";
 import { Brand, Props, asset, headingFont, bodyFont } from "./brand";
-import { Bg, LogoCard, Phone, Desktop, shorten } from "./scenes";
+import { Bg, LogoCard, Phone, Desktop, End, shorten } from "./scenes";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 type L = "sk" | "en";
@@ -341,7 +341,7 @@ const beatFrame = (b: number) => Math.round(FPS * (MUSIC.offset + (b * 60) / MUS
 
 type Sfx = [file: string, frame: number, volume: number];
 type Scene = { key: string; beats: number; el: React.ReactNode; chip?: boolean; sfx?: Sfx[] };
-const scenesFor = (brand: Brand, lang: L): Scene[] => {
+const scenesFor = (brand: Brand, lang: L, client = false): Scene[] => {
   const words = (brand.headline || brand.tagline || brand.name).split(/\s+/).filter(Boolean).slice(0, 9);
   const nProd = Math.min(3, brand.products?.length || 0);
   const s: Scene[] = [
@@ -358,6 +358,7 @@ const scenesFor = (brand: Brand, lang: L): Scene[] => {
   s.push({ key: "phone", beats: 7, sfx: [["whoosh.wav", 2, 0.25], ["pop.wav", 28, 0.35], ["pop.wav", 42, 0.35]], el: <Phone brand={brand} mode="brand" dur={beatFrame(7) - beatFrame(0)} extras /> });
   s.push({ key: "desktop", beats: 6, el: <Desktop brand={brand} mode="brand" dur={beatFrame(6) - beatFrame(0)} />, sfx: [["whoosh.wav", 2, 0.25]] });
   s.push({ key: "social", beats: 5, el: <Social brand={brand} lang={lang} />, sfx: [["pop.wav", 4, 0.35], ["tick.wav", 37, 1], ["pop.wav", 38, 0.5], ["sparkle.wav", 40, 0.45]] });
+  if (client) { s.push({ key: "outro", beats: 6, el: <End brand={brand} mode="brand" dur={beatFrame(6) - beatFrame(0)} />, chip: false, sfx: [["sub_hit.wav", 0, 0.45], ["sparkle.wav", 14, 0.35]] }); return s; }
   s.push({ key: "outro", beats: 5, el: <Outro brand={brand} lang={lang} />, chip: false, sfx: [["sub_hit.wav", 0, 0.45], ["sparkle.wav", 14, 0.35]] });
   s.push({ key: "menu", beats: 11, el: <Menu brand={brand} lang={lang} />, chip: false,
     sfx: [...Object.keys(NUM).map((_, i) => ["tick.wav", 8 + i * 4, 0.7] as Sfx), ["pop.wav", 50, 0.4], ["pop.wav", 62, 0.4]] });
@@ -365,17 +366,17 @@ const scenesFor = (brand: Brand, lang: L): Scene[] => {
 };
 /** začiatky scén v snímkach (na beatoch); posledný prvok = dĺžka videa */
 const timeline = (sc: Scene[]) => { const t = [0]; let b = 0; for (const x of sc) { b += x.beats; t.push(beatFrame(b)); } return t; };
-export const showreelLen = (b: Brand, lang: L = "sk") => { const t = timeline(scenesFor(b, lang)); return t[t.length - 1] + 20; };
+export const showreelLen = (b: Brand, lang: L = "sk", client = false) => { const t = timeline(scenesFor(b, lang, client)); return t[t.length - 1] + 20; };
 
-export const Showreel: React.FC<Props> = ({ brand, lang = "sk" }) => {
-  const scenes = scenesFor(brand, lang);
+export const Showreel: React.FC<Props> = ({ brand, lang = "sk", client = false }) => {
+  const scenes = scenesFor(brand, lang, client);
   const t = timeline(scenes); const total = t[t.length - 1] + 20;
   return (
     <AbsoluteFill>
       <Audio src={staticFile(MUSIC.file)} volume={(f) => 0.55 * interpolate(f, [0, 8, total - 50, total], [0, 1, 1, 0], clamp)} />
       {scenes.map((sc, i) => {
         const from = t[i]; const len = (i === scenes.length - 1 ? total : t[i + 1]) - from;
-        const num = sc.chip === false ? 0 : NUM[sc.key] || 0;
+        const num = client || sc.chip === false ? 0 : NUM[sc.key] || 0;
         return (
           <React.Fragment key={sc.key}>
             <Sequence from={from} durationInFrames={len}>

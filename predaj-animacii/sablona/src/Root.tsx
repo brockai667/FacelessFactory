@@ -48,6 +48,9 @@ export const Root: React.FC = () => (
     <Composition id="Showreel" component={(p: Props) => <Fonts brand={p.brand}><Showreel {...p} /></Fonts>}
       durationInFrames={showreelLen(defaults.brand)} {...common}
       calculateMetadata={({ props }) => ({ durationInFrames: showreelLen(props.brand, props.lang) })} />
+    <Composition id="Reel" component={(p: Props) => <Fonts brand={p.brand}><Showreel {...p} client /></Fonts>}
+      durationInFrames={showreelLen(defaults.brand, "sk", true)} {...common}
+      calculateMetadata={({ props }) => ({ durationInFrames: showreelLen(props.brand, props.lang, true) })} />
     <Composition id="Title" component={one(Title, T)} durationInFrames={T} {...common} />
     <Composition id="Pops" component={({ brand, bg }: Props) => <Fonts brand={brand}><Pops brand={brand} mode={bg} /></Fonts>}
       durationInFrames={popsDuration(defaults.brand)} {...common} calculateMetadata={({ props }) => ({ durationInFrames: popsDuration(props.brand) })} />
