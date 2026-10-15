@@ -118,7 +118,7 @@ const HeroMotion: React.FC<{ brand: Brand }> = ({ brand }) => {
         <svg width={1000} height={1000} viewBox="0 0 1000 1000" style={{ position: "absolute", transform: `rotate(${f * 1.2}deg)`, opacity: circle }}>
           <defs><path id="circ" d="M500,500 m-470,0 a470,470 0 1,1 940,0 a470,470 0 1,1 -940,0" /></defs>
           <text style={{ fontFamily: bodyFont(brand), fontWeight: 800, fontSize: 40, letterSpacing: 8, fill: c.accent }}>
-            <textPath href="#circ">{label.repeat(Math.max(1, Math.ceil(110 / label.length)))}</textPath>
+            <textPath href="#circ" textLength={2940} lengthAdjust="spacing">{label.repeat(Math.max(1, Math.round(88 / label.length)))}</textPath>
           </text>
         </svg>
         <div style={{ position: "absolute", top: 1330, width: 420 * (1 - float / 120), height: 50, borderRadius: "50%", background: "rgba(0,0,0,.18)", filter: "blur(14px)", opacity: drop }} />
