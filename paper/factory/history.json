@@ -407,5 +407,20 @@
   "slug": "protein-only-diet-effects",
   "topic": "What happens if you eat only protein?",
   "env": "room"
+ },
+ {
+  "format": "countdown",
+  "chrome": "sticky",
+  "trans": "zoom",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "curly",
+  "skin": "dark",
+  "palette": "p0",
+  "cta": "COMMENT BELOW",
+  "species": "human",
+  "slug": "cold-water-swim",
+  "topic": "What happens if you swim in cold water?",
+  "env": "field"
  }
 ]
