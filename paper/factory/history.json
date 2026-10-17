@@ -1,18 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "sticky",
-  "trans": "page",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "long",
-  "skin": "tan",
-  "palette": "p1",
-  "slug": "no-sleep",
-  "topic": "What happens if you stop sleeping?",
-  "env": "room"
- },
- {
   "format": "gauge",
   "chrome": "tape",
   "trans": "circle",
@@ -421,6 +408,21 @@
   "species": "human",
   "slug": "cold-water-swim",
   "topic": "What happens if you swim in cold water?",
+  "env": "field"
+ },
+ {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "tear",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "bald",
+  "skin": "light",
+  "palette": "p4",
+  "cta": "FOLLOW FOR MORE",
+  "species": "bear",
+  "slug": "climbing-a-sand-dune",
+  "topic": "What happens if you climb a sand dune?",
   "env": "field"
  }
 ]

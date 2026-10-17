@@ -1,0 +1,208 @@
+{
+ "title": "Phone Before Sleep",
+ "hook": "What if you scroll before bedtime?",
+ "banner": "SCROLL AT NIGHT\nBODY REACTS!",
+ "format": "gauge",
+ "env": "room",
+ "scene": "bedroom with dim lamp",
+ "outfit": "pajamas",
+ "mood_music": "calm",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "30 MIN",
+   "line": "After thirty minutes, blue light slashes melatonin, leaving you wired.",
+   "idea": "Character holds phone, blue glow over brain, melatonin droplet shrinking",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "wired"
+      },
+      {
+       "r": "shiver",
+       "arg": 1,
+       "at": "slashes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "60 MIN",
+   "line": "At sixty minutes, your pulse spikes, drumming in your ears.",
+   "idea": "Cartoon heart thumps faster, pulse line spikes",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "pulse"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "spikes"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "ears"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "120 MIN",
+   "line": "After two hours, brain waves stay shallow, pushing deep sleep farther away.",
+   "idea": "Brain shows light sleep waves, delta waves missing",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "sleepy",
+       "at": "sleep"
+      },
+      {
+       "r": "slump",
+       "at": "away"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "waves"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "240 MIN",
+   "line": "At four hours, cortisol spikes, leaving you jittery and unable to drift.",
+   "idea": "Cortisol icons rise, character tosses in bed",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "arg": 2,
+       "at": "jittery"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "spikes"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "spikes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "480 MIN",
+   "line": "At eight hours, you stumble awake, reaction time lagging behind.",
+   "idea": "Character yawns, sluggish reaction test gauge",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "yawn",
+       "at": "awake"
+      },
+      {
+       "r": "slump",
+       "at": "stumble"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "eight",
+     "big": "8 HRS",
+     "small": "REACTION LAG",
+     "icon": "clock",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A short animated guide showing how late-night phone use disrupts sleep.",
+ "tags": [
+  "#SleepScience",
+  "#PhoneAddiction",
+  "#BlueLight",
+  "#HealthyHabits"
+ ],
+ "facts": [
+  {
+   "claim": "Blue light from screens suppresses melatonin production",
+   "source": "NIH, National Sleep Foundation"
+  },
+  {
+   "claim": "Screen use before bed can increase heart rate",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "Late-night screen exposure delays deep (slow-wave) sleep",
+   "source": "National Sleep Foundation"
+  },
+  {
+   "claim": "Screen exposure before sleep raises cortisol levels, causing restlessness",
+   "source": "Harvard Health Publishing"
+  },
+  {
+   "claim": "Reduced deep sleep leads to morning grogginess and slower reaction time",
+   "source": "Mayo Clinic"
+  }
+ ],
+ "end": {
+  "line": "Will you put the phone away?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "phone"
+   },
+   {
+    "r": "wave",
+    "at": "away"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you check your phone before sleep?",
+ "slug": "phone-before-sleep"
+}
