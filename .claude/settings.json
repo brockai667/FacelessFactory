@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "allow": ["mcp__Composio", "mcp__Gmail"]
+  }
+}
