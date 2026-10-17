@@ -2,228 +2,194 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Layout: the page is an editing suite. Viewer + real timeline in the hero, input→output, a 3×3 bin of the actual clips 01–09, one more brand, contact. Single dark look on purpose: footage reads best on black. */
+/* Layout: before/after phone in the hero → how it works in CapCut (your shot + our green clip = result) → 9 numbered elements with prices → contact.
+   The accent is chroma-key green: the colour our elements are delivered on. */
 :root{
-  color-scheme:dark;
-  --bg:#0c0c0d; --panel:#151517; --line:#2a2a2e; --fg:#f1efe9; --dim:#8d8b86; --rec:#ff3b30;
-  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --bg:#f5f5f2; --fg:#151515; --muted:#5f5f5a; --line:#dcdcd6; --card:#ffffff; --key:#00e05a; --on-key:#08240f;
+  --display:"Familjen Grotesk",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121312;--fg:#efefea;--muted:#a3a39c;--line:#2c2d2b;--card:#1b1c1a;--key:#22e86c;--on-key:#06200d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121312;--fg:#efefea;--muted:#a3a39c;--line:#2c2d2b;--card:#1b1c1a;--key:#22e86c;--on-key:#06200d;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font:400 17px/1.55 var(--display);font-stretch:100%;overflow-x:clip}
-.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.mono{font:400 12px/1.4 var(--mono);letter-spacing:.04em;color:var(--dim)}
-h1,h2{margin:0;font-family:var(--display);font-stretch:62%;font-weight:900;text-transform:uppercase;line-height:.94;letter-spacing:-.01em;text-wrap:balance}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.55 var(--body);overflow-x:clip}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.02em}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+:focus-visible{outline:3px solid var(--key);outline-offset:3px}
+.num{font:500 12px/1 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:13px 18px;font:600 16px/1 var(--body);background:var(--fg);color:var(--bg);text-decoration:none;cursor:pointer}
+.btn.key{background:var(--key);color:var(--on-key)}
 
-/* top bar */
-.bar{border-bottom:1px solid var(--line)}
-.bar .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
-.brand{font:900 22px/1 var(--display);font-stretch:125%;letter-spacing:.02em;text-decoration:none}
-.bar .file{margin-right:auto}
-.rec{display:inline-flex;align-items:center;gap:7px}
-.rec::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rec);animation:blink 1.2s steps(2) infinite}
-@keyframes blink{50%{opacity:.2}}
-.bar a.cta{font:500 13px var(--mono);text-decoration:none;border:1px solid var(--fg);padding:8px 12px}
-.bar a.cta:hover{background:var(--fg);color:var(--bg)}
-@media (max-width:640px){.bar .file{display:none}.bar .brand{margin-right:auto}}
+nav .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
+.logo{font:700 22px/1 var(--display);text-decoration:none;letter-spacing:-.01em;margin-right:auto}
+nav a.link{color:var(--muted);text-decoration:none;font-weight:500}
+@media (max-width:640px){nav a.link{display:none}}
 
 /* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:clamp(28px,5vw,80px);padding-block:clamp(36px,6vw,80px);align-items:center}
-.hero h1{font-size:clamp(64px,12vw,176px)}
-.hero h1 span{display:block}
-.hero h1 .o{-webkit-text-stroke:1.5px var(--fg);color:transparent}
-.hero p{max-width:40ch;margin:28px 0 0;font-size:clamp(17px,1.5vw,20px);color:var(--dim)}
-.hero p b{color:var(--fg);font-weight:600}
-.hero .mono{margin-top:18px}
-@media (max-width:860px){.hero{grid-template-columns:1fr}.hero .viewer{width:min(100%,calc(62svh * 9 / 16));justify-self:center}}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,72px);align-items:center;padding-block:clamp(24px,5vw,64px) clamp(56px,8vw,104px)}
+.hero h1{font-size:clamp(40px,6vw,80px);line-height:1.1;font-weight:700}
+.hero h1 mark{background:var(--key);color:var(--on-key);padding:0 .12em;border-radius:.12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero p{font-size:clamp(18px,1.7vw,21px);color:var(--muted);max-width:40ch;margin:22px 0 28px}
+.hero .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.phone{width:min(100%,250px)}}
 
-/* viewer */
-.viewer{display:grid;gap:10px}
-.frame{position:relative;aspect-ratio:9/16;background:#000;max-width:100%}
-.frame video,.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.frame::before,.frame::after{content:"";position:absolute;z-index:2;inset:-8px;pointer-events:none;
-  background:
-   linear-gradient(var(--fg),var(--fg)) top left/14px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) top left/1px 14px no-repeat,
-   linear-gradient(var(--fg),var(--fg)) top right/14px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) top right/1px 14px no-repeat,
-   linear-gradient(var(--fg),var(--fg)) bottom left/14px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) bottom left/1px 14px no-repeat,
-   linear-gradient(var(--fg),var(--fg)) bottom right/14px 1px no-repeat,linear-gradient(var(--fg),var(--fg)) bottom right/1px 14px no-repeat}
-.frame::after{display:none}
-.meta{display:flex;justify-content:space-between;gap:12px}
-.tc{font:500 15px var(--mono);color:var(--fg);font-variant-numeric:tabular-nums}
-.timeline{position:relative;display:flex;height:34px;border:1px solid var(--line);background:var(--panel);cursor:pointer;user-select:none}
-.timeline button{all:unset;position:relative;box-sizing:border-box;height:100%;border-right:1px solid var(--line);font:500 10px var(--mono);color:var(--dim);padding:3px 4px;cursor:pointer;min-width:0;overflow:hidden}
-.timeline button:last-child{border-right:0}
-.timeline button.on{background:#232327;color:var(--fg)}
-.timeline button:focus-visible{outline:2px solid var(--fg);outline-offset:-2px}
-.playhead{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--rec);pointer-events:none;left:0}
-.cap{display:flex;justify-content:space-between;gap:12px}
-.sound{all:unset;cursor:pointer;font:500 12px var(--mono);color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+/* before / after */
+.ba{display:grid;gap:14px;justify-items:center}
+.phone{position:relative;width:min(100%,330px);aspect-ratio:9/16;border-radius:34px;overflow:hidden;background:#000;box-shadow:0 0 0 9px #111,0 30px 60px -25px rgba(0,0,0,.5)}
+.phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.phone .after{opacity:0}
+.ba.on .phone .after{opacity:1}
+.badge{position:absolute;z-index:2;top:14px;left:14px;font:500 12px/1 var(--mono);padding:7px 9px;border-radius:8px;background:rgba(0,0,0,.6);color:#fff}
+.ba.on .badge{background:var(--key);color:var(--on-key)}
+.toggle{display:inline-grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--line);border-radius:12px;padding:4px;background:var(--card)}
+.toggle button{all:unset;cursor:pointer;padding:9px 16px;border-radius:9px;font:600 15px var(--body);color:var(--muted);text-align:center}
+.toggle button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.toggle button:focus-visible{outline:3px solid var(--key)}
+.ba small{color:var(--muted);font-size:13px;text-align:center;max-width:34ch}
 
-/* sections */
-section{border-top:1px solid var(--line);padding-block:clamp(56px,8vw,112px)}
-.shead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,38ch);gap:24px;align-items:end;margin-bottom:clamp(28px,4vw,48px)}
-.shead h2{font-size:clamp(44px,7vw,104px)}
-.shead p{margin:0;color:var(--dim)}
-@media (max-width:760px){.shead{grid-template-columns:1fr}}
+section{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--line)}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40ch);gap:20px;align-items:end;margin-bottom:clamp(28px,4vw,48px)}
+.head h2{font-size:clamp(32px,4.6vw,60px);line-height:1}
+.head p{margin:0;color:var(--muted)}
+@media (max-width:760px){.head{grid-template-columns:1fr}}
 
-/* input → output */
-.io{display:grid;grid-template-columns:minmax(0,320px) auto minmax(0,320px);gap:clamp(16px,4vw,56px);align-items:center;justify-content:center}
-.io .col{display:grid;gap:10px}
-.site{position:relative;aspect-ratio:9/16;overflow:hidden;background:#fff;container-type:size;max-width:100%}
-.site img{width:100%;display:block;animation:scrollsite 22s ease-in-out infinite alternate}
-@keyframes scrollsite{0%,8%{transform:translateY(0)}100%{transform:translateY(calc(-100% + 100cqh))}}
-.arrow{display:grid;justify-items:center;gap:8px;font:500 12px var(--mono);color:var(--dim)}
-.arrow b{font:900 64px/1 var(--display);font-stretch:62%;color:var(--fg)}
-@media (max-width:700px){.io{grid-template-columns:1fr 1fr;gap:14px}.arrow{display:none}}
+/* how it works */
+.how{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:clamp(10px,2vw,24px);align-items:center}
+.how .col{display:grid;gap:10px;min-width:0}
+.how .frame{position:relative;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#000;max-width:100%}
+.how video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.how h3{font-size:18px}
+.how p{margin:0;color:var(--muted);font-size:15px}
+.op{font:700 clamp(28px,4vw,48px)/1 var(--display);color:var(--muted)}
+@media (max-width:700px){.how{grid-template-columns:1fr 1fr}.op{display:none}.how .col:last-child{grid-column:span 2;max-width:260px;justify-self:center;width:100%}}
 
-/* bin 01–09 */
-.bin{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,2vw,28px)}
-.clip{display:grid;gap:10px;align-content:start}
-.clip .frame::before{inset:0;opacity:.0}
-.clip:hover .frame::before{opacity:1}
-.clip .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.clip .n{font:500 13px var(--mono);color:var(--dim)}
-.clip h3{margin:0;font:800 clamp(16px,2vw,24px)/1.05 var(--display);font-stretch:75%;text-transform:uppercase}
-.clip .p{font:500 clamp(13px,1.4vw,16px) var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-.clip small{display:block;color:var(--dim);font-size:14px;line-height:1.35}
-@media (max-width:600px){.clip small{display:none}.clip .row{flex-direction:column;gap:2px}}
-.deal{margin-top:clamp(28px,4vw,48px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line)}
-.deal div{padding:18px 20px;display:grid;gap:4px}
-.deal div+div{border-left:1px solid var(--line)}
-.deal b{font:900 clamp(32px,4vw,52px)/1 var(--display);font-stretch:62%;font-variant-numeric:tabular-nums}
-@media (max-width:600px){.deal{grid-template-columns:1fr}.deal div+div{border-left:0;border-top:1px solid var(--line)}}
-
-/* other brand */
-.other{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:center}
-.other h2{font-size:clamp(40px,6vw,88px)}
-.other p{color:var(--dim);max-width:44ch}
-@media (max-width:700px){.other{grid-template-columns:1fr}.other .viewer{max-width:300px}}
+/* nine elements */
+.grid9{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
+.el{display:grid;gap:10px;align-content:start}
+.el .frame{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:#000}
+.el video,.el img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.el .t{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.el h3{font-size:clamp(16px,1.8vw,20px)}
+.el .p{font:500 15px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.el small{color:var(--muted);font-size:14px;line-height:1.35}
+@media (max-width:640px){.grid9{gap:10px}.el small{display:none}.el h3{font-size:14px}.el .t{flex-direction:column;gap:2px}.el .p{font-size:13px}}
+.deals{margin-top:clamp(28px,4vw,44px);display:flex;flex-wrap:wrap;gap:12px}
+.deal{flex:1 1 220px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.deal b{font:700 30px var(--display);font-variant-numeric:tabular-nums}
+.deal.key{background:var(--key);color:var(--on-key);border-color:transparent}
 
 /* contact */
-.contact h2{font-size:clamp(56px,11vw,168px)}
-.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:32px}
-.mail code{font:500 clamp(18px,3vw,34px) var(--mono);user-select:all;word-break:break-all}
-.mail button{all:unset;cursor:pointer;font:500 13px var(--mono);border:1px solid var(--fg);padding:9px 13px}
-.mail button:hover{background:var(--fg);color:var(--bg)}
-.contact ol{margin:40px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;counter-reset:s}
-.contact li{counter-increment:s;border-top:1px solid var(--line);padding-top:14px;color:var(--dim);font-size:16px}
-.contact li::before{content:"0" counter(s);display:block;font:500 12px var(--mono);margin-bottom:8px}
-.contact li b{color:var(--fg);display:block;font-weight:600}
-@media (max-width:700px){.contact ol{grid-template-columns:1fr}}
-footer{border-top:1px solid var(--line);padding-block:24px}
+.contact h2{font-size:clamp(36px,6vw,76px);line-height:1}
+.contact .lead{color:var(--muted);max-width:44ch;margin:18px 0 28px}
+.mail{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.mail code{font:500 clamp(17px,2.4vw,26px) var(--mono);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;user-select:all;word-break:break-all}
+.steps{list-style:none;padding:0;margin:44px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.steps li{border-top:2px solid var(--fg);padding-top:14px;color:var(--muted)}
+.steps b{display:block;color:var(--fg);font:700 19px var(--display);margin:6px 0 4px}
+@media (max-width:700px){.steps{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
-@media (prefers-reduced-motion:reduce){.site img,.rec::before{animation:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
 
-<div class="bar"><div class="wrap">
-  <a class="brand" href="#top">MOVEO</a>
-  <span class="mono file">reel_doughnana.mp4 · 1080×1920 · 30 fps</span>
-  <span class="mono rec">REC</span>
-  <a class="cta" href="#kontakt">Pošli web</a>
-</div></div>
+<nav><div class="wrap">
+  <a class="logo" href="#top">MOVEO</a>
+  <a class="link" href="#ako">Ako to funguje</a>
+  <a class="link" href="#cennik">Cenník</a>
+  <a class="btn" href="#kontakt">Napíš nám</a>
+</div></nav>
 
 <header class="wrap hero" id="top">
   <div>
-    <h1><span>Pošli web.</span><span class="o">Dostaneš</span><span>video.</span></h1>
-    <p>Z tvojho webu vezmeme <b>logo, farby, písmo, produkty a ceny</b> a spravíme z nich krátke animované videá na Instagram, TikTok a do reklám.</p>
-    <div class="mono">Prvá ukážka do 24 h · zadarmo · bez briefu</div>
+    <h1>Animované prvky <mark>do tvojich videí</mark>.</h1>
+    <p>Natočíš video ako vždy. My k nemu pridáme intro s logom, produkty s cenou, titulky a výzvu na konci. Vo farbách a písme tvojej značky, pripravené do CapCutu.</p>
+    <div class="row"><a class="btn key" href="#kontakt">Chcem ukážku zadarmo</a><a class="btn" href="#cennik">Pozrieť cenník</a></div>
   </div>
-  <div class="viewer">
-    <div class="frame"><video id="main" src="doughnana.mp4" poster="doughnana.jpg" muted loop playsinline autoplay preload="auto"></video></div>
-    <div class="meta"><span class="tc" id="tc">00:00:00:00</span><span class="mono" id="scene">01 Logo</span></div>
-    <div class="timeline" id="tl"><span class="playhead" id="ph"></span></div>
-    <div class="cap"><span class="mono">Doughnana · klient · 35 s</span><button class="sound" id="snd" type="button">zvuk: vyp.</button></div>
+  <div class="ba on" id="ba">
+    <div class="phone">
+      <span class="badge" id="badge">S MOVEO</span>
+      <video class="before" src="pred.mp4" poster="pred.jpg" muted loop playsinline autoplay preload="auto"></video>
+      <video class="after" src="po.mp4" poster="po.jpg" muted loop playsinline autoplay preload="auto"></video>
+    </div>
+    <div class="toggle" role="group" aria-label="Porovnanie">
+      <button type="button" id="bBefore" aria-pressed="false">Bez prvkov</button>
+      <button type="button" id="bAfter" aria-pressed="true">S MOVEO</button>
+    </div>
+    <small>Ukážka na značke Doughnana. Ten istý záber, raz bez prvkov a raz s nimi.</small>
   </div>
 </header>
 
-<section>
+<section id="ako">
   <div class="wrap">
-    <div class="shead"><h2>Toto nám pošleš.<br>Toto dostaneš.</h2><p>Žiadne podklady ani brief. Stačí odkaz. Všetko vo videu je z ich vlastného webu: fotky, texty, ceny aj písmo.</p></div>
-    <div class="io">
-      <div class="col"><div class="site"><img src="site-doughnana.jpg" alt="Web doughnana.com v mobile"></div><span class="mono">VSTUP · doughnana.com</span></div>
-      <div class="arrow"><b>→</b>24 h</div>
-      <div class="col"><div class="frame"><video src="doughnana.mp4" poster="doughnana.jpg" muted loop playsinline preload="none" data-auto></video></div><span class="mono">VÝSTUP · reel 9:16 · 35 s</span></div>
+    <div class="head"><h2>Ako to funguje v CapCute</h2><p>Každý prvok dostaneš ako krátke video na zelenom pozadí. Vložíš ho nad svoj záber, zelenú odstrániš jedným klikom a je hotovo.</p></div>
+    <div class="how">
+      <div class="col"><div class="frame"><video src="pred.mp4" poster="pred.jpg" muted loop playsinline preload="none" data-auto></video></div><span class="num">TVOJ ZÁBER</span><h3>Natočíš ako vždy</h3><p>Mobilom, bez štúdia.</p></div>
+      <span class="op" aria-hidden="true">+</span>
+      <div class="col"><div class="frame"><video src="zelene.mp4" poster="zelene.jpg" muted loop playsinline preload="none" data-auto></video></div><span class="num">NÁŠ PRVOK</span><h3>Dodáme na zelenom</h3><p>Vo farbách tvojej značky.</p></div>
+      <span class="op" aria-hidden="true">=</span>
+      <div class="col"><div class="frame"><video src="po.mp4" poster="po.jpg" muted loop playsinline preload="none" data-auto></video></div><span class="num">VÝSLEDOK</span><h3>Video so značkou</h3><p>Pripravené na Instagram a TikTok.</p></div>
     </div>
   </div>
 </section>
 
 <section id="cennik">
   <div class="wrap">
-    <div class="shead"><h2>Vyber si čísla.</h2><p>Každý klip má svoje číslo. Napíš nám tie, ktoré chceš, napríklad „01, 04, 07“. Spravíme ich vo farbách tvojej značky, aj na zelenom pozadí do CapCutu.</p></div>
-    <div class="bin" id="bin"></div>
-    <div class="deal">
-      <div><span class="mono">Ľubovoľné 3 klipy</span><b>49 €</b></div>
-      <div><span class="mono">Všetkých 9</span><b>99 €</b></div>
-      <div><span class="mono">Zostrih do hotového videa</span><b>+30 €</b></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap other">
-    <div class="viewer"><div class="frame"><video src="helendoron.mp4" poster="helendoron.jpg" muted loop playsinline preload="none" data-auto></video></div><span class="mono">Helen Doron English · ukážka · 31 s</span></div>
-    <div>
-      <h2>Iný web,<br>iné video.</h2>
-      <p>Rovnaký postup na úplne inej značke. Toto video sme spravili len z verejného webu helendoron.sk ako ukážku. Nie je to zákazka.</p>
+    <div class="head"><h2>Vyber si prvky podľa čísla</h2><p>Napíš nám čísla, ktoré chceš, napríklad „01, 04, 09“. Každý prvok spravíme v štýle tvojej značky. Jedno kolo úprav je v cene, dodanie do 48 hodín.</p></div>
+    <div class="grid9" id="grid9"></div>
+    <div class="deals">
+      <div class="deal"><span>Ľubovoľné 3 prvky</span><b>49 €</b></div>
+      <div class="deal key"><span>Všetkých 9</span><b>99 €</b></div>
+      <div class="deal"><span>Celé video na mieru</span><b>dohodou</b></div>
     </div>
   </div>
 </section>
 
 <section id="kontakt" class="contact">
   <div class="wrap">
-    <h2>Pošli odkaz<br>na svoj web.</h2>
-    <div class="mail"><code id="mail">brock.ia667@gmail.com</code><button type="button" id="copy">Kopírovať</button></div>
-    <ol>
-      <li><b>Pošleš odkaz</b>Na web alebo Instagram. Logo, farby a produkty si vezmeme sami.</li>
-      <li><b>Do 24 h ukážka</b>Krátke video z tvojho webu, zadarmo a nezáväzne.</li>
-      <li><b>Vyberieš čísla</b>Polovicu zaplatíš vopred, klipy máš do 48 hodín. Jedno kolo úprav je v cene.</li>
+    <h2>Pošli nám odkaz na svoj web alebo Instagram.</h2>
+    <p class="lead">Do 24 hodín ti pošleme ukážku prvkov vo farbách tvojej značky. Zadarmo a nezáväzne.</p>
+    <div class="mail"><code id="mail">brock.ia667@gmail.com</code><button class="btn" type="button" id="copy">Kopírovať</button></div>
+    <ol class="steps">
+      <li><span class="num">01</span><b>Pošleš odkaz</b>Logo, farby a produkty si z neho vezmeme sami.</li>
+      <li><span class="num">02</span><b>Dostaneš ukážku</b>Do 24 hodín, zadarmo.</li>
+      <li><span class="num">03</span><b>Vyberieš čísla</b>Polovicu zaplatíš vopred, prvky máš do 48 hodín.</li>
     </ol>
   </div>
 </section>
 
-<footer><div class="wrap"><span class="mono">MOVEO · animácie z tvojho webu</span><span class="mono">Hudba: Kevin MacLeod, „Hyperfun“, CC BY 4.0</span></div></footer>
+<footer><div class="wrap"><span>MOVEO · Damián Dodok</span><span>Hudba v ukážkach: Kevin MacLeod, „Hyperfun“, CC BY 4.0</span></div></footer>
 
 <script>
-const CLIPS=[
- ["01","Logo","Odhalenie loga s leskom",25],
- ["02","Slogan","Slovo po slove, na beat",15],
- ["03","Produkt","Produkt dopadne, okolo sa točí adresa",25],
- ["04","Ceny","Karty produktov, ceny sa napočítajú",30],
- ["05","Titulky","Veľké titulky v štýle TikToku",20],
- ["06","Meno","Meno a funkcia v zábere",15],
- ["07","Mobil","Tvoj web v telefóne",20],
- ["08","Notebook","Tvoj web na počítači",20],
- ["09","Výzva","Tlačidlo, klik, konfety",15]];
-/* scene starts in the Doughnana reel (s), cut on the music's beats */
-const MARKS=[0,2.67,6.29,9.31,12.93,16.55,19.57,23.79,27.42,30.44];
-const bin=document.getElementById('bin'),tl=document.getElementById('tl');
-CLIPS.forEach(([n,t,d,p],i)=>{
-  bin.insertAdjacentHTML('beforeend',`<article class="clip"><div class="frame"><video src="s${n}.mp4" poster="s${n}.jpg" muted loop playsinline preload="none" data-auto></video></div><div class="row"><span class="n">${n}</span><span class="p">${p} €</span></div><div><h3>${t}</h3><small>${d}</small></div></article>`);
-  const w=(MARKS[i+1]-MARKS[i]);
-  tl.insertAdjacentHTML('beforeend',`<button type="button" style="flex:${w}" data-i="${i}" aria-label="Skoč na ${n} ${t}">${n}</button>`);
-});
-const main=document.getElementById('main'),tc=document.getElementById('tc'),ph=document.getElementById('ph'),scene=document.getElementById('scene'),btns=[...tl.querySelectorAll('button')];
-const pad=x=>String(Math.floor(x)).padStart(2,'0');
-function tick(){
-  const t=main.currentTime||0,d=main.duration||34.8;
-  tc.textContent=`00:${pad(t/60)}:${pad(t%60)}:${pad((t%1)*30)}`;
-  ph.style.left=Math.min(100,t/MARKS[9]*100)+'%';
-  let i=MARKS.findIndex((m,k)=>t>=m&&t<(MARKS[k+1]??d));
-  btns.forEach((b,k)=>b.classList.toggle('on',k===i));
-  scene.textContent=i>=0&&i<9?`${CLIPS[i][0]} ${CLIPS[i][1]}`:'koniec';
-  requestAnimationFrame(tick);
-}
-requestAnimationFrame(tick);
-tl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;main.currentTime=MARKS[+b.dataset.i]+.05;main.play().catch(()=>{})});
-const snd=document.getElementById('snd');
-snd.onclick=()=>{main.muted=!main.muted;snd.textContent=main.muted?'zvuk: vyp.':'zvuk: zap.';main.play().catch(()=>{})};
-/* play clips only while on screen */
-const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{rootMargin:'100px'});
+const EL=[
+ ["01","Intro s logom","Logo sa odhalí s leskom",25],
+ ["02","Slogan na beat","Text slovo po slove",15],
+ ["03","Produkt v pohybe","Produkt s točiacim sa nápisom",25],
+ ["04","Produkty s cenou","Kartičky, cena sa napočíta",30],
+ ["05","Titulky","Veľké titulky na celé video",20],
+ ["06","Meno v zábere","Meno a funkcia, keď hovoríš",15],
+ ["07","Web v mobile","Tvoja stránka v telefóne",20],
+ ["08","Web na notebooku","Tvoja stránka na počítači",20],
+ ["09","Výzva na konci","Tlačidlo, klik, konfety",15]];
+const g=document.getElementById('grid9');
+EL.forEach(([n,t,d,p])=>g.insertAdjacentHTML('beforeend',
+ `<article class="el"><div class="frame"><video src="s${n}.mp4" poster="s${n}.jpg" muted loop playsinline preload="none" data-auto></video></div><span class="num">${n}</span><div class="t"><h3>${t}</h3><span class="p">${p} €</span></div><small>${d}</small></article>`));
+
+const ba=document.getElementById('ba'),bB=document.getElementById('bBefore'),bA=document.getElementById('bAfter'),badge=document.getElementById('badge');
+const [vb,va]=ba.querySelectorAll('video');
+let manual=false;
+function show(after){ba.classList.toggle('on',after);bA.setAttribute('aria-pressed',after);bB.setAttribute('aria-pressed',!after);badge.textContent=after?'S MOVEO':'BEZ PRVKOV'}
+bB.onclick=()=>{manual=true;show(false)};bA.onclick=()=>{manual=true;show(true)};
+// keep both clips in sync; flip automatically each loop until the viewer picks one
+va.addEventListener('timeupdate',()=>{if(Math.abs(vb.currentTime-va.currentTime)>.15)vb.currentTime=va.currentTime});
+let last=0;va.addEventListener('timeupdate',()=>{if(!manual&&va.currentTime<last)show(!ba.classList.contains('on'));last=va.currentTime});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.preload='auto';v.play().catch(()=>{})}else v.pause()}),{rootMargin:'120px'});
 document.querySelectorAll('video[data-auto]').forEach(v=>io.observe(v));
 document.getElementById('copy').onclick=e=>{const b=e.target,t=document.getElementById('mail').textContent;
-  navigator.clipboard.writeText(t).then(()=>{b.textContent='Skopírované';setTimeout(()=>b.textContent='Kopírovať',1500)}).catch(()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('mail'));getSelection().removeAllRanges();getSelection().addRange(r)})};
+ navigator.clipboard.writeText(t).then(()=>{b.textContent='Skopírované';setTimeout(()=>b.textContent='Kopírovať',1500)}).catch(()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('mail'));getSelection().removeAllRanges();getSelection().addRange(r)})};
 </script>
