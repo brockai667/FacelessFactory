@@ -9,6 +9,8 @@ export type Brand = {
   colors: { bg: string; text: string; heading: string; surface: string; surface2: string | null; accent: string;
     button: string | null; bgIsDark: boolean; onSurface: string; onAccent: string };
   logo: string | null;
+  /** logo ako vektor (cesta z potrace), voliteľne s donutom na mieste písmena */
+  logoVector?: { w: number; h: number; d: string; fill: string; donut?: { cx: number; cy: number; r: number } };
   hero?: string | null;
   products?: { name: string; price: string; image: string }[];
   instagram?: string | null;

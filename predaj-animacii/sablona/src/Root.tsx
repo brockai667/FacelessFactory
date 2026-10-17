@@ -3,6 +3,7 @@ import { AbsoluteFill, Composition, Sequence } from "remotion";
 import { Brand, Props, useBrandFonts } from "./brand";
 import { Title, Pops, Phone, Desktop, End, popsDuration } from "./scenes";
 import { Showreel, showreelLen } from "./showreel";
+import { LogoDraw, ProductSticker, PriceTag, NewBadge, ArrowBio, Scribble } from "./stickers";
 import sample from "../brands-sample.json";
 
 const FPS = 30;
@@ -37,6 +38,8 @@ const launchLen = (b: Brand) => T + popsDuration(b) + PH + DK + EN - 4 * X;
 const one = (C: React.FC<{ brand: Brand; mode: Props["bg"]; dur: number }>, dur: number): React.FC<Props> =>
   ({ brand, bg }) => <Fonts brand={brand}><C brand={brand} mode={bg} dur={dur} /></Fonts>;
 
+const st = (C: React.FC<{ brand: Brand }>): React.FC<Props> => ({ brand }) => <Fonts brand={brand}><C brand={brand} /></Fonts>;
+
 const defaults: Props = { brand: sample as Brand, bg: "brand" };
 const common = { width: 1080, height: 1920, fps: FPS, defaultProps: defaults };
 
@@ -56,6 +59,12 @@ export const Root: React.FC = () => (
       durationInFrames={popsDuration(defaults.brand)} {...common} calculateMetadata={({ props }) => ({ durationInFrames: popsDuration(props.brand) })} />
     <Composition id="Phone" component={one(Phone, PH)} durationInFrames={PH} {...common} />
     <Composition id="Desktop" component={one(Desktop, DK)} durationInFrames={DK} {...common} />
+    <Composition id="S-Logo" component={st(LogoDraw)} durationInFrames={90} {...common} />
+    <Composition id="S-Produkt" component={st(ProductSticker)} durationInFrames={90} {...common} />
+    <Composition id="S-Cena" component={st(PriceTag)} durationInFrames={90} {...common} />
+    <Composition id="S-New" component={st(NewBadge)} durationInFrames={75} {...common} />
+    <Composition id="S-Bio" component={st(ArrowBio)} durationInFrames={75} {...common} />
+    <Composition id="S-Kruzok" component={st(Scribble)} durationInFrames={50} {...common} />
     <Composition id="End" component={one(End, EN)} durationInFrames={EN} {...common} />
   </>
 );
