@@ -64,8 +64,9 @@ export const ProductSticker: React.FC<P> = ({ brand }) => {
   const rot = interpolate(pop, [0, 1], [-35, -8]) + Math.sin(f / 14) * 3;
   return (
     <AbsoluteFill>
-      <Img src={asset(brand, brand.hero!)} style={{ position: "absolute", width: 640, left: 360, top: 330,
-        transform: `translateY(${Math.sin(f / 18) * 14}px) rotate(${rot}deg) scale(${pop})`, filter: stickerEdge() }} />
+      <Img src={asset(brand, brand.sticker || brand.hero!)} style={{ position: "absolute", width: 640, left: 360, top: 330,
+        transform: `translateY(${Math.sin(f / 18) * 14}px) rotate(${rot}deg) scale(${pop})`,
+        filter: brand.sticker ? "drop-shadow(0 22px 26px rgba(0,0,0,.35))" : stickerEdge() }} />
       <Sparkles at={8} x={680} y={560} color={brand.colors.surface2 || brand.colors.surface} n={10} />
     </AbsoluteFill>
   );

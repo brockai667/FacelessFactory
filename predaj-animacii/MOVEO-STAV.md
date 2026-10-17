@@ -66,6 +66,12 @@ node scripts/still.mjs <slug> Reel 220               # jeden snímok na kontrolu
 - Render trvá pár minút; Showreel ~5 min.
 - Videá na mail zmenšiť: `ffmpeg -i in.mp4 -vf scale=720:-2 -crf 26 -c:a aac -b:a 96k out.mp4` (~3 MB).
 - Ukážka „pred a po“: záber + prvok na zelenom, v ffmpeg `chromakey=0x00FF00:0.18:0.06` a `overlay`.
+- **Nálepky s priehľadným pozadím** (od 17. 10.): `node scripts/render-alpha.mjs <slug>` → `out/<slug>/nalepky/`
+  MOV (ProRes 4444 s alfou, do CapCutu/Premiere), WebM (VP9 s alfou) a GIF orezaný na obsah (GIPHY).
+  Nálepky: Logo (vykreslí sa čiarou, donut sa dokotúľa), Produkt (vyrezaná nálepka s bielym obrysom),
+  Cena (visačka, cena sa napočíta), New (odznak), Bio (šípka + „link in bio“), Kruzok (zvýraznenie).
+  Potrebné polia v brand.json: `logoVector` (logo ako vektor, potrace z logo.png, ak nie je SVG)
+  a `sticker` (produkt s bielym obrysom, vyrobený z hero.png v Pythone: rozmazanie + dilatácia alfy).
 
 Opravené chyby šablóny (ak sa vrátia, tu je príčina):
 - točiaci sa nápis okolo produktu sa prekrýval („DOUDOUGHNANA.COM“) → `textLength` na kruhu,

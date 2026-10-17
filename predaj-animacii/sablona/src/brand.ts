@@ -12,6 +12,8 @@ export type Brand = {
   /** logo ako vektor (cesta z potrace), voliteľne s donutom na mieste písmena */
   logoVector?: { w: number; h: number; d: string; fill: string; donut?: { cx: number; cy: number; r: number } };
   hero?: string | null;
+  /** produkt ako nálepka s bielym obrysom (vyrobené z hero.png) */
+  sticker?: string;
   products?: { name: string; price: string; image: string }[];
   instagram?: string | null;
   ctaText?: string | null;
