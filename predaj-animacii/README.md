@@ -1,5 +1,7 @@
 # predaj-animacii
 
+> **Začni tu: [MOVEO-STAV.md](MOVEO-STAV.md)** – čo predávame, ako to vyrábame, čo sme spravili a čo vylepšiť.
+
 Predaj animácií do videí: titulky, texty na beat, mockup webu, launch videá, explainery.
 Vychádza z toho, čo sme spravili pre Doughnanu (17 overlayov z webu klienta) a z papierového enginu
 vo FacelessFactory (`paper/`).
