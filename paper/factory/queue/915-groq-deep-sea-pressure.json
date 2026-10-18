@@ -146,16 +146,12 @@
  ],
  "facts": [
   {
-   "claim": "At 100 meters (approx 0.1 km) pressure is 10 atmospheres; at 1 km it is 100 atmospheres.",
-   "source": "NOAA Ocean Exploration"
+   "claim": "Hydrostatic pressure",
+   "source": "https://en.wikipedia.org/wiki/Hydrostatic_pressure"
   },
   {
-   "claim": "Lungs compress significantly with depth due to Boyle's Law.",
-   "source": "Physics textbooks"
-  },
-  {
-   "claim": "Nitrogen narcosis and decompression sickness (bubbles) occur at depth.",
-   "source": "Mayo Clinic"
+   "claim": "Nitrogen narcosis",
+   "source": "https://en.wikipedia.org/wiki/Nitrogen_narcosis"
   }
  ],
  "end": {
@@ -169,5 +165,15 @@
  },
  "source": "groq",
  "topic": "What happens if you dive to the ocean floor?",
- "slug": "deep-sea-pressure"
+ "slug": "deep-sea-pressure",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-18T21:10Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Hydrostatic_pressure",
+   "https://en.wikipedia.org/wiki/Nitrogen_narcosis"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
 }

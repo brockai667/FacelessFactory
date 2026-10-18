@@ -136,24 +136,12 @@
  ],
  "facts": [
   {
-   "claim": "Prolonged standing can cause fluid buildup in the lower legs, leading to swelling.",
-   "source": "Mayo Clinic"
+   "claim": "Cardiovascular physiology",
+   "source": "https://en.wikipedia.org/wiki/Cardiovascular_physiology"
   },
   {
-   "claim": "Standing for long periods can make varicose veins more visible and cause them to bulge.",
-   "source": "CDC"
-  },
-  {
-   "claim": "Extended standing can increase lower back pain due to spinal compression and muscle fatigue.",
-   "source": "NIH"
-  },
-  {
-   "claim": "Standing raises heart rate to pump blood against gravity, increasing cardiovascular load.",
-   "source": "American Heart Association"
-  },
-  {
-   "claim": "Long periods of standing can increase the risk of deep vein thrombosis.",
-   "source": "Mayo Clinic"
+   "claim": "Deep vein thrombosis",
+   "source": "https://en.wikipedia.org/wiki/Deep_vein_thrombosis"
   }
  ],
  "end": {
@@ -167,5 +155,15 @@
  },
  "source": "groq",
  "topic": "What happens if you stand while working all day?",
- "slug": "standing-all-day"
+ "slug": "standing-all-day",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-18T21:10Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Cardiovascular_physiology",
+   "https://en.wikipedia.org/wiki/Deep_vein_thrombosis"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
 }

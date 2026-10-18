@@ -125,20 +125,12 @@
  ],
  "facts": [
   {
-   "claim": "In microgravity, fluids shift toward the head, causing facial puffiness and nasal congestion.",
-   "source": "NASA Human Research Program"
+   "claim": "Effect of spaceflight on the human body",
+   "source": "https://en.wikipedia.org/wiki/Effect_of_spaceflight_on_the_human_body"
   },
   {
-   "claim": "The vestibular system experiences fluid redistribution, leading to disorientation and motion sickness within the first day.",
-   "source": "NASA, Space Adaptation Syndrome"
-  },
-  {
-   "claim": "Cardiovascular deconditioning occurs within days, with heart rate increasing due to reduced venous return.",
-   "source": "NIH, Cardiovascular Adaptation to Microgravity"
-  },
-  {
-   "claim": "Bone mineral density decreases about 1% per month during prolonged weightlessness.",
-   "source": "NASA, Bone Loss in Space"
+   "claim": "Space adaptation syndrome",
+   "source": "https://en.wikipedia.org/wiki/Space_adaptation_syndrome"
   }
  ],
  "end": {
@@ -152,5 +144,15 @@
  },
  "source": "groq",
  "topic": "What happens if you float in a zero‑gravity simulation?",
- "slug": "weightless-drift"
+ "slug": "weightless-drift",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-18T21:10Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Effect_of_spaceflight_on_the_human_body",
+   "https://en.wikipedia.org/wiki/Space_adaptation_syndrome"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
 }

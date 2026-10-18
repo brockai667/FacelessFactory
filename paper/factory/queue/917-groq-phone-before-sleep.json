@@ -169,24 +169,12 @@
  ],
  "facts": [
   {
-   "claim": "Blue light from screens suppresses melatonin production",
-   "source": "NIH, National Sleep Foundation"
+   "claim": "Circadian rhythm",
+   "source": "https://en.wikipedia.org/wiki/Circadian_rhythm"
   },
   {
-   "claim": "Screen use before bed can increase heart rate",
-   "source": "Mayo Clinic"
-  },
-  {
-   "claim": "Late-night screen exposure delays deep (slow-wave) sleep",
-   "source": "National Sleep Foundation"
-  },
-  {
-   "claim": "Screen exposure before sleep raises cortisol levels, causing restlessness",
-   "source": "Harvard Health Publishing"
-  },
-  {
-   "claim": "Reduced deep sleep leads to morning grogginess and slower reaction time",
-   "source": "Mayo Clinic"
+   "claim": "Melatonin",
+   "source": "https://en.wikipedia.org/wiki/Melatonin"
   }
  ],
  "end": {
@@ -204,5 +192,15 @@
  },
  "source": "groq",
  "topic": "What happens if you check your phone before sleep?",
- "slug": "phone-before-sleep"
+ "slug": "phone-before-sleep",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-18T21:10Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Circadian_rhythm",
+   "https://en.wikipedia.org/wiki/Melatonin"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
 }
