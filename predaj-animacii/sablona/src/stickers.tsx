@@ -81,9 +81,7 @@ export const LogoDraw: React.FC<P> = ({ brand }) => {
           WebkitMaskImage: `url(${url})`, maskImage: `url(${url})`, WebkitMaskSize: `${W}px ${H}px`, maskSize: `${W}px ${H}px`,
           background: `linear-gradient(105deg, transparent ${shine - 12}%, rgba(255,255,255,.75) ${shine}%, transparent ${shine + 12}%)` }} />
       </div>
-      <Sequence from={Math.round((6 * vfps) / 30)}><Audio src={staticFile("audio/roll.wav")} volume={0.7} /></Sequence>
-      <Sequence from={Math.round((61 * vfps) / 30)}><Audio src={staticFile("audio/thud.wav")} volume={0.35} /></Sequence>
-      <Sequence from={Math.round((63 * vfps) / 30)}><Audio src={staticFile("audio/sparkle.wav")} volume={0.4} /></Sequence>
+      <Sequence from={Math.round((6 * vfps) / 30)}><Audio src={staticFile("audio/roll.wav")} volume={0.9} />{/* drevené koliesko: ťukanie spomaľuje s donutom, na konci „tuk“ */}</Sequence>
     </AbsoluteFill>
   );
 };
