@@ -1,0 +1,145 @@
+{
+ "slug": "no-sleep",
+ "title": "What no sleep does to you",
+ "hook": "What happens if you stop sleeping?",
+ "banner": [
+  "WHAT IF YOU",
+  "NEVER SLEEP?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "mood_music": "tense",
+ "music_i": 1,
+ "face0": "smile",
+ "accent": "#7a5fa0",
+ "hero": {
+  "outfit": "pajamas",
+  "hairStyle": "long",
+  "hair": "#5a3a28",
+  "skin": "tan",
+  "lashes": true,
+  "suit": "#8e7cc3",
+  "suitDark": "#6d5ca6",
+  "patch": "#f6c343"
+ },
+ "kit": {
+  "chrome": "sticky",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "beats": [
+  {
+   "label": "24 HOURS",
+   "line": "After twenty-four hours, your brain works like you're legally drunk.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "brain"
+      },
+      {
+       "r": "stars",
+       "arg": 1.4,
+       "at": "drunk"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "36 HOURS",
+   "line": "After thirty-six hours, your brain starts shutting off for seconds at a time.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "nod",
+       "at": "shutting"
+      },
+      {
+       "r": "nod",
+       "at": "time"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "48 HOURS",
+   "line": "After forty-eight hours, stress hormones rise, and your heart beats faster.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "72 HOURS",
+   "line": "After seventy-two hours, you may start seeing things that aren't there.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "seventytwo"
+      },
+      {
+       "r": "hallucinate",
+       "at": "seeing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "RECORD",
+   "line": "The record without sleep is about eleven days.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "11 DAYS",
+     "small": "WORLD RECORD",
+     "icon": "calendar",
+     "bg": "#f3e3c6",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "So, how much did you sleep last night?",
+  "do": [
+   {
+    "r": "yawn",
+    "at": "sleep"
+   }
+  ]
+ },
+ "description": "Why skipping sleep hits your brain, heart and eyes so fast.",
+ "tags": [
+  "#sleep",
+  "#brain",
+  "#science",
+  "#health"
+ ],
+ "music": "lightless"
+}

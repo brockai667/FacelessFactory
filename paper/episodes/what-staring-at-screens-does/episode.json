@@ -1,0 +1,201 @@
+{
+ "title": "What staring at screens does",
+ "hook": [
+  "ALL DAY ON",
+  "SCREENS?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_space.js",
+  "recipes.js"
+ ],
+ "description": "Hour by hour: what a full day of screens does to your eyes and sleep.\n#screentime #eyestrain #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Pamgaea.mp3",
+  "at": 0.0,
+  "vol": 0.52,
+  "credit": "Music: \"Pamgaea\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you stare at screens all day?",
+  "b1": "After an hour of screens, you blink far less than normal.",
+  "b2": "By four hours, your eyes feel dry, and your vision can blur.",
+  "b3": "After six hours, eye strain can bring on a headache.",
+  "b4": "By eight hours, your neck and shoulders start to ache.",
+  "b5": "By evening, screen light can delay your sleep.",
+  "end": "So, when did you last look away from a screen?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b2",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.25,
+   0.25
+  ],
+  [
+   "swell.wav",
+   "b2:blur",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.25,
+   0.25
+  ],
+  [
+   "heartbeat.wav",
+   "b3:headache",
+   -0.02,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b3:headache",
+   0.28,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b3:headache",
+   0.58,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b5",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b5",
+   -0.25,
+   0.55
+  ],
+  [
+   "swell.wav",
+   "b5:evening",
+   0,
+   0.3
+  ],
+  [
+   "sparkle.wav",
+   "end:look",
+   0.1,
+   0.5
+  ]
+ ]
+}

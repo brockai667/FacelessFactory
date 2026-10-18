@@ -1,0 +1,178 @@
+{
+ "topic": "What happens if you hold your breath?",
+ "slug": "what-holding-breath-does",
+ "title": "What holding breath does",
+ "hook": "What happens if you hold your breath?",
+ "banner": [
+  "HOLDING YOUR",
+  "BREATH?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "10 SECONDS",
+   "line": "For the first ten seconds or so, holding your breath feels easy.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "smile",
+       "at": "easy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 SECONDS",
+   "line": "By thirty seconds, rising carbon dioxide creates a strong urge to breathe.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "seconds"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "carbon",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "urge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "60 SECONDS",
+   "line": "After sixty seconds, your diaphragm can start to spasm and jerk.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "spasm"
+      },
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "jerk"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "90 SECONDS",
+   "line": "By about ninety seconds, most people already feel a strong urge to gasp.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "seconds"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "urge",
+     "big": "30-90",
+     "small": "SECONDS TYPICAL",
+     "icon": "clock",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#e1f1e8"
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Did you hold your breath while watching this?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "hold"
+   },
+   {
+    "r": "wave",
+    "at": "watching"
+   }
+  ]
+ },
+ "description": "Why the urge to breathe builds so fast when you hold your breath.",
+ "tags": [
+  "#breath",
+  "#lungs",
+  "#science",
+  "#body"
+ ],
+ "facts": [
+  {
+   "claim": "Holding your breath causes carbon dioxide to build up, which triggers a strong urge to breathe.",
+   "source": "NIH"
+  },
+  {
+   "claim": "As breath-holding continues, involuntary diaphragm contractions (spasms) can occur.",
+   "source": "NIH / Mayo Clinic"
+  },
+  {
+   "claim": "Most healthy people can comfortably hold their breath for about 30 to 90 seconds.",
+   "source": "Mayo Clinic"
+  }
+ ],
+ "queue_file": "010-breath.json",
+ "accent": "#2f8f6a",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "hero": {
+  "outfit": "tshirt",
+  "hairStyle": "cap",
+  "hair": "#6b6b6b",
+  "skin": "brown",
+  "suit": "#3fa37c",
+  "suitDark": "#2f7f60",
+  "pants": "#2f3e46",
+  "pantsDark": "#222d33",
+  "patch": "#ffffff",
+  "glasses": false,
+  "lashes": true,
+  "capColor": "#2f8f6a"
+ },
+ "loop": "blink",
+ "music_i": 10,
+ "direction": {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "cap",
+  "skin": "brown",
+  "palette": "p3"
+ }
+}

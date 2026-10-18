@@ -1,0 +1,190 @@
+{
+ "title": "Never Step Outside",
+ "hook": "What if you never step outside ever?",
+ "banner": "WHAT IF YOU\nNEVER GO OUT",
+ "format": "gauge",
+ "env": "room",
+ "outfit": "pajamas",
+ "mood_music": "calm",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "1 DAY",
+   "line": "Your skin turns pale, missing the sun's warm, golden daily hue.",
+   "idea": "Close-up of the character's face, skin fading to a pallid tone as a dim sun icon fades.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "sick",
+       "at": "pale"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 DAYS",
+   "line": "Your internal clock drifts, making you feel sleepy at midnight every night.",
+   "idea": "Inside the brain, a pineal gland clock spins off‑beat, the character yawns under a night‑light.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "yawn",
+       "at": "sleepy"
+      },
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "midnight"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "7 DAYS",
+   "line": "Vitamin D plummets, so bone cells begin to soften and weaken.",
+   "idea": "A cartoon cross‑section of a bone shows porous spots, calcium icons disappearing.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "weaken"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "14 DAYS",
+   "line": "Serotonin drops, and your mood flattens, feeling as flat as a pancake.",
+   "idea": "Brain illustration with serotonin droplets draining, the character's expression becomes flat.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "flatten",
+       "at": "flattens"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 DAYS",
+   "line": "Your immune cells shrink noticeably, leaving you vulnerable to everyday colds.",
+   "idea": "White blood cells shrink in size as tiny virus cartoons approach the character.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "vulnerable"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "Your",
+     "big": "30 DAYS",
+     "small": "IMMUNE SHRINK",
+     "icon": "drop",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#dfeaf5"
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how staying indoors harms body systems.",
+ "tags": [
+  "#IndoorLife",
+  "#HealthFacts",
+  "#ScienceShort"
+ ],
+ "facts": [
+  {
+   "claim": "Lack of sunlight reduces melanin production, leading to paler skin.",
+   "source": "NIH, Skin and Sunlight"
+  },
+  {
+   "claim": "Insufficient natural light disrupts circadian rhythm, causing sleep disturbances.",
+   "source": "Mayo Clinic, Circadian Rhythm"
+  },
+  {
+   "claim": "Vitamin D deficiency from no sun exposure weakens bone mineral density.",
+   "source": "NIH, Vitamin D and Bone Health"
+  },
+  {
+   "claim": "Reduced sunlight exposure lowers serotonin, contributing to low mood.",
+   "source": "WHO, Light Exposure and Mood"
+  },
+  {
+   "claim": "Vitamin D deficiency can impair immune function, increasing infection risk.",
+   "source": "NIH, Vitamin D and Immunity"
+  }
+ ],
+ "end": {
+  "line": "So, would you ever stay indoors forever?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "forever"
+   },
+   {
+    "r": "wave",
+    "at": "indoors"
+   }
+  ]
+ },
+ "slug": "never-step-outside",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "outfit": "pajamas",
+  "hairStyle": "bald",
+  "hair": "#5a3a28",
+  "skin": "brown",
+  "suit": "#3f73b8",
+  "suitDark": "#2f5a93",
+  "pants": "#34466a",
+  "pantsDark": "#26344f",
+  "patch": "#f6c343",
+  "glasses": false,
+  "lashes": false,
+  "capColor": "#2a74b3"
+ },
+ "loop": "kit",
+ "music_i": 0,
+ "topic": "What happens if you never go outside?",
+ "direction": {
+  "format": "gauge",
+  "chrome": "bubble",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "dynamic",
+  "hair": "bald",
+  "skin": "brown",
+  "palette": "p0"
+ }
+}

@@ -1,0 +1,184 @@
+{
+ "title": "What freezing cold does",
+ "hook": [
+  "FREEZING COLD",
+  "OUTSIDE?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#7a5fa0",
+ "kit": {
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_stat.js",
+  "panels_body.js",
+  "recipes.js"
+ ],
+ "description": "Stage by stage, how your body fights to stay warm as the cold sets in.\n#cold #hypothermia #science #body\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Echoes of Time.mp3",
+  "at": 4.0,
+  "vol": 0.94,
+  "credit": "Music: \"Echoes of Time\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you stay out in freezing cold?",
+  "b1": "In freezing air, your body starts shivering to make heat.",
+  "b2": "Blood vessels in your skin narrow, so your fingers go numb.",
+  "b3": "Below thirty-five degrees, doctors call it hypothermia.",
+  "b4": "Around thirty-three degrees, you get clumsy and confused.",
+  "b5": "Near thirty-two degrees, shivering can stop, and your heart slows down.",
+  "end": "So, how do you stay warm when it's freezing?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "swell.wav",
+   "b1:freezing",
+   0,
+   0.3
+  ],
+  [
+   "wobble.wav",
+   "b1:shivering",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.35
+  ],
+  [
+   "sub_hit.wav",
+   "b4:confused",
+   0,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.3,
+   0.35
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.3,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "end:warm",
+   0.1,
+   0.5
+  ]
+ ]
+}

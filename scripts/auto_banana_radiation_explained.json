@@ -1,0 +1,70 @@
+{
+  "title": "Banana Radiation Explained",
+  "thumb": "RADIATION BANANA",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "Banana packs a tiny radioactive punch",
+      "hook_top": "BANANA RADIOACTIVE PUNCH",
+      "query": "banana radiation",
+      "query2": "banana radioactivity",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "A single banana contains about 0.1 microsieverts of radiation.",
+      "chips": [
+        {
+          "t": "0.1 µSv",
+          "on": "radiation",
+          "style": "accent"
+        }
+      ],
+      "query": "banana radiation dose",
+      "query2": "microsievert banana",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "The source is potassium‑40, a naturally occurring isotope in all potassium.",
+      "chips": [
+        {
+          "t": "Potassium‑40",
+          "on": "isotope",
+          "style": "white"
+        }
+      ],
+      "query": "potassium-40 bananas",
+      "query2": "potassium isotope banana",
+      "role": "fact"
+    },
+    {
+      "type": "reveal",
+      "text": "Despite the radiation, eating bananas is completely safe.",
+      "reveal_top": "SAFE BANANA RADIATION",
+      "query": "banana safety radiation",
+      "query2": "banana health radioactivity",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "follow button",
+      "query2": "subscribe prompt",
+      "role": "cta"
+    }
+  ],
+  "description": "Bananas emit a minuscule amount of radiation thanks to potassium‑40. The dose is far below any health risk, so you can enjoy them worry‑free. Follow for more mind‑blowing facts!",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#banana",
+    "#radiation",
+    "#mindblown"
+  ],
+  "place": "",
+  "country": ""
+}

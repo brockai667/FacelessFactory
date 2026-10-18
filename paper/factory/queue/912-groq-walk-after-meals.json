@@ -1,0 +1,159 @@
+{
+ "title": "Walk After Meals",
+ "hook": "What if you walked after every meal?",
+ "banner": "WALK AFTER MEALS\nGET FIT FAST",
+ "format": "gauge",
+ "env": "field",
+ "scene": "park path",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "5 MIN",
+   "line": "your leg muscles start pulling glucose, flattening the blood‑sugar spike.",
+   "idea": "Character walking, glowing glucose particles moving from bloodstream into leg muscles.",
+   "scene": "sidewalk",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "skinny_legs",
+       "at": "muscles"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "from": "spike",
+     "do": [
+      {
+       "a": "flow",
+       "at": "spike"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "15 MIN",
+   "line": "insulin sensitivity rises, letting cells soak up sugar faster.",
+   "idea": "Close‑up of cells lighting up as insulin icons zip in.",
+   "scene": "cell view",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "rises",
+     "do": [
+      {
+       "a": "fast",
+       "at": "rises"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 MIN",
+   "line": "your stomach empties a bit faster, easing heartburn.",
+   "idea": "Stomach cartoon with a timer, bubbles fading as food moves down.",
+   "scene": "abdomen",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jog",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 HR",
+   "line": "blood triglycerides stay low, easing heart strain after the feast.",
+   "idea": "Blood vessel with fat droplets shrinking, heart beating calmly.",
+   "scene": "vascular",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "low",
+     "big": "LOW",
+     "small": "TRIGLYCERIDES",
+     "icon": "drop",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 HR",
+   "line": "metabolism stays revved, burning extra calories for hours.",
+   "idea": "Silhouette with a gentle flame behind, calories icons disappearing.",
+   "scene": "metabolic",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jog",
+       "at": "hours"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick walk after meals triggers a cascade of metabolic benefits, from smoother blood sugar to lasting calorie burn.",
+ "tags": [
+  "#HealthHack",
+  "#PostMealWalk",
+  "#MetabolismBoost"
+ ],
+ "facts": [
+  {
+   "claim": "Walking for 5 minutes after a meal reduces postprandial blood glucose spikes.",
+   "source": "American Diabetes Association"
+  },
+  {
+   "claim": "A short post‑meal walk improves insulin sensitivity for up to two hours.",
+   "source": "National Institutes of Health"
+  },
+  {
+   "claim": "Light activity after eating speeds gastric emptying, lowering heartburn risk.",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "Walking after a meal lowers postprandial triglyceride levels.",
+   "source": "Harvard Health Publishing"
+  },
+  {
+   "claim": "Post‑meal walking raises metabolic rate for several hours, increasing calorie burn.",
+   "source": "Journal of Applied Physiology"
+  }
+ ],
+ "end": {
+  "line": "Will you walk after your next bite?",
+  "do": [
+   {
+    "r": "walk",
+    "at": "walk"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "bite"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you walk after each meal?",
+ "slug": "walk-after-meals"
+}

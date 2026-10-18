@@ -1,0 +1,179 @@
+{
+ "title": "Sleeping in a Coffin",
+ "hook": "What if you slept in a coffin?",
+ "banner": "COFFIN SLEEP\nWHAT HAPPENS",
+ "format": "timeline",
+ "env": "room",
+ "scene": "inside a wooden coffin",
+ "outfit": "pajamas",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "After a few hours",
+   "line": "CO2 rises, and your head throbs with pressure.",
+   "idea": "Cartoon shows character inside coffin, breath clouds turning green, head with pressure lines",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "rises"
+      },
+      {
+       "r": "pain",
+       "at": "throbs"
+      },
+      {
+       "r": "puff",
+       "at": "CO2"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By the end of day one",
+   "line": "Oxygen falls, and your heart races to pull in more air.",
+   "idea": "Close‑up of heart beating faster, oxygen meter low",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "falls"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "races"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After two days",
+   "line": "Your calves seize up, delivering sharp, painful cramps.",
+   "idea": "Legs show tight muscles and little sparkles indicating cramps",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "skinny_legs",
+       "at": "calves"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "cramps"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By a week",
+   "line": "A sore forms on your scalp, and you toss restlessly.",
+   "idea": "Zoom on skin with red dots, character tossing restlessly",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "sore"
+      },
+      {
+       "r": "shiver",
+       "arg": 1,
+       "at": "restlessly"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a month",
+   "line": "Your blood volume drops, and standing makes you dizzy.",
+   "idea": "Skeleton inside shows slightly thinner bones, character wobbling as he exits",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "dizzy"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "drops"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how a night in a coffin affects your body.",
+ "tags": [
+  "#Science",
+  "#CoffinSleep",
+  "#BodyEffects"
+ ],
+ "facts": [
+  {
+   "claim": "Carbon dioxide buildup in a sealed space can cause head pressure and lightheadedness",
+   "source": "NIH, Hypercapnia overview"
+  },
+  {
+   "claim": "Low oxygen levels cause the heart to beat faster to deliver oxygen",
+   "source": "Mayo Clinic, Hypoxia (low oxygen)"
+  },
+  {
+   "claim": "Prolonged immobility leads to muscle stiffness and cramps",
+   "source": "Mayo Clinic, Muscle cramps"
+  },
+  {
+   "claim": "Extended pressure on skin can cause pressure spots (pressure ulcers)",
+   "source": "NIH, Pressure ulcers"
+  },
+  {
+   "claim": "Lack of movement for a month can cause a small loss in bone density",
+   "source": "Mayo Clinic, Bone loss due to immobilization"
+  }
+ ],
+ "end": {
+  "line": "Would you still choose the coffin?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "choose"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you sleep in a coffin?",
+ "slug": "sleeping-in-a-coffin"
+}

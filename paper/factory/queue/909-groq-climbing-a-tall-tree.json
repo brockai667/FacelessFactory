@@ -1,0 +1,158 @@
+{
+ "title": "Climbing a Tall Tree",
+ "hook": "What if you climb a giant tree?",
+ "banner": "CLIMB A TALL OAK\nSO WHAT NOW?",
+ "format": "gauge",
+ "env": "field",
+ "scene": "forest",
+ "outfit": "tshirt",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "10 M",
+   "line": "10 M: Your breathing speeds up as you climb harder.",
+   "idea": "Character on a low branch, chest expanding, visible breath.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pant",
+       "at": "speeds"
+      },
+      {
+       "r": "jog",
+       "arg": 3,
+       "at": "climb"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "20 M",
+   "line": "20 M: Your heart beats faster, pumping blood to supply oxygen.",
+   "idea": "Close‑up of a heart beating rapidly, blood rushing.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "beats"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 M",
+   "line": "30 M: Your head feels light, a faint dizziness from effort.",
+   "idea": "Character wobbling, stars swirling around head.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "dizziness"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "40 M",
+   "line": "40 M: Your fingertips tingle, gripping bark with sweaty hands.",
+   "idea": "Ear with sound waves and a pop icon.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "sweat",
+       "at": "sweaty"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "from": "tingle",
+     "do": [
+      {
+       "a": "confused",
+       "at": "tingle"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "50 M",
+   "line": "50 M: A cold breeze hits, your skin tingles.",
+   "idea": "Character shivering, visible breath, goosebumps.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "arg": 2,
+       "at": "cold"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A whimsical look at how climbing a tall oak changes your body step by step.",
+ "tags": "#TreeClimb #Altitude #Science",
+ "facts": [
+  {
+   "claim": "Atmospheric pressure drops with altitude, reducing oxygen availability and increasing breathing rate.",
+   "source": "NASA, High Altitude Physiology"
+  },
+  {
+   "claim": "Heart rate increases at higher altitudes to deliver more oxygen to tissues.",
+   "source": "Mayo Clinic, Altitude sickness"
+  },
+  {
+   "claim": "Blood oxygen saturation can decrease, leading to light‑headedness.",
+   "source": "NIH, Acute Mountain Sickness"
+  },
+  {
+   "claim": "Ear pressure changes at altitude can cause ear popping and ringing.",
+   "source": "American Academy of Otolaryngology, Barotrauma"
+  },
+  {
+   "claim": "Air temperature typically drops about 6°C per 1000 m, cooling the skin.",
+   "source": "NASA, Atmospheric Temperature"
+  }
+ ],
+ "end": {
+  "line": "Would you keep climbing?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "keep"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you climb a tall tree?",
+ "slug": "climbing-a-tall-tree"
+}

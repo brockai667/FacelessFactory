@@ -1,0 +1,171 @@
+{
+ "title": "Standing All Day",
+ "hook": "What if you stand all day at work?",
+ "banner": "WHAT IF YOU STAND\nALL DAY?",
+ "format": "countdown",
+ "env": "room",
+ "scene": "office",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your feet swell as fluid pools, looking puffy.",
+   "idea": "Close‑up of cartoon feet swelling, water droplets appear",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "puffy"
+      },
+      {
+       "r": "bigger",
+       "at": "swell"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Your calf veins bulge, turning dark blue under pressure.",
+   "idea": "Calf side view shows prominent blue veins expanding",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "bulge"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your lower back aches as spinal compression and muscle fatigue set in.",
+   "idea": "Character holds lower back, spine compresses, muscles show strain",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "aches"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "spine",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "spinal"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your heart races, pumping blood upward against gravity's pull.",
+   "idea": "Heart graphic beats faster with arrows pointing upward",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "races"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "races"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "A clot may form, raising deep‑vein thrombosis risk.",
+   "idea": "Close‑up of leg vein showing a red clot forming",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "clot"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "clot"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how standing all day impacts your body, from swollen feet to clot risk.",
+ "tags": [
+  "#standing",
+  "#health",
+  "#office",
+  "#wellness"
+ ],
+ "facts": [
+  {
+   "claim": "Prolonged standing can cause fluid buildup in the lower legs, leading to swelling.",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "Standing for long periods can make varicose veins more visible and cause them to bulge.",
+   "source": "CDC"
+  },
+  {
+   "claim": "Extended standing can increase lower back pain due to spinal compression and muscle fatigue.",
+   "source": "NIH"
+  },
+  {
+   "claim": "Standing raises heart rate to pump blood against gravity, increasing cardiovascular load.",
+   "source": "American Heart Association"
+  },
+  {
+   "claim": "Long periods of standing can increase the risk of deep vein thrombosis.",
+   "source": "Mayo Clinic"
+  }
+ ],
+ "end": {
+  "line": "Would you still stand all day?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "stand"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you stand while working all day?",
+ "slug": "standing-all-day"
+}

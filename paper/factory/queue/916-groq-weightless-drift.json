@@ -1,0 +1,156 @@
+{
+ "title": "Weightless Drift",
+ "hook": "What if you floated in zero‑gravity?",
+ "banner": "FLOATING ZERO?\nWHAT HAPPENS",
+ "format": "vertical short",
+ "env": "room",
+ "scene": "white training chamber with floating tools",
+ "outfit": "labcoat",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "After ten minutes",
+   "line": "After ten minutes, blood pools in your head, puffing your face.",
+   "idea": "Character's face inflates, nose flares, blood streams upward.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "puffing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After twenty-four hours",
+   "line": "After twenty-four hours, your inner ear can't tell up, causing nausea.",
+   "idea": "Close‑up of inner ear fluid swirling, character tilting, dizzy expression.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "nausea"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "up"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By day three",
+   "line": "By day three, your heart speeds up as leg blood return drops.",
+   "idea": "Heart animation beats faster, leg veins collapse, chest rises.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "skinny_legs",
+       "at": "leg"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "speeds"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Six months in",
+   "line": "Six months in, bones lose roughly one percent density each month.",
+   "idea": "X‑ray view of thinning bones, character struggling to lift a light object.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "months"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "lose"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "one",
+     "big": "1%",
+     "small": "DENSITY LOSS PER MONTH",
+     "icon": "bone",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A paper‑craft cartoon shows how the body reacts to floating in zero‑gravity.",
+ "tags": [
+  "#ZeroGravity",
+  "#SpaceScience",
+  "#BodyEffects"
+ ],
+ "facts": [
+  {
+   "claim": "In microgravity, fluids shift toward the head, causing facial puffiness and nasal congestion.",
+   "source": "NASA Human Research Program"
+  },
+  {
+   "claim": "The vestibular system experiences fluid redistribution, leading to disorientation and motion sickness within the first day.",
+   "source": "NASA, Space Adaptation Syndrome"
+  },
+  {
+   "claim": "Cardiovascular deconditioning occurs within days, with heart rate increasing due to reduced venous return.",
+   "source": "NIH, Cardiovascular Adaptation to Microgravity"
+  },
+  {
+   "claim": "Bone mineral density decreases about 1% per month during prolonged weightlessness.",
+   "source": "NASA, Bone Loss in Space"
+  }
+ ],
+ "end": {
+  "line": "Would you float forever?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "float"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you float in a zero‑gravity simulation?",
+ "slug": "weightless-drift"
+}

@@ -1,0 +1,185 @@
+{
+ "title": "Dinner Swapped for Water",
+ "hook": "What if you skip dinner and drink only water?",
+ "banner": "WHAT IF YOU SKIP\nONLY WATER",
+ "format": "countdown",
+ "env": "room",
+ "scene": "kitchen",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your body shifts to burning stored fat for fuel.",
+   "idea": "A close‑up of a glucose meter needle falling as the character trembles.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "shifts"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "spine",
+     "from": "burning",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "burning",
+       "badge": [
+        "FAT",
+        "BURN",
+        ""
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Your basal metabolism dips, conserving calories.",
+   "idea": "Cartoon fat cells shrink and melt away while a fire icon lights up inside the belly.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "dips"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your stomach empties, reducing hunger signals.",
+   "idea": "A heart icon slows its beat and a thermostat dial turns down.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "empties"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "reducing",
+     "do": [
+      {
+       "a": "slow",
+       "at": "reducing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Brain fog sets in, you feel mildly drunk.",
+   "idea": "The character’s stomach balloon deflates, and a sigh of relief appears.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "drunk"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "fog",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "fog"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Blood sugar drops, you feel shaky.",
+   "idea": "A brain clouded with mist and wobbling eyes, a tiny cocktail glass icon fades in.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "at": "shaky"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "from": "drops",
+     "do": [
+      {
+       "a": "flow",
+       "at": "drops"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how your body reacts when you replace dinner with water.",
+ "tags": [
+  "#fasting",
+  "#nutrition",
+  "#science",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "Skipping dinner can cause blood glucose to drop, leading to shakiness.",
+   "source": "Mayo Clinic – Low blood sugar (hypoglycemia)"
+  },
+  {
+   "claim": "After about 12–16 hours without food, the body shifts to fat oxidation (ketosis).",
+   "source": "NIH – Intermittent fasting and metabolism"
+  },
+  {
+   "claim": "Prolonged fasting can reduce basal metabolic rate as the body conserves energy.",
+   "source": "Mayo Clinic – Metabolism and fasting"
+  },
+  {
+   "claim": "Stomach size can reduce after periods of fasting, decreasing hunger signals.",
+   "source": "NIH – Gastric emptying and hunger"
+  },
+  {
+   "claim": "Fasting can cause mild cognitive impairment and a feeling of brain fog, similar to mild alcohol intoxication.",
+   "source": "Mayo Clinic – Fasting and mental performance"
+  }
+ ],
+ "end": {
+  "line": "Would you swap dinner for water?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "water"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you replace dinner with water?",
+ "slug": "dinner-swapped-for-water"
+}

@@ -1,0 +1,220 @@
+{
+ "title": "What no sleep does to you",
+ "hook": [
+  "WHAT IF YOU",
+  "NEVER SLEEP?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.4,
+ "bg": "#e8a18c",
+ "accent": "#7a5fa0",
+ "kit": {
+  "chrome": "sticky",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Why skipping sleep hits your brain, heart and eyes so fast.\n#sleep #brain #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Lightless Dawn.mp3",
+  "at": 8.0,
+  "vol": 2.53,
+  "credit": "Music: \"Lightless Dawn\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you stop sleeping?",
+  "b1": "After twenty-four hours, your brain works like you're legally drunk.",
+  "b2": "After thirty-six hours, your brain starts shutting off for seconds at a time.",
+  "b3": "After forty-eight hours, stress hormones rise, and your heart beats faster.",
+  "b4": "After seventy-two hours, you may start seeing things that aren't there.",
+  "b5": "The record without sleep is about eleven days.",
+  "end": "So, how much did you sleep last night?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "sparkle.wav",
+   "b1:drunk",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "thud.wav",
+   "b2:shutting",
+   0.35,
+   0.35
+  ],
+  [
+   "thud.wav",
+   "b2:time",
+   0.35,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b3",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.25,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b4",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.25,
+   0.25
+  ],
+  [
+   "swell.wav",
+   "b4:seventytwo",
+   0,
+   0.3
+  ],
+  [
+   "swell.wav",
+   "b4:seeing",
+   0,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "b4:seeing",
+   0.4,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.6
+  ],
+  [
+   "paper.wav",
+   "b5",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.25,
+   0.25
+  ],
+  [
+   "paper.wav",
+   "end",
+   -0.3,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.25,
+   0.25
+  ]
+ ]
+}

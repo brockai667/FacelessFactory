@@ -1,0 +1,156 @@
+{
+ "title": "High Altitude Whistle",
+ "hook": "What happens if you whistle at high altitude?",
+ "banner": "WHISTLE AT\n5000 M?",
+ "format": "increasing altitude",
+ "env": "field",
+ "scene": "snowy mountain peak",
+ "outfit": "hoodie",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "1000 M",
+   "line": "At 1000 meters, your lungs work normally, and the whistle sounds clear.",
+   "idea": "Character whistles happily; sound waves travel smoothly in clean air.",
+   "scene": "green meadow",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "whistle"
+      },
+      {
+       "r": "puff",
+       "at": "whistle"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "1000 M",
+     "small": "NORMAL LUNGS",
+     "icon": "lungs",
+     "do": []
+    }
+   ]
+  },
+  {
+   "label": "3000 M",
+   "line": "At 3000 meters, thin air makes breaths feel shallow, and your whistle sounds quieter.",
+   "idea": "Character inhales visibly; chest expands; sound waves look slightly denser but still travel.",
+   "scene": "rocky slope",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "shallow"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5000 M",
+   "line": "At 5000 meters, low oxygen makes your heart beat faster to keep you safe.",
+   "idea": "Close-up of heart beating rapidly; character’s face flushes slightly; sound waves wobble.",
+   "scene": "snowy ridge",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "faster"
+      },
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "beat"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "fast"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "8000 M",
+   "line": "At 8000 meters, cold air slows sound, so your whistle sounds deeper.",
+   "idea": "Sound waves stretch out and slow down; character looks confused by the pitch change.",
+   "scene": "high altitude cliff",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "arg": 2,
+       "at": "cold"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "deeper"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "deeper"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A character whistles on a mountain, showing how thinning air affects sound and breathing.",
+ "tags": [
+  "#physics",
+  "#altitude",
+  "#science",
+  "#whistle"
+ ],
+ "facts": [
+  {
+   "claim": "Air density decreases with altitude, reducing the speed of sound.",
+   "source": "NASA"
+  },
+  {
+   "claim": "Lower oxygen levels at high altitude increase heart rate and breathing rate.",
+   "source": "Mayo Clinic"
+  }
+ ],
+ "end": {
+  "line": "Would you try whistling up there?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "try"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you whistle at high altitude?",
+ "slug": "high-altitude-whistle"
+}

@@ -1,0 +1,61 @@
+{
+  "title": "Mysteries of the Human Nose",
+  "thumb": "NOSE SECRETS",
+  "scenes": [
+    {
+      "text": "The nose can sniff a trillion scents",
+      "hook_top": "TRILLION SCENT DETECTOR",
+      "query": "human nose trillion scents",
+      "query2": "nose smell trillion",
+      "role": "hook"
+    },
+    {
+      "text": "It can remember smells for decades",
+      "num": 1,
+      "label": "SMELLS LAST DECADES",
+      "label_on": "remember",
+      "query": "olfactory memory longevity",
+      "query2": "smell memory decades",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "It can sense subtle changes in humidity",
+      "num": 2,
+      "label": "DETECTS HUMIDITY",
+      "label_on": "sense",
+      "query": "nose humidity detection",
+      "query2": "olfactory humidity sensing",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Airflow through the nostrils creates a faint hum",
+      "num": 3,
+      "label": "GENERATES HUM",
+      "label_on": "hum",
+      "query": "nasal airflow sound",
+      "query2": "nose humming noise",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "text": "Follow for facts that sound fake but aren't.",
+      "query": "follow button animation",
+      "query2": "subscribe call to action",
+      "role": "cta"
+    }
+  ],
+  "description": "Your nose does far more than just breathe— it remembers, measures, and even hums. Dive into these three surprising abilities. Stay tuned for more mind‑blowing body secrets.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#science",
+    "#bodyfacts",
+    "#mystery",
+    "#mindblowing",
+    "#humanbody"
+  ],
+  "place": "",
+  "country": ""
+}

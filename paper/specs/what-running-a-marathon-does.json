@@ -1,0 +1,226 @@
+{
+ "topic": "What happens if you run a marathon?",
+ "slug": "what-running-a-marathon-does",
+ "title": "What running a marathon does",
+ "hook": "What happens if you run a marathon?",
+ "banner": [
+  "RUNNING A",
+  "MARATHON?"
+ ],
+ "format": "gauge",
+ "env": "field",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "5 MI",
+   "line": "Five miles in, your heart rate climbs and breathing quickens.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jog",
+       "arg": 3.0,
+       "at": "Five"
+      },
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "miles"
+      },
+      {
+       "r": "sweat",
+       "at": "breathing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "13 MI",
+   "line": "By mile thirteen, your heart pumps harder to hold pace.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jog",
+       "arg": 2.5,
+       "at": "By"
+      },
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "mile"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "20 MI",
+   "line": "Around mile twenty, stored glycogen runs low, and you hit the wall.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "MILE 20",
+     "small": "HITTING THE WALL",
+     "icon": "down",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#f7e3d9"
+    },
+    {
+     "type": "world",
+     "from": "hit",
+     "do": [
+      {
+       "r": "slump",
+       "at": "wall"
+      },
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "hit"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "24 MI",
+   "line": "By mile twenty-four, heavy sweat can leave you dehydrated.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jog",
+       "arg": 2.5,
+       "at": "By"
+      },
+      {
+       "r": "sweat",
+       "at": "sweat"
+      },
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "dehydrated"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "26 MI",
+   "line": "At the finish, sore muscles remind you of every mile.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "sore"
+      },
+      {
+       "r": "pain",
+       "at": "muscles"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you ever run a full marathon?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "run"
+   },
+   {
+    "r": "wave",
+    "at": "marathon"
+   }
+  ]
+ },
+ "description": "How your heart, energy stores and muscles react as marathon miles add up.",
+ "tags": [
+  "#marathon",
+  "#running",
+  "#science",
+  "#fitness"
+ ],
+ "facts": [
+  {
+   "claim": "During prolonged exercise, heart rate and breathing rate rise to deliver more oxygen to muscles.",
+   "source": "NIH / American Heart Association"
+  },
+  {
+   "claim": "Stored muscle glycogen can run low around mile 18 to 20, a state runners call 'hitting the wall'.",
+   "source": "Mayo Clinic"
+  },
+  {
+   "claim": "Heavy sweating during endurance exercise causes fluid loss and can lead to dehydration if not replaced.",
+   "source": "CDC / Mayo Clinic"
+  },
+  {
+   "claim": "Muscle soreness after prolonged exercise is common and usually eases within a few days.",
+   "source": "Mayo Clinic"
+  }
+ ],
+ "queue_file": "008-marathon.json",
+ "accent": "#d9483b",
+ "kit": {
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "hero": {
+  "outfit": "tshirt",
+  "hairStyle": "short",
+  "hair": "#6b6b6b",
+  "skin": "light",
+  "suit": "#e0674f",
+  "suitDark": "#bf4f3a",
+  "pants": "#3a4a5a",
+  "pantsDark": "#2a3642",
+  "patch": "#f6c343",
+  "glasses": false,
+  "lashes": false,
+  "capColor": "#d9483b"
+ },
+ "loop": "clouds",
+ "music_i": 8,
+ "direction": {
+  "format": "gauge",
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "short",
+  "skin": "light",
+  "palette": "p2"
+ },
+ "scene": "road"
+}

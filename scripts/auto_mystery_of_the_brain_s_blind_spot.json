@@ -1,0 +1,73 @@
+{
+  "title": "Mystery of the Brain’s Blind Spot",
+  "thumb": "BLIND SPOT",
+  "scenes": [
+    {
+      "type": "hook",
+      "text": "One tiny blind spot hides behind your eyes",
+      "hook_top": "ONE TINY BLIND SPOT",
+      "query": "human eye blind spot",
+      "query2": "optic nerve blind spot",
+      "role": "hook"
+    },
+    {
+      "type": "fact",
+      "text": "The optic nerve creates a blind spot about 5° wide where no photoreceptors exist",
+      "chips": [
+        {
+          "t": "5° WIDE",
+          "on": "size",
+          "style": "white"
+        }
+      ],
+      "punch": "wow",
+      "query": "optic nerve blind spot size",
+      "query2": "human eye blind spot dimensions",
+      "role": "fact"
+    },
+    {
+      "type": "fact",
+      "text": "Your brain automatically fills in the missing image, so you never notice the gap",
+      "chips": [
+        {
+          "t": "BRAIN FILLS GAP",
+          "on": "fill",
+          "style": "accent"
+        }
+      ],
+      "query": "brain visual filling blind spot",
+      "query2": "perceptual completion blind spot",
+      "role": "fact"
+    },
+    {
+      "type": "callout",
+      "text": "Your brain tricks you daily",
+      "label": "VISUAL ILLUSION",
+      "sub": "The brain fills the gap automatically",
+      "label_on": "trick",
+      "query": "brain visual illusion blind spot",
+      "query2": "perception blind spot",
+      "role": "fact",
+      "chips": []
+    },
+    {
+      "type": "cta",
+      "text": "Follow for a mind-blowing fact every day.",
+      "query": "brain facts channel",
+      "query2": "mind blowing science shorts",
+      "role": "cta"
+    }
+  ],
+  "description": "Discover why you never see the tiny blind spot in each eye and how your brain covers it up. Stay curious and unlock more hidden secrets of the mind.",
+  "hashtags": [
+    "#shorts",
+    "#fyp",
+    "#brainfacts",
+    "#science",
+    "#mindblowing",
+    "#visualillusion",
+    "#biology"
+  ],
+  "place": "",
+  "country": ""
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=1080, height=1920"/>
+<title>__TITLE__</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @font-face { font-family: "Pop"; src: url("assets/fonts/Poppins-SemiBold.ttf"); font-weight: 600; }
+  @font-face { font-family: "Serif"; src: url("assets/fonts/DMSerifDisplay-Regular.ttf"); font-weight: 400; }
+  @font-face { font-family: "Hand"; src: url("assets/fonts/ComicNeue-Bold.ttf"); font-weight: 700; }
+  :root { --accent: __ACCENT__; --paper: #fbf5ea; --ink: #2b2320; --hl: #fff27a; --note: #ffe57a; --stamp: #d9483b; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: __BG__; }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: __BG__; }
+  #camRot { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 540px 960px; }
+  .lay { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 540px 960px; }
+  svg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+  #night { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: #1b2346; opacity: 0; z-index: 1; }
+  #tone { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: #ffb070; opacity: 0; z-index: 1; mix-blend-mode: multiply; }
+  #panels { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 2; }
+  .panel { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; opacity: 0; overflow: hidden; }
+  .pin { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+  .ptape { display: none; }
+  #ringFx { z-index: 6; }
+  #vig { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 6; opacity: 0;
+         background: radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0) 52%, rgba(185, 28, 28, 0.6) 100%); }
+  #hook { position: absolute; left: 60px; right: 60px; top: 120px; display: flex; justify-content: center; z-index: 7; }
+  #hookIn { position: relative; background: var(--paper); padding: 34px 46px 30px; border-radius: 12px;
+            box-shadow: 0 10px 0 rgba(90, 42, 26, 0.25); text-align: center; }
+  .hl { display: block; font-family: "Pop"; font-weight: 600; font-size: 74px; line-height: 1.12; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap; }
+  .hl.b { color: var(--accent); }
+  #day { position: absolute; left: 0; right: 0; top: 128px; display: flex; justify-content: center; z-index: 7; opacity: 0; }
+  #dayIn { position: relative; transform-origin: 50% 0%; }
+  .dayCard { position: relative; background: var(--paper); padding: 20px 60px 12px; border-radius: 12px;
+             box-shadow: 0 9px 0 rgba(90, 42, 26, 0.25); font-family: "Pop"; font-weight: 600; font-size: 112px; line-height: 1;
+             color: var(--ink); letter-spacing: 0.02em; white-space: nowrap; }
+  #dayTxt small { font-size: 0.5em; } #dayTxt b { font-weight: 600; }
+  .tape { position: absolute; width: 120px; height: 40px; background: rgba(242, 200, 110, 0.85); top: -18px; }
+  .t1 { left: -30px; transform: rotate(-24deg); } .t2 { right: -30px; transform: rotate(22deg); }
+  .cap { position: absolute; left: 0; right: 0; top: 1566px; text-align: center; opacity: 0; z-index: 8; }
+  .cap.l { transform: rotate(-1.8deg); } .cap.r { transform: rotate(1.5deg); }
+  .strip { display: inline-block; background: var(--paper); color: var(--ink); font-family: "Pop"; font-weight: 600; font-size: 84px;
+           line-height: 1; padding: 20px 40px 14px; border-radius: 9px; box-shadow: 0 8px 0 rgba(90, 42, 26, 0.28); white-space: nowrap; }
+  #grain { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; mix-blend-mode: multiply; opacity: 0.5; z-index: 9; }
+
+  /* ---------- CHROME: sticky (lepiace papieriky, pisane pismo, zvyraznovac) */
+  .ck-sticky #hookIn { background: var(--note); border-radius: 4px; padding: 40px 52px 34px; transform: rotate(-2.2deg);
+                       box-shadow: 0 18px 18px -12px rgba(90, 70, 0, 0.55); }
+  .ck-sticky .tape { display: none; }
+  .ck-sticky .hl { font-family: "Hand"; font-weight: 700; font-size: 84px; line-height: 1.08; }
+  .ck-sticky .hl.b { color: var(--stamp); }
+  .ck-sticky #day { left: 64px; right: auto; top: 112px; justify-content: flex-start; }
+  .ck-sticky #dayIn { transform-origin: 50% 0%; }
+  .ck-sticky .dayCard { background: var(--note); border-radius: 3px; padding: 30px 46px 20px; font-family: "Hand"; font-weight: 700;
+                        font-size: 98px; transform: rotate(-5deg); box-shadow: 0 18px 16px -12px rgba(90, 70, 0, 0.55); }
+  .ck-sticky .strip { background: linear-gradient(transparent 44%, var(--hl) 44%, var(--hl) 90%, transparent 90%); box-shadow: none;
+                      font-family: "Hand"; font-weight: 700; font-size: 96px; padding: 4px 20px; border-radius: 0; }
+  /* ---------- CHROME: stamp (peciatka, stitkovac) */
+  .ck-stamp #hookIn { background: rgba(251, 245, 234, 0.94); border: 8px solid var(--stamp); outline: 3px solid var(--stamp); outline-offset: 7px;
+                      border-radius: 10px; box-shadow: none; transform: rotate(-2.5deg); padding: 30px 42px 22px; }
+  .ck-stamp .tape { display: none; }
+  .ck-stamp .hl { color: var(--stamp); letter-spacing: 0.03em; font-size: 70px; }
+  .ck-stamp .hl.b { color: var(--ink); }
+  .ck-stamp #day { left: auto; right: 64px; top: 118px; justify-content: flex-end; }
+  .ck-stamp .dayCard { background: rgba(251, 245, 234, 0.9); border: 8px solid var(--stamp); outline: 3px solid var(--stamp); outline-offset: 6px;
+                       color: var(--stamp); font-size: 90px; letter-spacing: 0.06em; padding: 16px 34px 8px; border-radius: 10px;
+                       transform: rotate(6deg); box-shadow: none; }
+  .ck-stamp .strip { background: #1f2a36; color: #f4f7fb; text-transform: uppercase; letter-spacing: 0.08em; font-size: 68px;
+                     padding: 20px 36px 14px; border-radius: 14px; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
+                     box-shadow: 0 7px 0 rgba(0, 0, 0, 0.22), inset 0 3px 0 rgba(255, 255, 255, 0.12); }
+  /* ---------- CHROME: bubble (okruhla nalepka, obrysove titulky) */
+  .ck-bubble #hookIn { background: var(--accent); border: 12px solid #ffffff; border-radius: 64px; padding: 36px 56px 30px;
+                       box-shadow: 0 12px 0 rgba(0, 0, 0, 0.16); }
+  .ck-bubble #hookIn::after { content: ""; position: absolute; left: 50%; bottom: -46px; margin-left: -34px; border: 34px solid transparent;
+                              border-top: 36px solid #ffffff; border-bottom: 0; }
+  .ck-bubble .tape { display: none; }
+  .ck-bubble .hl { color: #ffffff; } .ck-bubble .hl.b { color: #ffe57a; }
+  .ck-bubble #day { left: 54px; right: auto; top: 96px; justify-content: flex-start; }
+  .ck-bubble .dayCard { width: 260px; height: 260px; border-radius: 50%; background: var(--accent); border: 12px solid #ffffff; color: #ffffff;
+                        display: flex; align-items: center; justify-content: center; text-align: center; padding: 0; font-size: 86px;
+                        line-height: 0.95; box-shadow: 0 10px 0 rgba(0, 0, 0, 0.16); }
+  .ck-bubble #dayTxt small { display: block; font-size: 0.42em; letter-spacing: 0.08em; }
+  .ck-bubble .strip { background: none; box-shadow: none; color: #ffffff; font-size: 100px; padding: 0 10px;
+                      text-shadow: 0 7px 0 var(--ink), 7px 0 0 var(--ink), -7px 0 0 var(--ink), 0 -7px 0 var(--ink), 5px 5px 0 var(--ink),
+                                   -5px 5px 0 var(--ink), 5px -5px 0 var(--ink), -5px -5px 0 var(--ink), 0 13px 0 rgba(0, 0, 0, 0.25); }
+  .ck-bubble .cap.l, .ck-bubble .cap.r { transform: none; }
+  /* ---------- PODANIE DETAILU: card (papierova karta nad stmavenym svetom) */
+  .pk-card .panel { background: rgba(22, 26, 38, 0.45); }
+  .pk-card .pin { transform: scale(0.8) rotate(-1.4deg); border-radius: 36px; box-shadow: 0 24px 0 rgba(0, 0, 0, 0.22); }
+  .pk-card .ptape { display: block; position: absolute; width: 170px; height: 54px; background: rgba(242, 200, 110, 0.9); top: 176px; }
+  .pk-card .ptape.p1 { left: 70px; transform: rotate(-28deg); } .pk-card .ptape.p2 { right: 70px; transform: rotate(24deg); }
+  .pk-card .panel.raw { background: none; } .pk-card .panel.raw .pin { transform: none; border-radius: 0; box-shadow: none; }
+  .pk-card .panel.raw .ptape { display: none; }
+  /* vyzva na konci videa (CTA): mala nalepka pod nadpisom, vzhlad podla sady (dedi .dayCard) */
+  #cta { position: absolute; left: 0; right: 0; top: 300px; display: flex; justify-content: center; z-index: 7; opacity: 0; }
+  #ctaIn { position: relative; transform-origin: 50% 50%; }
+  #cta .dayCard { font-size: 38px; padding: 14px 34px 10px; letter-spacing: 0.08em; }
+  #cta .tape { width: 70px; height: 24px; top: -11px; left: 50%; margin-left: -35px; transform: rotate(-3deg); }
+  .ck-sticky #cta .dayCard { padding: 18px 30px 12px; font-size: 40px; transform: rotate(1.5deg); }
+  .ck-stamp #cta .dayCard { border-width: 5px; outline-width: 2px; outline-offset: 4px; padding: 10px 26px 6px; font-size: 34px; }
+  .ck-bubble #cta .dayCard { width: auto; height: auto; border-radius: 40px; border-width: 8px; padding: 12px 34px 8px; font-size: 34px; display: block; }
+</style></head>
+<body><div id="root" class="__KIT__" data-composition-id="main" data-start="0" data-duration="__DUR__" data-fps="30" data-width="1080" data-height="1920">
+<div id="camRot">
+  <div class="lay" id="layB"><svg viewBox="0 0 1080 1920"><defs id="defs">
+    <filter id="cut" x="-15%" y="-15%" width="130%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="2" flood-color="#5a2a1a" flood-opacity="0.26"/></filter>
+    <filter id="rough" x="-6%" y="-6%" width="112%" height="118%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feDropShadow in="d" dx="0" dy="8" stdDeviation="2" flood-color="#5a2a1a" flood-opacity="0.24"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="soft6" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="dof" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="haze" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence id="hazeT" type="turbulence" baseFrequency="0.012 0.05" numOctaves="2" seed="9" result="t"/>
+      <feDisplacementMap id="hazeD" in="SourceGraphic" in2="t" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <radialGradient id="gRed"><stop offset="0" stop-color="#ff9d8a" stop-opacity="0.95"/><stop offset="1" stop-color="#ff9d8a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gPink"><stop offset="0" stop-color="#ffc6d4" stop-opacity="0.95"/><stop offset="1" stop-color="#ffc6d4" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gOrange"><stop offset="0" stop-color="#ffb27a" stop-opacity="0.95"/><stop offset="1" stop-color="#ffb27a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gSun"><stop offset="0" stop-color="#fff2a8" stop-opacity="1"/><stop offset="1" stop-color="#fff2a8" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gMir"><stop offset="0" stop-color="#e2f7ff" stop-opacity="0.95"/><stop offset="1" stop-color="#e2f7ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gBody" cx="0.38" cy="0.32" r="0.8"><stop offset="0" stop-color="#eef9fc"/><stop offset="1" stop-color="#bcd9e3"/></radialGradient>
+    <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5cb6ea"/><stop offset="1" stop-color="#2a73b8"/></linearGradient>
+    <radialGradient id="gHeart" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#f06a60"/><stop offset="1" stop-color="#c73a33"/></radialGradient>
+    <radialGradient id="gCell" cx="0.35" cy="0.3" r="0.75"><stop offset="0" stop-color="#ef6d62"/><stop offset="1" stop-color="#bf2f2a"/></radialGradient>
+  </defs></svg></div>
+  <div class="lay" id="layM"><svg viewBox="0 0 1080 1920"></svg></div>
+  <div class="lay" id="layF"><svg viewBox="0 0 1080 1920"><g id="dust" fill="#fff6e6"></g></svg></div>
+</div>
+<div id="night"></div>
+<div id="tone"></div>
+<div id="panels"></div>
+<svg id="ringFx" viewBox="0 0 1080 1920"><defs><filter id="rcut" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="8" stdDeviation="4" flood-color="#5a2a1a" flood-opacity="0.35"/></filter></defs>
+  <circle id="ring" cx="540" cy="960" r="0" fill="none" stroke="#fbf5ea" stroke-width="18" opacity="0" filter="url(#rcut)"/></svg>
+<div id="vig"></div>
+<div id="hook"><div id="hookIn"><div class="tape t1"></div><div class="tape t2"></div>
+  <span class="hl">__HOOK1__</span><span class="hl b">__HOOK2__</span></div></div>
+<div id="cta"><div id="ctaIn"><div class="dayCard"><div class="tape"></div><span id="ctaTxt">COMMENT BELOW</span></div></div></div>
+<div id="day"><div id="dayIn"><div class="dayCard"><div class="tape t1"></div><div class="tape t2"></div><span id="dayTxt">DAY 1</span></div></div></div>
+<!--__CAPS__-->
+<img id="grain" src="assets/img/paper.png" alt=""/>
+<!--__AUDIO__-->
+</div>
+<script>/*__VO__*/ window.__KIT = __KITJSON__;</script>
+<!--__LIBS__-->
+<script>
+/*__EPISODE__*/
+(function () { var tl = PF.tl;
+/*__CAPJS__*/
+})();
+window.__timelines["main"] = PF.tl;
+</script>
+</body></html>

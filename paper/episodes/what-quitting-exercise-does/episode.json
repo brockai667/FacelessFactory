@@ -1,0 +1,166 @@
+{
+ "title": "What quitting exercise does",
+ "hook": [
+  "NO MORE",
+  "WORKOUTS?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Week by week: how your stamina, heart, muscles and blood pressure change when you stop working out.\n#fitness #exercise #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Inspired.mp3",
+  "at": 0.0,
+  "vol": 0.42,
+  "credit": "Music: \"Inspired\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you stop exercising?",
+  "b1": "After two weeks off, your stamina can already start to slip.",
+  "b2": "By week three, your heart beats faster for the same workout.",
+  "b3": "After a month, the muscle you built can start to shrink.",
+  "b4": "By two months, your blood pressure can creep back up.",
+  "b5": "Three months in, much of your hard-won fitness can be gone.",
+  "end": "So, when did you last break a sweat?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b3:shrink",
+   0,
+   0.6
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.3,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "end:last",
+   0.1,
+   0.5
+  ]
+ ]
+}

@@ -1,0 +1,201 @@
+{
+ "topic": "What happens to your body in a heat wave?",
+ "title": "How heat attacks the body",
+ "hook": "What happens to your body in a heat wave?",
+ "banner": [
+  "STUCK IN A",
+  "HEAT WAVE?"
+ ],
+ "format": "timeline",
+ "env": "field",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "1 HOUR",
+   "line": "After an hour, you sweat buckets to cool your body down.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "hot",
+       "at": "hour"
+      },
+      {
+       "r": "face",
+       "arg": "pant",
+       "at": "sweat"
+      },
+      {
+       "r": "sweat",
+       "at": "buckets"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 HOURS",
+   "line": "After three hours, your heart pumps harder to push heat out through your skin.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5 HOURS",
+   "line": "After five hours, you feel dizzy and sick. That's heat exhaustion.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dizzy",
+       "at": "dizzy"
+      },
+      {
+       "r": "stars",
+       "arg": 1.4,
+       "at": "dizzy"
+      },
+      {
+       "r": "face",
+       "arg": "sick",
+       "at": "sick"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "6 HOURS",
+   "line": "By hour six, your core can hit forty degrees, and your brain gets confused.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "40°C",
+     "small": "CORE TEMPERATURE",
+     "icon": "flame",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#e1f1e8"
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "confused"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "7 HOURS",
+   "line": "After seven hours, heat stroke can strike, and you may stop sweating.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "strike"
+      },
+      {
+       "r": "steam",
+       "at": "sweating"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Stay cool out there. Where's the hottest place you've been?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "cool"
+   },
+   {
+    "r": "wave",
+    "at": "hottest"
+   }
+  ]
+ },
+ "description": "Hour by hour: how a heat wave pushes your body from sweating to heat stroke.",
+ "tags": [
+  "#heatwave",
+  "#summer",
+  "#science",
+  "#body"
+ ],
+ "facts": [
+  {
+   "claim": "Sweating cools the body; heart rate rises to move heat to the skin.",
+   "source": "CDC, NIH"
+  },
+  {
+   "claim": "Heat exhaustion: dizziness, nausea, heavy sweating, weakness.",
+   "source": "CDC"
+  },
+  {
+   "claim": "Heat stroke: body temperature 40°C (104°F) or higher with confusion; sweating may stop; medical emergency.",
+   "source": "CDC, Mayo Clinic"
+  }
+ ],
+ "queue_file": "002-heat.json",
+ "slug": "how-heat-attacks-the-body",
+ "accent": "#2f8f6a",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "hero": {
+  "outfit": "tshirt",
+  "hairStyle": "short",
+  "hair": "#2b1d16",
+  "skin": "dark",
+  "suit": "#3fa37c",
+  "suitDark": "#2f7f60",
+  "pants": "#2f3e46",
+  "pantsDark": "#222d33",
+  "patch": "#ffffff",
+  "glasses": false,
+  "lashes": false,
+  "capColor": "#2f8f6a"
+ },
+ "music_i": 2,
+ "direction": {
+  "format": "timeline",
+  "chrome": "bubble",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "short",
+  "skin": "dark",
+  "palette": "p3"
+ },
+ "music": "cutandrun"
+}

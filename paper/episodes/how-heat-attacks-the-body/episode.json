@@ -1,0 +1,196 @@
+{
+ "title": "How heat attacks the body",
+ "hook": [
+  "STUCK IN A",
+  "HEAT WAVE?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#2f8f6a",
+ "kit": {
+  "chrome": "bubble",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Hour by hour: how a heat wave pushes your body from sweating to heat stroke.\n#heatwave #summer #science #body\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Cut and Run.mp3",
+  "at": 0.0,
+  "vol": 0.23,
+  "credit": "Music: \"Cut and Run\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens to your body in a heat wave?",
+  "b1": "After an hour, you sweat buckets to cool your body down.",
+  "b2": "After three hours, your heart pumps harder to push heat out through your skin.",
+  "b3": "After five hours, you feel dizzy and sick. That's heat exhaustion.",
+  "b4": "By hour six, your core can hit forty degrees, and your brain gets confused.",
+  "b5": "After seven hours, heat stroke can strike, and you may stop sweating.",
+  "end": "Stay cool out there. Where's the hottest place you've been?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b1",
+   0.03,
+   0.6
+  ],
+  [
+   "swell.wav",
+   "b1:hour",
+   0,
+   0.3
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b2",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.3,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b3",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.4
+  ],
+  [
+   "wobble.wav",
+   "b3:dizzy",
+   0,
+   0.5
+  ],
+  [
+   "sparkle.wav",
+   "b3:dizzy",
+   0,
+   0.4
+  ],
+  [
+   "wobble.wav",
+   "b3:sick",
+   0,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b4",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.4
+  ],
+  [
+   "sub_hit.wav",
+   "b4:confused",
+   0,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b5",
+   0.03,
+   0.6
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.3,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:cool",
+   0.1,
+   0.5
+  ]
+ ]
+}

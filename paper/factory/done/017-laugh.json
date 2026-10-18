@@ -1,0 +1,173 @@
+{
+ "topic": "What happens if you laugh every day?",
+ "slug": "what-daily-laughter-does",
+ "title": "What daily laughter does",
+ "hook": "What happens if you laugh every day?",
+ "banner": [
+  "LAUGHING",
+  "EVERY DAY?"
+ ],
+ "format": "countdown",
+ "env": "room",
+ "scene": "couch",
+ "outfit": "pajamas",
+ "mood_music": "playful",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "A big, hearty laugh gets your heart and lungs working harder.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "hearty"
+      },
+      {
+       "r": "shiver",
+       "arg": 1.2,
+       "at": "laugh"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "heart",
+     "do": [
+      {
+       "a": "beat",
+       "at": "working"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Afterward, your heart rate settles, and your muscles relax.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "settles"
+      },
+      {
+       "r": "face",
+       "arg": "smile",
+       "at": "relax"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your brain releases endorphins, your body's feel-good chemicals.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "endorphins"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Over time, laughing often can ease stress and lift your mood.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "ease"
+      },
+      {
+       "r": "thumbs_up",
+       "at": "lift"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Laughing with friends can even help you handle pain better.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "arg": 1.0,
+       "at": "Laughing"
+      },
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "friends"
+      },
+      {
+       "r": "pain",
+       "at": "pain"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Who makes you laugh the most?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "makes"
+   },
+   {
+    "r": "wave",
+    "at": "most"
+   }
+  ]
+ },
+ "description": "Five things a good daily laugh does for your heart, muscles, brain, mood and even pain.",
+ "tags": [
+  "#laughter",
+  "#happiness",
+  "#science",
+  "#health"
+ ],
+ "facts": [
+  {
+   "claim": "Laughter increases intake of oxygen-rich air and stimulates the heart, lungs and muscles.",
+   "source": "Mayo Clinic (Stress relief from laughter)"
+  },
+  {
+   "claim": "A good laugh raises and then lowers heart rate and blood pressure, leaving a relaxed feeling, and aids muscle relaxation.",
+   "source": "Mayo Clinic (Stress relief from laughter)"
+  },
+  {
+   "claim": "Laughter increases endorphins released by the brain; PET imaging showed social laughter releases the body's own opioids.",
+   "source": "Mayo Clinic / Manninen et al., J Neurosci 2017"
+  },
+  {
+   "claim": "Over time, laughter can help lessen stress, depression and anxiety and may improve mood.",
+   "source": "Mayo Clinic (Stress relief from laughter)"
+  },
+  {
+   "claim": "In experiments, social laughter raised people's pain thresholds; laughter may ease pain.",
+   "source": "Dunbar et al., Proc R Soc B 2012 / Mayo Clinic"
+  }
+ ]
+}

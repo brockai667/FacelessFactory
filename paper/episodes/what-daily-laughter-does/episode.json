@@ -1,0 +1,201 @@
+{
+ "title": "What daily laughter does",
+ "hook": [
+  "LAUGHING",
+  "EVERY DAY?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "tape",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "panels_body.js",
+  "recipes.js"
+ ],
+ "description": "Five things a good daily laugh does for your heart, muscles, brain, mood and even pain.\n#laughter #happiness #science #health\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Hyperfun.mp3",
+  "at": 0.0,
+  "vol": 1.35,
+  "credit": "Music: \"Hyperfun\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you laugh every day?",
+  "b1": "A big, hearty laugh gets your heart and lungs working harder.",
+  "b2": "Afterward, your heart rate settles, and your muscles relax.",
+  "b3": "Your brain releases endorphins, your body's feel-good chemicals.",
+  "b4": "Over time, laughing often can ease stress and lift your mood.",
+  "b5": "Laughing with friends can even help you handle pain better.",
+  "end": "Who makes you laugh the most?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1",
+   0.03,
+   0.55
+  ],
+  [
+   "wobble.wav",
+   "b1:laugh",
+   0,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   -0.3,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b3",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.35
+  ],
+  [
+   "sub_hit.wav",
+   "b3:endorphins",
+   0,
+   0.25
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b4",
+   0.03,
+   0.55
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "b4:lift",
+   0.1,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b5",
+   0.03,
+   0.55
+  ],
+  [
+   "wobble.wav",
+   "b5:laughing",
+   0,
+   0.4
+  ],
+  [
+   "heartbeat.wav",
+   "b5:pain",
+   -0.02,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b5:pain",
+   0.28,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b5:pain",
+   0.58,
+   0.45
+  ],
+  [
+   "sparkle.wav",
+   "end:makes",
+   0.1,
+   0.5
+  ]
+ ]
+}

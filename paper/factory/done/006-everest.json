@@ -1,0 +1,156 @@
+{
+ "topic": "What happens if you climb Mount Everest?",
+ "slug": "what-climbing-everest-does",
+ "title": "What climbing Everest does",
+ "hook": "What happens if you climb Mount Everest?",
+ "banner": [
+  "CLIMBING MOUNT",
+  "EVEREST?"
+ ],
+ "format": "gauge",
+ "env": "field",
+ "outfit": "hoodie",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "0 M",
+   "line": "At sea level, every breath is full of oxygen.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "breath",
+       "arg": "excited"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3000 M",
+   "line": "By three thousand meters, the air thins, and you breathe faster.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "faster",
+       "arg": "pant"
+      },
+      {
+       "r": "puff",
+       "at": "breathe"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5000 M",
+   "line": "At five thousand meters, your heart pounds to find more oxygen.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "7000 M",
+   "line": "By seven thousand meters, thin air can bring on a pounding headache.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "headache"
+      },
+      {
+       "r": "face",
+       "at": "thin",
+       "arg": "pain"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "8849 M",
+   "line": "At the summit, each breath has only a third of the oxygen.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "summit",
+       "arg": "dizzy"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "big": "1/3",
+     "small": "OF THE OXYGEN",
+     "icon": "lungs",
+     "from": "third"
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "So, could you handle that thin summit air?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "handle"
+   },
+   {
+    "r": "wave",
+    "at": "air"
+   }
+  ]
+ },
+ "description": "Checkpoint by checkpoint, how thinning air pushes the body toward its limit.",
+ "tags": [
+  "#everest",
+  "#altitude",
+  "#science",
+  "#adventure"
+ ],
+ "facts": [
+  {
+   "claim": "Air pressure and oxygen availability drop as altitude increases.",
+   "source": "CDC (Yellow Book, high-altitude travel)"
+  },
+  {
+   "claim": "Acute mountain sickness (headache, nausea, fatigue) can occur above about 2,500 meters.",
+   "source": "CDC, WHO"
+  },
+  {
+   "claim": "The body raises heart rate and breathing rate to compensate for lower oxygen at altitude.",
+   "source": "NIH"
+  },
+  {
+   "claim": "At the summit of Mount Everest (8,849 m), available oxygen is roughly a third of sea-level amounts.",
+   "source": "CDC (Yellow Book, high-altitude travel)"
+  }
+ ]
+}

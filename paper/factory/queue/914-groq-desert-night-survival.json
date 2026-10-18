@@ -1,0 +1,192 @@
+{
+ "title": "Desert Night Survival",
+ "hook": "What if you spend a night in the desert?",
+ "banner": "DESERT NIGHT\nWHAT HAPPENS",
+ "format": "countdown",
+ "env": "field",
+ "scene": "Cartoon character in pajamas sitting on a sand dune under a starry night sky",
+ "outfit": "pajamas",
+ "mood_music": "wonder",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#6",
+   "line": "Your brain fogs, dizziness hits, like being legally drunk.",
+   "idea": "Close‑up of the character’s mouth, tongue stuck, a tiny sweat droplet",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "dizziness"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "fogs"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#5",
+   "line": "Your kidneys conserve water, outputting only a few drops.",
+   "idea": "Zoom on the character’s arm, skin flaking and sand particles on the surface",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "kidneys",
+     "do": [
+      {
+       "a": "save",
+       "at": "conserve"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Your heart races as blood thickens from dehydration.",
+   "idea": "Character rubs eyes, tears evaporate, sand specks float around",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "races"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "thickens"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your eyes dry, and you see a gritty film.",
+   "idea": "Animated heart icon pulses rapidly, blood flow appears thicker",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "dry"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "blur",
+       "at": "gritty"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your skin feels tight, dry, and starts to flake.",
+   "idea": "Kidney cartoon with a tiny drip gauge showing minimal output",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "dry"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Your mouth dries, and a throbbing headache pounds.",
+   "idea": "Character’s head sways, brain cartoon clouds, world wobbles",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "dries"
+      },
+      {
+       "r": "pain",
+       "at": "pounds"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick visual guide to the bodily toll of a desert night.",
+ "tags": "#Desert #Survival #Science #Dehydration",
+ "facts": [
+  {
+   "claim": "Dehydration causes dry mouth and can trigger headaches.",
+   "source": "Mayo Clinic: Dehydration symptoms"
+  },
+  {
+   "claim": "Low humidity accelerates skin water loss, leading to dryness and cracking.",
+   "source": "NIH: Skin health and dehydration"
+  },
+  {
+   "claim": "Dry air increases tear evaporation, resulting in eye dryness and irritation.",
+   "source": "American Academy of Ophthalmology: Dry eye disease"
+  },
+  {
+   "claim": "Dehydration reduces plasma volume, thickening blood and raising heart rate.",
+   "source": "Mayo Clinic: Dehydration and cardiovascular effects"
+  },
+  {
+   "claim": "When dehydrated, kidneys concentrate urine, producing minimal output.",
+   "source": "NIH National Institute of Diabetes and Digestive and Kidney Diseases"
+  },
+  {
+   "claim": "Mild dehydration impairs cognitive function, causing dizziness and reduced mental clarity.",
+   "source": "NIH: Dehydration and brain function"
+  }
+ ],
+ "end": {
+  "line": "Would you brave a desert night?",
+  "do": [
+   {
+    "r": "mood",
+    "arg": "night",
+    "at": "night"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "brave"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you spend night in desert?",
+ "slug": "desert-night-survival"
+}

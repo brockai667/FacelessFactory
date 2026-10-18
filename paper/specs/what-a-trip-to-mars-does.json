@@ -1,0 +1,222 @@
+{
+ "topic": "What happens if you go to Mars?",
+ "slug": "what-a-trip-to-mars-does",
+ "title": "What a trip to Mars does",
+ "hook": "What happens if you go to Mars?",
+ "banner": [
+  "WHAT IF YOU",
+  "GO TO MARS?"
+ ],
+ "format": "countdown",
+ "env": "space",
+ "outfit": "suit",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "The trip to Mars alone can take seven to nine months.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "trip"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "months"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Deep space radiation levels are far higher than on Earth.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "space"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "radiation",
+     "big": "HIGH",
+     "small": "RADIATION",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#ece6f6"
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "In microgravity, your muscles and bones can quickly weaken.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thin_arms",
+       "at": "muscles"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "from": "bones",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "weaken"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "On Mars, gravity is only about thirty-eight percent of Earth's.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "gravity",
+       "arg": "excited"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "percent",
+     "big": "38%",
+     "small": "MARS GRAVITY",
+     "icon": "down",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "bg": "#ece6f6"
+    }
+   ],
+   "scene": "mars"
+  },
+  {
+   "label": "#1",
+   "line": "Its thin air is mostly carbon dioxide, and you can't breathe it.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "breathe"
+      },
+      {
+       "r": "puff",
+       "at": "air"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you want to go to Mars?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "go"
+   },
+   {
+    "r": "wave",
+    "at": "mars"
+   }
+  ]
+ },
+ "description": "Five things your body and ship go through on the way to Mars.",
+ "tags": [
+  "#mars",
+  "#space",
+  "#science",
+  "#nasa"
+ ],
+ "facts": [
+  {
+   "claim": "A one-way trip to Mars takes about seven to nine months with current technology.",
+   "source": "NASA"
+  },
+  {
+   "claim": "Astronauts traveling to Mars would be exposed to much higher radiation levels than on Earth.",
+   "source": "NASA"
+  },
+  {
+   "claim": "In microgravity, muscles and bones can weaken and lose density over time.",
+   "source": "NASA / NIH"
+  },
+  {
+   "claim": "Mars' surface gravity is about 38% of Earth's gravity.",
+   "source": "NASA"
+  },
+  {
+   "claim": "Mars' atmosphere is thin and made mostly of carbon dioxide, and is not breathable.",
+   "source": "NASA"
+  }
+ ],
+ "queue_file": "011-mars.json",
+ "accent": "#7a5fa0",
+ "kit": {
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "outfit": "suit",
+  "hairStyle": "curly",
+  "hair": "#8a5a2b",
+  "skin": "light",
+  "suit": "#8e7cc3",
+  "suitDark": "#6d5ca6",
+  "pants": "#3b3552",
+  "pantsDark": "#2a2640",
+  "patch": "#f28b82",
+  "glasses": true,
+  "lashes": false,
+  "capColor": "#7a5fa0"
+ },
+ "loop": "clouds",
+ "music_i": 11,
+ "direction": {
+  "format": "countdown",
+  "chrome": "tape",
+  "trans": "tear",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "curly",
+  "skin": "light",
+  "palette": "p1"
+ },
+ "scene": "station"
+}

@@ -1,0 +1,208 @@
+{
+ "topic": "What happens if you trek across polar ice?",
+ "slug": "what-crossing-polar-ice-does",
+ "title": "What crossing polar ice does",
+ "hook": "What happens if you trek across polar ice?",
+ "banner": [
+  "TREKKING ACROSS",
+  "POLAR ICE?"
+ ],
+ "format": "countdown",
+ "env": "field",
+ "scene": "mountain",
+ "outfit": "hoodie",
+ "hero": {
+  "species": "bear",
+  "fur": "cream",
+  "outfit": "hoodie"
+ },
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "The polar air is so dry that every breath pulls water out of you.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "cold",
+       "at": "polar"
+      },
+      {
+       "r": "puff",
+       "at": "breath"
+      },
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "water"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Hauling a heavy sled all day can burn about seven thousand calories.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "walk",
+       "arg": 2.5,
+       "at": "Hauling"
+      },
+      {
+       "r": "face",
+       "arg": "pant",
+       "at": "heavy"
+      },
+      {
+       "r": "sweat",
+       "at": "burn"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "about",
+     "big": "7,000 CAL",
+     "small": "BURNED PER DAY",
+     "icon": "flame",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Many polar trekkers still lose weight, even while eating huge meals.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thin_arms",
+       "at": "lose"
+      },
+      {
+       "r": "skinny_legs",
+       "at": "weight"
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "meals"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "The cold also makes you pee more, so you dry out even faster.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "kidneys",
+     "do": [
+      {
+       "a": "flow",
+       "at": "pee"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "from": "dry",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "dry"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Snow reflects up to eighty percent of UV light, enough to sunburn your eyes.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "80%",
+     "small": "OF UV BOUNCES BACK",
+     "icon": "sun",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "from": "enough",
+     "do": [
+      {
+       "a": "blur",
+       "at": "eyes"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you ever cross the polar ice?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "ever"
+   },
+   {
+    "r": "wave",
+    "at": "ice"
+   }
+  ]
+ },
+ "description": "From bone-dry air to sunburned eyes: what a trek across the polar ice does to your body.",
+ "tags": [
+  "#polar",
+  "#antarctica",
+  "#explorer",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Polar air holds very little water (Antarctica is the driest continent), and breathing cold, dry air increases water loss from the airways, especially during hard work.",
+   "source": "Institute of Medicine: Nutritional Needs in Cold and High-Altitude Environments (NCBI NBK232870) / British Antarctic Survey"
+  },
+  {
+   "claim": "On the 1992-93 unsupported Antarctic crossing, Stroud and Fiennes burned on average nearly 7,000 kcal a day (doubly labelled water), with stretches above 11,000 kcal on the climb to the polar plateau.",
+   "source": "Halsey & Stroud, Physiological Reviews 2012 (ScienceDaily summary, 12 Jun 2012)"
+  },
+  {
+   "claim": "Man-hauling expeditions often end with big weight loss despite huge rations: Stroud and Fiennes ate about 5,000 kcal a day and each lost over 20 kg in 95 days.",
+   "source": "Halsey & Stroud 2012 / UPI archives 1993 / Frykman et al., Wilderness Environ Med 2003 (Trans-Greenland)"
+  },
+  {
+   "claim": "Cold exposure increases urine output (cold-induced diuresis), which can add to dehydration in the cold.",
+   "source": "Institute of Medicine (NCBI NBK232870) / ScienceDirect Topics: cold-induced diuresis"
+  },
+  {
+   "claim": "Fresh snow reflects up to about 80% of UV radiation; too much UV can burn the cornea (photokeratitis, snow blindness).",
+   "source": "WHO (UV radiation, INTERSUN) / American Academy of Ophthalmology"
+  }
+ ]
+}

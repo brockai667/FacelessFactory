@@ -1,0 +1,190 @@
+{
+ "title": "What climbing Everest does",
+ "hook": [
+  "CLIMBING MOUNT",
+  "EVEREST?"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.5,
+ "tail": 2.15,
+ "bg": "#dfe6ee",
+ "accent": "#2f8f6a",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_field.js",
+  "char_biped.js",
+  "panels_body.js",
+  "panels_stat.js",
+  "recipes.js"
+ ],
+ "description": "Checkpoint by checkpoint, how thinning air pushes the body toward its limit.\n#everest #altitude #science #adventure\nAI-free animation made with code. Not medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FactoryAnim\\paper-factory\\assets\\music\\Inspired.mp3",
+  "at": 0.0,
+  "vol": 0.42,
+  "credit": "Music: \"Inspired\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "What happens if you climb Mount Everest?",
+  "b1": "At sea level, every breath is full of oxygen.",
+  "b2": "By three thousand meters, the air thins, and you breathe faster.",
+  "b3": "At five thousand meters, your heart pounds to find more oxygen.",
+  "b4": "By seven thousand meters, thin air can bring on a pounding headache.",
+  "b5": "At the summit, each breath has only a third of the oxygen.",
+  "end": "So, could you handle that thin summit air?"
+ },
+ "sfx": [
+  [
+   "tick.wav",
+   "b1",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b1",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b1",
+   0.03,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b2",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b2",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b2",
+   0.03,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b3",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b3",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b3",
+   0.03,
+   0.45
+  ],
+  [
+   "whoosh.wav",
+   "b3",
+   -0.3,
+   0.4
+  ],
+  [
+   "tick.wav",
+   "b4",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b4",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b4",
+   0.03,
+   0.45
+  ],
+  [
+   "whoosh.wav",
+   "b4",
+   -0.3,
+   0.4
+  ],
+  [
+   "heartbeat.wav",
+   "b4:headache",
+   -0.02,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b4:headache",
+   0.28,
+   0.45
+  ],
+  [
+   "heartbeat.wav",
+   "b4:headache",
+   0.58,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b5",
+   0.02,
+   0.9
+  ],
+  [
+   "sub_hit.wav",
+   "b5",
+   0,
+   0.45
+  ],
+  [
+   "thud.wav",
+   "b5",
+   0.03,
+   0.45
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   -0.45,
+   0.55
+  ],
+  [
+   "wobble.wav",
+   "b5:summit",
+   0,
+   0.5
+  ],
+  [
+   "whoosh.wav",
+   "end",
+   -0.3,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "end:handle",
+   0.1,
+   0.5
+  ]
+ ]
+}
