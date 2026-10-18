@@ -9,7 +9,7 @@
     "compute_type": "auto",
     "beam_size": 5,
     "vad_filter": true,
-    "initial_prompt": "Diktát pre Claude Code. Python, git, commit, pull request, branch, API, JSON, config, skript, repozitár, funkcia, test, refaktor, deploy.",
+    "initial_prompt": "Diktujem po slovensky v Claude Code o programovaní, napríklad o Pythone, gite, commitoch, pull requestoch a branchoch, o API, JSON configoch, skriptoch, repozitároch, funkciách, testoch, refaktore a deployi.",
     "chunk_seconds": 15,
     "chunk_max_seconds": 30,
     "chunk_silence_rms": 0.008,
