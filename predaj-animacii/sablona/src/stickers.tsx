@@ -24,36 +24,43 @@ const Sparkles: React.FC<{ at: number; x: number; y: number; color: string; n?: 
   })}</>;
 };
 
-/** Pôvodné logo (presne ako na webe): odkryje sa zľava, donut z loga sa dokotúľa na svoje miesto. */
+/** Pôvodné logo (presne ako na webe). Okrúhly prvok loga (donut) sa pomaly dokotúľa sprava na svoje miesto
+ *  a za ním sa odkrýva nápis, ako keby ho rozvaľkal. Otáčanie zodpovedá prejdenej dráhe (kotúľa sa, nekĺže). */
 export const LogoDraw: React.FC<P> = ({ brand }) => {
   const f = useF(); const fps = 30;
-  const L = brand.logoAnim!; // rozmery loga a poloha okrúhleho prvku (napr. donut) v pixeloch pôvodného súboru
-  const W = 860, s = W / L.w, H = L.h * s;
+  const L = brand.logoAnim!;
+  const W = 860, s = W / L.w, H = L.h * s, pad = 60;
   const card = spring({ frame: f, fps, config: { damping: 15, stiffness: 120 } });
-  const wipe = interpolate(f, [8, 34], [0, 1], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 3) });
-  const settle = interpolate(f, [8, 40], [1.06, 1], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 3) });
   const d = L.round;
-  const roll = spring({ frame: f - 22, fps, config: { damping: 13, stiffness: 70, mass: 0.9 } });
-  const landed = f >= 22 && roll > 0.98;
-  const squash = d ? 1 - 0.14 * Math.max(0, Math.sin(interpolate(roll, [0.85, 1], [0, Math.PI], clamp))) : 1;
   const url = asset(brand, brand.logo!);
   const cardBg = "#fffaf0";
+  if (!d) return <AbsoluteFill />;
+  const r = d.r * s, home = pad + d.cx * s, start = pad + W + pad + r + 10;
+  const p = interpolate(f, [6, 62], [0, 1], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 3) });
+  const x = start + (home - start) * p;                    // stred donutu
+  const angle = ((x - start) / r) * (180 / Math.PI);      // valí sa doľava = proti smeru hodín
+  const landed = f >= 62;
+  const bump = Math.sin(interpolate(f, [60, 70], [0, Math.PI], clamp)) * 0.12;
+  const lead = interpolate(f, [52, 64], [0, 1], { ...clamp, easing: (t) => t * t * (3 - 2 * t) }); // na konci sa odkryje aj začiatok nápisu
+  const reveal = ((x - pad) / W) * 100 * (1 - lead) - 6 * lead;  // nápis je vidieť napravo od donutu
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
-      <div style={{ position: "relative", width: W + 120, height: H + 120, borderRadius: 48, background: cardBg, overflow: "hidden",
+      <div style={{ position: "relative", width: W + 2 * pad, height: H + 2 * pad, borderRadius: 48, background: cardBg, overflow: "hidden",
         boxShadow: "0 30px 60px rgba(0,0,0,.28)", transform: `scale(${card})` }}>
-        <div style={{ position: "absolute", left: 60, top: 60, width: W, height: H, transform: `scale(${settle})`,
-          WebkitMaskImage: `linear-gradient(90deg, #000 ${wipe * 120 - 20}%, transparent ${wipe * 120}%)`,
-          maskImage: `linear-gradient(90deg, #000 ${wipe * 120 - 20}%, transparent ${wipe * 120}%)` }}>
+        <div style={{ position: "absolute", left: pad, top: pad, width: W, height: H,
+          WebkitMaskImage: landed ? "none" : `linear-gradient(90deg, transparent ${reveal - 2}%, #000 ${reveal + 3}%)`,
+          maskImage: landed ? "none" : `linear-gradient(90deg, transparent ${reveal - 2}%, #000 ${reveal + 3}%)` }}>
           <Img src={url} style={{ width: W, height: H, display: "block" }} />
-          {d && !landed && <div style={{ position: "absolute", left: (d.cx - d.r - 3) * s, top: (d.cy - d.r - 3) * s,
+          {!landed && <div style={{ position: "absolute", left: (d.cx - d.r - 3) * s, top: (d.cy - d.r - 3) * s,
             width: (d.r * 2 + 6) * s, height: (d.r * 2 + 6) * s, borderRadius: "50%", background: cardBg }} />}
         </div>
-        {d && f >= 22 && !landed && <div style={{ position: "absolute", left: 60 + (d.cx - d.r) * s + (1 - roll) * (W + 200), top: 60 + (d.cy - d.r) * s,
-          width: d.r * 2 * s, height: d.r * 2 * s, borderRadius: "50%", backgroundImage: `url(${url})`,
-          backgroundSize: `${W}px ${H}px`, backgroundPosition: `${-(d.cx - d.r) * s}px ${-(d.cy - d.r) * s}px`,
-          transform: `rotate(${(1 - roll) * -720}deg) scale(${1 / squash}, ${squash})` }} />}
-        {d && <Sparkles at={36} x={60 + d.cx * s} y={60 + d.cy * s} color={brand.colors.surface2 || brand.colors.surface} />}
+        {!landed && <div style={{ position: "absolute", left: x - r, top: pad + d.cy * s - r, width: 2 * r, height: 2 * r, borderRadius: "50%",
+          backgroundImage: `url(${url})`, backgroundSize: `${W}px ${H}px`, backgroundPosition: `${-(d.cx - d.r) * s}px ${-(d.cy - d.r) * s}px`,
+          transform: `rotate(${angle}deg)` }} />}
+        {landed && bump > 0 && <div style={{ position: "absolute", left: x - r, top: pad + d.cy * s - r, width: 2 * r, height: 2 * r, borderRadius: "50%",
+          backgroundImage: `url(${url})`, backgroundSize: `${W}px ${H}px`, backgroundPosition: `${-(d.cx - d.r) * s}px ${-(d.cy - d.r) * s}px`,
+          background: undefined, transform: `scale(${1 + bump}, ${1 - bump})`, transformOrigin: "50% 100%" }} />}
+        <Sparkles at={62} x={home} y={pad + d.cy * s} color={brand.colors.surface2 || brand.colors.surface} />
       </div>
     </AbsoluteFill>
   );
