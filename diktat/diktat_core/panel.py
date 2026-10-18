@@ -1,0 +1,294 @@
+"""Malý panel v pravom hornom rohu okna Claude: ktoré Claude Code sessions bežia a čo robia.
+
+Riadky: „● Curio engine · pracuje“ (modrá = pracuje, oranžová = pýta sa ťa, zelená = hotovo).
+Vzhľad (farby, rámik, zaoblené rohy) je spoločný s prúžkom diktovania – je v `look.py`.
+Bodka pri aktívnych stavoch jemne dýcha; text sa prekresľuje len vtedy, keď sa naozaj zmení
+zoznam sessions, takže nič nebliká.
+
+Dáta píšu hooky do ~/.claude/diktat/sessions (viď sessions.py), panel ich len číta raz za sekundu.
+Vlastné vlákno, vlastné okno, nikdy neberie fokus. Bez tkinteru / bez okna Claude sa schová.
+"""
+from __future__ import annotations
+
+import logging
+import math
+import sys
+import threading
+import time
+
+from . import look, procs, sessions
+
+log = logging.getLogger("diktat.panel")
+
+BG, FG, DIM = look.BG, look.FG, look.DIM      # panel a prúžok majú rovnaký povrch (look.py)
+PULSE = look.PULSE
+
+
+def pulse_color(color: str, phase: float, depth: float) -> str:
+    """Farba dýchajúcej bodky – spoločná s prúžkom, býva v look.py."""
+    return look.pulse_color(color, phase, depth) if depth > 0 else color
+
+
+class Panel:
+    def __init__(self, cfg: dict | None = None, read_fn=None, rect_fn=None, on_move=None):
+        cfg = dict(cfg or {})
+        self.enabled = bool(cfg.get("enabled", True))
+        self.follow_window = bool(cfg.get("follow_window", True))
+        self.processes = list(cfg.get("processes") or ["claude.exe"])
+        self.offset_y = int(cfg.get("offset_y", 44))
+        self.margin_right = int(cfg.get("margin_right", 12))
+        self.max_rows = int(cfg.get("max_rows", 8))
+        self.font_size = int(cfg.get("font_size", 11))
+        self.alpha = float(cfg.get("alpha", 0.97))   # takmer nepriehľadný: text pod panelom nemá presvitať
+        self.hide_when_empty = bool(cfg.get("hide_when_empty", False))
+        self.empty_text = str(cfg.get("empty_text", "žiadna session nehlási stav"))
+        self.refresh_seconds = float(cfg.get("refresh_seconds", 1.0))
+        self.rect_seconds = float(cfg.get("rect_seconds", 1.0))      # ako často sa pozrieť, kde je okno Claude
+        self.animate_ms = max(60, int(cfg.get("animate_ms", 200)))
+        self.pulse = bool(cfg.get("pulse", True))     # dýchanie bodky vypni, keď chceš panel úplne zadarmo
+        self.show_time = bool(cfg.get("show_time", False))
+        self.done_keep_minutes = float(cfg.get("done_keep_minutes", 0))   # 0 = kým riadok nezavrieš krížikom
+        self.working_window_seconds = float(cfg.get("working_window_seconds", sessions.WORKING_WINDOW_SECONDS))
+        self.stale_minutes = float(cfg.get("stale_minutes", 240))
+        self.state_dir = cfg.get("state_dir") or None
+        self.x = cfg.get("x")          # keď si panel presunieš myšou, drží sa tu (a nie okna Claude)
+        self.y = cfg.get("y")
+        self.on_move = on_move
+        self._read_fn = read_fn or self._read_states
+        self._tracker = procs.WindowTracker(self.processes, rescan_seconds=float(cfg.get("rescan_seconds", 3.0)))
+        self._rect_fn = rect_fn or self._tracker.rect
+        self._thread: threading.Thread | None = None
+        self._stop = threading.Event()
+
+    # -- verejné API ----------------------------------------------------------------------------------
+    def start(self) -> None:
+        if not self.enabled or self._thread is not None:
+            return
+        self._thread = threading.Thread(target=self._run, daemon=True, name="panel")
+        self._thread.start()
+
+    def stop(self) -> None:
+        self._stop.set()
+        self._thread = None
+
+    def set_enabled(self, on: bool) -> None:
+        """Zapnutie/vypnutie za behu (ikona v lište)."""
+        if on and not self.enabled:
+            self.enabled, self._stop = True, threading.Event()
+            self.start()
+        elif not on and self.enabled:
+            self.enabled = False
+            self.stop()
+
+    # -- dáta -----------------------------------------------------------------------------------------
+    def _read_states(self) -> list[dict]:
+        return sessions.read_states(self.state_dir, done_keep_minutes=self.done_keep_minutes,
+                                    stale_minutes=self.stale_minutes, max_rows=self.max_rows,
+                                    working_window_seconds=self.working_window_seconds)
+
+    def position(self, rect, width: int, screen_width: int) -> tuple[int, int] | None:
+        """Ľavý horný roh panela: kde si ho pustil myšou, inak pod tlačidlami okna Claude vpravo.
+        Bez okna → pravý horný roh obrazovky (alebo None, keď sa má panel schovať)."""
+        if self.x is not None and self.y is not None:
+            return int(self.x), int(self.y)
+        if rect is None:
+            if self.follow_window:
+                return None
+            return max(0, screen_width - width - self.margin_right), self.offset_y
+        left, top, right, _bottom = rect
+        x = right - width - self.margin_right
+        return max(left, x), top + self.offset_y
+
+    # -- Tk vlákno ------------------------------------------------------------------------------------
+    def _run(self) -> None:
+        try:
+            import tkinter as tk
+            root = tk.Tk()
+        except Exception as exc:  # noqa: BLE001 – bez tkinteru / bez displeja
+            log.warning("panel nedostupný: %s", exc)
+            self.enabled = False
+            return
+        try:
+            root.overrideredirect(True)
+            root.attributes("-topmost", True)
+            try:
+                root.attributes("-alpha", self.alpha)
+            except Exception:  # noqa: BLE001
+                pass
+            frame = look.surface(tk, root, padx=15, pady=11)
+            root.withdraw()
+            root.update_idletasks()
+            look.no_activate(root)
+
+            view = {"keys": None, "dots": [], "visible": False, "width": 0, "pos": None, "ticks": 0,
+                    "t0": time.monotonic(), "last_read": 0.0, "last_rect": 0.0, "states": []}
+            drag = {"dx": 0, "dy": 0, "moved": False}
+
+            def on_press(event):
+                drag.update(dx=event.x_root - root.winfo_x(), dy=event.y_root - root.winfo_y(), moved=False)
+
+            def on_motion(event):
+                x, y = event.x_root - drag["dx"], event.y_root - drag["dy"]
+                self.x, self.y = x, y
+                view["pos"] = (x, y)
+                drag["moved"] = True
+                root.geometry(f"+{x}+{y}")
+
+            def on_release(_event):
+                if drag["moved"] and self.on_move:
+                    self.on_move(self.x, self.y)
+
+            def make_close(entry):
+                """Krížik: riadok je vybavený, schovaj ho. Vráti sa, keď tá session hlási niečo nové."""
+                def handler(_event):
+                    if drag["moved"]:
+                        return None                  # panel sa práve ťahal, to nebol klik
+                    sessions.hide_row(entry.get("session"), entry.get("reported"), self.state_dir)
+                    view["last_read"] = 0.0          # prekresli hneď, nech to nečaká na ďalšie čítanie
+                    return "break"
+                return handler
+
+            def make_open(entry):
+                """Klik na názov: otvor presne ten chat. Aplikácia na to má vlastný odkaz; keby ho
+                niekedy prerobila, aspoň prenesieme okno Claude dopredu."""
+                def handler(_event):
+                    if drag["moved"]:
+                        return None
+                    try:
+                        if not procs.open_url(sessions.app_link(entry.get("session"))):
+                            self._tracker.focus()
+                    except Exception as exc:  # noqa: BLE001
+                        log.debug("panel: chat sa nepodarilo otvoriť (%s)", exc)
+                    return "break"
+                return handler
+
+            def on_double(_event):
+                """Dvojklik = vráť panel pod tlačidlá okna Claude."""
+                self.x = self.y = None
+                view["pos"] = None
+                view["last_rect"] = 0.0
+                if self.on_move:
+                    self.on_move(None, None)
+
+            root.configure(cursor="fleur")
+            root.bind("<Button-1>", on_press)
+            root.bind("<B1-Motion>", on_motion)
+            root.bind("<ButtonRelease-1>", on_release)
+            root.bind("<Double-Button-1>", on_double)
+
+            def rebuild(states):
+                for child in frame.winfo_children():
+                    child.destroy()
+                view["dots"] = []
+                if states:
+                    tk.Label(frame, text="Claude session", font=("Segoe UI", self.font_size - 2),
+                             fg=DIM, bg=BG, anchor="w").pack(fill="x", pady=(0, 6))
+                if not states:
+                    tk.Label(frame, text="Claude session", font=("Segoe UI", self.font_size - 2),
+                             fg=DIM, bg=BG, anchor="w").pack(fill="x", pady=(0, 4))
+                    tk.Label(frame, text=self.empty_text, font=("Segoe UI", self.font_size - 1),
+                             fg=DIM, bg=BG, anchor="w").pack(fill="x")
+                for entry in states:
+                    icon, text, color = sessions.row_for(entry, self.show_time)
+                    line = tk.Frame(frame, bg=BG)
+                    line.pack(fill="x", pady=3)
+                    dot = tk.Label(line, text=icon, font=("Segoe UI", self.font_size + 2), fg=color, bg=BG)
+                    dot.pack(side="left")
+                    close = tk.Label(line, text="✕", font=("Segoe UI", self.font_size - 1), fg=DIM, bg=BG,
+                                     cursor="hand2")
+                    close.pack(side="right", padx=(10, 0))     # vpravo; zosvetlie sa, keď naň prídeš myšou
+                    name = tk.Label(line, text="  " + text, font=("Segoe UI", self.font_size), fg=FG, bg=BG,
+                                    anchor="w", cursor="hand2")
+                    name.pack(side="left")
+                    close.bind("<Enter>", lambda _e, w=close: w.configure(fg=FG))
+                    close.bind("<Leave>", lambda _e, w=close: w.configure(fg=DIM))
+                    close.bind("<ButtonRelease-1>", make_close(entry))
+                    open_chat = make_open(entry)
+                    for widget in (dot, name):
+                        widget.bind("<ButtonRelease-1>", open_chat)
+                    view["dots"].append((dot, color, entry.get("state", "")))
+                root.update_idletasks()
+                view["width"] = max(root.winfo_reqwidth(), 190)
+                look.round_corners(root, size=(view["width"], root.winfo_reqheight()))
+
+            def animate(now: float):
+                secs = now - view["t0"]
+                for dot, color, state in view["dots"]:
+                    period, depth = PULSE.get(state, (0.0, 0.0))
+                    if period <= 0:
+                        continue
+                    try:
+                        dot.configure(fg=pulse_color(color, secs / period, depth))
+                    except Exception:  # noqa: BLE001 – widget medzitým zanikol
+                        pass
+
+            def place(states):
+                empty = not states and self.hide_when_empty
+                dropped = self.x is not None and self.y is not None
+                rect = None if dropped else self._rect_fn()     # presunutý panel okno Claude nehľadá
+                pos = None if empty else self.position(rect, view["width"], root.winfo_screenwidth())
+                if pos is None:
+                    if view["visible"]:
+                        root.withdraw()
+                        view["visible"] = False
+                    return
+                if pos != view["pos"]:
+                    root.geometry(f"+{pos[0]}+{pos[1]}")
+                    view["pos"] = pos
+                if not view["visible"]:
+                    root.deiconify()
+                    look.no_activate(root)
+                    root.lift()
+                    look.round_corners(root, size=(view["width"], root.winfo_reqheight()))
+                    view["visible"] = True
+
+            def tick():
+                """Tri veci, každá vlastným tempom: čítanie stavov (1 s), poloha okna (1 s) a dýchanie bodky.
+                Keď nič nepracuje, panel len driemka – žiadne prekresľovanie ani hľadanie okna."""
+                if self._stop.is_set():
+                    root.destroy()
+                    return
+                now = time.monotonic()
+                if now - view["last_read"] >= self.refresh_seconds:
+                    view["last_read"] = now
+                    try:
+                        states = self._read_fn()
+                    except Exception as exc:  # noqa: BLE001
+                        log.debug("panel: stavy sa nepodarilo načítať (%s)", exc)
+                        states = []
+                    keys = [sessions.row_key(e) for e in states]
+                    if keys != view["keys"]:
+                        rebuild(states)
+                        view["keys"] = keys
+                        view["last_rect"] = 0.0       # nová šírka → zarovnaj hneď
+                    view["states"] = states
+                pulsing = (self.pulse and view["visible"]
+                           and any(PULSE.get(st, (0.0, 0.0))[1] > 0 for _dot, _c, st in view["dots"]))
+                if pulsing:
+                    animate(now)
+                if now - view["last_rect"] >= self.rect_seconds:
+                    view["last_rect"] = now
+                    place(view.get("states") or [])
+                view["ticks"] += 1
+                root.after(self.animate_ms if pulsing else int(self.refresh_seconds * 1000), tick)
+
+            root.after(0, tick)
+            root.mainloop()
+        except Exception as exc:  # noqa: BLE001
+            log.warning("panel skončil: %s", exc)
+        finally:
+            self._thread = None
+
+
+def _no_activate(root) -> None:
+    """Okno nikdy neberie fokus – spoločné s prúžkom, býva v look.py."""
+    look.no_activate(root)
+
+
+
+class NoPanel:
+    enabled = False
+
+    def start(self) -> None: ...
+    def stop(self) -> None: ...
+    def set_enabled(self, on: bool) -> None: ...

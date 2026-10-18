@@ -1,0 +1,103 @@
+{
+  "hotkey": "numpad_decimal",
+  "mode": "toggle",
+  "language": "sk",
+  "stt": {
+    "backend": "faster-whisper",
+    "model": "large-v3-turbo",
+    "device": "auto",
+    "compute_type": "auto",
+    "beam_size": 5,
+    "vad_filter": true,
+    "initial_prompt": "Diktujem po slovensky v Claude Code o programovaní, napríklad o Pythone, gite, commitoch, pull requestoch a branchoch, o API, JSON configoch, skriptoch, repozitároch, funkciách, testoch, refaktore a deployi.",
+    "chunk_seconds": 15,
+    "chunk_max_seconds": 30,
+    "chunk_silence_rms": 0.008,
+    "min_avg_logprob": -1.5,
+    "max_no_speech_prob": 0.85,
+    "openai_model": "whisper-1",
+    "openai_api_key_env": "OPENAI_API_KEY",
+    "unload_after_seconds": 1800
+  },
+  "audio": {
+    "sample_rate": 16000,
+    "device": null,
+    "silence_auto_stop_seconds": 0,
+    "max_seconds": 0,
+    "beep": true,
+    "beep_volume": 0.08,
+    "gate_rms": 0,
+    "gate_hangover_seconds": 0.4,
+    "gate_envelope_halflife": 0.5,
+    "gate_sustain_seconds": 1.0
+  },
+  "cleanup": {
+    "mode": "light",
+    "model": "claude-opus-5",
+    "effort": "low",
+    "max_tokens": 4000,
+    "timeout_seconds": 25,
+    "replacements": {
+      "git komit": "git commit",
+      "komitni": "commitni",
+      "pull rekvest": "pull request",
+      "pajton": "Python",
+      "džejsón": "JSON",
+      "džejson": "JSON",
+      "readme": "README",
+      "klaud kód": "Claude Code",
+      "klaud": "Claude"
+    }
+  },
+  "output": {
+    "method": "paste",
+    "paste_shortcut": "ctrl+v",
+    "marker": "🎤 ",
+    "markers_recognized": [
+      "🎤",
+      "[diktát]",
+      "[diktat]",
+      "[d]"
+    ],
+    "auto_enter": false,
+    "send_keywords": [
+      "pošli to",
+      "odošli to",
+      "to pošli",
+      "to odošli",
+      "poslať to",
+      "odoslať to",
+      "pošli",
+      "odošli",
+      "poslať",
+      "odoslať",
+      "odoslanie",
+      "enter",
+      "send"
+    ],
+    "restore_clipboard": false
+  },
+  "hook": {
+    "llm": false
+  },
+  "log_dir": "logs",
+  "tray": {
+    "notify": false,
+    "notify_start_stop": false
+  },
+  "overlay": {
+    "enabled": true,
+    "alpha": 0.97,
+    "font_size": 12,
+    "position": "bottom",
+    "bottom_margin": 56
+  },
+  "follow": {
+    "processes": [
+      "claude.exe",
+      "opera.exe",
+      "chrome.exe"
+    ],
+    "exit_after_seconds": 60
+  }
+}
