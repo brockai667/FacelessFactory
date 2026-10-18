@@ -11,7 +11,7 @@ export type Brand = {
   logo: string | null;
   /** logo ako vektor (cesta z potrace), voliteľne s donutom na mieste písmena */
   /** animácia pôvodného loga: rozmery súboru a okrúhly prvok (napr. donut), ktorý sa dokotúľa */
-  logoAnim?: { w: number; h: number; round?: { cx: number; cy: number; r: number } };
+  logoAnim?: { w: number; h: number; round?: { cx: number; cy: number; r: number }; crumbs?: string };
   logoVector?: { w: number; h: number; d: string; fill: string; donut?: { cx: number; cy: number; r: number } };
   hero?: string | null;
   /** produkt ako nálepka s bielym obrysom (vyrobené z hero.png) */

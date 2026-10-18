@@ -1,7 +1,7 @@
 // Nálepky (stickery) na priehľadnom pozadí: klient ich vloží nad svoj záber v CapCute.
 // Renderujú sa cez scripts/render-alpha.mjs do MOV (ProRes 4444 s alfou), WebM a GIF.
 import React from "react";
-import { AbsoluteFill, Img, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Img, interpolate, random, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { asset, bodyFont, Brand, headingFont } from "./brand";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -43,6 +43,18 @@ export const LogoDraw: React.FC<P> = ({ brand }) => {
   const bump = Math.sin(interpolate(f, [60, 70], [0, Math.PI], clamp)) * 0.12;
   const lead = interpolate(f, [52, 64], [0, 1], { ...clamp, easing: (t) => t * t * (3 - 2 * t) }); // na konci sa odkryje aj začiatok nápisu
   const reveal = ((x - pad) / W) * 100 * (1 - lead) - 6 * lead;  // nápis je vidieť napravo od donutu
+  const { fps: vfps } = useVideoConfig();
+  const shine = interpolate(f, [72, 92], [-20, 130], clamp);
+  const cy = pad + d.cy * s;
+  // omrvinky, ktoré odpadávajú pri kotúľaní (len ak to značka chce, napr. pečivo)
+  const crumbs = L.crumbs ? Array.from({ length: 14 }, (_, i) => {
+    const born = 10 + i * 3.4, age = f - born;
+    if (age < 0 || age > 22) return null;
+    const bx = start + (home - start) * (1 - Math.pow(1 - interpolate(born, [6, 62], [0, 1], clamp), 3)) + r * 0.6;
+    const vx = 1.5 + random(`cx${i}`) * 3, vy = -3 - random(`cy${i}`) * 4, sz = 6 + random(`cs${i}`) * 8;
+    return <div key={i} style={{ position: "absolute", left: bx + vx * age, top: cy + r * 0.7 + vy * age + 0.45 * age * age, width: sz, height: sz * 0.8,
+      borderRadius: 3, background: L.crumbs, opacity: interpolate(age, [14, 22], [1, 0], clamp), transform: `rotate(${age * 20}deg)` }} />;
+  }) : null;
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
       <div style={{ position: "relative", width: W + 2 * pad, height: H + 2 * pad, borderRadius: 48, background: cardBg, overflow: "hidden",
@@ -54,6 +66,9 @@ export const LogoDraw: React.FC<P> = ({ brand }) => {
           {!landed && <div style={{ position: "absolute", left: (d.cx - d.r - 3) * s, top: (d.cy - d.r - 3) * s,
             width: (d.r * 2 + 6) * s, height: (d.r * 2 + 6) * s, borderRadius: "50%", background: cardBg }} />}
         </div>
+        <div style={{ position: "absolute", left: x - r * 0.85, top: cy + r * 0.82, width: r * 1.7, height: r * 0.32, borderRadius: "50%",
+          background: "rgba(60,30,10,.28)", filter: "blur(5px)", opacity: landed ? interpolate(f, [62, 72], [1, 0], clamp) : 1 }} />
+        {crumbs}
         {!landed && <div style={{ position: "absolute", left: x - r, top: pad + d.cy * s - r, width: 2 * r, height: 2 * r, borderRadius: "50%",
           backgroundImage: `url(${url})`, backgroundSize: `${W}px ${H}px`, backgroundPosition: `${-(d.cx - d.r) * s}px ${-(d.cy - d.r) * s}px`,
           transform: `rotate(${angle}deg)` }} />}
@@ -61,7 +76,14 @@ export const LogoDraw: React.FC<P> = ({ brand }) => {
           backgroundImage: `url(${url})`, backgroundSize: `${W}px ${H}px`, backgroundPosition: `${-(d.cx - d.r) * s}px ${-(d.cy - d.r) * s}px`,
           background: undefined, transform: `scale(${1 + bump}, ${1 - bump})`, transformOrigin: "50% 100%" }} />}
         <Sparkles at={62} x={home} y={pad + d.cy * s} color={brand.colors.surface2 || brand.colors.surface} />
+        {/* lesk, ktorý po dopade prebehne po nápise (len po tvare loga) */}
+        <div style={{ position: "absolute", left: pad, top: pad, width: W, height: H, pointerEvents: "none",
+          WebkitMaskImage: `url(${url})`, maskImage: `url(${url})`, WebkitMaskSize: `${W}px ${H}px`, maskSize: `${W}px ${H}px`,
+          background: `linear-gradient(105deg, transparent ${shine - 12}%, rgba(255,255,255,.75) ${shine}%, transparent ${shine + 12}%)` }} />
       </div>
+      <Sequence from={Math.round((6 * vfps) / 30)}><Audio src={staticFile("audio/roll.wav")} volume={0.7} /></Sequence>
+      <Sequence from={Math.round((61 * vfps) / 30)}><Audio src={staticFile("audio/thud.wav")} volume={0.35} /></Sequence>
+      <Sequence from={Math.round((63 * vfps) / 30)}><Audio src={staticFile("audio/sparkle.wav")} volume={0.4} /></Sequence>
     </AbsoluteFill>
   );
 };
