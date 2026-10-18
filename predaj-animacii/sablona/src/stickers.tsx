@@ -1,11 +1,13 @@
 // Nálepky (stickery) na priehľadnom pozadí: klient ich vloží nad svoj záber v CapCute.
 // Renderujú sa cez scripts/render-alpha.mjs do MOV (ProRes 4444 s alfou), WebM a GIF.
 import React from "react";
-import { AbsoluteFill, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Img, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { asset, bodyFont, Brand, headingFont } from "./brand";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 type P = { brand: Brand };
+/** čas v snímkach pri 30 fps aj keď sa renderuje v 60 fps (plynulejší pohyb, rovnaké načasovanie) */
+const useF = () => { const fr = useCurrentFrame(); const { fps } = useVideoConfig(); return (fr * 30) / fps; };
 
 /** biely obrys ako pri vystrihnutej nálepke + mäkký tieň */
 const stickerEdge = (w = 7) =>
@@ -13,7 +15,7 @@ const stickerEdge = (w = 7) =>
     .map(([x, y]) => `drop-shadow(${x}px ${y}px 0 #fff)`).join(" ") + " drop-shadow(0 22px 26px rgba(0,0,0,.35))";
 
 const Sparkles: React.FC<{ at: number; x: number; y: number; color: string; n?: number }> = ({ at, x, y, color, n = 8 }) => {
-  const f = useCurrentFrame() - at;
+  const f = useF() - at;
   if (f < 0 || f > 24) return null;
   return <>{Array.from({ length: n }, (_, i) => {
     const a = (i / n) * Math.PI * 2, d = interpolate(f, [0, 18], [20, 150], clamp), o = interpolate(f, [8, 24], [1, 0], clamp);
@@ -22,36 +24,36 @@ const Sparkles: React.FC<{ at: number; x: number; y: number; color: string; n?: 
   })}</>;
 };
 
-/** Logo sa vykreslí čiarou, potom sa vyplní; donut sa dokotúľa na miesto písmena „o“. */
+/** Pôvodné logo (presne ako na webe): odkryje sa zľava, donut z loga sa dokotúľa na svoje miesto. */
 export const LogoDraw: React.FC<P> = ({ brand }) => {
-  const f = useCurrentFrame(); const { fps } = useVideoConfig();
-  const v = brand.logoVector!;
-  const W = 860, s = W / v.w, H = v.h * s;
-  const card = spring({ frame: f, fps, config: { damping: 14, stiffness: 140 } });
-  const draw = interpolate(f, [6, 40], [1, 0], clamp);
-  const fill = interpolate(f, [32, 46], [0, 1], clamp);
-  const roll = spring({ frame: f - 30, fps, config: { damping: 11, stiffness: 90 } });
-  const d = v.donut;
-  const squash = d ? 1 - 0.18 * Math.max(0, Math.sin(interpolate(f, [44, 52], [0, Math.PI], clamp))) : 1;
+  const f = useF(); const fps = 30;
+  const L = brand.logoAnim!; // rozmery loga a poloha okrúhleho prvku (napr. donut) v pixeloch pôvodného súboru
+  const W = 860, s = W / L.w, H = L.h * s;
+  const card = spring({ frame: f, fps, config: { damping: 15, stiffness: 120 } });
+  const wipe = interpolate(f, [8, 34], [0, 1], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 3) });
+  const settle = interpolate(f, [8, 40], [1.06, 1], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 3) });
+  const d = L.round;
+  const roll = spring({ frame: f - 22, fps, config: { damping: 13, stiffness: 70, mass: 0.9 } });
+  const landed = f >= 22 && roll > 0.98;
+  const squash = d ? 1 - 0.14 * Math.max(0, Math.sin(interpolate(roll, [0.85, 1], [0, Math.PI], clamp))) : 1;
+  const url = asset(brand, brand.logo!);
+  const cardBg = "#fffaf0";
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
-      <div style={{ position: "relative", width: W + 120, height: H + 120, borderRadius: 48, background: "#fffaf0",
-        boxShadow: "0 30px 60px rgba(0,0,0,.28)", transform: `scale(${card})`, overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <svg width={W} height={H} viewBox={`0 0 ${v.w} ${v.h}`} style={{ overflow: "visible" }}>
-          <defs>
-            <radialGradient id="dg" cx="45%" cy="38%" r="65%">
-              <stop offset="0" stopColor="#f6c46a" /><stop offset=".55" stopColor="#e39a3b" /><stop offset="1" stopColor="#b8691f" />
-            </radialGradient>
-          </defs>
-          <path d={v.d} fill={v.fill} fillOpacity={fill} stroke={v.fill} strokeWidth={14} strokeLinejoin="round"
-            pathLength={1} strokeDasharray={1} strokeDashoffset={draw} />
-          {d && f >= 28 && <g transform={`translate(${d.cx + (1 - roll) * 3200} ${d.cy}) rotate(${(1 - roll) * -900}) scale(${1 / squash} ${squash})`}>
-            <path fillRule="evenodd" fill="url(#dg)" d={`M ${-d.r} 0 a ${d.r} ${d.r} 0 1 0 ${2 * d.r} 0 a ${d.r} ${d.r} 0 1 0 ${-2 * d.r} 0 Z M ${-d.r * 0.33} 0 a ${d.r * 0.33} ${d.r * 0.33} 0 1 1 ${d.r * 0.66} 0 a ${d.r * 0.33} ${d.r * 0.33} 0 1 1 ${-d.r * 0.66} 0 Z`} />
-            <path d={`M ${-d.r * 0.7} ${-d.r * 0.35} A ${d.r * 0.8} ${d.r * 0.8} 0 0 1 ${d.r * 0.2} ${-d.r * 0.78}`} stroke="#fff" strokeOpacity={0.55}
-              strokeWidth={d.r * 0.12} strokeLinecap="round" fill="none" />
-          </g>}
-        </svg>
-        {d && <Sparkles at={46} x={60 + (d.cx * s)} y={60 + d.cy * s} color={brand.colors.surface2 || brand.colors.surface} />}
+      <div style={{ position: "relative", width: W + 120, height: H + 120, borderRadius: 48, background: cardBg, overflow: "hidden",
+        boxShadow: "0 30px 60px rgba(0,0,0,.28)", transform: `scale(${card})` }}>
+        <div style={{ position: "absolute", left: 60, top: 60, width: W, height: H, transform: `scale(${settle})`,
+          WebkitMaskImage: `linear-gradient(90deg, #000 ${wipe * 120 - 20}%, transparent ${wipe * 120}%)`,
+          maskImage: `linear-gradient(90deg, #000 ${wipe * 120 - 20}%, transparent ${wipe * 120}%)` }}>
+          <Img src={url} style={{ width: W, height: H, display: "block" }} />
+          {d && !landed && <div style={{ position: "absolute", left: (d.cx - d.r - 3) * s, top: (d.cy - d.r - 3) * s,
+            width: (d.r * 2 + 6) * s, height: (d.r * 2 + 6) * s, borderRadius: "50%", background: cardBg }} />}
+        </div>
+        {d && f >= 22 && !landed && <div style={{ position: "absolute", left: 60 + (d.cx - d.r) * s + (1 - roll) * (W + 200), top: 60 + (d.cy - d.r) * s,
+          width: d.r * 2 * s, height: d.r * 2 * s, borderRadius: "50%", backgroundImage: `url(${url})`,
+          backgroundSize: `${W}px ${H}px`, backgroundPosition: `${-(d.cx - d.r) * s}px ${-(d.cy - d.r) * s}px`,
+          transform: `rotate(${(1 - roll) * -720}deg) scale(${1 / squash}, ${squash})` }} />}
+        {d && <Sparkles at={36} x={60 + d.cx * s} y={60 + d.cy * s} color={brand.colors.surface2 || brand.colors.surface} />}
       </div>
     </AbsoluteFill>
   );
@@ -59,7 +61,7 @@ export const LogoDraw: React.FC<P> = ({ brand }) => {
 
 /** Vystrihnutý produkt ako nálepka: vyskočí, zakýve sa a jemne pláva. */
 export const ProductSticker: React.FC<P> = ({ brand }) => {
-  const f = useCurrentFrame(); const { fps } = useVideoConfig();
+  const f = useF(); const fps = 30;
   const pop = spring({ frame: f, fps, config: { damping: 8, stiffness: 120 } });
   const rot = interpolate(pop, [0, 1], [-35, -8]) + Math.sin(f / 14) * 3;
   return (
@@ -74,7 +76,7 @@ export const ProductSticker: React.FC<P> = ({ brand }) => {
 
 /** Visačka s cenou na šnúrke, cena sa napočíta, visačka sa dohojdá. */
 export const PriceTag: React.FC<P> = ({ brand }) => {
-  const f = useCurrentFrame(); const { fps } = useVideoConfig();
+  const f = useF(); const fps = 30;
   const p = brand.products?.[0];
   const m = (p?.price || "€0").match(/^(\D*)([\d.,]+)(\D*)$/) || ["", "", "0", ""];
   const num = parseFloat(m[2].replace(",", "."));
@@ -104,7 +106,7 @@ export const PriceTag: React.FC<P> = ({ brand }) => {
 
 /** Hviezdicový odznak „NEW“, ktorý vyskočí a pomaly sa točí. */
 export const NewBadge: React.FC<P & { text?: string }> = ({ brand, text = "NEW" }) => {
-  const f = useCurrentFrame(); const { fps } = useVideoConfig();
+  const f = useF(); const fps = 30;
   const pop = spring({ frame: f, fps, config: { damping: 7, stiffness: 140 } });
   const pts = Array.from({ length: 32 }, (_, i) => { const r = i % 2 ? 150 : 190, a = (i / 32) * Math.PI * 2; return `${200 + r * Math.cos(a)},${200 + r * Math.sin(a)}`; }).join(" ");
   const c = brand.colors;
@@ -123,7 +125,7 @@ export const NewBadge: React.FC<P & { text?: string }> = ({ brand, text = "NEW" 
 
 /** Ručne kreslená šípka a štítok „link in bio“. */
 export const ArrowBio: React.FC<P & { text?: string }> = ({ brand, text = "link in bio" }) => {
-  const f = useCurrentFrame(); const { fps } = useVideoConfig();
+  const f = useF(); const fps = 30;
   const draw = interpolate(f, [0, 22], [1, 0], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 2) });
   const head = interpolate(f, [20, 26], [1, 0], clamp);
   const pill = spring({ frame: f - 22, fps, config: { damping: 9, stiffness: 130 } });
@@ -147,7 +149,7 @@ export const ArrowBio: React.FC<P & { text?: string }> = ({ brand, text = "link 
 
 /** Ručne nakreslený krúžok na zvýraznenie čohokoľvek vo videu. */
 export const Scribble: React.FC<P> = ({ brand }) => {
-  const f = useCurrentFrame();
+  const f = useF();
   const draw = interpolate(f, [0, 20], [1, 0], { ...clamp, easing: (t) => 1 - Math.pow(1 - t, 2) });
   const d = "M 760 760 C 980 800 1000 1080 720 1150 C 420 1220 140 1120 150 960 C 160 800 430 720 640 740 C 800 755 900 820 905 860";
   const col = brand.colors.surface2 || brand.colors.surface;
@@ -157,6 +159,25 @@ export const Scribble: React.FC<P> = ({ brand }) => {
         <path d={d} fill="none" stroke="#fff" strokeWidth={40} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={draw} />
         <path d={d} fill="none" stroke={col} strokeWidth={24} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={draw} />
       </svg>
+    </AbsoluteFill>
+  );
+};
+
+/** Ukážka nálepiek nad „záberom“ (statická fotka produktu s jemným pohybom kamery). Len na prezentáciu. */
+export const StickerDemo: React.FC<P> = ({ brand }) => {
+  const f = useF(); const { fps } = useVideoConfig();
+  const at = (from: number, len: number, el: React.ReactNode) =>
+    <Sequence from={Math.round((from * fps) / 30)} durationInFrames={Math.round((len * fps) / 30)}>{el}</Sequence>;
+  return (
+    <AbsoluteFill style={{ background: "radial-gradient(ellipse at 50% 55%, #f3e3cc 0%, #c9b296 60%, #8f7a63 100%)" }}>
+      <Img src={asset(brand, brand.hero!)} style={{ position: "absolute", width: 980, left: 50, top: 760,
+        transform: `translate(${Math.sin(f / 50) * 10}px, ${Math.sin(f / 37) * 8}px) scale(${1 + f / 3000})` }} />
+      {at(0, 90, <LogoDraw brand={brand} />)}
+      {at(90, 95, <AbsoluteFill style={{ transform: "translate(250px,-120px) scale(.72)" }}><ProductSticker brand={brand} /></AbsoluteFill>)}
+      {at(100, 85, <NewBadge brand={brand} />)}
+      {at(186, 84, <PriceTag brand={brand} />)}
+      {at(270, 90, <ArrowBio brand={brand} />)}
+      {at(280, 80, <Scribble brand={brand} />)}
     </AbsoluteFill>
   );
 };

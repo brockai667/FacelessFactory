@@ -212,10 +212,20 @@ const info = await dpage.evaluate(() => {
 if (info.hasLogo) {
   await dpage.locator("[data-brand-logo]").first().screenshot({ path: path.join(dir, "logo.png"), omitBackground: true }).catch(() => (info.hasLogo = false));
 }
+/** pôvodný súbor namiesto zmenšeniny: Next.js /_next/image?url=…, Shopify ?width= / _800x, Wix /v1/fill/… */
+function original(src) {
+  try {
+    const u = new URL(src);
+    if (u.pathname.includes("/_next/image") && u.searchParams.get("url")) return new URL(u.searchParams.get("url"), u.origin).href;
+    for (const k of ["width", "w", "height", "h", "crop", "q", "quality"]) u.searchParams.delete(k);
+    u.pathname = u.pathname.replace(/_(\d+x\d*|\d*x\d+)(?=\.\w+$)/, "").replace(/\/v1\/fill\/[^/]+\//, "/");
+    return u.href;
+  } catch { return src; }
+}
 async function grab(src, sel, file) {
   const p = path.join(dir, file);
-  try {
-    const r = await dctx.request.get(src, { timeout: 20000 });
+  for (const s of [...new Set([original(src), src])]) try {
+    const r = await dctx.request.get(s, { timeout: 20000 });
     const ct = r.headers()["content-type"] || "";
     if (r.ok() && /png|jpe?g|webp|avif|gif/.test(ct)) {
       const ext = ct.includes("png") ? "png" : ct.includes("webp") ? "webp" : ct.includes("avif") ? "avif" : ct.includes("gif") ? "gif" : "jpg";
@@ -223,6 +233,14 @@ async function grab(src, sel, file) {
     }
   } catch {}
   try { await dpage.locator(sel).first().screenshot({ path: p }); return file; } catch { return null; }
+}
+// logo ako pôvodný súbor (ostrejšie ako screenshot), SVG uložiť ako vektor
+if (info.hasLogo) {
+  const le = await dpage.evaluate(() => { const e = document.querySelector("[data-brand-logo]"); const img = e?.tagName === "IMG" ? e : e?.querySelector("img");
+    const svg = e?.tagName.toLowerCase() === "svg" ? e : e?.querySelector("svg");
+    return { src: img ? img.currentSrc || img.src : null, svg: !img && svg ? svg.outerHTML : null }; });
+  if (le.svg) fs.writeFileSync(path.join(dir, "logo.svg"), le.svg);
+  if (le.src) { const f = await grab(le.src, "[data-brand-logo]", "logo-orig.png"); if (f) info.logoFile = f; }
 }
 const heroFile = info.hero ? await grab(info.hero.src, "[data-brand-hero]", "hero.png") : null;
 const products = [];
@@ -286,7 +304,8 @@ const brand = {
   fontFaces,   // Google Fonts lokálne
   fontFiles,   // písma zachytené zo stránky (záloha pre ne-Google písma)
   colors: c,
-  logo: info.hasLogo ? "logo.png" : null,
+  logo: info.hasLogo ? (info.logoFile || "logo.png") : null,
+  logoSvg: fs.existsSync(path.join(dir, "logo.svg")) ? "logo.svg" : undefined,
   hero: heroFile,
   products,
   instagram: info.instagram,

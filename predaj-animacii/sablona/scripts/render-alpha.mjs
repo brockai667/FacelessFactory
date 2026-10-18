@@ -31,17 +31,17 @@ for (const id of comps) {
   ff("-i", mov, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-b:v", "0", "-crf", "32", "-an", path.join(outDir, `${name}.webm`));
   // GIF orezaný na obsah (GIPHY nálepka): bbox z alfy všetkých snímok
   const tmp = fs.mkdtempSync(path.join(outDir, ".gif-"));
-  ff("-i", mov, "-vf", "fps=15,scale=540:-1", path.join(tmp, "%03d.png"));
+  ff("-i", mov, "-vf", "fps=25,scale=720:-1", path.join(tmp, "%03d.png"));
   const bb = execFileSync("python3", ["-c", `import sys,glob
 from PIL import Image
 b=None
 for f in sorted(glob.glob(sys.argv[1]+'/*.png')):
   x=Image.open(f).getchannel('A').point(lambda v:255 if v>10 else 0).getbbox()
   if x: b=x if b is None else (min(b[0],x[0]),min(b[1],x[1]),max(b[2],x[2]),max(b[3],x[3]))
-print(*(b or (0,0,540,960)))`, tmp], { encoding: "utf8" }).trim().split(" ").map(Number);
+print(*(b or (0,0,720,1280)))`, tmp], { encoding: "utf8" }).trim().split(" ").map(Number);
   const [x0, y0, x1, y1] = [Math.max(0, bb[0] - 6), Math.max(0, bb[1] - 6), bb[2] + 6, bb[3] + 6];
-  ff("-framerate", "15", "-i", path.join(tmp, "%03d.png"), "-vf",
-    `crop=${Math.min(540, x1) - x0}:${y1 - y0}:${x0}:${y0},split[a][b];[a]palettegen=reserve_transparent=1:transparency_color=ffffff[p];[b][p]paletteuse=alpha_threshold=128`,
+  ff("-framerate", "25", "-i", path.join(tmp, "%03d.png"), "-vf",
+    `crop=${Math.min(720, x1) - x0}:${y1 - y0}:${x0}:${y0},split[a][b];[a]palettegen=reserve_transparent=1:transparency_color=ffffff[p];[b][p]paletteuse=alpha_threshold=128`,
     "-gifflags", "-offsetting", path.join(outDir, `${name}.gif`));
   fs.rmSync(tmp, { recursive: true });
   console.log(`✓ ${name}`);
