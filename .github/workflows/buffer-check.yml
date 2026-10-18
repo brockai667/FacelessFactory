@@ -1,0 +1,46 @@
+name: Buffer check
+
+# Rucna kontrola (nic nezverejnuje): su kanaly z config.example.json pripojene v Bufferi a ake posty su v stave error?
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Check
+        env:
+          BUFFER_TOKEN: ${{ secrets.BUFFER_TOKEN }}
+        run: |
+          cat > ck.py <<'PY'
+          import json, os, push_to_buffer as pb
+          t = os.environ["BUFFER_TOKEN"]
+          want = {c["id"]: c["service"] for c in json.load(open("config.example.json"))["buffer_channels"]}
+          orgs = pb.gql(t, "query { account { organizations { id } } }")["account"]["organizations"]
+          for o in orgs:
+              for q in ("id name service isDisconnected isLocked", "id name service"):
+                  try:
+                      ch = pb.gql(t, "query($i: ChannelsInput!) { channels(input: $i) { %s } }" % q, {"i": {"organizationId": o["id"]}})["channels"]
+                      break
+                  except Exception as e:
+                      print("channels", q, "->", str(e)[:200]); ch = []
+              for c in ch:
+                  print(("  [config] " if c["id"] in want else "  ") + json.dumps(c))
+              for st in ("error", "sent", "scheduled"):
+                  try:
+                      r = pb.gql(t, """query($i: PostsInput!) { posts(input: $i, first: 8) { edges { node { id status dueAt channelId text
+                                 error { message } } } } }""",
+                                 {"i": {"organizationId": o["id"], "filter": {"status": [st], "channelIds": [k for k, v in want.items() if v == "tiktok"]}}})
+                      ed = r["posts"]["edges"]
+                      print(f"TikTok posty {st}: {len(ed)}")
+                      for e in ed:
+                          n = e["node"]; print("   ", n["dueAt"], n["status"], (n.get("error") or {}).get("message"), (n.get("text") or "")[:50].replace("\n", " "))
+                  except Exception as e:
+                      print("posts", st, "->", str(e)[:300])
+          PY
+          python ck.py
