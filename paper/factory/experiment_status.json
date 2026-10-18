@@ -1,0 +1,20 @@
+{
+ "factory": "MindBlownDaily",
+ "updated": "2026-10-18",
+ "name": "copy-018-darkness",
+ "started": "2026-10-18",
+ "hypothesis": "The winner succeeds by immersing viewers in a step-by-step sensory experience that feels like a personal experiment.",
+ "instruction": "Start with a vivid, curiosity-driving hook, then list rapid sensory changes in a timed sequence, ending with a personal challenge question.",
+ "metric": "median views at ~48 h per platform",
+ "metric_before": {
+  "youtube": 101,
+  "tiktok": 267,
+  "instagram": 368
+ },
+ "metric_now": {},
+ "ratio_now": null,
+ "n_tagged": 0,
+ "status": "running",
+ "rules": 0,
+ "last": null
+}

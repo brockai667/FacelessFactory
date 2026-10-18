@@ -1,0 +1,39 @@
+{
+ "current": {
+  "name": "copy-018-darkness",
+  "slot": "winner",
+  "instruction": "Start with a vivid, curiosity-driving hook, then list rapid sensory changes in a timed sequence, ending with a personal challenge question.",
+  "hypothesis": "The winner succeeds by immersing viewers in a step-by-step sensory experience that feels like a personal experiment.",
+  "keywords": [
+   "darkness",
+   "silence",
+   "extreme",
+   "stress"
+  ],
+  "source": "winner",
+  "winner": {
+   "spec": "018-darkness",
+   "title": "What total darkness does",
+   "score": 2.22,
+   "per_platform": {
+    "youtube": 1.28,
+    "tiktok": 1.06,
+    "instagram": 8.02
+   }
+  },
+  "started": "2026-10-18",
+  "baseline_median": {
+   "youtube": 101,
+   "tiktok": 267,
+   "instagram": 368
+  },
+  "baseline_approx": [
+   "youtube",
+   "tiktok",
+   "instagram"
+  ],
+  "tagged": []
+ },
+ "rules": [],
+ "history": []
+}

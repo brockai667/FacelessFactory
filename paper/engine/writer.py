@@ -158,7 +158,17 @@ def direct(hist, rng):
     return {k: pick(k, hist, rng) for k in CHOICES}
 
 
-def llm_script(topic, fmt):
+def learn_brief():
+    """pravidla a tyzdenny experiment zo samoucenia (engine/learn.py); vypadok nesmie zastavit pisanie"""
+    try:
+        import learn
+        return learn.writer_brief(), learn.current_name()
+    except Exception as e:
+        print(f"   [learn] bez pokynov: {type(e).__name__}: {str(e)[:120]}")
+        return "", None
+
+
+def llm_script(topic, fmt, brief=""):
     prompt = (f"TOPIC: {topic}\nPreferred {FORMAT_RULES[fmt]}\nIf that format does not fit the topic naturally, use timeline.\n"
               "Write 4-6 beats plus an ending (whole script 60-90 words). Choose env (room|space|field) and scenes by topic, outfit for the character "
               "(tshirt|hoodie|pajamas|labcoat|suit), mood_music (tense|playful|wonder|calm), face0 (smile|neutral|excited).\n"
@@ -166,14 +176,18 @@ def llm_script(topic, fmt):
               '"format","env","scene","outfit","mood_music","face0","beats":[{"label","line","idea" (what we see),"scene"?}],"end_line" '
               '(short question to the viewer, max 10 words),"description" (1 sentence),"tags" (3-5 hashtags),'
               '"facts":[{"claim","source"}]}')
+    if brief:
+        prompt += "\n" + brief
     return llm_json(SYS_WRITE, prompt, temperature=0.7, effort="high")
 
 
-def llm_edit(S):
+def llm_edit(S, brief=""):
     data = {"title": S["title"], "beats": [{"label": b["label"], "line": b["line"]} for b in S["beats"]], "end_line": S["end_line"],
             "facts": S.get("facts", [])}
     prompt = ("Check and fix this script. Return JSON: "
               '{"title","beats":[{"label","line","changed":true|false,"why"}],"end_line"}\n' + json.dumps(data, ensure_ascii=False))
+    if brief:
+        prompt += "\nKeep these channel instructions intact while fixing (facts still come first):\n" + brief
     return llm_json(SYS_EDIT, prompt, temperature=0.2, effort="high")
 
 
@@ -201,9 +215,10 @@ def write_spec(topic, fmt=None):
     """len scenar od LLM (scenarista -> redaktor -> vizualny reziser), bez rezie a ulozenia (fronta si reziu doplni pri renderi)"""
     os.makedirs(FDIR, exist_ok=True)
     fmt = fmt or random.choice(CHOICES["format"])
-    print(f"[scenarista] {topic} ({fmt})")
-    S = llm_script(topic, fmt)
-    ed = llm_edit(S)
+    brief, exp = learn_brief()
+    print(f"[scenarista] {topic} ({fmt})" + (f" | experiment: {exp}" if exp else ""))
+    S = llm_script(topic, fmt, brief)
+    ed = llm_edit(S, brief)
     for nb in ed.get("beats", []):
         for b in S["beats"]:
             if b["label"] == nb.get("label") and nb.get("line") and nb["line"] != b["line"]:
@@ -224,6 +239,8 @@ def write_spec(topic, fmt=None):
     S["end"] = {"line": S.pop("end_line"), "do": V.get("end_do", [])}
     S["source"] = "groq"                              # scenar od bezplatneho modelu -> pred zverejnenim skontrolovat
     S["topic"] = topic
+    if exp:
+        S["exp"] = exp                                # tag experimentu (learn.py porovna tieto videa s ostatnymi)
     return S
 
 
@@ -272,12 +289,19 @@ def from_queue(seed=None):
         return None
     import factcheck   # poradie: Claude-pisane/overene scenare prve, groq bez kontroly az potom, zamietnute nikdy
     specs = [(factcheck.queue_priority(S), f, S) for f in files for S in [json.load(open(os.path.join(qdir, f), encoding="utf-8"))]]
-    specs = sorted((x for x in specs if x[0] < 2), key=lambda x: (x[0], x[1]))
+    specs = [x for x in specs if x[0] < 2]
+    try:                                       # v ramci rovnakej priority faktov ma prednost spis aktualneho experimentu
+        import learn
+        specs = learn.order_queue(specs)
+    except Exception as e:
+        print(f"   [learn] poradie bez experimentu: {type(e).__name__}: {str(e)[:120]}")
+        specs.sort(key=lambda x: (x[0], x[1]))
     if not specs:
         return None
     pr, f0, S = specs[0]
     S["queue_file"] = f0
-    print(f"[fronta] {f0} (zostava {len(files) - 1})" + (" - POZOR: groq scenar bez kontroly faktov" if pr == 1 else ""))
+    print(f"[fronta] {f0} (zostava {len(files) - 1})" + (f" | experiment {S['exp']}" if S.get("exp") else "") +
+          (" - POZOR: groq scenar bez kontroly faktov" if pr == 1 else ""))
     return save(apply_direction(S, load(HIST, []), random.Random(seed)))
 
 

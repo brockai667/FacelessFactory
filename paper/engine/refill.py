@@ -55,6 +55,11 @@ def refill(target=10, maximum=3):
         free = topics.unused(bank)
         if not free:
             print("banka tem je prazdna"); break
+        try:                                             # tyzdenny experiment moze preferovat temovu rodinu (learn.py)
+            import learn
+            free = learn.order_topics(free)
+        except Exception:
+            pass
         topic = free[0]
         try:
             S = writer.write_spec(topic)

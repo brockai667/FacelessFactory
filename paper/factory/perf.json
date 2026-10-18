@@ -1,0 +1,887 @@
+{
+ "specs": {
+  "907-groq-climbing-a-sand-dune": {
+   "published": "2026-10-18",
+   "platforms": {
+    "youtube": {
+     "id": "iJLdiJDB7N4",
+     "first": [
+      0.85,
+      1039
+     ],
+     "latest": [
+      0.85,
+      1039
+     ],
+     "likes": 7,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7697930250746858784",
+     "first": [
+      0.85,
+      301
+     ],
+     "latest": [
+      0.85,
+      301
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "17916921705265478",
+     "first": [
+      0.85,
+      211
+     ],
+     "latest": [
+      0.85,
+      211
+     ],
+     "likes": 1,
+     "comments": 0
+    }
+   },
+   "title": "Climbing a Sand Dune",
+   "exp": null
+  },
+  "906-groq-cold-water-swim": {
+   "published": "2026-10-17",
+   "platforms": {
+    "youtube": {
+     "id": "9J8-C58QTyM",
+     "first": [
+      1.85,
+      1146
+     ],
+     "latest": [
+      1.85,
+      1146
+     ],
+     "likes": 14,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7697559179921247520",
+     "first": [
+      1.85,
+      275
+     ],
+     "latest": [
+      1.85,
+      275
+     ],
+     "likes": 3,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "17878638840562791",
+     "first": [
+      1.85,
+      496
+     ],
+     "latest": [
+      1.85,
+      496
+     ],
+     "likes": 2,
+     "comments": 0
+    }
+   },
+   "title": "Cold Water Swim",
+   "exp": null
+  },
+  "905-groq-protein-only-diet-effects": {
+   "published": "2026-10-16",
+   "platforms": {
+    "youtube": {
+     "id": "j0csYMAUK5g",
+     "first": [
+      2.85,
+      832
+     ],
+     "v48": 832,
+     "age48": 2.85,
+     "latest": [
+      2.85,
+      832
+     ],
+     "likes": 14,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7697188209201007905",
+     "first": [
+      2.85,
+      264
+     ],
+     "v48": 264,
+     "age48": 2.85,
+     "latest": [
+      2.85,
+      264
+     ],
+     "likes": 2,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18106455130958818",
+     "first": [
+      2.85,
+      220
+     ],
+     "v48": 220,
+     "age48": 2.85,
+     "latest": [
+      2.85,
+      220
+     ],
+     "likes": 1,
+     "comments": 0
+    }
+   },
+   "title": "Protein Only Diet Effects",
+   "exp": null
+  },
+  "904-groq-high-altitude-whistle": {
+   "published": "2026-10-15",
+   "platforms": {
+    "youtube": {
+     "id": "E89mbJflRlA",
+     "first": [
+      3.85,
+      1365
+     ],
+     "v48": 1365,
+     "age48": 3.85,
+     "latest": [
+      3.85,
+      1365
+     ],
+     "likes": 20,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7696817080569564449",
+     "first": [
+      3.85,
+      274
+     ],
+     "v48": 274,
+     "age48": 3.85,
+     "latest": [
+      3.85,
+      274
+     ],
+     "likes": 5,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "17950976781297265",
+     "first": [
+      3.85,
+      688
+     ],
+     "v48": 688,
+     "age48": 3.85,
+     "latest": [
+      3.85,
+      688
+     ],
+     "likes": 1,
+     "comments": 0
+    }
+   },
+   "title": "High Altitude Whistle",
+   "exp": null
+  },
+  "903-groq-ocean-swim-effects": {
+   "published": "2026-10-12",
+   "platforms": {
+    "youtube": {
+     "id": "cb7HnbQBu-A",
+     "first": [
+      6.85,
+      1221
+     ],
+     "late": true,
+     "latest": [
+      6.85,
+      1221
+     ],
+     "likes": 8,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7695703840225578273",
+     "first": [
+      6.85,
+      258
+     ],
+     "late": true,
+     "latest": [
+      6.85,
+      258
+     ],
+     "likes": 1,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18079706483380999",
+     "first": [
+      6.85,
+      282
+     ],
+     "late": true,
+     "latest": [
+      6.85,
+      282
+     ],
+     "likes": 0,
+     "comments": 0
+    }
+   },
+   "title": "Ocean Swim Effects",
+   "exp": null
+  },
+  "902-groq-sleeping-in-a-coffin": {
+   "published": "2026-10-11",
+   "platforms": {
+    "youtube": {
+     "id": "zYdw2s2phaM",
+     "first": [
+      7.85,
+      140
+     ],
+     "late": true,
+     "latest": [
+      7.85,
+      140
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7695332644522970401",
+     "first": [
+      7.85,
+      267
+     ],
+     "late": true,
+     "latest": [
+      7.85,
+      267
+     ],
+     "likes": 3,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "17992950138044394",
+     "first": [
+      7.85,
+      368
+     ],
+     "late": true,
+     "latest": [
+      7.85,
+      368
+     ],
+     "likes": 0,
+     "comments": 0
+    }
+   },
+   "title": "Sleeping in a Coffin",
+   "exp": null
+  },
+  "901-groq-fruit-only-diet": {
+   "published": "2026-10-10",
+   "platforms": {
+    "youtube": {
+     "id": "lyweRKXeeEc",
+     "first": [
+      8.85,
+      35
+     ],
+     "late": true,
+     "latest": [
+      8.85,
+      35
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7694961537403931936",
+     "first": [
+      8.85,
+      284
+     ],
+     "late": true,
+     "latest": [
+      8.85,
+      284
+     ],
+     "likes": 7,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18122075827903861",
+     "first": [
+      8.85,
+      3127
+     ],
+     "late": true,
+     "latest": [
+      8.85,
+      3127
+     ],
+     "likes": 13,
+     "comments": 0
+    }
+   },
+   "title": "Fruit Only Diet",
+   "exp": null
+  },
+  "900-groq-moon-walk-effects": {
+   "published": "2026-10-09",
+   "platforms": {
+    "youtube": {
+     "id": "yfQMoY--KOE",
+     "first": [
+      9.85,
+      29
+     ],
+     "late": true,
+     "latest": [
+      9.85,
+      29
+     ],
+     "likes": 1,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7694590449952050464",
+     "first": [
+      9.85,
+      267
+     ],
+     "late": true,
+     "latest": [
+      9.85,
+      267
+     ],
+     "likes": 3,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18333655282263269",
+     "first": [
+      9.85,
+      291
+     ],
+     "late": true,
+     "latest": [
+      9.85,
+      291
+     ],
+     "likes": 0,
+     "comments": 0
+    }
+   },
+   "title": "Moon Walk Effects",
+   "exp": null
+  },
+  "022-spin": {
+   "published": "2026-10-08",
+   "platforms": {
+    "youtube": {
+     "id": "xRMMXdVX1NI",
+     "first": [
+      10.85,
+      36
+     ],
+     "late": true,
+     "latest": [
+      10.85,
+      36
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7694219305675803936",
+     "first": [
+      10.85,
+      276
+     ],
+     "late": true,
+     "latest": [
+      10.85,
+      276
+     ],
+     "likes": 4,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18105739586346269",
+     "first": [
+      10.85,
+      476
+     ],
+     "late": true,
+     "latest": [
+      10.85,
+      476
+     ],
+     "likes": 3,
+     "comments": 0
+    }
+   },
+   "title": "What spinning in a chair does",
+   "exp": null
+  },
+  "021-sun": {
+   "published": "2026-10-07",
+   "platforms": {
+    "youtube": {
+     "id": "MrRfoxNo3wc",
+     "first": [
+      11.85,
+      47
+     ],
+     "late": true,
+     "latest": [
+      11.85,
+      47
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7693848313212210465",
+     "first": [
+      11.85,
+      267
+     ],
+     "late": true,
+     "latest": [
+      11.85,
+      267
+     ],
+     "likes": 2,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18076256048717527",
+     "first": [
+      11.85,
+      185
+     ],
+     "late": true,
+     "latest": [
+      11.85,
+      185
+     ],
+     "likes": 0,
+     "comments": 0
+    }
+   },
+   "title": "What lying in the sun does",
+   "exp": null
+  },
+  "020-naps": {
+   "published": "2026-10-06",
+   "platforms": {
+    "youtube": {
+     "id": "a1Jne9Cp89M",
+     "first": [
+      12.85,
+      26
+     ],
+     "late": true,
+     "latest": [
+      12.85,
+      26
+     ],
+     "likes": 1,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7693477296111406369",
+     "first": [
+      12.85,
+      257
+     ],
+     "late": true,
+     "latest": [
+      12.85,
+      257
+     ],
+     "likes": 12,
+     "comments": 1
+    },
+    "instagram": {
+     "id": "17993935865842944",
+     "first": [
+      12.85,
+      1596
+     ],
+     "late": true,
+     "latest": [
+      12.85,
+      1596
+     ],
+     "likes": 13,
+     "comments": 0
+    }
+   },
+   "title": "What afternoon naps do",
+   "exp": null
+  },
+  "019-polar": {
+   "published": "2026-10-05",
+   "platforms": {
+    "youtube": {
+     "id": "qGEHPrtWxVY",
+     "first": [
+      13.85,
+      111
+     ],
+     "late": true,
+     "latest": [
+      13.85,
+      111
+     ],
+     "likes": 2,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7693106170604555553",
+     "first": [
+      13.85,
+      276
+     ],
+     "late": true,
+     "latest": [
+      13.85,
+      276
+     ],
+     "likes": 3,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18072450200724769",
+     "first": [
+      13.85,
+      220
+     ],
+     "late": true,
+     "latest": [
+      13.85,
+      220
+     ],
+     "likes": 1,
+     "comments": 0
+    }
+   },
+   "title": "What crossing polar ice does",
+   "exp": null
+  },
+  "018-darkness": {
+   "published": "2026-10-04",
+   "platforms": {
+    "youtube": {
+     "id": "B_4kFzOPJns",
+     "first": [
+      14.85,
+      101
+     ],
+     "late": true,
+     "latest": [
+      14.85,
+      101
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7692734994745134369",
+     "first": [
+      14.85,
+      277
+     ],
+     "late": true,
+     "latest": [
+      14.85,
+      277
+     ],
+     "likes": 16,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "17947140423296056",
+     "first": [
+      14.85,
+      1673
+     ],
+     "late": true,
+     "latest": [
+      14.85,
+      1673
+     ],
+     "likes": 10,
+     "comments": 0
+    }
+   },
+   "title": "What total darkness does",
+   "exp": null
+  },
+  "017-laugh": {
+   "published": "2026-10-03",
+   "platforms": {
+    "youtube": {
+     "id": "lTrjfxLI7DA",
+     "first": [
+      15.85,
+      381
+     ],
+     "late": true,
+     "latest": [
+      15.85,
+      381
+     ],
+     "likes": 4,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7692363956618317088",
+     "first": [
+      15.85,
+      251
+     ],
+     "late": true,
+     "latest": [
+      15.85,
+      251
+     ],
+     "likes": 2,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18101824430309857",
+     "first": [
+      15.85,
+      197
+     ],
+     "late": true,
+     "latest": [
+      15.85,
+      197
+     ],
+     "likes": 1,
+     "comments": 0
+    }
+   },
+   "title": "What daily laughter does",
+   "exp": null
+  },
+  "016-exercise": {
+   "published": "2026-10-02",
+   "platforms": {
+    "youtube": {
+     "id": "3EA_EaBdsZQ",
+     "first": [
+      16.85,
+      3
+     ],
+     "late": true,
+     "latest": [
+      16.85,
+      3
+     ],
+     "likes": 0,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7691992956512849185",
+     "first": [
+      16.85,
+      273
+     ],
+     "late": true,
+     "latest": [
+      16.85,
+      273
+     ],
+     "likes": 1,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18140074054537122",
+     "first": [
+      16.85,
+      411
+     ],
+     "late": true,
+     "latest": [
+      16.85,
+      411
+     ],
+     "likes": 3,
+     "comments": 0
+    }
+   },
+   "title": "What quitting exercise does",
+   "exp": null
+  },
+  "015-soda": {
+   "published": "2026-10-01",
+   "platforms": {
+    "youtube": {
+     "id": "dGY-KnDcznc",
+     "first": [
+      17.85,
+      654
+     ],
+     "late": true,
+     "latest": [
+      17.85,
+      654
+     ],
+     "likes": 3,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7691621968453307681",
+     "first": [
+      17.85,
+      249
+     ],
+     "late": true,
+     "latest": [
+      17.85,
+      249
+     ],
+     "likes": 2,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18145385326569129",
+     "first": [
+      17.85,
+      131
+     ],
+     "late": true,
+     "latest": [
+      17.85,
+      131
+     ],
+     "likes": 0,
+     "comments": 0
+    }
+   },
+   "title": "What drinking only soda does",
+   "exp": null
+  },
+  "014-water": {
+   "published": "2026-09-30",
+   "platforms": {
+    "youtube": {
+     "id": "T3WM-XNHcw8",
+     "first": [
+      18.85,
+      47
+     ],
+     "late": true,
+     "latest": [
+      18.85,
+      47
+     ],
+     "likes": 1,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7691250772511657249",
+     "first": [
+      18.85,
+      253
+     ],
+     "late": true,
+     "latest": [
+      18.85,
+      253
+     ],
+     "likes": 5,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18131025046741402",
+     "first": [
+      18.85,
+      275
+     ],
+     "late": true,
+     "latest": [
+      18.85,
+      275
+     ],
+     "likes": 2,
+     "comments": 0
+    }
+   },
+   "title": "What too much water does",
+   "exp": null
+  },
+  "013-fasting": {
+   "published": "2026-09-29",
+   "platforms": {
+    "youtube": {
+     "id": "nKWn_9J4zCc",
+     "first": [
+      19.85,
+      42
+     ],
+     "late": true,
+     "latest": [
+      19.85,
+      42
+     ],
+     "likes": 2,
+     "comments": 0
+    },
+    "tiktok": {
+     "id": "7690879750331469089",
+     "first": [
+      19.85,
+      258
+     ],
+     "late": true,
+     "latest": [
+      19.85,
+      258
+     ],
+     "likes": 1,
+     "comments": 0
+    },
+    "instagram": {
+     "id": "18431504077180808",
+     "first": [
+      19.85,
+      2
+     ],
+     "late": true,
+     "latest": [
+      19.85,
+      2
+     ],
+     "likes": 0,
+     "comments": 0
+    }
+   },
+   "title": "What going without food does",
+   "exp": null
+  }
+ },
+ "updated": "2026-10-18T20:30:10Z"
+}

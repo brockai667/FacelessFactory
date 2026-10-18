@@ -69,6 +69,14 @@ unchecked = [f for f in glob.glob(os.path.join(FACTORY, "factory", "queue", "*.j
 if unchecked:
     warns.append(f"{len(unchecked)} groq scenarov vo fronte bez overenia faktov -> python engine/factcheck.py --queue")
 
+# 5) samoucenie (learn.py): offline test s atrapami videos.json + Groq. Len varovanie: experimenty nesmu zastavit denne video
+try:
+    import test_learn  # noqa: E402
+    for e in test_learn.run():
+        warns.append("learn (samoucenie): " + e)
+except Exception as e:
+    warns.append(f"learn (samoucenie): test nespusteny: {type(e).__name__}: {str(e)[:160]}")
+
 print(f"selftest: {len(files)} scenarov, {len(errors)} chyb, {len(warns)} varovani")
 for e in errors:
     print("  CHYBA:", e)
