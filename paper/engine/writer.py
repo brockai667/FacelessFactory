@@ -270,9 +270,14 @@ def from_queue(seed=None):
     files = sorted(f for f in os.listdir(qdir) if f.endswith(".json")) if os.path.isdir(qdir) else []
     if not files:
         return None
-    S = json.load(open(os.path.join(qdir, files[0]), encoding="utf-8"))
-    S["queue_file"] = files[0]
-    print(f"[fronta] {files[0]} (zostava {len(files) - 1})")
+    import factcheck   # poradie: Claude-pisane/overene scenare prve, groq bez kontroly az potom, zamietnute nikdy
+    specs = [(factcheck.queue_priority(S), f, S) for f in files for S in [json.load(open(os.path.join(qdir, f), encoding="utf-8"))]]
+    specs = sorted((x for x in specs if x[0] < 2), key=lambda x: (x[0], x[1]))
+    if not specs:
+        return None
+    pr, f0, S = specs[0]
+    S["queue_file"] = f0
+    print(f"[fronta] {f0} (zostava {len(files) - 1})" + (" - POZOR: groq scenar bez kontroly faktov" if pr == 1 else ""))
     return save(apply_direction(S, load(HIST, []), random.Random(seed)))
 
 

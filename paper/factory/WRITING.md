@@ -69,3 +69,12 @@ Pravidlá: beat 1 = svet; nikdy 3 panely za sebou; druhý záber v beate potrebu
 `python engine/compose.py specs/<slug>.json --snap 1,4,8,12,16,20` (alebo `factory.py --snap`) a pozrieť kontaktný hárok:
 nič sa neprekrýva, vizuál sedí na slová, slučka (prvý = posledný snímok).
 Nové recepty/panely/prostredia pridávať do `lib/` + do slovníka v `engine/compose.py` a tu.
+
+## Kontrola faktov (groq scenare)
+Groq si vymýšľa detaily, preto každý nový groq scenár z `engine/refill.py` prejde `engine/factcheck.py`: Wikipedia (1-2 články, ~3500 znakov)
++ Groq vypíše tvrdenia (supported / unsupported / contradicted). Contradicted (alebo >2 nepodložené konkrétne mená/čísla) = jedno prepísanie
+len chybných riadkov a opakovaná kontrola; stále zlé = presun do `factory/queue_rejected/` (nikdy sa nemaže, téma ostane použitá).
+Výsledok je v scenári: `"factcheck": {"ok": true|false|null, "checked_at", "source": [url], "fixed": n}`; `ok: null` = Wikipedia/Groq nebola dostupná,
+scenár sa nezablokuje, ale render ho zaradí až za overené (Claude-písané 001-899 sa nekontrolujú, idú prvé).
+`python engine/factcheck.py --queue [--max N]` skontroluje celú frontu (alebo workflow „Factcheck queue (MindBlown)“); offline test: `python engine/test_factcheck.py`.
+Hranica: model nezachytí všetko (napr. spúšťač mechanizmu), takže kontrola znižuje chyby, nie je zárukou.

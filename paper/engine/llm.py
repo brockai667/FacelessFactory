@@ -39,7 +39,12 @@ def _json(txt):
         raise ValueError("LLM nevratil JSON: " + txt[:200])
 
 
-def llm_json(system, prompt, temperature=0.8, max_tokens=6000, effort="medium"):
+class PromptTooBig(ValueError):
+    """413: prompt + max_tokens presiahli limit (volajuci skrati vstup a skusi znova)"""
+
+
+def llm_json(system, prompt, temperature=0.8, max_tokens=6000, effort="medium", fail_413=False):
+    """fail_413=True: pri 413 hned vyhodi PromptTooBig (bez opakovani), aby volajuci mohol skratit vstup"""
     key, last = _key(), None
     for model, tries in ((MODEL, 5), (FALLBACK, 2)):
         for att in range(tries):
@@ -58,12 +63,16 @@ def llm_json(system, prompt, temperature=0.8, max_tokens=6000, effort="medium"):
                     print(f"   [llm] 429 {model}, cakam {wait:.0f} s")
                     time.sleep(wait)
                     continue
+                if r.status_code == 413 and fail_413:
+                    raise PromptTooBig("413 prompt je prilis velky")
                 if r.status_code >= 400:
                     raise ValueError(f"{r.status_code} {re.sub(r'\s+', ' ', r.text)[:160]}")
                 txt = r.json()["choices"][0]["message"]["content"] or ""
                 if not txt.strip():
                     raise ValueError("prazdna odpoved")
                 return _json(txt)
+            except PromptTooBig:
+                raise
             except Exception as e:
                 last = e
                 print(f"   [llm] {model} pokus {att + 1}: {str(e)[:140]}")

@@ -1,0 +1,47 @@
+# Rucna kontrola faktov vo fronte (MindBlown): Wikipedia + Groq (zadarmo) skontroluje vsetky nekontrolovane groq scenare
+# v paper/factory/queue. Opravene scenare ostanu vo fronte s "factcheck", zamietnute idu do paper/factory/queue_rejected (nic sa nemaze).
+# Nic nepublikuje a nerenderuje. Stav sa uklada spat do repozitara rovnako ako v paper.yml.
+name: Factcheck queue (MindBlown)
+
+on:
+  workflow_dispatch:
+    inputs:
+      max:
+        description: "Kolko scenarov najviac skontrolovat (Groq free limit: radsej 3-5 naraz)"
+        default: "5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily                       # rovnaka skupina ako paper.yml: nikdy suberzne (spolocny stav v repozitari)
+  cancel-in-progress: false
+
+jobs:
+  factcheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python zavislosti
+        run: pip install -q requests
+
+      - name: Kontrola faktov vo fronte
+        env:
+          GROQ_API_KEY: ${{ secrets.MODELS_TOKEN }}
+          PYTHONIOENCODING: utf-8
+        run: cd paper && python engine/factcheck.py --queue --max "${{ github.event.inputs.max || '5' }}"
+
+      - name: Ulozenie stavu
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A paper/factory 2>/dev/null || true
+          git commit -m "factcheck: fronta $(date -u +%F)" || echo "bez zmien"
+          for i in 1 2 3 4; do git pull --rebase --autostash -q && git push && break || sleep 15; done

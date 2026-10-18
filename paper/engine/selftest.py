@@ -60,6 +60,15 @@ try:
 except Exception as e:
     errors.append(f"topics.json: {e}")
 
+# 4) kontrola faktov (factcheck.py): offline test s atrapami Groq + Wikipedie (bez siete a kluca)
+import test_factcheck  # noqa: E402
+for e in test_factcheck.run():
+    errors.append("factcheck: " + e)
+unchecked = [f for f in glob.glob(os.path.join(FACTORY, "factory", "queue", "*.json"))
+             if json.load(open(f, encoding="utf-8")).get("source") == "groq" and (json.load(open(f, encoding="utf-8")).get("factcheck") or {}).get("ok") is not True]
+if unchecked:
+    warns.append(f"{len(unchecked)} groq scenarov vo fronte bez overenia faktov -> python engine/factcheck.py --queue")
+
 print(f"selftest: {len(files)} scenarov, {len(errors)} chyb, {len(warns)} varovani")
 for e in errors:
     print("  CHYBA:", e)
