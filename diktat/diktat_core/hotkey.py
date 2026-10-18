@@ -30,6 +30,75 @@ _ALIASES = {
 }
 
 
+# Ako skratku pomenuje človek → čo patrí do configu. Kľúče sú malými písmenami a bez diakritiky;
+# to, čo je už v _ALIASES ("numpad decimal", "numpad enter"…), sem netreba.
+_HUMAN = {
+    "prava ctrl": "<ctrl_r>", "pravy ctrl": "<ctrl_r>", "right ctrl": "<ctrl_r>",
+    "lava ctrl": "<ctrl_l>", "lavy ctrl": "<ctrl_l>", "left ctrl": "<ctrl_l>",
+    "prava alt": "<alt_r>", "pravy alt": "<alt_r>", "right alt": "<alt_r>", "alt gr": "<alt_r>",
+    "prava shift": "<shift_r>", "pravy shift": "<shift_r>", "right shift": "<shift_r>",
+    "lava shift": "<shift_l>", "lavy shift": "<shift_l>", "left shift": "<shift_l>",
+    "scroll lock": "<scroll_lock>", "pause": "<pause>", "insert": "<insert>", "end": "<end>",
+    "caps lock": "<caps_lock>", "menu": "<menu>", "print screen": "<print_screen>",
+}
+
+_MODIFIERS = {"ctrl": "<ctrl>", "control": "<ctrl>", "alt": "<alt>", "shift": "<shift>",
+              "win": "<cmd>", "windows": "<cmd>", "cmd": "<cmd>", "super": "<cmd>"}
+
+
+def _plain(text: str) -> str:
+    """Na porovnávanie: malé písmená, bez diakritiky, podtržník ako medzera, jedna medzera medzi slovami."""
+    import unicodedata
+    t = unicodedata.normalize("NFKD", (text or "").strip().lower())
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    return " ".join(t.replace("_", " ").split())
+
+
+def normalize_hotkey(text: str) -> str:
+    """Preloží, ako skratku pomenuje človek („pravý Ctrl“, „F9“, „Ctrl+Alt+D“, „numpad enter“), na zápis
+    pre config. Keď tomu nerozumie, vyhodí ValueError – to je lepšie než ticho nastaviť kláves, ktorý
+    nefunguje, a nechať človeka hádať, prečo sa diktovanie nespúšťa."""
+    import re
+    raw = (text or "").strip()
+    if not raw:
+        raise ValueError("skratka je prázdna")
+    if raw.startswith("<") or raw.lower().startswith("vk:"):
+        return raw                                        # už je to hotový zápis
+    plain = _plain(raw)
+    if plain.replace(" ", "_") in _ALIASES:
+        return plain.replace(" ", "_")
+    if plain in _HUMAN:
+        return _HUMAN[plain]
+    parts = [p.strip() for p in plain.split("+") if p.strip()]
+    out: list[str] = []
+    for part in parts:
+        if part in _HUMAN:
+            out.append(_HUMAN[part])
+        elif part in _MODIFIERS:
+            out.append(_MODIFIERS[part])
+        elif re.fullmatch(r"f\d{1,2}", part):
+            out.append(f"<{part}>")
+        elif len(part) == 1 and part.isalnum():
+            out.append(part)
+        else:
+            raise ValueError(f"časti „{part}“ nerozumiem")
+    if not out:
+        raise ValueError(f"skratke „{raw}“ nerozumiem")
+    if len(out) == 1 and len(out[0]) == 1:
+        raise ValueError(f"„{raw}“ je obyčajný kláves – spúšťalo by sa to pri každom písaní. "
+                         "Pridaj Ctrl/Alt/Shift, alebo zvoľ F-kláves či kláves na numerickej.")
+    return "+".join(out)
+
+
+def validate_hotkey(spec: str) -> dict:
+    """Overí, že sa skratka dá naozaj použiť (pynput zápis necháme rozobrať pynputu), a vráti parse_hotkey."""
+    parsed = parse_hotkey(spec)
+    if parsed["kind"] == "pynput":
+        from pynput import keyboard
+        keyboard.HotKey.parse(spec)                       # preklep vyhodí ValueError
+    return parsed
+
+
 def parse_hotkey(spec: str) -> dict:
     """Vráti {"kind": "pynput", "spec": str} alebo {"kind": "vk", "vks": set, "nonext_vks": set, "ext_vks": set}."""
     s = (spec or "").strip()

@@ -23,7 +23,7 @@
     "sample_rate": 16000,
     "device": null,
     "silence_auto_stop_seconds": 0,
-    "max_seconds": 900,
+    "max_seconds": 0,
     "beep": true,
     "beep_volume": 0.08,
     "gate_rms": 0,

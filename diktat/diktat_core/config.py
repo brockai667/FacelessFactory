@@ -39,7 +39,7 @@ DEFAULTS: dict = {
         "sample_rate": 16000,
         "device": None,
         "silence_auto_stop_seconds": 0,   # 0 = vypnuté (zastavuje sa len hotkey)
-        "max_seconds": 900,
+        "max_seconds": 0,            # 0 = bez limitu, nahráva sa dokým sa znova nestlačí skratka
         # winsound.Beep je systémový tón, ktorý neposlúcha hlasitosť Windows – je rovnako hlasný
         # vždy. Prúžok pri nahrávaní vidno aj tak, takže pípanie je predvolene vypnuté.
         "beep": True,                 # krátke tiché pípnutie pri štarte a stope nahrávania

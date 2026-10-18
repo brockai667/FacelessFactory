@@ -16,6 +16,7 @@ Použitie:
   python install.py --claude-dir C:/iná/cesta/.claude
   python install.py --autostart    # Windows: spúšťaj diktat skryto (ikona v lište) po prihlásení
   python install.py --no-autostart # zruš autoštart
+  python install.py --hotkey "F9"  # nastav skratku na diktovanie (aj po ľudsky: "pravý Ctrl", "Ctrl+Alt+D")
 """
 from __future__ import annotations
 
@@ -573,6 +574,28 @@ def uninstall(claude_dir: Path, dry_run: bool = False, log=safe_print) -> None:
     log("Hotovo.")
 
 
+def set_hotkey(text: str, dry_run: bool = False) -> bool:
+    """Zapíše klávesovú skratku do config.json. Berie aj to, ako ju pomenuje človek („pravý Ctrl“, „F9“).
+    Vráti False, keď jej nerozumie – inštalácia má vtedy zastať, nech človek neskončí s klávesom, ktorý
+    nefunguje, a nehľadá potom, prečo sa diktovanie nespúšťa."""
+    if str(HERE) not in sys.path:
+        sys.path.insert(0, str(HERE))
+    from diktat_core import config as cfgmod, hotkey as hk
+    try:
+        spec = hk.normalize_hotkey(text)
+        hk.validate_hotkey(spec)
+    except Exception as exc:  # noqa: BLE001 – čokoľvek sa pokazí, je to zlá skratka
+        print(f"✖ skratke „{text}“ nerozumiem: {exc}")
+        print('  Skús napr.: "numpad decimal", "numpad enter", "F9", "Ctrl+Alt+D", "pravý Ctrl".')
+        return False
+    if dry_run:
+        print(f"[dry-run] skratka → {spec}")
+        return True
+    path = cfgmod.save_value(cfgmod.load_config(), "hotkey", spec)
+    print(f"✔ skratka: {spec}   ({path})")
+    return True
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Nainštaluje diktat globálne do Claude Code (~/.claude).")
     ap.add_argument("--claude-dir", default=str(default_claude_dir()))
@@ -582,8 +605,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--uninstall", action="store_true")
     ap.add_argument("--autostart", action="store_true", help="Windows: skrytý beh s ikonou po prihlásení")
     ap.add_argument("--no-autostart", action="store_true", help="zruš autoštart")
+    ap.add_argument("--hotkey", help='klávesová skratka na diktovanie, aj po ľudsky: "F9", "Ctrl+Alt+D", '
+                                     '"pravý Ctrl", "numpad decimal" (default: numpad decimal)')
     args = ap.parse_args(argv)
     app_path = HERE / "app.py"
+    if args.hotkey and not set_hotkey(args.hotkey, dry_run=args.dry_run):
+        return 1
     if args.autostart:
         if sys.platform != "win32":
             print("--autostart je zatiaľ len pre Windows (Startup priečinok).")

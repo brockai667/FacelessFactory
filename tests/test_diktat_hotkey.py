@@ -91,5 +91,42 @@ class PortableTests(unittest.TestCase):
         self.assertTrue(m.press(key))
 
 
+class NormalizeHotkeyTests(unittest.TestCase):
+    """Pri inštalácii si človek skratku pomenuje po svojom; preklad musí sedieť, inak sa diktovanie
+    nespustí a nikto nevie prečo."""
+
+    def test_human_names(self):
+        for text, expect in [
+            ("F9", "<f9>"), ("f12", "<f12>"),
+            ("Ctrl+Alt+D", "<ctrl>+<alt>+d"), ("ctrl + alt + d", "<ctrl>+<alt>+d"),
+            ("Shift+F5", "<shift>+<f5>"), ("Win+Shift+S", "<cmd>+<shift>+s"),
+            ("pravý Ctrl", "<ctrl_r>"), ("right ctrl", "<ctrl_r>"), ("alt gr", "<alt_r>"),
+            ("numpad decimal", "numpad_decimal"), ("Numpad Del", "numpad_del"),
+            ("numpad enter", "numpad_enter"), ("scroll lock", "<scroll_lock>"),
+        ]:
+            with self.subTest(text=text):
+                self.assertEqual(hotkey.normalize_hotkey(text), expect)
+
+    def test_ready_made_specs_pass_through(self):
+        for text in ("<f9>", "<ctrl>+<alt>+d", "vk:110"):
+            self.assertEqual(hotkey.normalize_hotkey(text), text)
+
+    def test_a_plain_letter_is_refused(self):
+        """Obyčajný kláves bez modifikátora by spúšťal diktovanie pri každom písaní."""
+        with self.assertRaises(ValueError):
+            hotkey.normalize_hotkey("d")
+
+    def test_nonsense_is_refused(self):
+        for bad in ("", "   ", "blabla", "ctrl+zzz"):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                hotkey.normalize_hotkey(bad)
+
+    def test_normalized_specs_parse(self):
+        for text in ("F9", "Ctrl+Alt+D", "pravý Ctrl", "numpad decimal", "numpad enter"):
+            with self.subTest(text=text):
+                parsed = hotkey.parse_hotkey(hotkey.normalize_hotkey(text))
+                self.assertIn(parsed["kind"], ("vk", "pynput"))
+
+
 if __name__ == "__main__":
     unittest.main()

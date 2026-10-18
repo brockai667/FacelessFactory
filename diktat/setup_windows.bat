@@ -18,5 +18,8 @@ if %errorlevel%==0 (
 if not exist config.json copy config.example.json config.json >nul
 python install.py
 echo.
-echo Hotovo. Spusti run_diktat.bat, klikni do okna Claude Code a stlac numpad ,/Del (pri pravom Enteri).
-pause
+echo Hotovo. Skratku nastavis cez: .venv\Scripts\python.exe install.py --hotkey "F9"
+echo Potom spusti run_diktat.bat, klikni do okna Claude Code a stlac svoju skratku.
+rem Cakaj na klavesu len pri dvojkliku. Ked skript spusta Claude z terminalu, pause by ho zasekol.
+echo %cmdcmdline% | find /i "%~nx0" >nul && pause
+exit /b 0

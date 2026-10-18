@@ -72,7 +72,7 @@ class DiktatApp:
             sample_rate=a.get("sample_rate", 16000),
             device=a.get("device"),
             silence_auto_stop_seconds=a.get("silence_auto_stop_seconds", 0),
-            max_seconds=a.get("max_seconds", 900),
+            max_seconds=a.get("max_seconds", 0),
             on_auto_stop=self._auto_stop,
             gate_rms=a.get("gate_rms", 0),
             gate_hangover_seconds=a.get("gate_hangover_seconds", 0.4),
