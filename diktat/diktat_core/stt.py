@@ -104,6 +104,58 @@ HALLUCINATION_MARKS = (
 )
 
 
+_WORD = re.compile(r"\w+", re.UNICODE)
+
+
+def collapse_repeats(text: str, min_times: int = 4) -> str:
+    """„ten, ten, ten, ten, ten“ → „ten“. Whisper sa v tichu alebo na konci kúska zacyklí na jednom slove
+    a opakuje ho desaťkrát. Zlúči sa až od štyroch opakovaní za sebou – „nie, nie, nie“ človek povie."""
+    pattern = re.compile(r"\b(\w+(?:\s+\w+){0,2})(?:[\s,;.!?…-]+\1\b){%d,}" % (min_times - 1),
+                         re.IGNORECASE | re.UNICODE)
+    prev = None
+    while prev != text:
+        prev, text = text, pattern.sub(r"\1", text)
+    return text
+
+
+def strip_prompt_echo(text: str, prompt: str | None, min_run: int = 4) -> str:
+    """Vyhodí z textu kus, ktorý Whisper opísal z `initial_prompt` („Python, git, commit, pull request…“).
+    Keď v kúsku skoro nie je reč, model namiesto nej zopakuje zoznam slov z promptu. Za únik sa berú
+    aspoň štyri slová za sebou v tom istom poradí ako v prompte – v naozajstnej vete sa to nestane.
+    Keď po vyhodení zostane najviac jedno slovo, zahodí sa všetko."""
+    vocab = [_norm(w) for w in _WORD.findall(prompt or "")]
+    if len(vocab) < min_run or not text:
+        return text
+    words = list(_WORD.finditer(text))
+    norms = [_norm(m.group()) for m in words]
+    cuts: list[tuple[int, int]] = []
+    i = 0
+    while i < len(words):
+        best = 0
+        for j, v in enumerate(vocab):
+            if v != norms[i]:
+                continue
+            k = 0
+            while i + k < len(words) and j + k < len(vocab) and norms[i + k] == vocab[j + k]:
+                k += 1
+            best = max(best, k)
+        if best >= min_run:
+            cuts.append((words[i].start(), words[i + best - 1].end()))
+            i += best
+        else:
+            i += 1
+    if not cuts:
+        return text
+    out, pos = [], 0
+    for a, b in cuts:
+        out.append(text[pos:a])
+        pos = b
+    out.append(text[pos:])
+    rest = re.sub(r"\s*([,;.])(?:\s*[,;.])+", r"\1", "".join(out))
+    rest = rest.lstrip(" ,;.:-").rstrip(" ,;:-")       # bodka na konci vety patrí k vete
+    return rest if len(_WORD.findall(rest)) >= 2 else ""
+
+
 def _units(text: str) -> list[str]:
     return [u for u in (_norm(p) for p in re.split(r"[.!?…]+", text or "")) if u]
 
@@ -236,6 +288,13 @@ class FasterWhisperBackend:
             text = (seg.text or "").strip()
             if not text:
                 continue
+            if self.drop_hallucinations:
+                cleaned = strip_prompt_echo(collapse_repeats(text), self.initial_prompt)
+                if cleaned != text:
+                    log.info("upravený úsek: „%s“ → „%s“", text[:60], cleaned[:60])
+                text = cleaned
+                if not text:
+                    continue
             if not segment_ok(getattr(seg, "avg_logprob", 0.0), getattr(seg, "no_speech_prob", 0.0),
                               self.min_avg_logprob, self.max_no_speech_prob):
                 log.info("zahodený úsek (istota %.2f, ticho %.2f): „%s“",

@@ -238,5 +238,54 @@ class CacheFirstTests(unittest.TestCase):
         self.assertEqual(tried, [("cuda", True), ("cpu", True)])
 
 
+PROMPT = ("Diktát pre Claude Code. Python, git, commit, pull request, branch, API, JSON, config, skript, "
+          "repozitár, funkcia, test, refaktor, deploy.")
+
+
+class RepetitionLoopTests(unittest.TestCase):
+    """Skutočné výstupy z logu: Whisper sa v tichu zacyklí na jednom slove."""
+
+    def test_word_loop_collapses(self):
+        self.assertEqual(stt.collapse_repeats("dobrý, ten, ten, ten, ten, ten, ten, ten, ten."), "dobrý, ten.")
+        self.assertEqual(stt.collapse_repeats("Strington, git, gud, gud, gud, gud, gud, gud, gud."),
+                         "Strington, git, gud.")
+
+    def test_spaced_and_cased_loop_collapses(self):
+        self.assertEqual(stt.collapse_repeats("Toto toto Toto toto je ono"), "Toto je ono")
+
+    def test_three_times_is_real_speech(self):
+        for text in ("Nie, nie, nie, to som nemyslel.", "dobrý, dobrý"):
+            with self.subTest(text=text):
+                self.assertEqual(stt.collapse_repeats(text), text)
+
+
+class PromptEchoTests(unittest.TestCase):
+    """Keď v kúsku skoro nie je reč, Whisper opíše zoznam slov z initial_prompt."""
+
+    def test_echo_of_the_prompt_is_dropped(self):
+        text = stt.collapse_repeats("Python, git, commit, pull request, kong, kong, kong, kong, kong.")
+        self.assertEqual(stt.strip_prompt_echo(text, PROMPT), "")
+
+    def test_echo_inside_a_real_sentence_is_cut_out(self):
+        text = "Python, git, commit, pull request. Teraz to naozaj pošli kamarátovi."
+        self.assertEqual(stt.strip_prompt_echo(text, PROMPT), "Teraz to naozaj pošli kamarátovi.")
+
+    def test_sentences_using_prompt_words_stay(self):
+        for text in ("Urob git commit a pushni to.", "Spusti Python skript a potom test.",
+                     "Daj mi config v JSON."):
+            with self.subTest(text=text):
+                self.assertEqual(stt.strip_prompt_echo(text, PROMPT), text)
+
+    def test_without_prompt_nothing_changes(self):
+        self.assertEqual(stt.strip_prompt_echo("Python, git, commit, pull request.", None),
+                         "Python, git, commit, pull request.")
+
+    def test_backend_cleans_segments(self):
+        model = _RecordingModel([" Ahoj, ten, ten, ten, ten, ten.", " Python, git, commit, pull request, branch."])
+        backend = _backend(model)
+        backend.initial_prompt = PROMPT
+        self.assertEqual(backend.transcribe(b"a", language="sk"), "Ahoj, ten.")
+
+
 if __name__ == "__main__":
     unittest.main()
