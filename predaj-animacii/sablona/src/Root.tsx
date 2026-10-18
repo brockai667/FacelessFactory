@@ -60,7 +60,7 @@ export const Root: React.FC = () => (
       durationInFrames={popsDuration(defaults.brand)} {...common} calculateMetadata={({ props }) => ({ durationInFrames: popsDuration(props.brand) })} />
     <Composition id="Phone" component={one(Phone, PH)} durationInFrames={PH} {...common} />
     <Composition id="Desktop" component={one(Desktop, DK)} durationInFrames={DK} {...common} />
-    <Composition id="StickerDemo" component={st(StickerDemo)} durationInFrames={720} {...c60} />
+    <Composition id="StickerDemo" component={st(StickerDemo)} durationInFrames={840} {...c60} />
     <Composition id="S-Logo" component={st(LogoDraw)} durationInFrames={180} {...c60} />
     <Composition id="S-Produkt" component={st(ProductSticker)} durationInFrames={180} {...c60} />
     <Composition id="S-Cena" component={st(PriceTag)} durationInFrames={180} {...c60} />

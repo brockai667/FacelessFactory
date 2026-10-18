@@ -173,11 +173,11 @@ export const StickerDemo: React.FC<P> = ({ brand }) => {
       <Img src={asset(brand, brand.hero!)} style={{ position: "absolute", width: 980, left: 50, top: 760,
         transform: `translate(${Math.sin(f / 50) * 10}px, ${Math.sin(f / 37) * 8}px) scale(${1 + f / 3000})` }} />
       {at(0, 90, <LogoDraw brand={brand} />)}
-      {at(90, 95, <AbsoluteFill style={{ transform: "translate(250px,-120px) scale(.72)" }}><ProductSticker brand={brand} /></AbsoluteFill>)}
+      {at(90, 95, <AbsoluteFill style={{ transform: "translate(120px,-170px) scale(.72)" }}><ProductSticker brand={brand} /></AbsoluteFill>)}
       {at(100, 85, <NewBadge brand={brand} />)}
       {at(186, 84, <PriceTag brand={brand} />)}
-      {at(270, 90, <ArrowBio brand={brand} />)}
-      {at(280, 80, <Scribble brand={brand} />)}
+      {at(270, 60, <Scribble brand={brand} />)}
+      {at(330, 90, <ArrowBio brand={brand} />)}
     </AbsoluteFill>
   );
 };
