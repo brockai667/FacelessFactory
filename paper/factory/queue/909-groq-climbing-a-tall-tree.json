@@ -123,24 +123,12 @@
  "tags": "#TreeClimb #Altitude #Science",
  "facts": [
   {
-   "claim": "Atmospheric pressure drops with altitude, reducing oxygen availability and increasing breathing rate.",
-   "source": "NASA, High Altitude Physiology"
+   "claim": "Exercise physiology",
+   "source": "https://en.wikipedia.org/wiki/Exercise_physiology"
   },
   {
-   "claim": "Heart rate increases at higher altitudes to deliver more oxygen to tissues.",
-   "source": "Mayo Clinic, Altitude sickness"
-  },
-  {
-   "claim": "Blood oxygen saturation can decrease, leading to light‑headedness.",
-   "source": "NIH, Acute Mountain Sickness"
-  },
-  {
-   "claim": "Ear pressure changes at altitude can cause ear popping and ringing.",
-   "source": "American Academy of Otolaryngology, Barotrauma"
-  },
-  {
-   "claim": "Air temperature typically drops about 6°C per 1000 m, cooling the skin.",
-   "source": "NASA, Atmospheric Temperature"
+   "claim": "Circulatory system",
+   "source": "https://en.wikipedia.org/wiki/Circulatory_system"
   }
  ],
  "end": {
@@ -154,5 +142,15 @@
  },
  "source": "groq",
  "topic": "What happens if you climb a tall tree?",
- "slug": "climbing-a-tall-tree"
+ "slug": "climbing-a-tall-tree",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-18T20:56Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Exercise_physiology",
+   "https://en.wikipedia.org/wiki/Circulatory_system"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
 }

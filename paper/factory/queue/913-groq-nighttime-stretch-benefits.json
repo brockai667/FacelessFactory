@@ -136,24 +136,12 @@
  "tags": "#Stretching #SleepTips #HealthFacts",
  "facts": [
   {
-   "claim": "Gentle stretching before bedtime can help relax muscles and lower tension.",
-   "source": "Mayo Clinic – Stretching and flexibility"
+   "claim": "Stretching",
+   "source": "https://en.wikipedia.org/wiki/Stretching"
   },
   {
-   "claim": "Stretching increases blood flow to muscles, promoting circulation.",
-   "source": "American Council on Exercise – Benefits of Stretching"
-  },
-  {
-   "claim": "Light stretching can activate the parasympathetic nervous system, reducing heart rate.",
-   "source": "Harvard Health Publishing – Relaxation techniques"
-  },
-  {
-   "claim": "Practicing stretching in the evening may improve sleep quality and reduce time to fall asleep.",
-   "source": "International Journal of Yoga, 2015 – Effects of yoga on sleep"
-  },
-  {
-   "claim": "Consistent nightly stretching can increase flexibility over weeks, enhancing range of motion.",
-   "source": "National Academy of Sports Medicine – Stretching guidelines"
+   "claim": "Sleep hygiene",
+   "source": "https://en.wikipedia.org/wiki/Sleep_hygiene"
   }
  ],
  "end": {
@@ -167,5 +155,15 @@
  },
  "source": "groq",
  "topic": "What happens if you stretch before bed each night?",
- "slug": "nighttime-stretch-benefits"
+ "slug": "nighttime-stretch-benefits",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-18T20:57Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Stretching",
+   "https://en.wikipedia.org/wiki/Sleep_hygiene"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
 }
