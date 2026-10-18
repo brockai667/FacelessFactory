@@ -14,7 +14,3 @@ paper/out/
 paper/episodes/*/build/
 paper/**/__pycache__/
 paper/episodes/*/vo_cache.json
-
-# generuje install.py pri inštalácii
-diktat/diktat_tray.vbs
-diktat/diktat_watch.vbs
