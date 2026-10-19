@@ -62,7 +62,7 @@ FORMAT_RULES = {
              'or "1 KM", "10 KM" (max 7 characters). Each line starts with that value ("At forty degrees,").',
 }
 
-SYS_WRITE = f"""You are the head writer of MindBlownDaily, a faceless channel of 25-35 second vertical shorts: cute 2D paper-craft
+SYS_WRITE = f"""You are the head writer of MindBlownDaily, a faceless channel of about 25 second vertical shorts: cute 2D paper-craft
 cartoons that answer "What happens if...?" with an escalating sequence of TRUE effects on the body (or the world).
 Audience: curious teens and adults. Voice: a friendly science narrator. Every beat = ONE vivid physical effect that can be
 SHOWN on a cartoon character or a close-up of an organ, getting more intense each beat. Pick the most striking,
@@ -168,13 +168,34 @@ def learn_brief():
         return "", None
 
 
-def llm_script(topic, fmt, brief=""):
+HOOK_STYLES = ["number", "you", "question"]      # rotacia po scenari -> spec["hook_style"] (learn.py / analytika ich vie porovnat)
+HOOK_RULES = {
+    "number": 'HOOK STYLE number: open with ONE concrete, TRUE, well-documented number ("Your brain eats 20% of your energy."). Not a question.',
+    "you": 'HOOK STYLE you: open with a direct second-person consequence or shock statement ("You stop telling night from day."). Not a question.',
+    "question": 'HOOK STYLE question: open with ONE specific question to the viewer ("What happens if..." is allowed here only).',
+}
+END_RULE = ('END: end_line = ONE concrete A/B question answerable in one word, e.g. "Would you try it, yes or no?" / "Morning or night?" (max 9 words).')
+
+
+def hook_style_for(n=None):
+    """rotacia stylu haku po scenari: number -> you -> question (presne 1/3 scenarov smie zacat "What happens if"); n = poradie scenara
+    (pocet uz napisanych scenarov vo fronte/done/queue_rejected), bez n sa spocita zo suborov"""
+    if n is None:
+        n = 0
+        for d in ("queue", "done", "queue_rejected"):
+            p = os.path.join(FDIR, d)
+            n += len([f for f in os.listdir(p) if f.endswith(".json")]) if os.path.isdir(p) else 0
+    return HOOK_STYLES[n % len(HOOK_STYLES)]
+
+
+def llm_script(topic, fmt, brief="", hook_style=None):
     prompt = (f"TOPIC: {topic}\nPreferred {FORMAT_RULES[fmt]}\nIf that format does not fit the topic naturally, use timeline.\n"
-              "Write 4-6 beats plus an ending (whole script 60-90 words). Choose env (room|space|field) and scenes by topic, outfit for the character "
+              "Write 4-6 beats plus an ending (whole script 55-75 words, about 25 s spoken). Choose env (room|space|field) and scenes by topic, outfit for the character "
               "(tshirt|hoodie|pajamas|labcoat|suit), mood_music (tense|playful|wonder|calm), face0 (smile|neutral|excited).\n"
-              'Return JSON: {"title","hook" (spoken question, max 9 words),"banner" (hook as 2 upper-case lines, max 16 and 12 chars),'
+              + HOOK_RULES[hook_style or "question"] + "\n" + END_RULE + "\n"
+              'Return JSON: {"title","hook" (spoken opener in the HOOK STYLE, max 9 words),"banner" (hook as 2 upper-case lines, max 16 and 12 chars),'
               '"format","env","scene","outfit","mood_music","face0","beats":[{"label","line","idea" (what we see),"scene"?}],"end_line" '
-              '(short question to the viewer, max 10 words),"description" (1 sentence),"tags" (3-5 hashtags),'
+              '(A/B question per END, max 9 words),"description" (1 sentence),"tags" (3-5 hashtags),'
               '"facts":[{"claim","source"}]}')
     if brief:
         prompt += "\n" + brief
@@ -184,7 +205,7 @@ def llm_script(topic, fmt, brief=""):
 def llm_edit(S, brief=""):
     data = {"title": S["title"], "beats": [{"label": b["label"], "line": b["line"]} for b in S["beats"]], "end_line": S["end_line"],
             "facts": S.get("facts", [])}
-    prompt = ("Check and fix this script. Return JSON: "
+    prompt = ("Check and fix this script; keep end_line a concrete A/B question answerable in one word. Return JSON: "
               '{"title","beats":[{"label","line","changed":true|false,"why"}],"end_line"}\n' + json.dumps(data, ensure_ascii=False))
     if brief:
         prompt += "\nKeep these channel instructions intact while fixing (facts still come first):\n" + brief
@@ -217,7 +238,11 @@ def write_spec(topic, fmt=None):
     fmt = fmt or random.choice(CHOICES["format"])
     brief, exp = learn_brief()
     print(f"[scenarista] {topic} ({fmt})" + (f" | experiment: {exp}" if exp else ""))
-    S = llm_script(topic, fmt, brief)
+    style = hook_style_for()
+    S = llm_script(topic, fmt, brief, style)
+    S["hook_style"] = style                           # number|you|question: analytika porovna, ktory hook tahal
+    if style != "question" and re.match(r"\s*what happens if", str(S.get("hook", "")), re.I):
+        print(f"   [scenarista] POZOR: hook zacina 'What happens if' napriek stylu {style}")
     ed = llm_edit(S, brief)
     for nb in ed.get("beats", []):
         for b in S["beats"]:

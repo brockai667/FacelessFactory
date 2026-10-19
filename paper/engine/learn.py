@@ -53,6 +53,14 @@ COMMON_LEVERS = {   # (slot, pokyn pre scenaristu, hypoteza); slot: novy kept po
                      "A 'you' POV makes the viewer feel it is about them."),
     "first_line_short": ("first_line", "The first spoken line after the hook is under 8 words and states the single most striking fact.",
                          "A fast first line keeps viewers past the first seconds."),
+    "hook_number": ("hook", "Override the hook style: the hook opens with ONE concrete, TRUE, well-documented number (e.g. 'Your brain eats 20% of your energy.'), not a question.",
+                    "A concrete number is a stronger scroll-stopper than the repeated 'What happens if' template."),
+    "hook_shock": ("hook", "Override the hook style: the hook is a direct second-person shock statement about a consequence (e.g. 'You stop telling night from day.'), not a question.",
+                   "A blunt 'you' consequence feels personal and breaks the repeated question template."),
+    "end_ab_question": ("ending", "End line: ONE concrete A/B question the viewer can answer in one word (e.g. 'Would you try it, yes or no?').",
+                        "A one-word-answer question is the easiest comment bait; we have 0 comments on 18 videos."),
+    "length_22s": ("length", "Keep the whole script at most 22 seconds spoken: 4 beats of max 11 words each, an end line of max 7 words.",
+                   "Shorter videos correlate with more YouTube views (weak evidence)."),
     "end_part2": ("ending", "End line: a short cliffhanger question, then 'Follow for part two.'",
                   "A part-two tease earns follows and rewatches."),
 }
@@ -66,7 +74,7 @@ PROFILES = {
                     "Correcting a popular belief invites comments and shares."),
                    ("topic_extreme", "topic", "Prefer extreme-environment angles (space, deep sea, desert, polar, altitude) over everyday habits.",
                     "Extreme settings look more striking in the first frame.", ["space", "sea", "ocean", "desert", "polar", "altitude", "mountain", "cold", "heat", "moon"]),
-                   "end_part2"],
+                   "end_part2", "hook_number", "hook_shock", "end_ab_question", "length_22s"],
     },
     "ColdCaseDaily": {
         "state": "case",

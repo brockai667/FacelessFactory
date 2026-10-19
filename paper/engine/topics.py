@@ -98,6 +98,25 @@ def prune(bank, cap=3):
     return drop
 
 
+EXOTIC = ["space", "moon", "mars", "orbit", "astronaut", "gravity", "everest", "altitude", "mountain", "ocean floor", "deep sea", "dive", "diving", "polar", "arctic",
+          "desert", "volcano", "lava", "coffin", "buried", "die", "dead", "death", "black hole", "vacuum", "radiation", "mushroom", "hummingbird", "jungle", "shark"]
+
+
+def is_exotic(t):
+    """exoticka tema (vesmir, smrt, extremne prostredie) vs. bezne telo (strava, spanok, mozog, navyky, teplota, pohyb)"""
+    n = norm(t)
+    return any(re.search(r"\b" + k + r"s?\b", n) for k in EXOTIC)
+
+
+def prefer_everyday(free, n_used):
+    """poradie nepouzitych tem s vahou 2:1 v prospech beznych tem (strava, spanok, mozog, navyky, teplota, cvicenie): kazda 3. temu (podla
+    poctu uz pouzitych) smie byt exoticka, ostatne bezne; ak jeden druh dojde, berie sa druhy. Nic sa z banky nemaze."""
+    ev = [t for t in free if not is_exotic(t)]
+    ex = [t for t in free if is_exotic(t)]
+    first, second = (ex, ev) if n_used % 3 == 2 else (ev, ex)
+    return first + second
+
+
 def top_up(bank, target):
     from llm import llm_json
     need = target - len(unused(bank))
@@ -108,6 +127,7 @@ def top_up(bank, target):
               "Return ONLY JSON: {\"topics\": [\"What happens if ...?\", ...]}.")
     prompt = (f"Propose {min(need + 6, 30)} NEW, mutually different topics, each a question starting with 'What happens if' (max 9 words, plain English, no numbers unless natural, "
               f"no medical advice, nothing gross or dangerous to imitate). Spread them across these categories: {'; '.join(CATS)}. "
+              f"Make about two thirds of them everyday body topics (diet, sleep, brain, habits, temperature, exercise) and at most one third exotic (space, extremes, death). "
               f"Avoid anything similar to these existing topics:\n- " + "\n- ".join(have[-80:]))
     out = llm_json(sysmsg, prompt, temperature=0.9, max_tokens=4000)   # gpt-oss: reasoning sa rata do max_tokens, odseknuty JSON = 400
     cand = out.get("topics", []) if isinstance(out, dict) else []

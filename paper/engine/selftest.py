@@ -77,6 +77,14 @@ try:
 except Exception as e:
     warns.append(f"learn (samoucenie): test nespusteny: {type(e).__name__}: {str(e)[:160]}")
 
+# 6) pisanie (writer.py): rotacia hakov, A/B koniec, vaha tem 2:1 - offline, bez Groq
+try:
+    import test_writer  # noqa: E402
+    for e in test_writer.run():
+        errors.append("writer: " + e)
+except Exception as e:
+    errors.append(f"writer: test nespusteny: {type(e).__name__}: {str(e)[:160]}")
+
 print(f"selftest: {len(files)} scenarov, {len(errors)} chyb, {len(warns)} varovani")
 for e in errors:
     print("  CHYBA:", e)

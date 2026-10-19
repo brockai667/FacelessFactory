@@ -55,6 +55,7 @@ def refill(target=10, maximum=3):
         free = topics.unused(bank)
         if not free:
             print("banka tem je prazdna"); break
+        free = topics.prefer_everyday(free, len(bank["used"]))   # vaha 2:1 bezne temy (strava/spanok/mozog) vs. exoticke
         try:                                             # tyzdenny experiment moze preferovat temovu rodinu (learn.py)
             import learn
             free = learn.order_topics(free)
