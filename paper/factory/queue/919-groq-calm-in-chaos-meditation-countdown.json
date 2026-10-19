@@ -1,0 +1,153 @@
+{
+ "title": "Calm in Chaos Meditation Countdown",
+ "hook": "What if you chill during chaos?",
+ "banner": [
+  "CHILL IN CHAOS",
+  "WHAT IF?"
+ ],
+ "format": "countdown",
+ "env": "room",
+ "scene": "office desk",
+ "outfit": "hoodie",
+ "mood_music": "calm",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Amygdala quiets, fight-or-flight spikes fade, you feel clear‑headed and alert.",
+   "idea": "Close‑up of chest expanding, breath visible as a gentle puff.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "alert"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Alpha waves increase, promoting relaxed focus and mental clarity.",
+   "idea": "Heart monitor shows slower beats, a relaxed expression appears.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "increase"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Cortisol drops, stress hormones dip, letting anxiety recede.",
+   "idea": "Animated hormone icons shrink, stress meter falls.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "drops"
+      },
+      {
+       "r": "puff",
+       "at": "dip"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your heart slows, pulse steadies as tension eases across the body.",
+   "idea": "Brain silhouette glows with blue alpha wave patterns.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Your breathing deepens, chest rises in a slow, steady rhythm.",
+   "idea": "Amygdala area dims, character smiles with bright eyes.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "breathing"
+      },
+      {
+       "r": "heartbeat",
+       "arg": 3,
+       "at": "rhythm"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick visual guide shows how meditation instantly calms the body during stress.",
+ "tags": [
+  "#Meditation",
+  "#StressRelief",
+  "#ScienceFacts",
+  "#MindBlown"
+ ],
+ "facts": [
+  {
+   "claim": "Amygdala",
+   "source": "https://en.wikipedia.org/wiki/Amygdala"
+  },
+  {
+   "claim": "Alpha wave",
+   "source": "https://en.wikipedia.org/wiki/Alpha_wave"
+  }
+ ],
+ "end": {
+  "line": "Will you try a breath in the storm?",
+  "do": [
+   {
+    "r": "puff",
+    "at": "breath"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "storm"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you meditate during stressful moments?",
+ "exp": "copy-018-darkness",
+ "slug": "calm-in-chaos-meditation-countdown",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-19T10:58Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Amygdala",
+   "https://en.wikipedia.org/wiki/Alpha_wave"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

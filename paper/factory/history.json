@@ -1,19 +1,6 @@
 [
  {
   "format": "timeline",
-  "chrome": "bubble",
-  "trans": "zoom",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "short",
-  "skin": "dark",
-  "palette": "p3",
-  "slug": "how-heat-attacks-the-body",
-  "topic": "What happens to your body in a heat wave?",
-  "env": "field"
- },
- {
-  "format": "timeline",
   "chrome": "stamp",
   "trans": "page",
   "pres": "full",
@@ -426,5 +413,20 @@
   "slug": "floating-in-a-pool",
   "topic": "What happens if you float in a pool?",
   "env": "room"
+ },
+ {
+  "format": "gauge",
+  "chrome": "sticky",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "cap",
+  "skin": "tan",
+  "palette": "p2",
+  "cta": "SAVE THIS ONE",
+  "species": "dog",
+  "slug": "climbing-a-tall-tree",
+  "topic": "What happens if you climb a tall tree?",
+  "env": "field"
  }
 ]
