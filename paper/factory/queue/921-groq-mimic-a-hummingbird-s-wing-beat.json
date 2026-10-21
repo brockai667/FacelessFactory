@@ -1,0 +1,176 @@
+{
+ "title": "Mimic a Hummingbird's Wing Beat",
+ "hook": "Your arms spin like hummingbird wings.",
+ "banner": "YOUR ARMS SPIN\nLIKE HUMMING",
+ "format": "vertical",
+ "env": "field",
+ "scene": "open meadow",
+ "outfit": "tshirt",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "30 SECONDS",
+   "line": "After thirty seconds, your heart rockets to 180 beats, you gasp.",
+   "idea": "Close-up of heart thumping fast, chest rising, character breathing hard.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "gasp"
+      },
+      {
+       "r": "heartbeat",
+       "arg": 3,
+       "at": "beats"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5 MINUTES",
+   "line": "After five minutes, lactic acid burns, making your forearms feel like fire.",
+   "idea": "Forearms glow red, sweat droplets, muscle fibers trembling.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "sweat",
+       "at": "sweat"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "fire"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "10 MINUTES",
+   "line": "After ten minutes, dehydration thickens blood, your pulse pounds.",
+   "idea": "Veins bulge, blood thickens, pulse visualized as drum beats.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "dehydration"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "blood"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 MINUTES",
+   "line": "After thirty minutes, low CO2 makes you dizzy, the world spins.",
+   "idea": "Character sways, stars spin around head, floor tilts.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "spins"
+      },
+      {
+       "r": "shiver",
+       "at": "dizzy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 HOUR",
+   "line": "After one hour, you collapse, needing hours to recover.",
+   "idea": "Character falls to ground, heart slows, a timer appears.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "collapse"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "hours",
+     "big": "1 HOUR",
+     "small": "RECOVER",
+     "icon": "clock",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at the physiological chaos of flapping your arms at hummingbird speed.",
+ "tags": [
+  "#Science",
+  "#BodyFacts",
+  "#HummingbirdChallenge"
+ ],
+ "facts": [
+  {
+   "claim": "Heart rate",
+   "source": "https://en.wikipedia.org/wiki/Heart_rate"
+  },
+  {
+   "claim": "Lactic acid",
+   "source": "https://en.wikipedia.org/wiki/Lactic_acid"
+  }
+ ],
+ "hook_style": "you",
+ "end": {
+  "line": "Would you try it? Yes or no.",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "Yes"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you mimic a hummingbird’s wing beat?",
+ "exp": "copy-018-darkness",
+ "slug": "mimic-a-hummingbird-s-wing-beat",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-21T10:21Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Heart_rate",
+   "https://en.wikipedia.org/wiki/Lactic_acid"
+  ],
+  "fixed": 0,
+  "unsupported": 2
+ }
+}
