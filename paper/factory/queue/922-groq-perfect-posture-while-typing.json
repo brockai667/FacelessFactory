@@ -1,0 +1,158 @@
+{
+ "title": "Perfect Posture While Typing",
+ "hook": "What if perfect posture could boost your typing?",
+ "banner": [
+  "POSTURE POWER",
+  "TYPE BETTER"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "scene": "desk",
+ "outfit": "tshirt",
+ "mood_music": "calm",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "10 MINUTES",
+   "line": "Your chest lifts, breathing deepens as your spine aligns.",
+   "idea": "Character at desk straightens, chest expands, airflow arrows glow",
+   "scene": "desk",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "breathing"
+      },
+      {
+       "r": "taller",
+       "at": "aligns"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "24 HOURS",
+   "line": "Reduced neck tension eases headaches, letting your focus stay sharp.",
+   "idea": "Close-up of neck, tension lines fade, brain lights up",
+   "scene": "desk",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "spine",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "tension"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 DAYS",
+   "line": "Core muscles engage, so your lower back feels lighter.",
+   "idea": "Core glows, spine straightens, lower back weight icon shrinks",
+   "scene": "desk",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "bone",
+     "do": [
+      {
+       "a": "weaken",
+       "at": "lighter"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 WEEK",
+   "line": "Improved circulation pumps oxygen to your hands, making typing smoother.",
+   "idea": "Red arrows flow to hands, fingers type quickly",
+   "scene": "desk",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "pumps"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "6 MONTHS",
+   "line": "Long-term alignment strengthens your spine, cutting chronic back pain risk.",
+   "idea": "Spine shows strong vertebrae, pain icons disappear",
+   "scene": "desk",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "risk",
+     "big": "0%",
+     "small": "PAIN",
+     "icon": "down",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how perfect posture while typing can transform your body over minutes to months.",
+ "tags": [
+  "#Posture",
+  "#Typing",
+  "#Health",
+  "#Science",
+  "#Wellness"
+ ],
+ "facts": [
+  {
+   "claim": "Ergonomics",
+   "source": "https://en.wikipedia.org/wiki/Ergonomics"
+  },
+  {
+   "claim": "List of human positions",
+   "source": "https://en.wikipedia.org/wiki/List_of_human_positions"
+  }
+ ],
+ "hook_style": "question",
+ "end": {
+  "line": "Sit straight, yes or no?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   },
+   {
+    "r": "wave",
+    "at": "no"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you maintain perfect posture while typing?",
+ "exp": "copy-018-darkness",
+ "slug": "perfect-posture-while-typing",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-22T10:23Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Ergonomics",
+   "https://en.wikipedia.org/wiki/List_of_human_positions"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

@@ -1,19 +1,6 @@
 [
  {
   "format": "gauge",
-  "chrome": "sticky",
-  "trans": "circle",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "bald",
-  "skin": "dark",
-  "palette": "p1",
-  "slug": "what-freezing-cold-does",
-  "topic": "What happens if you stay out in the freezing cold?",
-  "env": "field"
- },
- {
-  "format": "gauge",
   "chrome": "stamp",
   "trans": "zoom",
   "pres": "card",
@@ -432,5 +419,20 @@
   "slug": "swap-soda-for-tea-body-changes",
   "topic": "What happens if you replace soda with tea?",
   "env": "room"
+ },
+ {
+  "format": "vertical",
+  "chrome": "sticky",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "bun",
+  "skin": "brown",
+  "palette": "p1",
+  "cta": "SAVE THIS ONE",
+  "species": "human",
+  "slug": "mimic-a-hummingbird-s-wing-beat",
+  "topic": "What happens if you mimic a hummingbird’s wing beat?",
+  "env": "field"
  }
 ]
