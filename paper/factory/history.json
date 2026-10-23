@@ -1,18 +1,5 @@
 [
  {
-  "format": "gauge",
-  "chrome": "stamp",
-  "trans": "zoom",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "bun",
-  "skin": "tan",
-  "palette": "p3",
-  "slug": "what-climbing-everest-does",
-  "topic": "What happens if you climb Mount Everest?",
-  "env": "field"
- },
- {
   "format": "timeline",
   "chrome": "bubble",
   "trans": "page",
@@ -434,5 +421,20 @@
   "slug": "mimic-a-hummingbird-s-wing-beat",
   "topic": "What happens if you mimic a hummingbird’s wing beat?",
   "env": "field"
+ },
+ {
+  "format": "timeline",
+  "chrome": "tape",
+  "trans": "zoom",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "bald",
+  "skin": "light",
+  "palette": "p2",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "cat",
+  "slug": "perfect-posture-while-typing",
+  "topic": "What happens if you maintain perfect posture while typing?",
+  "env": "room"
  }
 ]

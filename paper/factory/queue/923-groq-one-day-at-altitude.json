@@ -1,0 +1,166 @@
+{
+ "title": "One Day at Altitude",
+ "hook": "At 2500m, pressure is lower than at sea level.",
+ "banner": "2500M PRESSURE\n75% SEA",
+ "format": "timeline",
+ "env": "field",
+ "scene": "mountain trail",
+ "outfit": "hoodie",
+ "mood_music": "wonder",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "6 HRS",
+   "line": "Your breathing quickens as oxygen pressure falls.",
+   "idea": "Character with puffed chest, O2 gauge at 75% and shallow breaths",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pant",
+       "at": "quickens"
+      },
+      {
+       "r": "shiver",
+       "arg": 1,
+       "at": "pressure"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "your",
+     "big": "LOW",
+     "small": "O2 LEVEL",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "12 HRS",
+   "line": "12 HRS: Your heart beats faster, boosting blood flow to muscles.",
+   "idea": "Animated heart thumping faster, thicker red blood cells rushing",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "faster"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "blood"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "18 HRS",
+   "line": "18 HRS: Kidneys excrete more fluid, making urine darker and thirst rise.",
+   "idea": "Close‑up of kidney saving droplets, dark urine bucket",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "thirst"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "kidneys",
+     "do": [
+      {
+       "a": "flow",
+       "at": "fluid"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "24 HRS",
+   "line": "24 HRS: Brain fog hits; reaction slows like mild intoxication.",
+   "idea": "Fuzzy brain cartoon, slowed reaction timer",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "fog"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "fog"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how a day at high altitude changes your body.",
+ "tags": "#Altitude #Science #BodyChanges",
+ "facts": [
+  {
+   "claim": "Altitude sickness",
+   "source": "https://en.wikipedia.org/wiki/Altitude_sickness"
+  },
+  {
+   "claim": "Hypoxia (medicine)",
+   "source": "https://en.wikipedia.org/wiki/Hypoxia_(medicine)"
+  }
+ ],
+ "hook_style": "number",
+ "end": {
+  "line": "Climb higher, yes or no?",
+  "do": [
+   {
+    "r": "wave",
+    "at": "Climb"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you spend a day at altitude?",
+ "exp": "copy-018-darkness",
+ "slug": "one-day-at-altitude",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-23T10:15Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Altitude_sickness",
+   "https://en.wikipedia.org/wiki/Hypoxia_(medicine)"
+  ],
+  "fixed": 3,
+  "unsupported": 1
+ }
+}
