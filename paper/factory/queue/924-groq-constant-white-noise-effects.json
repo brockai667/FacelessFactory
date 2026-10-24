@@ -1,0 +1,177 @@
+{
+ "title": "Constant White Noise Effects",
+ "hook": "Your world turns into endless hiss.",
+ "banner": [
+  "YOUR WORLD TURNS",
+  "ENDLESS HISS"
+ ],
+ "format": "countdown",
+ "env": "room",
+ "scene": "bedroom",
+ "outfit": "pajamas",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your ears start ringing, a faint high‑pitch hum surfaces.",
+   "idea": "Close-up of ear with vibrating sound waves and a ringing animation.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "ringing"
+      },
+      {
+       "r": "shiver",
+       "at": "high‑pitch"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "ringing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Your heart races as cortisol spikes, skin tightens.",
+   "idea": "Chest view with a pulsing heart icon and cortisol droplets floating around.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "races"
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "spikes"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "races"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your mind fogs up, you can’t focus on basics.",
+   "idea": "Brain illustration with a fog overlay and the character squinting at a textbook.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "fogs"
+      },
+      {
+       "r": "face",
+       "arg": "dizzy",
+       "at": "focus"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your sleep shatters, you stay drowsy, reactions lag.",
+   "idea": "Bedroom scene with broken Z's, yawning character and a slow-moving clock.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "zzz",
+       "at": "drowsy"
+      },
+      {
+       "r": "slump",
+       "at": "shatters"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Your hearing dulls, high‑pitches vanish, permanent loss sets in.",
+   "idea": "Ear canal with fading high-frequency waveforms and a hearing meter dropping.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "dulls"
+      },
+      {
+       "r": "puff",
+       "at": "vanish"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how nonstop white noise can change your body, from ringing ears to lasting hearing loss.",
+ "tags": "#WhiteNoise #Health #Science #Sleep #Hearing",
+ "facts": [
+  {
+   "claim": "Noise-induced hearing loss",
+   "source": "https://en.wikipedia.org/wiki/Noise-induced_hearing_loss"
+  },
+  {
+   "claim": "White noise",
+   "source": "https://en.wikipedia.org/wiki/White_noise"
+  }
+ ],
+ "hook_style": "you",
+ "end": {
+  "line": "Keep listening? Yes or no.",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "listening?"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you listen to constant white noise?",
+ "exp": "copy-018-darkness",
+ "slug": "constant-white-noise-effects",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-24T09:41Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Noise-induced_hearing_loss",
+   "https://en.wikipedia.org/wiki/White_noise"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

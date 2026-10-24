@@ -1,6 +1,6 @@
 {
  "factory": "MindBlownDaily",
- "updated": "2026-10-23",
+ "updated": "2026-10-24",
  "name": "copy-018-darkness",
  "started": "2026-10-18",
  "hypothesis": "The winner succeeds by immersing viewers in a step-by-step sensory experience that feels like a personal experiment.",
@@ -12,12 +12,12 @@
   "instagram": 368
  },
  "metric_now": {
-  "youtube": 20,
-  "tiktok": 272,
-  "instagram": 185
+  "youtube": 31.5,
+  "tiktok": 263.5,
+  "instagram": 159.5
  },
- "ratio_now": 0.856,
- "n_tagged": 1,
+ "ratio_now": 0.738,
+ "n_tagged": 2,
  "status": "running",
  "rules": 0,
  "last": null
