@@ -1,24 +1,25 @@
 {
  "factory": "MindBlownDaily",
- "updated": "2026-10-24",
- "name": "copy-018-darkness",
- "started": "2026-10-18",
- "hypothesis": "The winner succeeds by immersing viewers in a step-by-step sensory experience that feels like a personal experiment.",
- "instruction": "Start with a vivid, curiosity-driving hook, then list rapid sensory changes in a timed sequence, ending with a personal challenge question.",
+ "updated": "2026-10-25",
+ "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+ "started": "2026-10-25",
+ "hypothesis": "The rapid‑pace, body‑focused escalation paired with a direct call‑to‑action drives higher engagement.",
+ "instruction": "Present a bold, physical challenge, use vivid sensory hooks, list escalating effects, then ask a simple yes/no participation question.",
  "metric": "median views at ~48 h per platform",
  "metric_before": {
-  "youtube": 101,
-  "tiktok": 267,
-  "instagram": 368
+  "youtube": 922.0,
+  "tiktok": 272,
+  "instagram": 212
  },
- "metric_now": {
-  "youtube": 31.5,
-  "tiktok": 263.5,
-  "instagram": 159.5
- },
- "ratio_now": 0.738,
- "n_tagged": 2,
+ "metric_now": {},
+ "ratio_now": null,
+ "n_tagged": 0,
  "status": "running",
  "rules": 0,
- "last": null
+ "last": {
+  "name": "copy-018-darkness",
+  "status": "reverted",
+  "ratio": 0.856,
+  "ended": "2026-10-25"
+ }
 }

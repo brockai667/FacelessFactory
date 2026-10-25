@@ -1,0 +1,201 @@
+{
+ "title": "Puzzle Marathon Effects",
+ "hook": "What if you solve puzzles all day?",
+ "banner": "PUZZLE MARATHON\nWHAT'S NEXT?",
+ "format": "timeline",
+ "env": "room",
+ "scene": "cozy study with a desk lamp and scattered puzzle pieces",
+ "outfit": "hoodie",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "1 HOUR",
+   "line": "Your eyes feel gritty and start to water.",
+   "idea": "Close-up of eyes blinking, tears forming",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "gritty"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "from": "Your",
+     "do": [
+      {
+       "a": "blur",
+       "at": "water"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 HOUR",
+   "line": "Your thoughts slow, focus drifts, mental fog sets in.",
+   "idea": "Brain gauge drops, thought bubbles move slower",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "slow"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "Your",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "fog"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 HOUR",
+   "line": "Your heart beats faster as cortisol spikes.",
+   "idea": "Heart icon pulses rapidly, cortisol meter rises",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "beats"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "Your",
+     "do": [
+      {
+       "a": "fast",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 HOUR",
+   "line": "Your shoulders hunch, lower back aches.",
+   "idea": "Character slouches, wavy lines show back pain",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "hunch"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "spine",
+     "from": "Your",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "aches"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5 HOUR",
+   "line": "Your willpower fades, you make careless mistakes.",
+   "idea": "Hands drop puzzle pieces, error signs pop up",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "fades"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "6 HOUR",
+   "line": "Your mouth dries out, you reach for water.",
+   "idea": "Mouth cracks, character grabs a glass of water",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "dry",
+       "at": "dries"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A rapid visual tour of the body’s response to nonstop puzzle solving.",
+ "tags": [
+  "#BrainPower",
+  "#PuzzleMarathon",
+  "#ScienceShorts"
+ ],
+ "facts": [
+  {
+   "claim": "Eye strain",
+   "source": "https://en.wikipedia.org/wiki/Eye_strain"
+  },
+  {
+   "claim": "Fatigue",
+   "source": "https://en.wikipedia.org/wiki/Fatigue"
+  }
+ ],
+ "hook_style": "question",
+ "end": {
+  "line": "Would you try it, yes or no?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "no"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you solve puzzles continuously for hours?",
+ "exp": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+ "slug": "puzzle-marathon-effects",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-25T09:59Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Eye_strain",
+   "https://en.wikipedia.org/wiki/Fatigue"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

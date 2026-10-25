@@ -1,43 +1,51 @@
 {
  "current": {
-  "name": "copy-018-darkness",
+  "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
   "slot": "winner",
-  "instruction": "Start with a vivid, curiosity-driving hook, then list rapid sensory changes in a timed sequence, ending with a personal challenge question.",
-  "hypothesis": "The winner succeeds by immersing viewers in a step-by-step sensory experience that feels like a personal experiment.",
+  "instruction": "Present a bold, physical challenge, use vivid sensory hooks, list escalating effects, then ask a simple yes/no participation question.",
+  "hypothesis": "The rapid‑pace, body‑focused escalation paired with a direct call‑to‑action drives higher engagement.",
   "keywords": [
-   "darkness",
-   "silence",
-   "extreme",
-   "stress"
+   "challenge",
+   "body",
+   "intensity",
+   "quick"
   ],
   "source": "winner",
   "winner": {
-   "spec": "018-darkness",
-   "title": "What total darkness does",
-   "score": 2.22,
+   "spec": "921-groq-mimic-a-hummingbird-s-wing-beat",
+   "title": "Mimic a Hummingbird's Wing Beat",
+   "score": 2.61,
    "per_platform": {
-    "youtube": 1.28,
-    "tiktok": 1.06,
-    "instagram": 8.02
+    "youtube": 1.37,
+    "tiktok": 1.0,
+    "instagram": 13.02
    }
   },
-  "started": "2026-10-18",
+  "started": "2026-10-25",
   "baseline_median": {
-   "youtube": 101,
-   "tiktok": 267,
-   "instagram": 368
+   "youtube": 922.0,
+   "tiktok": 272,
+   "instagram": 212
   },
-  "baseline_approx": [
-   "youtube",
-   "tiktok",
-   "instagram"
-  ],
-  "tagged": [
-   "919-groq-calm-in-chaos-meditation-countdown",
-   "920-groq-swap-soda-for-tea-body-changes",
-   "921-groq-mimic-a-hummingbird-s-wing-beat"
-  ]
+  "baseline_approx": [],
+  "tagged": []
  },
  "rules": [],
- "history": []
+ "history": [
+  {
+   "name": "copy-018-darkness",
+   "slot": "winner",
+   "instruction": "Start with a vivid, curiosity-driving hook, then list rapid sensory changes in a timed sequence, ending with a personal challenge question.",
+   "started": "2026-10-18",
+   "ended": "2026-10-25",
+   "ratio": 0.856,
+   "per_platform": {
+    "youtube": 0.041,
+    "tiktok": 0.945,
+    "instagram": 0.856
+   },
+   "n_tagged": 3,
+   "status": "reverted"
+  }
+ ]
 }
