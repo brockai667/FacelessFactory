@@ -1,19 +1,6 @@
 [
  {
   "format": "timeline",
-  "chrome": "sticky",
-  "trans": "circle",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "spiky",
-  "skin": "dark",
-  "palette": "p4",
-  "slug": "what-too-little-sleep-does",
-  "topic": "What happens if you only sleep four hours a night?",
-  "env": "room"
- },
- {
-  "format": "timeline",
   "chrome": "stamp",
   "trans": "zoom",
   "pres": "card",
@@ -439,6 +426,21 @@
   "species": "dog",
   "slug": "constant-white-noise-effects",
   "topic": "What happens if you listen to constant white noise?",
+  "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "page",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "cap",
+  "skin": "light",
+  "palette": "p0",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "human",
+  "slug": "puzzle-marathon-effects",
+  "topic": "What happens if you solve puzzles continuously for hours?",
   "env": "room"
  }
 ]

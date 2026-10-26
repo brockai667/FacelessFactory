@@ -1,0 +1,149 @@
+{
+ "title": "Sleep in Orbit",
+ "hook": "Your brain uses 20% of your energy.",
+ "banner": "YOUR BRAIN USES\n20% ENERGY",
+ "format": "timeline",
+ "env": "space",
+ "scene": "International Space Station sleeping pod",
+ "outfit": "pajamas",
+ "mood_music": "wonder",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "After ten minutes",
+   "line": "Your body fluids shift upward, causing facial puffiness.",
+   "idea": "Character's cheeks swell as fluids move to the head.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "puffiness"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After twenty-four hours",
+   "line": "Your heart pumps more blood per beat, increasing stroke volume.",
+   "idea": "A heart icon beats slower on a monitor.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "beat"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By day three",
+   "line": "Your muscles start to weaken from lack of load.",
+   "idea": "Arm muscles shrink slightly, showing reduced size.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thin_arms",
+       "at": "weaken"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a week",
+   "line": "Your spine stretches, adding a couple of centimeters to your height.",
+   "idea": "Character measures height, a ruler shows a tiny increase.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "spine",
+     "do": [
+      {
+       "a": "stretch",
+       "badge": [
+        "height",
+        "2cm",
+        "gain"
+       ],
+       "at": "stretches"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Six months in",
+   "line": "Your immune cells become less active, increasing infection risk.",
+   "idea": "White blood cells appear sluggish in a close-up.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "risk",
+     "big": "HIGH",
+     "small": "INFECTION",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how microgravity changes your body while you snooze in space.",
+ "tags": [
+  "#space",
+  "#sleep",
+  "#microgravity",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Weightlessness",
+   "source": "https://en.wikipedia.org/wiki/Weightlessness"
+  },
+  {
+   "claim": "Effect of spaceflight on the human body",
+   "source": "https://en.wikipedia.org/wiki/Effect_of_spaceflight_on_the_human_body"
+  }
+ ],
+ "hook_style": "number",
+ "end": {
+  "line": "Float and nap, would you try?",
+  "do": [
+   {
+    "r": "zzz",
+    "at": "nap"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "try"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you sleep in orbit around Earth?",
+ "exp": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+ "slug": "sleep-in-orbit",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-10-26T11:17Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Weightlessness",
+   "https://en.wikipedia.org/wiki/Effect_of_spaceflight_on_the_human_body"
+  ],
+  "fixed": 0,
+  "unsupported": 1
+ }
+}
