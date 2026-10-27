@@ -283,6 +283,17 @@ def host_thumbnail(cfg, jpg):
         return None
 
 
+def host_caption(cfg, txt):
+    """Nahra <slug>.txt (popis) do 'captions' release - odtial ho berie tiktok-drop pre appku TikTok Nahravac."""
+    try:
+        url = upload_github_release(cfg, txt, tag="captions", ctype="text/plain; charset=utf-8")
+        print("  [caption] hostnuty -> " + url)
+        return url
+    except Exception as e:
+        print("  [caption] hosting zlyhal (nekriticke): " + str(e)[:140])
+        return None
+
+
 def host_video(cfg, path):
     """Primarne GitHub Releases (zadarmo, neobmedzeny bandwidth); fallback Cloudinary ak by zlyhal."""
     try:
@@ -314,6 +325,9 @@ def main():
     if not targets:
         chans = get_channels(token)
         targets = [c for c in chans if c.get("service", "").lower() in WANT_SERVICES]
+    # BUFFER_SKIP="tiktok" = siet sa cez Buffer neposiela (papier 27.10.: TikTok nahrava Damian z mobilu appkou)
+    skip = {s.strip().lower() for s in os.environ.get("BUFFER_SKIP", "").split(",") if s.strip()}
+    targets = [c for c in targets if c.get("service", "").lower() not in skip]
     print("Kanaly: " + (", ".join(f"{c['service']}({c.get('name','')})" for c in targets) or "(ziadne)"))
     if not targets:
         print("CHYBA: ziadne kanaly v configu (buffer_channels)."); return
@@ -361,6 +375,8 @@ def main():
         jpg = mp4[:-4] + ".jpg"          # <slug>.jpg -> 'thumbs' release pre YT custom thumbnail
         if os.path.exists(jpg):
             host_thumbnail(cfg, jpg)
+        if os.path.exists(mp4[:-4] + ".txt"):
+            host_caption(cfg, mp4[:-4] + ".txt")
         slot_idx += 1
         for c in pending:
             svc = c["service"].lower()
