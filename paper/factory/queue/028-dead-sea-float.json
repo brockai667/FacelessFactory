@@ -1,0 +1,177 @@
+{
+ "topic": "What happens if you swim in the Dead Sea?",
+ "slug": "dead-sea-float",
+ "title": "Dead Sea Float",
+ "hook": "What if you jumped into the Dead Sea?",
+ "banner": [
+  "JUMP IN THE",
+  "DEAD SEA?"
+ ],
+ "format": "countdown",
+ "env": "field",
+ "scene": "meadow",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "The water is about ten times saltier than the ocean.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "saltier",
+       "arg": "excited"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "So you float like a cork, even if you can't swim.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thumbs_up",
+       "at": "float"
+      },
+      {
+       "r": "face",
+       "at": "swim",
+       "arg": "happy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "It's the lowest place on land, about four hundred thirty meters below sea level.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "-430 M",
+     "small": "BELOW SEA LEVEL",
+     "icon": "down",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "One drop in your eye stings so badly, swimmers rush for fresh water.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "blur",
+       "at": "stings"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "rush",
+       "arg": "pain"
+      }
+     ],
+     "from": "swimmers"
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "And every tiny cut on your skin burns like fire.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "cut"
+      },
+      {
+       "r": "face",
+       "at": "burns",
+       "arg": "pain"
+      },
+      {
+       "r": "steam",
+       "at": "fire"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you float in the Dead Sea?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "float"
+   },
+   {
+    "r": "wave",
+    "at": "Sea"
+   }
+  ]
+ },
+ "description": "Ten times saltier than the ocean: why you can't sink in the Dead Sea, and why it stings.",
+ "tags": [
+  "#deadsea",
+  "#travel",
+  "#ocean",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "The Dead Sea is about 34% salt, roughly ten times saltier than the ocean.",
+   "source": "Britannica - Dead Sea"
+  },
+  {
+   "claim": "The high density of the water makes people float easily.",
+   "source": "Britannica - Dead Sea"
+  },
+  {
+   "claim": "Its shore is the lowest land on Earth, about 430 m below sea level.",
+   "source": "Britannica - Dead Sea"
+  },
+  {
+   "claim": "Dead Sea water in the eyes or in cuts causes strong stinging; swimmers are told to rinse with fresh water.",
+   "source": "Israel Ministry of Tourism - Dead Sea safety"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "hero": {
+  "species": "cat",
+  "fur": "orange",
+  "outfit": "tshirt"
+ },
+ "open": {
+  "mood": "hot"
+ },
+ "hook_do": [
+  {
+   "r": "sweat",
+   "at": "Dead"
+  }
+ ]
+}

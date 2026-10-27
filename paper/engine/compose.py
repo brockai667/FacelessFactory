@@ -305,7 +305,17 @@ class Composer:
 
         # ---------- HOOK
         E("\n// ===== HOOK (prvy snimok = posledny)")
-        E('R.camSet("wide", 0); PF.CAM(1.05, 560, 920, 0, T.b1 - 0.05, "sine.inOut"); R.camHold(T.b1 - 0.05);')
+        op = S.get("open") or {}
+        if op:   # otvorenie v napati (27.10.): prve 0,3 s rozhoduju -> zaber na tvar s odjazdom, nalada temy od 0, banner buchne, naraz zvuku
+            E('R.camSet("face", 0); PF.CAM(1.08, 560, 900, 0.1, 0.5, "power3.out"); PF.CAM(1.0, 540, 960, 0.62, Math.max(0.3, T.b1 - 0.7), "sine.inOut"); R.camHold(T.b1 - 0.05);')
+            E('PF.tl.fromTo("#hookIn", { scale: 1.3 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 0);')
+            if op.get("mood"):                        # nalada hned od 1. snimku: jej uvodne prelinanie (t = 0) skratene na 0,02 s
+                E(f'(function () {{ var b = PF.tl.getChildren(false, true, true); R.mood(0, {js(op["mood"])}, T.b1); '
+                  'PF.tl.getChildren(false, true, true).forEach(function (c) { if (b.indexOf(c) < 0 && c.startTime() < 0.05 && c.duration() > 0.02) c.duration(0.02); }); })();')
+            self.fx("sub_hit.wav", "hook", -0.08, 0.6)
+            self.fx("whoosh.wav", "hook", -0.05, 0.4)
+        else:
+            E('R.camSet("wide", 0); PF.CAM(1.05, 560, 920, 0, T.b1 - 0.05, "sine.inOut"); R.camHold(T.b1 - 0.05);')
         E(f'R.setFace(0, "{S["face0"]}", 0); hero.look(0, 0, 0, 0);')
         if env.get("float"):
             E("hero.bob(0, T.b1 - 0.2);")
@@ -378,7 +388,7 @@ class Composer:
             "title": S["title"], "hook": S["banner"], "voice": S.get("voice", "en-US-AndrewNeural"), "rate": S.get("rate", "+0%"), "gap": 0.5,
             "tail": round(1.4 + max([0] + [RDUR.get(a["r"], 0.6) - 0.5 for a in end.get("do", [])]), 2),
             "bg": S.get("bg", "#e8a18c" if S["env"] == "room" else "#dfe6ee"), "accent": accent, "kit": kit, "libs": libs,
-            "description": (S.get("description", "") + "\n" + " ".join(S.get("tags", [])) + "\nNot medical advice.").strip(),
+            "description": (S.get("description", "") + "\n" + (S.get("tags") if isinstance(S.get("tags"), str) else " ".join(S.get("tags") or [])) + "\nNot medical advice.").strip(),
             "music": {"file": mf, "at": mat, "vol": music_vol(mf, mat),
                       "credit": music_credit(mname)},
             "lines": lines, "sfx": self.sfx}

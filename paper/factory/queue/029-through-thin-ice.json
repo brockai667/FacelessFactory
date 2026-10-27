@@ -1,0 +1,158 @@
+{
+ "topic": "What happens if you fall through thin ice?",
+ "slug": "through-thin-ice",
+ "title": "Through Thin Ice",
+ "hook": "What if the ice cracked under you?",
+ "banner": [
+  "FALL THROUGH",
+  "THIN ICE?"
+ ],
+ "format": "timeline",
+ "env": "field",
+ "scene": "mountain",
+ "outfit": "hoodie",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "beats": [
+  {
+   "label": "1 MINUTE",
+   "line": "For the first minute, you gasp uncontrollably. Stay calm and breathe.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "gasp",
+       "arg": "shocked"
+      },
+      {
+       "r": "puff",
+       "at": "breathe"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "10 MINUTES",
+   "line": "You have about ten minutes before your arms and legs stop working.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "at": "arms",
+       "arg": 2
+      },
+      {
+       "r": "face",
+       "at": "stop",
+       "arg": "worried"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 MINUTES",
+   "line": "Blood pulls away from your hands to keep your heart and brain warm.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "pulls"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 HOUR",
+   "line": "Only after about an hour does real hypothermia knock you out.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "hypothermia",
+       "arg": "sleepy"
+      },
+      {
+       "r": "slump",
+       "at": "out"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "1-10-1",
+     "small": "REMEMBER THIS RULE",
+     "icon": "snow",
+     "do": [
+      {
+       "a": "show"
+      }
+     ],
+     "from": "knock"
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Did you know the one ten one rule?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "know"
+   },
+   {
+    "r": "wave",
+    "at": "rule"
+   }
+  ]
+ },
+ "description": "One minute, ten minutes, one hour: the cold water rule that can save your life.",
+ "tags": [
+  "#ice",
+  "#winter",
+  "#survival",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Cold shock causes an uncontrollable gasp and fast breathing in the first minute; staying calm helps.",
+   "source": "NIH / NCBI - Cold water immersion; Prof. Gordon Giesbrecht, University of Manitoba"
+  },
+  {
+   "claim": "The 1-10-1 principle: about 1 minute to control breathing, 10 minutes of useful movement, up to 1 hour before losing consciousness from hypothermia.",
+   "source": "National Center for Cold Water Safety; Gordon Giesbrecht"
+  },
+  {
+   "claim": "In the cold, blood vessels in the limbs narrow to keep the core warm.",
+   "source": "Mayo Clinic - Hypothermia"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "open": {
+  "mood": "cold"
+ },
+ "hook_do": [
+  {
+   "r": "shiver",
+   "at": "cracked",
+   "arg": 1.2
+  },
+  {
+   "r": "puff",
+   "at": "under"
+  }
+ ]
+}

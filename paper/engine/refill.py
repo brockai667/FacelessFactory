@@ -41,6 +41,10 @@ def next_groq_name(slug):
 
 def refill(target=10, maximum=3):
     os.makedirs(QDIR, exist_ok=True)
+    claude = [f for f in queue_files() if not re.match(r"^9\d\d-groq-", f)]
+    if claude:                                           # Claude davka vo fronte -> Groq nepise (27.10.: experimentalne groq spisy by ju predbehli)
+        print(f"fronta: {len(claude)} Claude scenarov -> Groq doplnanie pauzne")
+        return 0
     bank = topics.load()
     topics.sync(bank)
     if len(topics.unused(bank)) < 5:

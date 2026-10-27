@@ -1,0 +1,188 @@
+{
+ "topic": "What happens if lightning strikes you?",
+ "slug": "struck-by-lightning",
+ "title": "Struck By Lightning",
+ "hook": "What if lightning hit you right now?",
+ "banner": [
+  "STRUCK BY",
+  "LIGHTNING?"
+ ],
+ "format": "countdown",
+ "env": "field",
+ "scene": "meadow",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "A lightning bolt is about five times hotter than the surface of the sun.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "lightning",
+       "arg": "shocked"
+      },
+      {
+       "r": "stars",
+       "at": "hotter"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "But the current often flashes over your skin instead of through you.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "steam",
+       "at": "flashes"
+      },
+      {
+       "r": "face",
+       "at": "skin",
+       "arg": "dizzy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "That's why about nine in ten people who get struck survive.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "90%",
+     "small": "SURVIVE A STRIKE",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your heart can stop for a moment, so fast CPR saves lives.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "stop"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "CPR",
+       "arg": "worried"
+      },
+      {
+       "r": "recover",
+       "at": "saves"
+      }
+     ],
+     "from": "CPR"
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Some survivors get red, fern-shaped marks on their skin that fade in days.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pain",
+       "at": "marks"
+      },
+      {
+       "r": "face",
+       "at": "skin",
+       "arg": "pain"
+      },
+      {
+       "r": "recover",
+       "at": "fade"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you still stand outside in a storm?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "still"
+   },
+   {
+    "r": "wave",
+    "at": "storm"
+   }
+  ]
+ },
+ "description": "Hotter than the sun, yet most people survive it: what a lightning strike really does.",
+ "tags": [
+  "#lightning",
+  "#storm",
+  "#weather",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "A lightning bolt can heat the air to about 50,000 F, about five times hotter than the surface of the sun.",
+   "source": "NOAA / National Weather Service - Lightning science"
+  },
+  {
+   "claim": "Current can flash over the outside of the body (flashover).",
+   "source": "National Weather Service - Lightning injuries"
+  },
+  {
+   "claim": "About 90% of people struck by lightning survive.",
+   "source": "National Weather Service / CDC - Lightning safety"
+  },
+  {
+   "claim": "Cardiac arrest is the main cause of lightning death; CPR can save victims.",
+   "source": "National Weather Service - Medical aspects of lightning"
+  },
+  {
+   "claim": "Lichtenberg figures are fern-like skin marks that usually fade within hours to days.",
+   "source": "NIH / NCBI - Lichtenberg figures"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "open": {
+  "mood": "night"
+ },
+ "hook_do": [
+  {
+   "r": "stars",
+   "at": "lightning"
+  },
+  {
+   "r": "steam",
+   "at": "now"
+  }
+ ]
+}

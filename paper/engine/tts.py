@@ -6,6 +6,7 @@ import json
 import os
 import re
 import subprocess
+import time
 
 
 def probe(path):
@@ -67,10 +68,15 @@ class Kit:
                 rec = cache[ck]
             else:
                 ws = []
-                for att in range(4):                 # edge-tts obcas vrati prazdno -> skus znova
-                    ws = asyncio.run(self._tts(text, mp3))
+                for att in range(6):                 # edge-tts obcas vrati prazdno alebo NoAudioReceived (27.10.) -> skus znova
+                    try:
+                        ws = asyncio.run(self._tts(text, mp3))
+                    except Exception as e:
+                        print(f"   [tts] pokus {att + 1}: {type(e).__name__}", flush=True)
+                        ws = []
                     if ws:
                         break
+                    time.sleep(5 * (att + 1))
                 if not ws:
                     raise RuntimeError(f"edge-tts nevratil casy slov pre: {text}")
                 rec = {"file": k, "dur": round(probe(mp3), 3), "words": ws}

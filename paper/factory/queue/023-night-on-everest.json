@@ -1,0 +1,211 @@
+{
+ "topic": "What happens if you sleep on top of Everest?",
+ "slug": "night-on-everest",
+ "title": "Night On Everest",
+ "hook": "Could you survive one night on Everest?",
+ "banner": [
+  "ONE NIGHT AT",
+  "8,849 M?"
+ ],
+ "format": "timeline",
+ "env": "field",
+ "scene": "summit",
+ "outfit": "hoodie",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "beats": [
+  {
+   "label": "1 HOUR",
+   "line": "Up here, every breath holds about a third of the oxygen at sea level.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "breath"
+      },
+      {
+       "r": "face",
+       "at": "oxygen",
+       "arg": "pant"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "3 HOURS",
+   "line": "Your heart races to push what little oxygen you have around your body.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "races"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "6 HOURS",
+   "line": "Sleep turns choppy, and your breathing stops and starts all night.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "zzz",
+       "at": "Sleep"
+      },
+      {
+       "r": "face",
+       "at": "choppy",
+       "arg": "tired"
+      },
+      {
+       "r": "puff",
+       "at": "breathing"
+      },
+      {
+       "r": "mood",
+       "at": "night",
+       "arg": "night"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "12 HOURS",
+   "line": "Your brain can start to swell, causing headaches and confusion.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "swell"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "headaches",
+       "arg": "pain"
+      },
+      {
+       "r": "face",
+       "at": "confusion",
+       "arg": "dizzy"
+      }
+     ],
+     "from": "causing"
+    }
+   ]
+  },
+  {
+   "label": "1 DAY",
+   "line": "Climbers call this the death zone: the body can't adapt, it only declines.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "8,000 M",
+     "small": "THE DEATH ZONE",
+     "icon": "up",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "adapt",
+       "arg": "worried"
+      },
+      {
+       "r": "slump",
+       "at": "declines"
+      }
+     ],
+     "from": "body"
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you spend a night up there?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "spend"
+   },
+   {
+    "r": "wave",
+    "at": "there"
+   }
+  ]
+ },
+ "description": "Thin air, a racing heart and a swelling brain: one night on the roof of the world.",
+ "tags": [
+  "#everest",
+  "#altitude",
+  "#deathzone",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Air pressure on the summit of Everest is about one third of sea level, so each breath holds about a third of the oxygen.",
+   "source": "Britannica - Mount Everest; NIH - High altitude physiology"
+  },
+  {
+   "claim": "Heart rate rises at high altitude to compensate for low oxygen.",
+   "source": "NIH / NCBI - High Altitude Physiology"
+  },
+  {
+   "claim": "Periodic breathing (breathing that stops and starts) is common during sleep at high altitude.",
+   "source": "NIH / NCBI - Sleep at high altitude"
+  },
+  {
+   "claim": "High altitude cerebral edema is swelling of the brain causing headache and confusion.",
+   "source": "Mayo Clinic / NHS - Altitude sickness"
+  },
+  {
+   "claim": "Above about 8,000 m is called the death zone, where the body cannot acclimatize and deteriorates.",
+   "source": "Britannica - Death zone"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "hero": {
+  "species": "cat",
+  "fur": "gray",
+  "outfit": "hoodie"
+ },
+ "open": {
+  "mood": "cold"
+ },
+ "hook_do": [
+  {
+   "r": "puff",
+   "at": "survive"
+  },
+  {
+   "r": "shiver",
+   "at": "night",
+   "arg": 1.2
+  }
+ ]
+}

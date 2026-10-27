@@ -1,0 +1,191 @@
+{
+ "topic": "What happens if you stay awake for eleven days?",
+ "slug": "eleven-days-awake",
+ "title": "Eleven Days Awake",
+ "hook": "Could you stay awake for eleven days?",
+ "banner": [
+  "264 HOURS",
+  "NO SLEEP?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "scene": "desk",
+ "outfit": "hoodie",
+ "mood_music": "tense",
+ "face0": "tired",
+ "beats": [
+  {
+   "label": "2 DAYS",
+   "line": "After two days, your eyes won't focus and you can't stop yawning.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "focus",
+       "arg": "tired"
+      },
+      {
+       "r": "yawn",
+       "at": "yawning"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 DAYS",
+   "line": "By day four, your brain starts to dream while you're still awake.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "dream"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "hallucinate",
+       "at": "awake"
+      }
+     ],
+     "from": "still"
+    }
+   ]
+  },
+  {
+   "label": "7 DAYS",
+   "line": "A week in, your memory slips and simple math feels impossible.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "memory",
+       "arg": "dizzy"
+      },
+      {
+       "r": "stars",
+       "at": "math"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "11 DAYS",
+   "line": "In nineteen sixty-four, Randy Gardner lasted eleven days, slurring every word.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "264 HRS",
+     "small": "WITHOUT ANY SLEEP",
+     "icon": "clock",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "slurring",
+       "arg": "sleepy"
+      },
+      {
+       "r": "slump",
+       "at": "word"
+      }
+     ],
+     "from": "Gardner"
+    }
+   ]
+  },
+  {
+   "label": "1 NIGHT",
+   "line": "Then he slept fourteen hours and woke up feeling fine.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "zzz",
+       "at": "slept"
+      },
+      {
+       "r": "recover",
+       "at": "woke"
+      },
+      {
+       "r": "face",
+       "at": "fine",
+       "arg": "smile"
+      }
+     ]
+    }
+   ],
+   "scene": "bed"
+  }
+ ],
+ "end": {
+  "line": "What's the longest you've ever stayed awake?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "longest"
+   },
+   {
+    "r": "wave",
+    "at": "awake"
+   }
+  ]
+ },
+ "description": "From blurry eyes to waking dreams: what eleven days without sleep did to Randy Gardner. Don't try it.",
+ "tags": [
+  "#sleep",
+  "#brain",
+  "#experiment",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Randy Gardner stayed awake for 264 hours (about 11 days) in 1964.",
+   "source": "Stanford Center for Sleep Sciences; Guinness World Records"
+  },
+  {
+   "claim": "By about day four he had hallucinations, and memory and concentration problems followed.",
+   "source": "Ross, J.J. (1965) Neurological findings after prolonged sleep deprivation, Archives of Neurology"
+  },
+  {
+   "claim": "By the end his speech was slurred.",
+   "source": "Ross, J.J. (1965), Archives of Neurology"
+  },
+  {
+   "claim": "He then slept about 14 hours and recovered without lasting harm reported.",
+   "source": "Stanford Center for Sleep Sciences"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "open": {
+  "mood": "night"
+ },
+ "hook_do": [
+  {
+   "r": "yawn",
+   "at": "awake"
+  }
+ ]
+}

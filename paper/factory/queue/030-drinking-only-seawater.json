@@ -1,0 +1,178 @@
+{
+ "topic": "What happens if you drink only seawater?",
+ "slug": "drinking-only-seawater",
+ "title": "Drinking Only Seawater",
+ "hook": "What if seawater was all you could drink?",
+ "banner": [
+  "ONLY SEAWATER",
+  "TO DRINK?"
+ ],
+ "format": "gauge",
+ "env": "field",
+ "scene": "meadow",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "dry",
+ "beats": [
+  {
+   "label": "1 CUP",
+   "line": "Seawater is about three and a half percent salt.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "salt",
+       "arg": "dry"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 CUPS",
+   "line": "Your kidneys can't make urine that salty, so they use your own water.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "kidneys",
+     "do": [
+      {
+       "a": "flow",
+       "at": "salty"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "own",
+       "arg": "worried"
+      }
+     ],
+     "from": "use"
+    }
+   ]
+  },
+  {
+   "label": "1 DAY",
+   "line": "You get thirstier with every sip, the opposite of what you need.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "thirstier",
+       "arg": "dry"
+      },
+      {
+       "r": "sweat",
+       "at": "sip"
+      },
+      {
+       "r": "face",
+       "at": "need",
+       "arg": "pant"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 DAYS",
+   "line": "Your blood thickens, and your brain turns foggy and confused.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "thickens"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "confused"
+      }
+     ],
+     "from": "brain"
+    }
+   ]
+  },
+  {
+   "label": "3 DAYS",
+   "line": "That's why lost sailors are told never to drink the sea.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "never",
+       "arg": "sick"
+      },
+      {
+       "r": "slump",
+       "at": "sea"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you take one sip of seawater?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "take"
+   },
+   {
+    "r": "wave",
+    "at": "seawater"
+   }
+  ]
+ },
+ "description": "Water everywhere, but not a drop to drink: why seawater makes you thirstier.",
+ "tags": [
+  "#ocean",
+  "#survival",
+  "#body",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Seawater has an average salinity of about 3.5%.",
+   "source": "NOAA - Ocean salinity"
+  },
+  {
+   "claim": "Human kidneys can only make urine that is less salty than seawater, so drinking it costs more water than it gives.",
+   "source": "NOAA - Can humans drink seawater?"
+  },
+  {
+   "claim": "Dehydration thickens the blood and causes confusion.",
+   "source": "Mayo Clinic - Dehydration"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "open": {
+  "mood": "hot"
+ },
+ "hook_do": [
+  {
+   "r": "sweat",
+   "at": "seawater"
+  }
+ ]
+}

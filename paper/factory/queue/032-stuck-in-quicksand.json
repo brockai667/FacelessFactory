@@ -1,0 +1,171 @@
+{
+ "topic": "What happens if you step into quicksand?",
+ "slug": "stuck-in-quicksand",
+ "title": "Stuck In Quicksand",
+ "hook": "What if you stepped into quicksand?",
+ "banner": [
+  "STUCK IN",
+  "QUICKSAND?"
+ ],
+ "format": "countdown",
+ "env": "field",
+ "scene": "meadow",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "worried",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Good news: quicksand is denser than you, so you can't sink all the way.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "quicksand",
+       "arg": "worried"
+      },
+      {
+       "r": "face",
+       "at": "way",
+       "arg": "smile"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Most people only sink to about their waist.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "sink"
+      },
+      {
+       "r": "face",
+       "at": "waist",
+       "arg": "neutral"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "But yanking one foot out fast takes force like lifting a car.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "1 CAR",
+     "small": "OF FORCE TO PULL",
+     "icon": "muscle",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "So don't pull. Wiggle your legs slowly to let water in.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "walk",
+       "at": "Wiggle",
+       "arg": 1
+      },
+      {
+       "r": "face",
+       "at": "slowly",
+       "arg": "neutral"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Then lean back, float, and slide yourself free.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thumbs_up",
+       "at": "float"
+      },
+      {
+       "r": "recover",
+       "at": "free"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Did the movies lie to you about quicksand?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "movies"
+   },
+   {
+    "r": "wave",
+    "at": "quicksand"
+   }
+  ]
+ },
+ "description": "You won't sink like in the movies, but you won't pull free either: the physics of quicksand.",
+ "tags": [
+  "#quicksand",
+  "#survival",
+  "#physics",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "Quicksand is about twice as dense as water and denser than the human body, so people cannot fully sink.",
+   "source": "Bonn et al. (2005), Nature 'Quicksand: Eureka!'"
+  },
+  {
+   "claim": "A person typically sinks only to about the waist.",
+   "source": "Bonn et al. (2005), Nature"
+  },
+  {
+   "claim": "Pulling a foot out quickly can require a force similar to lifting a car.",
+   "source": "Bonn et al. (2005), Nature; University of Amsterdam press release"
+  },
+  {
+   "claim": "Slow wiggling lets water in and loosens the sand.",
+   "source": "Bonn et al. (2005), Nature"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "hero": {
+  "species": "dog",
+  "fur": "golden",
+  "outfit": "tshirt"
+ },
+ "open": {
+  "on": true
+ },
+ "hook_do": [
+  {
+   "r": "sweat",
+   "at": "stepped"
+  }
+ ]
+}

@@ -1,0 +1,205 @@
+{
+ "topic": "What happens if you hibernate like a bear?",
+ "slug": "six-months-asleep",
+ "title": "Six Months Asleep",
+ "hook": "What if you slept through the whole winter?",
+ "banner": [
+  "SIX MONTHS",
+  "ASLEEP?"
+ ],
+ "format": "timeline",
+ "env": "room",
+ "scene": "bed",
+ "outfit": "pajamas",
+ "mood_music": "calm",
+ "face0": "sleepy",
+ "beats": [
+  {
+   "label": "1 WEEK",
+   "line": "Your heart slows from about fifty beats a minute to around ten.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "zzz",
+       "at": "slows"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "ten"
+      }
+     ],
+     "from": "fifty"
+    }
+   ]
+  },
+  {
+   "label": "1 MONTH",
+   "line": "You stop eating, drinking and even peeing, for months.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "at": "stop",
+       "arg": "sleepy"
+      },
+      {
+       "r": "zzz",
+       "at": "months"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "kidneys",
+     "do": [
+      {
+       "a": "save",
+       "at": "peeing"
+      }
+     ],
+     "from": "peeing"
+    }
+   ]
+  },
+  {
+   "label": "3 MONTHS",
+   "line": "Your body recycles that waste into protein, so your muscles barely shrink.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "nod",
+       "at": "recycles"
+      },
+      {
+       "r": "thumbs_up",
+       "at": "barely"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5 MONTHS",
+   "line": "By now you've lost up to thirty percent of your body weight, mostly fat.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "-30%",
+     "small": "BODY WEIGHT",
+     "icon": "flame",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thin_arms",
+       "at": "weight"
+      },
+      {
+       "r": "skinny_legs",
+       "at": "fat"
+      }
+     ],
+     "from": "weight"
+    }
+   ]
+  },
+  {
+   "label": "6 MONTHS",
+   "line": "In spring you wake up thinner, but strong enough to walk out.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "at": "spring",
+       "arg": "normal"
+      },
+      {
+       "r": "yawn",
+       "at": "wake"
+      },
+      {
+       "r": "walk",
+       "at": "walk",
+       "arg": 1.5
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Would you sleep all winter if you could?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "sleep"
+   },
+   {
+    "r": "wave",
+    "at": "winter"
+   }
+  ]
+ },
+ "description": "No food, no water, no bathroom for months: how a bear's body survives the winter.",
+ "tags": [
+  "#bears",
+  "#hibernation",
+  "#animals",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "A hibernating black bear's heart rate can drop from about 50 to around 8-10 beats a minute.",
+   "source": "U.S. National Park Service - Bear hibernation"
+  },
+  {
+   "claim": "Black bears can go 100 days or more without eating, drinking, urinating or defecating.",
+   "source": "U.S. National Park Service - Bear hibernation"
+  },
+  {
+   "claim": "Hibernating bears recycle urea into protein and lose little muscle.",
+   "source": "U.S. National Park Service; NIH / NCBI - Hibernation physiology"
+  },
+  {
+   "claim": "Bears can lose about 15 to 30 percent of their body weight during hibernation, mostly fat.",
+   "source": "U.S. National Park Service - Bear hibernation"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "hero": {
+  "species": "bear",
+  "fur": "brown",
+  "outfit": "pajamas"
+ },
+ "open": {
+  "mood": "night"
+ },
+ "hook_do": [
+  {
+   "r": "zzz",
+   "at": "slept"
+  }
+ ]
+}

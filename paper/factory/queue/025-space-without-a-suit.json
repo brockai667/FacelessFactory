@@ -1,0 +1,183 @@
+{
+ "topic": "What happens if you go to space without a suit?",
+ "slug": "space-without-a-suit",
+ "title": "Space Without A Suit",
+ "hook": "Could you survive space without a suit?",
+ "banner": [
+  "SPACE WITH",
+  "NO SUIT?"
+ ],
+ "format": "timeline",
+ "env": "space",
+ "scene": "station",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "beats": [
+  {
+   "label": "1 SECOND",
+   "line": "First, breathe out. Holding your breath could tear your lungs.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "breathe"
+      },
+      {
+       "r": "face",
+       "at": "tear",
+       "arg": "shocked"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "5 SECONDS",
+   "line": "The water on your tongue starts to boil, but your blood doesn't.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "steam",
+       "at": "boil"
+      },
+      {
+       "r": "face",
+       "at": "tongue",
+       "arg": "worried"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "doesn't"
+      }
+     ],
+     "from": "blood"
+    }
+   ]
+  },
+  {
+   "label": "10 SECONDS",
+   "line": "Your skin swells up, but you don't explode like in the movies.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puffy",
+       "at": "swells"
+      },
+      {
+       "r": "face",
+       "at": "explode",
+       "arg": "shocked"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "15 SECONDS",
+   "line": "With no oxygen reaching your brain, you black out.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "shrink",
+       "at": "black"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "90 SECONDS",
+   "line": "Pulled back inside within about ninety seconds, you could still survive.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "recover",
+       "at": "inside"
+      },
+      {
+       "r": "face",
+       "at": "survive",
+       "arg": "happy"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Did you think you would explode?",
+  "do": [
+   {
+    "r": "recover",
+    "at": "think"
+   },
+   {
+    "r": "wave",
+    "at": "explode"
+   }
+  ]
+ },
+ "description": "No explosion, no frozen statue: the real first seconds in space without a suit.",
+ "tags": [
+  "#space",
+  "#nasa",
+  "#astronaut",
+  "#science"
+ ],
+ "facts": [
+  {
+   "claim": "You should exhale; holding your breath in a vacuum can rupture the lungs.",
+   "source": "NASA - Ask an Astrophysicist: human body in a vacuum"
+  },
+  {
+   "claim": "Saliva on the tongue boils in a vacuum (Jim LeBlanc, NASA vacuum chamber accident, 1966).",
+   "source": "NASA - Johnson Space Center history"
+  },
+  {
+   "claim": "Blood in the vessels does not boil because the body keeps it under pressure.",
+   "source": "NASA - Human body in a vacuum"
+  },
+  {
+   "claim": "The skin and tissues swell, but the body does not explode.",
+   "source": "NASA - Human body in a vacuum"
+  },
+  {
+   "claim": "Consciousness lasts about 15 seconds; animal studies showed survival after up to about 90 seconds.",
+   "source": "NASA Technical Report - Bioastronautics Data Book"
+  }
+ ],
+ "source": "claude",
+ "batch": "2026-10-27-extreme",
+ "open": {
+  "on": true
+ },
+ "hook_do": [
+  {
+   "r": "face",
+   "at": "survive",
+   "arg": "pant"
+  },
+  {
+   "r": "stars",
+   "at": "suit"
+  }
+ ]
+}
