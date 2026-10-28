@@ -1,18 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "stamp",
-  "trans": "zoom",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "cap",
-  "skin": "brown",
-  "palette": "p3",
-  "slug": "what-holding-breath-does",
-  "topic": "What happens if you hold your breath?",
-  "env": "room"
- },
- {
   "format": "countdown",
   "chrome": "tape",
   "trans": "tear",
@@ -442,5 +429,20 @@
   "slug": "puzzle-marathon-effects",
   "topic": "What happens if you solve puzzles continuously for hours?",
   "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "bubble",
+  "trans": "circle",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "short",
+  "skin": "dark",
+  "palette": "p1",
+  "cta": "FOLLOW FOR MORE",
+  "species": "cat",
+  "slug": "night-on-everest",
+  "topic": "What happens if you sleep on top of Everest?",
+  "env": "field"
  }
 ]
