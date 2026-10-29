@@ -1,18 +1,5 @@
 [
  {
-  "format": "countdown",
-  "chrome": "tape",
-  "trans": "tear",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "curly",
-  "skin": "light",
-  "palette": "p1",
-  "slug": "what-a-trip-to-mars-does",
-  "topic": "What happens if you go to Mars?",
-  "env": "space"
- },
- {
   "format": "gauge",
   "chrome": "bubble",
   "trans": "page",
@@ -443,6 +430,21 @@
   "species": "cat",
   "slug": "night-on-everest",
   "topic": "What happens if you sleep on top of Everest?",
+  "env": "field"
+ },
+ {
+  "format": "countdown",
+  "chrome": "tape",
+  "trans": "zoom",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "long",
+  "skin": "brown",
+  "palette": "p4",
+  "cta": "COMMENT BELOW",
+  "species": "dog",
+  "slug": "struck-by-lightning",
+  "topic": "What happens if lightning strikes you?",
   "env": "field"
  }
 ]
