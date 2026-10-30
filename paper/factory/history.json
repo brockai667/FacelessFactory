@@ -1,18 +1,5 @@
 [
  {
-  "format": "gauge",
-  "chrome": "bubble",
-  "trans": "page",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "bald",
-  "skin": "dark",
-  "palette": "p2",
-  "slug": "what-daily-walking-does",
-  "topic": "What happens if you walk ten thousand steps every day?",
-  "env": "field"
- },
- {
   "format": "timeline",
   "chrome": "sticky",
   "trans": "circle",
@@ -446,5 +433,20 @@
   "slug": "struck-by-lightning",
   "topic": "What happens if lightning strikes you?",
   "env": "field"
+ },
+ {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "bun",
+  "skin": "light",
+  "palette": "p2",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "human",
+  "slug": "space-without-a-suit",
+  "topic": "What happens if you go to space without a suit?",
+  "env": "space"
  }
 ]
