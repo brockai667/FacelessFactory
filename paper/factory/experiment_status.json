@@ -1,6 +1,6 @@
 {
  "factory": "MindBlownDaily",
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
  "started": "2026-10-25",
  "hypothesis": "The rapid‑pace, body‑focused escalation paired with a direct call‑to‑action drives higher engagement.",
@@ -15,7 +15,7 @@
   "youtube": 423,
   "tiktok": 216
  },
- "ratio_now": 0.657,
+ "ratio_now": 0.656,
  "n_tagged": 1,
  "status": "running",
  "rules": 0,
