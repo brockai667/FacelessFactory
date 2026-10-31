@@ -12,8 +12,8 @@ on:
       publish:
         description: "Publikovať cez Buffer? (yes/no/check = len overiť token)"
         default: "no"
-  schedule:                          # ostrá prevádzka: 05:20 UTC = 07:20 Bratislava, video ide do slotu 11:00 (BUFFER_SLOT_HOURS)
-    - cron: "20 5 * * *"
+  schedule:                          # 20:41 UTC večer vopred (cron mešká 4-6 h) -> video v TikTok appke do 10:00 SK; YT/IG ostáva slot 11:00 (BUFFER_SLOT_HOURS)
+    - cron: "41 20 * * *"
 
 permissions:
   contents: write                    # stav fabriky (fronta -> done, history.json), pushed.json, release s videom
