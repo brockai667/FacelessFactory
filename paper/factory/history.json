@@ -1,20 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "tape",
-  "trans": "tear",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "cap",
-  "skin": "brown",
-  "palette": "p3",
-  "cta": "COMMENT BELOW",
-  "species": "dog",
-  "slug": "what-total-darkness-does",
-  "topic": "What happens if you stay in a dark room?",
-  "env": "room"
- },
- {
   "format": "countdown",
   "chrome": "sticky",
   "trans": "zoom",
@@ -447,6 +432,21 @@
   "species": "dog",
   "slug": "drinking-only-seawater",
   "topic": "What happens if you drink only seawater?",
+  "env": "field"
+ },
+ {
+  "format": "gauge",
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "bun",
+  "skin": "dark",
+  "palette": "p1",
+  "cta": "FOLLOW FOR MORE",
+  "species": "bear",
+  "slug": "jump-from-space",
+  "topic": "What happens if you jump from the edge of space?",
   "env": "field"
  }
 ]
