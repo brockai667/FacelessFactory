@@ -1,0 +1,175 @@
+{
+ "title": "Sleeping in a Hammock",
+ "hook": "Your spine bows as you nap.",
+ "banner": "YOUR SPINE BOWS\nAS YOU NAP",
+ "format": "gauge",
+ "env": "room",
+ "scene": "cozy bedroom with a hanging hammock",
+ "outfit": "pajamas",
+ "mood_music": "calm",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "2 HRS",
+   "line": "After a couple of hours, your spine aligns, easing pressure points.",
+   "idea": "Cartoon shows the character's back smoothing, pressure points disappearing.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "neutral",
+       "at": "aligns"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "spine",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "spine"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "4 HRS",
+   "line": "After a few hours, gentle sway stimulates the ear, helping relaxation.",
+   "idea": "Close‑up of inner ear glowing, brain with melatonin icons.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "wave",
+       "at": "sway"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "do": [
+      {
+       "a": "confused",
+       "at": "ear"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "6 HRS",
+   "line": "After several hours, leg elevation can aid venous flow, reducing swelling.",
+   "idea": "Zoom on leg veins with brighter flow, swelling shrinking.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "skinny_legs",
+       "at": "leg"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "venous"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "8 HRS",
+   "line": "After many hours, head elevation may keep the stomach lower, easing reflux.",
+   "idea": "Stomach illustration with acid arrows blocked, content settled.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "taller",
+       "at": "head"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "12 HRS",
+   "line": "When you wake, you feel refreshed and your heart rate steadies.",
+   "idea": "Character rises, heart icon normal, neutral smile.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "smile",
+       "at": "refreshed"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "beat",
+       "at": "heart"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick visual tour of the body’s changes when you spend a night in a hammock.",
+ "tags": [
+  "#HammockSleep",
+  "#ScienceFacts",
+  "#SleepHealth"
+ ],
+ "facts": [
+  {
+   "claim": "Sleep",
+   "source": "https://en.wikipedia.org/wiki/Sleep"
+  },
+  {
+   "claim": "Hammock",
+   "source": "https://en.wikipedia.org/wiki/Hammock"
+  }
+ ],
+ "hook_style": "you",
+ "end": {
+  "line": "Would you try it, yes or no?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you sleep in a hammock?",
+ "exp": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+ "slug": "sleeping-in-a-hammock",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-06T01:12Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Sleep",
+   "https://en.wikipedia.org/wiki/Hammock"
+  ],
+  "fixed": 5,
+  "unsupported": 0
+ }
+}

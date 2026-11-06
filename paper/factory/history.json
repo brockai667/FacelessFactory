@@ -1,20 +1,5 @@
 [
  {
-  "format": "countdown",
-  "chrome": "sticky",
-  "trans": "zoom",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "bun",
-  "skin": "dark",
-  "palette": "p0",
-  "cta": "SAVE THIS ONE",
-  "species": "bear",
-  "slug": "what-crossing-polar-ice-does",
-  "topic": "What happens if you trek across polar ice?",
-  "env": "field"
- },
- {
   "format": "gauge",
   "chrome": "stamp",
   "trans": "page",
@@ -447,6 +432,21 @@
   "species": "bear",
   "slug": "jump-from-space",
   "topic": "What happens if you jump from the edge of space?",
+  "env": "field"
+ },
+ {
+  "format": "countdown",
+  "chrome": "bubble",
+  "trans": "tear",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "long",
+  "skin": "light",
+  "palette": "p3",
+  "cta": "SAVE THIS ONE",
+  "species": "dog",
+  "slug": "stuck-in-quicksand",
+  "topic": "What happens if you step into quicksand?",
   "env": "field"
  }
 ]
