@@ -1,20 +1,5 @@
 [
  {
-  "format": "gauge",
-  "chrome": "stamp",
-  "trans": "page",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "long",
-  "skin": "light",
-  "palette": "p1",
-  "cta": "FOLLOW FOR MORE",
-  "species": "human",
-  "slug": "what-afternoon-naps-do",
-  "topic": "What happens if you nap every afternoon?",
-  "env": "room"
- },
- {
   "format": "timeline",
   "chrome": "bubble",
   "trans": "circle",
@@ -448,5 +433,20 @@
   "slug": "stuck-in-quicksand",
   "topic": "What happens if you step into quicksand?",
   "env": "field"
+ },
+ {
+  "format": "gauge",
+  "chrome": "tape",
+  "trans": "page",
+  "pres": "card",
+  "cam": "calm",
+  "hair": "spiky",
+  "skin": "tan",
+  "palette": "p0",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "cat",
+  "slug": "sleeping-in-a-hammock",
+  "topic": "What happens if you sleep in a hammock?",
+  "env": "room"
  }
 ]
