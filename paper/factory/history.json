@@ -1,20 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "bubble",
-  "trans": "circle",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "short",
-  "skin": "tan",
-  "palette": "p4",
-  "cta": "SHARE WITH A FRIEND",
-  "species": "cat",
-  "slug": "what-lying-in-the-sun-does",
-  "topic": "What happens if you lie in the sun?",
-  "env": "field"
- },
- {
   "format": "countdown",
   "chrome": "sticky",
   "trans": "tear",
@@ -447,6 +432,21 @@
   "species": "cat",
   "slug": "sleeping-in-a-hammock",
   "topic": "What happens if you sleep in a hammock?",
+  "env": "room"
+ },
+ {
+  "format": "countdown",
+  "chrome": "sticky",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "curly",
+  "skin": "brown",
+  "palette": "p4",
+  "cta": "FOLLOW FOR MORE",
+  "species": "human",
+  "slug": "salad-lunch-swap",
+  "topic": "What happens if you replace lunch with a salad?",
   "env": "room"
  }
 ]

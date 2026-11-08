@@ -1,0 +1,170 @@
+{
+ "title": "Morning Deep Breathing",
+ "hook": "What if you breathe deep every morning?",
+ "banner": "WHAT IF YOU\nBREATHE DEEP?",
+ "format": "timeline",
+ "env": "room",
+ "scene": "sunlit bedroom",
+ "outfit": "pajamas",
+ "mood_music": "calm",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "After ten minutes",
+   "line": "After ten minutes, your breathing slows and oxygen rises.",
+   "idea": "Close-up of lungs inflating with a pink glow, chest expanding like a balloon.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "breathing"
+      },
+      {
+       "r": "face",
+       "arg": "neutral",
+       "at": "oxygen"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By day one",
+   "line": "By day one, your resting heart rate drops a few beats.",
+   "idea": "Heart icon pulses slower beside the character, showing a calm rhythm.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "neutral",
+       "at": "resting"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "drops"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a week",
+   "line": "After a week, your cortisol levels fall, stress feels lighter.",
+   "idea": "Gray cortisol cloud above the head fades while a smooth breathing line appears.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "happy",
+       "at": "lighter"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a month",
+   "line": "After a month, your blood pressure drops and arteries relax.",
+   "idea": "Gauge needle moves down; blood vessels widen and glow softly.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "neutral",
+       "at": "pressure"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "drops"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Six months in",
+   "line": "Six months in, lung capacity rises and endurance improves.",
+   "idea": "Lungs enlarge; character jogs effortlessly while a distance meter rises.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "bigger",
+       "at": "capacity"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "capacity",
+     "big": "6 MONTHS",
+     "small": "LUNG CAPACITY ↑",
+     "icon": "lungs",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A short cartoon shows how daily deep breathing transforms your body over time.",
+ "tags": "#DeepBreathing #MorningRoutine #HealthFacts",
+ "facts": [
+  {
+   "claim": "Conscious breathing",
+   "source": "https://en.wikipedia.org/wiki/Conscious_breathing"
+  },
+  {
+   "claim": "Diaphragmatic breathing",
+   "source": "https://en.wikipedia.org/wiki/Diaphragmatic_breathing"
+  }
+ ],
+ "hook_style": "question",
+ "end": {
+  "line": "Morning or night?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "Morning"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you practice deep breathing each morning?",
+ "exp": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+ "slug": "morning-deep-breathing",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-08T00:00Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Conscious_breathing",
+   "https://en.wikipedia.org/wiki/Diaphragmatic_breathing"
+  ],
+  "fixed": 0,
+  "unsupported": 1
+ }
+}
