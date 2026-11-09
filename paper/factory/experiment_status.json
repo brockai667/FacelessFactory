@@ -1,28 +1,25 @@
 {
  "factory": "MindBlownDaily",
- "updated": "2026-11-07",
- "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
- "started": "2026-10-25",
- "hypothesis": "The rapid‑pace, body‑focused escalation paired with a direct call‑to‑action drives higher engagement.",
- "instruction": "Present a bold, physical challenge, use vivid sensory hooks, list escalating effects, then ask a simple yes/no participation question.",
+ "updated": "2026-11-09",
+ "name": "copy-029-through-thin-ice",
+ "started": "2026-11-09",
+ "hypothesis": "The hook’s immediate threat triggers curiosity and physiological arousal, boosting engagement.",
+ "instruction": "Start with a vivid, urgent question that places the viewer in immediate danger or crisis, then deliver rapid, sensory details.",
  "metric": "median views at ~48 h per platform",
  "metric_before": {
-  "youtube": 922.0,
-  "tiktok": 272,
-  "instagram": 212
+  "youtube": 1028,
+  "tiktok": 277,
+  "instagram": 1260
  },
- "metric_now": {
-  "youtube": 423,
-  "tiktok": 216
- },
- "ratio_now": 0.609,
- "n_tagged": 1,
- "status": "waiting",
+ "metric_now": {},
+ "ratio_now": null,
+ "n_tagged": 0,
+ "status": "running",
  "rules": 0,
  "last": {
-  "name": "copy-018-darkness",
+  "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
   "status": "reverted",
-  "ratio": 0.856,
-  "ended": "2026-10-25"
+  "ratio": 0.625,
+  "ended": "2026-11-09"
  }
 }

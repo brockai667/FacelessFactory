@@ -1,0 +1,148 @@
+{
+ "title": "Cold Showers: Shock to the System",
+ "hook": "Your skin goes electric.",
+ "banner": "YOUR SKIN\nGOES ELECTRIC",
+ "format": "timeline",
+ "env": "room",
+ "scene": "shower",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "After ten minutes",
+   "line": "After ten minutes, will your heart race as norepinephrine floods your skin?",
+   "idea": "Close-up of character's skin glowing with tiny sparks.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "race"
+      },
+      {
+       "r": "puffy",
+       "at": "skin"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After twenty-four hours",
+   "line": "After twenty-four hours, vessels tighten then rebound, turning skin rosy.",
+   "idea": "Character's arms show veins tightening then widening, skin reddening.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "tighten"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By day three",
+   "line": "By day three, metabolism revs up, burning extra calories, and you feel warmer.",
+   "idea": "Character's silhouette surrounded by tiny flames representing heat.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "sweat",
+       "at": "warmer"
+      },
+      {
+       "r": "puffy",
+       "at": "burning"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a week",
+   "line": "After a week, brown fat ignites, generating internal heat and boosting energy.",
+   "idea": "Cross-section view showing brown fat lighting up inside the belly.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "spine",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "ignites"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "Six months in",
+   "line": "Six months in, white blood cell activity rises, sharpening infection defense.",
+   "idea": "White blood cells marching, a shield forming around the character.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "rises",
+     "big": "100%",
+     "small": "WHITE BLOOD CELLS",
+     "icon": "bolt",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how daily cold showers shock your body into alertness, better circulation, higher metabolism, brown fat activation, and stronger immunity.",
+ "tags": "#ColdShower #HealthHacks #ScienceFacts",
+ "facts": [
+  {
+   "claim": "Shower",
+   "source": "https://en.wikipedia.org/wiki/Shower"
+  },
+  {
+   "claim": "Thermoregulation",
+   "source": "https://en.wikipedia.org/wiki/Thermoregulation"
+  }
+ ],
+ "hook_style": "you",
+ "end": {
+  "line": "Morning cold shower: yes or no?",
+  "do": [
+   {
+    "r": "shiver",
+    "at": "cold"
+   },
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you take cold showers each morning?",
+ "exp": "copy-029-through-thin-ice",
+ "slug": "cold-showers-shock-to-the-system",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-09T00:03Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Shower",
+   "https://en.wikipedia.org/wiki/Thermoregulation"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

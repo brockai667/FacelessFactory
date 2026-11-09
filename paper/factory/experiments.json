@@ -1,37 +1,33 @@
 {
  "current": {
-  "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+  "name": "copy-029-through-thin-ice",
   "slot": "winner",
-  "instruction": "Present a bold, physical challenge, use vivid sensory hooks, list escalating effects, then ask a simple yes/no participation question.",
-  "hypothesis": "The rapid‑pace, body‑focused escalation paired with a direct call‑to‑action drives higher engagement.",
+  "instruction": "Start with a vivid, urgent question that places the viewer in immediate danger or crisis, then deliver rapid, sensory details.",
+  "hypothesis": "The hook’s immediate threat triggers curiosity and physiological arousal, boosting engagement.",
   "keywords": [
-   "challenge",
-   "body",
-   "intensity",
-   "quick"
+   "danger",
+   "survival",
+   "extreme",
+   "crisis"
   ],
   "source": "winner",
   "winner": {
-   "spec": "921-groq-mimic-a-hummingbird-s-wing-beat",
-   "title": "Mimic a Hummingbird's Wing Beat",
-   "score": 2.61,
+   "spec": "029-through-thin-ice",
+   "title": "Through Thin Ice",
+   "score": 2.16,
    "per_platform": {
-    "youtube": 1.37,
-    "tiktok": 1.0,
-    "instagram": 13.02
+    "youtube": 1.72,
+    "instagram": 2.72
    }
   },
-  "started": "2026-10-25",
+  "started": "2026-11-09",
   "baseline_median": {
-   "youtube": 922.0,
-   "tiktok": 272,
-   "instagram": 212
+   "youtube": 1028,
+   "tiktok": 277,
+   "instagram": 1260
   },
   "baseline_approx": [],
-  "tagged": [
-   "925-groq-puzzle-marathon-effects",
-   "926-groq-sleeping-in-a-hammock"
-  ]
+  "tagged": []
  },
  "rules": [],
  "history": [
@@ -48,6 +44,20 @@
     "instagram": 0.856
    },
    "n_tagged": 3,
+   "status": "reverted"
+  },
+  {
+   "name": "copy-921-groq-mimic-a-hummingbird-s-wing-beat",
+   "slot": "winner",
+   "instruction": "Present a bold, physical challenge, use vivid sensory hooks, list escalating effects, then ask a simple yes/no participation question.",
+   "started": "2026-10-25",
+   "ended": "2026-11-09",
+   "ratio": 0.625,
+   "per_platform": {
+    "youtube": 0.456,
+    "tiktok": 0.794
+   },
+   "n_tagged": 1,
    "status": "reverted"
   }
  ]
