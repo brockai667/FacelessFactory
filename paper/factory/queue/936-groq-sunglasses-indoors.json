@@ -1,0 +1,178 @@
+{
+ "title": "Sunglasses Indoors",
+ "hook": "What if you wear sunglasses indoors?",
+ "banner": "WHAT IF YOU WEAR\nSUNGLASSES?",
+ "format": "timeline",
+ "env": "room",
+ "scene": "living room",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "After ten minutes",
+   "line": "After ten minutes, will you trip in the dim hallway?",
+   "idea": "Close‑up of eyes with expanding pupils",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "trip"
+      },
+      {
+       "r": "shiver",
+       "arg": "1",
+       "at": "dim"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "By an hour",
+   "line": "By an hour, melatonin surges, and drowsiness hits.",
+   "idea": "Brain with tiny melatonin dots rising, character yawning",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "hour"
+      },
+      {
+       "r": "face",
+       "arg": "sleepy",
+       "at": "drowsiness"
+      },
+      {
+       "r": "yawn",
+       "at": "hits"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "brain",
+     "from": "melatonin",
+     "do": [
+      {
+       "a": "wobble",
+       "at": "melatonin"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a day",
+   "line": "After a day, reaction time drops, and you feel sluggish.",
+   "idea": "Character misses a fast ball, a slow‑motion clock ticks",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "slump",
+       "at": "sluggish"
+      },
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "drops"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "drops",
+     "do": [
+      {
+       "a": "fast",
+       "at": "drops"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "After a week",
+   "line": "After a week, eye strain triggers a dull headache.",
+   "idea": "Character rubs temples, a small headache icon appears",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "headache"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "eye",
+     "from": "eye",
+     "do": [
+      {
+       "a": "blur",
+       "at": "eye"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how wearing sunglasses indoors changes your eyes and body over time.",
+ "tags": [
+  "#Science",
+  "#Sunglasses",
+  "#Indoor",
+  "#Health",
+  "#Curiosity"
+ ],
+ "facts": [
+  {
+   "claim": "Circadian rhythm",
+   "source": "https://en.wikipedia.org/wiki/Circadian_rhythm"
+  },
+  {
+   "claim": "Melatonin",
+   "source": "https://en.wikipedia.org/wiki/Melatonin"
+  }
+ ],
+ "hook_style": "question",
+ "end": {
+  "line": "Try it, yes or no?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   },
+   {
+    "r": "wave",
+    "at": "no"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you wear sunglasses indoors?",
+ "exp": "copy-029-through-thin-ice",
+ "slug": "sunglasses-indoors",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-11T00:59Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Circadian_rhythm",
+   "https://en.wikipedia.org/wiki/Melatonin"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

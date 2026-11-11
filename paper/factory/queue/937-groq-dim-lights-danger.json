@@ -1,0 +1,154 @@
+{
+ "title": "Dim Lights Danger",
+ "hook": "Your brain burns 20% of energy.",
+ "banner": "BRAIN BURNS\n20% ENERGY",
+ "format": "countdown",
+ "env": "room",
+ "scene": "bedroom",
+ "outfit": "pajamas",
+ "mood_music": "tense",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "You gasp awake, muscles tense, pulse pounding in darkness.",
+   "idea": "Character jolts awake, eyes wide, alarm clock glowing red.",
+   "scene": "bedroom",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "gasp"
+      },
+      {
+       "r": "heartbeat",
+       "arg": 5,
+       "at": "pulse"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Cortisol rises slightly, weakening your drive to stay asleep.",
+   "idea": "Close-up of chest, heartbeat line racing fast.",
+   "scene": "bedroom",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "brain",
+     "do": [
+      {
+       "a": "pulse",
+       "at": "cortisol"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your heart rate spikes for a few seconds, preparing you.",
+   "idea": "Stress clouds swirl around head, character looks frantic.",
+   "scene": "bedroom",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "spikes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Even a dim glow suppresses melatonin, making you feel alert.",
+   "idea": "Character flexes fists, veins popping, knees shaking.",
+   "scene": "bedroom",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "excited",
+       "at": "alert"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "What if the lights flicker and plunge you into darkness?",
+   "idea": "Character sits up, breathing hard, sweat drops flying.",
+   "scene": "bedroom",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "mood",
+       "arg": "night",
+       "at": "darkness"
+      },
+      {
+       "r": "shiver",
+       "arg": 2,
+       "at": "flicker"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "Discover how dim lights trigger a full-body fight-or-flight response.",
+ "tags": [
+  "#sleepscience",
+  "#bodyhacks",
+  "#mindblown",
+  "#healthfacts"
+ ],
+ "facts": [
+  {
+   "claim": "Circadian rhythm",
+   "source": "https://en.wikipedia.org/wiki/Circadian_rhythm"
+  },
+  {
+   "claim": "Melatonin",
+   "source": "https://en.wikipedia.org/wiki/Melatonin"
+  }
+ ],
+ "hook_style": "number",
+ "end": {
+  "line": "Stay asleep or fight, which one?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "fight"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you keep lights dim at night?",
+ "exp": "copy-029-through-thin-ice",
+ "slug": "dim-lights-danger",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-11T01:04Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Circadian_rhythm",
+   "https://en.wikipedia.org/wiki/Melatonin"
+  ],
+  "fixed": 0,
+  "unsupported": 1
+ }
+}
