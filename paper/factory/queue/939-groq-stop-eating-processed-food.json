@@ -1,0 +1,154 @@
+{
+ "title": "Stop Eating Processed Food",
+ "hook": "What if you cut out all processed foods?",
+ "banner": "SKIP PROCESSED\nFOODS?",
+ "format": "countdown",
+ "env": "room",
+ "scene": "Character in a bright kitchen, holding fresh vegetables.",
+ "outfit": "tshirt",
+ "mood_music": "playful",
+ "face0": "smile",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your gut bacteria explode in diversity, healing your digestion.",
+   "idea": "Close-up of gut showing bright, varied bacterial shapes.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "badge",
+       "arg": "DIVERSITY",
+       "at": "diversity"
+      },
+      {
+       "r": "puffy",
+       "at": "explode"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Your blood pressure drops, and your heart beats slower.",
+   "idea": "Gauge needle slides down, heart icon pulses slowly.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "slow",
+       "at": "slower"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Inflammation fades, and your skin finally clears up.",
+   "idea": "Close-up of face, blemishes fade away.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "stat",
+     "big": "CLEAR",
+     "small": "SKIN",
+     "icon": "drop",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "from": "clears",
+     "do": [
+      {
+       "r": "smile",
+       "at": "clears"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Blood sugar stabilizes, so the afternoon crash disappears.",
+   "idea": "Battery icon stays full across a timeline.",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "flow",
+       "at": "stabilizes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Heart disease risk plummets as your arteries stay clean.",
+   "idea": "Heart icon expands, radiating warm light.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "badge",
+       "arg": "LOW RISK",
+       "at": "risk"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how ditching processed foods transforms your body.",
+ "tags": [
+  "#WholeFoods",
+  "#Health",
+  "#Science"
+ ],
+ "facts": [
+  {
+   "claim": "Gut microbiota",
+   "source": "https://en.wikipedia.org/wiki/Gut_microbiota"
+  },
+  {
+   "claim": "Hypertension",
+   "source": "https://en.wikipedia.org/wiki/Hypertension"
+  }
+ ],
+ "hook_style": "question",
+ "end": {
+  "line": "Ready to quit?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "quit"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you avoid processed foods completely?",
+ "exp": "copy-029-through-thin-ice",
+ "slug": "stop-eating-processed-food",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-12T02:08Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Gut_microbiota",
+   "https://en.wikipedia.org/wiki/Hypertension"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}

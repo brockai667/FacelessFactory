@@ -1,20 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "tape",
-  "trans": "page",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "cap",
-  "skin": "tan",
-  "palette": "p0",
-  "cta": "SAVE THIS ONE",
-  "species": "human",
-  "slug": "sleeping-in-a-coffin",
-  "topic": "What happens if you sleep in a coffin?",
-  "env": "room"
- },
- {
   "format": "countdown",
   "chrome": "sticky",
   "trans": "zoom",
@@ -447,6 +432,21 @@
   "species": "bear",
   "slug": "standing-desk-danger",
   "topic": "What happens if you use a standing desk daily?",
+  "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "tear",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "bun",
+  "skin": "light",
+  "palette": "p4",
+  "cta": "FOLLOW FOR MORE",
+  "species": "human",
+  "slug": "skipping-dessert",
+  "topic": "What happens if you skip dessert every night?",
   "env": "room"
  }
 ]
