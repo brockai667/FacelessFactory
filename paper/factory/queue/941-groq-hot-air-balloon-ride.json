@@ -1,0 +1,177 @@
+{
+ "title": "Hot Air Balloon Ride",
+ "hook": "Your ears burst like popcorn.",
+ "banner": "YOUR EARS BURST\nLIKE POPCORN",
+ "format": "vertical",
+ "env": "field",
+ "scene": "sunrise over meadow",
+ "outfit": "hoodie",
+ "mood_music": "wonder",
+ "face0": "excited",
+ "beats": [
+  {
+   "label": "10 MINUTES",
+   "line": "After ten minutes, pressure falls, and your ears pop.",
+   "idea": "Close-up of ears inflating with a cartoon pop sound.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "neutral",
+       "at": "ten"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "ear",
+     "from": "pop",
+     "do": [
+      {
+       "a": "confused",
+       "at": "pop"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "30 MINUTES",
+   "line": "After thirty minutes, cold air makes your breath turn white.",
+   "idea": "Character exhaling frosty vapor, visible breath clouds.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "shiver",
+       "at": "cold"
+      },
+      {
+       "r": "puff",
+       "at": "breath"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "stat",
+     "from": "thirty",
+     "big": "30",
+     "small": "MINUTES",
+     "icon": "snow",
+     "do": [
+      {
+       "a": "show"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "1 HOUR",
+   "line": "At one hour, thin air quickens breathing, heart pounds.",
+   "idea": "Heart beating fast, lungs inflating, small oxygen meter dropping.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "thin_arms",
+       "at": "thin"
+      },
+      {
+       "r": "heartbeat",
+       "arg": 4,
+       "at": "pounds"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "heart",
+     "from": "pounds",
+     "do": [
+      {
+       "a": "fast",
+       "at": "pounds"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "2 HOURS",
+   "line": "After two hours, low pressure makes you lightheaded, a dizzy swirl spins.",
+   "idea": "Cartoon swirl around head, character looking dizzy.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "dizzy"
+      },
+      {
+       "r": "slump",
+       "at": "lightheaded"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "panel": "spine",
+     "from": "spins",
+     "do": [
+      {
+       "a": "stretch",
+       "at": "spins"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick look at how altitude changes affect your body during a hot air balloon ride.",
+ "tags": [
+  "#hotairballoon",
+  "#altitude",
+  "#sciencefacts"
+ ],
+ "facts": [
+  {
+   "claim": "Barotrauma",
+   "source": "https://en.wikipedia.org/wiki/Barotrauma"
+  },
+  {
+   "claim": "Hypoxia (medicine)",
+   "source": "https://en.wikipedia.org/wiki/Hypoxia_(medicine)"
+  }
+ ],
+ "hook_style": "you",
+ "end": {
+  "line": "Would you try it, yes or no?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you ride a hot air balloon?",
+ "exp": "copy-029-through-thin-ice",
+ "slug": "hot-air-balloon-ride",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-13T01:37Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Barotrauma",
+   "https://en.wikipedia.org/wiki/Hypoxia_(medicine)"
+  ],
+  "fixed": 0,
+  "unsupported": 1
+ }
+}
