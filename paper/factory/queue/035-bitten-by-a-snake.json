@@ -1,0 +1,399 @@
+{
+ "v": 2,
+ "topic": "Bitten by a snake: suck the venom out or keep still?",
+ "slug": "bitten-by-a-snake",
+ "title": "Bitten By A Snake",
+ "idea": "Sucking out venom pulls out almost nothing; keeping still and getting to a hospital is what works.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "A snake just bit your hand. Suck it out, or keep still?",
+ "banner": [
+  "BITTEN BY",
+  "A SNAKE"
+ ],
+ "env": "field",
+ "scene": "meadow",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "brown",
+  "outfit": "tshirt",
+  "hairStyle": "curly",
+  "suit": "#7a5cc0",
+  "suitDark": "#5d439c"
+ },
+ "hook_do": [
+  {
+   "r": "snake",
+   "at": "@0.0"
+  },
+  {
+   "r": "look",
+   "arg": "left",
+   "at": "@0.05"
+  },
+  {
+   "r": "snake",
+   "arg": "strike",
+   "at": "bit"
+  },
+  {
+   "r": "choice",
+   "arg": "A",
+   "at": "Suck",
+   "o": {
+    "text": "SUCK IT"
+   }
+  },
+  {
+   "r": "choice",
+   "arg": "B",
+   "at": "keep",
+   "o": {
+    "text": "KEEP STILL"
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "Your fingers start to swell.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "small",
+       "at": "@0.0"
+      },
+      {
+       "r": "hand",
+       "arg": "show",
+       "at": "@0.15"
+      },
+      {
+       "r": "hand",
+       "arg": "swell",
+       "at": "start"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "In the movies, someone always sucks the venom out.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "hand",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "movie",
+       "at": "movies"
+      },
+      {
+       "r": "pick",
+       "arg": "A",
+       "at": "someone"
+      },
+      {
+       "r": "suck",
+       "at": "sucks"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "In a lab test, suction got out less than one percent.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "@0.0"
+      },
+      {
+       "r": "vial",
+       "arg": "show",
+       "at": "lab"
+      },
+      {
+       "r": "vial",
+       "arg": "pct",
+       "at": "less"
+      },
+      {
+       "r": "pick",
+       "arg": "A",
+       "at": "percent",
+       "o": {
+        "mark": "x"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Snakebites kill up to one hundred thirty eight thousand people a year.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "look",
+       "arg": "cam",
+       "at": "@0.0"
+      },
+      {
+       "r": "count",
+       "arg": 138000,
+       "at": "Snakebites",
+       "o": {
+        "sub": "DEATHS A YEAR",
+        "size": 116,
+        "y": 262
+       }
+      },
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "thousand"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Keep still wins. Moving pushes venom through your lymph.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pick",
+       "arg": "B",
+       "at": "Keep",
+       "o": {
+        "mark": "ok"
+       }
+      },
+      {
+       "r": "venom",
+       "arg": "move",
+       "at": "Moving"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Take off rings and watches before the swelling traps them.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "RINGS OFF",
+        "y": 112
+       }
+      },
+      {
+       "r": "hand",
+       "arg": "show",
+       "at": "Take"
+      },
+      {
+       "r": "hand",
+       "arg": "ring",
+       "at": "rings"
+      },
+      {
+       "r": "hand",
+       "arg": "watch",
+       "at": "watches"
+      },
+      {
+       "r": "hand",
+       "arg": "show",
+       "at": "swelling"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Rest the arm in a comfy position and keep it still.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "hand",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "KEEP STILL",
+        "y": 112
+       }
+      },
+      {
+       "r": "sling",
+       "at": "Rest"
+      },
+      {
+       "r": "face",
+       "arg": "smile",
+       "at": "comfy"
+      },
+      {
+       "r": "venom",
+       "arg": "still",
+       "at": "keep"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Let someone drive you to a hospital for antivenom.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "GET ANTIVENOM",
+        "y": 112
+       }
+      },
+      {
+       "r": "ride",
+       "at": "someone"
+      },
+      {
+       "r": "ride",
+       "arg": "sign",
+       "at": "hospital"
+      },
+      {
+       "r": "antivenom",
+       "at": "antivenom"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Picked suck it out? Replay it and keep still this time.",
+  "do": [
+   {
+    "r": "choice",
+    "arg": "big",
+    "at": "Picked"
+   },
+   {
+    "r": "rewind",
+    "at": "Replay",
+    "o": {
+     "text": "REPLAY"
+    }
+   },
+   {
+    "r": "snake",
+    "arg": "back",
+    "at": "keep"
+   }
+  ]
+ },
+ "cta": false,
+ "description": "Bitten by a snake: suck the venom out or keep still? The movie move gets almost none of it.",
+ "tags": [
+  "#snakebite",
+  "#survival",
+  "#firstaid",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Swelling follows a venomous bite; remove rings and watches before swelling starts.",
+   "source": "CDC/NIOSH Venomous Snakes https://www.cdc.gov/niosh/topics/snakes/symptoms.html"
+  },
+  {
+   "claim": "Do not suck out venom (or cut, tourniquet, ice).",
+   "source": "CDC/NIOSH https://www.cdc.gov/niosh/topics/snakes/symptoms.html ; WHO treatment https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/treatment"
+  },
+  {
+   "claim": "Suction removed about 0.04 % of mock venom in a human model, i.e. less than one percent.",
+   "source": "Alberts et al., Ann Emerg Med 2004, PubMed 14747805"
+  },
+  {
+   "claim": "Snakebite kills 81,410 to 137,880 people a year (up to 138,000).",
+   "source": "WHO fact sheet https://www.who.int/news-room/fact-sheets/detail/snakebite-envenoming"
+  },
+  {
+   "claim": "Venom mainly spreads through the lymph system, which is why moving spreads it; keep calm and still, immobilize the limb.",
+   "source": "WHO treatment page https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/treatment"
+  },
+  {
+   "claim": "Keep the limb in a neutral position of comfort, immobilized/splinted.",
+   "source": "CDC/NIOSH https://www.cdc.gov/niosh/topics/snakes/symptoms.html ; WHO"
+  },
+  {
+   "claim": "Get emergency care; antivenom is the effective treatment; do not drive yourself.",
+   "source": "WHO https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/treatment ; CDC/NIOSH"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 1,
+ "factcheck": {
+  "date": "2026-11-12",
+  "note": "Fakty podla FACTS-batch-035-046.md (WHO, CDC/NIOSH, Alberts 2004). Odsatie 0,04 % -> 'less than one percent'. Bez 'below the heart', bez skrtidla, bez rychlosti sirenia.",
+  "ok": true,
+  "by": "claude"
+ },
+ "hook_hide": "Suck"
+}

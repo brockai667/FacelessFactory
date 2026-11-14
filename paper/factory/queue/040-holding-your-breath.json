@@ -1,0 +1,348 @@
+{
+ "v": 2,
+ "topic": "Why does holding your breath start to burn?",
+ "slug": "holding-your-breath",
+ "title": "Holding Your Breath",
+ "idea": "The panic when you hold your breath is a carbon dioxide alarm; your oxygen is still around 92 percent.",
+ "test": {
+  "hook": "A",
+  "engage": "do_with_me"
+ },
+ "hook": "Why does holding your breath start to burn so fast?",
+ "banner": [
+  "HOLDING",
+  "YOUR BREATH"
+ ],
+ "env": "room",
+ "scene": "couch",
+ "mood_music": "calm",
+ "face0": "smile",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "tan",
+  "outfit": "tshirt",
+  "hairStyle": "spiky",
+  "suit": "#2f9e8f",
+  "suitDark": "#237a6e"
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "breath",
+   "arg": "hold",
+   "at": "holding",
+   "o": {
+    "ring": false
+   }
+  },
+  {
+   "r": "burn",
+   "at": "burn",
+   "o": {
+    "face": false
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "Sitting on dry land? Hold your breath with me. Ten seconds.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "breath",
+       "arg": "out",
+       "at": "@0.0"
+      },
+      {
+       "r": "breath",
+       "arg": "hold",
+       "at": "Hold"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Feel the pressure in your chest?",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "gauge",
+       "at": "pressure"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Feels like you're out of oxygen, right?",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "o2",
+       "arg": "doubt",
+       "at": "Feels"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "You're not. Carbon dioxide is piling up and setting off the alarm.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "o2",
+       "arg": "full",
+       "at": "not"
+      },
+      {
+       "r": "co2",
+       "arg": "pile",
+       "at": "Carbon"
+      },
+      {
+       "r": "alarm",
+       "arg": "ring",
+       "at": "setting"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Ten. Breathe.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "breath",
+       "arg": "zero",
+       "at": "Ten"
+      },
+      {
+       "r": "breath",
+       "arg": "out",
+       "at": "Breathe"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "In one study, untrained people quit after about a minute, still near ninety two percent oxygen.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "timer",
+       "arg": 1,
+       "at": "untrained",
+       "o": {
+        "label": "MOST QUIT AT",
+        "dur": 1.7
+       }
+      },
+      {
+       "r": "look",
+       "arg": "left",
+       "at": "still"
+      },
+      {
+       "r": "o2",
+       "arg": "pct",
+       "at": "ninety"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Keep it short. Ten seconds is plenty.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "timer,o2,look",
+       "at": "@0.0"
+      },
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "KEEP IT SHORT",
+        "y": 112
+       }
+      },
+      {
+       "r": "breath",
+       "arg": "badge",
+       "at": "Keep"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Never breathe fast and deep first. It hides the alarm.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "NO FAST BREATHING",
+        "y": 112,
+        "size": 64
+       }
+      },
+      {
+       "r": "pant",
+       "at": "Never",
+       "o": {
+        "hold": 1.9
+       }
+      },
+      {
+       "r": "alarm",
+       "arg": "sock",
+       "at": "hides"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Never do it in water. Blackouts there come without warning.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "alarm,face",
+       "at": "@0.0"
+      },
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "NOT IN WATER",
+        "y": 112
+       }
+      },
+      {
+       "r": "water",
+       "at": "Never"
+      },
+      {
+       "r": "water",
+       "arg": "x",
+       "at": "water"
+      },
+      {
+       "r": "water",
+       "arg": "dark",
+       "at": "Blackouts"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "So that burn you felt? Carbon dioxide, not missing oxygen.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "water,step",
+    "at": "So"
+   },
+   {
+    "r": "burn",
+    "at": "burn"
+   },
+   {
+    "r": "co2",
+    "arg": "glow",
+    "at": "Carbon"
+   },
+   {
+    "r": "o2",
+    "arg": "full",
+    "at": "not"
+   },
+   {
+    "r": "o2",
+    "arg": "check",
+    "at": "oxygen"
+   }
+  ]
+ },
+ "description": "Hold your breath with me for ten seconds. That burn is not what you think it is.",
+ "tags": [
+  "#breathhold",
+  "#humanbody",
+  "#biology",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "The urge to breathe is driven mainly by rising carbon dioxide, not by running out of oxygen.",
+   "source": "Pernett, Schagatay & Holmstrom, Frontiers in Physiology 2024/25 https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2024.1515232/full"
+  },
+  {
+   "claim": "Untrained people (81 non-divers) gave up after about 60 to 80 seconds with blood oxygen still around 92 %.",
+   "source": "Pernett et al., Frontiers in Physiology (same URL)"
+  },
+  {
+   "claim": "Hyperventilating first lowers CO2, delays the urge and raises the risk of blacking out, underwater without warning.",
+   "source": "DAN https://dan.org/alert-diver/article/hypoxia-in-breath-hold-diving/ ; US Naval Safety Command 'Shallow Water Blackout'"
+  },
+  {
+   "claim": "Safe viewer moment: 10 to 15 s sitting on dry land only; never in water, never after hyperventilating.",
+   "source": "FACTS file safety rule (DAN ; US Naval Safety Command)"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 0,
+ "factcheck": {
+  "date": "2026-11-12",
+  "ok": true,
+  "by": "claude",
+  "note": "Pernett et al. (Frontiers in Physiology): untrained non-divers stopped after about 60-80 s with SpO2 still near 92 %; urge to breathe driven mainly by CO2. DAN + US Naval Safety Command: hyperventilation delays the urge, blackout in water comes without warning. Viewer hold limited to 10 s, sitting, dry land."
+ }
+}

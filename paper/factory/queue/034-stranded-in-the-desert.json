@@ -1,0 +1,445 @@
+{
+ "v": 2,
+ "topic": "Stranded in the desert with one bottle of water: save it or drink it?",
+ "slug": "stranded-in-the-desert",
+ "title": "Stranded In The Desert",
+ "idea": "Water saves you in your body, not in the bottle: sip early and often, and ration your sweat instead.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "Your car just died in the desert. You have one bottle of water.",
+ "banner": [
+  "STRANDED IN",
+  "THE DESERT"
+ ],
+ "env": "field",
+ "scene": "desert",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "light",
+  "outfit": "tshirt",
+  "hairStyle": "short",
+  "suit": "#3f7fbf",
+  "suitDark": "#2f629a"
+ },
+ "hook_do": [
+  {
+   "r": "bottle",
+   "at": "@0.0"
+  },
+  {
+   "r": "look",
+   "arg": "right",
+   "at": "car"
+  },
+  {
+   "r": "cardie",
+   "at": "died"
+  },
+  {
+   "r": "look",
+   "arg": "cam",
+   "at": "You"
+  },
+  {
+   "r": "bottle",
+   "arg": "show",
+   "at": "one",
+   "o": {
+    "hold": 1.0
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "Do you save it, or drink it?",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "A",
+       "at": "save",
+       "o": {
+        "text": "SAVE IT"
+       }
+      },
+      {
+       "r": "choice",
+       "arg": "B",
+       "at": "drink",
+       "o": {
+        "text": "DRINK IT"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "In this heat, you can sweat out a liter every hour.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "small",
+       "at": "@0.0"
+      },
+      {
+       "r": "mood",
+       "arg": "hot",
+       "at": "@0.3"
+      },
+      {
+       "r": "meter",
+       "arg": 1,
+       "at": "heat"
+      },
+      {
+       "r": "jug",
+       "at": "you",
+       "o": {
+        "dur": 1.2,
+        "hold": 2.7,
+        "over": 0.9
+       }
+      },
+      {
+       "r": "meter",
+       "arg": 0.62,
+       "at": "sweat",
+       "o": {
+        "dur": 1.3
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Instinct says save it. But ration it, and the heat can take you down with water still in the bottle.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pick",
+       "arg": "A",
+       "at": "save"
+      },
+      {
+       "r": "meter",
+       "arg": 0.3,
+       "at": "But",
+       "o": {
+        "dur": 1.6
+       }
+      },
+      {
+       "r": "face",
+       "arg": "dizzy",
+       "at": "heat"
+      },
+      {
+       "r": "slump",
+       "at": "take"
+      },
+      {
+       "r": "spot",
+       "arg": "bottle",
+       "at": "still",
+       "o": {
+        "text": "STILL FULL",
+        "dx": 110
+       }
+      },
+      {
+       "r": "pick",
+       "arg": "A",
+       "at": "bottle",
+       "o": {
+        "mark": "x"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "So sip it, early and often. Water works in your body, not in the bottle.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "pick",
+       "arg": "B",
+       "at": "So",
+       "o": {
+        "mark": "ok"
+       }
+      },
+      {
+       "r": "drink",
+       "arg": 0.45,
+       "at": "sip"
+      },
+      {
+       "r": "meter",
+       "arg": 0.8,
+       "at": "works",
+       "o": {
+        "dur": 0.9,
+        "flash": true
+       }
+      },
+      {
+       "r": "bottle",
+       "arg": "show",
+       "at": "not",
+       "o": {
+        "hold": 0.4
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Don't ration your water. Ration your sweat.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "Don't"
+      },
+      {
+       "r": "spot",
+       "arg": "bottle",
+       "at": "ration",
+       "o": {
+        "text": "DON'T RATION",
+        "dx": 115,
+        "size": 56,
+        "hold": 1.15
+       }
+      },
+      {
+       "r": "sweat",
+       "at": "ration#1"
+      },
+      {
+       "r": "stamp",
+       "arg": "RATION|YOUR SWEAT",
+       "at": "ration#1",
+       "o": {
+        "y": 240,
+        "over": 0.4
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Cover up. Clothes block the sun and make your sweat last.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "COVER UP",
+        "y": 112
+       }
+      },
+      {
+       "r": "cover",
+       "at": "Cover",
+       "o": {
+        "color": "#3f7fbf",
+        "stroke": "#2f629a",
+        "rays": 6
+       }
+      },
+      {
+       "r": "meter",
+       "arg": 0.8,
+       "at": "last",
+       "o": {
+        "flash": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Find shade, and get off the ground. The sand is far hotter than the air.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "FIND SHADE",
+        "y": 112
+       }
+      },
+      {
+       "r": "shade",
+       "at": "Find"
+      },
+      {
+       "r": "perch",
+       "at": "get"
+      },
+      {
+       "r": "thermo",
+       "at": "sand"
+      },
+      {
+       "r": "meter",
+       "arg": 0.8,
+       "at": "air",
+       "o": {
+        "flash": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Stay with the car. It's much easier to spot than you.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "STAY PUT",
+        "y": 112
+       }
+      },
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "Stay"
+      },
+      {
+       "r": "aerial",
+       "at": "car",
+       "o": {
+        "q": 1.95,
+        "hold": 3.0,
+        "over": 0.9
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "So, save it or drink it? Tell me which one you picked.",
+  "do": [
+   {
+    "r": "choice",
+    "arg": "big",
+    "at": "save"
+   },
+   {
+    "r": "hail",
+    "at": "Tell",
+    "o": {
+     "face": "excited"
+    }
+   }
+  ]
+ },
+ "cta": false,
+ "description": "Stranded in the desert with one bottle of water: save it or drink it? Most people pick wrong.",
+ "tags": [
+  "#desert",
+  "#survival",
+  "#water",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "In desert heat a person can sweat out a liter or more per hour (walking ~1.2 L/h; FM gives up to 2.5-3.5 L/h in extreme heat).",
+   "source": "US Army Survival Manual FM 21-76 / FM 3-05.70, ch. 13 Desert Survival (sjsu.edu/people/michelle.hager/docs/fm_21-76_us_army_survival_manual_2006.pdf)"
+  },
+  {
+   "claim": "Rationing water makes you a likely heat casualty even while you still have water ('Do not ration your water! If you try to ration water, you stand a good chance of becoming a heat casualty').",
+   "source": "US Army Survival Manual FM 21-76 / FM 3-05.70, ch. 13 Desert Survival (sjsu.edu/people/michelle.hager/docs/fm_21-76_us_army_survival_manual_2006.pdf)"
+  },
+  {
+   "claim": "Sip at regular intervals, do not wait for thirst ('Thirst is not a reliable guide'; 'even when not thirsty, drink small amounts of water at regular intervals').",
+   "source": "US Army Survival Manual FM 21-76 / FM 3-05.70, ch. 13 Desert Survival (sjsu.edu/people/michelle.hager/docs/fm_21-76_us_army_survival_manual_2006.pdf)"
+  },
+  {
+   "claim": "'Conserve sweat not water' / 'Ration your sweat, not your water'.",
+   "source": "US Army Survival Manual FM 21-76 / FM 3-05.70, ch. 13 Desert Survival (sjsu.edu/people/michelle.hager/docs/fm_21-76_us_army_survival_manual_2006.pdf); USMC FMFRP 0-53 Afoot in the Desert (contents)"
+  },
+  {
+   "claim": "Stay fully clothed: clothing keeps the sun off and holds sweat against the skin for its full cooling effect.",
+   "source": "US Army Survival Manual FM 21-76 / FM 3-05.70, ch. 13 Desert Survival (sjsu.edu/people/michelle.hager/docs/fm_21-76_us_army_survival_manual_2006.pdf)"
+  },
+  {
+   "claim": "Desert sand and rock average 16-22 C hotter than the air (air 43 C, sand may be 60 C); put something between you and the ground.",
+   "source": "US Army Survival Manual FM 21-76 / FM 3-05.70, ch. 13 Desert Survival (sjsu.edu/people/michelle.hager/docs/fm_21-76_us_army_survival_manual_2006.pdf)"
+  },
+  {
+   "claim": "Stay with your vehicle: it gives shade and you will be found more easily.",
+   "source": "US National Park Service, Death Valley, 2016 (nps.gov/deva/learn/news/remote-travel-in-summer-heat.htm)"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 2,
+ "factcheck": {
+  "date": "2026-11-12",
+  "note": "Povodna veta 'people have died of thirst with water still in the bottle' sa nedala dolozit primarnym zdrojom -> nahradena tvrdenim z FM 21-76. 'Drink when thirsty' nahradene 'sip early and often'.",
+  "ok": true,
+  "by": "claude"
+ }
+}
