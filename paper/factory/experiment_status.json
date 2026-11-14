@@ -1,6 +1,6 @@
 {
  "factory": "MindBlownDaily",
- "updated": "2026-11-13",
+ "updated": "2026-11-14",
  "name": "copy-029-through-thin-ice",
  "started": "2026-11-09",
  "hypothesis": "The hook’s immediate threat triggers curiosity and physiological arousal, boosting engagement.",
@@ -11,9 +11,13 @@
   "tiktok": 277,
   "instagram": 1260
  },
- "metric_now": {},
- "ratio_now": null,
- "n_tagged": 0,
+ "metric_now": {
+  "youtube": 277,
+  "tiktok": 811,
+  "instagram": 121
+ },
+ "ratio_now": 0.269,
+ "n_tagged": 1,
  "status": "running",
  "rules": 0,
  "last": {

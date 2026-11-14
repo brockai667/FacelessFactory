@@ -1,0 +1,184 @@
+{
+ "title": "Hiking Across a Volcanic Landscape",
+ "hook": "What if you hike across an active volcano?",
+ "banner": [
+  "WHAT IF YOU HIKE",
+  "VOLCANO?"
+ ],
+ "format": "countdown",
+ "env": "field",
+ "scene": "lava field",
+ "outfit": "tshirt",
+ "mood_music": "tense",
+ "face0": "neutral",
+ "beats": [
+  {
+   "label": "#5",
+   "line": "Your skin burns as hot volcanic ground radiates searing heat.",
+   "idea": "Close-up of the character’s foot on hot black rock, steam rising, skin reddening.",
+   "scene": "lava field",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "pain",
+       "at": "burns"
+      },
+      {
+       "r": "mood",
+       "arg": "hot",
+       "at": "hot"
+      },
+      {
+       "r": "steam",
+       "at": "heat"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#4",
+   "line": "Your eyes water, throat burns from choking sulfur fumes.",
+   "idea": "Character covering eyes, coughing, a greenish gas swirling around.",
+   "scene": "lava field",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "eye",
+     "do": [
+      {
+       "a": "blur",
+       "at": "water"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "face",
+       "arg": "shocked",
+       "at": "fumes"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#3",
+   "line": "Your lungs fill with fine ash, each breath feels gritty.",
+   "idea": "Side view of character inhaling, ash particles visible inside a cartoon lung outline.",
+   "scene": "lava field",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "puff",
+       "at": "breath"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#2",
+   "line": "Your heart races, pumping faster to cool your overheated body.",
+   "idea": "Heart icon beating faster, sweat droplets, temperature gauge rising.",
+   "scene": "lava field",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "heart",
+     "do": [
+      {
+       "a": "fast",
+       "at": "races"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "sweat",
+       "at": "overheated"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "#1",
+   "line": "Your blood thickens from dehydration, leaving you dizzy and light‑headed.",
+   "idea": "Close-up of blood vessels narrowing, character swaying, dizzy stars around head.",
+   "scene": "lava field",
+   "shots": [
+    {
+     "type": "panel",
+     "panel": "blood",
+     "do": [
+      {
+       "a": "thick",
+       "at": "thickens"
+      }
+     ]
+    },
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "stars",
+       "at": "dizzy"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "description": "A quick trek across a volcanic landscape shows how heat, gases, ash, and dehydration affect your body.",
+ "tags": [
+  "#volcano",
+  "#hiking",
+  "#science",
+  "#survival",
+  "#body"
+ ],
+ "facts": [
+  {
+   "claim": "Heat stroke",
+   "source": "https://en.wikipedia.org/wiki/Heat_stroke"
+  },
+  {
+   "claim": "Volcanic gas",
+   "source": "https://en.wikipedia.org/wiki/Volcanic_gas"
+  }
+ ],
+ "hook_style": "question",
+ "end": {
+  "line": "Will you hike it, yes or no?",
+  "do": [
+   {
+    "r": "thumbs_up",
+    "at": "yes"
+   }
+  ]
+ },
+ "source": "groq",
+ "topic": "What happens if you hike across a volcanic landscape?",
+ "exp": "copy-029-through-thin-ice",
+ "slug": "hiking-across-a-volcanic-landscape",
+ "factcheck": {
+  "ok": true,
+  "checked_at": "2026-11-14T01:05Z",
+  "source": [
+   "https://en.wikipedia.org/wiki/Heat_stroke",
+   "https://en.wikipedia.org/wiki/Volcanic_gas"
+  ],
+  "fixed": 0,
+  "unsupported": 0
+ }
+}
