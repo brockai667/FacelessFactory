@@ -22,6 +22,44 @@ import compose  # noqa: E402
 
 errors, warns = [], []
 
+
+def v2_check(S, script):
+    """pravidla davky v2 (10.-12. 11. 2026): jedna myslienka, stitok testu, overene fakty so zdrojmi, zapojenie divaka, bez pauz"""
+    out = []
+    t = S.get("test") or {}
+    if t.get("hook") not in ("A", "B") or not t.get("engage"):
+        out.append('chyba stitok "test": {"hook": "A"|"B", "engage": "..."}')
+    if (t.get("hook") == "B") != (S.get("hook_mode") == "B"):
+        out.append("test.hook a hook_mode si odporuju")
+    for k in ("idea", "description", "tags"):
+        if not S.get(k):
+            out.append(f"chyba kluc {k}")
+    facts = S.get("facts") or []
+    if len(facts) < 3 or any(not (isinstance(x, dict) and x.get("claim") and x.get("source")) for x in facts):
+        out.append("facts: treba aspon 3 tvrdenia, kazde so zdrojom")
+    if (S.get("factcheck") or {}).get("ok") is not True:
+        out.append("factcheck.ok nie je true (fakty neoverene)")
+    lines = [S.get("hook", "")] + [b.get("line", "") for b in S.get("beats", [])] + [(S.get("end") or {}).get("line", "")]
+    words = sum(len(x.split()) for x in lines)
+    if not 60 <= words <= 125:                            # ~25-48 s pri tomto hlase
+        out.append(f"dlzka: {words} slov (cakane 60-125)")
+    for b in S.get("beats", []):
+        for sh in b.get("shots") or []:
+            if len(sh.get("do") or []) > 6:
+                out.append(f"{b.get('key', '?')}: {len(sh['do'])} akcii v zabere (max 6, zvysok by sa zahodil)")
+        if not any(sh.get("do") for sh in b.get("shots") or []):
+            out.append(f"veta bez deja na obraze: {b.get('line', '')[:40]}")
+    if S.get("gap", 0.14) > 0.25:
+        out.append("gap > 0.25 s (pauzy medzi vetami)")
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as tf:
+        tf.write(script)
+    r = subprocess.run(["node", "--check", tf.name], capture_output=True, text=True, encoding="utf-8", errors="replace")
+    os.unlink(tf.name)
+    if r.returncode != 0:
+        out.append("script.js: " + (r.stderr or "").strip().splitlines()[-1][:160])
+    return out
+
 # 1) syntax kniznic
 for f in sorted(glob.glob(os.path.join(FACTORY, "lib", "*.js"))):
     r = subprocess.run(["node", "--check", f], capture_output=True, text=True, encoding="utf-8", errors="replace")
@@ -29,8 +67,8 @@ for f in sorted(glob.glob(os.path.join(FACTORY, "lib", "*.js"))):
         errors.append(f"node --check {os.path.basename(f)}: {(r.stderr or '').strip()[:200]}")
 
 # 2) validator + compose kazdeho scenara (bez zapisu epizody)
-files = sorted(glob.glob(os.path.join(FACTORY, "specs", "*.json")) + glob.glob(os.path.join(FACTORY, "factory", "queue", "*.json")) +
-               glob.glob(os.path.join(FACTORY, "factory", "done", "*.json")))
+files = sorted(glob.glob(os.path.join(FACTORY, "specs", "*.json")) + glob.glob(os.path.join(FACTORY, "specs", "v2", "*.json")) +
+               glob.glob(os.path.join(FACTORY, "factory", "queue", "*.json")) + glob.glob(os.path.join(FACTORY, "factory", "done", "*.json")))
 files = [f for f in files if not os.path.basename(f).startswith(("_mx_", "_test_"))]
 for f in files:
     try:
@@ -42,9 +80,15 @@ for f in files:
         if "hero" not in S and "direction" not in S and "queue" not in f and "done" not in f:
             warns.append(f"{os.path.relpath(f, FACTORY)}: bez hero/direction (doplni ju factory.py)")
         C = compose.Composer(json.loads(json.dumps(S)))
-        C.compose()
-        for w in C.warn:
-            warns.append(f"{os.path.relpath(f, FACTORY)}: {w}")
+        ep, script = C.compose()
+        if S.get("v") == 2:                               # v2 je rucne zreziravane: kazde varovanie validatora je chyba
+            rel = os.path.relpath(f, FACTORY)
+            for w in C.warn:
+                errors.append(f"{rel}: {w}")
+            errors.extend(f"{rel}: {e}" for e in v2_check(S, script))
+        else:
+            for w in C.warn:
+                warns.append(f"{os.path.relpath(f, FACTORY)}: {w}")
     except Exception as e:
         errors.append(f"{os.path.relpath(f, FACTORY)}: {type(e).__name__}: {str(e)[:160]}")
 

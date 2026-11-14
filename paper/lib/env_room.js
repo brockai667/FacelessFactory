@@ -43,7 +43,7 @@ PF.envRoom = function (o) {
     '<circle cx="228" cy="580" r="62" fill="#ffcf4a"/><circle cx="228" cy="580" r="44" fill="#ffe27e"/></g></g>' +
     '<g fill="#f7ecd9"><rect x="175" y="460" width="10" height="320"/><rect x="60" y="615" width="240" height="10"/></g>' +
     '<rect x="26" y="792" width="308" height="24" rx="10" fill="#f3dfc0" filter="url(#cut)"/></g>' +
-    '<g filter="url(#cut)"><rect x="484" y="400" width="112" height="126" rx="8" fill="#e8c77f"/><rect x="496" y="412" width="88" height="102" rx="4" fill="#fbf5ea"/>' + pic + '</g>' +
+    '<g id="rm_gauges"><g filter="url(#cut)"><rect x="484" y="400" width="112" height="126" rx="8" fill="#e8c77f"/><rect x="496" y="412" width="88" height="102" rx="4" fill="#fbf5ea"/>' + pic + '</g>' +
     '<g filter="url(#cut)"><path d="M885 414 L826 444 M885 414 L944 444" stroke="#6b4a3a" stroke-width="3" fill="none"/>' +
     '<circle cx="885" cy="414" r="8" fill="#6b4a3a"/><rect x="770" y="440" width="230" height="270" rx="16" fill="#fbf5ea"/>' +
     '<path d="M770 456 a16 16 0 0 1 16 -16 h198 a16 16 0 0 1 16 16 v54 h-230 z" fill="#d9483b"/>' +
@@ -56,7 +56,7 @@ PF.envRoom = function (o) {
     '<g filter="url(#cut)"><rect x="956" y="745" width="40" height="262" rx="20" fill="#fbf5ea" stroke="#e2cfb3" stroke-width="3"/>' +
     '<circle id="rm_bulb" cx="976" cy="1010" r="28" fill="#d9483b"/></g>' +
     '<rect id="rm_merc" x="968" y="930" width="16" height="80" rx="8" fill="#d9483b"/>' +
-    '<g stroke="#cdb593" stroke-width="3"><path d="M960 780 h10 M960 820 h10 M960 860 h10 M960 900 h10 M960 940 h10"/></g>');
+    '<g stroke="#cdb593" stroke-width="3"><path d="M960 780 h10 M960 820 h10 M960 860 h10 M960 900 h10 M960 940 h10"/></g></g>');
 
   // ---------- SCENY: obsah vrstiev (M = za postavou, F = pred postavou)
   // couch: gauc + rastlina (+ ich tiene na zemi), presne povodny vzhlad

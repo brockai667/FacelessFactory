@@ -1,0 +1,78 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "What happens if a rip current drags you out to sea?",
+ "slug": "caught-in-a-rip-current",
+ "title": "Caught In A Rip Current",
+ "idea": "A rip current pulls you out, not under; fighting it is what wears swimmers out, so float, swim sideways, wave.",
+ "test": {
+  "hook": "A",
+  "engage": "howto_card"
+ },
+ "hook": "The sea is pulling you out. What's your first move?",
+ "beats": [
+  {
+   "line": "The beach shrinks, even though you're swimming hard toward it.",
+   "see": "Hero crawls hard toward shore but the paper beach slides away behind him like a treadmill; beach umbrellas shrink on 'shrinks'."
+  },
+  {
+   "line": "A rip current flows out at up to eight feet per second.",
+   "see": "Top view: a narrow dark channel through the waves, arrows racing seaward; speed tag '8 FT/SEC' stamps on 'eight'."
+  },
+  {
+   "line": "That's faster than an Olympic swimmer.",
+   "see": "A cutout Olympic swimmer with a gold medal races the arrow and falls behind on 'faster'."
+  },
+  {
+   "line": "Fighting it wears out even strong swimmers. That's how people drown.",
+   "see": "Energy bar above the hero drains to red on 'wears', his arms slow; the bar blinks empty on 'drown'."
+  },
+  {
+   "line": "Here's the twist. It pulls you out, not under.",
+   "see": "Side view underwater: the hero stays at the surface while the current slides him sideways out to sea; stamp OUT NOT UNDER on 'under'."
+  },
+  {
+   "line": "One. Float. Let it carry you and save your energy.",
+   "see": "Step card 1 FLOAT; hero rolls onto his back on 'Float', energy bar stops draining on 'save'."
+  },
+  {
+   "line": "Two. Swim sideways, along the beach, until it lets go.",
+   "see": "Step card 2 SWIM SIDEWAYS; hero swims parallel to shore, exits the dark channel on 'lets go' and the water calms."
+  },
+  {
+   "line": "Three. Still stuck? Float and wave so a lifeguard sees you.",
+   "see": "Step card 3 WAVE; hero floats and waves one arm on 'wave', a lifeguard tower whistle blows on 'sees'."
+  }
+ ],
+ "end": {
+  "line": "Still swimming straight back? Float first, then save this.",
+  "see": "Hero starts swimming at the shore again, freezes on 'Still'; the three step cards stack into one SAVE THIS card on 'save'."
+ },
+ "description": "A rip current is dragging you out to sea. Your first move decides everything. Save these three.",
+ "tags": [
+  "#ripcurrent",
+  "#survival",
+  "#beach",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "A rip current is a strong, narrow flow of water away from shore; it carries you out, it does not pull you under.",
+   "source": "NWS https://www.weather.gov/news/211309-7ripcurrent"
+  },
+  {
+   "claim": "Rips can flow up to 8 feet per second, faster than an Olympic swimmer (typical 1 to 2 ft/s).",
+   "source": "NWS https://www.weather.gov/safety/ripcurrent-science"
+  },
+  {
+   "claim": "Swimming straight back against a rip exhausts even strong swimmers; rips are linked to an estimated 100+ US drownings a year.",
+   "source": "NWS https://www.weather.gov/safety/ripcurrent-science ; Brewster et al., NHESS 2019 https://nhess.copernicus.org/articles/19/389/2019/"
+  },
+  {
+   "claim": "Stay calm, don't fight it, float to save energy, swim parallel to shore until out of it; if you can't, float and wave or yell for help.",
+   "source": "NWS https://www.weather.gov/safety/beach-ripcurrents-hazards ; MacMahan / McCarroll 2014 on float-first order"
+  }
+ ],
+ "notes": "Big number '8 FT/SEC' is the maximum measured; line says 'up to'. 'That's how people drown' is an inference from NWS (exhaustion) plus the drowning estimate; if too strong, swap for 'That's what drowns swimmers.' or drop. No 'flip, float, follow' attribution. Step order float first, then sideways, per FACTS research note."
+}

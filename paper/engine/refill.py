@@ -41,6 +41,9 @@ def next_groq_name(slug):
 
 def refill(target=10, maximum=3):
     os.makedirs(QDIR, exist_ok=True)
+    if os.environ.get("PAPER_GROQ_REFILL") != "1":       # 10. 11. 2026: scenare pise len Claude v davkach; prazdna fronta = dnes nevyjde nic
+        print(f"fronta: {len(queue_files())} scenarov | Groq doplnanie je vypnute (zapnutie: PAPER_GROQ_REFILL=1)")
+        return 0
     claude = [f for f in queue_files() if not re.match(r"^9\d\d-groq-", f)]
     if claude:                                           # Claude davka vo fronte -> Groq nepise (27.10.: experimentalne groq spisy by ju predbehli)
         print(f"fronta: {len(claude)} Claude scenarov -> Groq doplnanie pauzne")

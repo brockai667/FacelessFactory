@@ -1,0 +1,82 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Stung by a jellyfish: pee on it or hot water?",
+ "slug": "stung-by-a-jellyfish",
+ "title": "Stung By A Jellyfish",
+ "idea": "The famous pee trick makes stinging cells fire; sea water, careful removal and hot water are what help.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "A jellyfish just stung you. Pee on it, or hot water?",
+ "choice": [
+  "PEE",
+  "HOT WATER"
+ ],
+ "beats": [
+  {
+   "line": "Tentacle bits stick to your skin, with stingers still loaded.",
+   "see": "Close up on a leg: glowing tentacle strands cling to it, zoom into tiny cocked harpoon cells. Zoom on 'stingers', cells glow on 'loaded'."
+  },
+  {
+   "line": "In lab tests, pee made those cells fire.",
+   "see": "Lab dish with a tentacle; a yellow drop falls in and dozens of tiny harpoons fire at once. Drop on 'pee', harpoons on 'fire'. Card A gets a red X."
+  },
+  {
+   "line": "Fresh water did the same.",
+   "see": "A tap drips onto the dish and a second volley of harpoons fires. Volley on 'same'."
+  },
+  {
+   "line": "Hot water is the answer. It eases the pain better than ice.",
+   "see": "Card B HOT WATER gets a green check; split screen pain meter, ice side barely drops, hot water side drops low. Check on 'Hot', meters on 'better'."
+  },
+  {
+   "line": "One. Rinse with sea water, not fresh.",
+   "see": "Step card 1 SEA WATER; a cup scoops seawater and pours it over the leg; a tap icon gets crossed out. Pour on 'Rinse', X on 'fresh'."
+  },
+  {
+   "line": "Two. Lift the tentacles off, but never with bare fingers.",
+   "see": "Step card 2 LIFT OFF; a gloved hand peels the strands away, a bare hand icon is crossed out. Peel on 'Lift', X on 'bare'."
+  },
+  {
+   "line": "Three. Hot water, about one hundred thirteen degrees, for about twenty minutes.",
+   "see": "Step card 3 HOT WATER; leg in a steaming tub, thermometer at 113 F, a twenty minute timer runs. Thermometer on 'thirteen', timer on 'twenty'."
+  },
+  {
+   "line": "In the tropics, call for help. A box jellyfish can kill in minutes.",
+   "see": "Background turns tropical; a box shaped jellyfish drifts in, phone dials an emergency number with a red warning frame. Phone on 'call', red frame on 'kill'."
+  }
+ ],
+ "end": {
+  "line": "Pee stays in the toilet. Hot water goes on the sting.",
+  "see": "Card A flips onto a toilet icon, card B slides onto the leg with steam rising. Toilet on 'toilet', steam on 'sting', loops into the hook sting."
+ },
+ "description": "Stung by a jellyfish: pee on it or hot water? The famous trick makes the stingers fire.",
+ "tags": [
+  "#jellyfish",
+  "#survival",
+  "#beach",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Urine does not help; in lab tests on Portuguese man o' war it made stinging cells fire. Fresh water did too.",
+   "source": "Wilcox et al., Toxins 2017 https://pmc.ncbi.nlm.nih.gov/articles/PMC5450697"
+  },
+  {
+   "claim": "Hot water, about 45 C (113 F) for about 20 minutes, relieves pain better than ice.",
+   "source": "Wilcox & Yanagihara, Toxins 2016 https://pmc.ncbi.nlm.nih.gov/articles/PMC4848624 ; Cochrane review CD009688; Healthdirect https://www.healthdirect.gov.au/jellyfish-stings"
+  },
+  {
+   "claim": "Rinse with sea water, not fresh water; remove tentacles, not with bare fingers.",
+   "source": "Healthdirect (Australian government) https://www.healthdirect.gov.au/jellyfish-stings"
+  },
+  {
+   "claim": "A box jellyfish sting can kill within minutes; call emergency services for tropical stings.",
+   "source": "Healthdirect (Australian government) https://www.healthdirect.gov.au/jellyfish-stings"
+  }
+ ],
+ "notes": "Correct card: B HOT WATER. Card A shortened to 'PEE' (the spoken line still says 'pee on it') because cards are max two words. 113 degrees is the Fahrenheit conversion of the allowed 45 C for a US audience, not a sharper number; on screen show 113 F. The lab test was on Portuguese man o' war; the script says 'in lab tests' and does not claim it holds for every species. Vinegar is deliberately not mentioned (species dependent, see FACTS). 'Stingers still loaded' is a plain description of unfired stinging cells. Risk: viewers should not scald themselves; keep the thermometer at 113 F, do not add 'as hot as you can stand'. Stake number sits in step three (one hundred thirteen degrees, twenty minutes); the FACTS file has no stronger on-screen number for this topic."
+}

@@ -1,0 +1,82 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Why does holding your breath start to burn?",
+ "slug": "holding-your-breath",
+ "title": "Holding Your Breath",
+ "idea": "The panic when you hold your breath is a carbon dioxide alarm; your oxygen is still around 92 percent.",
+ "test": {
+  "hook": "A",
+  "engage": "do_with_me"
+ },
+ "hook": "Why does holding your breath start to burn so fast?",
+ "beats": [
+  {
+   "line": "Sitting on dry land? Hold your breath with me. Ten seconds.",
+   "see": "Hero sits on a couch, puffs his cheeks on 'Hold'; a big 10 second countdown ring starts on 'Ten' and runs through the next three beats."
+  },
+  {
+   "line": "Feel the pressure in your chest?",
+   "see": "Countdown at 7; a red pressure gauge on the hero's chest climbs on 'pressure', his face turns pink."
+  },
+  {
+   "line": "Feels like you're out of oxygen, right?",
+   "see": "Countdown at 5; a paper O2 tank icon above his head starts flashing EMPTY on 'oxygen'."
+  },
+  {
+   "line": "You're not. Carbon dioxide is piling up and setting off the alarm.",
+   "see": "Countdown at 2; the tank stops flashing and stays mostly full on 'not', CO2 bubbles stack up inside him on 'piling', an alarm bell rings on 'alarm'."
+  },
+  {
+   "line": "Ten. Breathe.",
+   "see": "Countdown hits 0 on 'Ten'; hero exhales a big puff on 'Breathe', gauge drops back to normal."
+  },
+  {
+   "line": "In one study, untrained people quit after about a minute, still near ninety two percent oxygen.",
+   "see": "Row of paper people gasping, a stopwatch shows ~1:00; a big oxygen meter beside them stays high and stamps 92% on 'ninety two'."
+  },
+  {
+   "line": "One. Keep it short. Ten seconds is plenty.",
+   "see": "Step card 1 KEEP IT SHORT; the countdown ring from before shrinks to a small 10 badge on 'short'."
+  },
+  {
+   "line": "Two. Never breathe fast and deep first. It hides the alarm.",
+   "see": "Step card 2 NO FAST BREATHING; hero panting fast, the alarm bell gets covered with a sock on 'hides'."
+  },
+  {
+   "line": "Three. Never do it in water. Blackouts there come without warning.",
+   "see": "Step card 3 NOT IN WATER; a pool with a big red X on 'water', lights blink out with no alarm bell on 'without'."
+  }
+ ],
+ "end": {
+  "line": "So that burn you felt? Carbon dioxide, not missing oxygen.",
+  "see": "Back to the hero on the couch, the CO2 bubbles light up on 'Carbon', the O2 tank shows full with a check on 'oxygen'."
+ },
+ "description": "Hold your breath with me for ten seconds. That burn is not what you think it is.",
+ "tags": [
+  "#breathhold",
+  "#humanbody",
+  "#biology",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "The urge to breathe is driven mainly by rising carbon dioxide, not by running out of oxygen.",
+   "source": "Pernett, Schagatay & Holmstrom, Frontiers in Physiology 2024/25 https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2024.1515232/full"
+  },
+  {
+   "claim": "Untrained people (81 non-divers) gave up after about 60 to 80 seconds with blood oxygen still around 92 %.",
+   "source": "Pernett et al., Frontiers in Physiology (same URL)"
+  },
+  {
+   "claim": "Hyperventilating first lowers CO2, delays the urge and raises the risk of blacking out, underwater without warning.",
+   "source": "DAN https://dan.org/alert-diver/article/hypoxia-in-breath-hold-diving/ ; US Naval Safety Command 'Shallow Water Blackout'"
+  },
+  {
+   "claim": "Safe viewer moment: 10 to 15 s sitting on dry land only; never in water, never after hyperventilating.",
+   "source": "FACTS file safety rule (DAN ; US Naval Safety Command)"
+  }
+ ],
+ "notes": "Safety: hold is 10 seconds, sitting, dry land, said in the first beat; step One explicitly caps it. 'About a minute' simplifies the study's 60 to 80 s range. 92 % is the OK-number. Records (Mifsud, Maricic) deliberately left out so nothing invites a long hold. Pacing: the 10 s countdown covers beats 1 to 5; check in the edit that the voice-over reaches 'Ten. Breathe.' at roughly 10 s after 'Hold', otherwise shorten the countdown label to match real time."
+}

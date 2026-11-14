@@ -275,6 +275,8 @@ def record(videos, now=None):
         S = specs.get(sid) or {}
         e["title"] = S.get("title") or e.get("title") or (v.get("title") if plat == "youtube" else None)
         e["exp"] = S.get("exp") or e.get("exp")
+        if S.get("test") or e.get("test"):                # v2: co sa na videu testuje (hak A/B, zapojenie) -> tyzdenny audit
+            e["test"] = S.get("test") or e.get("test")
         e["published"] = min(e.get("published") or v["published"], v["published"])
         sl = e["platforms"].setdefault(plat, {"id": v.get("id")})
         views = int(v.get("views") or 0)

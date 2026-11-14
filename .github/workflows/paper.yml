@@ -52,11 +52,17 @@ jobs:
         run: cd paper && python engine/selftest.py
 
       - name: Render z fronty scenárov
+        id: render
         env:
           HF_CLI: npx -y hyperframes@0.8.78
           PYTHONIOENCODING: utf-8
         run: |
           cd paper
+          if ! ls factory/queue/*.json >/dev/null 2>&1; then
+            echo "empty=1" >> "$GITHUB_OUTPUT"
+            echo "::warning::Fronta scenárov je prázdna – dnes nevyjde nič (scenáre píše Claude v dávkach)."
+            exit 0
+          fi
           N="${{ github.event.inputs.count || '1' }}"
           for i in $(seq 1 "$N"); do python engine/factory.py --out ../output || exit 1; done
           ls -la ../output 2>/dev/null || true
@@ -69,7 +75,7 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: cd paper && python engine/learn.py daily   # record (perf.json) + po 7 dňoch vyhodnotenie a ďalší experiment
 
-      - name: Doplnenie fronty (Groq zadarmo – záloha na koniec fronty, prednosť majú písané dávky)
+      - name: Doplnenie fronty (Groq je vypnutý od 12. 11. 2026 – krok len vypíše stav fronty; zapnutie PAPER_GROQ_REFILL=1)
         if: always()
         env:
           GROQ_API_KEY: ${{ secrets.MODELS_TOKEN }}
@@ -94,7 +100,7 @@ jobs:
         run: python paper/engine/buffer_check.py
 
       - name: Publikovanie (Buffer -> YouTube, Instagram, TikTok)
-        if: github.event.inputs.publish == 'yes' || github.event_name == 'schedule'
+        if: (github.event.inputs.publish == 'yes' || github.event_name == 'schedule') && steps.render.outputs.empty != '1'
         env:
           BUFFER_TOKEN: ${{ secrets.BUFFER_TOKEN }}
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}

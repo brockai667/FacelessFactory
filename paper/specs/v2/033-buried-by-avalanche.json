@@ -1,0 +1,425 @@
+{
+ "v": 2,
+ "topic": "What happens if an avalanche buries you?",
+ "slug": "buried-by-avalanche",
+ "title": "Buried By An Avalanche",
+ "idea": "Snow sets like concrete and the clock decides who lives; three things you do yourself before it sets.",
+ "test": {
+  "hook": "B",
+  "engage": "howto_card"
+ },
+ "hook": "You just got buried by an avalanche.",
+ "banner": [
+  "BURIED BY",
+  "AN AVALANCHE"
+ ],
+ "hook_mode": "B",
+ "env": "field",
+ "scene": "mountain",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "light",
+  "outfit": "hoodie",
+  "hairStyle": "cap",
+  "suit": "#e98a2b",
+  "suitDark": "#c76f1c",
+  "capColor": "#d9483b"
+ },
+ "hook_do": [
+  {
+   "r": "look",
+   "arg": "up",
+   "at": "@0.0"
+  },
+  {
+   "r": "bury",
+   "arg": "snow",
+   "at": "@0.12",
+   "o": {
+    "dur": 0.9
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "The snow stops, and it sets around you like concrete.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "look",
+       "arg": "left",
+       "at": "@0.15"
+      },
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "stops"
+      },
+      {
+       "r": "squeeze",
+       "at": "sets"
+      },
+      {
+       "r": "struggle",
+       "at": "around",
+       "o": {
+        "dur": 0.9
+       }
+      },
+      {
+       "r": "stamp",
+       "arg": "LIKE|CONCRETE",
+       "at": "concrete"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "You can't move. You can't even tell which way is up.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "struggle",
+       "at": "move",
+       "o": {
+        "dur": 0.6
+       }
+      },
+      {
+       "r": "spin",
+       "at": "even",
+       "o": {
+        "dur": 2.0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Your warm breath melts the snow at your face, then it freezes into a mask of ice.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "closeup",
+       "at": "@0.1",
+       "o": {
+        "zoom": 1.55
+       }
+      },
+      {
+       "r": "puff",
+       "at": "breath"
+      },
+      {
+       "r": "puff",
+       "at": "melts"
+      },
+      {
+       "r": "shiver",
+       "at": "face"
+      },
+      {
+       "r": "mask",
+       "at": "freezes",
+       "o": {
+        "dur": 1.2
+       }
+      },
+      {
+       "r": "face",
+       "arg": "tired",
+       "at": "ice"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Dug out within fifteen minutes, nine in ten people survive.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "timer",
+       "arg": 15,
+       "at": "within",
+       "o": {
+        "label": "BURIED FOR",
+        "dur": 0.9
+       }
+      },
+      {
+       "r": "people",
+       "arg": 9,
+       "at": "nine"
+      },
+      {
+       "r": "shiver",
+       "at": "people"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "After thirty five minutes, it's only about three.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "timer",
+       "arg": 35,
+       "at": "After",
+       "o": {
+        "dur": 1.0,
+        "color": "#d9483b"
+       }
+      },
+      {
+       "r": "people",
+       "arg": 3,
+       "at": "only"
+      },
+      {
+       "r": "face",
+       "arg": "sleepy",
+       "at": "three"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "So rewind. Before the snow sets, remember three things.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "rewind",
+       "at": "rewind",
+       "o": {
+        "dur": 0.9
+       }
+      },
+      {
+       "r": "struggle",
+       "at": "Before",
+       "o": {
+        "dur": 0.7
+       }
+      },
+      {
+       "r": "stamp",
+       "arg": "REMEMBER|3 THINGS",
+       "at": "three",
+       "o": {
+        "y": 150
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Get your hands in front of your mouth. That's your air pocket.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "AIR POCKET"
+       }
+      },
+      {
+       "r": "airpocket",
+       "at": "Get"
+      },
+      {
+       "r": "puff",
+       "at": "That's"
+      },
+      {
+       "r": "puff",
+       "at": "pocket"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Don't spit to find which way is up. It's a myth. You can't dig out anyway.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "DON'T SPIT"
+       }
+      },
+      {
+       "r": "spit",
+       "at": "spit"
+      },
+      {
+       "r": "stamp",
+       "arg": "MYTH",
+       "at": "myth",
+       "o": {
+        "y": 296,
+        "size": 150,
+        "hold": 1.4
+       }
+      },
+      {
+       "r": "struggle",
+       "at": "dig",
+       "o": {
+        "dur": 0.8
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Punch a hand up, so they can find you.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "HAND UP"
+       }
+      },
+      {
+       "r": "armup",
+       "at": "Punch"
+      },
+      {
+       "r": "reach",
+       "at": "up"
+      },
+      {
+       "r": "release",
+       "at": "find"
+      },
+      {
+       "r": "buddy",
+       "at": "you"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Save this. You won't have time to look it up.",
+  "do": [
+   {
+    "r": "card",
+    "arg": "SAVE THIS",
+    "at": "Save",
+    "o": {
+     "text": [
+      "1 AIR POCKET",
+      "2 DON'T SPIT",
+      "3 HAND UP"
+     ],
+     "size": 80,
+     "y": 1080
+    }
+   },
+   {
+    "r": "thumbs_up",
+    "at": "won't"
+   }
+  ]
+ },
+ "cta": false,
+ "description": "Buried by an avalanche: the snow sets like concrete. Three things to remember before it does.",
+ "tags": [
+  "#avalanche",
+  "#survival",
+  "#snow",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Avalanche debris sets hard once it stops ('like you are buried in concrete'); you cannot dig yourself out and may not know which way is up.",
+   "source": "Mt. Shasta Avalanche Center, FAQ (shastaavalanche.org/page/faq); University of Utah Health, Three winter wilderness survival myths, 2022"
+  },
+  {
+   "claim": "Exhaled moisture freezes into a thin mask of ice in front of the face that impairs air exchange.",
+   "source": "JAMA 1994 (air-pocket device paper, jamanetwork.com/journals/jama/articlepdf/192660/jpc00001.pdf) - videne len v uryvku, nie cely text"
+  },
+  {
+   "claim": "About 9 in 10 survive when dug out within 15 minutes (92 % Falk 1994; 90.6 % for 0-15 min in Swiss data 1981-2020). Newest framing: steep drop already after 10 minutes.",
+   "source": "Falk, Brugger, Adler-Kastner, Nature 1994; Rauch et al., JAMA Network Open 2024"
+  },
+  {
+   "claim": "At 35 minutes survival is about 30 %.",
+   "source": "Falk et al., Nature 1994 (cit. v Rauch 2024)"
+  },
+  {
+   "claim": "Clear an air space in front of your mouth before the snow sets; even a small pocket prolongs survival.",
+   "source": "Mt. Shasta Avalanche Center, FAQ (shastaavalanche.org/page/faq); University of Utah Health, Three winter wilderness survival myths, 2022"
+  },
+  {
+   "claim": "Spitting to find which way is up is a myth: it does not matter, you cannot dig out of debris.",
+   "source": "Mt. Shasta Avalanche Center, FAQ (shastaavalanche.org/page/faq); University of Utah Health, Three winter wilderness survival myths, 2022"
+  },
+  {
+   "claim": "Push a hand upward: a visible clue lets companions find you faster.",
+   "source": "Mt. Shasta Avalanche Center, FAQ (shastaavalanche.org/page/faq)"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "factcheck": {
+  "date": "2026-11-12",
+  "note": "Krok 2 'Spit' bol mytus (Shasta, Utah Health) -> zmenene na vyvratenie mytu. 'fewer than three' -> 'about three' (Falk 30 %). 'Cup your hands' -> 'hands in front of your mouth'.",
+  "ok": true,
+  "by": "claude"
+ },
+ "music_i": 0
+}

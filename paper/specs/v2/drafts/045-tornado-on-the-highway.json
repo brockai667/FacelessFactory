@@ -1,0 +1,83 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "A tornado is coming while you drive on the highway: is the overpass safe?",
+ "slug": "tornado-on-the-highway",
+ "title": "Tornado On The Highway",
+ "idea": "The highway overpass looks like a roof but is a trap, not a shelter.",
+ "test": {
+  "hook": "B",
+  "engage": "howto_card"
+ },
+ "hook": "A tornado is coming, and you're on the highway.",
+ "hook_mode": "B",
+ "beats": [
+  {
+   "line": "An overpass ahead looks like the perfect roof.",
+   "see": "Car speeds toward a concrete bridge with the funnel behind it; a dotted 'SHELTER?' outline glows under the bridge. Outline on 'roof'."
+  },
+  {
+   "line": "But wind under a bridge is usually faster.",
+   "see": "Wind arrows squeeze into the gap under the bridge and grow bigger and faster; a wind gauge needle jumps. Arrows grow on 'faster'."
+  },
+  {
+   "line": "And you're a sitting target for flying debris.",
+   "see": "Character crouched under the bridge; boards, signs and a road cone fly straight through the gap at them. Debris on 'flying'."
+  },
+  {
+   "line": "Oklahoma, nineteen ninety nine. Winds of about three hundred miles an hour.",
+   "see": "Date stamp MAY 3 1999 over an Oklahoma map; a radar dish reads a speed counter climbing to 300 MPH. Counter on 'three hundred'."
+  },
+  {
+   "line": "Three people died under or near overpasses.",
+   "see": "Three small bridge icons appear on the map, each with a dark marker; parked cars are tossed out from under one. Icons on 'three', cars on 'overpasses'."
+  },
+  {
+   "line": "Let's drive that road again.",
+   "see": "Tape rewinds: the car reverses out from the bridge back onto the open highway, funnel far away. Rewind on 'again'."
+  },
+  {
+   "line": "One. Best is a basement or an inner room, not a car.",
+   "see": "Step card 1 REAL SHELTER; split house cutaway shows a basement and a windowless inner room glowing green, the car icon crossed out. Glow on 'basement', X on 'car'."
+  },
+  {
+   "line": "Two. Stuck in the car? Stay buckled, head below the windows.",
+   "see": "Step card 2 BUCKLED, HEAD DOWN; seatbelt clicks and the character ducks below the window line as glass shards fly above. Click on 'buckled', duck on 'below'."
+  },
+  {
+   "line": "Three. Or lie somewhere clearly lower than the road, covering your head.",
+   "see": "Step card 3 LIE LOW; character lies in a low spot beside the road, arms over head, with a dashed line showing the road level above them. Line on 'lower', arms on 'covering'."
+  }
+ ],
+ "end": {
+  "line": "Rewatch it. That overpass won't look like a roof again.",
+  "see": "Save card with the three steps (REAL SHELTER, BUCKLED HEAD DOWN, LIE LOW); the overpass in the background gets a red TRAP stamp. Card on 'Rewatch', stamp on 'roof', loops to the hook highway."
+ },
+ "description": "A tornado is coming and you're on the highway. The overpass looks safe. It's a trap.",
+ "tags": [
+  "#tornado",
+  "#survival",
+  "#weather",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Highway overpasses are not shelters: wind speeds are typically higher there and you are a stationary target for flying debris.",
+   "source": "NWS Norman https://www.weather.gov/oun/safety-overpass"
+  },
+  {
+   "claim": "On 3 May 1999 in Oklahoma three people were killed under or near overpasses.",
+   "source": "NWS Norman https://www.weather.gov/oun/safety-overpass"
+  },
+  {
+   "claim": "Strongest tornado wind ever measured: about 300 mph (NSSL gives 318 mph), by mobile Doppler radar, Bridge Creek-Moore, Oklahoma, 3 May 1999.",
+   "source": "NOAA NSSL https://www.nssl.noaa.gov/education/svrwx101/tornadoes/faq/ (OK-number)"
+  },
+  {
+   "claim": "Go to a basement or safe room, else an interior room away from windows; a car is not safe. If caught in a car: stay buckled, head down below the windows, or lie in a spot clearly lower than the road; cover head and neck.",
+   "source": "NWS https://www.weather.gov/safety/tornado-during ; https://www.ready.gov/tornadoes"
+  }
+ ],
+ "notes": "'Usually faster' paraphrases NWS 'wind speeds are typically higher'; the see field shows wind squeezing into the gap as illustration only, the script does not explain a mechanism. The 300 mph figure was measured in the same outbreak (Bridge Creek-Moore), not necessarily at the overpasses; the line only says 'Oklahoma, 1999. Winds of about 300 mph', keep the radar graphic separate from the bridge icons. No lead-time numbers, no window-opening myth. Big number: about three hundred miles an hour."
+}

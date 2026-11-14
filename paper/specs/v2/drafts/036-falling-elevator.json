@@ -1,0 +1,79 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "What happens if you jump at the last second in a falling elevator?",
+ "slug": "falling-elevator",
+ "title": "Falling Elevator",
+ "idea": "Jumping at the last second barely helps; the real safety is the ropes and brakes, and the longest elevator fall survived was luck and physics.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "The cable just snapped. You're dropping down the shaft.",
+ "hook_mode": "B",
+ "beats": [
+  {
+   "line": "You plan to jump. But your best jump is about seven miles an hour.",
+   "see": "Hero crouches inside the falling car, floor lights streaking past; a small speed tag '7 MPH' pops above his head on 'seven'."
+  },
+  {
+   "line": "From one hundred sixty five feet, you hit at seventy two miles an hour.",
+   "see": "Side cutaway of the shaft with a height ruler '165 FT'; the car rushes down, speedometer needle swings to 72 on 'seventy two'."
+  },
+  {
+   "line": "Jump perfectly. Guess your new speed.",
+   "see": "Freeze frame mid jump; big guess dial with a blinking '?' and a 3 second countdown starting on 'Guess'."
+  },
+  {
+   "line": "Sixty five. Barely better, and you can't time it.",
+   "see": "Dial drops only from 72 to 65 on 'Sixty five'; hero lands, the jump clock beside him spins wildly on 'time'."
+  },
+  {
+   "line": "Back up the shaft. Elevators hang on several steel ropes.",
+   "see": "Camera whooshes up the shaft on 'Back'; above the car, a bundle of thick paper ropes fans out, a counter ticks each rope on 'several'."
+  },
+  {
+   "line": "Plus automatic brakes built to stop a fall.",
+   "see": "Brake jaws on the rails snap shut on 'brakes', sparks fly, the car stops dead on 'stop'."
+  },
+  {
+   "line": "Betty Lou Oliver fell seventy five floors in the Empire State Building.",
+   "see": "Paper Empire State Building, a 1945 bomber silhouette hits the tower, a floor counter runs down from 75 on 'seventy five'."
+  },
+  {
+   "line": "Trapped air and coiled cables cushioned her. She broke her back, but lived.",
+   "see": "Cutaway of the shaft bottom: air puffs swell under the car on 'air', a coiled cable heap squashes like a spring on 'cables'; stamp SURVIVED on 'lived'."
+  }
+ ],
+ "end": {
+  "line": "When the cable snaps, forget the jump. Remember Betty.",
+  "see": "Cable twangs and snaps on 'snaps' (loops into hook), the jump icon gets crossed out on 'forget', Betty's cutout portrait with a record ribbon on 'Betty'."
+ },
+ "description": "The cable snaps and you jump at the last second. Here is how much that actually helps.",
+ "tags": [
+  "#elevator",
+  "#survival",
+  "#physics",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Best human jump is about 7 mph; from 165 ft impact drops only from about 72 to 65 mph; you cannot time the jump.",
+   "source": "Chris Baird, West Texas A&M https://wtamu.edu/~cbaird/sq/2012/12/05/if-im-on-an-elevator-that-breaks-loose-and-plummets-down-the-shaft-can-i-avoid-harm-by-jumping-at-the-last-second/"
+  },
+  {
+   "claim": "Elevators hang on several steel ropes and have automatic safety brakes.",
+   "source": "Industry sources per FACTS file (Otis safety brake, 1854) [snippet, no number used]"
+  },
+  {
+   "claim": "Betty Lou Oliver survived a 75-storey elevator fall in the Empire State Building (28 July 1945, plane crash cut the cables).",
+   "source": "Guinness https://www.guinnessworldrecords.com/news/2023/10/How-an-Elevator-attendant-Survived-a-1-000-Ft-Fall-Down-the-Empire-State-Building-759670 ; NYC Municipal Archives https://www.archives.nyc/blog/2019/10/18/the-empire-state-plane-crash-july-28-1945"
+  },
+  {
+   "claim": "Air trapped in the shaft and coiled cables cushioned the car; she broke her back, neck and pelvis and survived.",
+   "source": "Guinness (same URL)"
+  }
+ ],
+ "notes": "Guess answer: 65 (from 72). Honest framing: no trick is offered; 'barely better' not 'does nothing'. Lying flat deliberately left out. 'Brakes built to stop a fall' rests on snippet-level industry sources, no statistic given. The 1945 plane in the 'see' is visual only (in Guinness/Archives). Hook uses 'cable' singular as a movie trope; the script then corrects it with 'several steel ropes'."
+}

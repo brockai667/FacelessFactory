@@ -1,0 +1,86 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Your car goes into the water: wait for it to fill, or open the window?",
+ "slug": "your-car-is-sinking",
+ "title": "Your Car Is Sinking",
+ "idea": "You have about a minute while the car floats, and waiting for it to fill is the mistake.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "Your car is sinking. Wait it out, or open the window?",
+ "choice": [
+  "WAIT",
+  "WINDOW"
+ ],
+ "beats": [
+  {
+   "line": "Wait means letting it fill, then pushing the door open.",
+   "see": "Card A WAIT highlighted; inside the car water rises from the floor while the driver sits with a hand on the door handle. Water starts on 'fill', hand pushes on 'door'."
+  },
+  {
+   "line": "But water outside holds the door shut.",
+   "see": "Outside view: big blue arrows of water press flat against the door; it will not budge. Arrows slam on 'holds', door locks on 'shut'."
+  },
+  {
+   "line": "By the time it fills, the car is deep and you have one breath.",
+   "see": "Car sinks down a depth ruler; inside, the air bubble shrinks to a single breath cloud at the roof. Depth on 'deep', bubble on 'one breath'. Card A gets a red X."
+  },
+  {
+   "line": "About four hundred people die in sinking cars in North America each year.",
+   "see": "Map of North America fills with 400 small car icons, counter ticks to 400. Counter on 'four hundred'."
+  },
+  {
+   "line": "It's the window. You get about a minute before water reaches it.",
+   "see": "Card B WINDOW gets a green check; a one minute timer starts while water climbs the outside of the side window toward its bottom edge. Check on 'window', timer on 'minute'."
+  },
+  {
+   "line": "One. Seatbelt off.",
+   "see": "Step card 1 SEATBELT; buckle clicks open and the belt snaps back. Click on 'off'."
+  },
+  {
+   "line": "Two. Window down, while the power still works.",
+   "see": "Step card 2 WINDOW; finger hits the switch and the glass slides down, dashboard lights still on. Glass moves on 'down'."
+  },
+  {
+   "line": "Three. Out through it, children first. Don't stop to call.",
+   "see": "Step card 3 OUT; a child climbs out the window first, then the driver; a phone on the seat gets crossed out. Child on 'children', X on 'call'."
+  }
+ ],
+ "end": {
+  "line": "If you picked wait, you just spent your minute.",
+  "see": "Back to the two cards; the timer on card A runs out to zero and the car slips under. Timer zero on 'spent', loops into the hook shot of the sinking car."
+ },
+ "description": "Your car is sinking. Wait for it to fill or open the window? You only get about a minute.",
+ "tags": [
+  "#carsafety",
+  "#survival",
+  "#water",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Waiting for the cabin to fill so the pressure equalizes lowers your chance: by then the car is deep and you have one breath. Water outside holds the door shut.",
+   "source": "McDonald & Giesbrecht, Aviat Space Environ Med 2013;84:498-510"
+  },
+  {
+   "claim": "About 400 people die in submerged vehicles in North America each year.",
+   "source": "McDonald & Giesbrecht, Aviat Space Environ Med 2013;84:498-510 (OK-number)"
+  },
+  {
+   "claim": "A car floats only about 15 to 63 seconds before water reaches the bottom of the side windows (about a minute).",
+   "source": "IAED 'Get Out Fast' https://iaedjournal.org/get-out-fast ; McDonald & Giesbrecht 2013"
+  },
+  {
+   "claim": "Protocol: Seatbelts off, Windows open, Out, Children first. Do not phone first.",
+   "source": "Dr. Gordon Giesbrecht, University of Manitoba (as listed in FACTS-batch-035-046.md)"
+  },
+  {
+   "claim": "Electric windows should still work if used quickly.",
+   "source": "FACTS-batch-035-046.md (043), McDonald & Giesbrecht 2013"
+  }
+ ],
+ "notes": "Correct card: B WINDOW. 'About a minute' is the file's own rounding of 15 to 63 seconds; that is the upper end, so the timer graphic should not count a precise sixty. Children first is folded into step three (the four-part protocol in three numbered steps). Left out breaking the side window and the laminated windshield caveat to stay in the word budget; consider it for a follow-up. Big number: about four hundred deaths a year."
+}

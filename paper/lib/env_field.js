@@ -3,20 +3,21 @@
 //   mountain - hory so snehom, skaly (napr. Everest)
 //   summit   - vrchol: stojis na snehovej cepici, more oblakov pod tebou, nizsie stity v dialke, modlitebne vlajocky
 //   road     - cesta v perspektive, mesto v pozadi, cielova brana FINISH v poprede (beh, chodza)
+//   desert   - pust: duny, stolove hory, kaktus vlavo, pokazene auto vpravo (otvorena kapota, para), velke slnko s lucmi
 // Nalada "cold" = sneh: biele kopce/zem, cepicky na strome, snezenie, kvety zmiznu. Postava stoji na zemi (chodidla y 1454).
 // Volne zony: vlavo x 40-330 / y 1200-1440, vpravo x 850-1040 / y 1070-1430. Ruky postavy ostavaju nad y 1000 -> nic sa nedotyka.
 // PF.envField({ scene }) -> API (show, scene, mood + spolocne rozhranie). ID s prefixom fd_. Stare { variant: "mountain" } = scena mountain.
 PF.envField = function (o) {
   o = Object.assign({ sun: "#ffe07a", hillFar: "#9ccf8e", hillNear: "#7fbe70", tree: "#4f9a57", treeDark: "#3f7f47", trunk: "#8a5a3c",
     flowers: ["#f6c343", "#f28b82", "#ffffff"] }, o || {});
-  var SC = ["meadow", "mountain", "summit", "road"];
+  var SC = ["meadow", "mountain", "summit", "road", "desert"];
   if (o.variant === "mountain") o.scene = "mountain";
   if (!o.scene) o.scene = "meadow";
   if (SC.indexOf(o.scene) < 0) { console.warn("envField: neznama scena '" + o.scene + "' -> meadow"); o.scene = "meadow"; }
   var sc0 = o.scene;
   // obloha / zem per scena (o.sky, o.ground prepisu uvodnu scenu)
-  var SKY = { meadow: ["#8fd0f5", "#d8f0fb"], mountain: ["#9cc9ea", "#e4f1fa"], summit: ["#5b8fd0", "#c9e2f7"], road: ["#a3d6f3", "#e4f3fb"] };
-  var GRD = { meadow: ["#86c46d", "#6fae5c"], mountain: ["#b8b2a2", "#9f9886"], road: ["#86c46d", "#6fae5c"] };
+  var SKY = { meadow: ["#8fd0f5", "#d8f0fb"], mountain: ["#9cc9ea", "#e4f1fa"], summit: ["#5b8fd0", "#c9e2f7"], road: ["#a3d6f3", "#e4f3fb"], desert: ["#f2b25c", "#fde6b4"] };
+  var GRD = { meadow: ["#86c46d", "#6fae5c"], mountain: ["#b8b2a2", "#9f9886"], road: ["#86c46d", "#6fae5c"], desert: ["#edcc90", "#d9b06c"] };
   if (o.sky) SKY[sc0] = o.sky;
   if (o.ground && GRD[sc0]) GRD[sc0] = o.ground;
   var grad = function (id, c) { return '<linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + c[0] +
@@ -179,6 +180,49 @@ PF.envField = function (o) {
     F: '<g filter="url(#dof)" opacity="0.95">' + corners(o.treeDark) + '</g>'
   });
 
+
+  // ---------- DESERT (pust: duny, stolove hory, kaktus vlavo, pokazene auto vpravo s otvorenou kapotou; naraznik x 796 -> postava s flasou ma miesto)
+  var DFAR = "M-200 1262 C -20 1196 150 1188 330 1246 C 480 1180 700 1166 900 1232 C 1040 1196 1180 1200 1280 1236 V1500 H-200 Z";
+  var DNEAR = "M-200 1326 C 40 1262 260 1282 470 1312 C 700 1262 940 1270 1280 1318 V1500 H-200 Z";
+  var mesa = function (x, y, w, col, sh) {   // stolova hora: plochy vrch, strme boky, tien vpravo
+    return '<path d="M' + x + ' 1300 L' + (x + 18) + ' ' + (y + 46) + ' L' + (x + 34) + ' ' + y + ' L' + (x + w - 34) + ' ' + y + ' L' + (x + w - 18) + ' ' + (y + 46) + ' L' + (x + w) + ' 1300 Z" fill="' + col + '"/>' +
+      '<path d="M' + (x + w - 34) + ' ' + y + ' L' + (x + w - 18) + ' ' + (y + 46) + ' L' + (x + w) + ' 1300 L' + (x + w * 0.62) + ' 1300 Z" fill="' + sh + '" opacity="0.55"/>'; };
+  var sunRays = function (x, y, r) { var m = "";   // 12 lucov, striedavo dlhy / kratky -> otocenie o 60 stupnov = ten isty obraz (slucka)
+    for (var i = 0; i < 12; i++) { var a = i * Math.PI / 6, c = Math.cos(a), s = Math.sin(a), r1 = r + 30, r2 = r + (i % 2 ? 72 : 108), w = 15;
+      m += "M" + f0(x + c * r1 - s * w) + " " + f0(y + s * r1 + c * w) + " L" + f0(x + c * r2) + " " + f0(y + s * r2) + " L" + f0(x + c * r1 + s * w) + " " + f0(y + s * r1 - c * w) + " Z"; }
+    return '<g id="fd_dsRays"><path d="' + m + '" fill="' + o.sun + '" opacity="0.92"/></g>'; };
+  var ripple = "", rq = PF.rnd(41);
+  for (var ri = 0; ri < 22; ri++) { var rx = -60 + rq() * 1180, ry = 1500 + rq() * 380, rw = 50 + rq() * 70;
+    ripple += "M" + f0(rx) + " " + f0(ry) + " q" + f0(rw / 2) + " -12 " + f0(rw) + " 0"; }
+  var CAR = "#2f8f8a", CARD = "#216b67";
+  scene("desert", {
+    B: sky("desert") + sunRays(236, 470, 100) + sun(236, 470, 100) +
+      mesa(-40, 1050, 300, "#d99a5b", "#b9783f") + mesa(700, 1010, 360, "#dca160", "#b9783f") + mesa(380, 1104, 210, "#e3ae70", "#c4874c") +
+      '<path d="' + DFAR + '" fill="#f0cf93"/><path d="' + DNEAR + '" fill="#e9c382"/>' +
+      '<g id="fd_dsHeat" fill="none" stroke="#fff6dc" stroke-width="6" stroke-linecap="round" opacity="0.55"><path d="M-60 1206 q40 -14 80 0 t80 0 t80 0 t80 0"/>' +
+      '<path d="M420 1176 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0"/><path d="M820 1214 q40 -14 80 0 t80 0 t80 0 t80 0"/></g>',
+    M: '<path d="' + GROUND + '" fill="url(#fd_gGround_desert)"/><path d="' + ripple + '" fill="none" stroke="#c79b56" stroke-width="5" stroke-linecap="round" opacity="0.6"/>' +
+      '<g filter="url(#cut)"><rect x="126" y="1214" width="50" height="236" rx="25" fill="#5f9e5a"/>' +   // kaktus (volna zona vlavo)
+      '<path d="M126 1336 h-34 a22 22 0 0 1 -22 -22 v-44" fill="none" stroke="#5f9e5a" stroke-width="34" stroke-linecap="round"/>' +
+      '<path d="M176 1304 h32 a22 22 0 0 0 22 -22 v-56" fill="none" stroke="#5f9e5a" stroke-width="34" stroke-linecap="round"/>' +
+      '<path d="M151 1238 V1436 M70 1280 v30 M230 1240 v40" fill="none" stroke="#4a8248" stroke-width="5" stroke-linecap="round" opacity="0.7"/>' +
+      '<circle cx="151" cy="1212" r="13" fill="#f28b82"/><circle cx="151" cy="1212" r="5" fill="#f6c343"/></g>' +
+      '<g filter="url(#cut)"><ellipse cx="268" cy="1452" rx="34" ry="14" fill="#c9a064"/><ellipse cx="760" cy="1560" rx="46" ry="16" fill="#c9a064"/></g>' +
+      '<ellipse cx="1010" cy="1462" rx="250" ry="15" fill="#4a1f12" opacity="0.26" filter="url(#soft6)"/>' +
+      '<g id="fd_dsCar"><g filter="url(#cut)">' +   // auto z boku, predok vlavo, zadok mimo obrazu
+      '<path d="M806 1392 V1314 C 806 1288 822 1274 850 1272 L 930 1266 L 990 1182 C 996 1172 1006 1166 1020 1166 H1420 V1392 Z" fill="' + CAR + '"/>' +
+      '<path d="M806 1358 H1420 V1392 H806 Z" fill="' + CARD + '"/>' +
+      '<path d="M948 1264 L 1000 1192 H 1132 V 1264 Z" fill="#cfeaf2"/><path d="M1148 1192 H1300 V1264 H1148 Z" fill="#cfeaf2"/>' +
+      '<path d="M1140 1180 V1356" stroke="' + CARD + '" stroke-width="6"/><rect x="1162" y="1284" width="46" height="12" rx="6" fill="' + CARD + '"/>' +
+      '<path d="M822 1274 H926 V1288 H822 Z" fill="#1f2b2b"/>' +
+      '<path d="M926 1268 L 846 1142 L 832 1150 L 910 1276 Z" fill="' + CARD + '"/><path d="M852 1270 L 864 1172" stroke="#1d1a18" stroke-width="6" stroke-linecap="round"/>' +
+      '<rect x="794" y="1352" width="44" height="34" rx="9" fill="#d7dde3"/><ellipse cx="820" cy="1318" rx="10" ry="15" fill="#ffe9a8"/>' +
+      '<path d="M838 1400 a74 74 0 0 1 148 0 Z" fill="#1f2b2b"/><circle cx="912" cy="1398" r="60" fill="#2b2320"/><circle cx="912" cy="1398" r="27" fill="#c9cfd6"/><circle cx="912" cy="1398" r="9" fill="#7d858e"/></g></g>' +
+      '<g fill="#ffffff"><circle id="fd_dsSt0" r="26" opacity="0" transform="translate(866 1246) scale(0.5)"/><circle id="fd_dsSt1" r="34" opacity="0" transform="translate(866 1246) scale(0.5)"/>' +
+      '<circle id="fd_dsSt2" r="22" opacity="0" transform="translate(866 1246) scale(0.5)"/></g>',
+    F: '<g filter="url(#dof)" opacity="0.95">' + corners("#c99a58") + '</g>'
+  });
+
   PF.add("B", '<g id="fd_B" opacity="0">' + LAY.B + '</g>');
   PF.add("M", '<g id="fd_M" opacity="0">' + LAY.M + '<g id="fd_props"></g></g>');
   PF.add("F", '<g id="fd_F" opacity="0">' + LAY.F + '<g id="fd_snowfall" opacity="0" fill="#ffffff"></g></g>');
@@ -203,6 +247,16 @@ PF.envField = function (o) {
   sway("#fd_seaB", "translate(12 0)", "translate(-12 0)", 7);
   sway("#fd_seaC", "translate(-10 0)", "translate(10 0)", 11);
   FLAG.forEach(function (f) { sway("#" + f[0], "rotate(-5 " + f[1] + " " + f[2] + ")", "rotate(6 " + f[1] + " " + f[2] + ")", f[3]); });
+
+  if (PF.VO.total > 0) {   // pust: luce slnka sa pomaly tocia (60 stupnov = perioda vzoru), tetelenie vzduchu, para z motora (periody delia dlzku videa)
+    PF.tl.fromTo("#fd_dsRays", { attr: { transform: "rotate(0 236 470)" } }, { attr: { transform: "rotate(60 236 470)" }, duration: PF.VO.total, ease: "none", immediateRender: false }, 0);
+    sway("#fd_dsHeat", "translate(-16 0)", "translate(16 0)", 3.4);
+    [[1.7, -34], [2.3, 26], [2.9, -6]].forEach(function (q, i) {
+      var P = PF.loopPeriod(q[0]), m = Math.max(1, Math.round(PF.VO.total / P));
+      PF.tl.fromTo("#fd_dsSt" + i, { attr: { transform: "translate(866 1246) scale(0.5)" } }, { attr: { transform: "translate(" + (866 + q[1]) + " 1020) scale(1.6)" }, duration: P, ease: "power1.out", repeat: m - 1, immediateRender: false }, 0);
+      PF.tl.fromTo("#fd_dsSt" + i, { opacity: 0 }, { opacity: 0.8, duration: P / 2, ease: "sine.inOut", yoyo: true, repeat: 2 * m - 1, immediateRender: false }, 0);
+    });
+  }
 
   var api = {
     show: function (on, t) { ["#fd_B", "#fd_M", "#fd_F"].forEach(function (s) { PF.S(s, { opacity: on ? 1 : 0 }, t); }); }

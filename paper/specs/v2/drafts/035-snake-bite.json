@@ -1,0 +1,94 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Bitten by a snake: suck the venom out or keep still?",
+ "slug": "bitten-by-a-snake",
+ "title": "Bitten By A Snake",
+ "idea": "Sucking out venom pulls out almost nothing; keeping still and getting to a hospital is what works.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "A snake just bit your hand. Suck it out, or keep still?",
+ "choice": [
+  "SUCK IT",
+  "KEEP STILL"
+ ],
+ "beats": [
+  {
+   "line": "Your fingers start to swell.",
+   "see": "Close on the hand: two fang dots, the fingers puff up like balloons around a ring. Hits on 'swell'."
+  },
+  {
+   "line": "In the movies, someone always sucks the venom out.",
+   "see": "Cardboard film frame with a clapperboard snap; a cutout hero bends over the bite. Clapper on 'movies', card A glows on 'sucks'."
+  },
+  {
+   "line": "In a lab test, suction got out less than one percent.",
+   "see": "A tiny suction cup on a model arm, a beaker fills with a single drop; big counter '<1%' stamps on 'percent', card A gets a red X."
+  },
+  {
+   "line": "Snakebites kill up to one hundred thirty eight thousand people a year.",
+   "see": "Counter rolls up to 138,000 over a world map made of paper dots. Number lands on 'thousand'."
+  },
+  {
+   "line": "Keep still wins. Moving pushes venom through your lymph.",
+   "see": "Card B gets a green check on 'wins'; x-ray view of the arm: a glowing lymph network, the hero wiggles and a purple stain races up the lines on 'Moving', freezes when he stops."
+  },
+  {
+   "line": "One. Take off rings and watches before the swelling traps them.",
+   "see": "Step card 1 RINGS OFF; ring and watch slide off on 'Take', the finger swells right after on 'traps'."
+  },
+  {
+   "line": "Two. Rest the arm in a comfy position and keep it still.",
+   "see": "Step card 2 KEEP STILL; arm settles on a pillow in a cardboard splint on 'Rest', a padlock icon clicks on 'still'."
+  },
+  {
+   "line": "Three. Let someone drive you to a hospital for antivenom.",
+   "see": "Step card 3 HOSPITAL; hero in the passenger seat, a friend drives, hospital sign and an antivenom vial pop on 'antivenom'."
+  }
+ ],
+ "end": {
+  "line": "Picked suck it out? Replay it and keep still this time.",
+  "see": "Cards A and B return big; A slides off on 'Picked', the clip rewinds to the bite on 'Replay', card B pulses on 'still'."
+ },
+ "description": "Bitten by a snake: suck the venom out or keep still? The movie move gets almost none of it.",
+ "tags": [
+  "#snakebite",
+  "#survival",
+  "#firstaid",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Swelling follows a venomous bite; remove rings and watches before swelling starts.",
+   "source": "CDC/NIOSH Venomous Snakes https://www.cdc.gov/niosh/topics/snakes/symptoms.html"
+  },
+  {
+   "claim": "Do not suck out venom (or cut, tourniquet, ice).",
+   "source": "CDC/NIOSH https://www.cdc.gov/niosh/topics/snakes/symptoms.html ; WHO treatment https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/treatment"
+  },
+  {
+   "claim": "Suction removed about 0.04 % of mock venom in a human model, i.e. less than one percent.",
+   "source": "Alberts et al., Ann Emerg Med 2004, PubMed 14747805"
+  },
+  {
+   "claim": "Snakebite kills 81,410 to 137,880 people a year (up to 138,000).",
+   "source": "WHO fact sheet https://www.who.int/news-room/fact-sheets/detail/snakebite-envenoming"
+  },
+  {
+   "claim": "Venom mainly spreads through the lymph system, which is why moving spreads it; keep calm and still, immobilize the limb.",
+   "source": "WHO treatment page https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/treatment"
+  },
+  {
+   "claim": "Keep the limb in a neutral position of comfort, immobilized/splinted.",
+   "source": "CDC/NIOSH https://www.cdc.gov/niosh/topics/snakes/symptoms.html ; WHO"
+  },
+  {
+   "claim": "Get emergency care; antivenom is the effective treatment; do not drive yourself.",
+   "source": "WHO https://www.who.int/teams/control-of-neglected-tropical-diseases/snakebite-envenoming/treatment ; CDC/NIOSH"
+  }
+ ],
+ "notes": "Correct card: B (KEEP STILL). Card A text 'SUCK IT' to keep 2 words (alt: 'SUCK OUT'). The 'less than one percent' comes from a mock-venom human model study seen only as snippet; FACTS allows this wording. Lab test = model, not real patients; line says 'lab test' to stay honest. 'In the movies' is a pop-culture framing, not a factual claim. No 'below the heart', no tight bandage, no spread-speed number."
+}

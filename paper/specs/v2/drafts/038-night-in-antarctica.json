@@ -1,0 +1,82 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Does a drink warm you up when you are freezing?",
+ "slug": "a-drink-in-the-cold",
+ "title": "A Drink In The Cold",
+ "idea": "Alcohol makes you feel warm while your body loses heat faster.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "You're freezing. Does a drink warm you, or cool you?",
+ "choice": [
+  "WARMS YOU",
+  "COOLS YOU"
+ ],
+ "beats": [
+  {
+   "line": "One sip, and a warm glow spreads through you.",
+   "see": "Hero shivers in a snowy tent, takes a sip from a flask; an orange glow spreads over the cutout body on 'glow'. Cards A/B shrink to the corner."
+  },
+  {
+   "line": "That glow is blood rushing out to your skin.",
+   "see": "X-ray view: red vessels near the skin widen like opening pipes on 'rushing', blood flows outward on 'skin'."
+  },
+  {
+   "line": "So it's card B. It feels warm while you lose heat.",
+   "see": "Card B gets a check on 'B'; heat waves float off the skin into the cold air, a body thermometer slides down on 'lose'."
+  },
+  {
+   "line": "A lot of alcohol can also weaken shivering, your heater.",
+   "see": "Shivering motion lines around the hero shrink on 'weaken'; a small paper heater icon inside his chest flickers on 'heater'."
+  },
+  {
+   "line": "Below about eighty six degrees inside your body, shivering stops.",
+   "see": "Core thermometer drops to 86°F on 'eighty six'; the shiver lines vanish completely on 'stops', frost creeps in."
+  },
+  {
+   "line": "One. Put something between you and the frozen ground.",
+   "see": "Step card 1 INSULATE; hero lifts off the ice onto a foam pad and backpack on 'Put', cold arrows from the ground get blocked."
+  },
+  {
+   "line": "Two. Cover your head and neck, and get out of the wind.",
+   "see": "Step card 2 COVER UP; hat and scarf snap on at 'Cover', a wind gust bounces off the tent wall on 'wind'."
+  },
+  {
+   "line": "Three. Stay dry, and eat something warm and full of calories.",
+   "see": "Step card 3 STAY DRY, EAT; wet socks swapped for dry on 'dry', a steaming bowl of soup appears on 'warm', calorie flames rise from it."
+  }
+ ],
+ "end": {
+  "line": "Picked warms you? That warm feeling is your heat leaving.",
+  "see": "Cards A and B return big; A flips to show the glowing hero with heat waves streaming off him on 'leaving'."
+ },
+ "description": "You're freezing and someone hands you a drink. Does it warm you up or cool you down?",
+ "tags": [
+  "#hypothermia",
+  "#survival",
+  "#cold",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Alcohol widens blood vessels in the skin: it gives a sensation of warmth but increases heat loss.",
+   "source": "CDC MMWR, Hypothermia-Related Deaths 2003 (mm5308a2)"
+  },
+  {
+   "claim": "Larger doses of alcohol can impair shivering; shivering is how the body makes heat.",
+   "source": "Kalant & Le 1983, PubMed 6144116 ; Wilderness Medical Society guideline via AAFP https://www.aafp.org/pubs/afp/issues/2020/1101/p571.html"
+  },
+  {
+   "claim": "Shivering stops near 30 C core temperature (= 86 F).",
+   "source": "WMS guideline via AAFP https://www.aafp.org/pubs/afp/issues/2020/1101/p571.html"
+  },
+  {
+   "claim": "Insulate from the ground, cover head and neck, stay dry and out of the wind, eat warm high-calorie food.",
+   "source": "WMS guideline via AAFP https://www.aafp.org/pubs/afp/issues/2020/1101/p571.html"
+  }
+ ],
+ "notes": "Correct card: B (COOLS YOU). Weakest-evidence topic: no 'drops your temperature by X'; shivering line uses 'a lot of' + 'can' per FACTS. 86 F is a straight conversion of the FACTS '30 C' (shivering stops near 30 C); the number is about hypothermia in general, not an alcohol effect, and the script does not claim alcohol causes it. Alcohol and a 13+ audience: framing is purely 'it doesn't help'; no drinking shown as positive. St. Bernard barrel left out."
+}

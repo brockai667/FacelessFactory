@@ -77,6 +77,13 @@ def audio_ok(path):
     bad = [d for d in out[1:-1] if d.strip(",") != "1024"]
     warn = subprocess.run(["ffmpeg", "-nostdin", "-v", "warning", "-i", path, "-vn", "-ac", "1", "-ar", "16000", "-f", "null", "-"],
                           capture_output=True, text=True).stderr.count("non monotonically")
+    # zvuk musi trvat (takmer) tak dlho ako obraz - skrateny zvuk je chyba, aj ked su pakety v poriadku
+    ds = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type,duration", "-of", "csv=p=0", path],
+                        capture_output=True, text=True).stdout.split()
+    dd = {x.split(",")[0]: float(x.split(",")[1]) for x in ds if x.count(",") == 1 and x.split(",")[1].replace(".", "").isdigit()}
+    if "video" in dd and dd.get("audio", 0) < dd["video"] - 0.6:
+        print(f"  CHYBA: zvuk {dd.get('audio', 0):.1f} s je kratsi nez obraz {dd['video']:.1f} s")
+        warn += 1
     return not bad and not warn, len(bad), warn
 
 
@@ -180,8 +187,13 @@ def main():
     else:
         filt.append("[vsc]anullsink")
         filt.append(f"anullsrc=r=48000:cl=mono,atrim=duration={total}[musq]")
+    # efekt, ktory zaznie pocas slova, je tichsi (hlas ostava citatelny); v pauzach medzi vetami hra naplno
+    spoken = [(vo.start[k] + w["s"], vo.start[k] + w["e"]) for k in keys for w in vo.words(k)]
+    duck = float(os.environ.get("PF_SFXDUCK", "0.55"))
     for f, t, vol in sfx:
         if 0 <= t < total:
+            if any(a < t + 0.3 and e > t for a, e in spoken):
+                vol = round(vol * duck, 3)
             inputs += ["-i", os.path.join(B, "assets", "sfx", f)]
             filt.append(f"[{ni}:a]volume={vol},adelay={int(t * 1000)}:all=1[x{ni}]")
             others.append(f"[x{ni}]")
@@ -196,6 +208,13 @@ def main():
                         "-map", "[a]", "-t", str(total), "-c:a", "pcm_s16le", "-ar", "48000", mixwav,
                         "-map", "[voxq]", "-t", str(total), "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", qv,
                         "-map", "[musq]", "-t", str(total), "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", qm], check=True)
+        mixdur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", mixwav],
+                                      capture_output=True, text=True).stdout.strip() or 0)
+        if mixdur < total - 0.2:
+            print(f"  varovanie: zvuk ma len {mixdur:.1f} s z {total:.1f} s -> mixujem znova")
+            if attempt == 2:
+                raise SystemExit(f"CHYBA: zvuk je kratsi nez video ({mixdur:.1f} s z {total:.1f} s)")
+            continue
         mb = music_vs_voice(qv, qm)
         print(f"hudba vs hlas pocas reci: median {mb[0]} dB, najhlasnejsie miesto {mb[1]} dB (hlasitost hudby {mv:.2f})")
         if not mu or mb[1] <= -3:

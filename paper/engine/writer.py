@@ -274,6 +274,16 @@ def apply_direction(S, hist, rng, d=None):
     Co uz spec urcuje (napr. kit, hero), ostava."""
     d = d or direct(hist, rng)
     d["format"] = S.get("format") or d["format"]
+    if S.get("v") == 2:                                  # v2 je rucne zreziravane a schvalene: fabrika nelosuje postavu, farby ani slucku
+        S.setdefault("slug", slugify(S.get("title") or S.get("topic", "video")))
+        S.setdefault("hero", {}).setdefault("species", "human")
+        S.setdefault("music_i", len(hist))
+        for k in ("chrome", "trans", "pres", "cam"):
+            d[k] = (S.get("kit") or {}).get(k, d[k])
+        d["hair"], d["skin"] = S["hero"].get("hairStyle", d["hair"]), S["hero"].get("skin", d["skin"])
+        d["species"], d["v"] = S["hero"]["species"], 2
+        S["direction"] = d
+        return S
     acc, suit, pants, statbg = PALETTES[d["palette"]]
     outfit = S.get("outfit") if S.get("outfit") in ("tshirt", "hoodie", "pajamas", "labcoat", "suit") else rng.choice(["tshirt", "hoodie"])
     S.setdefault("slug", slugify(S.get("title") or S.get("topic", "video")))

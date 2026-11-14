@@ -40,7 +40,7 @@ ENVS = {
     "space": {"libs": ["env_space.js"], "make": "PF.envSpace({{ scene: {scene} }})", "metric0": "0", "float": True,
               "scenes": {"station": {}, "mars": {"stand": True}}},
     "field": {"libs": ["env_field.js"], "make": "PF.envField({{ scene: {scene} }})", "metric0": "", "stand": True, "show": True,
-              "scenes": {"meadow": {}, "mountain": {}, "summit": {}, "road": {}}},
+              "scenes": {"meadow": {}, "mountain": {}, "summit": {}, "road": {}, "desert": {}}},
 }
 ENVS["mountain"] = dict(ENVS["field"], scene0="mountain")   # alias: env "mountain" = lúka so scénou hory (staršie specs)
 # scena: "scene" v spec = uvodna scena; "scene" v beate = prepnutie od tohto beatu (prechod robi prostredie, slucka sa vrati)
@@ -76,6 +76,16 @@ RECIPES = {"face", "look", "puffy", "skinny_legs", "thin_arms", "bigger", "talle
            "zzz", "stars", "yawn", "nod", "thumbs_up", "wave", "hallucinate", "mood", "badge", "level", "organ_off", "recover", "jog", "walk"}
 RDUR = {"wave": 1.25, "yawn": 1.5, "thumbs_up": 1.7, "recover": 0.3, "hallucinate": 2.0, "nod": 0.75, "pain": 1.3, "heartbeat": 1.9,
         "mood": 1.0, "sweat": 1.2, "steam": 1.0, "puffy": 0.4, "skinny_legs": 0.45, "thin_arms": 0.5, "bigger": 0.6, "taller": 0.7, "slump": 0.9}
+# v2 momenty (lib/moments.js): velke deje a zapojenie divaka; volanie PF.M.<meno>(t, arg, t1, o)
+MOMENTS = {"bury", "struggle", "spin", "mask", "reach", "release", "timer", "people", "stamp", "card", "closeup", "shake", "squeeze", "buddy", "rewind", "step", "airpocket", "spit", "wayup", "armup",
+           "bottle", "drink", "meter", "jug", "spot", "choice", "pick", "cardie", "cover", "shade", "perch", "thermo", "aerial", "hail",
+           "snake", "hand", "movie", "suck", "vial", "count", "venom", "sling", "ride", "antivenom",
+           "breath", "gauge", "o2", "co2", "alarm", "burn", "pant", "water", "clear"}
+RECIPES |= MOMENTS
+RDUR.update({"rewind": 0.9, "step": 0.4, "airpocket": 1.2, "spit": 0.8, "wayup": 0.8, "armup": 1.0, "squeeze": 0.7, "buddy": 0.8, "release": 0.6, "card": 0.6, "stamp": 0.4, "reach": 0.7, "bury": 1.3, "spin": 2.2, "struggle": 1.0, "timer": 1.0, "people": 0.9, "mask": 1.0})
+RDUR.update({"drink": 1.9, "jug": 2.2, "cover": 1.5, "shade": 1.0, "perch": 0.7, "thermo": 1.3, "aerial": 2.0, "hail": 1.3, "choice": 0.4, "pick": 0.5, "spot": 0.5, "meter": 0.8, "bottle": 1.4, "cardie": 1.0})
+RDUR.update({"snake": 1.0, "hand": 0.6, "movie": 0.6, "suck": 1.6, "vial": 1.1, "count": 2.5, "venom": 1.6, "sling": 0.7, "ride": 0.7, "antivenom": 1.0})
+RDUR.update({"breath": 0.6, "gauge": 1.2, "o2": 0.7, "co2": 1.5, "alarm": 1.0, "burn": 1.4, "pant": 2.0, "water": 0.8, "clear": 0.1})
 ADUR = {"shiver": 1.4, "zzz": 1.4, "stars": 1.4, "jog": 2.5, "walk": 2.5}
 CTAS = ["COMMENT BELOW", "FOLLOW FOR MORE", "SAVE THIS ONE", "SHARE WITH A FRIEND"]   # vyzva na konci; spec "cta": text | false   # recepty s trvanim v arg (s) + predvolene trvanie
 FACES = {"neutral", "smile", "happy", "worried", "shocked", "tired", "sleepy", "angry", "pain", "pant", "dry", "sick", "dizzy", "excited"}
@@ -85,6 +95,49 @@ SFX_R = {"puffy": [("pop.wav", 0, 0.7)], "skinny_legs": [("pop.wav", 0, 0.7)], "
          "shiver": [("wobble.wav", 0, 0.4)], "stars": [("sparkle.wav", 0, 0.4)], "hallucinate": [("swell.wav", 0, 0.35), ("sparkle.wav", 0.4, 0.45)],
          "nod": [("thud.wav", 0.35, 0.35)], "thumbs_up": [("sparkle.wav", 0.1, 0.5)], "recover": [("sparkle.wav", 0.1, 0.5)], "badge": [("pop.wav", 0, 0.7)], "mood": [("swell.wav", 0, 0.3)],
          "face": {"dizzy": [("wobble.wav", 0, 0.5)], "sick": [("wobble.wav", 0, 0.5)], "shocked": [("pop.wav", 0, 0.4)]}}
+SFX_R.update({"cardie": [("thud.wav", 0, 0.7), ("wobble.wav", 0.05, 0.5)], "bottle": {"show": [("pop.wav", 0, 0.6)]},
+              "drink": [("pour.wav", 0.3, 0.6), ("pop.wav", 1.5, 0.5), ("sparkle.wav", 1.5, 0.4)], "meter": [("tick.wav", 0, 0.6)],
+              "jug": [("tick.wav", 0.3, 0.7), ("tick.wav", 0.7, 0.7), ("tick.wav", 1.1, 0.7), ("tick.wav", 1.5, 0.7), ("fill.wav", 0.3, 0.45), ("beep.wav", 2.0, 0.4)],
+              "spot": [("pop.wav", 0, 0.6)], "pick": [("pop.wav", 0, 0.6), ("thud.wav", 0.24, 0.5)],
+              "choice": {"A": [("pop.wav", 0, 0.7), ("paper.wav", 0, 0.5)], "B": [("pop.wav", 0, 0.7), ("paper.wav", 0, 0.5)], "small": [("whoosh.wav", 0, 0.3)], "big": [("paper.wav", 0, 0.7), ("pop.wav", 0.2, 0.5)]},
+              "cover": [("whoosh.wav", 0, 0.5), ("thud.wav", 0.3, 0.6), ("sparkle.wav", 0.95, 0.4)], "shade": [("whoosh.wav", 0, 0.5), ("paper.wav", 0.32, 0.7), ("thud.wav", 0.62, 0.5)],
+              "perch": [("whoosh.wav", 0, 0.5), ("thud.wav", 0.52, 0.8)], "thermo": [("pop.wav", 0, 0.6), ("swell.wav", 0.25, 0.35)],
+              "aerial": [("pop.wav", 0, 0.6), ("beep.wav", 0.9, 0.4), ("beep.wav", 1.5, 0.4)]})
+SFX_R.update({"snake": {None: [("wobble.wav", 0.05, 0.3)], "back": [("whoosh.wav", 0.1, 0.4)],
+                        "strike": [("whoosh.wav", -0.12, 0.6), ("thud.wav", 0, 0.8), ("sub_hit.wav", 0, 0.6), ("heartbeat.wav", 0.3, 0.5), ("heartbeat.wav", 0.75, 0.5)]},
+              "hand": {"show": [("pop.wav", 0, 0.6)], "swell": [("swell.wav", 0, 0.35), ("heartbeat.wav", 0.1, 0.5), ("heartbeat.wav", 0.55, 0.5)],
+                       "ring": [("tick.wav", 0, 0.6), ("tick.wav", 0.15, 0.6), ("pop.wav", 0.4, 0.6), ("sparkle.wav", 0.5, 0.35)], "watch": [("tick.wav", 0, 0.6), ("pop.wav", 0.28, 0.6)]},
+              "movie": [("paper.wav", 0, 0.6), ("thud.wav", 0.34, 0.6)], "suck": [("wobble.wav", 0.3, 0.4)],
+              "vial": {"show": [("pop.wav", 0, 0.6), ("fill.wav", 0.45, 0.4)], "pct": [("pop.wav", 0, 0.5), ("thud.wav", 0.16, 0.7)]},
+              "count": [("tick.wav", 0.25, 0.6), ("tick.wav", 0.6, 0.6), ("tick.wav", 0.95, 0.6), ("tick.wav", 1.3, 0.6), ("tick.wav", 1.65, 0.6), ("tick.wav", 2.0, 0.6), ("thud.wav", 2.45, 0.7)],   # sedi na predvolene dur 2.3
+              "venom": {"move": [("swell.wav", 0.2, 0.3), ("heartbeat.wav", 0.2, 0.5), ("heartbeat.wav", 0.6, 0.5), ("heartbeat.wav", 1.0, 0.5), ("heartbeat.wav", 1.4, 0.5)],
+                        "still": [("beep.wav", 0, 0.4)], "back": [("sparkle.wav", 0, 0.4)]},
+              "sling": [("whoosh.wav", 0, 0.4), ("paper.wav", 0.3, 0.6)], "ride": {None: [("whoosh.wav", 0, 0.6), ("thud.wav", 0.5, 0.4)], "sign": [("pop.wav", 0, 0.6), ("beep.wav", 0.05, 0.35)]},
+              "antivenom": [("pop.wav", 0, 0.6), ("sparkle.wav", 0.5, 0.5)]})
+SFX_R.update({"breath": {"hold": [("swell.wav", -0.1, 0.35), ("pop.wav", 0.1, 0.6)],
+                         "zero": [("tick.wav", -9, 0.5), ("tick.wav", -8, 0.5), ("tick.wav", -7, 0.5), ("tick.wav", -6, 0.5), ("tick.wav", -5, 0.5), ("tick.wav", -4, 0.55),
+                                  ("tick.wav", -3, 0.65), ("tick.wav", -2, 0.7), ("tick.wav", -1, 0.75), ("beep.wav", 0, 0.5)],   # kazdy tik = 1 s odpoctu
+                         "out": [("whoosh.wav", 0, 0.6), ("sparkle.wav", 0.3, 0.4)], "badge": [("pop.wav", 0, 0.6), ("sparkle.wav", 1.0, 0.45)]},
+              "gauge": {None: [("swell.wav", 0.1, 0.35), ("heartbeat.wav", 0.3, 0.5), ("heartbeat.wav", 0.74, 0.5), ("heartbeat.wav", 1.18, 0.5)], "drop": [("whoosh.wav", 0, 0.3)]},
+              "o2": {"doubt": [("pop.wav", 0, 0.6), ("beep.wav", 0.32, 0.3), ("beep.wav", 0.76, 0.3), ("beep.wav", 1.2, 0.3)], "full": [("fill.wav", 0.05, 0.45), ("sparkle.wav", 0.6, 0.45)],
+                     "pct": [("pop.wav", 0, 0.5), ("thud.wav", 0.16, 0.7)], "check": [("pop.wav", 0, 0.6), ("sparkle.wav", 0.16, 0.5)]},
+              "co2": {"pile": [("pop.wav", 0, 0.45), ("pop.wav", 0.19, 0.45), ("pop.wav", 0.38, 0.45), ("pop.wav", 0.56, 0.45), ("pop.wav", 0.75, 0.45), ("pop.wav", 0.94, 0.45), ("pop.wav", 1.12, 0.45), ("pop.wav", 1.31, 0.45), ("pop.wav", 1.5, 0.45)],
+                      "glow": [("swell.wav", 0, 0.3), ("pop.wav", 0.05, 0.5)]},
+              "alarm": {"ring": [("beep.wav", 0.1, 0.5), ("beep.wav", 0.26, 0.5), ("beep.wav", 0.42, 0.5), ("beep.wav", 0.58, 0.5), ("beep.wav", 0.74, 0.5)],
+                        "sock": [("beep.wav", -0.45, 0.5), ("beep.wav", -0.29, 0.5), ("beep.wav", -0.13, 0.5), ("paper.wav", -0.04, 0.6), ("thud.wav", 0.12, 0.6)]},
+              "burn": [("swell.wav", 0, 0.35), ("heartbeat.wav", 0.3, 0.45)],
+              "pant": [("whoosh.wav", 0.17, 0.35), ("whoosh.wav", 0.51, 0.35), ("whoosh.wav", 0.85, 0.35), ("whoosh.wav", 1.19, 0.35), ("whoosh.wav", 1.53, 0.35), ("wobble.wav", 1.9, 0.35)],
+              "water": {None: [("pour.wav", 0, 0.5)], "x": [("thud.wav", 0.16, 0.7), ("sub_hit.wav", 0.16, 0.5)], "dark": [("sub_hit.wav", 0.2, 0.6), ("air_low.wav", 0.3, 0.4)], "off": [("whoosh.wav", 0, 0.3)]}})
+SFX_R.update({"rewind": [("whoosh.wav", 0, 0.6), ("wobble.wav", 0.05, 0.5), ("tick.wav", 0.3, 0.6), ("tick.wav", 0.5, 0.6)], "step": [("pop.wav", 0, 0.75), ("tick.wav", 0.08, 0.6)],
+              "airpocket": [("paper.wav", 0, 0.5), ("swell.wav", 0.3, 0.3)], "spit": [("pop.wav", 0, 0.6), ("tick.wav", 0.55, 0.8)],
+              "wayup": [("sparkle.wav", 0, 0.5), ("pop.wav", 0.02, 0.6)], "armup": [("whoosh.wav", 0, 0.55), ("thud.wav", 0.2, 0.6), ("beep.wav", 0.55, 0.3)],
+              "squeeze": [("rumble.wav", 0, 0.5), ("thud.wav", 0.42, 0.8)], "buddy": [("pop.wav", 0.22, 0.5), ("sparkle.wav", 0.4, 0.25)],
+              "bury": [("rumble.wav", -0.1, 0.95), ("whoosh.wav", 0.35, 0.5), ("sub_hit.wav", 0.8, 0.75)],
+              "stamp": [("thud.wav", 0.1, 0.85), ("sub_hit.wav", 0.1, 0.4)], "struggle": [("wobble.wav", 0, 0.35)],
+              "spin": [("wobble.wav", 0, 0.45), ("swell.wav", 0.2, 0.3)], "mask": [("swell.wav", 0, 0.3), ("tick.wav", 0.5, 0.7), ("tick.wav", 0.8, 0.7)],
+              "timer": [("tick.wav", 0, 0.8), ("tick.wav", 0.2, 0.8), ("tick.wav", 0.4, 0.8), ("tick.wav", 0.6, 0.8), ("tick.wav", 0.8, 0.8), ("beep.wav", 1.0, 0.45)],
+              "people": [("pop.wav", 0, 0.6), ("pop.wav", 0.15, 0.5), ("thud.wav", 0.55, 0.4)], "card": [("paper.wav", 0, 0.75), ("pop.wav", 0.3, 0.5)],
+              "reach": [("swell.wav", 0, 0.35), ("sparkle.wav", 0.3, 0.4)], "release": [("whoosh.wav", -0.05, 0.55), ("sparkle.wav", 0.1, 0.4)]})
 SFX_P = {"heart": [], "stat": [("pop.wav", 0.1, 0.7), ("sparkle.wav", 0.5, 0.4)], "spine": [("swell.wav", 0, 0.3), ("pop.wav", 1.0, 0.7)],
          "bone": [("paper.wav", 0, 0.55), ("pop.wav", 1.0, 0.7)], "ear": [("wobble.wav", 0, 0.5)], "eye": [("swell.wav", 0, 0.3)],
          "kidneys": [("sub_hit.wav", 0.1, 0.3)], "brain": [("sub_hit.wav", 0, 0.25)], "blood": []}
@@ -112,6 +165,7 @@ class Composer:
         self.sfx = []
         self.js = []
         self.n = 0
+        self.day_on = False
 
     # ---------- validacia a doplnenie spec
     def anchor(self, key, line, w):
@@ -198,7 +252,7 @@ class Composer:
                                           "icon": a.get("icon", "clock"), "from": a.get("at"), "do": [{"a": "show"}]})
                             continue
                         acts.append(a)
-                    sh["do"] = acts[:3]
+                    sh["do"] = acts[:(6 if S.get("v") == 2 else 3)]
                 shots.append(sh)
                 shots += extra; extra = []
             b["shots"] = shots or [{"type": "world", "do": [{"r": "face", "arg": "worried"}]}]
@@ -249,6 +303,8 @@ class Composer:
                 if sh["type"] == "panel" and PANELS[sh["panel"]][0] not in libs:
                     libs.append(PANELS[sh["panel"]][0])
         libs.append("recipes.js")
+        if S.get("v") == 2:
+            libs.append("moments.js")
 
         E = self.emit
         E(f"// AUTO z compose.py: {S['title']}  (env {S['env']}, kit {kit['chrome']}/{kit['trans']}/{kit['pres']}/{kit['cam']})")
@@ -256,6 +312,8 @@ class Composer:
         scene0 = S["scene"]
         stands = lambda sc: bool(env["scenes"][sc].get("stand", env.get("stand", False)))   # postava stoji (tien) alebo sa vznasa
         E("var env = " + env["make"].format(lbl=js(lbl0 or "DAY"), scene=js(scene0)) + ";")
+        if S.get("v") == 2 and S["env"] == "room":           # v2 nema pocitadlo dni: kalendar a teplomer na stene by len rusili
+            E('document.getElementById("rm_gauges").style.display = "none";')
         if env.get("show"):
             E("env.show(true, 0);")
         E("var hero = PF.charBiped(" + js(hero) + ");")
@@ -306,7 +364,14 @@ class Composer:
         # ---------- HOOK
         E("\n// ===== HOOK (prvy snimok = posledny)")
         op = S.get("open") or {}
-        if op:   # otvorenie v napati (27.10.): prve 0,3 s rozhoduju -> zaber na tvar s odjazdom, nalada temy od 0, banner buchne, naraz zvuku
+        v2 = S.get("v") == 2
+        if v2:
+            E("PF.M.handheld();")
+        if S.get("hook_mode") == "B":   # hak B (v2): video zacina priamo dejom -> celok, nadpis buchne, dej riesi hook_do s casom "@s"
+            E('R.camSet("wide", 0); R.camHold(0.3);')
+            E('PF.tl.fromTo("#hookIn", { scale: 1.55 }, { scale: 1, duration: 0.3, ease: "back.out(2.4)", immediateRender: false }, 0);')
+            self.fx("sub_hit.wav", "hook", -0.1, 0.5)
+        elif op:   # otvorenie v napati (27.10.): prve 0,3 s rozhoduju -> zaber na tvar s odjazdom, nalada temy od 0, banner buchne, naraz zvuku
             E('R.camSet("face", 0); PF.CAM(1.08, 560, 900, 0.1, 0.5, "power3.out"); PF.CAM(1.0, 540, 960, 0.62, Math.max(0.3, T.b1 - 0.7), "sine.inOut"); R.camHold(T.b1 - 0.05);')
             E('PF.tl.fromTo("#hookIn", { scale: 1.3 }, { scale: 1, duration: 0.35, ease: "back.out(2)", immediateRender: false }, 0);')
             if op.get("mood"):                        # nalada hned od 1. snimku: jej uvodne prelinanie (t = 0) skratene na 0,02 s
@@ -320,7 +385,8 @@ class Composer:
         if env.get("float"):
             E("hero.bob(0, T.b1 - 0.2);")
         self.world_actions("hook", S["hook"], S.get("hook_do", []), "0.2", "T.b1", in_hook=True)
-        E('PF.O("#hook", 1, 0, T.b1 - 0.25, 0.22);')
+        hh = self.anchor("hook", S["hook"], S["hook_hide"]) if S.get("hook_hide") else None   # v2: nadpis zmizne skor (napr. ked v haku vyskocia karty volby)
+        E(f'PF.O("#hook", 1, 0, {hh[0]} - 0.22, 0.18);' if hh else 'PF.O("#hook", 1, 0, T.b1 - 0.25, 0.22);')
         ch = CHROME_SFX.get(kit["chrome"], CHROME_SFX["tape"])
 
         # ---------- BEATY
@@ -328,12 +394,14 @@ class Composer:
         for bi, b in enumerate(beats):
             k = b["key"]
             E(f"\n// ===== {b['label']}: {b['line']}")
-            self.fx("tick.wav", k, 0.02, 0.9)
-            self.fx("sub_hit.wav", k, 0, 0.45)
-            self.fx(ch[0], k, 0.03, ch[1])
-            if bi == 0:
-                E(f'PF.O("#day", 0, 1, T.{k}, 0.05);')
-            E(f'PF.DAY({js(b["label"])}, T.{k});')
+            if b["label"]:
+                self.fx("tick.wav", k, 0.02, 0.9)
+                self.fx("sub_hit.wav", k, 0, 0.45)
+                self.fx(ch[0], k, 0.03, ch[1])
+                if not self.day_on:
+                    E(f'PF.O("#day", 0, 1, T.{k}, 0.05);')
+                    self.day_on = True
+                E(f'PF.DAY({js(b["label"])}, T.{k});')
             if b.get("scene") and b["scene"] != cur_scene:   # zmena sceny (napr. hory -> vrchol); prechod + zvuk
                 E(f'env.scene({js(b["scene"])}, T.{k} + 0.05);')
                 self.fx("paper.wav" if S["env"] == "room" else "whoosh.wav", k, -0.25 if S["env"] == "room" else -0.45, 0.55)
@@ -360,14 +428,17 @@ class Composer:
             dur = float(a.get("arg") or ADUR[a["r"]]) if a["r"] in ADUR else RDUR.get(a["r"], 0.6)
             if anc:
                 ends.append(f"{anc[0]} + {dur + 0.05:.2f}")
-        E(f'var tc = Math.min(Math.max({", ".join(ends)}), T.tot - 1.2);')
+        if v2:                                        # v2: pointa doznie, kratky nadych, rychly navrat (ziadne ticho na konci)
+            E("var tc = T.tot - 0.62;")
+        else:
+            E(f'var tc = Math.min(Math.max({", ".join(ends)}), T.tot - 1.2);')
         cta = S.get("cta", S.get("direction", {}).get("cta"))
         if cta is None:
-            cta = CTAS[sum(map(ord, S["slug"])) % len(CTAS)]
+            cta = False if v2 else CTAS[sum(map(ord, S["slug"])) % len(CTAS)]
         if cta:
             E(f'PF.CTA({js(str(cta).upper())}, T.end + 0.6, tc - 0.05);')
             self.fx("pop.wav", "end", 0.6, 0.5)
-        E("PF.WORLD(true, tc); R.settle(tc, T.tot);")
+        E("PF.WORLD(true, tc); R.settle(tc, T.tot" + (", { fast: true, day: " + js(self.day_on) + " }" if v2 else "") + ");")
         if cur_scene != scene0:                       # slucka: spat do uvodnej sceny
             E(f'env.scene({js(scene0)}, tc + 0.35);')
             if stands(scene0) != stands(cur_scene):
@@ -385,8 +456,9 @@ class Composer:
         mf, mat, mname = MUSIC[mkey]
         mf = os.path.join(FACTORY, "assets", "music", mf)
         E_json = {
-            "title": S["title"], "hook": S["banner"], "voice": S.get("voice", "en-US-AndrewNeural"), "rate": S.get("rate", "+0%"), "gap": 0.5,
-            "tail": round(1.4 + max([0] + [RDUR.get(a["r"], 0.6) - 0.5 for a in end.get("do", [])]), 2),
+            "title": S["title"], "hook": S["banner"], "voice": S.get("voice", "en-US-AndrewNeural"), "rate": S.get("rate", "+0%"),
+            "gap": S.get("gap", 0.14 if v2 else 0.5),   # v2: len nadych medzi vetami (0,5 s x 6 viet boli 3 s ticha)
+            "tail": S.get("tail", 0.85) if v2 else round(1.4 + max([0] + [RDUR.get(a["r"], 0.6) - 0.5 for a in end.get("do", [])]), 2),
             "bg": S.get("bg", "#e8a18c" if S["env"] == "room" else "#dfe6ee"), "accent": accent, "kit": kit, "libs": libs,
             "description": (S.get("description", "") + "\n" + (S.get("tags") if isinstance(S.get("tags"), str) else " ".join(S.get("tags") or [])) + "\nNot medical advice.").strip(),
             "music": {"file": mf, "at": mat, "vol": music_vol(mf, mat),
@@ -433,13 +505,27 @@ class Composer:
         E(f'F("body", {t0} + 0.1);' if not in_hook else "")
         ws = words(line)
         # chronologicke poradie (stavove API a kamera ratajú s poradim volani)
-        acts = sorted(acts, key=lambda a: ws.index(norm(str(a.get("at", "")).split("#")[0])) if norm(str(a.get("at", "")).split("#")[0]) in ws else 99)
+        def order(a):                                 # "@1.2" = cas v sekundach od zaciatku vety (deje mimo slov), inak poradie slova
+            at = str(a.get("at", ""))
+            if at.startswith("@"):
+                return -1 + float(at[1:]) / 1000
+            w = norm(at.split("#")[0])
+            return ws.index(w) if w in ws else 99
+        acts = sorted(acts, key=order)
         times = []
         for j, a in enumerate(acts):
-            anc = self.anchor(k, line, a.get("at"))
+            at = str(a.get("at", ""))
+            if at.startswith("@"):
+                anc = (f'(s0("{k}") + {float(at[1:])})', k)
+                sfx_off = float(at[1:])
+            else:
+                anc = self.anchor(k, line, a.get("at"))
+                sfx_off = 0
             t = anc[0] if anc else f"({t0} + {0.45 + j * 0.9:.2f})"
             r, arg = a["r"], a.get("arg")
-            if r == "mood":
+            if r in MOMENTS:
+                call = f'PF.M.{r}({t}, {js(arg)}, {t1}, {js(a.get("o") or {})})'
+            elif r == "mood":
                 call = f'R.mood({t}, {js(arg or "normal")}, {t1})'
             elif r == "badge":
                 call = f'R.badge({t}, {js(str(arg))}, {js(str(a.get("small", "")))}, {t1})'
@@ -462,9 +548,9 @@ class Composer:
                 sx = sx.get(arg, [])
             for f, off, vol in (sx or []):
                 if anc:
-                    self.fx(f, anc[1], off, vol)
+                    self.fx(f, anc[1], off + sfx_off, vol)
         # zmurknutia v tichu (len ak ziadny recept nemeni viecka -> stav viecok ostava konzistentny)
-        if not any(a["r"] in ("face", "slump", "yawn", "nod", "recover", "hallucinate", "thumbs_up") for a in acts):
+        if not any(a["r"] in ("face", "slump", "yawn", "nod", "recover", "hallucinate", "thumbs_up", "bury", "struggle", "spin", "reach", "release", "rewind", "airpocket", "spit", "wayup", "armup", "drink", "jug", "snake", "suck", "venom", "ride", "antivenom", "breath", "pant", "water", "burn", "gauge", "co2", "alarm") for a in acts):
             E(f"hero.blink({t0} + 1.2); if ({t1} - {t0} > 3.2) hero.blink({t0} + 2.9);")
 
 

@@ -1,0 +1,83 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "What happens if you fall from a plane without a parachute?",
+ "slug": "falling-without-a-parachute",
+ "title": "Falling Without A Parachute",
+ "idea": "After about ten seconds you stop speeding up, and the only clues to surviving come from real cases, not tests.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "You fall out of a plane with no parachute.",
+ "hook_mode": "B",
+ "beats": [
+  {
+   "line": "You fall faster every second. Guess your top speed.",
+   "see": "Character tumbles belly down through clouds; a big speedometer climbs and a '? MPH' guess card pops up. Needle jumps on 'faster', card on 'Guess'."
+  },
+  {
+   "line": "About ten seconds in, the air pushing up matches gravity.",
+   "see": "Two arrows on the body: a wind arrow from below grows until it equals the gravity arrow from above; the speedometer needle freezes. Arrows equal on 'matches'."
+  },
+  {
+   "line": "Belly down, that's about one hundred twenty miles an hour.",
+   "see": "Needle locked on 120 with a stamp TOP SPEED; clouds stream past at a steady rate. Stamp on 'twenty'."
+  },
+  {
+   "line": "Honest truth. Nobody has ever tested how to survive this.",
+   "see": "Freeze frame mid fall; an empty lab clipboard labeled TESTED METHODS with a big zero. Zero on 'Nobody'."
+  },
+  {
+   "line": "Survivor cases point to three things. None is a guarantee.",
+   "see": "Three case folders slide in, each stamped NO GUARANTEE in red. Folders on 'three', stamp on 'guarantee'."
+  },
+  {
+   "line": "One. Land feet first.",
+   "see": "Step card 1 FEET FIRST; the falling figure rotates upright, feet pointing down. Rotation on 'feet'."
+  },
+  {
+   "line": "Two. Something soft, like snow or trees.",
+   "see": "Step card 2 SOFT; the ground below swaps from concrete to snow, then to a pine forest. Snow on 'snow', trees on 'trees'."
+  },
+  {
+   "line": "Three. A slope, so the stop takes longer.",
+   "see": "Step card 3 SLOPE; flat ground tilts into a long hill and a stop timer stretches from short to long. Tilt on 'slope', timer on 'longer'."
+  },
+  {
+   "line": "Vesna Vulović fell thirty three thousand feet, pinned inside a plane's tail.",
+   "see": "Paper cutout of a broken airliner tail section falling, a small figure trapped inside; altitude counter reads 33,000 FT. Counter on 'thirty', tail on 'tail'."
+  }
+ ],
+ "end": {
+  "line": "The tail hit a snowy slope. She lived. Two out of three.",
+  "see": "The tail slides down a snowy hill and stops; cards 2 SOFT and 3 SLOPE light up with check marks, card 1 stays gray. Slide on 'slope', checks on 'Two'."
+ },
+ "description": "Fall from a plane with no parachute and you stop speeding up after ten seconds. Then what?",
+ "tags": [
+  "#skydiving",
+  "#survival",
+  "#physics",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "A falling body stops speeding up when air resistance equals weight (terminal velocity), reached after roughly 10 to 12 seconds; belly-down roughly 120 mph.",
+   "source": "Textbook physics, OpenStax University Physics vol. 1 ch. 6.4 (FACTS file: TO BE RE-CHECKED before render)"
+  },
+  {
+   "claim": "There is no tested procedure for surviving a fall without a parachute.",
+   "source": "FACTS-batch-035-046.md (042)"
+  },
+  {
+   "claim": "Case reports point to landing feet first, on snow, trees or a slope, which spread the stop over more time.",
+   "source": "FACTS-batch-035-046.md (042), case reports"
+  },
+  {
+   "claim": "Vesna Vulović survived a fall of 10,160 m (33,333 ft) on 26 January 1972, pinned inside the tail section, which landed on a snowy slope; Guinness record for highest fall survived without a parachute.",
+   "source": "Guinness World Records https://www.guinnessworldrecords.com/news/2022/4/how-vesna-vulovic-survived-the-highest-fall-ever-with-no-parachute-697786.html"
+  }
+ ],
+ "notes": "Terminal velocity numbers are marked TO BE RE-CHECKED against OpenStax in the FACTS file; check before render. Script says 'belly down' so head-down speed is not implied. Vulović is clearly inside the tail, not a free body. 'Thirty three thousand feet' rounds 33,333 down. End line 'Two out of three' = snow and slope matched her case, feet first did not apply; it is a callback, not a claim she followed any method. TTS may mispronounce Vulović (voo-LOH-vitch); consider a phonetic override. Big number: about one hundred twenty miles an hour."
+}

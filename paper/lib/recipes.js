@@ -106,18 +106,30 @@ PF.R = (function () {
   var camNow = "wide", camFree = 0;
   R.focus = function (name, t) {
     if (!name || name === camNow) return;
-    var k = CAMS[PF.K.cam] || CAMS.calm, c = k[name], t0 = Math.max(camFree, t - k.dur * 0.7);
-    PF.CAM(c[0], c[1], c[2], t0, k.dur, k.ease); camFree = t0 + k.dur + 0.02; camNow = name;
+    var k = CAMS[PF.K.cam] || CAMS.calm, c = k[name], t0 = Math.max(camFree, t - k.dur * 0.7), px = c[1], py = c[2];
+    var s = PF.M && C && C.hero && PF.st[C.hero.p + "float"];   // v2: postava moze byt natocena / posunuta (zavalenie) -> ciel kamery ide s nou
+    if (s && name !== "wide" && (s.r || s.tx || s.ty)) {
+      var a = s.r * Math.PI / 180, dx = px - s.cx, dy = py - s.cy;
+      px = s.cx + dx * Math.cos(a) - dy * Math.sin(a) + s.tx; py = s.cy + dx * Math.sin(a) + dy * Math.cos(a) + s.ty;
+    }
+    PF.CAM(c[0], px, py, t0, k.dur, k.ease); camFree = t0 + k.dur + 0.02; camNow = name + (s && name !== "wide" && (s.r || s.tx || s.ty) ? "*" : "");
     if (PF.K.cam === "dynamic") PF.punch(t0 + k.dur, 1.018);
   };
   R.camSet = function (name, t) { var c = (CAMS[PF.K.cam] || CAMS.calm)[name]; PF.CAM(c[0], c[1], c[2], t, 0); camNow = name; camFree = t + 0.01; };
   R.camHold = function (t) { camFree = Math.max(camFree, t); camNow = "push"; };   // kamera je obsadena (napr. pomaly najazd v hooku)
   // koniec videa bez zakrytia: vsetko sa plynulo vrati do stavu prveho snimku, kamera na celok, zjavi sa hook (slucka)
-  R.settle = function (t, tot) {
-    reset(t, 0.6); setFace(t + 0.08, C.face0); C.hero.look(C.look0[0], C.look0[1], t + 0.08, 0.25);
-    var t0 = Math.max(camFree, t), dur = Math.max(0.2, Math.min(0.9, tot - 0.35 - t0));
+  R.settle = function (t, tot, o) {             // o.fast = rychly navrat (v2: koniec bez ticha), o.day === false = nadpis sa nepouzil
+    o = o || {};
+    reset(t, o.fast ? 0.3 : 0.6); setFace(t + 0.08, C.face0); C.hero.look(C.look0[0], C.look0[1], t + 0.08, 0.25);
+    var t0 = Math.max(camFree, t), dur = Math.max(0.15, Math.min(o.fast ? 0.4 : 0.9, tot - (o.fast ? 0.08 : 0.35) - t0));
     PF.CAM(1.0, 540, 960, t0, dur, "sine.inOut"); camNow = "wide"; camFree = t0 + dur;
-    PF.O("#day", 1, 0, t, 0.3); PF.O("#hook", 0, 1, tot - 0.8, 0.4);
+    if (o.day !== false) PF.O("#day", 1, 0, t, 0.3);
+    PF.O("#hook", 0, 1, tot - (o.fast ? 0.38 : 0.8), o.fast ? 0.3 : 0.4);
+  };
+  R.ctx = function () { return C; };            // aktualna postava a prostredie (pre momenty v moments.js)
+  R.camTo = function (t, s, px, py, dur, ease) { // kamera na lubovolny bod (neprekryva predosly pohyb)
+    dur = dur || 0.4; var t0 = Math.max(camFree, t - dur * 0.7);
+    PF.CAM(s, px, py, t0, dur, ease || "power2.out"); camFree = t0 + dur + 0.02; camNow = "custom";
   };
   R.beats = function (t0, t1, dt) { var a = []; for (var t = t0; t < t1 - 0.05; t += dt) a.push(+t.toFixed(3)); return a; };
   R.init = init; R.reset = reset; R.dirty = dirty; R.clean = clean; R.setFace = setFace;

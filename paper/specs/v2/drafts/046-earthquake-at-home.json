@@ -1,0 +1,78 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Earthquake at home: run to the doorway or get under the table?",
+ "slug": "earthquake-at-home",
+ "title": "Earthquake At Home",
+ "idea": "The doorway is an old myth; drop, cover and hold on where you are.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "The floor starts shaking. Doorway, or under the table?",
+ "choice": [
+  "DOORWAY",
+  "TABLE"
+ ],
+ "beats": [
+  {
+   "line": "To reach the doorway, you cross the room while it shakes.",
+   "see": "Card A DOORWAY highlighted; the character staggers across a tilting living room floor toward the door frame. Stagger on 'cross', room wobbles on 'shakes'."
+  },
+  {
+   "line": "A bookshelf comes down right where you were walking.",
+   "see": "A tall bookshelf topples and books rain onto the spot the character just left. Crash on 'down'."
+  },
+  {
+   "line": "Most injuries come from moving during the shaking, or from falling things.",
+   "see": "Two icons stamp onto screen: a walking figure and a falling lamp, each with an injury mark. Walker on 'moving', lamp on 'falling'."
+  },
+  {
+   "line": "And in a modern home, a doorway is no stronger than the rest.",
+   "see": "X ray view of the wall: the door frame has the same thin studs as the wall beside it; a MYTH stamp lands on card A. Studs on 'modern', stamp on 'stronger'."
+  },
+  {
+   "line": "The table wins. Drop, cover, hold on.",
+   "see": "Card B TABLE gets a green check; three quick icons flash: knees, table, hands gripping a leg. Check on 'table', icons on 'Drop', 'cover', 'hold'."
+  },
+  {
+   "line": "One. Drop onto your hands and knees.",
+   "see": "Step card 1 DROP; character drops to all fours as the floor jolts. Drop on 'Drop'."
+  },
+  {
+   "line": "Two. Get under a sturdy table and cover your head and neck.",
+   "see": "Step card 2 COVER; character crawls under the table, one arm over head and neck, a vase smashes on the tabletop above. Crawl on 'under', smash on 'cover'."
+  },
+  {
+   "line": "Three. Hold on until the shaking stops.",
+   "see": "Step card 3 HOLD ON; the table slides a little and the character slides with it, gripping a leg, until the room goes still. Grip on 'Hold', stillness on 'stops'."
+  }
+ ],
+ "end": {
+  "line": "Next shake, you're under the table, not in the doorway.",
+  "see": "The floor jolts again as in the hook; this time the character is already under the table while the empty doorway gets a red X. Jolt on 'shake', X on 'doorway', loops into the hook."
+ },
+ "description": "Earthquake at home: run for the doorway or get under the table? The doorway is an old myth.",
+ "tags": [
+  "#earthquake",
+  "#survival",
+  "#safety",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Do not stand in a doorway: in modern homes doorways are no stronger than the rest of the house. Do not run outside or to another room during shaking.",
+   "source": "Earthquake Country Alliance https://www.earthquakecountry.org/dropcoverholdon/"
+  },
+  {
+   "claim": "Most injuries come from falling and flying objects and from people trying to move during the shaking.",
+   "source": "McBride et al., USGS-led study (as listed in FACTS-batch-035-046.md; snippet, no number used)"
+  },
+  {
+   "claim": "Drop onto hands and knees, Cover head and neck (under a sturdy table if one is near), Hold on until the shaking stops.",
+   "source": "Ready.gov https://www.ready.gov/earthquakes ; Earthquake Country Alliance https://www.earthquakecountry.org/dropcoverholdon/"
+  }
+ ],
+ "notes": "Correct card: B TABLE. The FACTS file has no usable number for this topic (injury study is snippet only, Northridge numbers are AVOID), so this video has no stake number; the stake beat is 'most injuries come from moving or falling things'. The bookshelf falling is a dramatization of that fact, not a claim. Hook implies a table is nearby, which matches 'under a sturdy table if one is near'. Did not include the in-bed rule or the triangle of life to stay in the word budget. 'X ray' written without hyphen in see only."
+}

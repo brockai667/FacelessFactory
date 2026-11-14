@@ -1,0 +1,91 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "What happens to your body when a fighter jet pulls nine G?",
+ "slug": "pulling-nine-g",
+ "title": "Pulling Nine G",
+ "idea": "Hard G drains the blood from your head, your sight shuts down in stages, and pilots squeeze it back up.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "You pull a hard turn in a fighter jet.",
+ "hook_mode": "B",
+ "beats": [
+  {
+   "line": "At nine G, your head weighs nine times as much.",
+   "see": "G meter in the cockpit snaps to 9; the pilot's head sinks into the seat as a weight tag reads x9. Hits on 'nine' (second)."
+  },
+  {
+   "line": "The blood drains out of your head.",
+   "see": "Cutaway body: red blood level slides down from the head into the torso and legs like a falling thermometer. Hits on 'drains'."
+  },
+  {
+   "line": "First the colors fade and the edges go gray.",
+   "see": "The whole frame loses color, then gray creeps in from the screen edges, the side of the cockpit vanishes. Hits on 'gray'."
+  },
+  {
+   "line": "Then everything goes black, but you're still awake.",
+   "see": "Screen goes fully black; only the pilot's eyes stay open as two white cutouts blinking in the dark. Hits on 'black', eyes on 'awake'."
+  },
+  {
+   "line": "Then the lights go out. Guess how long for.",
+   "see": "Eyes close, head drops forward; a big guess counter appears with '? SECONDS' and a ticking dial. Hits on 'out', counter on 'Guess'."
+  },
+  {
+   "line": "About twelve seconds out cold. Then roughly fifteen more, confused.",
+   "see": "Counter spins to 12 with a stamp OUT COLD, then a second counter runs to 15 labeled CONFUSED while the pilot's eyes swirl. Hits on 'twelve' and 'fifteen'."
+  },
+  {
+   "line": "Back to the start of the turn. Pilots fight back.",
+   "see": "Tape rewinds: color floods back, blood level rises; the pilot grips the stick and sets jaw. Rewind on 'Back', grip on 'fight'."
+  },
+  {
+   "line": "One. Squeeze your legs and stomach hard.",
+   "see": "Step card 1 SQUEEZE; legs and belly tense and glow, blood level nudges up toward the head. Hits on 'Squeeze'."
+  },
+  {
+   "line": "Two. Breathe in short, forced bursts.",
+   "see": "Step card 2 SHORT BREATHS; three quick puff clouds pop from the mask in rhythm. Hits on 'short' and 'bursts'."
+  },
+  {
+   "line": "Three. Your G suit squeezes your legs tight.",
+   "see": "Step card 3 G SUIT; the trousers inflate like a balloon around the legs and the blood level holds at the head. Hits on 'squeezes'."
+  }
+ ],
+ "end": {
+  "line": "Pull the turn again, and this time keep the lights on.",
+  "see": "Jet banks into the same turn as the hook; the frame stays in full color, pilot gives a thumbs up. Turn on 'Pull', color holds on 'lights'."
+ },
+ "description": "Pull nine G in a fighter jet and your sight shuts down in stages. Guess how long you black out.",
+ "tags": [
+  "#fighterjet",
+  "#survival",
+  "#aviation",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "At nine G everything weighs nine times as much, including your head.",
+   "source": "Basic physics, as listed in FACTS-batch-035-046.md (041)"
+  },
+  {
+   "claim": "High positive G pulls blood away from the head and the brain runs short of oxygen.",
+   "source": "FAA/CAMI report DOT/FAA/AM-23/6 (Copeland & Whinnery 2023) https://rosap.ntl.bts.gov/view/dot/66373/dot_66373_DS1.pdf"
+  },
+  {
+   "claim": "With slow onset the order is gray-out (loss of colour and side vision), black-out (no vision but still awake), then loss of consciousness (G-LOC).",
+   "source": "FAA/CAMI report DOT/FAA/AM-23/6 (Copeland & Whinnery 2023) https://rosap.ntl.bts.gov/view/dot/66373/dot_66373_DS1.pdf"
+  },
+  {
+   "claim": "G-LOC: about 12 seconds fully unconscious, then roughly 15 more seconds confused.",
+   "source": "Whinnery & Whinnery 1990, 501 centrifuge episodes (as listed in FACTS-batch-035-046.md, OK-number)"
+  },
+  {
+   "claim": "Pilots fight it with the anti-G straining manoeuvre (tense legs and abdomen, short forced breaths) and a G-suit that squeezes the legs.",
+   "source": "FAA/CAMI report DOT/FAA/AM-23/6 https://rosap.ntl.bts.gov/view/dot/66373/dot_66373_DS1.pdf"
+  }
+ ],
+ "notes": "Stage order (gray, black, out) is the slow-onset order; with very fast onset there is no warning, which the script does not claim either way. 'Then the lights go out' = G-LOC. 'About twelve seconds' is the OK-number; 'roughly fifteen more' is from the same study. Did not use the 4 or 5 G threshold (snippet only). 'G suit' written without hyphen because of the no-dash rule. Big number: about twelve seconds."
+}

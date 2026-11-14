@@ -1,0 +1,83 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "What happens if you fall into a black hole?",
+ "slug": "into-a-black-hole",
+ "title": "Into A Black Hole",
+ "idea": "A black hole stretches you like spaghetti, and its size decides when: seconds inside a giant one, far outside a small one.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "You just fell past the edge of our galaxy's black hole.",
+ "hook_mode": "B",
+ "beats": [
+  {
+   "line": "Not even light can get back out now.",
+   "see": "Behind the falling hero, a beam of light curls back and gets swallowed by the dark ring on 'light'; the stars behind him go black on 'out'."
+  },
+  {
+   "line": "Your feet get pulled harder than your head, and you start to stretch.",
+   "see": "Feet first, the paper hero's legs lengthen on 'feet', the whole body pulls taller and thinner on 'stretch'."
+  },
+  {
+   "line": "Guess how many seconds you have left.",
+   "see": "Big stopwatch with a blinking '?' and a guess dial; countdown starts on 'Guess'."
+  },
+  {
+   "line": "Twelve point eight. Then the stretch tears you apart like spaghetti.",
+   "see": "Stopwatch lands on 12.8 on 'Twelve point eight'; the hero becomes a long noodle strand that spirals in on 'spaghetti'."
+  },
+  {
+   "line": "Back up. Your friend, watching from far away, sees something else.",
+   "see": "Whoosh out on 'Back'; a friend in a paper spaceship looks through a telescope on 'friend'."
+  },
+  {
+   "line": "You never quite reach the edge. You slow down, turn red and fade.",
+   "see": "In the telescope view the hero hangs near the ring, slows on 'slow', tints red on 'red' and dims to nothing on 'fade'."
+  },
+  {
+   "line": "A small black hole rips you apart hundreds of kilometers before its edge.",
+   "see": "Split screen: a tiny black hole; the hero stretches and snaps far out on 'rips', a distance ruler marks 'HUNDREDS OF KM' on 'hundreds'."
+  },
+  {
+   "line": "The bigger the black hole, the later the stretch.",
+   "see": "Small and giant black holes side by side; a stretch marker slides from far outside the small one to inside the giant one on 'later'."
+  }
+ ],
+ "end": {
+  "line": "Watch again and count all twelve point eight seconds.",
+  "see": "Stopwatch resets to 0 on 'again' and starts counting as the hero falls back toward the edge (loops into hook)."
+ },
+ "description": "You cross the edge of our galaxy's black hole. How many seconds until you turn into spaghetti?",
+ "tags": [
+  "#blackhole",
+  "#space",
+  "#astronomy",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Past the event horizon nothing, not even light, gets back out.",
+   "source": "NASA https://science.nasa.gov/universe/black-holes/"
+  },
+  {
+   "claim": "Tidal forces stretch a falling object (spaghettification).",
+   "source": "NASA https://science.nasa.gov/universe/what-happens-when-something-gets-too-close-to-a-black-hole/"
+  },
+  {
+   "claim": "At a 4.3-million-Sun black hole like Sagittarius A*, destruction by spaghettification follows 12.8 seconds after crossing the horizon.",
+   "source": "NASA Goddard visualization (Schnittman) https://science.nasa.gov/universe/black-holes/supermassive-black-holes/new-nasa-black-hole-visualization-takes-viewers-beyond-the-brink/"
+  },
+  {
+   "claim": "To a distant observer the faller never quite gets there: slows, reddens and fades.",
+   "source": "NASA Goddard page (same URL) ; NASA black hole FAQ https://science.nasa.gov/apod/frequently-asked-questions-faqs-on-black-holes"
+  },
+  {
+   "claim": "Small stellar-mass black holes rip objects apart before the horizon, hundreds of kilometers out.",
+   "source": "NASA black hole FAQ https://science.nasa.gov/apod/frequently-asked-questions-faqs-on-black-holes"
+  }
+ ],
+ "notes": "Guess answer: 12.8 seconds. 'Our galaxy's black hole' = Sagittarius A*; NASA's 12.8 s is for a 4.3-million-Sun hole 'like' Sgr A* (Sgr A* is about that mass), acceptable shorthand but flag for review. 'Feet pulled harder than head' is the plain explanation of tidal stretching, not a separate claim. 'Kilometers' kept from FACTS rather than converting to miles. Line 2 says 'you start to stretch' right after the horizon, and destruction comes 12.8 s later, consistent with NASA; no claim of being 'fine' or 'frozen forever'."
+}
