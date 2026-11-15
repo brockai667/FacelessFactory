@@ -1,0 +1,464 @@
+{
+ "v": 2,
+ "topic": "A tornado is coming while you drive on the highway: is the overpass safe?",
+ "slug": "tornado-on-the-highway",
+ "title": "Tornado On The Highway",
+ "idea": "The highway overpass looks like a roof but is a trap, not a shelter.",
+ "test": {
+  "hook": "B",
+  "engage": "howto_card"
+ },
+ "hook": "A tornado is coming, and you're on the highway.",
+ "banner": [
+  "TORNADO ON",
+  "THE HIGHWAY"
+ ],
+ "hook_mode": "B",
+ "env": "field",
+ "scene": "road",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "brown",
+  "outfit": "hoodie",
+  "hairStyle": "short",
+  "hair": "#2a1d17",
+  "suit": "#3f9a6b",
+  "suitDark": "#2f7a53"
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "highway",
+   "at": "@0.0"
+  },
+  {
+   "r": "highway",
+   "arg": "look",
+   "at": "tornado"
+  },
+  {
+   "r": "highway",
+   "arg": "flash",
+   "at": "coming"
+  },
+  {
+   "r": "tnface",
+   "arg": "shocked",
+   "at": "highway"
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "An overpass ahead looks like the perfect roof.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "highway",
+       "arg": "bridge",
+       "at": "overpass"
+      },
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "ahead"
+      },
+      {
+       "r": "tnface",
+       "arg": "smile",
+       "at": "perfect"
+      },
+      {
+       "r": "highway",
+       "arg": "glow",
+       "at": "roof"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "But wind under a bridge is usually faster.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "ovp,look,face",
+       "at": "But"
+      },
+      {
+       "r": "underpass",
+       "at": "But"
+      },
+      {
+       "r": "underpass",
+       "arg": "wind",
+       "at": "wind"
+      },
+      {
+       "r": "underpass",
+       "arg": "fast",
+       "at": "faster"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "And you're a sitting target for flying debris.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "underpass",
+       "arg": "crouch",
+       "at": "sitting"
+      },
+      {
+       "r": "underpass",
+       "arg": "target",
+       "at": "target"
+      },
+      {
+       "r": "underpass",
+       "arg": "debris",
+       "at": "flying"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Oklahoma, nineteen ninety nine. Winds of about three hundred miles an hour.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "under,pose,face,look",
+       "at": "Oklahoma"
+      },
+      {
+       "r": "highway",
+       "arg": "flash",
+       "at": "Oklahoma"
+      },
+      {
+       "r": "radar",
+       "at": "Oklahoma"
+      },
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "Winds"
+      },
+      {
+       "r": "tnface",
+       "arg": "shocked",
+       "at": "three"
+      },
+      {
+       "r": "radar",
+       "arg": "hit",
+       "at": "three"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three people died under or near overpasses.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ovmap",
+       "at": "Three"
+      },
+      {
+       "r": "ovmap",
+       "arg": "mark",
+       "at": "people",
+       "o": {
+        "step": 0.35
+       }
+      },
+      {
+       "r": "tnface",
+       "arg": "worried",
+       "at": "died"
+      },
+      {
+       "r": "look",
+       "arg": "down",
+       "at": "near"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Let's drive that road again.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "ovmap,look,face",
+       "at": "Let's"
+      },
+      {
+       "r": "rewind",
+       "at": "drive"
+      },
+      {
+       "r": "highway",
+       "arg": "rewind",
+       "at": "drive"
+      },
+      {
+       "r": "tnface",
+       "arg": "smile",
+       "at": "again"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Best is a basement or an inner room, not a car.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "BASEMENT / INNER ROOM",
+        "y": 130,
+        "size": 52
+       }
+      },
+      {
+       "r": "shelter",
+       "at": "One"
+      },
+      {
+       "r": "shelter",
+       "arg": "base",
+       "at": "basement"
+      },
+      {
+       "r": "shelter",
+       "arg": "inner",
+       "at": "inner"
+      },
+      {
+       "r": "shelter",
+       "arg": "nocar",
+       "at": "car"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Stuck in the car? Stay buckled, head below the windows.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "house,pose,look,face",
+       "at": "Two"
+      },
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "BUCKLED, HEAD DOWN",
+        "y": 130,
+        "size": 52
+       }
+      },
+      {
+       "r": "buckle",
+       "arg": "xray",
+       "at": "Stay"
+      },
+      {
+       "r": "buckle",
+       "arg": "click",
+       "at": "buckled"
+      },
+      {
+       "r": "buckle",
+       "arg": "duck",
+       "at": "below"
+      },
+      {
+       "r": "buckle",
+       "arg": "shards",
+       "at": "windows"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Or lie somewhere clearly lower than the road, covering your head.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "belt,face",
+       "at": "Three"
+      },
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "LIE LOW, COVER HEAD",
+        "y": 130,
+        "size": 52
+       }
+      },
+      {
+       "r": "ditch",
+       "at": "Three"
+      },
+      {
+       "r": "ditch",
+       "arg": "lie",
+       "at": "lie"
+      },
+      {
+       "r": "ditch",
+       "arg": "line",
+       "at": "lower"
+      },
+      {
+       "r": "ditch",
+       "arg": "cover",
+       "at": "covering"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Rewatch it. That overpass won't look like a roof again.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "ditch,step,far,face,look",
+    "at": "Rewatch"
+   },
+   {
+    "r": "highway",
+    "arg": "cam",
+    "at": "Rewatch"
+   },
+   {
+    "r": "card",
+    "arg": "SAVE THIS",
+    "at": "Rewatch",
+    "o": {
+     "text": [
+      "1 BASEMENT / INNER ROOM",
+      "2 BUCKLED, HEAD DOWN",
+      "3 LIE LOW, COVER HEAD"
+     ],
+     "size": 50,
+     "y": 140
+    }
+   },
+   {
+    "r": "highway",
+    "arg": "bridge",
+    "at": "overpass"
+   },
+   {
+    "r": "stamp",
+    "arg": "TRAP",
+    "at": "roof",
+    "o": {
+     "y": 1370,
+     "size": 80,
+     "hold": 0.8
+    }
+   },
+   {
+    "r": "highway",
+    "arg": "outro",
+    "at": "again"
+   }
+  ]
+ },
+ "description": "A tornado is coming and you're on the highway. The overpass looks safe. It's a trap.",
+ "tags": [
+  "#tornado",
+  "#survival",
+  "#weather",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Highway overpasses are not shelters: wind speeds are typically higher there and you are a stationary target for flying debris.",
+   "source": "NWS Norman https://www.weather.gov/oun/safety-overpass"
+  },
+  {
+   "claim": "On 3 May 1999 in Oklahoma three people were killed under or near overpasses.",
+   "source": "NWS Norman https://www.weather.gov/oun/safety-overpass"
+  },
+  {
+   "claim": "Strongest tornado wind ever measured: about 300 mph (NSSL gives 318 mph), by mobile Doppler radar, Bridge Creek-Moore, Oklahoma, 3 May 1999.",
+   "source": "NOAA NSSL https://www.nssl.noaa.gov/education/svrwx101/tornadoes/faq/ (OK-number)"
+  },
+  {
+   "claim": "Go to a basement or safe room, else an interior room away from windows; a car is not safe. If caught in a car: stay buckled, head down below the windows, or lie in a spot clearly lower than the road; cover head and neck.",
+   "source": "NWS https://www.weather.gov/safety/tornado-during ; https://www.ready.gov/tornadoes"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 2,
+ "factcheck": {
+  "date": "2026-11-15",
+  "ok": true,
+  "by": "claude",
+  "note": "NWS Norman: overpasses are not shelters, wind speeds typically higher there and you are a stationary target for debris; 3 May 1999 three people killed under or near overpasses. NSSL: about 300 mph (318) measured by mobile Doppler, Bridge Creek-Moore, same outbreak, shown as a separate radar card, not at the bridges. NWS/Ready.gov: basement/safe room or interior room, car is not safe; if caught in a car stay buckled with head below the windows, or lie in an area clearly lower than the road and cover your head."
+ }
+}

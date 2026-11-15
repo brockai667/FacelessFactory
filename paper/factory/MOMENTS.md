@@ -340,3 +340,7 @@ SFX offsets are relative to the action anchor (word time or sentence start + `@s
 - Choice cards have no text-size option; long labels clip. Wrap the label in `<span style="font-size:62px">`.
 - Key insets must be readable on a phone: at least about 420 px wide, label text at least 30 px. Scenes drawn as small icons in the middle of an empty frame look weak; fill roughly y 420–1400.
 - edge-tts sometimes fails once with NoAudioReceived; retry.
+- The beat-start body camera follows the hero's offset and rotation. A pack that moves or rotates the hero (lying down, sitting in a car) must reset the camera itself, otherwise the next beat starts with a jump (see the "highway cam" action in `pack_tornado.js`).
+- `compose.py` without `--snap` or `--render` builds nothing, so `times.py` has no `build/index.html` to read. Run one `--snap` first.
+- `tts.py` saves `vo_cache.json` only after every line succeeded. When edge-tts is flaky, one failed line throws away the whole run; do not change spoken lines in a polish round, so the cache stays valid.
+- The last frame must equal frame 0. Stamps, cards and props of the end shot have to be gone before the return to the hook pose, and a looping background element (funnel, waves) should be back in its start phase.

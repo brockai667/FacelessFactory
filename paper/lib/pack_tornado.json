@@ -1,0 +1,12 @@
+{"moments": {
+ "highway": {"dur": 1.0, "noblink": true, "sfx": {"": [["air_low.wav", 0, 0.5], ["rumble.wav", 0.1, 0.35]], "bridge": [["whoosh.wav", 0, 0.45], ["rumble.wav", 0.2, 0.3]], "glow": [["sparkle.wav", 0, 0.4], ["pop.wav", 0, 0.35]],
+   "off": [], "flash": [["sub_hit.wav", 0, 0.5], ["rumble.wav", 0.05, 0.55]], "rewind": [["whoosh.wav", 0, 0.45], ["wobble.wav", 0.2, 0.35]], "near": [["rumble.wav", 0, 0.4]], "look": [["whoosh.wav", 0, 0.25]], "cam": [], "outro": []}},
+ "underpass": {"dur": 1.0, "noblink": true, "sfx": {"": [["whoosh.wav", -0.05, 0.5], ["air_low.wav", 0, 0.45]], "wind": [["air_low.wav", 0, 0.55]], "fast": [["whoosh.wav", 0, 0.5], ["air_low.wav", 0, 0.6], ["whoosh.wav", 0.35, 0.4]],
+   "crouch": [["thud.wav", 0.15, 0.4]], "target": [["thud.wav", 0.18, 0.5], ["beep.wav", 0.3, 0.35]], "debris": [["whoosh.wav", 0, 0.5], ["whoosh.wav", 0.28, 0.45], ["whoosh.wav", 0.55, 0.45], ["thud.wav", 0.6, 0.45]]}},
+ "radar": {"dur": 1.0, "sfx": {"": [["pop.wav", 0, 0.5], ["beep.wav", 0.2, 0.3], ["beep.wav", 0.5, 0.3]], "hit": [["swell.wav", -0.35, 0.35], ["thud.wav", 0.1, 0.55], ["sub_hit.wav", 0.1, 0.4]]}},
+ "ovmap": {"dur": 1.0, "sfx": {"": [["paper.wav", 0, 0.45]], "mark": [["tick.wav", 0, 0.35], ["tick.wav", 0.35, 0.35], ["tick.wav", 0.7, 0.35]]}},
+ "shelter": {"dur": 1.0, "noblink": true, "sfx": {"": [["whoosh.wav", -0.05, 0.45], ["thud.wav", 0.3, 0.3], ["thud.wav", 0.55, 0.3]], "base": [["sparkle.wav", 0, 0.45], ["pop.wav", 0.1, 0.4]], "inner": [["pop.wav", 0.1, 0.4]], "nocar": [["thud.wav", 0.12, 0.55], ["sub_hit.wav", 0.12, 0.3]]}},
+ "buckle": {"dur": 0.8, "noblink": true, "sfx": {"xray": [["swell.wav", 0, 0.3]], "click": [["tick.wav", 0.28, 0.6], ["pop.wav", 0.3, 0.4]], "duck": [["whoosh.wav", 0, 0.45], ["thud.wav", 0.3, 0.4]], "shards": [["sparkle.wav", 0, 0.45], ["whoosh.wav", 0.05, 0.4]]}},
+ "tnface": {"dur": 0.4, "sfx": []},
+ "ditch":{"dur": 1.0, "noblink": true, "sfx": {"": [["whoosh.wav", -0.05, 0.45], ["air_low.wav", 0, 0.45]], "lie": [["whoosh.wav", 0, 0.35], ["thud.wav", 0.38, 0.5]], "line": [["paper.wav", 0, 0.4], ["pop.wav", 0.1, 0.35]], "cover": [["thud.wav", 0.2, 0.35], ["air_low.wav", 0.2, 0.4]]}}
+}}
