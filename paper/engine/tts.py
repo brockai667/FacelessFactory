@@ -68,9 +68,10 @@ class Kit:
                 rec = cache[ck]
             else:
                 ws = []
+                part = mp3 + ".part"                 # do docasneho suboru: neuspesny pokus neprepise hotovu nahravku
                 for att in range(6):                 # edge-tts obcas vrati prazdno alebo NoAudioReceived (27.10.) -> skus znova
                     try:
-                        ws = asyncio.run(self._tts(text, mp3))
+                        ws = asyncio.run(self._tts(text, part))
                     except Exception as e:
                         print(f"   [tts] pokus {att + 1}: {type(e).__name__}", flush=True)
                         ws = []
@@ -78,12 +79,23 @@ class Kit:
                         break
                     time.sleep(5 * (att + 1))
                 if not ws:
+                    if os.path.exists(part):
+                        os.remove(part)
                     raise RuntimeError(f"edge-tts nevratil casy slov pre: {text}")
+                os.replace(part, mp3)
                 rec = {"file": k, "dur": round(probe(mp3), 3), "words": ws}
                 cache[ck] = rec
+                self._save_cache(cache, cache_f)     # hned po kazdej vete: vypadok pri dalsej vete nezahodi hotove (15.11.)
             toks = text.split()
             for i, w in enumerate(rec["words"]):
                 w["disp"] = toks[i] if len(toks) == len(rec["words"]) else w["w"]
             recs[k] = rec
-        json.dump(cache, open(cache_f, "w", encoding="utf-8"), indent=1)
+        self._save_cache(cache, cache_f)
         return VO(lines, recs, start, gap)
+
+    @staticmethod
+    def _save_cache(cache, cache_f):
+        tmp = cache_f + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(cache, f, indent=1)
+        os.replace(tmp, cache_f)
