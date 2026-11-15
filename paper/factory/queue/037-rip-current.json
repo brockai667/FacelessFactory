@@ -1,0 +1,434 @@
+{
+ "v": 2,
+ "topic": "What happens if a rip current drags you out to sea?",
+ "slug": "rip-current",
+ "title": "Caught In A Rip Current",
+ "idea": "A rip current pulls you out, not under; fighting it is what wears swimmers out, so float, swim sideways, wave.",
+ "test": {
+  "hook": "A",
+  "engage": "howto_card"
+ },
+ "hook": "The sea is pulling you out. What's your first move?",
+ "banner": [
+  "CAUGHT IN A",
+  "RIP CURRENT"
+ ],
+ "env": "field",
+ "scene": "meadow",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "dark",
+  "outfit": "tshirt",
+  "hairStyle": "bun",
+  "suit": "#e2475b",
+  "suitDark": "#b8344a"
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "sea",
+   "at": "@0.0"
+  },
+  {
+   "r": "sea",
+   "arg": "flow",
+   "at": "pulling",
+   "o": {
+    "hold": 1.6
+   }
+  },
+  {
+   "r": "swim",
+   "at": "first",
+   "o": {
+    "dur": 0.6
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "The beach shrinks, even though you're swimming hard toward it.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "swim",
+       "at": "@0.0"
+      },
+      {
+       "r": "look",
+       "arg": "left",
+       "at": "beach"
+      },
+      {
+       "r": "sea",
+       "arg": "shrink",
+       "at": "shrinks"
+      },
+      {
+       "r": "sweat",
+       "at": "hard"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "A rip current flows out at up to eight feet per second.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ripmap",
+       "at": "@0.0",
+       "o": {
+        "y0": 720,
+        "y1": 960
+       }
+      },
+      {
+       "r": "ripmap",
+       "arg": "speed",
+       "at": "eight"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "That's faster than an Olympic swimmer.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ripmap",
+       "arg": "race",
+       "at": "That's"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Fighting it wears out even strong swimmers. That's how people drown.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ripmap",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "energy",
+       "arg": 1,
+       "at": "@0.15"
+      },
+      {
+       "r": "swim",
+       "arg": "tired",
+       "at": "Fighting"
+      },
+      {
+       "r": "energy",
+       "arg": 0.2,
+       "at": "wears",
+       "o": {
+        "dur": 1.4
+       }
+      },
+      {
+       "r": "energy",
+       "arg": 0,
+       "at": "drown",
+       "o": {
+        "dur": 0.5,
+        "blink": true
+       }
+      },
+      {
+       "r": "face",
+       "arg": "worried",
+       "at": "drown"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Here's the twist. It pulls you out, not under.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "energy,look",
+       "at": "@0.0"
+      },
+      {
+       "r": "sea",
+       "arg": "flow",
+       "at": "twist",
+       "o": {
+        "hold": 2.2
+       }
+      },
+      {
+       "r": "swim",
+       "arg": "drift",
+       "at": "pulls"
+      },
+      {
+       "r": "sea",
+       "arg": "under",
+       "at": "pulls",
+       "o": {
+        "dx": 140,
+        "xdelay": 0.88,
+        "hold": 1.9
+       }
+      },
+      {
+       "r": "stamp",
+       "arg": "OUT,|NOT UNDER",
+       "at": "under",
+       "o": {
+        "y": 170,
+        "size": 80,
+        "rot": -5
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Float. Let it carry you and save your energy.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "FLOAT",
+        "y": 130
+       }
+      },
+      {
+       "r": "swim",
+       "arg": "float",
+       "at": "Float",
+       "o": {
+        "drift": 40
+       }
+      },
+      {
+       "r": "energy",
+       "arg": 0.12,
+       "at": "carry",
+       "o": {
+        "dur": 0.4
+       }
+      },
+      {
+       "r": "energy",
+       "arg": 0.5,
+       "at": "save",
+       "o": {
+        "dur": 0.9,
+        "flash": true
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Swim sideways, along the beach, until it lets go.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "energy",
+       "at": "@0.0"
+      },
+      {
+       "r": "ripmap",
+       "at": "@0.0",
+       "o": {
+        "y0": 800,
+        "y1": 800
+       }
+      },
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "SWIM SIDEWAYS",
+        "y": 130
+       }
+      },
+      {
+       "r": "ripmap",
+       "arg": "side",
+       "at": "Swim",
+       "o": {
+        "dur": 2.4
+       }
+      },
+      {
+       "r": "ripmap",
+       "arg": "free",
+       "at": "lets"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Still stuck? Float and wave so a lifeguard sees you.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ripmap",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "FLOAT + WAVE",
+        "y": 130
+       }
+      },
+      {
+       "r": "look",
+       "arg": "left",
+       "at": "stuck"
+      },
+      {
+       "r": "lifeguard",
+       "at": "Float"
+      },
+      {
+       "r": "swim",
+       "arg": "wave",
+       "at": "wave"
+      },
+      {
+       "r": "lifeguard",
+       "arg": "blow",
+       "at": "sees"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Still swimming straight back? Float first, then save this.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "tower,step,swim",
+    "at": "Still"
+   },
+   {
+    "r": "swim",
+    "at": "swimming",
+    "o": {
+     "dur": 0.6
+    }
+   },
+   {
+    "r": "swim",
+    "arg": "freeze",
+    "at": "back"
+   },
+   {
+    "r": "swim",
+    "arg": "lean",
+    "at": "Float"
+   },
+   {
+    "r": "card",
+    "arg": "SAVE THIS",
+    "at": "save",
+    "o": {
+     "text": [
+      "1 FLOAT",
+      "2 SWIM SIDEWAYS",
+      "3 FLOAT & WAVE"
+     ],
+     "size": 76,
+     "y": 1080
+    }
+   }
+  ]
+ },
+ "description": "A rip current is dragging you out to sea. Your first move decides everything. Save these three.",
+ "tags": [
+  "#ripcurrent",
+  "#survival",
+  "#beach",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "A rip current is a strong, narrow flow of water away from shore; it carries you out, it does not pull you under.",
+   "source": "NWS https://www.weather.gov/news/211309-7ripcurrent"
+  },
+  {
+   "claim": "Rips can flow up to 8 feet per second, faster than an Olympic swimmer (typical 1 to 2 ft/s).",
+   "source": "NWS https://www.weather.gov/safety/ripcurrent-science"
+  },
+  {
+   "claim": "Swimming straight back against a rip exhausts even strong swimmers; rips are linked to an estimated 100+ US drownings a year.",
+   "source": "NWS https://www.weather.gov/safety/ripcurrent-science ; Brewster et al., NHESS 2019 https://nhess.copernicus.org/articles/19/389/2019/"
+  },
+  {
+   "claim": "Stay calm, don't fight it, float to save energy, swim parallel to shore until out of it; if you can't, float and wave or yell for help.",
+   "source": "NWS https://www.weather.gov/safety/beach-ripcurrents-hazards ; MacMahan / McCarroll 2014 on float-first order"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 2,
+ "factcheck": {
+  "date": "2026-11-14",
+  "ok": true,
+  "by": "claude",
+  "note": "NWS: rip carries you out, not under; usually 1-2 ft/s, measured up to 8 ft/s (faster than an Olympic swimmer); fighting it exhausts strong swimmers; float to save energy, swim parallel to shore, if you can't escape float and wave/yell. Float-first order per MacMahan/McCarroll research note in FACTS-batch-035-046."
+ }
+}

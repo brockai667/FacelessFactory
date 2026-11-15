@@ -322,3 +322,14 @@ SFX offsets are relative to the action anchor (word time or sentence start + `@s
 - Hook B: the camera/title at t=0 differ a little from the settle frame at the end (engine behaviour, same in 033). Hero, backdrop, light and face must still match.
 - Two packs must not use the same moment name or element id; prefix ids with `mo_<pack>`.
 - The render CHECK step may flag low contrast on decorative text and overlapping text blocks; look at the frame it names and fix real overlaps.
+- Arms are drawn IN FRONT of the head: an arm raised overhead or waving crosses the face unless the body is tilted or the arm goes out to the side.
+- Never tween GSAP `x`/`y`/`scale` on an SVG group that already has a `transform` attribute (it gets overwritten). Wrap the content in an inner group without one, or use `PF.P` + `PF.X`.
+- `PF.VO.total` is 0 during some build passes; guard endless loops with `if (PF.VO.total > 0)` (see `handheld`).
+- The `face` recipe moves the camera to a face close-up (it returns "face"); on a tilted or lying hero that crops badly. Inside a pack use `R.setFace(t, name)` when the camera should stay.
+- `step` tidies only its own catalog peers (airpocket, spit, wayup). Things made by a pack need an explicit `clear` action with the pack's dirty keys.
+- Own full-screen backdrop over an engine env (sea, shaft, sky): hide or cover the env layers (`#fd_B/#fd_M/#fd_F` groups of the scene), insert the backdrop before `<p>float` (behind the hero) and a front layer after it if the hero stands in something, and turn the hero shadow off (`hero.shadow(false, 0)`). Worked examples: `lib/pack_rip.js` (`sea`), `lib/pack_elevator.js` (`lift`, `rig`, `tower`).
+- Render QC (HyperFrames check, runs with `--render`, not with `--snap`) FAILS the render when two text blocks overlap, also inside one SVG group. Leave line spacing in multi-line SVG labels and keep cards apart.
+- Under the rtk shell wrapper `grep 'a\|b'` can return nothing; use `command grep -a` or the Grep tool.
+- The engine positions SVGs inside cards absolutely, so a label and a graphic stacked in one card overlap. Give your own SVG `style="position:static"` (see the 7 MPH sticker in `pack_elevator.js`).
+- An overlay or a face set late in the last beat leaks into the end shot. Make the first `end.do` action a `clear` of your dirty keys (and `face`) on the first word of the end line, so the hero is back at `face0` before the loop.
+- Do not start two renders of the same slug at once (they share `episodes/<slug>/build`), and wait for a background render to finish before reading its sheets.

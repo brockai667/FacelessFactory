@@ -1,0 +1,10 @@
+{"moments": {
+ "sea": {"dur": 1.0, "sfx": {"": [], "shrink": [["whoosh.wav", 0, 0.4]], "flow": [["whoosh.wav", 0, 0.45], ["pour.wav", 0.1, 0.3]], "under": [["pop.wav", 0, 0.5], ["thud.wav", 0.88, 0.55]]}},
+ "swim": {"dur": 1.5, "noblink": true, "sfx": {"": [["pour.wav", 0, 0.35]], "tired": [["pour.wav", 0, 0.25]], "drift": [["whoosh.wav", 0, 0.4]], "float": [["swell.wav", 0, 0.4], ["pour.wav", 0.2, 0.3]],
+   "wave": [["pop.wav", 0, 0.4], ["whoosh.wav", 0.2, 0.3]], "lean": [["swell.wav", 0, 0.3]], "freeze": [["thud.wav", 0, 0.5]], "up": [["pour.wav", 0, 0.3]]}},
+ "ripmap": {"dur": 1.0, "sfx": {"": [["whoosh.wav", -0.1, 0.45], ["pour.wav", 0.2, 0.3]], "speed": [["thud.wav", 0, 0.55], ["sub_hit.wav", 0, 0.4]],
+   "race": [["pop.wav", 0, 0.5], ["whoosh.wav", 0.3, 0.4], ["whoosh.wav", 0.9, 0.4]], "side": [["whoosh.wav", 0, 0.35], ["pour.wav", 0.1, 0.3]],
+   "free": [["sparkle.wav", 0, 0.5], ["pop.wav", 0, 0.4]], "off": [["whoosh.wav", 0, 0.35]]}},
+ "energy": {"dur": 1.2, "sfx": [["tick.wav", 0, 0.45], ["tick.wav", 0.3, 0.35]]},
+ "lifeguard": {"dur": 1.0, "sfx": {"": [["pop.wav", 0, 0.5], ["paper.wav", 0, 0.4]], "blow": [["beep.wav", 0, 0.55], ["beep.wav", 0.25, 0.5], ["beep.wav", 0.5, 0.5]]}}
+}}

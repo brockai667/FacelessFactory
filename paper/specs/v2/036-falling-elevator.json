@@ -1,0 +1,391 @@
+{
+ "v": 2,
+ "topic": "What happens if you jump at the last second in a falling elevator?",
+ "slug": "falling-elevator",
+ "title": "Falling Elevator",
+ "idea": "Jumping at the last second barely helps; the real safety is the ropes and brakes, and the longest elevator fall survived was luck and physics.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "The cable just snapped. You're dropping down the shaft.",
+ "banner": [
+  "FALLING",
+  "ELEVATOR"
+ ],
+ "hook_mode": "B",
+ "env": "room",
+ "scene": "couch",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "dark",
+  "outfit": "suit",
+  "hairStyle": "short",
+  "suit": "#3b4a6b",
+  "suitDark": "#2c3852",
+  "glasses": true
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "lift",
+   "at": "@0.0"
+  },
+  {
+   "r": "look",
+   "arg": "up",
+   "at": "cable"
+  },
+  {
+   "r": "lift",
+   "arg": "snap",
+   "at": "snapped"
+  },
+  {
+   "r": "look",
+   "arg": "down",
+   "at": "dropping"
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "You plan to jump. But your best jump is about seven miles an hour.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "jump",
+       "arg": "crouch",
+       "at": "jump"
+      },
+      {
+       "r": "look",
+       "arg": "cam",
+       "at": "But"
+      },
+      {
+       "r": "jump",
+       "arg": "hop",
+       "at": "best"
+      },
+      {
+       "r": "jump",
+       "arg": "tag",
+       "at": "seven",
+       "o": {
+        "text": "7 MPH"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "From one hundred sixty five feet, you hit at seventy two miles an hour.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ruler",
+       "at": "From",
+       "o": {
+        "dur": 2.0
+       }
+      },
+      {
+       "r": "dial",
+       "arg": 72,
+       "at": "sixty",
+       "o": {
+        "dur": 1.8
+       }
+      },
+      {
+       "r": "lift",
+       "arg": "hit",
+       "at": "hit"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Jump perfectly. Guess your new speed.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "lift",
+       "arg": "fall",
+       "at": "@0.0"
+      },
+      {
+       "r": "jump",
+       "arg": "up",
+       "at": "Jump"
+      },
+      {
+       "r": "lift",
+       "arg": "freeze",
+       "at": "perfectly"
+      },
+      {
+       "r": "dial",
+       "arg": "guess",
+       "at": "Guess"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Sixty five. Barely better, and you can't time it.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "lift",
+       "arg": "go",
+       "at": "Sixty"
+      },
+      {
+       "r": "dial",
+       "arg": 65,
+       "at": "Sixty",
+       "o": {
+        "ghost": true,
+        "dur": 0.4
+       }
+      },
+      {
+       "r": "lift",
+       "arg": "hit",
+       "at": "five"
+      },
+      {
+       "r": "dial",
+       "arg": "barely",
+       "at": "Barely"
+      },
+      {
+       "r": "jump",
+       "arg": "shrug",
+       "at": "Barely"
+      },
+      {
+       "r": "jump",
+       "arg": "when",
+       "at": "you",
+       "o": {
+        "hold": 1.1
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Back up the shaft. Elevators hang on several steel ropes.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "dial,jump,lift,look",
+       "at": "@0.0"
+      },
+      {
+       "r": "rig",
+       "at": "Back"
+      },
+      {
+       "r": "rig",
+       "arg": "sway",
+       "at": "Elevators"
+      },
+      {
+       "r": "rig",
+       "arg": "ropes",
+       "at": "hang"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Plus automatic brakes built to stop a fall.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "rig",
+       "arg": "cut",
+       "at": "Plus"
+      },
+      {
+       "r": "rig",
+       "arg": "brake",
+       "at": "brakes"
+      },
+      {
+       "r": "rig",
+       "arg": "stop",
+       "at": "stop"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Betty Lou Oliver fell seventy five floors in the Empire State Building.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "tower",
+       "at": "Betty"
+      },
+      {
+       "r": "clear",
+       "arg": "rig",
+       "at": "Lou"
+      },
+      {
+       "r": "tower",
+       "arg": "floors",
+       "at": "seventy",
+       "o": {
+        "dur": 2.0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Trapped air and coiled cables cushioned her. She broke her back, but lived.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "tower",
+       "arg": "pit",
+       "at": "@0.05"
+      },
+      {
+       "r": "tower",
+       "arg": "air",
+       "at": "air"
+      },
+      {
+       "r": "tower",
+       "arg": "coil",
+       "at": "cables"
+      },
+      {
+       "r": "tower",
+       "arg": "back",
+       "at": "broke"
+      },
+      {
+       "r": "tower",
+       "arg": "lived",
+       "at": "lived"
+      },
+      {
+       "r": "stamp",
+       "arg": "SURVIVED",
+       "at": "lived",
+       "o": {
+        "y": 200
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "When the cable snaps, forget the jump. Remember Betty.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "tower,face",
+    "at": "When"
+   },
+   {
+    "r": "lift",
+    "arg": "snap",
+    "at": "snaps"
+   },
+   {
+    "r": "memo",
+    "arg": "nojump",
+    "at": "forget"
+   },
+   {
+    "r": "memo",
+    "arg": "betty",
+    "at": "Remember"
+   }
+  ]
+ },
+ "description": "The cable snaps and you jump at the last second. Here is how much that actually helps.",
+ "tags": [
+  "#elevator",
+  "#survival",
+  "#physics",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Best human jump is about 7 mph; from 165 ft impact drops only from about 72 to 65 mph; you cannot time the jump.",
+   "source": "Chris Baird, West Texas A&M https://wtamu.edu/~cbaird/sq/2012/12/05/if-im-on-an-elevator-that-breaks-loose-and-plummets-down-the-shaft-can-i-avoid-harm-by-jumping-at-the-last-second/"
+  },
+  {
+   "claim": "Elevators hang on several steel ropes and have automatic safety brakes.",
+   "source": "Industry sources per FACTS file (Otis safety brake, 1854) [snippet, no number used]"
+  },
+  {
+   "claim": "Betty Lou Oliver survived a 75-storey elevator fall in the Empire State Building (28 July 1945, plane crash cut the cables).",
+   "source": "Guinness https://www.guinnessworldrecords.com/news/2023/10/How-an-Elevator-attendant-Survived-a-1-000-Ft-Fall-Down-the-Empire-State-Building-759670 ; NYC Municipal Archives https://www.archives.nyc/blog/2019/10/18/the-empire-state-plane-crash-july-28-1945"
+  },
+  {
+   "claim": "Air trapped in the shaft and coiled cables cushioned the car; she broke her back, neck and pelvis and survived.",
+   "source": "Guinness (same URL)"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "factcheck": {
+  "date": "2026-11-14",
+  "ok": true,
+  "by": "claude",
+  "note": ""
+ },
+ "music_i": 0
+}
