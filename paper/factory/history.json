@@ -1,21 +1,6 @@
 [
  {
   "format": "countdown",
-  "chrome": "tape",
-  "trans": "page",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "long",
-  "skin": "tan",
-  "palette": "p2",
-  "cta": "SAVE THIS ONE",
-  "species": "dog",
-  "slug": "protein-only-diet-effects",
-  "topic": "What happens if you eat only protein?",
-  "env": "room"
- },
- {
-  "format": "countdown",
   "chrome": "sticky",
   "trans": "zoom",
   "pres": "full",
@@ -448,6 +433,22 @@
   "v": 2,
   "slug": "buried-by-avalanche",
   "topic": "What happens if an avalanche buries you?",
+  "env": "field"
+ },
+ {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "short",
+  "skin": "light",
+  "palette": "p1",
+  "cta": "FOLLOW FOR MORE",
+  "species": "human",
+  "v": 2,
+  "slug": "stranded-in-the-desert",
+  "topic": "Stranded in the desert with one bottle of water: save it or drink it?",
   "env": "field"
  }
 ]
