@@ -66,6 +66,9 @@ for f in sorted(glob.glob(os.path.join(FACTORY, "lib", "*.js"))):
     if r.returncode != 0:
         errors.append(f"node --check {os.path.basename(f)}: {(r.stderr or '').strip()[:200]}")
 
+for e in compose.PACK_ERR:                                # balik momentov (lib/pack_*.json + .js) sa nenacital
+    errors.append("balik momentov " + e)
+
 # 2) validator + compose kazdeho scenara (bez zapisu epizody)
 files = sorted(glob.glob(os.path.join(FACTORY, "specs", "*.json")) + glob.glob(os.path.join(FACTORY, "specs", "v2", "*.json")) +
                glob.glob(os.path.join(FACTORY, "factory", "queue", "*.json")) + glob.glob(os.path.join(FACTORY, "factory", "done", "*.json")))

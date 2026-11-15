@@ -6,6 +6,7 @@
 Spec: slug, title, hook, banner[2], format, env, hero{}, kit{}, music|mood_music, face0, beats[{label, line, shots[
   {type: world, from?, do: [{r, arg?, at?}]} | {type: panel, from?, panel, big?, small?, icon?, badge?, do: [{a, at?}]}]}],
   end{line, do[]}, loop (blink|clouds|kit), description, tags[]. Neznáme veci validator opraví alebo zahodí (nič nespadne)."""
+import glob
 import json
 import os
 import re
@@ -144,6 +145,60 @@ SFX_P = {"heart": [], "stat": [("pop.wav", 0.1, 0.7), ("sparkle.wav", 0.5, 0.4)]
 CHROME_SFX = {"tape": ("paper.wav", 0.55), "sticky": ("paper.wav", 0.6), "stamp": ("thud.wav", 0.45), "bubble": ("pop.wav", 0.6)}
 TRANS_SFX = {"circle": [("whoosh.wav", 0, 0.35)], "page": [("paper.wav", 0, 0.55), ("whoosh.wav", 0.05, 0.25)],
              "tear": [("paper.wav", 0, 0.7)], "zoom": [("whoosh.wav", 0, 0.4)]}
+
+# v2 baliky momentov: lib/pack_<meno>.js (kod) + lib/pack_<meno>.json (register). Momenty jedneho videa ziju mimo jadra,
+# tyzdenny cyklus pridava LEN tieto dva subory (moments.js ani compose.py nemeni). JSON:
+#   {"moments": {"meno": {"dur": 1.2, "sfx": [["pop.wav", 0, 0.6]] | {"arg": [[...]], "": [[...]]}, "noblink": true}}}
+# sfx = [subor, posun v s od kotvy, hlasitost]; pri slovniku je kluc hodnota "arg" ("" = bez arg). noblink = moment meni viecka/tvar.
+PACK_OF, NOBLINK, PACK_ERR = {}, set(), []
+
+
+def load_packs():
+    for f in sorted(glob.glob(os.path.join(FACTORY, "lib", "pack_*.json"))):
+        name = os.path.basename(f)[:-5]
+        try:
+            P = json.load(open(f, encoding="utf-8"))["moments"]
+            if not os.path.exists(f[:-5] + ".js"):
+                raise ValueError("chyba subor " + name + ".js")
+            src = open(f[:-5] + ".js", encoding="utf-8").read()
+            reg = {}
+            for mname, d in P.items():
+                if not re.fullmatch(r"[a-z][a-z0-9_]*", mname):
+                    raise ValueError(f"zle meno momentu {mname}")
+                if mname in RECIPES or mname in FACES:
+                    raise ValueError(f"moment {mname} uz existuje")
+                if not re.search(r"\bM\." + mname + r"\s*=", src):
+                    raise ValueError(f"{name}.js nedefinuje M.{mname}")
+                sfx = d.get("sfx") or []
+                if isinstance(sfx, dict):
+                    sfx = {(k or None): [(str(a), float(b), float(v)) for a, b, v in lst] for k, lst in sfx.items()}
+                else:
+                    sfx = [(str(a), float(b), float(v)) for a, b, v in sfx]
+                for lst in (sfx.values() if isinstance(sfx, dict) else [sfx]):
+                    for a, _, _ in lst:
+                        if not os.path.exists(os.path.join(FACTORY, "assets", "sfx", a)):
+                            raise ValueError(f"{mname}: neznamy zvuk {a}")
+                reg[mname] = (float(d.get("dur", 1.0)), sfx, bool(d.get("noblink")))
+            for mname, (dur, sfx, nb) in reg.items():      # zapis az ked je cely balik v poriadku
+                MOMENTS.add(mname); RECIPES.add(mname); RDUR[mname] = dur; SFX_R[mname] = sfx; PACK_OF[mname] = name + ".js"
+                if nb:
+                    NOBLINK.add(mname)
+        except Exception as e:
+            PACK_ERR.append(f"{name}: {type(e).__name__}: {str(e)[:160]}")
+
+
+load_packs()
+
+
+def used_recipes(o):
+    if isinstance(o, dict):
+        if isinstance(o.get("r"), str):
+            yield o["r"]
+        for v in o.values():
+            yield from used_recipes(v)
+    elif isinstance(o, list):
+        for v in o:
+            yield from used_recipes(v)
 
 
 def norm(w):
@@ -305,6 +360,7 @@ class Composer:
         libs.append("recipes.js")
         if S.get("v") == 2:
             libs.append("moments.js")
+            libs += sorted({PACK_OF[r] for r in used_recipes(S) if r in PACK_OF})   # baliky momentov, ktore toto video pouziva
 
         E = self.emit
         E(f"// AUTO z compose.py: {S['title']}  (env {S['env']}, kit {kit['chrome']}/{kit['trans']}/{kit['pres']}/{kit['cam']})")
@@ -545,12 +601,12 @@ class Composer:
             times.append(t)
             sx = SFX_R.get(r)
             if isinstance(sx, dict):
-                sx = sx.get(arg, [])
+                sx = sx.get(arg) or sx.get(str(arg), [])
             for f, off, vol in (sx or []):
                 if anc:
                     self.fx(f, anc[1], off + sfx_off, vol)
         # zmurknutia v tichu (len ak ziadny recept nemeni viecka -> stav viecok ostava konzistentny)
-        if not any(a["r"] in ("face", "slump", "yawn", "nod", "recover", "hallucinate", "thumbs_up", "bury", "struggle", "spin", "reach", "release", "rewind", "airpocket", "spit", "wayup", "armup", "drink", "jug", "snake", "suck", "venom", "ride", "antivenom", "breath", "pant", "water", "burn", "gauge", "co2", "alarm") for a in acts):
+        if not any(a["r"] in NOBLINK or a["r"] in ("face", "slump", "yawn", "nod", "recover", "hallucinate", "thumbs_up", "bury", "struggle", "spin", "reach", "release", "rewind", "airpocket", "spit", "wayup", "armup", "drink", "jug", "snake", "suck", "venom", "ride", "antivenom", "breath", "pant", "water", "burn", "gauge", "co2", "alarm") for a in acts):
             E(f"hero.blink({t0} + 1.2); if ({t1} - {t0} > 3.2) hero.blink({t0} + 2.9);")
 
 

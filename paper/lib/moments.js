@@ -1193,5 +1193,7 @@ PF.M = (function () {
       return "body";
     }
   };
+  // pomocne funkcie pre baliky momentov (lib/pack_*.js): var H = PF.M._h
+  M._h = { C: C, uid: uid, pt: pt, UI: UI, OV: OV, UIS: UIS, fmt: fmt, shake: shake, LIFT: LIFT, ap: ap, upPt: upPt, handPt: handPt, headPt: headPt, scr: scr, st: st, MAT: MAT };
   return M;
 })();
