@@ -1,0 +1,463 @@
+{
+ "v": 2,
+ "topic": "Does a drink warm you up when you are freezing?",
+ "slug": "night-in-antarctica",
+ "title": "Night In Antarctica",
+ "idea": "Alcohol makes you feel warm while your body loses heat faster.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "You're freezing. Does a drink warm you, or cool you?",
+ "banner": [
+  "NIGHT IN",
+  "ANTARCTICA"
+ ],
+ "env": "field",
+ "scene": "mountain",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "light",
+  "outfit": "hoodie",
+  "hairStyle": "long",
+  "hair": "#3b2a22",
+  "lashes": true,
+  "suit": "#e0a32b",
+  "suitDark": "#b98419"
+ },
+ "hook_do": [
+  {
+   "r": "polar",
+   "at": "@0.0"
+  },
+  {
+   "r": "flask",
+   "at": "@0.0"
+  },
+  {
+   "r": "chill",
+   "arg": "on",
+   "at": "freezing",
+   "o": {
+    "dur": 0.95
+   }
+  },
+  {
+   "r": "flask",
+   "arg": "show",
+   "at": "drink",
+   "o": {
+    "hold": 0.7
+   }
+  },
+  {
+   "r": "choice",
+   "arg": "A",
+   "at": "warm",
+   "o": {
+    "text": "<span style=\"font-size:62px\">WARMS YOU</span>"
+   }
+  },
+  {
+   "r": "choice",
+   "arg": "B",
+   "at": "cool",
+   "o": {
+    "text": "<span style=\"font-size:62px\">COOLS YOU</span>"
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "One sip, and a warm glow spreads through you.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "small",
+       "at": "@0.0"
+      },
+      {
+       "r": "flask",
+       "arg": "sip",
+       "at": "sip"
+      },
+      {
+       "r": "warmth",
+       "arg": "on",
+       "at": "glow"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "That glow is blood rushing out to your skin.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "vessel",
+       "arg": "show",
+       "at": "That"
+      },
+      {
+       "r": "warmth",
+       "arg": "skin",
+       "at": "glow"
+      },
+      {
+       "r": "look",
+       "arg": "right",
+       "at": "blood"
+      },
+      {
+       "r": "vessel",
+       "arg": "open",
+       "at": "blood"
+      },
+      {
+       "r": "vessel",
+       "arg": "flow",
+       "at": "rushing"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "So it's card B. It feels warm while you lose heat.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "look",
+       "arg": "cam",
+       "at": "So"
+      },
+      {
+       "r": "pick",
+       "arg": "B",
+       "at": "B",
+       "o": {
+        "mark": "ok"
+       }
+      },
+      {
+       "r": "vessel",
+       "arg": "off",
+       "at": "It"
+      },
+      {
+       "r": "warmth",
+       "arg": "leak",
+       "at": "feels",
+       "o": {
+        "hold": 1.6
+       }
+      },
+      {
+       "r": "core",
+       "arg": "show",
+       "at": "warm"
+      },
+      {
+       "r": "core",
+       "arg": 0.6,
+       "at": "lose"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "A lot of alcohol can also weaken shivering, your heater.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "chill",
+       "arg": "on",
+       "at": "A",
+       "o": {
+        "dur": 1.6
+       }
+      },
+      {
+       "r": "flask",
+       "arg": "show",
+       "at": "alcohol",
+       "o": {
+        "hold": 0.6
+       }
+      },
+      {
+       "r": "core",
+       "arg": 0.45,
+       "at": "weaken"
+      },
+      {
+       "r": "chill",
+       "arg": "heater",
+       "at": "shivering",
+       "o": {
+        "hold": 1.2
+       }
+      },
+      {
+       "r": "chill",
+       "arg": "weak",
+       "at": "heater"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Below about eighty six degrees inside your body, shivering stops.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "chill",
+       "arg": "weak",
+       "at": "@0.0",
+       "o": {
+        "dur": 3.4
+       }
+      },
+      {
+       "r": "core",
+       "arg": "86",
+       "at": "eighty"
+      },
+      {
+       "r": "chill",
+       "arg": "stop",
+       "at": "stops"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Put something between you and the frozen ground.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "ancore,anchill,anglow,anvessel,face",
+       "at": "@0.0"
+      },
+      {
+       "r": "choice",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "flask",
+       "arg": "away",
+       "at": "@0.1"
+      },
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "INSULATE",
+        "y": 112
+       }
+      },
+      {
+       "r": "camp",
+       "arg": "pad",
+       "at": "Put"
+      },
+      {
+       "r": "camp",
+       "arg": "block",
+       "at": "between"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Cover your head and neck, and get out of the wind.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "COVER UP",
+        "y": 112
+       }
+      },
+      {
+       "r": "camp",
+       "arg": "wrap",
+       "at": "Cover"
+      },
+      {
+       "r": "polar",
+       "arg": "wind",
+       "at": "neck",
+       "o": {
+        "dur": 1.2
+       }
+      },
+      {
+       "r": "polar",
+       "arg": "wall",
+       "at": "wind"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Stay dry, and eat something warm and full of calories.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "STAY DRY, EAT",
+        "y": 112
+       }
+      },
+      {
+       "r": "camp",
+       "arg": "dry",
+       "at": "Stay"
+      },
+      {
+       "r": "camp",
+       "arg": "soup",
+       "at": "eat"
+      },
+      {
+       "r": "camp",
+       "arg": "eat",
+       "at": "warm"
+      },
+      {
+       "r": "camp",
+       "arg": "kcal",
+       "at": "calories"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Picked warms you? That warm feeling is your heat leaving.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "anpad,anwrap,anwall,ansoup,anflask",
+    "at": "Picked"
+   },
+   {
+    "r": "choice",
+    "arg": "big",
+    "at": "Picked"
+   },
+   {
+    "r": "pick",
+    "arg": "A",
+    "at": "warms"
+   },
+   {
+    "r": "warmth",
+    "arg": "on",
+    "at": "warm"
+   },
+   {
+    "r": "warmth",
+    "arg": "leak",
+    "at": "heat",
+    "o": {
+     "hold": 0.75
+    }
+   },
+   {
+    "r": "pick",
+    "arg": "A",
+    "at": "leaving",
+    "o": {
+     "mark": "x"
+    }
+   }
+  ]
+ },
+ "cta": false,
+ "description": "You're freezing and someone hands you a drink. Does it warm you up or cool you down?",
+ "tags": [
+  "#hypothermia",
+  "#survival",
+  "#cold",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Alcohol widens blood vessels in the skin: it gives a sensation of warmth but increases heat loss.",
+   "source": "CDC MMWR, Hypothermia-Related Deaths 2003 (mm5308a2)"
+  },
+  {
+   "claim": "Larger doses of alcohol can impair shivering; shivering is how the body makes heat.",
+   "source": "Kalant & Le 1983, PubMed 6144116 ; Wilderness Medical Society guideline via AAFP https://www.aafp.org/pubs/afp/issues/2020/1101/p571.html"
+  },
+  {
+   "claim": "Shivering stops near 30 C core temperature (= 86 F).",
+   "source": "WMS guideline via AAFP https://www.aafp.org/pubs/afp/issues/2020/1101/p571.html"
+  },
+  {
+   "claim": "Insulate from the ground, cover head and neck, stay dry and out of the wind, eat warm high-calorie food.",
+   "source": "WMS guideline via AAFP https://www.aafp.org/pubs/afp/issues/2020/1101/p571.html"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 1,
+ "factcheck": {
+  "date": "2026-11-15",
+  "ok": true,
+  "by": "claude",
+  "note": "Checked against FACTS-batch-035-046 section 038: alcohol widens skin vessels (warm feeling, more heat loss, CDC MMWR); larger doses can impair shivering (Kalant & Le 1983, WMS/AAFP); shivering stops near 30 C = 86 F core (WMS/AAFP); insulate from ground, cover head and neck, stay dry, out of wind, warm high-calorie food (WMS/AAFP). On screen only 86°F / 30°C; no other numbers."
+ },
+ "hook_hide": "warm"
+}
