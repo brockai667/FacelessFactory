@@ -1,20 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "stamp",
-  "trans": "tear",
-  "pres": "card",
-  "cam": "calm",
-  "hair": "bald",
-  "skin": "light",
-  "palette": "p4",
-  "cta": "FOLLOW FOR MORE",
-  "species": "bear",
-  "slug": "climbing-a-sand-dune",
-  "topic": "What happens if you climb a sand dune?",
-  "env": "field"
- },
- {
   "format": "countdown",
   "chrome": "bubble",
   "trans": "circle",
@@ -451,5 +436,21 @@
   "slug": "bitten-by-a-snake",
   "topic": "Bitten by a snake: suck the venom out or keep still?",
   "env": "field"
+ },
+ {
+  "format": "gauge",
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "short",
+  "skin": "dark",
+  "palette": "p3",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "human",
+  "v": 2,
+  "slug": "falling-elevator",
+  "topic": "What happens if you jump at the last second in a falling elevator?",
+  "env": "room"
  }
 ]
