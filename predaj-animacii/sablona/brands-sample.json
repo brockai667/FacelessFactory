@@ -1,0 +1,194 @@
+{
+  "url": "https://doughnana.com",
+  "domain": "doughnana.com",
+  "slug": "doughnana-com",
+  "name": "Doughnana",
+  "headline": "The donut your banana bread always wanted to be.",
+  "tagline": "Banana bread, baked into a donut. Choose an Original Doughnana or Just Nana box. Baked in Bratislava.",
+  "fonts": {
+    "heading": "Playfair Display",
+    "body": "Inter",
+    "headingWeight": "700"
+  },
+  "fontFaces": [
+    {
+      "family": "Playfair Display",
+      "weight": "400",
+      "file": "fonts/gf-PlayfairDisplay-400-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "400",
+      "file": "fonts/gf-PlayfairDisplay-400-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "600",
+      "file": "fonts/gf-PlayfairDisplay-600-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "600",
+      "file": "fonts/gf-PlayfairDisplay-600-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "700",
+      "file": "fonts/gf-PlayfairDisplay-700-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "700",
+      "file": "fonts/gf-PlayfairDisplay-700-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "800",
+      "file": "fonts/gf-PlayfairDisplay-800-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "800",
+      "file": "fonts/gf-PlayfairDisplay-800-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "900",
+      "file": "fonts/gf-PlayfairDisplay-900-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Playfair Display",
+      "weight": "900",
+      "file": "fonts/gf-PlayfairDisplay-900-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Inter",
+      "weight": "400",
+      "file": "fonts/gf-Inter-400-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Inter",
+      "weight": "400",
+      "file": "fonts/gf-Inter-400-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Inter",
+      "weight": "600",
+      "file": "fonts/gf-Inter-600-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Inter",
+      "weight": "600",
+      "file": "fonts/gf-Inter-600-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Inter",
+      "weight": "700",
+      "file": "fonts/gf-Inter-700-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Inter",
+      "weight": "700",
+      "file": "fonts/gf-Inter-700-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Inter",
+      "weight": "800",
+      "file": "fonts/gf-Inter-800-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Inter",
+      "weight": "800",
+      "file": "fonts/gf-Inter-800-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    },
+    {
+      "family": "Inter",
+      "weight": "900",
+      "file": "fonts/gf-Inter-900-latin-ext.woff2",
+      "unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF"
+    },
+    {
+      "family": "Inter",
+      "weight": "900",
+      "file": "fonts/gf-Inter-900-latin.woff2",
+      "unicodeRange": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+    }
+  ],
+  "fontFiles": [
+    {
+      "url": "https://www.doughnana.com/_next/static/immutable/media/2ab350ceb580dfba-s.p.287f6eu8m3d8_.woff2",
+      "file": "fonts/2ab350ceb580dfba-s.p.287f6eu8m3d8_.woff2"
+    },
+    {
+      "url": "https://www.doughnana.com/_next/static/immutable/media/1bffadaabf893a1e-s.p.0szrwpqb9mkwe.woff2",
+      "file": "fonts/1bffadaabf893a1e-s.p.0szrwpqb9mkwe.woff2"
+    },
+    {
+      "url": "https://www.doughnana.com/_next/static/immutable/media/83afe278b6a6bb3c-s.p.45535valc9rzk.woff2",
+      "file": "fonts/83afe278b6a6bb3c-s.p.45535valc9rzk.woff2"
+    },
+    {
+      "url": "https://www.doughnana.com/_next/static/immutable/media/ad85ec941b4c8b5c-s.p.1k8_e77f2qnpv.woff2",
+      "file": "fonts/ad85ec941b4c8b5c-s.p.1k8_e77f2qnpv.woff2"
+    }
+  ],
+  "colors": {
+    "bg": "#f7f2e8",
+    "text": "#2c1810",
+    "heading": "#2b160e",
+    "surface": "#f1d98a",
+    "surface2": "#e8c840",
+    "accent": "#3b1d0e",
+    "button": "#3b1d0e",
+    "bgIsDark": false,
+    "onSurface": "#2b160e",
+    "onAccent": "#ffffff"
+  },
+  "logo": "logo.png",
+  "hero": "hero.png",
+  "products": [
+    {
+      "name": "Original Doughnana",
+      "price": "€22.90",
+      "image": "product-0.png"
+    },
+    {
+      "name": "Just Nana",
+      "price": "€22.90",
+      "image": "product-1.png"
+    }
+  ],
+  "instagram": null,
+  "shots": {
+    "mobile": {
+      "file": "mobile.png",
+      "width": 780,
+      "height": 11754
+    },
+    "desktop": {
+      "file": "desktop.png",
+      "width": 1440,
+      "height": 5239
+    }
+  },
+  "words": [],
+  "cta": "doughnana.com"
+}
