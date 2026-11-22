@@ -1,20 +1,5 @@
 [
  {
-  "format": "vertical",
-  "chrome": "sticky",
-  "trans": "page",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "bun",
-  "skin": "brown",
-  "palette": "p1",
-  "cta": "SAVE THIS ONE",
-  "species": "human",
-  "slug": "mimic-a-hummingbird-s-wing-beat",
-  "topic": "What happens if you mimic a hummingbird’s wing beat?",
-  "env": "field"
- },
- {
   "format": "timeline",
   "chrome": "tape",
   "trans": "zoom",
@@ -456,5 +441,21 @@
   "slug": "holding-your-breath",
   "topic": "Why does holding your breath start to burn?",
   "env": "room"
+ },
+ {
+  "format": "timeline",
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "short",
+  "skin": "brown",
+  "palette": "p3",
+  "cta": "SAVE THIS ONE",
+  "species": "human",
+  "v": 2,
+  "slug": "tornado-on-the-highway",
+  "topic": "A tornado is coming while you drive on the highway: is the overpass safe?",
+  "env": "field"
  }
 ]
