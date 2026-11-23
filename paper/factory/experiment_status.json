@@ -1,6 +1,6 @@
 {
  "factory": "MindBlownDaily",
- "updated": "2026-11-22",
+ "updated": "2026-11-23",
  "name": "copy-927-groq-salad-lunch-swap",
  "started": "2026-11-16",
  "hypothesis": "The concise, curiosity‑driven hook plus structured countdown keeps viewers engaged and prompts interaction.",
@@ -14,7 +14,7 @@
  "metric_now": {},
  "ratio_now": null,
  "n_tagged": 0,
- "status": "running",
+ "status": "waiting",
  "rules": 0,
  "last": {
   "name": "copy-029-through-thin-ice",
