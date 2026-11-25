@@ -1,0 +1,92 @@
+{
+ "moments": {
+  "ffsky": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "plane": [["whoosh.wav", 0, 0.5], ["air_low.wav", 0.1, 0.4]],
+    "nochute": [["pop.wav", 0, 0.6], ["thud.wav", 0.15, 0.5]],
+    "fast": [["whoosh.wav", 0, 0.6], ["rumble.wav", 0, 0.4]]
+   }
+  },
+  "ffpose": {
+   "dur": 0.8,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "tumble": [["whoosh.wav", 0, 0.45]],
+    "shock": [["wobble.wav", 0, 0.5]],
+    "arch": [["whoosh.wav", 0, 0.35]],
+    "worry": [["wobble.wav", 0, 0.35]],
+    "search": [["whoosh.wav", 0, 0.3]],
+    "feet": [["whoosh.wav", 0, 0.6], ["swell.wav", 0, 0.4]]
+   }
+  },
+  "ffspeed": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "climb": [["swell.wav", 0, 0.5], ["tick.wav", 0.3, 0.5], ["tick.wav", 0.6, 0.5], ["tick.wav", 0.9, 0.5]],
+    "guess": [["pop.wav", 0, 0.6], ["tick.wav", 0.2, 0.5], ["tick.wav", 0.4, 0.5], ["tick.wav", 0.6, 0.5]],
+    "freeze": [["thud.wav", 0.3, 0.55]],
+    "small": [["whoosh.wav", 0, 0.3]],
+    "big": [["whoosh.wav", 0, 0.3]],
+    "120": [["pop.wav", 0, 0.7], ["sparkle.wav", 0.05, 0.5]]
+   }
+  },
+  "ffforce": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "show": [["pop.wav", 0, 0.6], ["whoosh.wav", 0.15, 0.4]],
+    "match": [["swell.wav", 0, 0.5], ["thud.wav", 0.5, 0.6]]
+   }
+  },
+  "ffcase": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "zero": [["paper.wav", 0, 0.6], ["thud.wav", 0.5, 0.6], ["tick.wav", 1.6, 0.4], ["tick.wav", 2.8, 0.4]],
+    "folders": [["paper.wav", 0, 0.5], ["pop.wav", 0.14, 0.4], ["pop.wav", 0.28, 0.4]],
+    "stamp": [["thud.wav", 0.14, 0.6], ["thud.wav", 0.3, 0.5], ["sub_hit.wav", 0.46, 0.5]]
+   }
+  },
+  "ffstep": {
+   "dur": 0.8,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "1": [["pop.wav", 0, 0.6], ["tick.wav", 0.05, 0.5]],
+    "2": [["pop.wav", 0, 0.6], ["tick.wav", 0.05, 0.5]],
+    "3": [["pop.wav", 0, 0.6], ["tick.wav", 0.05, 0.5]],
+    "check": [["pop.wav", 0.15, 0.6], ["sparkle.wav", 0.3, 0.6]]
+   }
+  },
+  "ffground": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "concrete": [["whoosh.wav", 0, 0.5], ["thud.wav", 0.5, 0.5]],
+    "snow": [["whoosh.wav", 0, 0.4], ["sparkle.wav", 0.1, 0.5]],
+    "trees": [["pop.wav", 0, 0.5], ["pop.wav", 0.14, 0.5], ["pop.wav", 0.28, 0.5]],
+    "slope": [["wobble.wav", 0, 0.4], ["rumble.wav", 0, 0.3]],
+    "stop": [["fill.wav", 0.3, 0.5], ["tick.wav", 0.9, 0.5]]
+   }
+  },
+  "fftail": {
+   "dur": 1.2,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "in": [["whoosh.wav", 0, 0.6], ["air_low.wav", 0, 0.4], ["rumble.wav", 0.35, 0.4]],
+    "inside": [["pop.wav", 0, 0.6]],
+    "land": [["sub_hit.wav", 0.05, 0.6], ["thud.wav", 0.07, 0.6], ["whoosh.wav", 0.2, 0.5]]
+   }
+  }
+ }
+}

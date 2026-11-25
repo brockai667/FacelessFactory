@@ -1,0 +1,178 @@
+{
+ "v": 2,
+ "topic": "What happens if you fall from a plane without a parachute?",
+ "slug": "falling-without-a-parachute",
+ "title": "Falling Without A Parachute",
+ "idea": "After about ten seconds you stop speeding up, and the only clues to surviving come from real cases, not tests.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "You fall out of a plane with no parachute.",
+ "banner": [
+  "FALLING WITH",
+  "NO PARACHUTE"
+ ],
+ "hook_mode": "B",
+ "env": "room",
+ "scene": "couch",
+ "mood_music": "tense",
+ "face0": "shocked",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "dark",
+  "outfit": "suit",
+  "hairStyle": "bun",
+  "hair": "#1c1714",
+  "suit": "#e2622b",
+  "suitDark": "#b84a1d",
+  "armL": 118,
+  "armR": -118
+ },
+ "cta": false,
+ "hook_do": [
+  {"r": "ffsky", "at": "@0.0"},
+  {"r": "ffpose", "arg": "tumble", "at": "fall"},
+  {"r": "ffsky", "arg": "plane", "at": "plane"},
+  {"r": "ffsky", "arg": "nochute", "at": "parachute"}
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "You fall faster every second. Guess your top speed.",
+   "shots": [{"type": "world", "do": [
+    {"r": "ffspeed", "arg": "climb", "at": "faster"},
+    {"r": "ffsky", "arg": "fast", "at": "faster"},
+    {"r": "ffpose", "arg": "shock", "at": "every"},
+    {"r": "ffspeed", "arg": "guess", "at": "Guess"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "About ten seconds in, the air pushing up matches gravity.",
+   "shots": [{"type": "world", "do": [
+    {"r": "timer", "arg": 0.1667, "at": "ten", "o": {"dur": 0.6}},
+    {"r": "ffspeed", "arg": "small", "at": "About"},
+    {"r": "ffforce", "arg": "show", "at": "air"},
+    {"r": "ffforce", "arg": "match", "at": "matches"},
+    {"r": "ffspeed", "arg": "freeze", "at": "matches"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Belly down, that's about one hundred twenty miles an hour.",
+   "shots": [{"type": "world", "do": [
+    {"r": "clear", "arg": "timer,force", "at": "Belly"},
+    {"r": "ffspeed", "arg": "big", "at": "Belly"},
+    {"r": "ffpose", "arg": "arch", "at": "down"},
+    {"r": "ffspeed", "arg": 120, "at": "hundred"},
+    {"r": "stamp", "arg": "TERMINAL SPEED", "at": "twenty", "o": {"y": 1250, "size": 72}}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Honest truth. Nobody has ever tested how to survive this.",
+   "shots": [{"type": "world", "do": [
+    {"r": "clear", "arg": "speed,wind", "at": "Honest"},
+    {"r": "ffpose", "arg": "search", "at": "truth"},
+    {"r": "ffcase", "arg": "zero", "at": "Nobody"},
+    {"r": "ffpose", "arg": "worry", "at": "tested"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Survivor cases point to three things. None is a guarantee.",
+   "shots": [{"type": "world", "do": [
+    {"r": "ffcase", "arg": "folders", "at": "three"},
+    {"r": "ffcase", "arg": "stamp", "at": "guarantee"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "One. Land feet first.",
+   "shots": [{"type": "world", "do": [
+    {"r": "clear", "arg": "case", "at": "One"},
+    {"r": "ffstep", "arg": 1, "at": "One"},
+    {"r": "ffground", "arg": "concrete", "at": "Land"},
+    {"r": "ffpose", "arg": "feet", "at": "feet"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Two. Something soft, like snow or trees.",
+   "shots": [{"type": "world", "do": [
+    {"r": "ffstep", "arg": 2, "at": "Two"},
+    {"r": "ffground", "arg": "snow", "at": "snow"},
+    {"r": "ffground", "arg": "trees", "at": "trees"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Three. A slope, so the stop takes longer.",
+   "shots": [{"type": "world", "do": [
+    {"r": "ffstep", "arg": 3, "at": "Three"},
+    {"r": "ffground", "arg": "slope", "at": "slope"},
+    {"r": "ffground", "arg": "stop", "at": "stop"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Vesna Vulović fell thirty three thousand feet, pinned inside a plane's tail.",
+   "shots": [{"type": "world", "do": [
+    {"r": "clear", "arg": "ground,stop,ffpose", "at": "Vesna"},
+    {"r": "fftail", "arg": "in", "at": "Vesna"},
+    {"r": "count", "arg": 33000, "at": "thirty", "o": {"y": 330, "label": "FELL", "sub": "FEET", "dur": 1.4, "size": 110}},
+    {"r": "fftail", "arg": "inside", "at": "pinned"}
+   ]}]
+  }
+ ],
+ "end": {
+  "line": "The tail hit a snowy slope. She lived. Two out of three.",
+  "do": [
+   {"r": "fftail", "arg": "land", "at": "hit"},
+   {"r": "stamp", "arg": "SHE LIVED", "at": "lived", "o": {"y": 420}},
+   {"r": "ffstep", "arg": "check", "at": "Two"},
+   {"r": "clear", "arg": "tail", "at": "Two"}
+  ]
+ },
+ "description": "Fall from a plane with no parachute and you stop speeding up after ten seconds. Then what?",
+ "tags": [
+  "#skydiving",
+  "#survival",
+  "#physics",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "A falling body stops speeding up when air resistance equals weight (terminal velocity). Belly-down (spread-eagle) a skydiver tops out around 55 m/s, about 120 mph (OpenStax: about 200 km/h spread-eagle); it reaches about 90% of that after 8 seconds and 99% after 15, so 'about ten seconds' to stop speeding up.",
+   "source": "OpenStax University Physics vol. 1 ch. 6.4 https://openstax.org/books/university-physics-volume-1/pages/6-4-drag-force-and-terminal-speed ; Huang, Speed of a skydiver, The Physics Factbook (cited in https://en.wikipedia.org/wiki/Terminal_velocity)"
+  },
+  {
+   "claim": "There is no tested procedure for surviving a fall without a parachute.",
+   "source": "FACTS-batch-035-046.md (042)"
+  },
+  {
+   "claim": "Case reports point to landing feet first, on snow, trees or a slope, which spread the stop over more time.",
+   "source": "FACTS-batch-035-046.md (042), case reports"
+  },
+  {
+   "claim": "Vesna Vulović survived a fall of 10,160 m (33,333 ft) on 26 January 1972, pinned inside the tail section, which landed on a snowy slope; Guinness record for highest fall survived without a parachute.",
+   "source": "Guinness World Records https://www.guinnessworldrecords.com/news/2022/4/how-vesna-vulovic-survived-the-highest-fall-ever-with-no-parachute-697786.html"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "factcheck": {
+  "date": "2026-11-25",
+  "ok": true,
+  "by": "claude",
+  "note": "Terminal speed re-checked: OpenStax 6.4 gives about 200 km/h spread-eagle (~124 mph); Physics Factbook (Huang) gives about 55 m/s belly-to-earth (~123 mph), 90% after 8 s, 99% after 15 s. 'About one hundred twenty miles an hour' and 'about ten seconds' fit. On-screen numbers: 120 MPH, 00:10 timer, 33,000 FEET (spoken 'thirty three thousand feet', rounds 33,333 down), 0 tested methods. 'Two out of three' = snow and slope matched her case; not a claim she followed a method."
+ },
+ "music_i": 0
+}
