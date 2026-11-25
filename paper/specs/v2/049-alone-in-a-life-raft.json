@@ -1,0 +1,421 @@
+{
+ "v": 2,
+ "topic": "Your boat sinks and you are alone in a life raft. How long can a person last?",
+ "slug": "alone-in-a-life-raft",
+ "title": "Alone In A Life Raft",
+ "idea": "One sailor lasted seventy six days; in a raft, survival is about saving the body water you have and staying findable.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "Your boat is gone, and you're alone in a raft.",
+ "banner": [
+  "ALONE IN A",
+  "LIFE RAFT"
+ ],
+ "hook_mode": "B",
+ "env": "field",
+ "scene": "meadow",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "tan",
+  "outfit": "suit",
+  "hairStyle": "cap",
+  "capColor": "#f4efe6",
+  "suit": "#2f4e7a",
+  "suitDark": "#233b5e"
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "rfsea",
+   "at": "@0.0"
+  },
+  {
+   "r": "look",
+   "arg": "left",
+   "at": "@0.0"
+  },
+  {
+   "r": "rfsea",
+   "arg": "sink",
+   "at": "@0.2",
+   "o": {
+    "dur": 2.2
+   }
+  },
+  {
+   "r": "rfsea",
+   "arg": "rock",
+   "at": "gone"
+  },
+  {
+   "r": "rfsea",
+   "arg": "rock",
+   "at": "raft"
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "One sailor lived through exactly this, so guess how many days he lasted.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "rfwide",
+       "at": "One",
+       "o": {
+        "dur": 1.4
+       }
+      },
+      {
+       "r": "rfwide",
+       "arg": "days",
+       "at": "exactly"
+      },
+      {
+       "r": "rfwide",
+       "arg": "off",
+       "at": "so"
+      },
+      {
+       "r": "look",
+       "arg": "cam",
+       "at": "so"
+      },
+      {
+       "r": "rfdays",
+       "arg": "guess",
+       "at": "guess"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Seventy six days, in a raft about six feet long.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "rfdays",
+       "arg": 76,
+       "at": "Seventy"
+      },
+      {
+       "r": "rfraft",
+       "arg": "tape",
+       "at": "six#1"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "He distilled drinking water and caught fish.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "days,tape,look,face",
+       "at": "He"
+      },
+      {
+       "r": "rfraft",
+       "arg": "still",
+       "at": "distilled"
+      },
+      {
+       "r": "rfraft",
+       "arg": "drip",
+       "at": "water"
+      },
+      {
+       "r": "rfraft",
+       "arg": "fish",
+       "at": "fish"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Survival trainers say every drop of body water you save buys you time.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "still,fish,face",
+       "at": "Survival"
+      },
+      {
+       "r": "rfbody",
+       "arg": "drop",
+       "at": "drop"
+      },
+      {
+       "r": "rfbody",
+       "arg": "show",
+       "at": "trainers"
+      },
+      {
+       "r": "rfbody",
+       "arg": "save",
+       "at": "save"
+      },
+      {
+       "r": "rfbody",
+       "arg": "clock",
+       "at": "time"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "So put up the canopy, save your energy, and ration your sweat.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "body,bclock",
+       "at": "So"
+      },
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "put",
+       "o": {
+        "text": "PUT UP THE CANOPY",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "rfraft",
+       "arg": "canopy",
+       "at": "canopy"
+      },
+      {
+       "r": "rfbody",
+       "arg": "rest",
+       "at": "energy"
+      },
+      {
+       "r": "rfbody",
+       "arg": "sweat",
+       "at": "sweat"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Stream the sea anchor to stay near your last reported position.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Stream",
+       "o": {
+        "text": "STREAM THE SEA ANCHOR",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "rfmap",
+       "at": "Stream",
+       "o": {
+        "dur": 0.6
+       }
+      },
+      {
+       "r": "clear",
+       "arg": "canopy,rest,sweat",
+       "at": "sea"
+      },
+      {
+       "r": "rfmap",
+       "arg": "anchor",
+       "at": "anchor"
+      },
+      {
+       "r": "rfmap",
+       "arg": "slow",
+       "at": "stay"
+      },
+      {
+       "r": "rfmap",
+       "arg": "x",
+       "at": "position"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Switch on your emergency beacon and leave it on.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "rfmap",
+       "arg": "off",
+       "at": "Switch"
+      },
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Switch",
+       "o": {
+        "text": "TURN ON THE BEACON",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "rfsignal",
+       "arg": "beacon",
+       "at": "beacon"
+      },
+      {
+       "r": "rfsignal",
+       "arg": "rings",
+       "at": "leave"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Keep flashing a mirror at the horizon.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 4,
+       "at": "Keep",
+       "o": {
+        "text": "SWEEP THE HORIZON",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "rfsignal",
+       "arg": "mirror",
+       "at": "flashing"
+      },
+      {
+       "r": "rfsignal",
+       "arg": "ship",
+       "at": "horizon"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Seventy six days, and it started just like this, alone in a raft.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "step,beacon,mirror,look,face",
+    "at": "Seventy"
+   },
+   {
+    "r": "stamp",
+    "arg": "76 DAYS",
+    "at": "Seventy",
+    "o": {
+     "y": 200
+    }
+   },
+   {
+    "r": "rfsea",
+    "arg": "back",
+    "at": "started"
+   },
+   {
+    "r": "look",
+    "arg": "left",
+    "at": "alone"
+   },
+   {
+    "r": "rfsea",
+    "arg": "rock",
+    "at": "raft"
+   }
+  ]
+ },
+ "description": "Your boat is gone and you're alone in a life raft. One sailor survived for a long time like this. Guess how many days.",
+ "tags": [
+  "#survival",
+  "#ocean",
+  "#lostatsea",
+  "#sailing",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Solo sailor Steven Callahan survived 76 days in a 6-foot (1.8 m) life raft by snagging fish and distilling water.",
+   "source": "National Geographic https://www.nationalgeographic.com/science/article/140205-science-castaway-adrift-shipwreck-survival (OK-number)"
+  },
+  {
+   "claim": "His boat sank on 4 February 1982 and he was found by three fishermen in the Caribbean.",
+   "source": "Cruising World https://www.cruisingworld.com/story/people/adrift-40-years-later/"
+  },
+  {
+   "claim": "Every bit of body water you conserve will increase the length of your survival; ration your sweat and save your energy; put up the canopy.",
+   "source": "AMSEA life raft survival https://www.amsea.org/life-raft-survival"
+  },
+  {
+   "claim": "Stream the sea anchor: it reduces your drift rate, helping to keep you near your last reported position.",
+   "source": "AMSEA https://www.amsea.org/life-raft-survival"
+  },
+  {
+   "claim": "Turn on the EPIRB and leave it on until rescued; sweep the horizon often with your mirror's signal.",
+   "source": "AMSEA https://www.amsea.org/life-raft-survival"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 2,
+ "factcheck": {
+  "date": "2026-11-25",
+  "ok": true,
+  "by": "claude",
+  "note": "All claims from FACTS-batch-047-050.md (049, OK list). Numbers: seventy six days and a raft about six feet long (National Geographic, OK-number); on screen only 76 DAYS, 6 FT and a 1-76 counter. Advice cards follow AMSEA wording: put up the canopy, save energy, ration sweat, stream the sea anchor to stay near the last reported position, turn on the EPIRB (shown as beacon) and leave it on, sweep the horizon with the mirror. Avoided: 'solar still' label, ship count, beacon saved him, seawater/urine, three-days rule. The distant ship in the mirror beat is a target only."
+ }
+}
