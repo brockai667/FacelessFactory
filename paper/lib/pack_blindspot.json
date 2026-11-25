@@ -1,0 +1,59 @@
+{
+ "moments": {
+  "bshole": {
+   "dur": 1.0,
+   "sfx": {
+    "": [],
+    "peek": [["pop.wav", 0, 0.45], ["swell.wav", 0.05, 0.3]],
+    "show": [["pop.wav", 0, 0.45], ["swell.wav", 0.05, 0.3]],
+    "brain": [["pop.wav", 0, 0.45], ["sparkle.wav", 0.4, 0.4]],
+    "hide": [["whoosh.wav", 0, 0.35], ["sparkle.wav", 0.15, 0.4]]
+   }
+  },
+  "bseye": {
+   "dur": 0.8,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "close": [["whoosh.wav", 0, 0.4], ["pop.wav", 0.22, 0.45]],
+    "card": [["pop.wav", 0, 0.45], ["paper.wav", 0, 0.35]]
+   }
+  },
+  "bstest": {
+   "dur": 1.0,
+   "sfx": {
+    "": [],
+    "show": [["paper.wav", 0, 0.4], ["whoosh.wav", 0, 0.35]],
+    "stare": [["pop.wav", 0, 0.45]],
+    "cross": [["tick.wav", 0, 0.45], ["pop.wav", 0.05, 0.4]],
+    "phone": [["swell.wav", 0, 0.35], ["pop.wav", 0.05, 0.35]],
+    "gone": [["sparkle.wav", 0, 0.45]]
+   }
+  },
+  "bsball": {
+   "dur": 1.0,
+   "sfx": {
+    "": [],
+    "show": [["whoosh.wav", 0, 0.4], ["pop.wav", 0.2, 0.4]],
+    "blind": [["thud.wav", 0, 0.55], ["sub_hit.wav", 0, 0.4]],
+    "nerve": [["swell.wav", 0, 0.35], ["fill.wav", 0.05, 0.35]],
+    "zoom": [["whoosh.wav", 0, 0.5]],
+    "count": [["tick.wav", 0, 0.35], ["tick.wav", 0.2, 0.35], ["tick.wav", 0.4, 0.35], ["tick.wav", 0.6, 0.35], ["thud.wav", 0.9, 0.5]],
+    "zero": [["thud.wav", 0, 0.55], ["pop.wav", 0.25, 0.4]]
+   }
+  },
+  "bssky": {
+   "dur": 1.0,
+   "sfx": {
+    "": [],
+    "show": [["whoosh.wav", 0, 0.4], ["sparkle.wav", 0.3, 0.35]],
+    "moons": [["pop.wav", 0, 0.35], ["pop.wav", 0.36, 0.35], ["pop.wav", 0.72, 0.35], ["pop.wav", 1.08, 0.35]],
+    "card": [["pop.wav", 0, 0.45], ["paper.wav", 0, 0.35]],
+    "hole": [["air_low.wav", 0, 0.45]],
+    "brain": [["pop.wav", 0, 0.45], ["paper.wav", 0.1, 0.3]],
+    "paint": [["swell.wav", 0, 0.4], ["fill.wav", 0.1, 0.35]],
+    "done": [["sparkle.wav", 0, 0.45]]
+   }
+  }
+ }
+}

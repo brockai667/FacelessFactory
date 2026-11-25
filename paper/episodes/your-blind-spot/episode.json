@@ -1,0 +1,337 @@
+{
+ "title": "The Hole In Your Vision",
+ "hook": [
+  "THE HOLE IN",
+  "YOUR VISION"
+ ],
+ "voice": "en-US-AndrewNeural",
+ "rate": "+0%",
+ "gap": 0.14,
+ "tail": 0.85,
+ "bg": "#e8a18c",
+ "accent": "#2a74b3",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "libs": [
+  "core.js",
+  "fx.js",
+  "env_room.js",
+  "char_biped.js",
+  "recipes.js",
+  "moments.js",
+  "pack_blindspot.js"
+ ],
+ "description": "Close your left eye and stare at the cross. The red dot disappears. That's the hole in your vision your brain hides from you.\n#blindspot #eyes #brain #science #mindblown\nNot medical advice.",
+ "music": {
+  "file": "C:\\Users\\damia\\FacelessFactory-paper-v2\\paper\\assets\\music\\Hyperfun.mp3",
+  "at": 0.0,
+  "vol": 1.43,
+  "credit": "Music: \"Hyperfun\" - Kevin MacLeod (incompetech.com), licensed under CC BY 4.0"
+ },
+ "lines": {
+  "hook": "Is there a hole in your vision right now?",
+  "b1": "Let's find it, so close your left eye.",
+  "b2": "With your right eye, stare at the cross on the left.",
+  "b3": "Now slowly bring your phone closer, then back.",
+  "b4": "At one spot, the red dot on the right simply vanishes.",
+  "b5": "That's your blind spot, where your optic nerve leaves the eye.",
+  "b6": "About one point two million nerve fibers exit there, with zero light sensors.",
+  "b7": "The gap could hide more than ten full moons.",
+  "b8": "You never notice because your brain paints over it with whatever is around.",
+  "end": "There's a hole in your vision right now, and your brain hides it."
+ },
+ "sfx": [
+  [
+   "pop.wav",
+   "hook:hole",
+   0.0,
+   0.45
+  ],
+  [
+   "swell.wav",
+   "hook:hole",
+   0.05,
+   0.3
+  ],
+  [
+   "whoosh.wav",
+   "b1:close",
+   0.0,
+   0.4
+  ],
+  [
+   "pop.wav",
+   "b1:close",
+   0.22,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b1:left",
+   0.0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b1:left",
+   0.0,
+   0.35
+  ],
+  [
+   "paper.wav",
+   "b2",
+   0.0,
+   0.4
+  ],
+  [
+   "whoosh.wav",
+   "b2",
+   0.0,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b2:stare",
+   0.0,
+   0.45
+  ],
+  [
+   "tick.wav",
+   "b2:cross",
+   0.0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b2:cross",
+   0.05,
+   0.4
+  ],
+  [
+   "swell.wav",
+   "b3:slowly",
+   0.0,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b3:slowly",
+   0.05,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "b4:vanishes",
+   0.0,
+   0.45
+  ],
+  [
+   "whoosh.wav",
+   "b5",
+   0.0,
+   0.4
+  ],
+  [
+   "pop.wav",
+   "b5",
+   0.2,
+   0.4
+  ],
+  [
+   "thud.wav",
+   "b5:blind",
+   0.0,
+   0.55
+  ],
+  [
+   "sub_hit.wav",
+   "b5:blind",
+   0.0,
+   0.4
+  ],
+  [
+   "swell.wav",
+   "b5:nerve",
+   0.0,
+   0.35
+  ],
+  [
+   "fill.wav",
+   "b5:nerve",
+   0.05,
+   0.35
+  ],
+  [
+   "whoosh.wav",
+   "b6",
+   0.0,
+   0.5
+  ],
+  [
+   "tick.wav",
+   "b6:one",
+   0.0,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b6:one",
+   0.2,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b6:one",
+   0.4,
+   0.35
+  ],
+  [
+   "tick.wav",
+   "b6:one",
+   0.6,
+   0.35
+  ],
+  [
+   "thud.wav",
+   "b6:one",
+   0.9,
+   0.5
+  ],
+  [
+   "thud.wav",
+   "b6:zero",
+   0.0,
+   0.55
+  ],
+  [
+   "pop.wav",
+   "b6:zero",
+   0.25,
+   0.4
+  ],
+  [
+   "whoosh.wav",
+   "b7",
+   0.0,
+   0.4
+  ],
+  [
+   "sparkle.wav",
+   "b7",
+   0.3,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b7:hide",
+   0.0,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b7:hide",
+   0.36,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b7:hide",
+   0.72,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b7:hide",
+   1.08,
+   0.35
+  ],
+  [
+   "pop.wav",
+   "b7:ten",
+   0.0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b7:ten",
+   0.0,
+   0.35
+  ],
+  [
+   "air_low.wav",
+   "b8",
+   0.0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "b8:brain",
+   0.0,
+   0.45
+  ],
+  [
+   "paper.wav",
+   "b8:brain",
+   0.1,
+   0.3
+  ],
+  [
+   "swell.wav",
+   "b8:paints",
+   0.0,
+   0.4
+  ],
+  [
+   "fill.wav",
+   "b8:paints",
+   0.1,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "b8:around",
+   0.0,
+   0.45
+  ],
+  [
+   "pop.wav",
+   "end:hole",
+   0.0,
+   0.45
+  ],
+  [
+   "swell.wav",
+   "end:hole",
+   0.05,
+   0.3
+  ],
+  [
+   "pop.wav",
+   "end:brain",
+   0.0,
+   0.45
+  ],
+  [
+   "sparkle.wav",
+   "end:brain",
+   0.4,
+   0.4
+  ],
+  [
+   "whoosh.wav",
+   "end:hides",
+   0.0,
+   0.35
+  ],
+  [
+   "sparkle.wav",
+   "end:hides",
+   0.15,
+   0.4
+  ]
+ ]
+}

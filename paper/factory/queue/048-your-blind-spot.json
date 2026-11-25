@@ -1,0 +1,156 @@
+{
+ "v": 2,
+ "topic": "There is a hole in your vision right now. Find it with one eye closed.",
+ "slug": "your-blind-spot",
+ "title": "The Hole In Your Vision",
+ "idea": "Every eye has a spot with no light sensors where the optic nerve leaves, and your brain paints over it so you never notice.",
+ "test": {
+  "hook": "A",
+  "engage": "do_with_me"
+ },
+ "hook": "Is there a hole in your vision right now?",
+ "banner": [
+  "THE HOLE IN",
+  "YOUR VISION"
+ ],
+ "env": "room",
+ "scene": "bed",
+ "mood_music": "wonder",
+ "face0": "smile",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "light",
+  "outfit": "pajamas",
+  "hairStyle": "curly",
+  "hair": "#b4532a",
+  "suit": "#8a52c4",
+  "suitDark": "#6a3b9c"
+ },
+ "cta": false,
+ "hook_do": [
+  {"r": "bshole", "arg": "peek", "at": "hole"}
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "Let's find it, so close your left eye.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bseye", "arg": "close", "at": "close"},
+    {"r": "bseye", "arg": "card", "at": "left"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "With your right eye, stare at the cross on the left.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bstest", "arg": "show", "at": "@0.0"},
+    {"r": "bstest", "arg": "stare", "at": "stare"},
+    {"r": "bstest", "arg": "cross", "at": "cross"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Now slowly bring your phone closer, then back.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bstest", "arg": "phone", "at": "slowly", "o": {"until": "b5"}}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "At one spot, the red dot on the right simply vanishes.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bstest", "arg": "gone", "at": "vanishes"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "That's your blind spot, where your optic nerve leaves the eye.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bsball", "arg": "show", "at": "@0.0"},
+    {"r": "bsball", "arg": "blind", "at": "blind"},
+    {"r": "bsball", "arg": "nerve", "at": "nerve"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "About one point two million nerve fibers exit there, with zero light sensors.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bsball", "arg": "zoom", "at": "@0.0"},
+    {"r": "bsball", "arg": "count", "at": "one", "o": {"dur": 1.0}},
+    {"r": "bsball", "arg": "zero", "at": "zero"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "The gap could hide more than ten full moons.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bssky", "arg": "show", "at": "@0.0"},
+    {"r": "bssky", "arg": "moons", "at": "hide"},
+    {"r": "bssky", "arg": "card", "at": "ten"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "You never notice because your brain paints over it with whatever is around.",
+   "shots": [{"type": "world", "do": [
+    {"r": "bssky", "arg": "hole", "at": "@0.0"},
+    {"r": "bssky", "arg": "brain", "at": "brain"},
+    {"r": "bssky", "arg": "paint", "at": "paints", "o": {"dur": 1.6}},
+    {"r": "bssky", "arg": "done", "at": "around"}
+   ]}]
+  }
+ ],
+ "end": {
+  "line": "There's a hole in your vision right now, and your brain hides it.",
+  "do": [
+   {"r": "clear", "arg": "bssky,bsball,bstest,bseye,face,look", "at": "theres"},
+   {"r": "bshole", "arg": "show", "at": "hole"},
+   {"r": "bshole", "arg": "brain", "at": "brain"},
+   {"r": "bshole", "arg": "hide", "at": "hides"}
+  ]
+ },
+ "description": "Close your left eye and stare at the cross. The red dot disappears. That's the hole in your vision your brain hides from you.",
+ "tags": [
+  "#blindspot",
+  "#eyes",
+  "#brain",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "At the optic nerve head (optic disc) there are no photoreceptors, only nerve fibers; this is the physiologic blind spot, about 15 degrees temporal to fixation and about 7.5 degrees across.",
+   "source": "University of Iowa EyeRounds visual field tutorial https://webeye.ophth.uiowa.edu/eyeforum/tutorials/VF-testing/"
+  },
+  {
+   "claim": "Approximately 1.2 million nerve fibers make up each human optic nerve (on screen: ABOUT 1,200,000 NERVE FIBERS).",
+   "source": "University of Iowa glaucoma guide https://webeye.ophth.uiowa.edu/eyeforum/books/glaucoma_guide/chapter1.html (OK-number in FACTS-batch-047-050.md)"
+  },
+  {
+   "claim": "With one eye closed and staring at a mark, a dot at the side disappears at a certain distance; the brain fills in the missing information.",
+   "source": "Neuroscience for Kids, University of Washington https://faculty.washington.edu/chudler/chvision.html"
+  },
+  {
+   "claim": "The full Moon is about half a degree wide, so a 5.5 to 7.5 degree blind spot spans more than ten Moon widths (on screen: 10+ FULL MOONS, 11 moons drawn).",
+   "source": "NASA https://science.nasa.gov/solar-system/moon/the-moon-illusion-why-does-the-moon-look-so-big-sometimes/ + Iowa EyeRounds (own calculation, see FACTS-batch-047-050.md)"
+  },
+  {
+   "claim": "The only thing the viewer is asked to do is close one eye and move the phone; no fixed vanishing distance is stated.",
+   "source": "Safety and wording rules for 048 in FACTS-batch-047-050.md"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "factcheck": {
+  "date": "2026-11-25",
+  "ok": true,
+  "by": "claude",
+  "note": "Spoken numbers (one point two million, zero, more than ten) and on-screen numbers (1,200,000, 0, 10+) match the 048 OK list in FACTS-batch-047-050.md. No fixed vanishing distance, the hole is not called central, and fifteen moons is never said. Test layout for the right eye: cross left, dot right, dot never animated."
+ },
+ "music_i": 2
+}
