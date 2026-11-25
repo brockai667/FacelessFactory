@@ -1,0 +1,79 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "You wake up at night and your house is filling with smoke. What do you do?",
+ "slug": "smoke-at-night",
+ "title": "Smoke In Your House",
+ "idea": "You may have less than two minutes, and the move that buys the most time is the one people skip: closing doors behind you.",
+ "test": {
+  "hook": "B",
+  "engage": "howto_card"
+ },
+ "hook": "Your smoke alarm is screaming, and the air smells burnt.",
+ "hook_mode": "B",
+ "beats": [
+  {
+   "line": "You could have less than two minutes, so here are four moves.",
+   "see": "Dark bedroom, hero bolts upright in bed; a big countdown 2:00 starts ticking at the top and four empty step slots slide in at the side. Timer on 'two minutes', slots on 'four moves'."
+  },
+  {
+   "line": "First, roll out of bed and crawl low, under the smoke.",
+   "see": "Step card 1 GET LOW; gray smoke layer pours along the ceiling and sinks halfway down, hero rolls onto the floor and crawls under it with clear air band near the floor. Roll on 'roll', smoke sinks on 'smoke'."
+  },
+  {
+   "line": "Second, touch the door with the back of your hand.",
+   "see": "Step card 2 BACK OF HAND; close-up of the bedroom door, a hand turns over and the knuckles touch the door top, a small thermometer icon pops beside it. Hand flips on 'back', touch on 'hand'."
+  },
+  {
+   "line": "If it's hot, fire is behind it, so use your other way out.",
+   "see": "Door glows red with heat shimmer, orange flicker in the gap under it; a red X on the door, then a green arrow swings to the window. Glow on 'hot', arrow on 'other way'."
+  },
+  {
+   "line": "Third, the move most people skip: close doors behind you.",
+   "see": "Step card 3 CLOSE DOORS with a REVEAL stamp; top down floor plan, hero dot runs down the hall and each door swings shut behind it with a thump. Stamp on 'skip', doors slam on 'close'."
+  },
+  {
+   "line": "In fire tests, a room behind a closed door stayed under one hundred degrees Fahrenheit, while open rooms passed one thousand.",
+   "see": "Split screen of two bedrooms: left door closed, thermometer stops at 100°F and the room stays clear; right door open, thermometer shoots past 1000°F and the room fills black and orange. Left on 'one hundred', right on 'one thousand'."
+  },
+  {
+   "line": "Fourth, once you're out, stay out.",
+   "see": "Step card 4 STAY OUT; hero reaches the lawn meeting spot by the mailbox, turns toward the house and a big hand stop sign blocks the front door. Lawn on 'out', stop sign on 'stay'."
+  }
+ ],
+ "end": {
+  "line": "Now let that alarm scream, because you know the four moves.",
+  "see": "Cut back to the dark bedroom from the hook, alarm flashing red; the four step cards stack into a neat deck beside the bed and the hero nods. Alarm on 'scream', deck on 'four moves', last frame = hook frame."
+ },
+ "description": "Your smoke alarm wakes you at night. You may have less than two minutes. Four moves, and the third one most people skip.",
+ "tags": [
+  "#firesafety",
+  "#survival",
+  "#smokealarm",
+  "#lifehacks",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Residents could have less than two minutes to escape a home fire once the smoke alarm sounds.",
+   "source": "USFA (FEMA) https://usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans (OK-number)"
+  },
+  {
+   "claim": "Smoke and toxic gases collect first along the ceiling; drop to the floor and crawl low under the smoke to your exit.",
+   "source": "Ready.gov (FEMA) https://www.ready.gov/home-fires"
+  },
+  {
+   "claim": "Touch closed doors with the back of your hand to check if they are hot before opening; if hot, leave it closed and use your second way out.",
+   "source": "Portland Fire & Rescue https://www.portland.gov/fire/your-safety/home-fire-checklist ; Ready.gov https://www.ready.gov/home-fires"
+  },
+  {
+   "claim": "In UL FSRI tests, closed-door rooms averaged under 100 °F versus 1000+ °F in open-door rooms; people escaping should close as many doors as possible.",
+   "source": "UL FSRI Close Before You Doze https://fsri.org/programs/close-you-doze (OK-number)"
+  },
+  {
+   "claim": "Once out, go to the outside meeting place and stay there; do not go back inside.",
+   "source": "USFA https://usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans ; Portland Fire & Rescue https://www.portland.gov/fire/your-safety/home-fire-checklist"
+  }
+ ],
+ "notes": "How-to with a reveal: step three (close doors) is the surprise, backed by the FSRI temperature pair. The countdown graphic should read 'under 2:00' or count from 2:00 without implying an exact deadline (source says 'less than'). 'Fire is behind it' simplifies the USFA factsheet wording (checking that fire is not on the other side). 'Open rooms passed one thousand' = FSRI program page '1000+ degrees in the open-door rooms'; do not use the 500 °F peak table. On screen keep the °F unit visible. Did not use 'smoke kills more than flames' to save words; it is OK (Ready.gov) if a beat needs filler. Big number: under one hundred vs over one thousand degrees (and less than two minutes)."
+}

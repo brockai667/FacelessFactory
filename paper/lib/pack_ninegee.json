@@ -1,0 +1,443 @@
+{
+ "moments": {
+  "ngjet": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "bank": [
+     [
+      "whoosh.wav",
+      0,
+      0.5
+     ],
+     [
+      "rumble.wav",
+      0.1,
+      0.45
+     ]
+    ],
+    "level": [
+     [
+      "whoosh.wav",
+      0,
+      0.35
+     ]
+    ],
+    "heavy": [
+     [
+      "whoosh.wav",
+      0,
+      0.3
+     ],
+     [
+      "thud.wav",
+      0.3,
+      0.6
+     ],
+     [
+      "sub_hit.wav",
+      0.3,
+      0.5
+     ],
+     [
+      "wobble.wav",
+      0.45,
+      0.3
+     ]
+    ]
+   }
+  },
+  "ngmeter": {
+   "dur": 0.8,
+   "sfx": {
+    "": [],
+    "9.0": [
+     [
+      "swell.wav",
+      0,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0.3,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0.6,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0.9,
+      0.35
+     ],
+     [
+      "tick.wav",
+      1.2,
+      0.35
+     ]
+    ],
+    "9": [
+     [
+      "tick.wav",
+      0,
+      0.35
+     ],
+     [
+      "pop.wav",
+      0.25,
+      0.5
+     ],
+     [
+      "beep.wav",
+      0.25,
+      0.45
+     ],
+     [
+      "beep.wav",
+      0.5,
+      0.45
+     ]
+    ],
+    "reset": [
+     [
+      "tick.wav",
+      0,
+      0.35
+     ]
+    ]
+   }
+  },
+  "ngblood": {
+   "dur": 1.0,
+   "sfx": {
+    "": [],
+    "show": [
+     [
+      "pop.wav",
+      0,
+      0.45
+     ],
+     [
+      "swell.wav",
+      0,
+      0.3
+     ]
+    ],
+    "drain": [
+     [
+      "pour.wav",
+      0,
+      0.5
+     ],
+     [
+      "air_low.wav",
+      0.3,
+      0.35
+     ],
+     [
+      "beep.wav",
+      1.1,
+      0.35
+     ]
+    ],
+    "nudge": [
+     [
+      "swell.wav",
+      0,
+      0.4
+     ],
+     [
+      "pop.wav",
+      0.3,
+      0.35
+     ]
+    ],
+    "full": [
+     [
+      "fill.wav",
+      0,
+      0.45
+     ],
+     [
+      "sparkle.wav",
+      0.3,
+      0.4
+     ]
+    ]
+   }
+  },
+  "ngsight": {
+   "dur": 1.0,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "fade": [
+     [
+      "swell.wav",
+      0,
+      0.35
+     ]
+    ],
+    "edges": [
+     [
+      "air_low.wav",
+      0,
+      0.45
+     ]
+    ],
+    "tunnel": [
+     [
+      "air_low.wav",
+      0,
+      0.4
+     ],
+     [
+      "heartbeat.wav",
+      0.1,
+      0.35
+     ]
+    ],
+    "black": [
+     [
+      "sub_hit.wav",
+      0,
+      0.6
+     ],
+     [
+      "thud.wav",
+      0,
+      0.4
+     ]
+    ],
+    "awake": [
+     [
+      "tick.wav",
+      0,
+      0.4
+     ],
+     [
+      "tick.wav",
+      0.3,
+      0.4
+     ],
+     [
+      "tick.wav",
+      0.65,
+      0.4
+     ],
+     [
+      "pop.wav",
+      0.1,
+      0.35
+     ]
+    ],
+    "out": [
+     [
+      "thud.wav",
+      0.2,
+      0.5
+     ],
+     [
+      "air_low.wav",
+      0.3,
+      0.5
+     ]
+    ],
+    "confused": [
+     [
+      "wobble.wav",
+      0,
+      0.45
+     ],
+     [
+      "wobble.wav",
+      0.6,
+      0.35
+     ],
+     [
+      "pop.wav",
+      0.1,
+      0.3
+     ]
+    ],
+    "pop": [
+     [
+      "sparkle.wav",
+      0,
+      0.5
+     ]
+    ]
+   }
+  },
+  "ngclock": {
+   "dur": 1.4,
+   "sfx": {
+    "": [],
+    "guess": [
+     [
+      "tick.wav",
+      0,
+      0.45
+     ],
+     [
+      "tick.wav",
+      0.35,
+      0.45
+     ],
+     [
+      "tick.wav",
+      0.7,
+      0.45
+     ],
+     [
+      "tick.wav",
+      1.05,
+      0.45
+     ]
+    ],
+    "12": [
+     [
+      "tick.wav",
+      0,
+      0.4
+     ],
+     [
+      "tick.wav",
+      0.1,
+      0.4
+     ],
+     [
+      "tick.wav",
+      0.2,
+      0.4
+     ],
+     [
+      "tick.wav",
+      0.3,
+      0.4
+     ],
+     [
+      "tick.wav",
+      0.42,
+      0.4
+     ],
+     [
+      "thud.wav",
+      0.55,
+      0.6
+     ],
+     [
+      "sub_hit.wav",
+      0.55,
+      0.4
+     ]
+    ],
+    "confused": [
+     [
+      "tick.wav",
+      0,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0.2,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0.42,
+      0.35
+     ],
+     [
+      "tick.wav",
+      0.7,
+      0.35
+     ],
+     [
+      "pop.wav",
+      1.2,
+      0.4
+     ]
+    ]
+   }
+  },
+  "ngstrain": {
+   "dur": 1.2,
+   "noblink": true,
+   "sfx": {
+    "": [],
+    "grip": [
+     [
+      "paper.wav",
+      0,
+      0.4
+     ],
+     [
+      "thud.wav",
+      0.05,
+      0.4
+     ]
+    ],
+    "squeeze": [
+     [
+      "rumble.wav",
+      0,
+      0.45
+     ],
+     [
+      "heartbeat.wav",
+      0.1,
+      0.4
+     ]
+    ],
+    "breathe": [
+     [
+      "whoosh.wav",
+      0,
+      0.4
+     ],
+     [
+      "whoosh.wav",
+      0.34,
+      0.4
+     ],
+     [
+      "whoosh.wav",
+      0.68,
+      0.4
+     ],
+     [
+      "whoosh.wav",
+      1.02,
+      0.4
+     ]
+    ],
+    "suit": [
+     [
+      "fill.wav",
+      0,
+      0.5
+     ],
+     [
+      "swell.wav",
+      0,
+      0.4
+     ],
+     [
+      "pop.wav",
+      0.4,
+      0.4
+     ]
+    ]
+   }
+  }
+ }
+}

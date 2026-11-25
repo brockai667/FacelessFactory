@@ -1,0 +1,487 @@
+{
+ "v": 2,
+ "topic": "What happens to your body when a fighter jet pulls nine G?",
+ "slug": "pulling-nine-g",
+ "title": "Pulling Nine G",
+ "idea": "Hard G drains the blood from your head, your sight shuts down in stages, and pilots squeeze it back up.",
+ "test": {
+  "hook": "B",
+  "engage": "guess_number"
+ },
+ "hook": "You pull a hard turn in a fighter jet.",
+ "banner": [
+  "PULLING",
+  "NINE G"
+ ],
+ "hook_mode": "B",
+ "env": "room",
+ "scene": "couch",
+ "mood_music": "tense",
+ "face0": "smile",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "light",
+  "outfit": "suit",
+  "hairStyle": "short",
+  "hair": "#5a3b28",
+  "suit": "#6b7a3f",
+  "suitDark": "#525e2e",
+  "armL": 10,
+  "armR": -6
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "ngjet",
+   "at": "@0.0"
+  },
+  {
+   "r": "ngjet",
+   "arg": "bank",
+   "at": "pull"
+  },
+  {
+   "r": "ngstrain",
+   "arg": "grip",
+   "at": "hard"
+  },
+  {
+   "r": "ngmeter",
+   "arg": 9.0,
+   "at": "turn",
+   "o": {
+    "dur": 1.45,
+    "free": true
+   }
+  },
+  {
+   "r": "shake",
+   "arg": 8,
+   "at": "fighter"
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "At nine G, your head weighs nine times as much.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ngmeter",
+       "arg": 9,
+       "at": "nine",
+       "o": {
+        "dur": 0.4
+       }
+      },
+      {
+       "r": "ngjet",
+       "arg": "heavy",
+       "at": "nine#1"
+      },
+      {
+       "r": "shake",
+       "arg": 10,
+       "at": "weighs"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "The blood drains out of your head. Guess how long you'll be out.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "heavy,strain,face",
+       "at": "The"
+      },
+      {
+       "r": "ngblood",
+       "arg": "show",
+       "at": "blood"
+      },
+      {
+       "r": "ngblood",
+       "arg": "drain",
+       "at": "drains"
+      },
+      {
+       "r": "ngclock",
+       "arg": "guess",
+       "at": "Guess"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "First the colors fade and the edges go gray.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "blood,clock",
+       "at": "First"
+      },
+      {
+       "r": "ngsight",
+       "arg": "fade",
+       "at": "colors"
+      },
+      {
+       "r": "ngsight",
+       "arg": "edges",
+       "at": "edges"
+      },
+      {
+       "r": "look",
+       "arg": "left",
+       "at": "gray"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Then everything goes black, but you're still awake.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ngsight",
+       "arg": "tunnel",
+       "at": "everything"
+      },
+      {
+       "r": "ngsight",
+       "arg": "black",
+       "at": "black"
+      },
+      {
+       "r": "ngsight",
+       "arg": "awake",
+       "at": "awake"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Then the lights go out. Lock in your guess.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ngsight",
+       "arg": "out",
+       "at": "out"
+      },
+      {
+       "r": "ngclock",
+       "arg": "guess",
+       "at": "Lock",
+       "o": {
+        "label": "LOCK IN YOUR GUESS"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "About twelve seconds out cold. Then roughly fifteen more, confused.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "ngclock",
+       "arg": 12,
+       "at": "About",
+       "o": {
+        "dur": 0.55
+       }
+      },
+      {
+       "r": "stamp",
+       "arg": "OUT COLD",
+       "at": "out",
+       "o": {
+        "y": 250
+       }
+      },
+      {
+       "r": "ngsight",
+       "arg": "confused",
+       "at": "fifteen"
+      },
+      {
+       "r": "ngclock",
+       "arg": "confused",
+       "at": "fifteen"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Back to the start of the turn. Pilots fight back.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "clock,vision,look,face",
+       "at": "Back"
+      },
+      {
+       "r": "rewind",
+       "at": "Back",
+       "o": {
+        "y": 290
+       }
+      },
+      {
+       "r": "ngmeter",
+       "arg": "reset",
+       "at": "Back"
+      },
+      {
+       "r": "ngjet",
+       "arg": "level",
+       "at": "Back"
+      },
+      {
+       "r": "ngjet",
+       "arg": "bank",
+       "at": "turn"
+      },
+      {
+       "r": "ngstrain",
+       "arg": "grip",
+       "at": "fight"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Squeeze your legs and stomach hard.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "SQUEEZE HARD",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "ngmeter",
+       "arg": 9,
+       "at": "One",
+       "o": {
+        "dur": 0.6
+       }
+      },
+      {
+       "r": "ngblood",
+       "arg": "show",
+       "at": "Squeeze",
+       "o": {
+        "level": 1000
+       }
+      },
+      {
+       "r": "ngstrain",
+       "arg": "squeeze",
+       "at": "Squeeze"
+      },
+      {
+       "r": "ngblood",
+       "arg": "nudge",
+       "at": "hard",
+       "o": {
+        "level": 820
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Breathe in short, forced bursts.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "SHORT BREATHS",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "ngstrain",
+       "arg": "breathe",
+       "at": "short"
+      },
+      {
+       "r": "ngblood",
+       "arg": "nudge",
+       "at": "bursts",
+       "o": {
+        "level": 700
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Your G suit squeezes your legs tight.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "G SUIT",
+        "y": 130,
+        "size": 56
+       }
+      },
+      {
+       "r": "ngstrain",
+       "arg": "suit",
+       "at": "squeezes"
+      },
+      {
+       "r": "ngblood",
+       "arg": "full",
+       "at": "tight"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "Pull the turn again, and this time keep the lights on.",
+  "do": [
+   {
+    "r": "clear",
+    "arg": "step,blood,strain,face,look",
+    "at": "Pull"
+   },
+   {
+    "r": "ngmeter",
+    "arg": "reset",
+    "at": "Pull"
+   },
+   {
+    "r": "ngjet",
+    "arg": "level",
+    "at": "Pull"
+   },
+   {
+    "r": "ngjet",
+    "arg": "bank",
+    "at": "turn"
+   },
+   {
+    "r": "ngmeter",
+    "arg": 9,
+    "at": "again",
+    "o": {
+     "dur": 0.6
+    }
+   },
+   {
+    "r": "ngsight",
+    "arg": "pop",
+    "at": "lights"
+   },
+   {
+    "r": "wave",
+    "at": "and"
+   }
+  ]
+ },
+ "description": "Pull nine G in a fighter jet and your sight shuts down in stages. Guess how long you black out.",
+ "tags": [
+  "#fighterjet",
+  "#survival",
+  "#aviation",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "At nine G everything weighs nine times as much, including your head.",
+   "source": "Basic physics, as listed in FACTS-batch-035-046.md (041)"
+  },
+  {
+   "claim": "High positive G pulls blood away from the head and the brain runs short of oxygen.",
+   "source": "FAA/CAMI report DOT/FAA/AM-23/6 (Copeland & Whinnery 2023) https://rosap.ntl.bts.gov/view/dot/66373/dot_66373_DS1.pdf"
+  },
+  {
+   "claim": "With slow onset the order is gray-out (loss of colour and side vision), black-out (no vision but still awake), then loss of consciousness (G-LOC).",
+   "source": "FAA/CAMI report DOT/FAA/AM-23/6 (Copeland & Whinnery 2023) https://rosap.ntl.bts.gov/view/dot/66373/dot_66373_DS1.pdf"
+  },
+  {
+   "claim": "G-LOC: about 12 seconds fully unconscious, then roughly 15 more seconds confused.",
+   "source": "Whinnery & Whinnery 1990, 501 centrifuge episodes (as listed in FACTS-batch-035-046.md, OK-number)"
+  },
+  {
+   "claim": "Pilots fight it with the anti-G straining manoeuvre (tense legs and abdomen, short forced breaths) and a G-suit that squeezes the legs.",
+   "source": "FAA/CAMI report DOT/FAA/AM-23/6 https://rosap.ntl.bts.gov/view/dot/66373/dot_66373_DS1.pdf"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "factcheck": {
+  "date": "2026-11-21",
+  "ok": true,
+  "by": "claude",
+  "note": "All on-screen numbers (9 G, x9, 12 SEC, 15 SEC) match FACTS-batch-035-046.md 041 OK list. Text changed vs draft: engagement moved earlier ('Guess how long you'll be out.' in beat 2, 'Lock in your guess.' in beat 5). G display values during the turn (1.0 to 7.0) are only an animation of the meter climbing, the only stated value is nine."
+ },
+ "music_i": 1
+}

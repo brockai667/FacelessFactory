@@ -1,0 +1,82 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "Lost in the woods: keep walking or stay put?",
+ "slug": "lost-in-the-woods",
+ "title": "Lost In The Woods",
+ "idea": "Without the sun people walk in circles without noticing, so staying put and being easy to find beats walking out.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "You're lost in the woods: stay put, or keep walking?",
+ "choice": [
+  "STAY",
+  "WALK"
+ ],
+ "beats": [
+  {
+   "line": "Walking feels like the smart move, so lock in your pick.",
+   "see": "Two cards drop in: A STAY (hero sitting by a tree) and B WALK (hero striding with a stick); a padlock snaps shut between them. Card B wiggles on 'Walking', lock on 'lock in'."
+  },
+  {
+   "line": "In a forest study, people walked in circles once clouds hid the sun.",
+   "see": "Top down forest map with a GPS dot leaving a trail; a cloud slides over the sun icon and the trail starts curling into a loop. Cloud on 'clouds', trail curls on 'circles'."
+  },
+  {
+   "line": "Blindfolded, some walked loops less than twenty meters wide.",
+   "see": "Hero in a blindfold walks a tight circle on a clearing, a ruler across the loop reads under 20 m and the footprints overlap. Blindfold on 'Blindfolded', ruler on 'twenty meters'."
+  },
+  {
+   "line": "It's A, stay put.",
+   "see": "Card A STAY gets a big green check, card B WALK a red X and slides off. Check on 'A'."
+  },
+  {
+   "line": "Park rangers say moving makes it harder for searchers to find you.",
+   "see": "Searchers' flashlights sweep a red X marked LAST SEEN while the hero's dot wanders away from it; then the dot snaps back onto the X and the beams land on it. Beams on 'searchers', dot snaps on 'find you'."
+  },
+  {
+   "line": "First, find a tree, hug it, and stay there.",
+   "see": "Step card 1 HUG A TREE; hero wraps arms around a thick trunk, a pin icon drops on the spot. Hug on 'hug', pin on 'stay'."
+  },
+  {
+   "line": "Then blow a whistle instead of yelling, to save your energy.",
+   "see": "Step card 2 WHISTLE; three sound rings burst from a whistle, a shouting mouth icon is crossed out and an energy bar stays full. Rings on 'whistle', bar on 'energy'."
+  },
+  {
+   "line": "At night, flash a light three fast, three slow, three fast.",
+   "see": "Step card 3 SOS; dark forest, flashlight blinks in the exact rhythm: three short, three long, three short, dots and dashes appear above it. Blinks on 'three fast', long on 'three slow'."
+  }
+ ],
+ "end": {
+  "line": "So if you're ever lost in the woods, pick A and let them find you.",
+  "see": "Back to the two cards of the hook over the forest; card A glows, a helicopter spotlight finds the hero by the tree. Glow on 'pick A', spotlight on 'find you', last frame = hook frame with both cards."
+ },
+ "description": "Lost in the woods: stay put or keep walking? Without the sun, people walk in circles and don't even notice.",
+ "tags": [
+  "#hiking",
+  "#survival",
+  "#lost",
+  "#outdoors",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Walkers tracked by GPS in the Bienwald forest went straight only when the sun or moon was visible; when the sun went behind clouds they walked in circles without noticing.",
+   "source": "Souman et al., Current Biology 2009, Max Planck press release https://www.mpg.de/596269/pressrelease200908171"
+  },
+  {
+   "claim": "Blindfolded walkers made circles sometimes less than 20 metres in diameter.",
+   "source": "Max Planck press release https://www.mpg.de/596269/pressrelease200908171 (OK-number)"
+  },
+  {
+   "claim": "Find a tree, hug it, and stay put; changing location will make it difficult for authorities to find you; move only if your life is in immediate danger.",
+   "source": "National Park Service https://home.nps.gov/articles/gtgemergencyplan.htm"
+  },
+  {
+   "claim": "A whistle helps people find you and saves your energy from yelling; flash the SOS pattern three times quickly, three times slowly, three times quickly.",
+   "source": "National Park Service https://home.nps.gov/articles/gtgemergencyplan.htm"
+  }
+ ],
+ "notes": "Correct card: A STAY (as requested, after several B answers). 'Less than twenty meters' applies only to blindfolded walkers, which the line says. 'Park rangers' = NPS article. NPS exception (move only if your life is in immediate danger) and 'staying put works best when someone knows where you went' are left out for the word budget; add as small on-screen footnote under card A if room. 'Three fast, three slow, three fast' is the NPS wording of SOS. Big number: less than twenty meters."
+}

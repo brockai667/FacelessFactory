@@ -1,0 +1,41 @@
+# Verified facts for batch 047–050 (fact-check 2026-11-21)
+
+Rule: a script may only state what is listed under OK. Things under AVOID were checked and are myths, disputed or unsourced.
+"[snippet]" = seen only as a search snippet, not the full page: usable for wording, but do not put the exact number on screen unless marked OK-number.
+
+## 047 Smoke At Night
+OK
+- "Residents could have less than 2 minutes to escape a home fire once the smoke alarm sounds." USFA (FEMA) https://usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans (OK-number: "less than two minutes")
+- Same idea, other official wording: "A fire can become life-threatening in just two minutes"; "In less than 30 seconds a small flame can turn into a major fire." Ready.gov (FEMA) https://www.ready.gov/home-fires ; "as little as two minutes to escape safely once the alarm sounds" Portland Fire & Rescue https://www.portland.gov/fire/your-safety/home-fire-checklist
+- Smoke and toxic gases kill more people than flames do; they collect first along the ceiling; "Drop down to the floor and crawl low, under any smoke to your exit." Ready.gov https://www.ready.gov/home-fires
+- Before opening a door feel the knob and the door; if hot, or smoke comes around it, leave it closed and use your second way out (Ready.gov, same page). Use the back of the hand: "touch closed doors with the back of their hand to see if they are hot before opening" (Portland Fire & Rescue, same page). USFA "Get Out Safely" factsheet: back of the hand on the top of the door, the knob and the crack by the frame [snippet, via state-hosted copies].
+- Close doors: UL FSRI "Close Before You Doze": closed-door rooms had "average temperatures of less than 100 degrees Fahrenheit versus 1000+ degrees in the open-door rooms"; CO about 100 ppm behind the closed door vs 10,000 ppm in the open-door bedroom; people who can safely leave should "close as many doors as possible" on the way out. https://fsri.org/programs/close-you-doze (OK-number: "under one hundred degrees" vs "over one thousand", Fahrenheit)
+- Get out and stay out: go to the outside meeting place and stay there (USFA page above); do not re-enter the building (Portland Fire & Rescue). USFA 2012 materials: "Get out and stay out. Never go back inside for people, pets, or personal belongings." [snippet]
+AVOID: "you have exactly two minutes" (sources say "less than" / "as little as"); FSRI peak-table numbers (500 °F open bedroom at 4 ft) mixed with the 1000+ headline: use only the program-page pair; "smoke kills X percent" (no primary number checked); "open the door slowly and check" as an official step (not in the pages read); any claim that a closed door "saves" you.
+
+## 048 Your Blind Spot
+OK
+- At the optic nerve head (optic disc) "there are no photoreceptors, only nerve fibers"; the physiologic blind spot sits about 15° temporal to fixation; average size 7.5° in diameter, centred 1.5° below the horizontal. University of Iowa EyeRounds, visual field tutorial https://webeye.ophth.uiowa.edu/eyeforum/tutorials/VF-testing/
+- "Approximately 1.2 million nerve fibers, or axons, make up each human optic nerve." University of Iowa glaucoma guide https://webeye.ophth.uiowa.edu/eyeforum/books/glaucoma_guide/chapter1.html (OK-number: "about one point two million"; StatPearls NBK507907 gives the same figure [snippet])
+- The blind spot is where the optic nerve exits the eye, an area with no light receptors; the brain "fills in" the missing information. Demo: about 20 inches away, one eye closed, stare at the mark, slowly bring the image closer, "at a certain distance, the dot will disappear". Neuroscience for Kids, University of Washington https://faculty.washington.edu/chudler/chvision.html
+- The Moon is about 0.5° wide in the sky. NASA https://science.nasa.gov/solar-system/moon/the-moon-illusion-why-does-the-moon-look-so-big-sometimes/ [snippet] ; Weber State University https://physics.weber.edu/schroeder/ua/MoonAndEclipses.html [snippet]. Derived: 7.5° / 0.5° = 15 Moon widths (Wikipedia gives 5.5° wide horizontally = 11). Say "more than ten full moons", never fifteen.
+- Phone geometry (own calculation from the 15° figure): the dot must sit about 0.27 × eye distance to the right of the cross. With cross and dot near opposite edges of a vertical phone (about 5 cm apart), the dot vanishes at roughly 18–22 cm from the eye. So the script says "bring your phone closer", not a fixed distance.
+- Safe viewer moment: only closing one eye and looking at a still screen.
+AVOID: a fixed vanishing distance in the spoken line; "the hole is in the middle of your vision"; "everyone's blind spot is identical" (position varies slightly per person, Iowa).
+
+## 049 Alone In A Life Raft
+OK
+- Steven Callahan, solo sailor, "survived 76 days in a 6-foot (1.8-meter) life raft by snagging fish and distilling water." National Geographic https://www.nationalgeographic.com/science/article/140205-science-castaway-adrift-shipwreck-survival (OK-number: "seventy six days")
+- His boat sank on 4 February 1982 after a collision ("probably a whale or a large shark"); he was found by three fishermen in the Caribbean. Cruising World https://www.cruisingworld.com/story/people/adrift-40-years-later/
+- Ships passed without seeing him (CSM 1982 says seven sighted, later accounts nine) [snippet: say "ships passed", no number]. Fishermen were drawn by seabirds over the raft [snippet].
+- AMSEA (Alaska Marine Safety Education Association) life raft survival https://www.amsea.org/life-raft-survival : "Every bit of body water you conserve will increase the length of your survival." "Ration your sweat, and save your energy until you truly need it." "Put up the canopy." "Stream the sea anchor. This will reduce your drift rate, helping to keep you near your last reported position." "Turn on the EPIRB and leave it on until you are rescued." "Sweep the horizon often with your mirror's signal." "Fire one signal flare as soon as possible, but keep others for when rescuers are in sight." "Decide on a daily water ration for each person." "Never drink seawater or urine."
+- A mirror flash can be seen up to about 10 miles on a sunny day [snippet, secondary: do not put on screen].
+AVOID: "three days without water" rule as a fact (no primary source checked); drinking seawater or urine in any form (and 030 already covered it); a ship count; "his beacon saved him" (sources say his beacon and flares did not bring rescue); "solar still" by name (sources say "distilling water").
+
+## 050 Lost In The Woods
+OK
+- "Find a tree, hug it, and stay put." "The important thing is to stay in one place." "Changing location will make it difficult for authorities to find you." Move only if your life is in immediate danger. Whistle: "helps people find you and saves your energy from yelling." Bright clothing: "Make yourself easier to see when people are searching for you." Flashlight SOS: "Three times quickly, three times slowly, three times quickly." Signal mirrors can alert planes and helicopters. National Park Service https://home.nps.gov/articles/gtgemergencyplan.htm
+- Forest Service: stop, stay calm, stay put; panic is the biggest danger https://www.fs.usda.gov/visit/know-before-you-go/if-you-get-lost [snippet, page 403]
+- Souman et al., "Walking Straight into Circles", Current Biology 19(18):1538–1542 (2009), Max Planck Institute for Biological Cybernetics: walkers tracked by GPS in the Sahara and the Bienwald forest (Germany) went straight only when the sun or moon was visible; "as soon as the sun disappeared behind some clouds, people started to walk in circles without even noticing it"; blindfolded walkers made circles "sometimes in extremely small ones (diameter less than 20 metres)". https://www.mpg.de/596269/pressrelease200908171 (OK-number: "less than twenty meters", only for blindfolded walkers)
+- Staying put works best when someone knows where you went (park-safety sources, American Hiking Society https://americanhiking.org/resources/lost/ [snippet]); three whistle blasts is a distress call (AHS) [snippet].
+AVOID: "most lost people walk in circles" (study: people without sun cues, small sample); "less than 20 m" for sighted walkers; any search-and-rescue survival statistic (none checked); "always stay put" (NPS: move if life is in immediate danger).

@@ -1,0 +1,78 @@
+{
+ "v": 2,
+ "draft": true,
+ "topic": "There is a hole in your vision right now. Find it with one eye closed.",
+ "slug": "your-blind-spot",
+ "title": "The Hole In Your Vision",
+ "idea": "Every eye has a spot with no light sensors where the optic nerve leaves, and your brain paints over it so you never notice.",
+ "test": {
+  "hook": "A",
+  "engage": "do_with_me"
+ },
+ "hook": "Is there a hole in your vision right now?",
+ "beats": [
+  {
+   "line": "Let's find it, so close your left eye.",
+   "see": "Hero (big friendly face, center) winks shut the left eye with a hand over it; a small icon 'LEFT EYE CLOSED' pops at the top. Eye closes on 'close', icon on 'left'."
+  },
+  {
+   "line": "With your right eye, stare at the cross on the left.",
+   "see": "TEST SCREEN appears and stays perfectly still: plain flat light background, everything else cleared. A black cross (+, about 70 px, thick strokes) at x≈160, y≈820 on the LEFT edge; a solid red dot (about 60 px) at x≈920, y≈840 on the RIGHT edge, same height (dot may sit up to 40 px lower). A small arrow points at the cross, then fades. Cross pulses once on 'cross'. No captions, banners or motion anywhere near the dot from here until the end of beat four."
+  },
+  {
+   "line": "Now slowly bring your phone closer, then back.",
+   "see": "Test screen unchanged. Only a tiny phone icon with a two-way arrow (closer / farther) at the top center, small and away from the dot, rocks gently. Icon on 'closer'. Hold the test screen at least 6 seconds in total across beats two to four."
+  },
+  {
+   "line": "At one spot, the red dot on the right simply vanishes.",
+   "see": "Test screen still unchanged (the dot really stays on screen, the viewer's eye makes it vanish). A small label 'GONE?' fades in above the cross only, not near the dot. Label on 'vanishes'."
+  },
+  {
+   "line": "That's your blind spot, where your optic nerve leaves the eye.",
+   "see": "Cutaway of an eyeball from above: light rays hit the retina, a thick yellow cable (optic nerve) exits the back, and a black spot circles its exit point with a label BLIND SPOT. Spot on 'blind spot', cable glows on 'nerve'."
+  },
+  {
+   "line": "About one point two million nerve fibers exit there, with zero light sensors.",
+   "see": "Zoom into the exit hole: a bundle of glowing threads pours out, a counter runs to 1,200,000; the rod and cone icons around it stop at the edge, leaving an empty circle with a 0. Counter on 'million', 0 on 'zero'."
+  },
+  {
+   "line": "The gap could hide more than ten full moons.",
+   "see": "Night sky; a dark oval outline of the blind spot appears and a row of full moons slides into it one by one, more than ten fit inside. Moons fill on 'ten full moons'."
+  },
+  {
+   "line": "You never notice because your brain paints over it with whatever is around.",
+   "see": "Cartoon brain with a paint roller rolls the background pattern over the dark oval until it disappears. Roller on 'paints', oval gone on 'around'."
+  }
+ ],
+ "end": {
+  "line": "There's a hole in your vision right now, and your brain hides it.",
+  "see": "Back to the hero's face from the hook, both eyes open; a faint dashed circle flashes to the right of where the hero is looking, then the brain icon winks and it fades. Circle on 'hole', fade on 'hides', last frame = hook frame."
+ },
+ "description": "Close your left eye and stare at the cross. The red dot disappears. That's the hole in your vision your brain hides from you.",
+ "tags": [
+  "#blindspot",
+  "#eyes",
+  "#brain",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "At the optic nerve head (optic disc) there are no photoreceptors, only nerve fibers; this is the physiologic blind spot, about 15 degrees temporal to fixation and about 7.5 degrees across.",
+   "source": "University of Iowa EyeRounds visual field tutorial https://webeye.ophth.uiowa.edu/eyeforum/tutorials/VF-testing/"
+  },
+  {
+   "claim": "Approximately 1.2 million nerve fibers make up each human optic nerve.",
+   "source": "University of Iowa glaucoma guide https://webeye.ophth.uiowa.edu/eyeforum/books/glaucoma_guide/chapter1.html (OK-number)"
+  },
+  {
+   "claim": "With one eye closed and staring at a mark, a dot at the side disappears at a certain distance; the brain fills in the missing information.",
+   "source": "Neuroscience for Kids, University of Washington https://faculty.washington.edu/chudler/chvision.html"
+  },
+  {
+   "claim": "The full Moon is about half a degree wide, so a 5.5 to 7.5 degree blind spot spans more than ten Moon widths.",
+   "source": "NASA https://science.nasa.gov/solar-system/moon/the-moon-illusion-why-does-the-moon-look-so-big-sometimes/ + Iowa EyeRounds (own calculation, see FACTS-batch-047-050.md)"
+  }
+ ],
+ "notes": "Test layout is chosen for the RIGHT eye: cross on the left, dot on the right, so the dot falls into the right eye's blind spot (15 degrees to the outer side). Geometry: the dot vanishes when the eye is about 3.7 times the cross-to-dot distance away; with about 5 cm between them on a phone that is roughly 18 to 22 cm, which is why the line says 'bring your phone closer' (most people hold a phone farther). Keep the test background flat and uniform so the fill-in looks clean, and keep every animation and caption away from the dot area during the test (anything moving there gives the dot away). The dot must NOT be animated to vanish; the viewer's eye does it. Only safe action: closing one eye. Big number: more than ten full moons (sourced alternative: one point two million fibers)."
+}

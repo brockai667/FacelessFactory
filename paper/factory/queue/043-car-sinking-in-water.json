@@ -1,0 +1,466 @@
+{
+ "v": 2,
+ "topic": "Your car goes into the water: wait for it to fill, or open the window?",
+ "slug": "car-sinking-in-water",
+ "title": "Your Car Is Sinking",
+ "idea": "You have about a minute while the car floats, and waiting for it to fill is the mistake.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "Your car is sinking. Open the window, or wait it out?",
+ "banner": [
+  "YOUR CAR",
+  "IS SINKING"
+ ],
+ "hook_hide": "Open",
+ "env": "field",
+ "scene": "road",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "dark",
+  "outfit": "tshirt",
+  "hairStyle": "long",
+  "hair": "#1f1611",
+  "lashes": true,
+  "suit": "#d4a017",
+  "suitDark": "#a87d0f"
+ },
+ "cta": false,
+ "hook_do": [
+  {
+   "r": "cscar",
+   "at": "@0.0"
+  },
+  {
+   "r": "cscar",
+   "arg": "sink",
+   "at": "sinking"
+  },
+  {
+   "r": "choice",
+   "arg": "A",
+   "at": "window",
+   "o": {
+    "text": "WINDOW"
+   }
+  },
+  {
+   "r": "choice",
+   "arg": "B",
+   "at": "wait",
+   "o": {
+    "text": "WAIT"
+   }
+  }
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "Wait means letting it fill, then pushing the door open.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "small",
+       "at": "@0.0"
+      },
+      {
+       "r": "pick",
+       "arg": "B",
+       "at": "Wait"
+      },
+      {
+       "r": "cscar",
+       "arg": "fill",
+       "at": "fill"
+      },
+      {
+       "r": "cscar",
+       "arg": "push",
+       "at": "door"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "But water outside holds the door shut.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "cscar",
+       "arg": "press",
+       "at": "water"
+      },
+      {
+       "r": "csface",
+       "arg": "shocked",
+       "at": "holds"
+      },
+      {
+       "r": "cscar",
+       "arg": "lock",
+       "at": "shut"
+      },
+      {
+       "r": "stamp",
+       "arg": "SHUT",
+       "at": "shut",
+       "o": {
+        "y": 520,
+        "size": 110,
+        "hold": 1.0
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "By the time it fills, the car is deep and you have one breath.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "clear",
+       "arg": "cspress",
+       "at": "By"
+      },
+      {
+       "r": "cscar",
+       "arg": "deep",
+       "at": "time"
+      },
+      {
+       "r": "cscar",
+       "arg": "fillall",
+       "at": "fills"
+      },
+      {
+       "r": "csface",
+       "arg": "worried",
+       "at": "deep"
+      },
+      {
+       "r": "cscar",
+       "arg": "breath",
+       "at": "breath"
+      },
+      {
+       "r": "pick",
+       "arg": "B",
+       "at": "breath",
+       "o": {
+        "mark": "x"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "About four hundred people die in sinking cars in North America each year.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "cscard",
+       "at": "About"
+      },
+      {
+       "r": "cscard",
+       "arg": "count",
+       "at": "four",
+       "o": {
+        "dur": 1.6
+       }
+      },
+      {
+       "r": "csface",
+       "arg": "shocked",
+       "at": "die"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "It's the window. You get about a minute before water reaches it.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "cscar",
+       "arg": "reset",
+       "at": "It's"
+      },
+      {
+       "r": "pick",
+       "arg": "A",
+       "at": "window",
+       "o": {
+        "mark": "ok"
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "glow",
+       "at": "window"
+      },
+      {
+       "r": "csclock",
+       "at": "minute"
+      },
+      {
+       "r": "csclock",
+       "arg": "go",
+       "at": "minute",
+       "o": {
+        "to": 0.3,
+        "dur": 10.2
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "rise",
+       "at": "minute",
+       "o": {
+        "to": 1090,
+        "dur": 10.2
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "One. Seatbelt off.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "choice",
+       "arg": "off",
+       "at": "@0.0"
+      },
+      {
+       "r": "step",
+       "arg": 1,
+       "at": "One",
+       "o": {
+        "text": "SEATBELT OFF",
+        "y": 112
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "zoom",
+       "at": "One",
+       "o": {
+        "s": 1.5,
+        "x": 540,
+        "y": 1000,
+        "dur": 0.4
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "belt",
+       "at": "off"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Two. Window down, while the power still works.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 2,
+       "at": "Two",
+       "o": {
+        "text": "WINDOW DOWN",
+        "y": 112
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "zoom",
+       "at": "Window",
+       "o": {
+        "s": 1.4,
+        "x": 520,
+        "y": 980,
+        "dur": 0.45
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "down",
+       "at": "down"
+      },
+      {
+       "r": "cscar",
+       "arg": "power",
+       "at": "power"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "label": "",
+   "line": "Three. Out through it, children first. Don't stop to call.",
+   "shots": [
+    {
+     "type": "world",
+     "do": [
+      {
+       "r": "step",
+       "arg": 3,
+       "at": "Three",
+       "o": {
+        "text": "OUT, KIDS FIRST",
+        "y": 112
+       }
+      },
+      {
+       "r": "cscar",
+       "arg": "arrow",
+       "at": "Out"
+      },
+      {
+       "r": "cscar",
+       "arg": "kid",
+       "at": "children"
+      },
+      {
+       "r": "cscar",
+       "arg": "out",
+       "at": "first"
+      },
+      {
+       "r": "csphone",
+       "at": "Don't"
+      },
+      {
+       "r": "csphone",
+       "arg": "x",
+       "at": "call"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "end": {
+  "line": "If you picked wait, you just spent your minute.",
+  "do": [
+   {
+    "r": "cscar",
+    "arg": "cam",
+    "at": "If",
+    "o": {
+     "clear": "csbelt,csglass,cskid,cspose,csarrow,csphone,step,csglow,face"
+    }
+   },
+   {
+    "r": "choice",
+    "arg": "big",
+    "at": "If"
+   },
+   {
+    "r": "pick",
+    "arg": "B",
+    "at": "wait"
+   },
+   {
+    "r": "csclock",
+    "arg": "zero",
+    "at": "spent",
+    "o": {
+     "dur": 0.4
+    }
+   },
+   {
+    "r": "cscar",
+    "arg": "spent",
+    "at": "spent",
+    "o": {
+     "to": 740,
+     "dur": 0.7
+    }
+   },
+   {
+    "r": "cscar",
+    "arg": "outro",
+    "at": "minute"
+   }
+  ]
+ },
+ "description": "Your car is sinking. Open the window or wait for it to fill? You only get about a minute.",
+ "tags": [
+  "#carsafety",
+  "#survival",
+  "#water",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Waiting for the cabin to fill so the pressure equalizes lowers your chance: by then the car is deep and you have one breath. Water outside holds the door shut.",
+   "source": "McDonald & Giesbrecht, Aviat Space Environ Med 2013;84:498-510"
+  },
+  {
+   "claim": "About 400 people die in submerged vehicles in North America each year.",
+   "source": "McDonald & Giesbrecht, Aviat Space Environ Med 2013;84:498-510 (OK-number)"
+  },
+  {
+   "claim": "A car floats only about 15 to 63 seconds before water reaches the bottom of the side windows (about a minute).",
+   "source": "IAED 'Get Out Fast' https://iaedjournal.org/get-out-fast ; McDonald & Giesbrecht 2013"
+  },
+  {
+   "claim": "Protocol: Seatbelts off, Windows open, Out, Children first. Do not phone first.",
+   "source": "Dr. Gordon Giesbrecht, University of Manitoba (as listed in FACTS-batch-035-046.md)"
+  },
+  {
+   "claim": "Electric windows should still work if used quickly.",
+   "source": "FACTS-batch-035-046.md (043), McDonald & Giesbrecht 2013"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 1,
+ "factcheck": {
+  "date": "2026-11-21",
+  "ok": true,
+  "by": "claude",
+  "note": "All claims from FACTS-batch-035-046.md (043, OK list): about 400 deaths a year in submerged vehicles in North America (McDonald & Giesbrecht 2013); car floats about 15 to 63 s before water reaches the side windows, said and shown only as 'about a minute' (timer is a bar, no seconds); waiting to fill = deep and one breath, outside water holds the door shut; protocol seatbelts off, window open, out, children first, do not phone first; electric windows work if used quickly. Card order swapped: correct WINDOW is card A."
+ }
+}
