@@ -1,0 +1,177 @@
+{
+ "v": 2,
+ "topic": "Earthquake at home: run to the doorway or get under the table?",
+ "slug": "earthquake-at-home",
+ "title": "Earthquake At Home",
+ "idea": "The doorway is an old myth; drop, cover and hold on where you are.",
+ "test": {
+  "hook": "A",
+  "engage": "choice_ab"
+ },
+ "hook": "The floor starts shaking. Doorway, or under the table?",
+ "banner": [
+  "EARTHQUAKE",
+  "AT HOME"
+ ],
+ "hook_hide": "Doorway",
+ "env": "room",
+ "scene": "couch",
+ "mood_music": "tense",
+ "face0": "worried",
+ "kit": {
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic"
+ },
+ "hero": {
+  "skin": "tan",
+  "outfit": "tshirt",
+  "hairStyle": "bun",
+  "hair": "#2b1a12",
+  "glasses": true,
+  "suit": "#e2674a",
+  "suitDark": "#b84f37"
+ },
+ "cta": false,
+ "hook_do": [
+  {"r": "qkroom", "at": "@0.0"},
+  {"r": "qkroom", "arg": "quake", "at": "@0.0", "o": {"amp": 26}},
+  {"r": "qkhero", "arg": "brace", "at": "floor"},
+  {"r": "qkroom", "arg": "fall", "at": "shaking"},
+  {"r": "choice", "arg": "A", "at": "Doorway", "o": {"text": "DOORWAY"}},
+  {"r": "choice", "arg": "B", "at": "table", "o": {"text": "TABLE"}}
+ ],
+ "beats": [
+  {
+   "label": "",
+   "line": "To reach the doorway, you cross the room while it shakes.",
+   "shots": [{"type": "world", "do": [
+    {"r": "choice", "arg": "small", "at": "@0.0"},
+    {"r": "qkroom", "arg": "quake", "at": "@0.0", "o": {"amp": 13}},
+    {"r": "pick", "arg": "A", "at": "doorway"},
+    {"r": "qkhero", "arg": "walk", "at": "cross", "o": {"dur": 1.7}},
+    {"r": "qkroom", "arg": "jolt", "at": "shakes"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "A bookshelf comes down right where you were walking.",
+   "shots": [{"type": "world", "do": [
+    {"r": "qkroom", "arg": "cam", "at": "@0.0"},
+    {"r": "qkroom", "arg": "quake", "at": "@0.0", "o": {"amp": 12}},
+    {"r": "qkhero", "arg": "look", "at": "bookshelf"},
+    {"r": "qkroom", "arg": "shelf", "at": "down"},
+    {"r": "qkroom", "arg": "spot", "at": "walking"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Most injuries come from moving during the shaking, or from falling things.",
+   "shots": [{"type": "world", "do": [
+    {"r": "qkroom", "arg": "quake", "at": "@0.0", "o": {"amp": 9}},
+    {"r": "qkcard", "arg": "inj", "at": "Most"},
+    {"r": "qkcard", "arg": "move", "at": "moving"},
+    {"r": "qkcard", "arg": "fall", "at": "falling"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "And in a modern home, a doorway is no stronger than the rest.",
+   "shots": [{"type": "world", "do": [
+    {"r": "clear", "arg": "qkcard,qkring", "at": "And"},
+    {"r": "qkroom", "arg": "xray", "at": "modern"},
+    {"r": "qkroom", "arg": "same", "at": "doorway"},
+    {"r": "pick", "arg": "A", "at": "stronger", "o": {"mark": "x"}},
+    {"r": "stamp", "arg": "MYTH", "at": "stronger", "o": {"y": 560, "size": 120, "hold": 1.2}}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "The table wins. Drop, cover, hold on.",
+   "shots": [{"type": "world", "do": [
+    {"r": "qkroom", "arg": "reset", "at": "The"},
+    {"r": "pick", "arg": "B", "at": "table", "o": {"mark": "ok"}},
+    {"r": "qkface", "arg": "smile", "at": "wins"},
+    {"r": "qkcard", "arg": "dch", "at": "Drop"},
+    {"r": "qkcard", "arg": "c2", "at": "cover"},
+    {"r": "qkcard", "arg": "c3", "at": "hold"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "One. Drop onto your hands and knees.",
+   "shots": [{"type": "world", "do": [
+    {"r": "clear", "arg": "qkcard", "at": "@0.0"},
+    {"r": "choice", "arg": "off", "at": "@0.0"},
+    {"r": "step", "arg": 1, "at": "One", "o": {"text": "DROP", "y": 112}},
+    {"r": "qkroom", "arg": "quake", "at": "One", "o": {"amp": 14}},
+    {"r": "qkhero", "arg": "drop", "at": "Drop"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Two. Get under a sturdy table and cover your head and neck.",
+   "shots": [{"type": "world", "do": [
+    {"r": "step", "arg": 2, "at": "Two", "o": {"text": "COVER", "y": 112}},
+    {"r": "qkroom", "arg": "quake", "at": "@0.0", "o": {"amp": 12}},
+    {"r": "qkhero", "arg": "under", "at": "under"},
+    {"r": "qkroom", "arg": "zoom", "at": "table"},
+    {"r": "qkhero", "arg": "cover", "at": "cover"},
+    {"r": "qkroom", "arg": "vase", "at": "head"}
+   ]}]
+  },
+  {
+   "label": "",
+   "line": "Three. Hold on until the shaking stops.",
+   "shots": [{"type": "world", "do": [
+    {"r": "qkroom", "arg": "zoom", "at": "@0.0", "o": {"dur": 0.01}},
+    {"r": "step", "arg": 3, "at": "Three", "o": {"text": "HOLD ON", "y": 112}},
+    {"r": "qkroom", "arg": "quake", "at": "@0.0", "o": {"amp": 12, "dur": 2.3}},
+    {"r": "qkhero", "arg": "hold", "at": "Hold"},
+    {"r": "qkroom", "arg": "slide", "at": "until"},
+    {"r": "qkroom", "arg": "still", "at": "stops"}
+   ]}]
+  }
+ ],
+ "end": {
+  "line": "Next shake, you're under the table, not in the doorway.",
+  "do": [
+   {"r": "clear", "arg": "step,face", "at": "Next"},
+   {"r": "qkroom", "arg": "zoom", "at": "Next", "o": {"s": 1.0, "x": 600, "y": 960, "dur": 0.35}},
+   {"r": "qkroom", "arg": "jolt", "at": "shake"},
+   {"r": "qkroom", "arg": "doorx", "at": "doorway"}
+  ]
+ },
+ "description": "Earthquake at home: run for the doorway or get under the table? The doorway is an old myth.",
+ "tags": [
+  "#earthquake",
+  "#survival",
+  "#safety",
+  "#science",
+  "#mindblown"
+ ],
+ "facts": [
+  {
+   "claim": "Do not stand in a doorway: in modern homes doorways are no stronger than the rest of the house. Do not run outside or to another room during shaking.",
+   "source": "Earthquake Country Alliance https://www.earthquakecountry.org/dropcoverholdon/"
+  },
+  {
+   "claim": "Most injuries come from falling and flying objects and from people trying to move during the shaking.",
+   "source": "McBride et al., USGS-led study (as listed in FACTS-batch-035-046.md; snippet, no number used)"
+  },
+  {
+   "claim": "Drop onto hands and knees, Cover head and neck (under a sturdy table if one is near), Hold on until the shaking stops.",
+   "source": "Ready.gov https://www.ready.gov/earthquakes ; Earthquake Country Alliance https://www.earthquakecountry.org/dropcoverholdon/"
+  }
+ ],
+ "source": "claude",
+ "tail": 0.85,
+ "music_i": 0,
+ "factcheck": {
+  "date": "2026-11-25",
+  "ok": true,
+  "by": "claude",
+  "note": "All claims from FACTS-batch-035-046.md (046, OK list): doorway no stronger than the rest in modern homes, do not move during shaking (Earthquake Country Alliance); most injuries from falling objects and from moving during shaking (McBride et al., no number used); Drop on hands and knees, Cover head and neck under a sturdy table if near, Hold on until shaking stops (Ready.gov, ECA). No numbers other than step numbers. Bookshelf and lamp falling are dramatizations of the injury fact. Correct card B TABLE."
+ }
+}
