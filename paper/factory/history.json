@@ -1,20 +1,5 @@
 [
  {
-  "format": "timeline",
-  "chrome": "bubble",
-  "trans": "circle",
-  "pres": "full",
-  "cam": "dynamic",
-  "hair": "spiky",
-  "skin": "tan",
-  "palette": "p4",
-  "cta": "FOLLOW FOR MORE",
-  "species": "human",
-  "slug": "one-day-at-altitude",
-  "topic": "What happens if you spend a day at altitude?",
-  "env": "field"
- },
- {
   "format": "countdown",
   "chrome": "sticky",
   "trans": "tear",
@@ -457,6 +442,22 @@
   "v": 2,
   "slug": "pulling-nine-g",
   "topic": "What happens to your body when a fighter jet pulls nine G?",
+  "env": "room"
+ },
+ {
+  "format": "gauge",
+  "chrome": "stamp",
+  "trans": "circle",
+  "pres": "full",
+  "cam": "dynamic",
+  "hair": "bun",
+  "skin": "dark",
+  "palette": "p2",
+  "cta": "SHARE WITH A FRIEND",
+  "species": "human",
+  "v": 2,
+  "slug": "falling-without-a-parachute",
+  "topic": "What happens if you fall from a plane without a parachute?",
   "env": "room"
  }
 ]
